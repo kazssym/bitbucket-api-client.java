@@ -1,5 +1,5 @@
 /*
- * BitbucketClientCredentials - client credentials
+ * Credentials - credentials for the Bitbucket API Client.
  * Copyright (C) 2015 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -16,24 +16,37 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.vx68k.bitbucket.api;
+package org.vx68k.bitbucket.api.util;
 
 import java.io.Serializable;
 import javax.enterprise.context.Dependent;
 
 /**
- * Client credentials for Bitbucket API.
+ * Pair of <code>ID</code> and its shared <code>secret</code>.
  *
  * @author Kaz Nishimura
  * @since 1.0
  */
 @Dependent
-public class BitbucketClientCredentials implements Serializable {
+public class Credentials implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private String ID = "";
-    private String secret = "";
+    private String ID;
+    private String secret;
+
+    public Credentials() {
+        this("", "");
+    }
+
+    public Credentials(Credentials credentials) {
+        this(credentials.getID(), credentials.getSecret());
+    }
+
+    public Credentials(String ID, String secret) {
+        this.ID = ID;
+        this.secret = secret;
+    }
 
     public String getID() {
         return ID;

@@ -1,5 +1,5 @@
 /*
- * BitbucketClientCredentialsTest - test for BitbucketClientCredentials
+ * CredentialsTest - test for Credentials
  * Copyright (C) 2015 Kaz
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -16,20 +16,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.vx68k.bitbucket.api;
+package org.vx68k.bitbucket.api.util;
 
+import org.vx68k.bitbucket.api.util.Credentials;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Unit test for {@link BitbucketClientCredentials}.
+ * Unit test for {@link Credentials}.
  *
  * @author Kaz Nishimura
  * @since 1.0
  */
-public class BitbucketClientCredentialsTest {
+public class CredentialsTest {
+
+    static final String TEST_ID = "testID";
+    static final String TEST_SECRET = "testSecret";
 
     @Before
     public void setUp() {
@@ -41,23 +45,28 @@ public class BitbucketClientCredentialsTest {
 
     @Test
     public void testID() {
-        BitbucketClientCredentials object = new BitbucketClientCredentials();
+        Credentials object = new Credentials();
         assertNotNull(object.getID());
         assertEquals("", object.getID());
 
-        final String TEST_ID = "testID";
         object.setID(TEST_ID);
         assertEquals(TEST_ID, object.getID());
     }
 
     @Test
     public void testSecret() {
-        BitbucketClientCredentials object = new BitbucketClientCredentials();
+        Credentials object = new Credentials();
         assertNotNull(object.getSecret());
         assertEquals("", object.getSecret());
 
-        final String TEST_SECRET = "testSecret";
-        object.setID(TEST_SECRET);
-        assertEquals(TEST_SECRET, object.getID());
+        object.setSecret(TEST_SECRET);
+        assertEquals(TEST_SECRET, object.getSecret());
+    }
+
+    @Test
+    public void testInitialize() {
+        Credentials object = new Credentials(TEST_ID, TEST_SECRET);
+        assertEquals(TEST_ID, object.getID());
+        assertEquals(TEST_SECRET, object.getSecret());
     }
 }
