@@ -19,6 +19,11 @@
 package org.vx68k.bitbucket.api.client;
 
 import java.io.Serializable;
+import com.google.api.client.auth.oauth2.AuthorizationCodeFlow;
+import com.google.api.client.auth.oauth2.BearerToken;
+import com.google.api.client.http.GenericUrl;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.jackson2.JacksonFactory;
 
 /**
  * Bitbucket API client.
@@ -29,6 +34,11 @@ import java.io.Serializable;
 public class Client implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    private static final String AUTHORIZATION_ENDPOINT_URL
+            = "https://bitbucket.org/site/oauth2/authorize";
+    private static final String TOKEN_ENDPOINT_URL
+            = "https://bitbucket.org/site/oauth2/access_token";
 
     private final Credentials credentials;
 
@@ -66,6 +76,21 @@ public class Client implements Serializable {
      */
     public Credentials getCredentials() {
         return credentials;
+    }
+
+    public AuthorizationCodeFlow getAuthorizationCodeFlow() {
+        Credentials credentials = getCredentials();
+        if (credentials.isEmpty()) {
+            // Sessions will be anonymous.
+            return null;
+        }
+
+        return new AuthorizationCodeFlow(
+                BearerToken.authorizationHeaderAccessMethod(),
+                new NetHttpTransport(), JacksonFactory.getDefaultInstance(),
+                new GenericUrl(TOKEN_ENDPOINT_URL),
+                credentials.getClientAuthentication(), credentials.getID(),
+                AUTHORIZATION_ENDPOINT_URL);
     }
 
     /**
