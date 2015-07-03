@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  pom.xml for java-bitbucket-api-client
+  pom.xml for bitbucket-api-client
   Copyright (C) 2015 Kaz Nishimura
 
   This program is free software: you can redistribute it and/or modify it
@@ -19,15 +19,15 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.vx68k</groupId>
   <artifactId>bitbucket-api-client</artifactId>
-  <packaging>jar</packaging>
-  <name>bitbucket-api-client</name>
+  <name>Bitbucket API Client Library for Java</name>
   <version>1.0-SNAPSHOT</version>
-  <description>Client library for Bitbucket API</description>
+  <description>Client library for the Bitbucket REST API</description>
   <url>http://bitbucket.org/kazssym/bitbucket-api-client-java</url>
   <issueManagement>
     <system>Bitbucket</system>
     <url>https://bitbucket.org/kazssym/bitbucket-api-client-java/issues</url>
   </issueManagement>
+  <inceptionYear>2015</inceptionYear>
   <developers>
     <developer>
       <name>Kaz Nishimura</name>
@@ -38,6 +38,7 @@
     <license>
       <name>GNU Affero General Public License version 3</name>
       <url>http://www.gnu.org/licenses/agpl.html</url>
+      <distribution>repo</distribution>
     </license>
   </licenses>
   <scm>
@@ -46,6 +47,9 @@
     <tag>default</tag>
     <url>https://bitbucket.org/kazssym/bitbucket-api-client-java/src</url>
   </scm>
+  <organization>
+    <name>Nishimura Software Studio</name>
+  </organization>
   <build>
     <plugins>
       <plugin>
