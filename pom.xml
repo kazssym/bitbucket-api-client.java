@@ -23,10 +23,10 @@
   <name>bitbucket-api-client</name>
   <version>1.0-SNAPSHOT</version>
   <description>Client library for Bitbucket API</description>
-  <url>http://bitbucket.org/kazssym/java-bitbucket-api-client</url>
+  <url>http://bitbucket.org/kazssym/bitbucket-api-client-java</url>
   <issueManagement>
     <system>Bitbucket</system>
-    <url>https://bitbucket.org/kazssym/java-bitbucket-api-client/issues</url>
+    <url>https://bitbucket.org/kazssym/bitbucket-api-client-java/issues</url>
   </issueManagement>
   <developers>
     <developer>
@@ -41,10 +41,10 @@
     </license>
   </licenses>
   <scm>
-    <connection>scm:hg:https://bitbucket.org/kazssym/java-bitbucket-api-client</connection>
-    <developerConnection>scm:hg:https://bitbucket.org/kazssym/java-bitbucket-api-client</developerConnection>
+    <connection>scm:hg:https://bitbucket.org/kazssym/bitbucket-api-client-java</connection>
+    <developerConnection>scm:hg:https://bitbucket.org/kazssym/bitbucket-api-client-java</developerConnection>
     <tag>default</tag>
-    <url>https://bitbucket.org/kazssym/java-bitbucket-api-client/src</url>
+    <url>https://bitbucket.org/kazssym/bitbucket-api-client-java/src</url>
   </scm>
   <build>
     <plugins>
