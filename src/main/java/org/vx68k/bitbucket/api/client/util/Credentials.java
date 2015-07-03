@@ -1,6 +1,6 @@
 /*
- * Credentials - credentials for the Bitbucket API Client.
- * Copyright (C) 2015 Kaz Nishimura
+ * Credentials - credentials for the Bitbucket API Client Library
+ * Copyright (C) 2015 Nishimura Software Studio
  *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Affero General Public License as published by the
@@ -16,18 +16,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.vx68k.bitbucket.api.util;
+package org.vx68k.bitbucket.api.client.util;
 
 import java.io.Serializable;
-import javax.enterprise.context.Dependent;
 
 /**
- * Pair of <code>ID</code> and its shared <code>secret</code>.
+ * Pair of an identifier and a shared secret.
  *
  * @author Kaz Nishimura
  * @since 1.0
  */
-@Dependent
 public class Credentials implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -35,31 +33,56 @@ public class Credentials implements Serializable {
     private String ID;
     private String secret;
 
+    /**
+     * Constructs an empty credentials.
+     */
     public Credentials() {
-        this("", "");
+        this(null, null);
     }
 
-    public Credentials(Credentials credentials) {
-        this(credentials.getID(), credentials.getSecret());
-    }
-
+    /**
+     * Constructs a credentials with an ID and a shared secret.
+     *
+     * @param ID identifier of the credentials
+     * @param secret shared secret of the credentials
+     */
     public Credentials(String ID, String secret) {
         this.ID = ID;
         this.secret = secret;
     }
 
+    /**
+     * Returns the identifier of this object.
+     *
+     * @return identifier
+     */
     public String getID() {
         return ID;
     }
 
+    /**
+     * Returns the shared secret of this object.
+     *
+     * @return shared secret
+     */
     public String getSecret() {
         return secret;
     }
 
+    /**
+     * Sets the identifier of this object.
+     *
+     * @param ID identifier
+     */
     public void setID(String ID) {
         this.ID = ID;
     }
 
+    /**
+     * Sets the shared secret of this object.
+     *
+     * @param secret shared secret.
+     */
     public void setSecret(String secret) {
         this.secret = secret;
     }

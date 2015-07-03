@@ -1,6 +1,6 @@
 /*
- * BitbucketAPI - session factory for the Bitbucket API Client
- * Copyright (C) 2015 Kaz Nishimura
+ * Session - session for the Bitbucket API
+ * Copyright (C) 2015 Nishimura Software Studio
  *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Affero General Public License as published by the
@@ -16,40 +16,37 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.vx68k.bitbucket.api;
+package org.vx68k.bitbucket.api.client;
 
 import java.io.Serializable;
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Produces;
-import org.vx68k.bitbucket.api.util.Credentials;
+import org.vx68k.bitbucket.api.client.util.Credentials;
 
 /**
- * Factory object for Bitbucket API sessions.
+ * Bitbucket API session.
  *
  * @author Kaz Nishimura
  * @since 1.0
  */
-@ApplicationScoped
-public class BitbucketAPI implements Serializable {
+public class Session implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     private final Credentials clientCredentials;
 
-    public BitbucketAPI() {
-        this.clientCredentials = new Credentials();
+    /**
+     * Token credentials for this session.
+     */
+    private Credentials tokenCredentials = null;
+
+    public Session(Credentials clientCredentials) {
+        this.clientCredentials = clientCredentials;
     }
 
-    public BitbucketAPI(Credentials clientCredentials) {
-        this.clientCredentials = new Credentials(clientCredentials);
+    public Credentials getTokenCredentials() {
+        return tokenCredentials;
     }
 
-    public Credentials getClientCredentials() {
-        return clientCredentials;
-    }
-
-    @Produces
-    public BitbucketSession getSession() {
-        return new BitbucketSession(getClientCredentials());
+    public void setTokenCredentials(Credentials tokenCredentials) {
+        this.tokenCredentials = tokenCredentials;
     }
 }

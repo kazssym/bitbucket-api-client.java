@@ -1,6 +1,6 @@
 /*
- * CredentialsTest - test for Credentials
- * Copyright (C) 2015 Kaz
+ * CredentialsTest - unit tests for Credentials
+ * Copyright (C) 2015 Nishimura Software Studio
  *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Affero General Public License as published by the
@@ -16,16 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.vx68k.bitbucket.api.util;
+package org.vx68k.bitbucket.api.client.util;
 
-import org.vx68k.bitbucket.api.util.Credentials;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Unit test for {@link Credentials}.
+ * Collection of unit tests for {@link Credentials}.
  *
  * @author Kaz Nishimura
  * @since 1.0
@@ -46,8 +45,7 @@ public class CredentialsTest {
     @Test
     public void testID() {
         Credentials object = new Credentials();
-        assertNotNull(object.getID());
-        assertEquals("", object.getID());
+        assertNull(object.getID());
 
         object.setID(TEST_ID);
         assertEquals(TEST_ID, object.getID());
@@ -56,15 +54,14 @@ public class CredentialsTest {
     @Test
     public void testSecret() {
         Credentials object = new Credentials();
-        assertNotNull(object.getSecret());
-        assertEquals("", object.getSecret());
+        assertNull(object.getSecret());
 
         object.setSecret(TEST_SECRET);
         assertEquals(TEST_SECRET, object.getSecret());
     }
 
     @Test
-    public void testInitialize() {
+    public void testInitialization() {
         Credentials object = new Credentials(TEST_ID, TEST_SECRET);
         assertEquals(TEST_ID, object.getID());
         assertEquals(TEST_SECRET, object.getSecret());
