@@ -19,7 +19,6 @@
 package org.vx68k.bitbucket.api.client;
 
 import java.io.Serializable;
-import org.vx68k.bitbucket.api.client.util.Credentials;
 
 /**
  * Bitbucket API client.

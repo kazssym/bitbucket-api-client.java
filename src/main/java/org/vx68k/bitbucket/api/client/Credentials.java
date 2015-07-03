@@ -16,9 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.vx68k.bitbucket.api.client.util;
+package org.vx68k.bitbucket.api.client;
 
 import java.io.Serializable;
+import com.google.api.client.auth.oauth2.ClientParametersAuthentication;
+import com.google.api.client.http.HttpExecuteInterceptor;
 
 /**
  * Pair of an identifier and a shared secret.
@@ -85,5 +87,22 @@ public class Credentials implements Serializable {
      */
     public void setSecret(String secret) {
         this.secret = secret;
+    }
+
+    /**
+     * Returns <code>true</code> if this object is empty.
+     *
+     * @return <code>true</code> if this object is empty, or <code>false</code>
+     * otherwise.
+     */
+    public boolean isEmpty() {
+        return getID() == null && getSecret() == null;
+    }
+
+    public HttpExecuteInterceptor getClientAuthentication() {
+        if (isEmpty()) {
+            return null;
+        }
+        return new ClientParametersAuthentication(getID(), getSecret());
     }
 }

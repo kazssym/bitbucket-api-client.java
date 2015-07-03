@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.vx68k.bitbucket.api.client.util;
+package org.vx68k.bitbucket.api.client;
 
 import org.junit.After;
 import org.junit.Before;
@@ -43,27 +43,36 @@ public class CredentialsTest {
     }
 
     @Test
-    public void testID() {
-        Credentials object = new Credentials();
-        assertNull(object.getID());
+    public void testDefault() {
+        Credentials credentials = new Credentials();
+        assertNull(credentials.getID());
+        assertNull(credentials.getSecret());
+        assertTrue(credentials.isEmpty());
+    }
 
-        object.setID(TEST_ID);
-        assertEquals(TEST_ID, object.getID());
+    @Test
+    public void testInitialized() {
+        Credentials credentials = new Credentials(TEST_ID, TEST_SECRET);
+        assertEquals(TEST_ID, credentials.getID());
+        assertEquals(TEST_SECRET, credentials.getSecret());
+        assertFalse(credentials.isEmpty());
+    }
+
+    @Test
+    public void testID() {
+        Credentials credentials = new Credentials();
+        assertNotEquals(TEST_ID, credentials.getID());
+
+        credentials.setID(TEST_ID);
+        assertEquals(TEST_ID, credentials.getID());
     }
 
     @Test
     public void testSecret() {
-        Credentials object = new Credentials();
-        assertNull(object.getSecret());
+        Credentials credentials = new Credentials();
+        assertNotEquals(TEST_SECRET, credentials.getSecret());
 
-        object.setSecret(TEST_SECRET);
-        assertEquals(TEST_SECRET, object.getSecret());
-    }
-
-    @Test
-    public void testInitialization() {
-        Credentials object = new Credentials(TEST_ID, TEST_SECRET);
-        assertEquals(TEST_ID, object.getID());
-        assertEquals(TEST_SECRET, object.getSecret());
+        credentials.setSecret(TEST_SECRET);
+        assertEquals(TEST_SECRET, credentials.getSecret());
     }
 }
