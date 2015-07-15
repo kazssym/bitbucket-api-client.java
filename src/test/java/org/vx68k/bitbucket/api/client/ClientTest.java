@@ -20,10 +20,7 @@ package org.vx68k.bitbucket.api.client;
 
 import java.io.IOException;
 import com.google.api.client.auth.oauth2.AuthorizationCodeFlow;
-import com.google.api.client.auth.oauth2.AuthorizationCodeRequestUrl;
 import com.google.api.client.auth.oauth2.ClientParametersAuthentication;
-import com.google.api.client.auth.oauth2.Credential;
-import com.google.api.client.http.HttpExecuteInterceptor;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
