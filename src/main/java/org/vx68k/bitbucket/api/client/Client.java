@@ -21,7 +21,10 @@ package org.vx68k.bitbucket.api.client;
 import java.io.Serializable;
 import com.google.api.client.auth.oauth2.AuthorizationCodeFlow;
 import com.google.api.client.auth.oauth2.BearerToken;
+import com.google.api.client.auth.oauth2.ClientParametersAuthentication;
+import com.google.api.client.http.BasicAuthentication;
 import com.google.api.client.http.GenericUrl;
+import com.google.api.client.http.HttpExecuteInterceptor;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 
@@ -78,9 +81,26 @@ public class Client implements Serializable {
         return credentials;
     }
 
-    public AuthorizationCodeFlow getAuthorizationCodeFlow() {
-        Credentials credentials = getCredentials();
-        if (credentials.isEmpty()) {
+    public ClientParametersAuthentication
+            getClientParametersAuthentication() {
+        if (getCredentials().isEmpty()) {
+            return null;
+        }
+        return new ClientParametersAuthentication(
+                getCredentials().getID(), getCredentials().getSecret());
+    }
+
+    public BasicAuthentication getBasicAuthentication() {
+        if (getCredentials().isEmpty()) {
+            return null;
+        }
+        return new BasicAuthentication(
+                getCredentials().getID(), getCredentials().getSecret());
+    }
+
+    public AuthorizationCodeFlow getAuthorizationCodeFlow(
+            HttpExecuteInterceptor clientAuthentication) {
+        if (getCredentials().isEmpty()) {
             // Sessions will be anonymous.
             return null;
         }
@@ -88,9 +108,8 @@ public class Client implements Serializable {
         return new AuthorizationCodeFlow(
                 BearerToken.authorizationHeaderAccessMethod(),
                 new NetHttpTransport(), JacksonFactory.getDefaultInstance(),
-                new GenericUrl(TOKEN_ENDPOINT_URL),
-                credentials.getClientAuthentication(), credentials.getID(),
-                AUTHORIZATION_ENDPOINT_URL);
+                new GenericUrl(TOKEN_ENDPOINT_URL), clientAuthentication,
+                getCredentials().getID(), AUTHORIZATION_ENDPOINT_URL);
     }
 
     /**

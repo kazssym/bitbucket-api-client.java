@@ -21,6 +21,7 @@ package org.vx68k.bitbucket.api.client;
 import java.io.IOException;
 import com.google.api.client.auth.oauth2.AuthorizationCodeFlow;
 import com.google.api.client.auth.oauth2.AuthorizationCodeRequestUrl;
+import com.google.api.client.auth.oauth2.ClientParametersAuthentication;
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.http.HttpExecuteInterceptor;
 import org.junit.After;
@@ -59,15 +60,20 @@ public class ClientTest {
     @Test
     public void testAuthorizationFlow() throws IOException {
         Client client = new Client();
-        AuthorizationCodeFlow flow1 = client.getAuthorizationCodeFlow();
-        assertNull(flow1);
+
+        ClientParametersAuthentication authentication
+                = client.getClientParametersAuthentication();
+        AuthorizationCodeFlow flow
+                = client.getAuthorizationCodeFlow(authentication);
+        assertNull(flow);
 
         client.getCredentials().setID(CLIENT_ID);
         client.getCredentials().setSecret(CLIENT_SECRET);
-        AuthorizationCodeFlow flow2 = client.getAuthorizationCodeFlow();
-        assertNotNull(flow2);
+        authentication = client.getClientParametersAuthentication();
+        flow = client.getAuthorizationCodeFlow(authentication);
+        assertNotNull(flow);
 
-        String authorizationURL = flow2.newAuthorizationUrl().build();
+        String authorizationURL = flow.newAuthorizationUrl().build();
         assertNotNull(authorizationURL);
     }
 
