@@ -22,7 +22,7 @@
   <name>Bitbucket API Client Library for Java</name>
   <version>1.0-SNAPSHOT</version>
   <description>Client library for the Bitbucket REST API</description>
-  <url>http://bitbucket.org/kazssym/bitbucket-api-client-java</url>
+  <url>http://kazssym.bitbucket.org/bitbucket-api-client-java</url>
   <issueManagement>
     <system>Bitbucket</system>
     <url>https://bitbucket.org/kazssym/bitbucket-api-client-java/issues</url>
