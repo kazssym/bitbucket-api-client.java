@@ -81,26 +81,38 @@ public class BitbucketClient implements Serializable {
         return credentials;
     }
 
-    public ClientParametersAuthentication
-            getClientParametersAuthentication() {
-        if (getCredentials().isEmpty()) {
+    /**
+     * Returns a {@link ClientParametersAuthentication} object only with the
+     * client identifier.
+     *
+     * @return new {@link ClientParametersAuthentication} object
+     */
+    public ClientParametersAuthentication getClientParameters() {
+        if (credentials.isEmpty()) {
             return null;
         }
-        return new ClientParametersAuthentication(
-                getCredentials().getID(), getCredentials().getSecret());
+        // Sets only the client identifier that is required in authorization
+        // requests.
+        return new ClientParametersAuthentication(credentials.getID(), null);
     }
 
+    /**
+     * Returns a {@link BasicAuthentication} object with the client identifier
+     * and its shared secret.
+     *
+     * @return {@link BasicAuthentication} object
+     */
     public BasicAuthentication getBasicAuthentication() {
-        if (getCredentials().isEmpty()) {
+        if (credentials.isEmpty()) {
             return null;
         }
         return new BasicAuthentication(
-                getCredentials().getID(), getCredentials().getSecret());
+                credentials.getID(), credentials.getSecret());
     }
 
     public AuthorizationCodeFlow getAuthorizationCodeFlow(
             HttpExecuteInterceptor clientAuthentication) {
-        if (getCredentials().isEmpty()) {
+        if (credentials.isEmpty()) {
             // Sessions will be anonymous.
             return null;
         }
@@ -109,7 +121,7 @@ public class BitbucketClient implements Serializable {
                 BearerToken.authorizationHeaderAccessMethod(),
                 new NetHttpTransport(), JacksonFactory.getDefaultInstance(),
                 new GenericUrl(TOKEN_ENDPOINT_URL), clientAuthentication,
-                getCredentials().getID(), AUTHORIZATION_ENDPOINT_URL);
+                credentials.getID(), AUTHORIZATION_ENDPOINT_URL);
     }
 
     /**
@@ -118,6 +130,6 @@ public class BitbucketClient implements Serializable {
      * @return Bitbucket API session
      */
     public Session getSession() {
-        return new Session(getCredentials());
+        return new Session(credentials);
     }
 }

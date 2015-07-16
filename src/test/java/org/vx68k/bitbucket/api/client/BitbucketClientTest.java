@@ -20,7 +20,7 @@ package org.vx68k.bitbucket.api.client;
 
 import java.io.IOException;
 import com.google.api.client.auth.oauth2.AuthorizationCodeFlow;
-import com.google.api.client.auth.oauth2.ClientParametersAuthentication;
+import com.google.api.client.http.HttpExecuteInterceptor;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -58,15 +58,14 @@ public class BitbucketClientTest {
     public void testAuthorizationFlow() throws IOException {
         BitbucketClient client = new BitbucketClient();
 
-        ClientParametersAuthentication authentication
-                = client.getClientParametersAuthentication();
+        HttpExecuteInterceptor authentication = client.getClientParameters();
         AuthorizationCodeFlow flow
                 = client.getAuthorizationCodeFlow(authentication);
         assertNull(flow);
 
         client.getCredentials().setID(CLIENT_ID);
         client.getCredentials().setSecret(CLIENT_SECRET);
-        authentication = client.getClientParametersAuthentication();
+        authentication = client.getClientParameters();
         flow = client.getAuthorizationCodeFlow(authentication);
         assertNotNull(flow);
 
