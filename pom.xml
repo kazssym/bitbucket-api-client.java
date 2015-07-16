@@ -63,6 +63,10 @@
           <artifactId>maven-javadoc-plugin</artifactId>
           <version>2.10.3</version>
           <configuration>
+            <links>
+              <link>https://developers.google.com/api-client-library/java/google-oauth-java-client/reference/1.20.0</link>
+              <link>https://developers.google.com/api-client-library/java/google-http-java-client/reference/1.20.0</link>
+            </links>
             <locale>en_US</locale>
           </configuration>
         </plugin>
