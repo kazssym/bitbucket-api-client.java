@@ -1,5 +1,5 @@
 /*
- * ClientTest - unit tests for Client
+ * BitbucketClientTest
  * Copyright (C) 2015 Nishimura Software Studio
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -27,12 +27,12 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Collection of unit tests for [@link Client}.
+ * Collection of unit tests for [@link BitbucketClient}.
  *
  * @author Kaz Nishimura
  * @since 1.0
  */
-public class ClientTest {
+public class BitbucketClientTest {
 
     private static final String CLIENT_ID = "9AmnPtR344BRPQx35N";
     private static final String CLIENT_SECRET
@@ -48,7 +48,7 @@ public class ClientTest {
 
     @Test
     public void testClientCredentials() {
-        Client client = new Client();
+        BitbucketClient client = new BitbucketClient();
         Credentials clientCredentials = client.getCredentials();
         assertNotNull(clientCredentials);
         assertTrue(clientCredentials.isEmpty());
@@ -56,7 +56,7 @@ public class ClientTest {
 
     @Test
     public void testAuthorizationFlow() throws IOException {
-        Client client = new Client();
+        BitbucketClient client = new BitbucketClient();
 
         ClientParametersAuthentication authentication
                 = client.getClientParametersAuthentication();
@@ -76,7 +76,7 @@ public class ClientTest {
 
     @Test
     public void testSession() {
-        Client client = new Client();
+        BitbucketClient client = new BitbucketClient();
         Session bitbucket = client.getSession();
         assertNotNull(bitbucket);
     }

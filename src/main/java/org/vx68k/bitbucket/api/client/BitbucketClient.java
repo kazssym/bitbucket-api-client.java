@@ -1,5 +1,5 @@
 /*
- * Client - factory class for Bitbucket API sessions
+ * BitbucketClient
  * Copyright (C) 2015 Nishimura Software Studio
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -34,7 +34,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
  * @author Kaz Nishimura
  * @since 1.0
  */
-public class Client implements Serializable {
+public class BitbucketClient implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -48,7 +48,7 @@ public class Client implements Serializable {
     /**
      * Constructs a Bitbucket API client with an empty credentials.
      */
-    public Client() {
+    public BitbucketClient() {
         this(new Credentials());
     }
 
@@ -59,7 +59,7 @@ public class Client implements Serializable {
      * @param ID client identifier
      * @param secret client shared secret
      */
-    public Client(String ID, String secret) {
+    public BitbucketClient(String ID, String secret) {
         this(new Credentials(ID, secret));
     }
 
@@ -68,7 +68,7 @@ public class Client implements Serializable {
      *
      * @param credentials OAuth client credentials
      */
-    public Client(Credentials credentials) {
+    public BitbucketClient(Credentials credentials) {
         this.credentials = credentials;
     }
 
