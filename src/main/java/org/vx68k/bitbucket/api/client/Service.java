@@ -1,5 +1,5 @@
 /*
- * Session - session for the Bitbucket API
+ * Service
  * Copyright (C) 2015 Nishimura Software Studio
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -19,33 +19,42 @@
 package org.vx68k.bitbucket.api.client;
 
 import java.io.Serializable;
+import java.util.Date;
+import com.google.api.client.auth.oauth2.TokenResponse;
 
 /**
- * Bitbucket API session.
+ * Bitbucket API service.
  *
  * @author Kaz Nishimura
  * @since 1.0
  */
-public class Session implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-
-    private final Credentials clientCredentials;
+public class Service {
 
     /**
-     * Token credentials for this session.
+     * Access token.
      */
-    private Credentials tokenCredentials = null;
+    private String accessToken;
 
-    public Session(Credentials clientCredentials) {
-        this.clientCredentials = clientCredentials;
-    }
+    /**
+     * Expiration time of the access token.
+     */
+    private Date expiration;
 
-    public Credentials getTokenCredentials() {
-        return tokenCredentials;
-    }
+    /**
+     * Refresh token, or <code>null</code> if not specified.
+     */
+    private String refreshToken;
 
-    public void setTokenCredentials(Credentials tokenCredentials) {
-        this.tokenCredentials = tokenCredentials;
+    public Service(TokenResponse tokenResponse) {
+        if (accessToken != null) {
+            accessToken = tokenResponse.getAccessToken();
+
+            Long expiresIn = tokenResponse.getExpiresInSeconds();
+            if (expiresIn != null) {
+                Date now = new Date();
+                expiration = new Date(now.getTime() + expiresIn * 1000L);
+            }
+            refreshToken = tokenResponse.getRefreshToken();
+        }
     }
 }
