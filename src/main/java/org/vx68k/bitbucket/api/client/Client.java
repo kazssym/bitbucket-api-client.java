@@ -18,13 +18,18 @@
 
 package org.vx68k.bitbucket.api.client;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.net.UnknownServiceException;
 import com.google.api.client.auth.oauth2.AuthorizationCodeFlow;
+import com.google.api.client.auth.oauth2.AuthorizationCodeTokenRequest;
 import com.google.api.client.auth.oauth2.BearerToken;
 import com.google.api.client.auth.oauth2.ClientParametersAuthentication;
+import com.google.api.client.auth.oauth2.TokenResponse;
 import com.google.api.client.http.BasicAuthentication;
 import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpExecuteInterceptor;
+import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 
@@ -38,10 +43,14 @@ public class Client implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private static final String AUTHORIZATION_ENDPOINT_URL
-            = "https://bitbucket.org/site/oauth2/authorize";
-    private static final String TOKEN_ENDPOINT_URL
-            = "https://bitbucket.org/site/oauth2/access_token";
+    private static final String AUTHORIZATION_ENDPOINT =
+            "https://bitbucket.org/site/oauth2/authorize";
+    private static final String TOKEN_ENDPOINT =
+            "https://bitbucket.org/site/oauth2/access_token";
+
+    private static final String BEARER_TOKEN_TYPE = "bearer";
+
+    private transient final HttpTransport transport = new NetHttpTransport();
 
     private final Credentials credentials;
 
@@ -123,18 +132,46 @@ public class Client implements Serializable {
         }
 
         return new AuthorizationCodeFlow(
-                BearerToken.authorizationHeaderAccessMethod(),
-                new NetHttpTransport(), JacksonFactory.getDefaultInstance(),
-                new GenericUrl(TOKEN_ENDPOINT_URL), clientAuthentication,
-                credentials.getID(), AUTHORIZATION_ENDPOINT_URL);
+                BearerToken.authorizationHeaderAccessMethod(), transport,
+                JacksonFactory.getDefaultInstance(),
+                new GenericUrl(TOKEN_ENDPOINT), clientAuthentication,
+                credentials.getID(), AUTHORIZATION_ENDPOINT);
     }
 
     /**
-     * Returns a Bitbucket API session using the client credentials.
+     * Returns an anonymous Bitbucket API service.
      *
-     * @return Bitbucket API session
+     * @return anonymous Bitbucket API service
+     * @exception IOException if an I/O exception occurs
      */
-    public Session getSession() {
-        return new Session(credentials);
+    public Service getService() throws IOException {
+        return getService(null);
+    }
+
+    /**
+     * Returns a Bitbucket API service.
+     *
+     * @param authorizationCode authorization code received by the redirection
+     * endpoint, or <code>null</code> if API access shall be anonymous
+     * @return Bitbucket API service
+     * @exception IOException if an I/O exception occurs
+     */
+    public Service getService(String authorizationCode) throws IOException {
+        TokenResponse tokenResponse = null;
+        if (authorizationCode != null) {
+            AuthorizationCodeFlow flow = getAuthorizationCodeFlow(true);
+            if (flow == null) {
+                throw new IllegalStateException("No client credentials");
+            }
+
+            AuthorizationCodeTokenRequest tokenRequest
+                    = flow.newTokenRequest(authorizationCode);
+            tokenResponse = tokenRequest.execute();
+            String tokenType = tokenResponse.getTokenType();
+            if (!tokenType.equals(BEARER_TOKEN_TYPE)) {
+                throw new UnknownServiceException("Unsupported token type");
+            }
+        }
+        return new Service(tokenResponse);
     }
 }

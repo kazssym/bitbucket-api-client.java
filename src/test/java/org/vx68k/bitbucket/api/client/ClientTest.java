@@ -20,7 +20,6 @@ package org.vx68k.bitbucket.api.client;
 
 import java.io.IOException;
 import com.google.api.client.auth.oauth2.AuthorizationCodeFlow;
-import com.google.api.client.http.HttpExecuteInterceptor;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -77,10 +76,10 @@ public class ClientTest {
         assertNotNull(flow4);
     }
 
-    @Test
-    public void testSession() {
-        Client client = new Client();
-        Session bitbucket = client.getSession();
-        assertNotNull(bitbucket);
-    }
+//    @Test
+//    public void testSession() {
+//        Client client = new Client();
+//        Service bitbucket = client.getService();
+//        assertNotNull(bitbucket);
+//    }
 }
