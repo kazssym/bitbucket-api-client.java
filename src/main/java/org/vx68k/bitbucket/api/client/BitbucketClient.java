@@ -87,7 +87,7 @@ public class BitbucketClient implements Serializable {
      *
      * @return new {@link ClientParametersAuthentication} object
      */
-    public ClientParametersAuthentication getClientParameters() {
+    protected ClientParametersAuthentication getClientParameters() {
         if (credentials.isEmpty()) {
             return null;
         }
@@ -102,7 +102,7 @@ public class BitbucketClient implements Serializable {
      *
      * @return {@link BasicAuthentication} object
      */
-    public BasicAuthentication getBasicAuthentication() {
+    protected BasicAuthentication getBasicAuthentication() {
         if (credentials.isEmpty()) {
             return null;
         }
@@ -111,10 +111,15 @@ public class BitbucketClient implements Serializable {
     }
 
     public AuthorizationCodeFlow getAuthorizationCodeFlow(
-            HttpExecuteInterceptor clientAuthentication) {
+            boolean forTokenRequest) {
         if (credentials.isEmpty()) {
-            // Sessions will be anonymous.
+            // API access will be anonymous.
             return null;
+        }
+
+        HttpExecuteInterceptor clientAuthentication = getClientParameters();
+        if (forTokenRequest) {
+            clientAuthentication = getBasicAuthentication();
         }
 
         return new AuthorizationCodeFlow(

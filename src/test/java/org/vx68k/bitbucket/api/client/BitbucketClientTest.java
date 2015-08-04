@@ -55,22 +55,26 @@ public class BitbucketClientTest {
     }
 
     @Test
-    public void testAuthorizationFlow() throws IOException {
+    public void testAuthorizationCodeFlow() throws IOException {
         BitbucketClient client = new BitbucketClient();
 
-        HttpExecuteInterceptor authentication = client.getClientParameters();
-        AuthorizationCodeFlow flow
-                = client.getAuthorizationCodeFlow(authentication);
-        assertNull(flow);
+        AuthorizationCodeFlow flow1 = client.getAuthorizationCodeFlow(false);
+        assertNull(flow1);
+
+        AuthorizationCodeFlow flow2 = client.getAuthorizationCodeFlow(true);
+        assertNull(flow2);
 
         client.getCredentials().setID(CLIENT_ID);
         client.getCredentials().setSecret(CLIENT_SECRET);
-        authentication = client.getClientParameters();
-        flow = client.getAuthorizationCodeFlow(authentication);
-        assertNotNull(flow);
 
-        String authorizationURL = flow.newAuthorizationUrl().build();
+        AuthorizationCodeFlow flow3 = client.getAuthorizationCodeFlow(false);
+        assertNotNull(flow3);
+
+        String authorizationURL = flow3.newAuthorizationUrl().build();
         assertNotNull(authorizationURL);
+
+        AuthorizationCodeFlow flow4 = client.getAuthorizationCodeFlow(true);
+        assertNotNull(flow4);
     }
 
     @Test
