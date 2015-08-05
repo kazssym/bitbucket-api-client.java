@@ -22,6 +22,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -41,6 +42,11 @@ public class UtilitiesTest {
     public void tearDown() {
     }
 
+    @Ignore
+    @Test
+    public void testGetLogger() {
+    }
+
     @Test
     public void testParseURL() throws MalformedURLException {
         URL url1 = Utilities.parseURL(null);
@@ -48,5 +54,10 @@ public class UtilitiesTest {
 
         URL url2 = Utilities.parseURL("https://api.bitbucket.org/");
         assertNotNull(url2);
+    }
+
+    @Ignore
+    @Test
+    public void testParseUUID() {
     }
 }
