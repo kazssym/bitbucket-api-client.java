@@ -21,6 +21,7 @@ package org.vx68k.bitbucket.api.client;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 /**
  * Collection of static utility methods for this library.
@@ -29,6 +30,15 @@ import java.util.UUID;
  * @since 1.0
  */
 public class Utilities {
+
+    /**
+     * Returns a logger with the name of this package.
+     *
+     * @return logger
+     */
+    public static Logger getLogger() {
+        return Logger.getLogger(Utilities.class.getPackage().getName());
+    }
 
     /**
      * Parses a string into a URL.
