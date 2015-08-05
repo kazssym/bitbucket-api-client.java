@@ -31,13 +31,17 @@ import java.util.logging.Logger;
  */
 public class Utilities {
 
+    private static final String PACKAGE_NAME =
+            Utilities.class.getPackage().getName();
+
     /**
      * Returns a logger with the name of this package.
      *
      * @return logger
      */
     public static Logger getLogger() {
-        return Logger.getLogger(Utilities.class.getPackage().getName());
+        return Logger.getLogger(
+                PACKAGE_NAME, PACKAGE_NAME + ".resources.LogMessages");
     }
 
     /**
