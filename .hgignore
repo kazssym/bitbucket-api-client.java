@@ -4,7 +4,7 @@
 (^|/)target/
 
 # NetBeans local files:
-^nb
+(^|/)nb
 
 # Backup and garbage files:
 ~$
