@@ -76,14 +76,14 @@ public class User {
         logger.finer("Creating a default User");
     }
 
-    public User(JsonObject jsonObject) {
-        logger.log(Level.INFO, "Parsing User JSON object: {0}", jsonObject);
-        username = jsonObject.getString("username");
-        type = jsonObject.getString("type", DEFAULT_TYPE);
-        uuid = Utilities.parseUuid(jsonObject.getString("uuid"));
-        displayName = jsonObject.getString("display_name");
+    public User(JsonObject json) {
+        logger.log(Level.INFO, "Parsing User JSON object: {0}", json);
+        username = json.getString("username");
+        type = json.getString("type", DEFAULT_TYPE);
+        uuid = Utilities.parseUuid(json.getString("uuid"));
+        displayName = json.getString("display_name");
         try {
-            website = Utilities.parseURL(jsonObject.getString("website"));
+            website = Utilities.parseURL(json.getString("website"));
         } catch (MalformedURLException e) {
         }
         // TODO: Parse links.
