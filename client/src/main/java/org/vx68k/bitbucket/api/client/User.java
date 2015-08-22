@@ -70,7 +70,7 @@ public class User {
      */
     private final Map<String, URL> links = new HashMap<String, URL>();
 
-    private final Logger logger = Utilities.getLogger();
+    private static final Logger logger = Utilities.getLogger();
 
     public User() {
         logger.finer("Creating a default User");
