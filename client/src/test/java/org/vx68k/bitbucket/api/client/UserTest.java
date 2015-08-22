@@ -27,7 +27,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Colletion of unit tests for [@link User}.
+ * Collection of unit tests for [@link User}.
  *
  * @author Kaz Nishimura
  * @since 1.0
