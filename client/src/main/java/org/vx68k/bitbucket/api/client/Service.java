@@ -46,7 +46,7 @@ public class Service {
     private String refreshToken;
 
     public Service(TokenResponse tokenResponse) {
-        if (accessToken != null) {
+        if (tokenResponse != null) {
             accessToken = tokenResponse.getAccessToken();
 
             Long expiresIn = tokenResponse.getExpiresInSeconds();
@@ -56,5 +56,22 @@ public class Service {
             }
             refreshToken = tokenResponse.getRefreshToken();
         }
+    }
+
+    /**
+     * Indicates whether this object is authenticated or not.
+     *
+     * @return <code>true</code> if this object is authenticated, or
+     * <code>false</code> otherwise
+     */
+    public boolean isAuthenticated() {
+        if (accessToken == null) {
+            return false;
+        }
+        if (expiration != null && expiration.before(new Date())) {
+            // TODO: Refresh the access token.
+            return false;
+        }
+        return true;
     }
 }
