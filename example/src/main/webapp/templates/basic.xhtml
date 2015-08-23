@@ -17,10 +17,8 @@
   You should have received a copy of the GNU Affero General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets">
-  <h:outputStylesheet name="css/example.css"/>
-  <h:outputScript name="js/example.js" target="body"/>
-  <html>
+<html xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets">
+  <f:view>
     <h:head>
       <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
       <title>Bitbucket API Client Example</title>
@@ -31,7 +29,9 @@
       <h:outputText value="&lt;![if gt IE 8]&gt;" escape="false"/>
       <link href="https://cdn.jsdelivr.net/pure/0.6.0/grids-responsive-min.css" rel="stylesheet"/>
       <h:outputText value="&lt;![endif]&gt;" escape="false"/>
-      <script src="https://cdn.jsdelivr.net/jquery/2.1.4/jquery.min.js" async="async"/>
+      <script src="https://cdn.jsdelivr.net/jquery/2.1.4/jquery.min.js" async="async" defer="defer"/>
+      <h:outputStylesheet name="css/example.css"/>
+      <h:outputScript name="js/example.js"/>
     </h:head>
     <h:body>
       <h:form>
@@ -79,5 +79,5 @@
         </div>
       </h:form>
     </h:body>
-  </html>
-</f:view>
+  </f:view>
+</html>
