@@ -15,3 +15,23 @@
   You should have received a copy of the GNU Affero General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
+"use strict";
+
+$(document).ready(function () {
+    var accountMenu = $("#account-menu");
+    accountMenu.removeClass("pure-menu-allow-hover");
+    accountMenu.on("mouseleave", function (event) {
+        $("#account-menu-children").css("display", "");
+    });
+
+    $("#account-menu-link").on("click", function (event) {
+        var children = $("#account-menu-children");
+        if (children.css("display") !== "block") {
+            children.css("display", "block");
+        } else {
+            accountMenu.mouseleave();
+        }
+        return false;
+    });
+});
