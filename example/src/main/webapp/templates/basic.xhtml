@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<!--
+  basic.xhtml - basic template for bitbucket-api-client-example
+  Copyright (C) 2015 Nishimura Software Studio
+
+  This program is free software: you can redistribute it and/or modify it
+  under the terms of the GNU Affero General Public License as published by the
+  Free Software Foundation, either version 3 of the License, or (at your
+  option) any later version.
+
+  This program is distributed in the hope that it will be useful, but WITHOUT
+  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+  FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public License
+  for more details.
+
+  You should have received a copy of the GNU Affero General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<html xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets">
+  <f:view>
+    <h:head>
+      <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+      <title>Bitbucket API Client Example</title>
+      <link href="https://cdn.jsdelivr.net/pure/0.6.0/pure-min.css" rel="stylesheet"/>
+      <h:outputText value="&lt;!--[if lte IE 8]&gt;" escape="false"/>
+      <link href="https://cdn.jsdelivr.net/pure/0.6.0/grids-responsive-old-ie-min.css" rel="stylesheet"/>
+      <h:outputText value="&lt;![endif]--&gt;" escape="false"/>
+      <h:outputText value="&lt;![if gt IE 8]&gt;" escape="false"/>
+      <link href="https://cdn.jsdelivr.net/pure/0.6.0/grids-responsive-min.css" rel="stylesheet"/>
+      <h:outputText value="&lt;![endif]&gt;" escape="false"/>
+      <script src="https://cdn.jsdelivr.net/jquery/2.1.4/jquery.min.js" async="async" defer="defer"/>
+      <h:outputStylesheet name="css/example.css"/>
+    </h:head>
+    <h:body>
+      <h:form>
+        <div id="toolbar" class="pure-menu pure-menu-horizontal">
+          <span id="toolbar-heading" class="pure-menu-heading">Bitbucket API Client Example</span>
+          <ul class="pure-menu-list">
+            <ui:fragment rendered="${not config.anonymous}">
+              <ui:fragment rendered="${user.authenticated}">
+                <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+                  <span class="pure-menu-link">Account</span>
+                  <ul class="pure-menu-children">
+                    <li class="pure-menu-item"><h:commandLink styleClass="pure-menu-link">Logout</h:commandLink></li>
+                  </ul>
+                </li>
+              </ui:fragment>
+              <ui:fragment rendered="${not user.authenticated}">
+                <li class="pure-menu-item"><h:commandLink styleClass="pure-menu-link" action="#{user.login}">Login</h:commandLink></li>
+              </ui:fragment>
+            </ui:fragment>
+            <ui:fragment rendered="${config.anonymous}">
+              <li class="pure-menu-item pure-menu-disabled">Login disabled</li>
+            </ui:fragment>
+          </ul>
+          <div class="example-clear-floats"/>
+        </div>
+        <div class="pure-g">
+          <nav class="pure-u-1 pure-u-md-1-4">
+            <div class="pure-menu-heading">Users</div>
+            <div class="pure-menu">
+              <ul class="pure-menu-list">
+                <li class="pure-menu-item"><h:commandLink styleClass="pure-menu-link">Yourself</h:commandLink></li>
+              </ul>
+            </div>
+            <div class="pure-menu-heading">Repositories</div>
+            <div class="pure-menu">
+              <ul class="pure-menu-list">
+                <li class="pure-menu-item"><h:commandLink styleClass="pure-menu-link">Yours</h:commandLink></li>
+                <li class="pure-menu-item"><h:commandLink styleClass="pure-menu-link">Watching</h:commandLink></li>
+              </ul>
+            </div>
+          </nav>
+          <main class="pure-u-1 pure-u-md-3-4">
+            <ui:insert name="main"/>
+          </main>
+        </div>
+      </h:form>
+    </h:body>
+  </f:view>
+</html>
