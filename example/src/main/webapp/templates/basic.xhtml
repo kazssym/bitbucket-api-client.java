@@ -40,8 +40,8 @@
           <ul class="pure-menu-list">
             <ui:fragment rendered="${not config.anonymous}">
               <ui:fragment rendered="${user.authenticated}">
-                <li id="toolbar-account-menu" class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
-                  <span class="pure-menu-link">Account</span>
+                <li id="account-menu" class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+                  <a class="pure-menu-link" href="#" onclick="return false;">Account</a>
                   <ul class="pure-menu-children">
                     <li class="pure-menu-item"><h:commandLink styleClass="pure-menu-link">Logout</h:commandLink></li>
                   </ul>
