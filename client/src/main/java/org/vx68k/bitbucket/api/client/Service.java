@@ -46,7 +46,7 @@ public class Service {
     private String refreshToken;
 
     public Service(TokenResponse tokenResponse) {
-        if (accessToken != null) {
+        if (tokenResponse != null) {
             accessToken = tokenResponse.getAccessToken();
 
             Long expiresIn = tokenResponse.getExpiresInSeconds();
