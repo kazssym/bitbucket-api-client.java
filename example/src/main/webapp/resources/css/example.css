@@ -20,6 +20,10 @@ html {
   line-height: 1.2em;
 }
 
+.pure-menu-children {
+  background-color: #F7F7F7;
+}
+
 #toolbar {
   background-color: #CCCCFF;
 }
@@ -32,6 +36,14 @@ html {
   float: right;
 }
 
-.example-clear-floats {
+#side-menu {
+  background-color: #F7F7F7;
+}
+
+#side-menu > .pure-menu-heading {
+  background-color: #E6E6E6;
+}
+
+.example-clear {
   clear: both;
 }
