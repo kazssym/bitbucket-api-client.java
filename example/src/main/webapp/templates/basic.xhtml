@@ -35,7 +35,7 @@
     <h:body>
       <h:form>
         <div id="toolbar" class="pure-menu pure-menu-horizontal">
-          <span id="toolbar-heading" class="pure-menu-heading">Bitbucket API Client Example</span>
+          <a class="pure-menu-heading" href="${request.contextPath}/">Bitbucket API Client Example</a>
           <ul class="pure-menu-list">
             <ui:fragment rendered="${not config.anonymous}">
               <ui:fragment rendered="${user.authenticated}">
@@ -57,7 +57,7 @@
           <div class="example-clear"/>
         </div>
         <div class="pure-g">
-          <nav class="pure-u-1 pure-u-md-1-4">
+          <nav class="pure-u-1 pure-u-sm-1-4">
             <div id="side-menu" class="pure-menu">
               <div class="pure-menu-heading">Users</div>
               <ul class="pure-menu-list">
@@ -70,7 +70,7 @@
               </ul>
             </div>
           </nav>
-          <main class="pure-u-1 pure-u-md-3-4">
+          <main class="pure-u-1 pure-u-sm-3-4">
             <div style="margin: 0.5em;">
               <ui:insert name="main"/>
             </div>

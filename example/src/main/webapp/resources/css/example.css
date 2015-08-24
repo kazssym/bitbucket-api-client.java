@@ -24,11 +24,22 @@ html {
   background-color: #F7F7F7;
 }
 
-#toolbar {
-  background-color: #CCCCFF;
+#toolbar,
+#toolbar .pure-menu-children {
+  background-color: #777799;
 }
 
-#toolbar #toolbar-heading {
+#toolbar .pure-menu-heading,
+#toolbar .pure-menu-link {
+  color: #FFFFFF;
+}
+
+#toolbar .pure-menu-link:hover,
+#toolbar .pure-menu-link:focus {
+  background-color: #8888AA;
+}
+
+#toolbar > .pure-menu-heading {
   float: left;
 }
 
