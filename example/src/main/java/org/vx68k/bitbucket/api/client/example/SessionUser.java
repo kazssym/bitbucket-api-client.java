@@ -20,8 +20,6 @@ package org.vx68k.bitbucket.api.client.example;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.net.UnknownServiceException;
-import java.util.Date;
 import javax.enterprise.context.SessionScoped;
 import javax.enterprise.event.Observes;
 import javax.faces.context.ExternalContext;
@@ -32,9 +30,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import com.google.api.client.auth.oauth2.AuthorizationCodeFlow;
-import com.google.api.client.auth.oauth2.AuthorizationCodeTokenRequest;
 import com.google.api.client.auth.oauth2.AuthorizationRequestUrl;
-import com.google.api.client.auth.oauth2.TokenResponse;
 import org.vx68k.bitbucket.api.client.Client;
 import org.vx68k.bitbucket.api.client.Service;
 
