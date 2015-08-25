@@ -37,8 +37,8 @@
         <div id="toolbar" class="pure-menu pure-menu-horizontal">
           <a class="pure-menu-heading" href="${request.contextPath}/">Bitbucket API Client Example</a>
           <ul class="pure-menu-list">
-            <ui:fragment rendered="${not config.anonymous}">
-              <ui:fragment rendered="${user.authenticated}">
+            <ui:fragment rendered="#{not config.anonymous}">
+              <ui:fragment rendered="#{user.authenticated}">
                 <li id="account-menu" class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
                   <a class="pure-menu-link" href="#" onclick="return false;">Account</a>
                   <ul class="pure-menu-children">
@@ -46,11 +46,11 @@
                   </ul>
                 </li>
               </ui:fragment>
-              <ui:fragment rendered="${not user.authenticated}">
+              <ui:fragment rendered="#{not user.authenticated}">
                 <li class="pure-menu-item"><h:commandLink styleClass="pure-menu-link" action="#{user.login}">Login</h:commandLink></li>
               </ui:fragment>
             </ui:fragment>
-            <ui:fragment rendered="${config.anonymous}">
+            <ui:fragment rendered="#{config.anonymous}">
               <li class="pure-menu-item pure-menu-disabled">Login disabled</li>
             </ui:fragment>
           </ul>
