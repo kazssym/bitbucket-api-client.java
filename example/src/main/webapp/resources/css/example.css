@@ -16,6 +16,14 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+/* Works around for Normalize.css on Firefox 40 and later. */
+@supports (text-decoration: underline dotted) {
+  abbr[title] {
+    border-bottom: inherit;
+    text-decoration: underline dotted;
+  }
+}
+
 html {
   line-height: 1.2em;
 }
