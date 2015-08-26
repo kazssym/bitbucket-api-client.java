@@ -32,11 +32,15 @@ public class Repository {
 
     private static final Logger logger = Utilities.getLogger();
 
+    /**
+     * Constructs a <em>blank</em> object.
+     */
     public Repository() {
-        logger.finer("Creating a default Repository");
+        logger.finer("Creating a blank Repository");
     }
 
     public Repository(JsonObject json) {
         logger.log(Level.INFO, "Parsing Repository JSON object: {0}", json);
+        // TODO: Parse the JSON object.
     }
 }
