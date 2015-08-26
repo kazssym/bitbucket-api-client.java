@@ -88,10 +88,10 @@ public class Credentials implements Serializable {
     }
 
     /**
-     * Returns <code>true</code> if this object is empty.
+     * Indicates whether this object is empty or not.
      *
-     * @return <code>true</code> if this object is empty, or <code>false</code>
-     * otherwise.
+     * @return <code>true</code> if this object is empty, or
+     * <code>false</code> otherwise.
      */
     public boolean isEmpty() {
         return getID() == null || getSecret() == null;
