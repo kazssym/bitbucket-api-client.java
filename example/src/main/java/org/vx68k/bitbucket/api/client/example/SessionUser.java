@@ -33,6 +33,7 @@ import com.google.api.client.auth.oauth2.AuthorizationCodeFlow;
 import com.google.api.client.auth.oauth2.AuthorizationRequestUrl;
 import org.vx68k.bitbucket.api.client.Client;
 import org.vx68k.bitbucket.api.client.Service;
+import org.vx68k.bitbucket.api.client.oauth.OAuthRedirection;
 
 /**
  * User of the current session.

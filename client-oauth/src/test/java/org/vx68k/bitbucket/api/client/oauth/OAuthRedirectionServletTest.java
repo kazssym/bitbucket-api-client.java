@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.vx68k.bitbucket.api.client.example.servlet;
+package org.vx68k.bitbucket.api.client.oauth;
 
 import org.junit.After;
 import org.junit.Before;

@@ -159,6 +159,7 @@
   </profiles>
   <modules>
     <module>client</module>
+    <module>client-oauth</module>
     <module>example</module>
   </modules>
   <dependencyManagement>

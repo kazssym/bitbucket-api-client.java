@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.vx68k.bitbucket.api.client.example.servlet;
+package org.vx68k.bitbucket.api.client.oauth;
 
 import java.io.IOException;
 import javax.enterprise.event.Event;
@@ -26,7 +26,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.vx68k.bitbucket.api.client.example.OAuthRedirection;
 
 /**
  * Servlet for an OAuth redirection endpoint.
