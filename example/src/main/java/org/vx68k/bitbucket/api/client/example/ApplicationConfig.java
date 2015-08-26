@@ -36,11 +36,6 @@ public class ApplicationConfig implements Serializable {
 
     private static final long SerialVersionUID = 1L;
 
-    private static final String BITBUCKET_CLIENT_ID_PROPERTY_NAME =
-            "org.vx68k.bitbucket.api.client.example.ID";
-    private static final String BITBUCKET_CLIENT_SECRET_PROPERTY_NAME =
-            "org.vx68k.bitbucket.api.client.example.secret";
-
     private final Client bitbucketClient;
 
     public ApplicationConfig() {
@@ -57,10 +52,10 @@ public class ApplicationConfig implements Serializable {
 
     public static Client getDefaultBitbucketClient() {
         String clientID = System.getProperty(
-                BITBUCKET_CLIENT_ID_PROPERTY_NAME,
+                Constants.BITBUCKET_CLIENT_ID_PROPERTY_NAME,
                 System.getenv("BITBUCKET_CLIENT_ID"));
         String clientSecret = System.getProperty(
-                BITBUCKET_CLIENT_SECRET_PROPERTY_NAME,
+                Constants.BITBUCKET_CLIENT_SECRET_PROPERTY_NAME,
                 System.getenv("BITBUCKET_CLIENT_SECRET"));
 
         Client client = new Client();

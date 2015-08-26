@@ -20,7 +20,6 @@ package org.vx68k.bitbucket.api.client.example;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.vx68k.bitbucket.api.client.Client;
 import org.vx68k.bitbucket.api.client.Credentials;
@@ -32,11 +31,6 @@ import static org.junit.Assert.*;
  */
 public class ApplicationConfigTest {
 
-    private static final String CLIENT_ID_PROPERTY_NAME =
-            "org.vx68k.bitbucket.api.client.example.ID";
-    private static final String CLIENT_SECRET_PROPERTY_NAME =
-            "org.vx68k.bitbucket.api.client.example.secret";
-
     private static final String envClientID =
             System.getenv("BITBUCKET_CLIENT_ID");
     private static final String envClientSecret =
@@ -44,8 +38,8 @@ public class ApplicationConfigTest {
 
     @Before
     public void setUp() {
-        System.clearProperty(CLIENT_ID_PROPERTY_NAME);
-        System.clearProperty(CLIENT_SECRET_PROPERTY_NAME);
+        System.clearProperty(Constants.BITBUCKET_CLIENT_ID_PROPERTY_NAME);
+        System.clearProperty(Constants.BITBUCKET_CLIENT_SECRET_PROPERTY_NAME);
     }
 
     @After
