@@ -47,7 +47,6 @@ public class CredentialsTest {
         Credentials credentials = new Credentials();
         assertNull(credentials.getID());
         assertNull(credentials.getSecret());
-        assertTrue(credentials.isEmpty());
     }
 
     @Test
@@ -55,23 +54,18 @@ public class CredentialsTest {
         Credentials credentials = new Credentials(TEST_ID, TEST_SECRET);
         assertEquals(TEST_ID, credentials.getID());
         assertEquals(TEST_SECRET, credentials.getSecret());
-        assertFalse(credentials.isEmpty());
     }
 
     @Test
-    public void testID() {
+    public void testSetID() {
         Credentials credentials = new Credentials();
-        assertNotEquals(TEST_ID, credentials.getID());
-
         credentials.setID(TEST_ID);
         assertEquals(TEST_ID, credentials.getID());
     }
 
     @Test
-    public void testSecret() {
+    public void testSetSecret() {
         Credentials credentials = new Credentials();
-        assertNotEquals(TEST_SECRET, credentials.getSecret());
-
         credentials.setSecret(TEST_SECRET);
         assertEquals(TEST_SECRET, credentials.getSecret());
     }

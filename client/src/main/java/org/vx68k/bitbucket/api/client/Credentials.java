@@ -86,14 +86,4 @@ public class Credentials implements Serializable {
     public void setSecret(String secret) {
         this.secret = secret;
     }
-
-    /**
-     * Indicates whether this object is empty or not.
-     *
-     * @return <code>true</code> if this object is empty, or
-     * <code>false</code> otherwise.
-     */
-    public boolean isEmpty() {
-        return getID() == null || getSecret() == null;
-    }
 }

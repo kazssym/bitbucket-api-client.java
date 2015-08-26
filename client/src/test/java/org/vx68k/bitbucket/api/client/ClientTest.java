@@ -46,11 +46,16 @@ public class ClientTest {
     }
 
     @Test
-    public void testClientCredentials() {
+    public void testDefaultConstructor() {
         Client client = new Client();
-        Credentials clientCredentials = client.getCredentials();
-        assertNotNull(clientCredentials);
-        assertTrue(clientCredentials.isEmpty());
+        assertNull(client.getCredentials());
+    }
+
+    @Test
+    public void testSetCredentials() {
+        Client client = new Client();
+        client.setCredentials(new Credentials());
+        assertNotNull(client.getCredentials());
     }
 
     @Test
@@ -63,8 +68,7 @@ public class ClientTest {
         AuthorizationCodeFlow flow2 = client.getAuthorizationCodeFlow(true);
         assertNull(flow2);
 
-        client.getCredentials().setID(CLIENT_ID);
-        client.getCredentials().setSecret(CLIENT_SECRET);
+        client.setCredentials(new Credentials(CLIENT_ID, CLIENT_SECRET));
 
         AuthorizationCodeFlow flow3 = client.getAuthorizationCodeFlow(false);
         assertNotNull(flow3);

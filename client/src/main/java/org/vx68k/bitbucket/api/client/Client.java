@@ -52,13 +52,12 @@ public class Client implements Serializable {
 
     private transient final HttpTransport transport = new NetHttpTransport();
 
-    private final Credentials credentials;
+    private Credentials credentials;
 
     /**
      * Constructs a Bitbucket API client with an empty credentials.
      */
     public Client() {
-        this(new Credentials());
     }
 
     /**
@@ -84,10 +83,21 @@ public class Client implements Serializable {
     /**
      * Returns the OAuth client credentials of this object.
      *
-     * @return OAuth client credentials
+     * @return OAuth client credentials, or <code>null</code> if this object
+     * has no credentials
      */
     public Credentials getCredentials() {
         return credentials;
+    }
+
+    /**
+     * Sets the OAuth client credentials of this object.
+     *
+     * @param credentials OAuth client credentials; if this value is
+     * <code>null</code>, this object shall have no credentials
+     */
+    public void setCredentials(Credentials credentials) {
+        this.credentials = credentials;
     }
 
     /**
@@ -97,7 +107,7 @@ public class Client implements Serializable {
      * @return new {@link ClientParametersAuthentication} object
      */
     protected ClientParametersAuthentication getClientParameters() {
-        if (credentials.isEmpty()) {
+        if (credentials == null) {
             return null;
         }
         // Sets only the client identifier that is required in authorization
@@ -112,7 +122,7 @@ public class Client implements Serializable {
      * @return {@link BasicAuthentication} object
      */
     protected BasicAuthentication getBasicAuthentication() {
-        if (credentials.isEmpty()) {
+        if (credentials == null) {
             return null;
         }
         return new BasicAuthentication(
@@ -121,7 +131,7 @@ public class Client implements Serializable {
 
     public AuthorizationCodeFlow getAuthorizationCodeFlow(
             boolean forTokenRequest) {
-        if (credentials.isEmpty()) {
+        if (credentials == null) {
             // API access will be anonymous.
             return null;
         }
