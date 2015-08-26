@@ -17,34 +17,44 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
-    <context-param>
-        <param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
-        <param-value>true</param-value>
-    </context-param>
-    <session-config>
-        <session-timeout>30</session-timeout>
-    </session-config>
-    <welcome-file-list>
-        <welcome-file>index.jsf</welcome-file>
-    </welcome-file-list>
-    <security-constraint>
-        <display-name>JSF Source Files</display-name>
-        <web-resource-collection>
-            <web-resource-name>JSF Source File</web-resource-name>
-            <description/>
-            <url-pattern>*.xhtml</url-pattern>
-        </web-resource-collection>
-        <auth-constraint>
-            <description>Nobody has access to the JSF source files.</description>
-            <role-name>nobody</role-name>
-        </auth-constraint>
-    </security-constraint>
-    <login-config>
-        <auth-method>BASIC</auth-method>
-        <realm-name>Nobody May Login</realm-name>
-    </login-config>
-    <security-role>
-        <description>Nobody.</description>
-        <role-name>nobody</role-name>
-    </security-role>
+  <context-param>
+    <param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
+    <param-value>true</param-value>
+  </context-param>
+  <session-config>
+    <session-timeout>30</session-timeout>
+  </session-config>
+  <welcome-file-list>
+    <welcome-file>index.jsf</welcome-file>
+  </welcome-file-list>
+  <security-constraint>
+    <display-name>Protected resources</display-name>
+    <web-resource-collection>
+      <web-resource-name>faces-sources</web-resource-name>
+      <description>JSF source files</description>
+      <url-pattern>*.xhtml</url-pattern>
+    </web-resource-collection>
+    <web-resource-collection>
+      <web-resource-name>faces-templates</web-resource-name>
+      <description>JSF templates</description>
+      <url-pattern>/templates/*</url-pattern>
+    </web-resource-collection>
+    <web-resource-collection>
+      <web-resource-name>faces-resources</web-resource-name>
+      <description>JSF resources</description>
+      <url-pattern>/resources/*</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+      <description>Nobody has access to the JSF source files.</description>
+      <role-name>nobody</role-name>
+    </auth-constraint>
+  </security-constraint>
+  <login-config>
+    <auth-method>BASIC</auth-method>
+    <realm-name>Nobody May Login</realm-name>
+  </login-config>
+  <security-role>
+    <description>Nobody.</description>
+    <role-name>nobody</role-name>
+  </security-role>
 </web-app>
