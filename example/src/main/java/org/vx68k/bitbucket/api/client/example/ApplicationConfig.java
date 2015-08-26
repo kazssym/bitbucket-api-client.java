@@ -44,29 +44,29 @@ public class ApplicationConfig implements Serializable {
     private final Client bitbucketClient;
 
     public ApplicationConfig() {
-        this(new Client());
+        this(getDefaultBitbucketClient());
     }
 
     public ApplicationConfig(Client bitbucketClient) {
         this.bitbucketClient = bitbucketClient;
-        initializeClientCredentials();
     }
 
     public Client getBitbucketClient() {
         return bitbucketClient;
     }
 
-    public boolean isAnonymous() {
-        return bitbucketClient.getCredentials().isEmpty();
-    }
-
-    private void initializeClientCredentials() {
-        Credentials clientCredentials = bitbucketClient.getCredentials();
-        clientCredentials.setID(System.getProperty(
+    public static Client getDefaultBitbucketClient() {
+        String clientID = System.getProperty(
                 BITBUCKET_CLIENT_ID_PROPERTY_NAME,
-                System.getenv("BITBUCKET_CLIENT_ID")));
-        clientCredentials.setSecret(System.getProperty(
+                System.getenv("BITBUCKET_CLIENT_ID"));
+        String clientSecret = System.getProperty(
                 BITBUCKET_CLIENT_SECRET_PROPERTY_NAME,
-                System.getenv("BITBUCKET_CLIENT_SECRET")));
+                System.getenv("BITBUCKET_CLIENT_SECRET"));
+
+        Client client = new Client();
+        if (clientID != null && clientSecret != null) {
+            client.setCredentials(new Credentials(clientID, clientSecret));
+        }
+        return client;
     }
 }

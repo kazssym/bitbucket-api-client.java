@@ -23,6 +23,7 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.vx68k.bitbucket.api.client.Client;
+import org.vx68k.bitbucket.api.client.Credentials;
 import static org.junit.Assert.*;
 
 /**
@@ -52,15 +53,22 @@ public class ApplicationConfigTest {
     }
 
     @Test
-    public void testInitialize() {
+    public void testDefaultConstructor() {
         ApplicationConfig config = new ApplicationConfig();
-        Client client = config.getBitbucketClient();
-        assertEquals(envClientID, client.getCredentials().getID());
-        assertEquals(envClientSecret, client.getCredentials().getSecret());
+        Credentials clientCredentials = config.getBitbucketClient()
+                .getCredentials();
+        if (envClientID != null && envClientSecret != null) {
+            assertEquals(envClientID, clientCredentials.getID());
+            assertEquals(envClientSecret, clientCredentials.getSecret());
+        } else {
+            assertNull(clientCredentials);
+        }
+        // TODO: Add a test case with system properties.
     }
 
-    @Ignore
     @Test
-    public void testInitializeByProperties() {
+    public void testConstructorWithClient() {
+        ApplicationConfig config = new ApplicationConfig(new Client());
+        assertNull(config.getBitbucketClient().getCredentials());
     }
 }
