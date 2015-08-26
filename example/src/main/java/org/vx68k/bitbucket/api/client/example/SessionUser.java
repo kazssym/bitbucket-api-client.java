@@ -55,7 +55,7 @@ public class SessionUser implements Serializable {
     }
 
     public SessionUser(ApplicationConfig config) throws IOException {
-        setConfig(config);
+        setApplicationConfig(config);
     }
 
     /**
@@ -81,8 +81,7 @@ public class SessionUser implements Serializable {
     }
 
     @Inject
-    public void setConfig(ApplicationConfig applicationConfig)
-            throws IOException {
+    public void setApplicationConfig(ApplicationConfig applicationConfig) {
         this.applicationConfig = applicationConfig;
     }
 

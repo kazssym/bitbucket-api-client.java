@@ -53,7 +53,7 @@ public class SessionUserTest {
     @Test
     public void testSetConfig() throws IOException {
         SessionUser user = new SessionUser();
-        user.setConfig(applicationConfig);
+        user.setApplicationConfig(applicationConfig);
         assertEquals(applicationConfig, user.getApplicationConfig());
     }
 
