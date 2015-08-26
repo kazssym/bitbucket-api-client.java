@@ -72,10 +72,18 @@ public class User {
 
     private static final Logger logger = Utilities.getLogger();
 
+    /**
+     * Constructs a <em>blank</em> object.
+     */
     public User() {
         logger.finer("Creating a default User");
     }
 
+    /**
+     * Constructs an object from a JSON object.
+     *
+     * @param json JSON object that represents a Bitbucket user
+     */
     public User(JsonObject json) {
         logger.log(Level.INFO, "Parsing User JSON object: {0}", json);
         username = json.getString("username");
@@ -85,6 +93,7 @@ public class User {
         try {
             website = Utilities.parseURL(json.getString("website"));
         } catch (MalformedURLException e) {
+            logger.log(Level.WARNING, "Could not parse the website", e);
         }
         // TODO: Parse links.
     }
@@ -135,5 +144,54 @@ public class User {
 
     public void setWebsite(URL website) {
         this.website = website;
+    }
+
+    /**
+     * Tests whether this object equals to another or not.
+     * Equality is tested by {@link UUID}s first, and if they are
+     * <code>null</code>, usernames are compared.
+     *
+     * @param object another object
+     * @return <code>true</code> if this object equals to the other object,
+     * or <code>false</code> otherwise
+     */
+    @Override
+    public boolean equals(Object object) {
+        // Returns <code>true</code> always if the objet is <code>this</code>.
+        if (object == this) {
+            return true;
+        }
+        // Then, tests equality if the other object is of the same class.
+        if (object != null && object.getClass() == User.class) {
+            User user = (User) object;
+            if (uuid != null) {
+                return uuid.equals(user.getUuid());
+            } else if (user.getUuid() != null) {
+                return false;
+            }
+            if (username != null) {
+                return username.equals(user.getUsername());
+            } else if (user.getUsername() != null) {
+                return false;
+            }
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Computes the hash code for this object.
+     *
+     * @return hash code
+     */
+    @Override
+    public int hashCode() {
+        int code = getClass().hashCode();
+        if (uuid != null) {
+            code ^= uuid.hashCode();
+        } else if (username != null) {
+            code ^= username.hashCode();
+        }
+        return code;
     }
 }
