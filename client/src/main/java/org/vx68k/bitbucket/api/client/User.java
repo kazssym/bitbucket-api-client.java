@@ -41,6 +41,11 @@ public class User {
     private static final String DEFAULT_TYPE = "user";
 
     /**
+     * UUID of this user.
+     */
+    private UUID uuid;
+
+    /**
      * Username.
      */
     private String username;
@@ -49,11 +54,6 @@ public class User {
      * Type of this user, normally "user".
      */
     private String type = DEFAULT_TYPE;
-
-    /**
-     * UUID of this user.
-     */
-    private UUID uuid;
 
     /**
      * Display name of this user.
@@ -86,9 +86,9 @@ public class User {
      */
     public User(JsonObject json) {
         logger.log(Level.INFO, "Parsing User JSON object: {0}", json);
+        uuid = Utilities.parseUuid(json.getString("uuid"));
         username = json.getString("username");
         type = json.getString("type", DEFAULT_TYPE);
-        uuid = Utilities.parseUuid(json.getString("uuid"));
         displayName = json.getString("display_name");
         if (json.containsKey("website")) {
             try {
@@ -104,16 +104,16 @@ public class User {
         this(Json.createReader(inputStream).readObject());
     }
 
+    public UUID getUuid() {
+        return uuid;
+    }
+
     public String getUsername() {
         return username;
     }
 
     public String getType() {
         return type;
-    }
-
-    public UUID getUuid() {
-        return uuid;
     }
 
     public String getDisplayName() {
@@ -128,16 +128,16 @@ public class User {
         return links;
     }
 
+    public void setUuid(UUID uuid) {
+        this.uuid = uuid;
+    }
+
     public void setUsername(String username) {
         this.username = username;
     }
 
     public void setType(String type) {
         this.type = type;
-    }
-
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
     }
 
     public void setDisplayName(String displayName) {
