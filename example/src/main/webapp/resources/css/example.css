@@ -34,12 +34,13 @@ html {
 
 #toolbar,
 #toolbar .pure-menu-children {
+  color: #FFFFFF;
   background-color: #777799;
 }
 
 #toolbar .pure-menu-heading,
 #toolbar .pure-menu-link {
-  color: #FFFFFF;
+  color: inherit;
 }
 
 #toolbar .pure-menu-link:hover,
