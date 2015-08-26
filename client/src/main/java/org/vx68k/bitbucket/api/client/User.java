@@ -76,7 +76,7 @@ public class User {
      * Constructs a <em>blank</em> object.
      */
     public User() {
-        logger.finer("Creating a default User");
+        logger.finer("Creating a blank User");
     }
 
     /**
@@ -90,10 +90,12 @@ public class User {
         type = json.getString("type", DEFAULT_TYPE);
         uuid = Utilities.parseUuid(json.getString("uuid"));
         displayName = json.getString("display_name");
-        try {
-            website = Utilities.parseURL(json.getString("website"));
-        } catch (MalformedURLException e) {
-            logger.log(Level.WARNING, "Could not parse the website", e);
+        if (json.containsKey("website")) {
+            try {
+                website = Utilities.parseURL(json.getString("website"));
+            } catch (MalformedURLException e) {
+                logger.log(Level.WARNING, "Could not parse the website", e);
+            }
         }
         // TODO: Parse links.
     }
