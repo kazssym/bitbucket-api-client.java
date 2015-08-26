@@ -36,9 +36,9 @@
     <h:body>
       <h:form>
         <div id="toolbar" class="pure-menu pure-menu-horizontal">
-          <a class="pure-menu-heading" href="${request.contextPath}/">Bitbucket API Client Example</a>
+          <h:outputLink styleClass="pure-menu-heading" value="${request.contextPath}/">Bitbucket API Client Example</h:outputLink>
           <ul class="pure-menu-list">
-            <ui:fragment rendered="#{not config.anonymous}">
+            <ui:fragment rendered="#{not empty config.bitbucketClient.credentials}">
               <ui:fragment rendered="#{user.authenticated}">
                 <li id="account-menu" class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
                   <a id="account-menu-link" class="pure-menu-link" href="#" onclick="return false;">Account</a>
@@ -51,8 +51,8 @@
                 <li class="pure-menu-item"><h:commandLink styleClass="pure-menu-link" action="#{user.login}">Login</h:commandLink></li>
               </ui:fragment>
             </ui:fragment>
-            <ui:fragment rendered="#{config.anonymous}">
-              <li class="pure-menu-item pure-menu-disabled">Login disabled</li>
+            <ui:fragment rendered="#{empty config.bitbucketClient.credentials}">
+              <li class="pure-menu-item pure-menu-disabled">No client credentials</li>
             </ui:fragment>
           </ul>
           <div class="example-clear"/>
@@ -62,12 +62,19 @@
             <div id="side-menu" class="pure-menu">
               <div class="pure-menu-heading">Users</div>
               <ul class="pure-menu-list">
-                <li class="pure-menu-item"><h:commandLink styleClass="pure-menu-link">Myself</h:commandLink></li>
+                <ui:fragment rendered="#{user.authenticated}">
+                  <li class="pure-menu-item"><h:outputLink styleClass="pure-menu-link" value="myself.jsf">Myself</h:outputLink></li>
+                  <li class="pure-menu-item"><h:outputLink styleClass="pure-menu-link">Following</h:outputLink></li>
+                </ui:fragment>
+                <ui:fragment rendered="#{not user.authenticated}">
+                  <li class="pure-menu-item pure-menu-disabled">Myself</li>
+                  <li class="pure-menu-item pure-menu-disabled">Following</li>
+                </ui:fragment>
               </ul>
               <div class="pure-menu-heading">Repositories</div>
               <ul class="pure-menu-list">
-                <li class="pure-menu-item"><h:commandLink styleClass="pure-menu-link">Mine</h:commandLink></li>
-                <li class="pure-menu-item"><h:commandLink styleClass="pure-menu-link">Watching</h:commandLink></li>
+                <li class="pure-menu-item"><h:outputLink styleClass="pure-menu-link">Mine</h:outputLink></li>
+                <li class="pure-menu-item"><h:outputLink styleClass="pure-menu-link">Watching</h:outputLink></li>
               </ul>
             </div>
           </nav>
