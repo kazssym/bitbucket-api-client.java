@@ -33,7 +33,7 @@ public class Constants {
      * Property name for the Bitbucket client identifider (or consumer key).
      */
     public static final String BITBUCKET_CLIENT_ID_PROPERTY_NAME =
-            "org.vx68k.bitbucket.api.client.example.ID";
+            "org.vx68k.bitbucket.api.client.example.id";
 
     /**
      * Property name for the Bitbucket client secret (or consumer secret).
