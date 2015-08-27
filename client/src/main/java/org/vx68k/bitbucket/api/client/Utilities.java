@@ -20,8 +20,12 @@ package org.vx68k.bitbucket.api.client;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 import java.util.logging.Logger;
+import javax.json.JsonObject;
+import javax.json.JsonValue;
 
 /**
  * Collection of static utility methods for this library.
@@ -33,6 +37,11 @@ public class Utilities {
 
     private static final String PACKAGE_NAME =
             Utilities.class.getPackage().getName();
+
+    /**
+     * JSON key for the <code>href</code> value.
+     */
+    private static final String HREF_JSON_KEY = "href";
 
     /**
      * Returns a logger with the name of this package.
@@ -77,5 +86,34 @@ public class Utilities {
             string = string.substring(1, string.length() - 1);
         }
         return UUID.fromString(string);
+    }
+
+    /**
+     * Parses a JSON object into a map of links.
+     *
+     * @param json JSON object
+     * @return map of links
+     * @throws MalformedURLException if any URL was malformed
+     */
+    public static Map<String, URL> parseLinks(JsonObject json)
+            throws MalformedURLException {
+        Map<String, URL> links = new HashMap<String, URL>();
+        for (Map.Entry<String, JsonValue> entry : json.entrySet()) {
+            URL link = parseLink((JsonObject) entry.getValue());
+            links.put(entry.getKey(), link);
+        }
+        return links;
+    }
+
+    /**
+     * Parses a JSON object into a link.
+     *
+     * @param json JSON object
+     * @return link
+     * @throws MalformedURLException if the URL was malformed
+     */
+    protected static URL parseLink(JsonObject json)
+            throws MalformedURLException {
+        return new URL(json.getString(HREF_JSON_KEY));
     }
 }
