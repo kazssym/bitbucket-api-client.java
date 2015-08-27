@@ -51,15 +51,15 @@ public class Repository {
     protected static final String NAME_JSON_KEY = "name";
 
     /**
-     * JSON key for the <code>full_name</code> value.
-     */
-    protected static final String FULL_NAME_JSON_KEY = "full_name";
-
-    /**
      * JSON key for the <code>type</code> value that is typically
      * <code>"repository"</code>.
      */
     protected static final String TYPE_JSON_KEY = "type";
+
+    /**
+     * JSON key for the <code>full_name</code> value.
+     */
+    protected static final String FULL_NAME_JSON_KEY = "full_name";
 
     /**
      * JSON key for the <code>scm</code> value that is either
@@ -90,16 +90,16 @@ public class Repository {
 
     private String name;
 
-    private String fullName;
-
     private String type = DEFAULT_TYPE;
+
+    private String fullName;
 
     private String scm;
 
     // Note: <code>private</code> is reserved so capitalized.
     private boolean Private;
 
-    private Map<String, URL> links = new HashMap<String, URL>();
+    private Map<String, URL> links;
 
     /**
      * Constructs a <em>blank</em> object.
@@ -113,8 +113,8 @@ public class Repository {
         this.uuid = Utilities.parseUuid(json.getString(UUID_JSON_KEY));
         this.owner = new User(json.getJsonObject(OWNER_JSON_KEY));
         this.name = json.getString(NAME_JSON_KEY);
-        this.fullName = json.getString(FULL_NAME_JSON_KEY);
         this.type = json.getString(TYPE_JSON_KEY, DEFAULT_TYPE);
+        this.fullName = json.getString(FULL_NAME_JSON_KEY);
         this.scm = json.getString(SCM_JSON_KEY);
         this.Private = json.getBoolean(IS_PRIVATE_JSON_KEY);
         try {
@@ -139,12 +139,12 @@ public class Repository {
         return name;
     }
 
-    public String getFullName() {
-        return fullName;
-    }
-
     public String getType() {
         return type;
+    }
+
+    public String getFullName() {
+        return fullName;
     }
 
     public String getScm() {
@@ -171,12 +171,12 @@ public class Repository {
         this.name = name;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
     public void setType(String type) {
         this.type = type;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public void setScm(String scm) {
