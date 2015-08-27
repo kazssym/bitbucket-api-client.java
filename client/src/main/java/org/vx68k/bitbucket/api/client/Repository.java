@@ -18,6 +18,7 @@
 
 package org.vx68k.bitbucket.api.client;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -116,8 +117,14 @@ public class Repository {
         this.type = json.getString(TYPE_JSON_KEY, DEFAULT_TYPE);
         this.scm = json.getString(SCM_JSON_KEY);
         this.Private = json.getBoolean(IS_PRIVATE_JSON_KEY);
-        this.links = Utilities.parseLinks(
-                json.getJsonObject(LINKS_JSON_KEY));
+        try {
+            this.links = Utilities.parseLinks(
+                    json.getJsonObject(LINKS_JSON_KEY));
+        } catch (MalformedURLException exception) {
+            logger.log(
+                    Level.WARNING, "Could not parse the \"links\" object",
+                    exception);
+        }
     }
 
     public UUID getUuid() {
