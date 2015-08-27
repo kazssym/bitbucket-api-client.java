@@ -43,6 +43,9 @@ public class Utilities {
      */
     private static final String HREF_JSON_KEY = "href";
 
+    private Utilities() {
+    }
+
     /**
      * Returns a logger with the name of this package.
      *
