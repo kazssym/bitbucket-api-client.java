@@ -112,7 +112,7 @@ public class Client implements Serializable {
         }
         // Sets only the client identifier that is required in authorization
         // requests.
-        return new ClientParametersAuthentication(credentials.getID(), null);
+        return new ClientParametersAuthentication(credentials.getId(), null);
     }
 
     /**
@@ -126,7 +126,7 @@ public class Client implements Serializable {
             return null;
         }
         return new BasicAuthentication(
-                credentials.getID(), credentials.getSecret());
+                credentials.getId(), credentials.getSecret());
     }
 
     public AuthorizationCodeFlow getAuthorizationCodeFlow(
@@ -145,7 +145,7 @@ public class Client implements Serializable {
                 BearerToken.authorizationHeaderAccessMethod(), transport,
                 JacksonFactory.getDefaultInstance(),
                 new GenericUrl(TOKEN_ENDPOINT), clientAuthentication,
-                credentials.getID(), AUTHORIZATION_ENDPOINT);
+                credentials.getId(), AUTHORIZATION_ENDPOINT);
     }
 
     /**

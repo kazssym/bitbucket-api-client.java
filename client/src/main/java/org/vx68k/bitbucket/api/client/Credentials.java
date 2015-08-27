@@ -30,7 +30,7 @@ public class Credentials implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private String ID;
+    private String id;
     private String secret;
 
     /**
@@ -41,13 +41,13 @@ public class Credentials implements Serializable {
     }
 
     /**
-     * Constructs a credentials with an ID and a shared secret.
+     * Constructs a credentials with an id and a shared secret.
      *
-     * @param ID identifier of the credentials
+     * @param id identifier of the credentials
      * @param secret shared secret of the credentials
      */
-    public Credentials(String ID, String secret) {
-        this.ID = ID;
+    public Credentials(String id, String secret) {
+        this.id = id;
         this.secret = secret;
     }
 
@@ -56,8 +56,8 @@ public class Credentials implements Serializable {
      *
      * @return identifier
      */
-    public String getID() {
-        return ID;
+    public String getId() {
+        return id;
     }
 
     /**
@@ -72,10 +72,10 @@ public class Credentials implements Serializable {
     /**
      * Sets the identifier of this object.
      *
-     * @param ID identifier
+     * @param id identifier
      */
-    public void setID(String ID) {
-        this.ID = ID;
+    public void setId(String id) {
+        this.id = id;
     }
 
     /**

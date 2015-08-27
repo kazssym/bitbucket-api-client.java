@@ -45,22 +45,22 @@ public class CredentialsTest {
     @Test
     public void testDefault() {
         Credentials credentials = new Credentials();
-        assertNull(credentials.getID());
+        assertNull(credentials.getId());
         assertNull(credentials.getSecret());
     }
 
     @Test
     public void testInitialized() {
         Credentials credentials = new Credentials(TEST_ID, TEST_SECRET);
-        assertEquals(TEST_ID, credentials.getID());
+        assertEquals(TEST_ID, credentials.getId());
         assertEquals(TEST_SECRET, credentials.getSecret());
     }
 
     @Test
     public void testSetID() {
         Credentials credentials = new Credentials();
-        credentials.setID(TEST_ID);
-        assertEquals(TEST_ID, credentials.getID());
+        credentials.setId(TEST_ID);
+        assertEquals(TEST_ID, credentials.getId());
     }
 
     @Test

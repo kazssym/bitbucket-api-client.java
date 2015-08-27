@@ -52,7 +52,7 @@ public class ApplicationConfigTest {
         Credentials clientCredentials = config.getBitbucketClient()
                 .getCredentials();
         if (envClientID != null && envClientSecret != null) {
-            assertEquals(envClientID, clientCredentials.getID());
+            assertEquals(envClientID, clientCredentials.getId());
             assertEquals(envClientSecret, clientCredentials.getSecret());
         } else {
             assertNull(clientCredentials);
