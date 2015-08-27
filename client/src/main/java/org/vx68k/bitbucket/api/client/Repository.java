@@ -35,45 +35,46 @@ import javax.json.JsonObject;
 public class Repository {
 
     /**
-     * JSON key for the uuid value.
+     * JSON key for the <code>uuid</code> value.
      */
-    protected static final String UUID_KEY = "uuid";
+    protected static final String UUID_JSON_KEY = "uuid";
 
     /**
-     * JSON key for the owner object.
+     * JSON key for the <code>owner</code> object.
      */
-    protected static final String OWNER_KEY = "owner";
+    protected static final String OWNER_JSON_KEY = "owner";
 
     /**
-     * JSON key for the name value.
+     * JSON key for the <code>name</code> value.
      */
-    protected static final String NAME_KEY = "name";
+    protected static final String NAME_JSON_KEY = "name";
 
     /**
-     * JSON key for the fullName value.
+     * JSON key for the <code>full_name</code> value.
      */
-    protected static final String FULL_NAME_KEY = "full_name";
+    protected static final String FULL_NAME_JSON_KEY = "full_name";
 
     /**
-     * JSON key for the type value that is normally <code>"repository"</code>.
+     * JSON key for the <code>type</code> value that is typically
+     * <code>"repository"</code>.
      */
-    protected static final String TYPE_KEY = "type";
+    protected static final String TYPE_JSON_KEY = "type";
 
     /**
-     * JSON key for the scm value that is either <code>"git"</code> or
-     * <code>"hg"</code>.
+     * JSON key for the <code>scm</code> value that is either
+     * <code>"git"</code> or <code>"hg"</code>.
      */
-    protected static final String SCM_KEY = "scm";
+    protected static final String SCM_JSON_KEY = "scm";
 
     /**
-     * JSON key for the private value.
+     * JSON key for the <code>is_private</code> value.
      */
-    private static final String IS_PRIVATE_KEY = "is_private";
+    protected static final String IS_PRIVATE_JSON_KEY = "is_private";
 
     /**
-     * JSON key for the links object.
+     * JSON key for the <code>links</code> object.
      */
-    private static final String LINKS_KEY = "links";
+    protected static final String LINKS_JSON_KEY = "links";
 
     /**
      * Default type value.
@@ -94,9 +95,10 @@ public class Repository {
 
     private String scm;
 
+    // Note: <code>private</code> is reserved so capitalized.
     private boolean Private;
 
-    private final Map<String, URL> links = new HashMap<String, URL>();
+    private Map<String, URL> links = new HashMap<String, URL>();
 
     /**
      * Constructs a <em>blank</em> object.
@@ -107,14 +109,15 @@ public class Repository {
 
     public Repository(JsonObject json) {
         logger.log(Level.INFO, "Parsing Repository JSON object: {0}", json);
-        this.uuid = Utilities.parseUuid(json.getString(UUID_KEY));
-        this.owner = new User(json.getJsonObject(OWNER_KEY));
-        this.name = json.getString(NAME_KEY);
-        this.fullName = json.getString(FULL_NAME_KEY);
-        this.type = json.getString(TYPE_KEY, DEFAULT_TYPE);
-        this.scm = json.getString(SCM_KEY);
-        this.Private = json.getBoolean(IS_PRIVATE_KEY);
-        // TODO: Parse the links.
+        this.uuid = Utilities.parseUuid(json.getString(UUID_JSON_KEY));
+        this.owner = new User(json.getJsonObject(OWNER_JSON_KEY));
+        this.name = json.getString(NAME_JSON_KEY);
+        this.fullName = json.getString(FULL_NAME_JSON_KEY);
+        this.type = json.getString(TYPE_JSON_KEY, DEFAULT_TYPE);
+        this.scm = json.getString(SCM_JSON_KEY);
+        this.Private = json.getBoolean(IS_PRIVATE_JSON_KEY);
+        this.links = Utilities.parseLinks(
+                json.getJsonObject(LINKS_JSON_KEY));
     }
 
     public UUID getUuid() {
@@ -139,6 +142,10 @@ public class Repository {
 
     public String getScm() {
         return scm;
+    }
+
+    public boolean isPrivate() {
+        return Private;
     }
 
     public Map<String, URL> getLinks() {
@@ -171,5 +178,9 @@ public class Repository {
 
     public void setPrivate(boolean Private) {
         this.Private = Private;
+    }
+
+    public void setLinks(Map<String, URL> links) {
+        this.links = links;
     }
 }
