@@ -24,6 +24,7 @@
   <name>Bitbucket API Client Library for Java (Parent)</name>
   <version>1.0</version>
   <description>Parent project for the Bitbucket API Client Library</description>
+  <url>http://kazssym.bitbucket.org/bitbucket-api-client-java/</url>
   <issueManagement>
     <system>Bitbucket</system>
     <url>https://bitbucket.org/kazssym/bitbucket-api-client-java/issues</url>
