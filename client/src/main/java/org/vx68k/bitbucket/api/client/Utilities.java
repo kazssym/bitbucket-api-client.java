@@ -57,22 +57,6 @@ public class Utilities {
     }
 
     /**
-     * Parses a string into a URL.
-     * @param string string that represents a URL, or <code>null</code>
-     * @return parsed {@link URL} object, or <code>null</code> if the string
-     * is <code>null</code>
-     * @throws MalformedURLException if the string does not represents a valid
-     * URL.
-     */
-    public static URL parseURL(String string) throws MalformedURLException {
-        if (string == null) {
-            return null;
-        }
-
-        return new URL(string);
-    }
-
-    /**
      * Parses a string into a UUID.
      * The string representation of a UUID may be enclosed in braces.
      *
@@ -89,6 +73,22 @@ public class Utilities {
             string = string.substring(1, string.length() - 1);
         }
         return UUID.fromString(string);
+    }
+
+    /**
+     * Parses a string into a URL.
+     * @param string string that represents a URL, or <code>null</code>
+     * @return parsed {@link URL} object, or <code>null</code> if the string
+     * is <code>null</code>
+     * @throws MalformedURLException if the string does not represents a valid
+     * URL.
+     */
+    public static URL parseURL(String string) throws MalformedURLException {
+        if (string == null) {
+            return null;
+        }
+
+        return new URL(string);
     }
 
     /**
