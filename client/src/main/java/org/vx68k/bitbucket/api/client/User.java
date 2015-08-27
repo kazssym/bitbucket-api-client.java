@@ -38,7 +38,43 @@ import javax.json.JsonReader;
  */
 public class User {
 
+    /**
+     * JSON key for the <code>uuid</code> value.
+     */
+    protected static final String UUID_JSON_KEY = "uuid";
+
+    /**
+     * JSON key for the <code>username</code> value.
+     */
+    protected static final String USERNAME_JSON_KEY = "username";
+
+    /**
+     * JSON key for the <code>type</code> value that is typically
+     * <code>"user"</code>.
+     */
+    protected static final String TYPE_JSON_KEY = "type";
+
+    /**
+     * JSON key for the <code>display_name</code> value.
+     */
+    protected static final String DISPLAY_NAME_JSON_KEY = "display_name";
+
+    /**
+     * JSON key for the <code>website</code> value.
+     */
+    protected static final String WEBSITE_JSON_KEY = "website";
+
+    /**
+     * JSON key for the <code>links</code> object.
+     */
+    protected static final String LINKS_JSON_KEY = "links";
+
+    /**
+     * Default type value.
+     */
     private static final String DEFAULT_TYPE = "user";
+
+    private static final Logger logger = Utilities.getLogger();
 
     /**
      * UUID of this user.
@@ -68,9 +104,7 @@ public class User {
     /**
      * Map of links about this user.
      */
-    private final Map<String, URL> links = new HashMap<String, URL>();
-
-    private static final Logger logger = Utilities.getLogger();
+    private Map<String, URL> links;
 
     /**
      * Constructs a <em>blank</em> object.
@@ -86,18 +120,26 @@ public class User {
      */
     public User(JsonObject json) {
         logger.log(Level.INFO, "Parsing User JSON object: {0}", json);
-        uuid = Utilities.parseUuid(json.getString("uuid"));
-        username = json.getString("username");
-        type = json.getString("type", DEFAULT_TYPE);
-        displayName = json.getString("display_name");
-        if (json.containsKey("website")) {
-            try {
-                website = Utilities.parseURL(json.getString("website"));
-            } catch (MalformedURLException e) {
-                logger.log(Level.WARNING, "Could not parse the website", e);
-            }
+        this.uuid = Utilities.parseUuid(json.getString(UUID_JSON_KEY));
+        this.username = json.getString(USERNAME_JSON_KEY);
+        this.type = json.getString(TYPE_JSON_KEY, DEFAULT_TYPE);
+        this.displayName = json.getString(DISPLAY_NAME_JSON_KEY);
+        try {
+            this.website = Utilities.parseURL(
+                    json.getString(WEBSITE_JSON_KEY, null));
+        } catch (MalformedURLException exception) {
+            logger.log(
+                    Level.WARNING, "Could not parse the \"website\" value",
+                    exception);
         }
-        // TODO: Parse links.
+        try {
+            this.links = Utilities.parseLinks(
+                    json.getJsonObject(LINKS_JSON_KEY));
+        } catch (MalformedURLException exception) {
+            logger.log(
+                    Level.WARNING, "Could not parse the \"links\" object",
+                    exception);
+        }
     }
 
     public User(InputStream inputStream) {
@@ -146,6 +188,10 @@ public class User {
 
     public void setWebsite(URL website) {
         this.website = website;
+    }
+
+    public void setLinks(Map<String, URL> links) {
+        this.links = links;
     }
 
     /**
