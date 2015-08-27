@@ -24,7 +24,7 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>bitbucket-api-client</artifactId>
-  <name>Bitbucket API Client Library for Java</name>
+  <name>Bitbucket API Client for Java</name>
   <description>Client library for the Bitbucket REST API</description>
   <url>http://kazssym.bitbucket.org/bitbucket-api-client-java/</url>
   <build>

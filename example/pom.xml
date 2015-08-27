@@ -25,7 +25,7 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>bitbucket-api-client-example</artifactId>
   <packaging>war</packaging>
-  <name>Bitbucket API Client Example</name>
+  <name>Bitbucket API Client Example Web Application</name>
   <description>Example web application for the Bitbucket API Client Library</description>
   <build>
     <plugins>
