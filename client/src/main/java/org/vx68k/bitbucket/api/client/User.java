@@ -142,10 +142,6 @@ public class User {
         }
     }
 
-    public User(InputStream inputStream) {
-        this(Json.createReader(inputStream).readObject());
-    }
-
     public UUID getUuid() {
         return uuid;
     }
