@@ -45,7 +45,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
  */
 public class Client implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     private static final String AUTHORIZATION_ENDPOINT =
             "https://bitbucket.org/site/oauth2/authorize";
@@ -58,7 +58,7 @@ public class Client implements Serializable {
 
     private Credentials credentials;
 
-    private transient URI redirectionEndpoint;
+    private URI redirectionEndpoint;
 
     /**
      * Constructs a Bitbucket API client with no credentials.
