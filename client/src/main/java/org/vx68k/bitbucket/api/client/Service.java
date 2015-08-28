@@ -18,10 +18,6 @@
 
 package org.vx68k.bitbucket.api.client;
 
-import java.io.Serializable;
-import java.util.Date;
-import com.google.api.client.auth.oauth2.TokenResponse;
-
 /**
  * Abstract Bitbucket API service.
  * <em>As of version 2.0, this class has been changed to abstract.</em>
