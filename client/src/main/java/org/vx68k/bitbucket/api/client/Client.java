@@ -47,10 +47,17 @@ public class Client implements Serializable {
 
     private static final long serialVersionUID = 2L;
 
-    private static final String AUTHORIZATION_ENDPOINT =
-            "https://bitbucket.org/site/oauth2/authorize";
-    private static final String TOKEN_ENDPOINT =
-            "https://bitbucket.org/site/oauth2/access_token";
+    /**
+     * Bitbucket OAuth authorization request endpoint URI as a string.
+     */
+    private static final String AUTHORIZATION_ENDPOINT
+            = "https://bitbucket.org/site/oauth2/authorize";
+
+    /**
+     * Bitbucket OAuth token request endpoint URI as a string.
+     */
+    private static final String TOKEN_ENDPOINT
+            = "https://bitbucket.org/site/oauth2/access_token";
 
     private static final String BEARER_TOKEN_TYPE = "bearer";
 
