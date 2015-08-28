@@ -20,6 +20,8 @@ package org.vx68k.bitbucket.api.client.example;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.net.URI;
+import java.net.URISyntaxException;
 import javax.enterprise.context.SessionScoped;
 import javax.enterprise.event.Observes;
 import javax.faces.context.ExternalContext;
@@ -29,8 +31,6 @@ import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import com.google.api.client.auth.oauth2.AuthorizationCodeFlow;
-import com.google.api.client.auth.oauth2.AuthorizationRequestUrl;
 import org.vx68k.bitbucket.api.client.Client;
 import org.vx68k.bitbucket.api.client.Service;
 import org.vx68k.bitbucket.api.client.oauth.OAuthRedirection;
@@ -85,21 +85,25 @@ public class SessionUser implements Serializable {
         this.applicationConfig = applicationConfig;
     }
 
-    public String login() throws IOException {
+    /**
+     * Handles a login action by redirecting the user agent to the
+     * authorization endpoint.
+     * @return <code>null</code>
+     * @throws URISyntaxException if the authorization endpoint could not be
+     * parsed as a URI
+     * @throws IOException if an I/O error occurred
+     * @since 1.0
+     */
+    public String login() throws URISyntaxException, IOException {
         Client bitbucketClient = applicationConfig.getBitbucketClient();
-        AuthorizationCodeFlow flow
-                = bitbucketClient.getAuthorizationCodeFlow(false);
-        if (flow == null) {
-            throw new IllegalStateException("No client credentials");
-        }
 
+        // Redirects the user agent to the authorization endpoint.
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext externalContext = context.getExternalContext();
         HttpSession session = (HttpSession) externalContext.getSession(true);
-
-        AuthorizationRequestUrl requestUrl = flow.newAuthorizationUrl();
-        requestUrl.setState(session.getId());
-        externalContext.redirect(requestUrl.build());
+        URI authorizationEndpoint
+                = bitbucketClient.getAuthorizationEndpoint(session.getId());
+        externalContext.redirect(authorizationEndpoint.toString());
 
         return null;
     }

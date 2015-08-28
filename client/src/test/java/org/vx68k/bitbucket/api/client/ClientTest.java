@@ -19,9 +19,12 @@
 package org.vx68k.bitbucket.api.client;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import com.google.api.client.auth.oauth2.AuthorizationCodeFlow;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -58,6 +61,22 @@ public class ClientTest {
         assertNotNull(client.getCredentials());
     }
 
+    @Test
+    public void testGetAuthorizationEndpoint() throws URISyntaxException {
+        Client client = new Client();
+        try {
+            URI authorizationEndpoint = client.getAuthorizationEndpoint(null);
+            assertNull(authorizationEndpoint);
+        } catch (NullPointerException exception) {
+            // Expected.
+        }
+
+        client.setCredentials(new Credentials(CLIENT_ID, CLIENT_SECRET));
+        URI authorizationEndpoint = client.getAuthorizationEndpoint(null);
+        assertNotNull(authorizationEndpoint);
+    }
+
+    @Ignore
     @Test
     public void testAuthorizationCodeFlow() throws IOException {
         Client client = new Client();
