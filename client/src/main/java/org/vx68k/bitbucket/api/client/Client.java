@@ -23,6 +23,7 @@ import java.io.Serializable;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.UnknownServiceException;
+import java.util.Date;
 import com.google.api.client.auth.oauth2.AuthorizationCodeFlow;
 import com.google.api.client.auth.oauth2.AuthorizationCodeRequestUrl;
 import com.google.api.client.auth.oauth2.AuthorizationCodeTokenRequest;
@@ -151,7 +152,7 @@ public class Client implements Serializable {
      * @return anonymous Bitbucket API service
      */
     public Service getService() {
-        return new Service(null);
+        return new RestService();
     }
 
     /**
@@ -176,7 +177,7 @@ public class Client implements Serializable {
         if (!tokenType.equals(BEARER_TOKEN_TYPE)) {
             throw new UnknownServiceException("Unsupported token type");
         }
-        return new Service(tokenResponse);
+        return new RestService(tokenResponse);
     }
 
     /**
@@ -233,5 +234,61 @@ public class Client implements Serializable {
     protected BasicAuthentication getBasicAuthentication() {
         return new BasicAuthentication(
                 credentials.getId(), credentials.getSecret());
+    }
+
+    /**
+     * Bitbucket REST API service.
+     * @author Kaz Nishimura
+     * @since 2.0
+     */
+    protected class RestService extends Service {
+
+        /**
+         * Access token.
+         */
+        private String accessToken;
+
+        /**
+         * Expiration time of the access token.
+         */
+        private Date expiration;
+
+        /**
+         * Refresh token, or <code>null</code> if not specified.
+         */
+        private String refreshToken;
+
+        /**
+         * Constructs this object with no authentication.
+         */
+        public RestService() {
+        }
+
+        /**
+         * Constructs this object from a token response.
+         * @param tokenResponse token response
+         */
+        public RestService(TokenResponse tokenResponse) {
+            accessToken = tokenResponse.getAccessToken();
+
+            Long expiresIn = tokenResponse.getExpiresInSeconds();
+            if (expiresIn != null) {
+                Date now = new Date();
+                expiration = new Date(now.getTime() + expiresIn * 1000L);
+            }
+            refreshToken = tokenResponse.getRefreshToken();
+        }
+
+        @Override
+        public boolean isAuthenticated() {
+            if (accessToken == null) {
+                return false;
+            }
+            if (expiration != null && expiration.before(new Date())) {
+                // TODO: Refresh the access token.
+                return false;
+            }
+            return true;
+        }
     }
 }

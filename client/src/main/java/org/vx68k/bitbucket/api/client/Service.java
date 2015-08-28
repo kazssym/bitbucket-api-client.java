@@ -23,55 +23,17 @@ import java.util.Date;
 import com.google.api.client.auth.oauth2.TokenResponse;
 
 /**
- * Bitbucket API service.
- *
+ * Abstract Bitbucket API service.
+ * <em>As of version 2.0, this class has been changed to abstract.</em>
  * @author Kaz Nishimura
  * @since 1.0
  */
-public class Service {
-
-    /**
-     * Access token.
-     */
-    private String accessToken;
-
-    /**
-     * Expiration time of the access token.
-     */
-    private Date expiration;
-
-    /**
-     * Refresh token, or <code>null</code> if not specified.
-     */
-    private String refreshToken;
-
-    public Service(TokenResponse tokenResponse) {
-        if (tokenResponse != null) {
-            accessToken = tokenResponse.getAccessToken();
-
-            Long expiresIn = tokenResponse.getExpiresInSeconds();
-            if (expiresIn != null) {
-                Date now = new Date();
-                expiration = new Date(now.getTime() + expiresIn * 1000L);
-            }
-            refreshToken = tokenResponse.getRefreshToken();
-        }
-    }
+public abstract class Service {
 
     /**
      * Indicates whether this object is authenticated or not.
-     *
      * @return <code>true</code> if this object is authenticated, or
      * <code>false</code> otherwise
      */
-    public boolean isAuthenticated() {
-        if (accessToken == null) {
-            return false;
-        }
-        if (expiration != null && expiration.before(new Date())) {
-            // TODO: Refresh the access token.
-            return false;
-        }
-        return true;
-    }
+    public abstract boolean isAuthenticated();
 }
