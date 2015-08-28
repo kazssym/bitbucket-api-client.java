@@ -19,14 +19,14 @@
 "use strict";
 
 $(document).ready(function () {
-    var accountMenu = $("#account-menu");
+    var accountMenu = $("#example-account-menu");
     accountMenu.removeClass("pure-menu-allow-hover");
-    accountMenu.on("mouseleave", function (event) {
-        $("#account-menu-children").css("display", "");
+    accountMenu.mouseleave(function (event) {
+        $("#example-account-menu-children").css("display", "");
     });
 
-    $("#account-menu-link").on("click", function (event) {
-        var children = $("#account-menu-children");
+    $("#example-account-menu-link").click(function (event) {
+        var children = $("#example-account-menu-children");
         if (children.css("display") !== "block") {
             children.css("display", "block");
         } else {
