@@ -130,4 +130,15 @@ public class SessionUser implements Serializable {
             }
         }
     }
+
+    /**
+     * Handles a logout action by disassociating the Bitbucket service.
+     * @return <code>null</code>
+     * @since 2.0
+     */
+    public String logout() {
+        bitbucketService = null;
+
+        return null;
+    }
 }
