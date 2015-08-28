@@ -29,6 +29,7 @@ import com.google.api.client.auth.oauth2.AuthorizationCodeRequestUrl;
 import com.google.api.client.auth.oauth2.AuthorizationCodeTokenRequest;
 import com.google.api.client.auth.oauth2.BearerToken;
 import com.google.api.client.auth.oauth2.ClientParametersAuthentication;
+import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.auth.oauth2.TokenResponse;
 import com.google.api.client.http.BasicAuthentication;
 import com.google.api.client.http.GenericUrl;
@@ -184,7 +185,8 @@ public class Client implements Serializable {
         if (!tokenType.equals(BEARER_TOKEN_TYPE)) {
             throw new UnknownServiceException("Unsupported token type");
         }
-        return new RestService(tokenResponse);
+        return new RestService(
+                flow.createAndStoreCredential(tokenResponse, ""));
     }
 
     /**
@@ -251,51 +253,28 @@ public class Client implements Serializable {
     protected class RestService extends Service {
 
         /**
-         * Access token.
+         * {@link Credential} object with the Bearer authentication.
          */
-        private String accessToken;
-
-        /**
-         * Expiration time of the access token.
-         */
-        private Date expiration;
-
-        /**
-         * Refresh token, or <code>null</code> if not specified.
-         */
-        private String refreshToken;
+        private final Credential bearerAuthentication;
 
         /**
          * Constructs this object with no authentication.
          */
         public RestService() {
+            this(null);
         }
 
         /**
          * Constructs this object from a token response.
          * @param tokenResponse token response
          */
-        public RestService(TokenResponse tokenResponse) {
-            accessToken = tokenResponse.getAccessToken();
-
-            Long expiresIn = tokenResponse.getExpiresInSeconds();
-            if (expiresIn != null) {
-                Date now = new Date();
-                expiration = new Date(now.getTime() + expiresIn * 1000L);
-            }
-            refreshToken = tokenResponse.getRefreshToken();
+        public RestService(Credential bearerAuthentication) {
+            this.bearerAuthentication = bearerAuthentication;
         }
 
         @Override
         public boolean isAuthenticated() {
-            if (accessToken == null) {
-                return false;
-            }
-            if (expiration != null && expiration.before(new Date())) {
-                // TODO: Refresh the access token.
-                return false;
-            }
-            return true;
+            return bearerAuthentication != null;
         }
     }
 }
