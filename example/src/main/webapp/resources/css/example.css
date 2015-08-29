@@ -48,10 +48,10 @@ html {
   background-color: #8888AA;
 }
 
-#side-menu {
+#example-side-menu {
   background-color: #F7F7F7;
 }
 
-#side-menu > .pure-menu-heading {
+#example-side-menu > .pure-menu-heading {
   background-color: #E6E6E6;
 }
