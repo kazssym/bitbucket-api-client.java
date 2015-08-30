@@ -19,6 +19,7 @@
 package org.vx68k.bitbucket.api.client;
 
 import java.io.IOException;
+import java.util.UUID;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,6 +32,11 @@ import static org.junit.Assert.*;
  * @since 1.0
  */
 public class ServiceTest {
+
+    private static final String USER_USERNAME = "kazssym";
+
+    private static final UUID USER_UUID
+            = UUID.fromString("cebb58cd-f699-4393-8762-e0f743ccf770");
 
     private Client client;
 
@@ -45,7 +51,27 @@ public class ServiceTest {
     }
 
     @Test
-    public void testAnonymousService() throws IOException {
-        Service bitbucket = client.getService();
+    public void testIsAuthenticated() {
+        Service service = client.getService();
+        assertFalse(service.isAuthenticated());
+    }
+
+    @Test
+    public void testGetCurrentUser() throws IOException {
+        Service service = client.getService();
+        User currentUser = service.getCurrentUser();
+        assertNull(currentUser);
+    }
+
+    @Test
+    public void testGetUser() throws IOException {
+        Service service = client.getService();
+        User user1 = service.getUser(USER_USERNAME);
+        User user2 = service.getUser(USER_UUID);
+        assertNotNull(user1);
+        assertNotNull(user2);
+        assertEquals(USER_USERNAME, user1.getUsername());
+        assertEquals(USER_UUID, user2.getUuid());
+        assertTrue(user1.equals(user2));
     }
 }

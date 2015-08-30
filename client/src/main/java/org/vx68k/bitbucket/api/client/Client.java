@@ -20,15 +20,24 @@ package org.vx68k.bitbucket.api.client;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.UnknownServiceException;
+import javax.json.Json;
+import javax.json.JsonReader;
 import com.google.api.client.auth.oauth2.AuthorizationCodeFlow;
+import com.google.api.client.auth.oauth2.AuthorizationCodeRequestUrl;
 import com.google.api.client.auth.oauth2.AuthorizationCodeTokenRequest;
 import com.google.api.client.auth.oauth2.BearerToken;
 import com.google.api.client.auth.oauth2.ClientParametersAuthentication;
+import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.auth.oauth2.TokenResponse;
 import com.google.api.client.http.BasicAuthentication;
 import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpExecuteInterceptor;
+import com.google.api.client.http.HttpRequest;
+import com.google.api.client.http.HttpRequestFactory;
+import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
@@ -41,21 +50,30 @@ import com.google.api.client.json.jackson2.JacksonFactory;
  */
 public class Client implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
-    private static final String AUTHORIZATION_ENDPOINT =
-            "https://bitbucket.org/site/oauth2/authorize";
-    private static final String TOKEN_ENDPOINT =
-            "https://bitbucket.org/site/oauth2/access_token";
+    /**
+     * Bitbucket OAuth authorization request endpoint URI as a string.
+     */
+    private static final String AUTHORIZATION_ENDPOINT
+            = "https://bitbucket.org/site/oauth2/authorize";
+
+    /**
+     * Bitbucket OAuth token request endpoint URI as a string.
+     */
+    private static final String TOKEN_ENDPOINT
+            = "https://bitbucket.org/site/oauth2/access_token";
 
     private static final String BEARER_TOKEN_TYPE = "bearer";
 
-    private transient final HttpTransport transport = new NetHttpTransport();
+    private static final HttpTransport transport = new NetHttpTransport();
 
     private Credentials credentials;
 
+    private URI redirectionEndpoint;
+
     /**
-     * Constructs a Bitbucket API client with an empty credentials.
+     * Constructs a Bitbucket API client with no credentials.
      */
     public Client() {
     }
@@ -82,7 +100,6 @@ public class Client implements Serializable {
 
     /**
      * Returns the OAuth client credentials of this object.
-     *
      * @return OAuth client credentials, or <code>null</code> if this object
      * has no credentials
      */
@@ -91,13 +108,122 @@ public class Client implements Serializable {
     }
 
     /**
+     * Returns the redirection endpoint URI of this object.
+     * @return redirection endpoint URI, or <code>null</code> if no redirection
+     * endpoint is specified
+     * @since 2.0
+     */
+    public URI getRedirectionEndpoint() {
+        return redirectionEndpoint;
+    }
+
+    /**
      * Sets the OAuth client credentials of this object.
-     *
      * @param credentials OAuth client credentials; if this value is
-     * <code>null</code>, this object shall have no credentials
+     * <code>null</code>, this object shall not have any credentials
      */
     public void setCredentials(Credentials credentials) {
         this.credentials = credentials;
+    }
+
+    /**
+     * Sets the redirection endpoint URI of this object.
+     * @param redirectionEndpoint redirection endpoint URI; if this argument is
+     * <code>null</code>, no redirection endpoint shall be specified
+     */
+    public void setRedirectionEndpoint(URI redirectionEndpoint) {
+        this.redirectionEndpoint = redirectionEndpoint;
+    }
+
+    /**
+     * Returns the authorization endpoint URI for this object.
+     * @param state state string for the authorization request; if this
+     * argument is <code>null</code>, the state parameter shall not be used
+     * @return authorization endpoint URI, or <code>null</code> if this object
+     * has no OAuth client credentials
+     * @throws URISyntaxException if the authoriztion endpoint could not be
+     * parsed as a URI
+     * @throws NullPointerException if this object has no OAuth client
+     * credentials
+     */
+    public URI getAuthorizationEndpoint(String state)
+            throws URISyntaxException {
+        AuthorizationCodeFlow flow = getAuthorizationCodeFlow(false);
+        AuthorizationCodeRequestUrl request = flow.newAuthorizationUrl();
+        if (redirectionEndpoint != null) {
+            request.setRedirectUri(redirectionEndpoint.toString());
+        }
+        if (state != null) {
+            request.setState(state);
+        }
+        return new URI(request.build());
+    }
+
+    /**
+     * Returns an anonymous Bitbucket API service.
+     * @return anonymous Bitbucket API service
+     */
+    public Service getService() {
+        return new RestService();
+    }
+
+    /**
+     * Returns an authorized Bitbucket API service.
+     * @param authorizationCode authorization code received by the redirection
+     * endpoint
+     * @return authorized Bitbucket API service
+     * @throws IOException if an I/O exception occurs
+     * @throws NullPointerException if this object has no OAuth client
+     * credentials
+     */
+    public Service getService(String authorizationCode) throws IOException {
+        AuthorizationCodeFlow flow = getAuthorizationCodeFlow(true);
+        AuthorizationCodeTokenRequest request
+                = flow.newTokenRequest(authorizationCode);
+        if (redirectionEndpoint != null) {
+            request.setRedirectUri(redirectionEndpoint.toString());
+        }
+
+        TokenResponse tokenResponse = request.execute();
+        String tokenType = tokenResponse.getTokenType();
+        if (!tokenType.equals(BEARER_TOKEN_TYPE)) {
+            throw new UnknownServiceException("Unsupported token type");
+        }
+        return new RestService(
+                flow.createAndStoreCredential(tokenResponse, ""));
+    }
+
+    /**
+     * Returns a {@link AuthorizationCodeFlow} object for OAuth requests.
+     * <em>As of version 2.0, this method has been changed to protected and
+     * does no longer return <code>null</code> if this object has no OAuth
+     * client credentials.</em>
+     * For authorization requests, use {@link #getAuthorizationEndpoint}
+     * instead.
+     * @param forTokenRequest <code>true</code> for token requests, or
+     * <code>false</code> for authorization requests
+     * @return {@link AuthorizationCodeFlow} object
+     * @throws NullPointerException if this object has no OAuth client
+     * credentials
+     */
+    protected AuthorizationCodeFlow getAuthorizationCodeFlow(
+            boolean forTokenRequest) {
+        if (credentials == null) {
+            throw new NullPointerException("No OAuth client credentials");
+        }
+
+        HttpExecuteInterceptor clientAuthentication;
+        if (forTokenRequest) {
+            clientAuthentication = getBasicAuthentication();
+        } else {
+            clientAuthentication = getClientParameters();
+        }
+
+        return new AuthorizationCodeFlow(
+                BearerToken.authorizationHeaderAccessMethod(), transport,
+                JacksonFactory.getDefaultInstance(),
+                new GenericUrl(TOKEN_ENDPOINT), clientAuthentication,
+                credentials.getId(), AUTHORIZATION_ENDPOINT);
     }
 
     /**
@@ -107,9 +233,6 @@ public class Client implements Serializable {
      * @return new {@link ClientParametersAuthentication} object
      */
     protected ClientParametersAuthentication getClientParameters() {
-        if (credentials == null) {
-            return null;
-        }
         // Sets only the client identifier that is required in authorization
         // requests.
         return new ClientParametersAuthentication(credentials.getId(), null);
@@ -122,66 +245,92 @@ public class Client implements Serializable {
      * @return {@link BasicAuthentication} object
      */
     protected BasicAuthentication getBasicAuthentication() {
-        if (credentials == null) {
-            return null;
-        }
         return new BasicAuthentication(
                 credentials.getId(), credentials.getSecret());
     }
 
-    public AuthorizationCodeFlow getAuthorizationCodeFlow(
-            boolean forTokenRequest) {
-        if (credentials == null) {
-            // API access will be anonymous.
-            return null;
+    /**
+     * Bitbucket REST API service.
+     * @author Kaz Nishimura
+     * @since 2.0
+     */
+    protected class RestService extends Service {
+
+        private static final String API_ROOT = "https://api.bitbucket.org/";
+
+        private static final String USER_ENDPOINT_PATH = "/2.0/user";
+
+        private static final String USERS_ENDPOINT_PATH = "/2.0/users";
+
+        private final HttpRequestFactory requestFactory;
+
+        /**
+         * {@link Credential} object with the Bearer authentication.
+         */
+        private final Credential bearerAuthentication;
+
+        /**
+         * Constructs this object with no authentication.
+         */
+        public RestService() {
+            this(null);
         }
 
-        HttpExecuteInterceptor clientAuthentication = getClientParameters();
-        if (forTokenRequest) {
-            clientAuthentication = getBasicAuthentication();
+        /**
+         * Constructs this object from a token response.
+         * @param tokenResponse token response
+         */
+        public RestService(Credential bearerAuthentication) {
+            this.bearerAuthentication = bearerAuthentication;
+            this.requestFactory = transport.createRequestFactory(
+                    bearerAuthentication);
         }
 
-        return new AuthorizationCodeFlow(
-                BearerToken.authorizationHeaderAccessMethod(), transport,
-                JacksonFactory.getDefaultInstance(),
-                new GenericUrl(TOKEN_ENDPOINT), clientAuthentication,
-                credentials.getId(), AUTHORIZATION_ENDPOINT);
-    }
+        /**
+         * Returns the URI of an endpoint path.
+         * @param path endpoint path
+         * @return endpoint URI
+         */
+        protected URI getEndpoint(String path) {
+            URI root = URI.create(API_ROOT);
+            return root.resolve(URI.create(path));
+        }
 
-    /**
-     * Returns an anonymous Bitbucket API service.
-     *
-     * @return anonymous Bitbucket API service
-     * @exception IOException if an I/O exception occurs
-     */
-    public Service getService() throws IOException {
-        return getService(null);
-    }
+        protected User getUser(HttpResponse response) throws IOException {
+            JsonReader reader = Json.createReader(response.getContent());
+            return new User(reader.readObject());
+        }
 
-    /**
-     * Returns a Bitbucket API service.
-     *
-     * @param authorizationCode authorization code received by the redirection
-     * endpoint, or <code>null</code> if API access shall be anonymous
-     * @return Bitbucket API service
-     * @exception IOException if an I/O exception occurs
-     */
-    public Service getService(String authorizationCode) throws IOException {
-        TokenResponse tokenResponse = null;
-        if (authorizationCode != null) {
-            AuthorizationCodeFlow flow = getAuthorizationCodeFlow(true);
-            if (flow == null) {
-                throw new IllegalStateException("No client credentials");
+        @Override
+        public boolean isAuthenticated() {
+            return bearerAuthentication != null;
+        }
+
+        @Override
+        public User getCurrentUser() throws IOException {
+            if (!isAuthenticated()) {
+                return null;
             }
 
-            AuthorizationCodeTokenRequest tokenRequest
-                    = flow.newTokenRequest(authorizationCode);
-            tokenResponse = tokenRequest.execute();
-            String tokenType = tokenResponse.getTokenType();
-            if (!tokenType.equals(BEARER_TOKEN_TYPE)) {
-                throw new UnknownServiceException("Unsupported token type");
-            }
+            URI endpoint = getEndpoint(USER_ENDPOINT_PATH);
+            HttpRequest request = requestFactory.buildGetRequest(
+                    new GenericUrl(endpoint.toString()));
+            HttpResponse response = request.execute();
+            return getUser(response);
         }
-        return new Service(tokenResponse);
+
+        @Override
+        public User getUser(String username) throws IOException {
+            if (username.contains("/")) {
+                throw new IllegalArgumentException(
+                        "The username argument contains /");
+            }
+
+            URI endpoint = getEndpoint(USERS_ENDPOINT_PATH + "/" + username);
+            HttpRequest request = requestFactory.buildGetRequest(
+                    new GenericUrl(endpoint.toString()));
+            HttpResponse response = request.execute();
+            return getUser(response);
+        }
     }
 }

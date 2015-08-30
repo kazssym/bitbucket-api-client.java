@@ -1,10 +1,9 @@
 # READ ME
 
-This directory contains the source code for the Bitbucket API Client Library
-for Java.
+This directory contains the source code for the Bitbucket API Client for Java.
 
-The Bitbucket API Client Library provides classes that wraps [Bitbucket][]
-REST API.
+The Bitbucket API Client for Java library provides Java classes to use the
+[Bitbucket][] REST API.
 
 This program is *[free software][]*: you can redistribute it and/or modify it
 under the terms of the *[GNU Affero General Public License][]* as published by

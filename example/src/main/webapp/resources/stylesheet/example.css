@@ -32,38 +32,26 @@ html {
   background-color: #F7F7F7;
 }
 
-#toolbar,
-#toolbar .pure-menu-children {
+#example-toolbar,
+#example-toolbar .pure-menu-children {
   color: #FFFFFF;
   background-color: #777799;
 }
 
-#toolbar .pure-menu-heading,
-#toolbar .pure-menu-link {
+#example-toolbar .pure-menu-heading,
+#example-toolbar .pure-menu-link {
   color: inherit;
 }
 
-#toolbar .pure-menu-link:hover,
-#toolbar .pure-menu-link:focus {
+#example-toolbar .pure-menu-link:hover,
+#example-toolbar .pure-menu-link:focus {
   background-color: #8888AA;
 }
 
-#toolbar > .pure-menu-heading {
-  float: left;
-}
-
-#toolbar > .pure-menu-list {
-  float: right;
-}
-
-#side-menu {
+#example-side-menu {
   background-color: #F7F7F7;
 }
 
-#side-menu > .pure-menu-heading {
+#example-side-menu > .pure-menu-heading {
   background-color: #E6E6E6;
-}
-
-.example-clear {
-  clear: both;
 }

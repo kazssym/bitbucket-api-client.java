@@ -20,6 +20,8 @@ package org.vx68k.bitbucket.api.client.example;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.net.URI;
+import java.net.URISyntaxException;
 import javax.enterprise.context.SessionScoped;
 import javax.enterprise.event.Observes;
 import javax.faces.context.ExternalContext;
@@ -29,10 +31,9 @@ import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import com.google.api.client.auth.oauth2.AuthorizationCodeFlow;
-import com.google.api.client.auth.oauth2.AuthorizationRequestUrl;
 import org.vx68k.bitbucket.api.client.Client;
 import org.vx68k.bitbucket.api.client.Service;
+import org.vx68k.bitbucket.api.client.User;
 import org.vx68k.bitbucket.api.client.oauth.OAuthRedirection;
 
 /**
@@ -49,7 +50,7 @@ public class SessionUser implements Serializable {
 
     private ApplicationConfig applicationConfig;
 
-    private transient Service bitbucketService;
+    private transient Service service;
 
     public SessionUser() {
     }
@@ -68,16 +69,39 @@ public class SessionUser implements Serializable {
     }
 
     /**
+     * Returns the current Bitbucket service.
+     * If there is no current service, an anonymous service shall be created.
+     * @return current service
+     */
+    protected Service getService() {
+        synchronized (this) {
+            if (service == null) {
+                Client client = applicationConfig.getBitbucketClient();
+                service = client.getService();
+            }
+        }
+        return service;
+    }
+
+    /**
      * Indicates whether a user is authenticated or not.
-     *
      * @return <code>true</code> if a user is authenticated, or
      * <code>false</code> otherwise
+     * @deprecated As of version 2.0, use {#getBitbucketUser} instead.
      */
+    @Deprecated
     public boolean isAuthenticated() {
-        if (bitbucketService == null) {
-            return false;
-        }
-        return bitbucketService.isAuthenticated();
+        return getService().isAuthenticated();
+    }
+
+    /**
+     * Returns the Bitbucket user of this object.
+     * @return Bitbucket user
+     * @throws IOException if an I/O error has occurred
+     * @since 2.0
+     */
+    public User getBitbucketUser() throws IOException {
+        return getService().getCurrentUser();
     }
 
     @Inject
@@ -85,21 +109,25 @@ public class SessionUser implements Serializable {
         this.applicationConfig = applicationConfig;
     }
 
-    public String login() throws IOException {
+    /**
+     * Handles a login action by redirecting the user agent to the
+     * authorization endpoint.
+     * @return <code>null</code>
+     * @throws URISyntaxException if the authorization endpoint could not be
+     * parsed as a URI
+     * @throws IOException if an I/O error occurred
+     * @since 1.0
+     */
+    public String login() throws URISyntaxException, IOException {
         Client bitbucketClient = applicationConfig.getBitbucketClient();
-        AuthorizationCodeFlow flow
-                = bitbucketClient.getAuthorizationCodeFlow(false);
-        if (flow == null) {
-            throw new IllegalStateException("No client credentials");
-        }
 
+        // Redirects the user agent to the authorization endpoint.
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext externalContext = context.getExternalContext();
         HttpSession session = (HttpSession) externalContext.getSession(true);
-
-        AuthorizationRequestUrl requestUrl = flow.newAuthorizationUrl();
-        requestUrl.setState(session.getId());
-        externalContext.redirect(requestUrl.build());
+        URI authorizationEndpoint
+                = bitbucketClient.getAuthorizationEndpoint(session.getId());
+        externalContext.redirect(authorizationEndpoint.toString());
 
         return null;
     }
@@ -118,12 +146,27 @@ public class SessionUser implements Serializable {
                     // The resource access was authorized.
                     Client bitbucketClient
                             = applicationConfig.getBitbucketClient();
-                    bitbucketService = bitbucketClient.getService(code);
+                    synchronized (this) {
+                        service = bitbucketClient.getService(code);
+                    }
 
                     HttpServletResponse response = redirection.getResponse();
                     response.sendRedirect(request.getContextPath() + "/");
                 }
             }
         }
+    }
+
+    /**
+     * Handles a logout action by disassociating the Bitbucket service.
+     * @return <code>null</code>
+     * @since 2.0
+     */
+    public String logout() {
+        synchronized (this) {
+            service = null;
+        }
+
+        return null;
     }
 }

@@ -29,37 +29,43 @@
       <h:outputText value="&lt;![if gt IE 8]&gt;" escape="false"/>
       <link href="https://cdn.jsdelivr.net/pure/0.6.0/grids-responsive-min.css" rel="stylesheet"/>
       <h:outputText value="&lt;![endif]&gt;" escape="false"/>
-      <link href="#{resource['css/example.css']}" rel="stylesheet"/>
+      <link href="#{resource['stylesheet/example.css']}" rel="stylesheet"/>
       <script src="https://cdn.jsdelivr.net/jquery/2.1.4/jquery.min.js" async="async"/>
-      <script src="#{resource['js/example.js']}" async="async"/>
+      <script src="#{resource['script/example.js']}" defer="defer"/>
     </h:head>
     <h:body>
       <h:form>
-        <div id="toolbar" class="pure-menu pure-menu-horizontal">
-          <h:outputLink styleClass="pure-menu-heading" value="${request.contextPath}/">Bitbucket API Client Example</h:outputLink>
-          <ul class="pure-menu-list">
+        <div id="example-toolbar" class="pure-menu pure-menu-horizontal">
+          <h:outputLink styleClass="pure-menu-heading" style="float: left;" value="${request.contextPath}/">Bitbucket API Client Example</h:outputLink>
+          <ul class="pure-menu-list" style="float: right;">
             <ui:fragment rendered="#{not empty config.bitbucketClient.credentials}">
-              <ui:fragment rendered="#{user.authenticated}">
-                <li id="account-menu" class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
-                  <a id="account-menu-link" class="pure-menu-link" href="#" onclick="return false;">Account</a>
-                  <ul id="account-menu-children" class="pure-menu-children">
-                    <li class="pure-menu-item"><h:commandLink styleClass="pure-menu-link">Logout</h:commandLink></li>
+              <ui:fragment rendered="#{not empty user.bitbucketUser}">
+                <li id="example-account-menu" class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+                  <a id="example-account-menu-link" class="pure-menu-link" href="#" onclick="return false;">
+                    <h:outputText value="#{user.bitbucketUser.username}"/>
+                  </a>
+                  <ul id="example-account-menu-children" class="pure-menu-children">
+                    <li class="pure-menu-item">
+                      <h:commandLink styleClass="pure-menu-link" action="#{user.logout}">Logout</h:commandLink>
+                    </li>
                   </ul>
                 </li>
               </ui:fragment>
-              <ui:fragment rendered="#{not user.authenticated}">
-                <li class="pure-menu-item"><h:commandLink styleClass="pure-menu-link" action="#{user.login}">Login</h:commandLink></li>
+              <ui:fragment rendered="#{empty user.bitbucketUser}">
+                <li class="pure-menu-item">
+                  <h:commandLink styleClass="pure-menu-link" action="#{user.login}">Login</h:commandLink>
+                </li>
               </ui:fragment>
             </ui:fragment>
             <ui:fragment rendered="#{empty config.bitbucketClient.credentials}">
               <li class="pure-menu-item pure-menu-disabled">No client credentials</li>
             </ui:fragment>
           </ul>
-          <div class="example-clear"/>
+          <div style="clear: both;"/>
         </div>
         <div class="pure-g">
-          <nav class="pure-u-1 pure-u-sm-1-4">
-            <div id="side-menu" class="pure-menu">
+          <nav class="pure-u-1 pure-u-md-1-4">
+            <div id="example-side-menu" class="pure-menu">
               <div class="pure-menu-heading">Users</div>
               <ul class="pure-menu-list">
                 <ui:fragment rendered="#{user.authenticated}">
@@ -78,7 +84,7 @@
               </ul>
             </div>
           </nav>
-          <main class="pure-u-1 pure-u-sm-3-4">
+          <main class="pure-u-1 pure-u-md-3-4" style="overflow: auto;">
             <div style="margin: 0.5em;">
               <ui:insert name="main"/>
             </div>
