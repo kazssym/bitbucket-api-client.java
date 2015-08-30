@@ -23,7 +23,8 @@ import java.io.Serializable;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.UnknownServiceException;
-import java.util.Date;
+import javax.json.Json;
+import javax.json.JsonReader;
 import com.google.api.client.auth.oauth2.AuthorizationCodeFlow;
 import com.google.api.client.auth.oauth2.AuthorizationCodeRequestUrl;
 import com.google.api.client.auth.oauth2.AuthorizationCodeTokenRequest;
@@ -34,6 +35,9 @@ import com.google.api.client.auth.oauth2.TokenResponse;
 import com.google.api.client.http.BasicAuthentication;
 import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpExecuteInterceptor;
+import com.google.api.client.http.HttpRequest;
+import com.google.api.client.http.HttpRequestFactory;
+import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
@@ -252,6 +256,14 @@ public class Client implements Serializable {
      */
     protected class RestService extends Service {
 
+        private static final String API_ROOT = "https://api.bitbucket.org/";
+
+        private static final String USER_ENDPOINT_PATH = "/2.0/user";
+
+        private static final String USERS_ENDPOINT_PATH = "/2.0/users";
+
+        private final HttpRequestFactory requestFactory;
+
         /**
          * {@link Credential} object with the Bearer authentication.
          */
@@ -270,11 +282,55 @@ public class Client implements Serializable {
          */
         public RestService(Credential bearerAuthentication) {
             this.bearerAuthentication = bearerAuthentication;
+            this.requestFactory = transport.createRequestFactory(
+                    bearerAuthentication);
+        }
+
+        /**
+         * Returns the URI of an endpoint path.
+         * @param path endpoint path
+         * @return endpoint URI
+         */
+        protected URI getEndpoint(String path) {
+            URI root = URI.create(API_ROOT);
+            return root.resolve(URI.create(path));
+        }
+
+        protected User getUser(HttpResponse response) throws IOException {
+            JsonReader reader = Json.createReader(response.getContent());
+            return new User(reader.readObject());
         }
 
         @Override
         public boolean isAuthenticated() {
             return bearerAuthentication != null;
+        }
+
+        @Override
+        public User getCurrentUser() throws IOException {
+            if (!isAuthenticated()) {
+                return null;
+            }
+
+            URI endpoint = getEndpoint(USER_ENDPOINT_PATH);
+            HttpRequest request = requestFactory.buildGetRequest(
+                    new GenericUrl(endpoint.toString()));
+            HttpResponse response = request.execute();
+            return getUser(response);
+        }
+
+        @Override
+        public User getUser(String username) throws IOException {
+            if (username.contains("/")) {
+                throw new IllegalArgumentException(
+                        "The username argument contains /");
+            }
+
+            URI endpoint = getEndpoint(USERS_ENDPOINT_PATH + "/" + username);
+            HttpRequest request = requestFactory.buildGetRequest(
+                    new GenericUrl(endpoint.toString()));
+            HttpResponse response = request.execute();
+            return getUser(response);
         }
     }
 }

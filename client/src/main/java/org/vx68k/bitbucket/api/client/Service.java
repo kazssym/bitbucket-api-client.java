@@ -18,6 +18,9 @@
 
 package org.vx68k.bitbucket.api.client;
 
+import java.io.IOException;
+import java.util.UUID;
+
 /**
  * Abstract Bitbucket API service.
  * <em>As of version 2.0, this class has been changed to abstract.</em>
@@ -32,4 +35,33 @@ public abstract class Service {
      * <code>false</code> otherwise
      */
     public abstract boolean isAuthenticated();
+
+    /**
+     * Returns the current user.
+     * @return current user, or <code>null</code> if this object is not
+     * authenticated
+     * @throws IOException if an I/O error has occurred
+     * @since 2.0
+     */
+    public abstract User getCurrentUser() throws IOException;
+
+    /**
+     * Returns a speicfic Bitbucket user by a username.
+     * @param username username of a Bitbucket user
+     * @return Bitbucket user
+     * @throws IOException if an I/O error has occurred
+     * @since 2.0
+     */
+    public abstract User getUser(String username) throws IOException;
+
+    /**
+     * Returns a specific Bitbucket user by a UUID.
+     * @param uuid UUID of a Bitbucket user
+     * @return Bitbucket user
+     * @throws IOException if an I/O error has occurred
+     * @since 2.0
+     */
+    public User getUser(UUID uuid) throws IOException {
+        return getUser("%7B" + uuid.toString() + "%7D");
+    }
 }
