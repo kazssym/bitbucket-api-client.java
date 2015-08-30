@@ -96,7 +96,7 @@ public class SessionUser implements Serializable {
 
     /**
      * Returns the Bitbucket user of this object.
-     * @return Bitbucket user
+     * @return Bitbucket user, or <code>null</code> if no user is authenticated
      * @throws IOException if an I/O error has occurred
      * @since 2.0
      */
