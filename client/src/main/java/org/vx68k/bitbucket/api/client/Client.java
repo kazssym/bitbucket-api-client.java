@@ -277,8 +277,8 @@ public class Client implements Serializable {
         }
 
         /**
-         * Constructs this object from a token response.
-         * @param tokenResponse token response
+         * Constructs this object with an OAuth Bearer authentication.
+         * @param bearerAuthentication OAuth Bearer authentication
          */
         public RestService(Credential bearerAuthentication) {
             this.bearerAuthentication = bearerAuthentication;
