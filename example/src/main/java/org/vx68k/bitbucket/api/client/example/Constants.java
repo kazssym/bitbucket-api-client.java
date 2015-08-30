@@ -26,18 +26,27 @@ package org.vx68k.bitbucket.api.client.example;
  */
 public class Constants {
 
-    private Constants() {
-    }
+    private static final String PROPERTY_KEY_PREFIX
+            = "org.vx68k.bitbucket.api.client.example";
 
     /**
      * Property name for the Bitbucket client identifider (or consumer key).
      */
-    public static final String BITBUCKET_CLIENT_ID_PROPERTY_NAME =
-            "org.vx68k.bitbucket.api.client.example.id";
+    public static final String BITBUCKET_CLIENT_ID_PROPERTY_KEY
+            = PROPERTY_KEY_PREFIX + ".oauth.id";
 
     /**
      * Property name for the Bitbucket client secret (or consumer secret).
      */
-    public static final String BITBUCKET_CLIENT_SECRET_PROPERTY_NAME =
-            "org.vx68k.bitbucket.api.client.example.secret";
+    public static final String BITBUCKET_CLIENT_SECRET_PROPERTY_KEY
+            = PROPERTY_KEY_PREFIX + ".oauth.secret";
+
+    /**
+     * Property name for the Google Analytics tracking ID.
+     */
+    public static final String ANALYTICS_ID_PROPERTY_KEY
+            = PROPERTY_KEY_PREFIX + ".analytics.id";
+
+    private Constants() {
+    }
 }

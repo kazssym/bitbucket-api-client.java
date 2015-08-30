@@ -52,10 +52,10 @@ public class ApplicationConfig implements Serializable {
 
     public static Client getDefaultBitbucketClient() {
         String clientId = System.getProperty(
-                Constants.BITBUCKET_CLIENT_ID_PROPERTY_NAME,
+                Constants.BITBUCKET_CLIENT_ID_PROPERTY_KEY,
                 System.getenv("BITBUCKET_CLIENT_ID"));
         String clientSecret = System.getProperty(
-                Constants.BITBUCKET_CLIENT_SECRET_PROPERTY_NAME,
+                Constants.BITBUCKET_CLIENT_SECRET_PROPERTY_KEY,
                 System.getenv("BITBUCKET_CLIENT_SECRET"));
 
         Client client = new Client();
@@ -63,5 +63,14 @@ public class ApplicationConfig implements Serializable {
             client.setCredentials(new Credentials(clientId, clientSecret));
         }
         return client;
+    }
+
+    /**
+     * Returns the tracking ID for Google Analytics.
+     * @return tracking ID
+     * @since 3.0
+     */
+    public String getAnalyticsId() {
+        return System.getProperty(Constants.ANALYTICS_ID_PROPERTY_KEY);
     }
 }

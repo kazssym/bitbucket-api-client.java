@@ -38,8 +38,8 @@ public class ApplicationConfigTest {
 
     @Before
     public void setUp() {
-        System.clearProperty(Constants.BITBUCKET_CLIENT_ID_PROPERTY_NAME);
-        System.clearProperty(Constants.BITBUCKET_CLIENT_SECRET_PROPERTY_NAME);
+        System.clearProperty(Constants.BITBUCKET_CLIENT_ID_PROPERTY_KEY);
+        System.clearProperty(Constants.BITBUCKET_CLIENT_SECRET_PROPERTY_KEY);
     }
 
     @After
