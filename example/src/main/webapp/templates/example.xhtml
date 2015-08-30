@@ -35,10 +35,10 @@
   <h:body>
     <h:form>
       <div id="example-toolbar" class="pure-menu pure-menu-horizontal">
-        <h:outputLink styleClass="pure-menu-heading" style="float: left;" value="${request.contextPath}/">Bitbucket API Client Example</h:outputLink>
+        <h:outputLink styleClass="pure-menu-heading" style="float: left;" value="#{request.contextPath}/">Bitbucket API Client Example</h:outputLink>
         <ul class="pure-menu-list" style="float: right;">
-          <ui:fragment rendered="#{not empty config.bitbucketClient.credentials}">
-            <ui:fragment rendered="#{not empty user.bitbucketUser}">
+          <ui:fragment rendered="#{config.bitbucketClient.credentials != null}">
+            <ui:fragment rendered="#{user.bitbucketUser != null}">
               <li id="example-account-menu" class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
                 <a id="example-account-menu-link" class="pure-menu-link" href="#" onclick="return false;">
                   <h:outputText value="#{user.bitbucketUser.username}"/>
@@ -50,13 +50,13 @@
                 </ul>
               </li>
             </ui:fragment>
-            <ui:fragment rendered="#{empty user.bitbucketUser}">
+            <ui:fragment rendered="#{user.bitbucketUser == null}">
               <li class="pure-menu-item">
                 <h:commandLink styleClass="pure-menu-link" action="#{user.login}">Login</h:commandLink>
               </li>
             </ui:fragment>
           </ui:fragment>
-          <ui:fragment rendered="#{empty config.bitbucketClient.credentials}">
+          <ui:fragment rendered="#{config.bitbucketClient.credentials == null}">
             <li class="pure-menu-item pure-menu-disabled">No client credentials</li>
           </ui:fragment>
         </ul>
