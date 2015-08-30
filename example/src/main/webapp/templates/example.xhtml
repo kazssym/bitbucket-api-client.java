@@ -18,79 +18,77 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets">
-  <f:view>
-    <h:head>
-      <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-      <title>Bitbucket API Client Example</title>
-      <link href="https://cdn.jsdelivr.net/pure/0.6.0/pure-min.css" rel="stylesheet"/>
-      <h:outputText value="&lt;!--[if lte IE 8]&gt;" escape="false"/>
-      <link href="https://cdn.jsdelivr.net/pure/0.6.0/grids-responsive-old-ie-min.css" rel="stylesheet"/>
-      <h:outputText value="&lt;![endif]--&gt;" escape="false"/>
-      <h:outputText value="&lt;![if gt IE 8]&gt;" escape="false"/>
-      <link href="https://cdn.jsdelivr.net/pure/0.6.0/grids-responsive-min.css" rel="stylesheet"/>
-      <h:outputText value="&lt;![endif]&gt;" escape="false"/>
-      <link href="#{resource['stylesheet/example.css']}" rel="stylesheet"/>
-      <script src="https://cdn.jsdelivr.net/jquery/2.1.4/jquery.min.js" async="async"/>
-      <script src="#{resource['script/example.js']}" defer="defer"/>
-    </h:head>
-    <h:body>
-      <h:form>
-        <div id="example-toolbar" class="pure-menu pure-menu-horizontal">
-          <h:outputLink styleClass="pure-menu-heading" style="float: left;" value="${request.contextPath}/">Bitbucket API Client Example</h:outputLink>
-          <ul class="pure-menu-list" style="float: right;">
-            <ui:fragment rendered="#{not empty config.bitbucketClient.credentials}">
-              <ui:fragment rendered="#{not empty user.bitbucketUser}">
-                <li id="example-account-menu" class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
-                  <a id="example-account-menu-link" class="pure-menu-link" href="#" onclick="return false;">
-                    <h:outputText value="#{user.bitbucketUser.username}"/>
-                  </a>
-                  <ul id="example-account-menu-children" class="pure-menu-children">
-                    <li class="pure-menu-item">
-                      <h:commandLink styleClass="pure-menu-link" action="#{user.logout}">Logout</h:commandLink>
-                    </li>
-                  </ul>
-                </li>
-              </ui:fragment>
-              <ui:fragment rendered="#{empty user.bitbucketUser}">
-                <li class="pure-menu-item">
-                  <h:commandLink styleClass="pure-menu-link" action="#{user.login}">Login</h:commandLink>
-                </li>
-              </ui:fragment>
+  <h:head>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Bitbucket API Client Example</title>
+    <link href="https://cdn.jsdelivr.net/pure/0.6.0/pure-min.css" rel="stylesheet"/>
+    <h:outputText value="&lt;!--[if lte IE 8]&gt;" escape="false"/>
+    <link href="https://cdn.jsdelivr.net/pure/0.6.0/grids-responsive-old-ie-min.css" rel="stylesheet"/>
+    <h:outputText value="&lt;![endif]--&gt;" escape="false"/>
+    <h:outputText value="&lt;![if gt IE 8]&gt;" escape="false"/>
+    <link href="https://cdn.jsdelivr.net/pure/0.6.0/grids-responsive-min.css" rel="stylesheet"/>
+    <h:outputText value="&lt;![endif]&gt;" escape="false"/>
+    <link href="#{resource['stylesheet/example.css']}" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/jquery/2.1.4/jquery.min.js" async="async"/>
+    <script src="#{resource['script/example.js']}" defer="defer"/>
+  </h:head>
+  <h:body>
+    <h:form>
+      <div id="example-toolbar" class="pure-menu pure-menu-horizontal">
+        <h:outputLink styleClass="pure-menu-heading" style="float: left;" value="${request.contextPath}/">Bitbucket API Client Example</h:outputLink>
+        <ul class="pure-menu-list" style="float: right;">
+          <ui:fragment rendered="#{not empty config.bitbucketClient.credentials}">
+            <ui:fragment rendered="#{not empty user.bitbucketUser}">
+              <li id="example-account-menu" class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+                <a id="example-account-menu-link" class="pure-menu-link" href="#" onclick="return false;">
+                  <h:outputText value="#{user.bitbucketUser.username}"/>
+                </a>
+                <ul id="example-account-menu-children" class="pure-menu-children">
+                  <li class="pure-menu-item">
+                    <h:commandLink styleClass="pure-menu-link" action="#{user.logout}">Logout</h:commandLink>
+                  </li>
+                </ul>
+              </li>
             </ui:fragment>
-            <ui:fragment rendered="#{empty config.bitbucketClient.credentials}">
-              <li class="pure-menu-item pure-menu-disabled">No client credentials</li>
+            <ui:fragment rendered="#{empty user.bitbucketUser}">
+              <li class="pure-menu-item">
+                <h:commandLink styleClass="pure-menu-link" action="#{user.login}">Login</h:commandLink>
+              </li>
             </ui:fragment>
-          </ul>
-          <div style="clear: both;"/>
-        </div>
-        <div class="pure-g">
-          <nav class="pure-u-1 pure-u-md-1-4">
-            <div id="example-side-menu" class="pure-menu">
-              <div class="pure-menu-heading">Users</div>
-              <ul class="pure-menu-list">
-                <ui:fragment rendered="#{user.authenticated}">
-                  <li class="pure-menu-item"><h:outputLink styleClass="pure-menu-link" value="myself.jsf">Myself</h:outputLink></li>
-                  <li class="pure-menu-item"><h:outputLink styleClass="pure-menu-link">Following</h:outputLink></li>
-                </ui:fragment>
-                <ui:fragment rendered="#{not user.authenticated}">
-                  <li class="pure-menu-item pure-menu-disabled">Myself</li>
-                  <li class="pure-menu-item pure-menu-disabled">Following</li>
-                </ui:fragment>
-              </ul>
-              <div class="pure-menu-heading">Repositories</div>
-              <ul class="pure-menu-list">
-                <li class="pure-menu-item"><h:outputLink styleClass="pure-menu-link">Mine</h:outputLink></li>
-                <li class="pure-menu-item"><h:outputLink styleClass="pure-menu-link">Watching</h:outputLink></li>
-              </ul>
-            </div>
-          </nav>
-          <main class="pure-u-1 pure-u-md-3-4" style="overflow: auto;">
-            <div style="margin: 0.5em;">
-              <ui:insert name="main"/>
-            </div>
-          </main>
-        </div>
-      </h:form>
-    </h:body>
-  </f:view>
+          </ui:fragment>
+          <ui:fragment rendered="#{empty config.bitbucketClient.credentials}">
+            <li class="pure-menu-item pure-menu-disabled">No client credentials</li>
+          </ui:fragment>
+        </ul>
+        <div style="clear: both;"/>
+      </div>
+      <div class="pure-g">
+        <nav class="pure-u-1 pure-u-md-1-4">
+          <div id="example-side-menu" class="pure-menu">
+            <div class="pure-menu-heading">Users</div>
+            <ul class="pure-menu-list">
+              <ui:fragment rendered="#{user.authenticated}">
+                <li class="pure-menu-item"><h:outputLink styleClass="pure-menu-link" value="myself.jsf">Myself</h:outputLink></li>
+                <li class="pure-menu-item"><h:outputLink styleClass="pure-menu-link">Following</h:outputLink></li>
+              </ui:fragment>
+              <ui:fragment rendered="#{not user.authenticated}">
+                <li class="pure-menu-item pure-menu-disabled">Myself</li>
+                <li class="pure-menu-item pure-menu-disabled">Following</li>
+              </ui:fragment>
+            </ul>
+            <div class="pure-menu-heading">Repositories</div>
+            <ul class="pure-menu-list">
+              <li class="pure-menu-item"><h:outputLink styleClass="pure-menu-link">Mine</h:outputLink></li>
+              <li class="pure-menu-item"><h:outputLink styleClass="pure-menu-link">Watching</h:outputLink></li>
+            </ul>
+          </div>
+        </nav>
+        <main class="pure-u-1 pure-u-md-3-4" style="overflow: auto;">
+          <div style="margin: 0.5em;">
+            <ui:insert name="main"/>
+          </div>
+        </main>
+      </div>
+    </h:form>
+  </h:body>
 </html>
