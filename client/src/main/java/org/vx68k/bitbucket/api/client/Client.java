@@ -30,7 +30,6 @@ import com.google.api.client.auth.oauth2.AuthorizationCodeRequestUrl;
 import com.google.api.client.auth.oauth2.AuthorizationCodeTokenRequest;
 import com.google.api.client.auth.oauth2.BearerToken;
 import com.google.api.client.auth.oauth2.ClientParametersAuthentication;
-import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.auth.oauth2.TokenResponse;
 import com.google.api.client.http.BasicAuthentication;
 import com.google.api.client.http.GenericUrl;
@@ -262,12 +261,13 @@ public class Client implements Serializable {
 
         private static final String USERS_ENDPOINT_PATH = "/2.0/users";
 
-        private final HttpRequestFactory requestFactory;
+        private final HttpRequestFactory requestFactory
+                = transport.createRequestFactory();
 
         /**
-         * {@link Credential} object with the Bearer authentication.
+         * {@link HttpExecuteInterceptor} object for the Bearer authentication.
          */
-        private final Credential bearerAuthentication;
+        private final HttpExecuteInterceptor bearerAuthentication;
 
         /**
          * Constructs this object with no authentication.
@@ -280,10 +280,8 @@ public class Client implements Serializable {
          * Constructs this object with an OAuth Bearer authentication.
          * @param bearerAuthentication OAuth Bearer authentication
          */
-        public RestService(Credential bearerAuthentication) {
+        public RestService(HttpExecuteInterceptor bearerAuthentication) {
             this.bearerAuthentication = bearerAuthentication;
-            this.requestFactory = transport.createRequestFactory(
-                    bearerAuthentication);
         }
 
         /**
@@ -315,8 +313,8 @@ public class Client implements Serializable {
             URI endpoint = getEndpoint(USER_ENDPOINT_PATH);
             HttpRequest request = requestFactory.buildGetRequest(
                     new GenericUrl(endpoint.toString()));
-            HttpResponse response = request.execute();
-            return getUser(response);
+            request.setInterceptor(bearerAuthentication);
+            return getUser(request.execute());
         }
 
         @Override
@@ -329,8 +327,8 @@ public class Client implements Serializable {
             URI endpoint = getEndpoint(USERS_ENDPOINT_PATH + "/" + username);
             HttpRequest request = requestFactory.buildGetRequest(
                     new GenericUrl(endpoint.toString()));
-            HttpResponse response = request.execute();
-            return getUser(response);
+            request.setInterceptor(bearerAuthentication);
+            return getUser(request.execute());
         }
     }
 }
