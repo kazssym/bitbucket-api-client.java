@@ -31,12 +31,14 @@ public class Constants {
 
     /**
      * Property name for the Bitbucket client identifider (or consumer key).
+     * @since 3.0
      */
     public static final String BITBUCKET_CLIENT_ID_PROPERTY_KEY
             = PROPERTY_KEY_PREFIX + ".oauth.id";
 
     /**
      * Property name for the Bitbucket client secret (or consumer secret).
+     * @since 3.0
      */
     public static final String BITBUCKET_CLIENT_SECRET_PROPERTY_KEY
             = PROPERTY_KEY_PREFIX + ".oauth.secret";
