@@ -270,6 +270,12 @@ public class Client implements Serializable {
         private final HttpExecuteInterceptor bearerAuthentication;
 
         /**
+         * Cached current Bitbucket user.
+         * @since 3.0
+         */
+        private User currentUser;
+
+        /**
          * Constructs this object with no authentication.
          */
         public RestService() {
@@ -294,6 +300,16 @@ public class Client implements Serializable {
             return root.resolve(URI.create(path));
         }
 
+        /**
+         * Clears the cached current Bitbucket user.
+         * @since 3.0
+         */
+        public void clearCurrentUser() {
+            synchronized (this) {
+                currentUser = null;
+            }
+        }
+
         protected User getUser(HttpResponse response) throws IOException {
             JsonReader reader = Json.createReader(response.getContent());
             return new User(reader.readObject());
@@ -310,11 +326,16 @@ public class Client implements Serializable {
                 return null;
             }
 
-            URI endpoint = getEndpoint(USER_ENDPOINT_PATH);
-            HttpRequest request = requestFactory.buildGetRequest(
-                    new GenericUrl(endpoint.toString()));
-            request.setInterceptor(bearerAuthentication);
-            return getUser(request.execute());
+            synchronized (this) {
+                if (currentUser == null) {
+                    URI endpoint = getEndpoint(USER_ENDPOINT_PATH);
+                    HttpRequest request = requestFactory.buildGetRequest(
+                            new GenericUrl(endpoint.toString()));
+                    request.setInterceptor(bearerAuthentication);
+                    currentUser = getUser(request.execute());
+                }
+            }
+            return currentUser;
         }
 
         @Override
