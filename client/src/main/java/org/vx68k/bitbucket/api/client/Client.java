@@ -94,7 +94,7 @@ public class Client implements Serializable {
      * @param credentials OAuth client credentials
      */
     public Client(Credentials credentials) {
-        this.credentials = credentials;
+        setCredentials(credentials);
     }
 
     /**
