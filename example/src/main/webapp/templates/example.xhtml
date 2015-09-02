@@ -46,9 +46,9 @@ ga('send', 'pageview');
   <h:body>
     <h:form>
       <div id="example-toolbar" class="pure-menu pure-menu-horizontal">
-        <h:outputLink styleClass="pure-menu-heading" style="float: left;" value="#{request.contextPath}/">Bitbucket API Client Example</h:outputLink>
+        <h:outputLink styleClass="pure-menu-heading pure-menu-link" style="float: left;" value="#{request.contextPath}/">Bitbucket API Client Example</h:outputLink>
         <ul class="pure-menu-list" style="float: right;">
-          <ui:fragment rendered="#{config.bitbucketClient.credentials != null}">
+          <ui:fragment rendered="#{user.bitbucketClient.credentials != null}">
             <ui:fragment rendered="#{user.bitbucketUser != null}">
               <li id="example-account-menu" class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
                 <a id="example-account-menu-link" class="pure-menu-link" href="#" onclick="return false;">
@@ -67,7 +67,7 @@ ga('send', 'pageview');
               </li>
             </ui:fragment>
           </ui:fragment>
-          <ui:fragment rendered="#{config.bitbucketClient.credentials == null}">
+          <ui:fragment rendered="#{user.bitbucketClient.credentials == null}">
             <li class="pure-menu-item pure-menu-disabled">No client credentials</li>
           </ui:fragment>
         </ul>
