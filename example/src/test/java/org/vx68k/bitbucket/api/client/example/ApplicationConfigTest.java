@@ -26,8 +26,9 @@ import org.vx68k.bitbucket.api.client.Credentials;
 import static org.junit.Assert.*;
 
 /**
- *
+ * Collections of unit tests for [@link ApplicationConfig}.
  * @author Kaz Nishimura
+ * @since 1.0
  */
 public class ApplicationConfigTest {
 
