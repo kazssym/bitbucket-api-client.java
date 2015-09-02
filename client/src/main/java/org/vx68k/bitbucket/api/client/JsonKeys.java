@@ -1,5 +1,4 @@
 /*
- * Entity
  * Copyright (C) 2015 Nishimura Software Studio
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -18,37 +17,18 @@
 
 package org.vx68k.bitbucket.api.client;
 
-import javax.json.JsonObject;
-
 /**
- * Superclass of Bitbucket entities.
+ * Collection of constant JSON keys.
  * @author Kaz Nishimura
  * @since 3.0
  */
-public abstract class Entity {
+public class JsonKeys {
 
     /**
-     * Type of this object.
+     * JSON key for the <code>type</code> value.
      */
-    private final String type;
+    public static final String TYPE = "type";
 
-    /**
-     * Constructs this object as the type in a JSON object.
-     * @param json JSON object
-     */
-    protected Entity(JsonObject json) {
-        this(json.getString(JsonKeys.TYPE));
-    }
-
-    /**
-     * Constructs this object as a specified type.
-     * @param type entity type
-     */
-    protected Entity(String type) {
-        this.type = type;
-    }
-
-    public String getType() {
-        return type;
+    private JsonKeys() {
     }
 }
