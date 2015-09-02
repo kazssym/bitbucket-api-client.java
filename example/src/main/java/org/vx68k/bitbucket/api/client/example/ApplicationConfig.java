@@ -40,10 +40,10 @@ public class ApplicationConfig implements Serializable {
     @Produces
     public static Client getBitbucketClient() {
         String clientId = System.getProperty(
-                Constants.BITBUCKET_CLIENT_ID_PROPERTY_KEY,
+                Properties.BITBUCKET_OAUTH_CLIENT_ID,
                 System.getenv("BITBUCKET_CLIENT_ID"));
         String clientSecret = System.getProperty(
-                Constants.BITBUCKET_CLIENT_SECRET_PROPERTY_KEY,
+                Properties.BITBUCKET_OAUTH_CLIENT_SECRET,
                 System.getenv("BITBUCKET_CLIENT_SECRET"));
 
         Client client = new Client();
@@ -59,6 +59,6 @@ public class ApplicationConfig implements Serializable {
      * @since 3.0
      */
     public String getAnalyticsId() {
-        return System.getProperty(Constants.ANALYTICS_ID_PROPERTY_KEY);
+        return System.getProperty(Properties.GOOGLE_ANALYTICS_TRACKING_ID);
     }
 }
