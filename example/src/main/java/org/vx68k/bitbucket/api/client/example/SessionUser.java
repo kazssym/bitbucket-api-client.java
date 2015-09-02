@@ -19,69 +19,26 @@
 package org.vx68k.bitbucket.api.client.example;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.net.URI;
 import java.net.URISyntaxException;
 import javax.enterprise.context.SessionScoped;
-import javax.enterprise.event.Observes;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import org.vx68k.bitbucket.api.client.Client;
-import org.vx68k.bitbucket.api.client.Service;
 import org.vx68k.bitbucket.api.client.User;
-import org.vx68k.bitbucket.api.client.oauth.OAuthRedirection;
+import org.vx68k.bitbucket.api.client.oauth.OAuthUser;
 
 /**
  * User of the current session.
- *
  * @author Kaz Nishimura
  * @since 1.0
  */
 @SessionScoped
 @Named("user")
-public class SessionUser implements Serializable {
+public class SessionUser extends OAuthUser {
 
     private static final long serialVersionUID = 1L;
-
-    private ApplicationConfig applicationConfig;
-
-    private transient Service service;
-
-    public SessionUser() {
-    }
-
-    public SessionUser(ApplicationConfig config) throws IOException {
-        setApplicationConfig(config);
-    }
-
-    /**
-     * Returns the application configuration.
-     *
-     * @return application configuration
-     */
-    public ApplicationConfig getApplicationConfig() {
-        return applicationConfig;
-    }
-
-    /**
-     * Returns the current Bitbucket service.
-     * If there is no current service, an anonymous service shall be created.
-     * @return current service
-     */
-    protected Service getService() {
-        synchronized (this) {
-            if (service == null) {
-                Client client = applicationConfig.getBitbucketClient();
-                service = client.getService();
-            }
-        }
-        return service;
-    }
 
     /**
      * Indicates whether a user is authenticated or not.
@@ -91,7 +48,7 @@ public class SessionUser implements Serializable {
      */
     @Deprecated
     public boolean isAuthenticated() {
-        return getService().isAuthenticated();
+        return getBitbucketService().isAuthenticated();
     }
 
     /**
@@ -101,71 +58,36 @@ public class SessionUser implements Serializable {
      * @since 2.0
      */
     public User getBitbucketUser() throws IOException {
-        return getService().getCurrentUser();
-    }
-
-    @Inject
-    public void setApplicationConfig(ApplicationConfig applicationConfig) {
-        this.applicationConfig = applicationConfig;
+        return getBitbucketService().getCurrentUser();
     }
 
     /**
-     * Handles a login action by redirecting the user agent to the
+     * Performs a login action by redirecting the user agent to the
      * authorization endpoint.
      * @return <code>null</code>
-     * @throws URISyntaxException if the authorization endpoint could not be
-     * parsed as a URI
-     * @throws IOException if an I/O error occurred
-     * @since 1.0
+     * @throws URISyntaxException if a URI syntax error has been occurred
+     * @throws IOException if an I/O error has occurred
      */
     public String login() throws URISyntaxException, IOException {
-        Client bitbucketClient = applicationConfig.getBitbucketClient();
-
-        // Redirects the user agent to the authorization endpoint.
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext externalContext = context.getExternalContext();
-        HttpSession session = (HttpSession) externalContext.getSession(true);
-        URI authorizationEndpoint
-                = bitbucketClient.getAuthorizationEndpoint(session.getId());
+        HttpServletRequest request =
+                (HttpServletRequest) externalContext.getRequest();
+
+        // Redirects the user agent to the authorization endpoint.
+        URI authorizationEndpoint = getAuthorizationEndpoint(request);
         externalContext.redirect(authorizationEndpoint.toString());
 
         return null;
     }
 
-    public void requestToken(@Observes OAuthRedirection redirection)
-            throws IOException {
-        HttpServletRequest request = redirection.getRequest();
-        HttpSession session = request.getSession(false);
-        if (session != null) {
-            String state = request.getParameter("state");
-            if (state != null && state.equals(session.getId())) {
-                // The redirection is for this session.
-
-                String code = request.getParameter("code");
-                if (code != null) {
-                    // The resource access was authorized.
-                    Client bitbucketClient
-                            = applicationConfig.getBitbucketClient();
-                    synchronized (this) {
-                        service = bitbucketClient.getService(code);
-                    }
-
-                    HttpServletResponse response = redirection.getResponse();
-                    response.sendRedirect(request.getContextPath() + "/");
-                }
-            }
-        }
-    }
-
     /**
-     * Handles a logout action by disassociating the Bitbucket service.
+     * Performs a logout action by clearing the current Bitbucket service.
      * @return <code>null</code>
      * @since 2.0
      */
     public String logout() {
-        synchronized (this) {
-            service = null;
-        }
+        clearBitbucketService();
 
         return null;
     }

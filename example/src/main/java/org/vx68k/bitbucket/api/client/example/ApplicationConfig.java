@@ -20,6 +20,7 @@ package org.vx68k.bitbucket.api.client.example;
 
 import java.io.Serializable;
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Produces;
 import javax.inject.Named;
 import org.vx68k.bitbucket.api.client.Client;
 import org.vx68k.bitbucket.api.client.Credentials;
@@ -36,21 +37,8 @@ public class ApplicationConfig implements Serializable {
 
     private static final long SerialVersionUID = 1L;
 
-    private final Client bitbucketClient;
-
-    public ApplicationConfig() {
-        this(getDefaultBitbucketClient());
-    }
-
-    public ApplicationConfig(Client bitbucketClient) {
-        this.bitbucketClient = bitbucketClient;
-    }
-
-    public Client getBitbucketClient() {
-        return bitbucketClient;
-    }
-
-    public static Client getDefaultBitbucketClient() {
+    @Produces
+    public static Client getBitbucketClient() {
         String clientId = System.getProperty(
                 Constants.BITBUCKET_CLIENT_ID_PROPERTY_KEY,
                 System.getenv("BITBUCKET_CLIENT_ID"));

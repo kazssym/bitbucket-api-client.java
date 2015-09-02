@@ -47,10 +47,9 @@ public class ApplicationConfigTest {
     }
 
     @Test
-    public void testDefaultConstructor() {
-        ApplicationConfig config = new ApplicationConfig();
-        Credentials clientCredentials = config.getBitbucketClient()
-                .getCredentials();
+    public void testGetBitbucketClient() {
+        Client bitbucketClient = ApplicationConfig.getBitbucketClient();
+        Credentials clientCredentials = bitbucketClient.getCredentials();
         if (envClientID != null && envClientSecret != null) {
             assertEquals(envClientID, clientCredentials.getId());
             assertEquals(envClientSecret, clientCredentials.getSecret());
@@ -58,11 +57,5 @@ public class ApplicationConfigTest {
             assertNull(clientCredentials);
         }
         // TODO: Add a test case with system properties.
-    }
-
-    @Test
-    public void testConstructorWithClient() {
-        ApplicationConfig config = new ApplicationConfig(new Client());
-        assertNull(config.getBitbucketClient().getCredentials());
     }
 }

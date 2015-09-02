@@ -114,11 +114,6 @@
     </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>bitbucket-api-client</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>${project.groupId}</groupId>
       <artifactId>bitbucket-api-client-oauth</artifactId>
       <version>${project.version}</version>
     </dependency>
