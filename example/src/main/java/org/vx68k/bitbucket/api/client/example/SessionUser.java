@@ -83,12 +83,12 @@ public class SessionUser extends OAuthUser {
 
     /**
      * Performs a logout action by clearing the current Bitbucket service.
-     * @return <code>null</code>
+     * @return <code>"home"</code>
      * @since 2.0
      */
     public String logout() {
         clearBitbucketService();
 
-        return null;
+        return "home";
     }
 }
