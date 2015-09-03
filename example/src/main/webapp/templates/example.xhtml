@@ -71,6 +71,9 @@ ga('send', 'pageview');
           <ui:fragment rendered="#{user.bitbucketClient.credentials == null}">
             <li class="pure-menu-item pure-menu-disabled">No client credentials</li>
           </ui:fragment>
+          <li class="pure-menu-item pure-menu-disabled" title="Help">
+            <img style="vertical-align: middle;" src="#{resource['icons/ic_help_white_18dp.png']}"/>
+          </li>
         </ul>
         <div style="clear: both;"/>
       </div>
