@@ -78,7 +78,9 @@ ga('send', 'pageview');
             <div class="pure-menu-heading">Users</div>
             <ul class="pure-menu-list">
               <ui:fragment rendered="#{user.bitbucketUser != null}">
-                <li class="pure-menu-item"><h:outputLink styleClass="pure-menu-link" value="myself.jsf">Myself</h:outputLink></li>
+                <li class="pure-menu-item#{view.viewId == '/myself.xhtml' ? ' pure-menu-selected' : ''}">
+                  <h:outputLink styleClass="pure-menu-link" value="#{request.contextPath}/myself.jsf">Myself</h:outputLink>
+                </li>
                 <li class="pure-menu-item"><h:outputLink styleClass="pure-menu-link">Following</h:outputLink></li>
               </ui:fragment>
               <ui:fragment rendered="#{user.bitbucketUser == null}">
