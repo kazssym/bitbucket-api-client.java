@@ -73,8 +73,8 @@ ga('send', 'pageview');
         <div style="clear: both;"/>
       </div>
       <div class="pure-g">
-        <nav class="pure-u-1 pure-u-md-1-4">
-          <div id="example-side-menu" class="pure-menu">
+        <div class="pure-u-1 pure-u-md-1-4">
+          <nav id="example-side-menu" class="pure-menu">
             <div class="pure-menu-heading">Users</div>
             <ul class="pure-menu-list">
               <ui:fragment rendered="#{user.bitbucketUser != null}">
@@ -91,18 +91,18 @@ ga('send', 'pageview');
               <li class="pure-menu-item"><h:outputLink styleClass="pure-menu-link">Mine</h:outputLink></li>
               <li class="pure-menu-item"><h:outputLink styleClass="pure-menu-link">Watching</h:outputLink></li>
             </ul>
-          </div>
-        </nav>
-        <main class="pure-u-1 pure-u-md-3-4" style="overflow: auto;">
-          <div style="margin: 0.5em;">
-            <ui:fragment rendered="#{user.bitbucketUser == null}">
-              <div style="float:right;" title="Login with Bitbucket">
-                <h:commandButton styleClass="pure-button pure-button-primary" action="#{user.login}" value="Login"/>
-              </div>
-            </ui:fragment>
+          </nav>
+        </div>
+        <div class="pure-u-1 pure-u-md-3-4" style="overflow: auto;">
+          <ui:fragment rendered="#{user.bitbucketUser == null}">
+            <div style="float:right; margin: 0.5em;" title="Login with Bitbucket">
+              <h:commandButton styleClass="pure-button pure-button-primary" action="#{user.login}" value="Login"/>
+            </div>
+          </ui:fragment>
+          <main style="margin: 0.5em;">
             <ui:insert name="main"/>
-          </div>
-        </main>
+          </main>
+        </div>
       </div>
     </h:form>
   </h:body>
