@@ -62,11 +62,6 @@ ga('send', 'pageview');
                 </ul>
               </li>
             </ui:fragment>
-            <ui:fragment rendered="#{user.bitbucketUser == null}">
-              <li class="pure-menu-item">
-                <h:commandLink styleClass="pure-menu-link" action="#{user.login}">Login</h:commandLink>
-              </li>
-            </ui:fragment>
           </ui:fragment>
           <ui:fragment rendered="#{user.bitbucketClient.credentials == null}">
             <li class="pure-menu-item pure-menu-disabled">No client credentials</li>
@@ -100,6 +95,11 @@ ga('send', 'pageview');
         </nav>
         <main class="pure-u-1 pure-u-md-3-4" style="overflow: auto;">
           <div style="margin: 0.5em;">
+            <ui:fragment rendered="#{user.bitbucketUser == null}">
+              <div style="float:right;" title="Login with Bitbucket">
+                <h:commandButton styleClass="pure-button pure-button-primary" action="#{user.login}" value="Login"/>
+              </div>
+            </ui:fragment>
             <ui:insert name="main"/>
           </div>
         </main>
