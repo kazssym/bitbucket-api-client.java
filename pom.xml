@@ -22,7 +22,7 @@
   <artifactId>bitbucket-api-client-parent</artifactId>
   <packaging>pom</packaging>
   <name>Bitbucket API Client for Java (Parent)</name>
-  <version>3.0-SNAPSHOT</version>
+  <version>3.0</version>
   <description>Parent project for the Bitbucket API Client Library</description>
   <url>http://kazssym.bitbucket.org/bitbucket-api-client-java/</url>
   <issueManagement>
