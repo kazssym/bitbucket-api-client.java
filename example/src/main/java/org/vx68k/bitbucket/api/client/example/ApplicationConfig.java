@@ -35,7 +35,7 @@ import org.vx68k.bitbucket.api.client.Credentials;
 @Named("config")
 public class ApplicationConfig implements Serializable {
 
-    private static final long SerialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     @Produces
     public static Client getBitbucketClient() {
