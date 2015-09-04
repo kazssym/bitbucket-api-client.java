@@ -18,25 +18,19 @@
 
 package org.vx68k.bitbucket.api.client;
 
-import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.json.Json;
 import javax.json.JsonObject;
-import javax.json.JsonReader;
 
 /**
  * Bitbucket user.
- *
  * @author Kaz Nishimura
  * @since 1.0
  */
-public class User {
+public class User extends Entity {
 
     /**
      * JSON key for the <code>uuid</code> value.
@@ -47,12 +41,6 @@ public class User {
      * JSON key for the <code>username</code> value.
      */
     protected static final String USERNAME_JSON_KEY = "username";
-
-    /**
-     * JSON key for the <code>type</code> value that is typically
-     * <code>"user"</code>.
-     */
-    protected static final String TYPE_JSON_KEY = "type";
 
     /**
      * JSON key for the <code>display_name</code> value.
@@ -70,11 +58,9 @@ public class User {
     protected static final String LINKS_JSON_KEY = "links";
 
     /**
-     * Default type value.
+     * Type value for users.
      */
-    private static final String DEFAULT_TYPE = "user";
-
-    private static final Logger logger = Utilities.getLogger();
+    private static final String USER_TYPE = "user";
 
     /**
      * UUID of this user.
@@ -85,11 +71,6 @@ public class User {
      * Username.
      */
     private String username;
-
-    /**
-     * Type of this user, normally "user".
-     */
-    private String type = DEFAULT_TYPE;
 
     /**
      * Display name of this user.
@@ -110,25 +91,29 @@ public class User {
      * Constructs a <em>blank</em> object.
      */
     public User() {
-        logger.finer("Creating a blank User");
+        super(USER_TYPE);
+        Utilities.getLogger().finer("Creating a blank User");
     }
 
     /**
      * Constructs an object from a JSON object.
-     *
      * @param json JSON object that represents a Bitbucket user
      */
     public User(JsonObject json) {
-        logger.log(Level.INFO, "Parsing User JSON object: {0}", json);
+        super(json);
+        if (!getType().equals(USER_TYPE)) {
+            throw new IllegalArgumentException("Not user");
+        }
+        Utilities.getLogger().log(
+                Level.INFO, "Parsing User JSON object: {0}", json);
         this.uuid = Utilities.parseUuid(json.getString(UUID_JSON_KEY));
         this.username = json.getString(USERNAME_JSON_KEY);
-        this.type = json.getString(TYPE_JSON_KEY, DEFAULT_TYPE);
         this.displayName = json.getString(DISPLAY_NAME_JSON_KEY);
         try {
             this.website = Utilities.parseURL(
                     json.getString(WEBSITE_JSON_KEY, null));
         } catch (MalformedURLException exception) {
-            logger.log(
+            Utilities.getLogger().log(
                     Level.WARNING, "Could not parse the \"website\" value",
                     exception);
         }
@@ -136,7 +121,7 @@ public class User {
             this.links = Utilities.parseLinks(
                     json.getJsonObject(LINKS_JSON_KEY));
         } catch (MalformedURLException exception) {
-            logger.log(
+            Utilities.getLogger().log(
                     Level.WARNING, "Could not parse the \"links\" object",
                     exception);
         }
@@ -148,10 +133,6 @@ public class User {
 
     public String getUsername() {
         return username;
-    }
-
-    public String getType() {
-        return type;
     }
 
     public String getDisplayName() {
@@ -172,10 +153,6 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public void setDisplayName(String displayName) {

@@ -1,5 +1,5 @@
 /*
- * Constants
+ * Properties
  * Copyright (C) 2015 Nishimura Software Studio
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -19,25 +19,33 @@
 package org.vx68k.bitbucket.api.client.example;
 
 /**
- * Collection of constant values.
- *
+ * Collection of constant property keys.
  * @author Kaz Nishimura
- * @since 1.0
+ * @since 3.0
  */
-public class Constants {
+public class Properties {
 
-    private Constants() {
+    private static final String PREFIX =
+            "org.vx68k.bitbucket.api.client.example";
+
+    /**
+     * Property key for the Bitbucket OAuth client identifider (consumer key).
+     */
+    public static final String BITBUCKET_OAUTH_CLIENT_ID =
+            PREFIX + ".oauth.id";
+
+    /**
+     * Property key for the Bitbucket OAuth client secret (consumer secret).
+     */
+    public static final String BITBUCKET_OAUTH_CLIENT_SECRET =
+            PREFIX + ".oauth.secret";
+
+    /**
+     * Property key for the Google Analytics tracking ID.
+     */
+    public static final String GOOGLE_ANALYTICS_TRACKING_ID =
+            PREFIX + ".analytics.id";
+
+    private Properties() {
     }
-
-    /**
-     * Property name for the Bitbucket client identifider (or consumer key).
-     */
-    public static final String BITBUCKET_CLIENT_ID_PROPERTY_NAME =
-            "org.vx68k.bitbucket.api.client.example.id";
-
-    /**
-     * Property name for the Bitbucket client secret (or consumer secret).
-     */
-    public static final String BITBUCKET_CLIENT_SECRET_PROPERTY_NAME =
-            "org.vx68k.bitbucket.api.client.example.secret";
 }

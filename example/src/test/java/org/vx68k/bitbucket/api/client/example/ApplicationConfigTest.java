@@ -26,8 +26,9 @@ import org.vx68k.bitbucket.api.client.Credentials;
 import static org.junit.Assert.*;
 
 /**
- *
+ * Collections of unit tests for [@link ApplicationConfig}.
  * @author Kaz Nishimura
+ * @since 1.0
  */
 public class ApplicationConfigTest {
 
@@ -38,8 +39,8 @@ public class ApplicationConfigTest {
 
     @Before
     public void setUp() {
-        System.clearProperty(Constants.BITBUCKET_CLIENT_ID_PROPERTY_NAME);
-        System.clearProperty(Constants.BITBUCKET_CLIENT_SECRET_PROPERTY_NAME);
+        System.clearProperty(Properties.BITBUCKET_OAUTH_CLIENT_ID);
+        System.clearProperty(Properties.BITBUCKET_OAUTH_CLIENT_SECRET);
     }
 
     @After
@@ -47,10 +48,9 @@ public class ApplicationConfigTest {
     }
 
     @Test
-    public void testDefaultConstructor() {
-        ApplicationConfig config = new ApplicationConfig();
-        Credentials clientCredentials = config.getBitbucketClient()
-                .getCredentials();
+    public void testGetBitbucketClient() {
+        Client bitbucketClient = ApplicationConfig.getBitbucketClient();
+        Credentials clientCredentials = bitbucketClient.getCredentials();
         if (envClientID != null && envClientSecret != null) {
             assertEquals(envClientID, clientCredentials.getId());
             assertEquals(envClientSecret, clientCredentials.getSecret());
@@ -58,11 +58,5 @@ public class ApplicationConfigTest {
             assertNull(clientCredentials);
         }
         // TODO: Add a test case with system properties.
-    }
-
-    @Test
-    public void testConstructorWithClient() {
-        ApplicationConfig config = new ApplicationConfig(new Client());
-        assertNull(config.getBitbucketClient().getCredentials());
     }
 }

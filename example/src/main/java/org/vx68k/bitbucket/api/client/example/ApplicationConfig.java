@@ -20,6 +20,7 @@ package org.vx68k.bitbucket.api.client.example;
 
 import java.io.Serializable;
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Produces;
 import javax.inject.Named;
 import org.vx68k.bitbucket.api.client.Client;
 import org.vx68k.bitbucket.api.client.Credentials;
@@ -36,26 +37,13 @@ public class ApplicationConfig implements Serializable {
 
     private static final long SerialVersionUID = 1L;
 
-    private final Client bitbucketClient;
-
-    public ApplicationConfig() {
-        this(getDefaultBitbucketClient());
-    }
-
-    public ApplicationConfig(Client bitbucketClient) {
-        this.bitbucketClient = bitbucketClient;
-    }
-
-    public Client getBitbucketClient() {
-        return bitbucketClient;
-    }
-
-    public static Client getDefaultBitbucketClient() {
+    @Produces
+    public static Client getBitbucketClient() {
         String clientId = System.getProperty(
-                Constants.BITBUCKET_CLIENT_ID_PROPERTY_NAME,
+                Properties.BITBUCKET_OAUTH_CLIENT_ID,
                 System.getenv("BITBUCKET_CLIENT_ID"));
         String clientSecret = System.getProperty(
-                Constants.BITBUCKET_CLIENT_SECRET_PROPERTY_NAME,
+                Properties.BITBUCKET_OAUTH_CLIENT_SECRET,
                 System.getenv("BITBUCKET_CLIENT_SECRET"));
 
         Client client = new Client();
@@ -63,5 +51,14 @@ public class ApplicationConfig implements Serializable {
             client.setCredentials(new Credentials(clientId, clientSecret));
         }
         return client;
+    }
+
+    /**
+     * Returns the tracking ID for Google Analytics.
+     * @return tracking ID
+     * @since 3.0
+     */
+    public String getAnalyticsId() {
+        return System.getProperty(Properties.GOOGLE_ANALYTICS_TRACKING_ID);
     }
 }

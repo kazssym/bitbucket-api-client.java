@@ -28,6 +28,11 @@ html {
   line-height: 1.2em;
 }
 
+html, button, input, select, textarea,
+.pure-g [class *= "pure-u"] {
+  font-family: Roboto, "San Francisco", "Helvetica Neue", Arial, sans-serif;
+}
+
 .pure-menu-children {
   background-color: #F7F7F7;
 }
@@ -38,7 +43,6 @@ html {
   background-color: #777799;
 }
 
-#example-toolbar .pure-menu-heading,
 #example-toolbar .pure-menu-link {
   color: inherit;
 }
@@ -48,10 +52,10 @@ html {
   background-color: #8888AA;
 }
 
-#example-side-menu {
+#example-nav-menu {
   background-color: #F7F7F7;
 }
 
-#example-side-menu > .pure-menu-heading {
+#example-nav-menu > .pure-menu-heading {
   background-color: #E6E6E6;
 }

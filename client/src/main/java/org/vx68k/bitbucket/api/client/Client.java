@@ -30,7 +30,6 @@ import com.google.api.client.auth.oauth2.AuthorizationCodeRequestUrl;
 import com.google.api.client.auth.oauth2.AuthorizationCodeTokenRequest;
 import com.google.api.client.auth.oauth2.BearerToken;
 import com.google.api.client.auth.oauth2.ClientParametersAuthentication;
-import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.auth.oauth2.TokenResponse;
 import com.google.api.client.http.BasicAuthentication;
 import com.google.api.client.http.GenericUrl;
@@ -95,7 +94,7 @@ public class Client implements Serializable {
      * @param credentials OAuth client credentials
      */
     public Client(Credentials credentials) {
-        this.credentials = credentials;
+        setCredentials(credentials);
     }
 
     /**
@@ -262,12 +261,19 @@ public class Client implements Serializable {
 
         private static final String USERS_ENDPOINT_PATH = "/2.0/users";
 
-        private final HttpRequestFactory requestFactory;
+        private final HttpRequestFactory requestFactory
+                = transport.createRequestFactory();
 
         /**
-         * {@link Credential} object with the Bearer authentication.
+         * {@link HttpExecuteInterceptor} object for the Bearer authentication.
          */
-        private final Credential bearerAuthentication;
+        private final HttpExecuteInterceptor bearerAuthentication;
+
+        /**
+         * Cached current Bitbucket user.
+         * @since 3.0
+         */
+        private User currentUser;
 
         /**
          * Constructs this object with no authentication.
@@ -280,10 +286,8 @@ public class Client implements Serializable {
          * Constructs this object with an OAuth Bearer authentication.
          * @param bearerAuthentication OAuth Bearer authentication
          */
-        public RestService(Credential bearerAuthentication) {
+        public RestService(HttpExecuteInterceptor bearerAuthentication) {
             this.bearerAuthentication = bearerAuthentication;
-            this.requestFactory = transport.createRequestFactory(
-                    bearerAuthentication);
         }
 
         /**
@@ -294,6 +298,16 @@ public class Client implements Serializable {
         protected URI getEndpoint(String path) {
             URI root = URI.create(API_ROOT);
             return root.resolve(URI.create(path));
+        }
+
+        /**
+         * Clears the cached current Bitbucket user.
+         * @since 3.0
+         */
+        public void clearCurrentUser() {
+            synchronized (this) {
+                currentUser = null;
+            }
         }
 
         protected User getUser(HttpResponse response) throws IOException {
@@ -312,11 +326,16 @@ public class Client implements Serializable {
                 return null;
             }
 
-            URI endpoint = getEndpoint(USER_ENDPOINT_PATH);
-            HttpRequest request = requestFactory.buildGetRequest(
-                    new GenericUrl(endpoint.toString()));
-            HttpResponse response = request.execute();
-            return getUser(response);
+            synchronized (this) {
+                if (currentUser == null) {
+                    URI endpoint = getEndpoint(USER_ENDPOINT_PATH);
+                    HttpRequest request = requestFactory.buildGetRequest(
+                            new GenericUrl(endpoint.toString()));
+                    request.setInterceptor(bearerAuthentication);
+                    currentUser = getUser(request.execute());
+                }
+            }
+            return currentUser;
         }
 
         @Override
@@ -329,8 +348,8 @@ public class Client implements Serializable {
             URI endpoint = getEndpoint(USERS_ENDPOINT_PATH + "/" + username);
             HttpRequest request = requestFactory.buildGetRequest(
                     new GenericUrl(endpoint.toString()));
-            HttpResponse response = request.execute();
-            return getUser(response);
+            request.setInterceptor(bearerAuthentication);
+            return getUser(request.execute());
         }
     }
 }
