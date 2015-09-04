@@ -20,11 +20,9 @@ package org.vx68k.bitbucket.api.client;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.json.JsonObject;
 
 /**
@@ -33,7 +31,7 @@ import javax.json.JsonObject;
  * @author Kaz Nishimura
  * @since 1.0
  */
-public class Repository {
+public class Repository extends Entity {
 
     /**
      * JSON key for the <code>uuid</code> value.
@@ -49,12 +47,6 @@ public class Repository {
      * JSON key for the <code>name</code> value.
      */
     protected static final String NAME_JSON_KEY = "name";
-
-    /**
-     * JSON key for the <code>type</code> value that is typically
-     * <code>"repository"</code>.
-     */
-    protected static final String TYPE_JSON_KEY = "type";
 
     /**
      * JSON key for the <code>full_name</code> value.
@@ -78,19 +70,15 @@ public class Repository {
     protected static final String LINKS_JSON_KEY = "links";
 
     /**
-     * Default type value.
+     * Type value for repositories.
      */
-    private static final String DEFAULT_TYPE = "repository";
-
-    private static final Logger logger = Utilities.getLogger();
+    private static final String REPOSITORY_TYPE = "repository";
 
     private UUID uuid;
 
     private User owner;
 
     private String name;
-
-    private String type = DEFAULT_TYPE;
 
     private String fullName;
 
@@ -105,15 +93,20 @@ public class Repository {
      * Constructs a <em>blank</em> object.
      */
     public Repository() {
-        logger.finer("Creating a blank Repository");
+        super(REPOSITORY_TYPE);
+        Utilities.getLogger().finer("Creating a blank Repository");
     }
 
     public Repository(JsonObject json) {
-        logger.log(Level.INFO, "Parsing Repository JSON object: {0}", json);
+        super(json);
+        if (!getType().equals(REPOSITORY_TYPE)) {
+            throw new IllegalArgumentException("Not user");
+        }
+        Utilities.getLogger().log(
+                Level.INFO, "Parsing Repository JSON object: {0}", json);
         this.uuid = Utilities.parseUuid(json.getString(UUID_JSON_KEY));
         this.owner = new User(json.getJsonObject(OWNER_JSON_KEY));
         this.name = json.getString(NAME_JSON_KEY);
-        this.type = json.getString(TYPE_JSON_KEY, DEFAULT_TYPE);
         this.fullName = json.getString(FULL_NAME_JSON_KEY);
         this.scm = json.getString(SCM_JSON_KEY);
         this.Private = json.getBoolean(IS_PRIVATE_JSON_KEY);
@@ -121,7 +114,7 @@ public class Repository {
             this.links = Utilities.parseLinks(
                     json.getJsonObject(LINKS_JSON_KEY));
         } catch (MalformedURLException exception) {
-            logger.log(
+            Utilities.getLogger().log(
                     Level.WARNING, "Could not parse the \"links\" object",
                     exception);
         }
@@ -137,10 +130,6 @@ public class Repository {
 
     public String getName() {
         return name;
-    }
-
-    public String getType() {
-        return type;
     }
 
     public String getFullName() {
@@ -169,10 +158,6 @@ public class Repository {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public void setFullName(String fullName) {
