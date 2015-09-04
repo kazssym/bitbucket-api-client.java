@@ -52,10 +52,10 @@ html, button, input, select, textarea,
   background-color: #8888AA;
 }
 
-#example-side-menu {
+#example-nav-menu {
   background-color: #F7F7F7;
 }
 
-#example-side-menu > .pure-menu-heading {
+#example-nav-menu > .pure-menu-heading {
   background-color: #E6E6E6;
 }
