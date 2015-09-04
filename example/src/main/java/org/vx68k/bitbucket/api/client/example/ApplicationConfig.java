@@ -27,7 +27,6 @@ import org.vx68k.bitbucket.api.client.Credentials;
 
 /**
  * Application configuration.
- *
  * @author Kaz Nishimura
  * @since 1.0
  */
