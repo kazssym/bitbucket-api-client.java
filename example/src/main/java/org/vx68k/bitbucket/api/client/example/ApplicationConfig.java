@@ -33,13 +33,15 @@ import org.vx68k.bitbucket.api.client.Credentials;
 @Named("config")
 public class ApplicationConfig implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     private static final String BITBUCKET_OAUTH_CLIENT_ID_ENV =
             "BITBUCKET_OAUTH_CLIENT_ID";
 
     private static final String BITBUCKET_OAUTH_CLIENT_SECRET_ENV =
             "BITBUCKET_OAUTH_CLIENT_SECRET";
+
+    private Client bitbucketClient;
 
     /**
      * Constructs this object without initialization.
@@ -48,12 +50,27 @@ public class ApplicationConfig implements Serializable {
     }
 
     /**
-     * Returns the Bitbucket client with the default client credentials.
+     * Constructs this object with a Bitbucket client.
+     * This constructor is equivalent to the default one followed by a call to
+     * {@link #setBitbucketClient}.
+     * @param bitbucketClient Bitbucket client
+     */
+    public ApplicationConfig(Client bitbucketClient) {
+        this.bitbucketClient = bitbucketClient;
+    }
+
+    /**
+     * Returns the Bitbucket client associated to this object.
+     * The Bitbucket client shall be created once and cached in this object.
      * @return Bitbucket client
      * @since 4.0
      */
     public Client getBitbucketClient() {
-        return getBitbucketClient(getClientCredentials());
+        synchronized (this) {
+            bitbucketClient = getBitbucketClient(
+                    getDefaultClientCredentials());
+        }
+        return bitbucketClient;
     }
 
     /**
@@ -71,7 +88,7 @@ public class ApplicationConfig implements Serializable {
      * @return default client credentials
      * @since 4.0
      */
-    protected Credentials getClientCredentials() {
+    protected static Credentials getDefaultClientCredentials() {
         String clientId = System.getProperty(
                 Properties.BITBUCKET_OAUTH_CLIENT_ID,
                 System.getenv(BITBUCKET_OAUTH_CLIENT_ID_ENV));
