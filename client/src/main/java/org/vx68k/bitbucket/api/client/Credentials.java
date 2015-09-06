@@ -22,7 +22,6 @@ import java.io.Serializable;
 
 /**
  * Pair of an identifier and a shared secret.
- *
  * @author Kaz Nishimura
  * @since 1.0
  */
@@ -31,20 +30,19 @@ public class Credentials implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private String id;
+
     private String secret;
 
     /**
-     * Constructs an empty credentials.
+     * Constructs this object without initialization.
      */
     public Credentials() {
-        this(null, null);
     }
 
     /**
-     * Constructs a credentials with an id and a shared secret.
-     *
-     * @param id identifier of the credentials
-     * @param secret shared secret of the credentials
+     * Constructs a credentials with an identifier and a shared secret.
+     * @param id identifier
+     * @param secret shared secret
      */
     public Credentials(String id, String secret) {
         this.id = id;
@@ -53,7 +51,6 @@ public class Credentials implements Serializable {
 
     /**
      * Returns the identifier of this object.
-     *
      * @return identifier
      */
     public String getId() {
@@ -62,7 +59,6 @@ public class Credentials implements Serializable {
 
     /**
      * Returns the shared secret of this object.
-     *
      * @return shared secret
      */
     public String getSecret() {
@@ -71,7 +67,6 @@ public class Credentials implements Serializable {
 
     /**
      * Sets the identifier of this object.
-     *
      * @param id identifier
      */
     public void setId(String id) {
@@ -80,10 +75,51 @@ public class Credentials implements Serializable {
 
     /**
      * Sets the shared secret of this object.
-     *
      * @param secret shared secret.
      */
     public void setSecret(String secret) {
         this.secret = secret;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        }
+        if (object != null && object.getClass() == Credentials.class) {
+            Credentials credentials = (Credentials) object;
+            if (id != null) {
+                if (!id.equals(credentials.id)) {
+                    return false;
+                }
+            } else {
+                if (credentials.id != null) {
+                    return false;
+                }
+            }
+            if (secret != null) {
+                if (!secret.equals(credentials.secret)) {
+                    return false;
+                }
+            } else {
+                if (credentials.secret != null) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int code = getClass().hashCode();
+        if (id != null) {
+            code ^= id.hashCode();
+        }
+        if (secret != null) {
+            code ^= secret.hashCode();
+        }
+        return code;
     }
 }
