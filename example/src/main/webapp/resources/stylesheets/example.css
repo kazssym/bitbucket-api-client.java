@@ -37,6 +37,10 @@ html, button, input, select, textarea,
   background-color: #F7F7F7;
 }
 
+.example-icon {
+  vertical-align: middle;
+}
+
 #example-toolbar,
 #example-toolbar .pure-menu-children {
   color: #FFFFFF;

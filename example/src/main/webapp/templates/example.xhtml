@@ -50,7 +50,7 @@ ga('send', 'pageview');
         <h:outputLink styleClass="pure-menu-heading pure-menu-link" style="float: left;" value="#{request.contextPath}/">Bitbucket API Client Example</h:outputLink>
         <ul class="pure-menu-list" style="float: right;">
           <li class="pure-menu-item pure-menu-disabled">
-            <img style="vertical-align: middle;" src="#{resource['icons/ic_help_white_18dp.png']}" alt="Help" title="Help"/>
+            <img class="example-icon" src="#{resource['icons/ic_help_white_18dp.png']}" alt="Help" title="Help"/>
           </li>
           <ui:fragment rendered="#{config.bitbucketClient.credentials != null}">
             <ui:fragment rendered="#{user.bitbucketService.currentUser != null}">
