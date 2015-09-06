@@ -50,25 +50,16 @@ public class ApplicationConfig implements Serializable {
     }
 
     /**
-     * Constructs this object with a Bitbucket client.
-     * This constructor is equivalent to the default one followed by a call to
-     * {@link #setBitbucketClient}.
-     * @param bitbucketClient Bitbucket client
-     */
-    public ApplicationConfig(Client bitbucketClient) {
-        this.bitbucketClient = bitbucketClient;
-    }
-
-    /**
-     * Returns the Bitbucket client associated to this object.
-     * The Bitbucket client shall be created once and cached in this object.
+     * Returns the Bitbucket client with the configured client credentials.
+     * This method shall returns the same Bitbucket client.
      * @return Bitbucket client
      * @since 4.0
      */
     public Client getBitbucketClient() {
         synchronized (this) {
-            bitbucketClient = getBitbucketClient(
-                    getDefaultClientCredentials());
+            if (bitbucketClient == null) {
+                bitbucketClient = getBitbucketClient(getClientCredentials());
+            }
         }
         return bitbucketClient;
     }
@@ -84,11 +75,11 @@ public class ApplicationConfig implements Serializable {
     }
 
     /**
-     * Returns the default client credentials.
-     * @return default client credentials
+     * Returns the configured client credentials.
+     * @return configured client credentials
      * @since 4.0
      */
-    protected static Credentials getDefaultClientCredentials() {
+    protected static Credentials getClientCredentials() {
         String clientId = System.getProperty(
                 Properties.BITBUCKET_OAUTH_CLIENT_ID,
                 System.getenv(BITBUCKET_OAUTH_CLIENT_ID_ENV));
