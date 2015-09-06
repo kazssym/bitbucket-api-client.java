@@ -47,7 +47,7 @@ ga('send', 'pageview');
   <h:body>
     <h:form>
       <div id="example-toolbar" class="pure-menu pure-menu-horizontal">
-        <h:outputLink styleClass="pure-menu-heading pure-menu-link" style="float: left;" value="#{request.contextPath}/">Bitbucket API Client Example</h:outputLink>
+        <a class="pure-menu-heading pure-menu-link" style="float: left;" href="#{request.contextPath}/">Bitbucket API Client Example</a>
         <ul class="pure-menu-list" style="float: right;">
           <li class="pure-menu-item pure-menu-disabled">
             <img class="example-icon" src="#{resource['icons/ic_help_white_18dp.png']}" alt="Help" title="Help"/>
@@ -79,19 +79,18 @@ ga('send', 'pageview');
             <ul class="pure-menu-list">
               <ui:fragment rendered="#{user.bitbucketService.currentUser != null}">
                 <li class="pure-menu-item#{view.viewId == '/myself.xhtml' ? ' pure-menu-selected' : ''}">
-                  <h:outputLink styleClass="pure-menu-link" value="#{request.contextPath}/myself.jsf">Myself</h:outputLink>
+                  <a class="pure-menu-link" href="#{request.contextPath}/myself.jsf">Myself</a>
                 </li>
-                <li class="pure-menu-item"><h:outputLink styleClass="pure-menu-link">Following</h:outputLink></li>
               </ui:fragment>
               <ui:fragment rendered="#{user.bitbucketService.currentUser == null}">
                 <li class="pure-menu-item pure-menu-disabled">Myself</li>
-                <li class="pure-menu-item pure-menu-disabled">Following</li>
               </ui:fragment>
+                <li class="pure-menu-item pure-menu-disabled">Following</li>
             </ul>
             <div class="pure-menu-heading">Repositories</div>
             <ul class="pure-menu-list">
-              <li class="pure-menu-item"><h:outputLink styleClass="pure-menu-link">Mine</h:outputLink></li>
-              <li class="pure-menu-item"><h:outputLink styleClass="pure-menu-link">Watching</h:outputLink></li>
+              <li class="pure-menu-item pure-menu-disabled">Mine</li>
+              <li class="pure-menu-item pure-menu-disabled">Watching</li>
             </ul>
           </nav>
         </div>
