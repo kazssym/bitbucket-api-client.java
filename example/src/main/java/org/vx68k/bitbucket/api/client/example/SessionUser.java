@@ -24,8 +24,11 @@ import java.net.URISyntaxException;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
+import org.vx68k.bitbucket.api.client.Client;
+import org.vx68k.bitbucket.api.client.Service;
 import org.vx68k.bitbucket.api.client.User;
 import org.vx68k.bitbucket.api.client.oauth.OAuthUser;
 
@@ -39,6 +42,44 @@ import org.vx68k.bitbucket.api.client.oauth.OAuthUser;
 public class SessionUser extends OAuthUser {
 
     private static final long serialVersionUID = 1L;
+
+    private ApplicationConfig applicationConfig;
+
+    /**
+     * Constructs this object without initialization.
+     */
+    public SessionUser() {
+    }
+
+    /**
+     * Constructs this object with an application configuration.
+     * This constructor is equivalent to the default one followed by a call to
+     * {@link #setApplicationConfig}.
+     * @param applicationConfig application configuration
+     * @since 4.0
+     */
+    public SessionUser(ApplicationConfig applicationConfig) {
+        setApplicationConfig(applicationConfig);
+    }
+
+    /**
+     * Returns the application configuration associated to this object.
+     * @return application configuration
+     * @since 4.0
+     */
+    public ApplicationConfig getApplicationConfig() {
+        return applicationConfig;
+    }
+
+    /**
+     * Sets the application configuration associated to this object.
+     * @param applicationConfig new application configuration
+     * @since 4.0
+     */
+    @Inject
+    public void setApplicationConfig(ApplicationConfig applicationConfig) {
+        this.applicationConfig = applicationConfig;
+    }
 
     /**
      * Indicates whether a user is authenticated or not.
@@ -58,7 +99,8 @@ public class SessionUser extends OAuthUser {
      * @since 2.0
      */
     public User getBitbucketUser() throws IOException {
-        return getBitbucketService().getCurrentUser();
+        Service bitbucketService = getBitbucketService();
+        return bitbucketService.getCurrentUser();
     }
 
     /**
@@ -90,5 +132,10 @@ public class SessionUser extends OAuthUser {
         clearBitbucketService();
 
         return "home";
+    }
+
+    @Override
+    protected Client getBitbucketClient() {
+        return applicationConfig.getBitbucketClient();
     }
 }
