@@ -60,9 +60,8 @@ public abstract class OAuthUser implements Serializable {
      */
     private static final int DEFAULT_HTTPS_PORT = 443;
 
-    /**
-     * Current Bitbucket service.
-     */
+    private transient URI redirectionEndpoint;
+
     private transient Service bitbucketService;
 
     /**
@@ -87,8 +86,8 @@ public abstract class OAuthUser implements Serializable {
     public Service getBitbucketService() {
         synchronized (this) {
             if (bitbucketService == null) {
-                Client bitbucketClient = getBitbucketClient();
-                bitbucketService = bitbucketClient.getService();
+                Client client = getBitbucketClient();
+                bitbucketService = client.getService();
             }
         }
         return bitbucketService;
@@ -103,15 +102,16 @@ public abstract class OAuthUser implements Serializable {
      */
     protected URI getAuthorizationEndpoint(HttpServletRequest request)
             throws URISyntaxException, IOException {
-        Client bitbucketClient = getBitbucketClient();
-        URI redirectionEndpoint = new URI(
+        redirectionEndpoint = new URI(
                 request.getScheme(), null, request.getServerName(),
                 getExplicitServerPort(request), getRedirectionPath(request),
                 null, null);
-        bitbucketClient.setRedirectionEndpoint(redirectionEndpoint);
+
+        Client client = getBitbucketClient();
+        client.setRedirectionEndpoint(redirectionEndpoint);
 
         HttpSession session = request.getSession();
-        return bitbucketClient.getAuthorizationEndpoint(session.getId());
+        return client.getAuthorizationEndpoint(session.getId());
     }
 
     protected void requestToken(@Observes OAuthRedirection redirection)
@@ -127,9 +127,13 @@ public abstract class OAuthUser implements Serializable {
                 String code = request.getParameter("code");
                 if (code != null) {
                     // The resource access was authorized.
+                    Client client = getBitbucketClient();
+                    if (redirectionEndpoint != null) {
+                        client.setRedirectionEndpoint(redirectionEndpoint);
+                    }
+
                     synchronized (this) {
-                        Client bitbucketClient = getBitbucketClient();
-                        bitbucketService = bitbucketClient.getService(code);
+                        bitbucketService = client.getService(code);
                     }
 
                     StringBuilder path = new StringBuilder(
