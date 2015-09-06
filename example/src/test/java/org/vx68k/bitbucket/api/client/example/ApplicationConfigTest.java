@@ -33,9 +33,14 @@ import static org.junit.Assert.*;
 public class ApplicationConfigTest {
 
     private static final String envClientID =
-            System.getenv("BITBUCKET_CLIENT_ID");
+            System.getenv("BITBUCKET_OAUTH_CLIENT_ID");
+
     private static final String envClientSecret =
-            System.getenv("BITBUCKET_CLIENT_SECRET");
+            System.getenv("BITBUCKET_OAUTH_CLIENT_SECRET");
+
+    private static final String TEST_CLIENT_ID = "id";
+
+    private static final String TEST_CLIENT_SECRET = "secret";
 
     @Before
     public void setUp() {
@@ -49,14 +54,30 @@ public class ApplicationConfigTest {
 
     @Test
     public void testGetBitbucketClient() {
-        Client bitbucketClient = ApplicationConfig.getBitbucketClient();
+        ApplicationConfig applicationConfig = new ApplicationConfig();
+        Client bitbucketClient = applicationConfig.getBitbucketClient();
         Credentials clientCredentials = bitbucketClient.getCredentials();
         if (envClientID != null && envClientSecret != null) {
+            assertNotNull(clientCredentials);
             assertEquals(envClientID, clientCredentials.getId());
             assertEquals(envClientSecret, clientCredentials.getSecret());
         } else {
             assertNull(clientCredentials);
         }
+
         // TODO: Add a test case with system properties.
+    }
+
+    @Test
+    public void testGetBitbucketClientWithCredentials() {
+        Client bitbucketClient1 = ApplicationConfig.getBitbucketClient(null);
+        assertNull(bitbucketClient1.getCredentials());
+
+        Credentials clientCredentials = new Credentials(
+                TEST_CLIENT_ID, TEST_CLIENT_SECRET);
+        Client bitbucketClient2 = ApplicationConfig.getBitbucketClient(
+                clientCredentials);
+        assertNotNull(bitbucketClient2.getCredentials());
+        assertEquals(clientCredentials, bitbucketClient2.getCredentials());
     }
 }
