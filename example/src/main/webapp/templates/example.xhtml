@@ -94,11 +94,9 @@ ga('send', 'pageview');
         </nav>
       </div>
       <div class="pure-u-1 pure-u-md-3-4">
-        <ui:fragment rendered="#{config.bitbucketClient.credentials != null and not user.bitbucketService.authenticated}">
-          <h:form id="example-login" style="float:right; margin: 0.5em;">
-            <h:commandButton styleClass="pure-button pure-button-primary" action="#{user.login}" title="Login with Bitbucket" value="Login"/>
-          </h:form>
-        </ui:fragment>
+        <h:form id="example-login" style="margin: 0.5em; float: right;" rendered="#{config.bitbucketClient.credentials != null and not user.bitbucketService.authenticated}">
+          <h:commandButton styleClass="pure-button pure-button-primary" action="#{user.login}" title="Login with Bitbucket" value="Login"/>
+        </h:form>
         <main style="margin: 0.5em; overflow: auto;">
           <ui:insert name="main"/>
         </main>
