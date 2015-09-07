@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!--
-  faces-config.xml - Faces configuration for bitbucket-api-client-example
+  faces-config.xml - JSF configuration for bitbucket-api-client-example
   Copyright (C) 2015 Nishimura Software Studio
 
   This program is free software: you can redistribute it and/or modify it
