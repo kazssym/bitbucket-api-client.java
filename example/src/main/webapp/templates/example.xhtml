@@ -52,7 +52,7 @@ ga('send', 'pageview');
           <h:graphicImage styleClass="example-icon" name="icons/ic_help_white_18dp.png" alt="Help" title="Help"/>
         </li>
         <ui:fragment rendered="#{config.bitbucketClient.credentials != null}">
-          <ui:fragment rendered="#{user.bitbucketService.currentUser != null}">
+          <ui:fragment rendered="#{user.bitbucketService.authenticated}">
             <li id="example-account-menu" class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
               <h:outputLink styleClass="pure-menu-link" value="#" onclick="return false;">
                 <h:outputText value="#{user.bitbucketService.currentUser.username}"/>
@@ -76,12 +76,12 @@ ga('send', 'pageview');
         <nav id="example-nav-menu" class="pure-menu">
           <div class="pure-menu-heading">Users</div>
           <ul class="pure-menu-list">
-            <ui:fragment rendered="#{user.bitbucketService.currentUser != null}">
+            <ui:fragment rendered="#{user.bitbucketService.authenticated}">
               <li class="pure-menu-item#{view.viewId == '/myself.xhtml' ? ' pure-menu-selected' : ''}">
                 <h:outputLink styleClass="pure-menu-link" value="#{request.contextPath}/myself.jsf">Myself</h:outputLink>
               </li>
             </ui:fragment>
-            <ui:fragment rendered="#{user.bitbucketService.currentUser == null}">
+            <ui:fragment rendered="#{not user.bitbucketService.authenticated}">
               <li class="pure-menu-item pure-menu-disabled">Myself</li>
             </ui:fragment>
             <li class="pure-menu-item pure-menu-disabled">Following</li>
