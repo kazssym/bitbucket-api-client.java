@@ -25,7 +25,21 @@
 }
 
 html {
+  height: 100%;
   line-height: 1.2em;
+}
+
+body {
+  min-height: 100%;
+}
+
+main {
+  margin: 0.5em;
+  overflow: hidden;
+}
+
+nav {
+  overflow: hidden;
 }
 
 html, button, input, select, textarea,
@@ -50,7 +64,7 @@ html, button, input, select, textarea,
 #toolbar .pure-menu-separator {
 }
 
-#toolbar .pure-menu-heading {
+#toolbar > .pure-menu-heading {
   color: #F7F7FF;
 }
 
