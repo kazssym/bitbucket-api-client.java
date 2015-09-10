@@ -34,4 +34,21 @@ $(document).ready(function () {
         }
         return false;
     });
+
+    $(window).resize(function (event) {
+        if ($("#nav-menu").width() !== $(document).width()) {
+            var height = $(document).height();
+            height -= $("#toolbar").height();
+            $("#nav-menu").css("min-height", height + "px");
+        } else {
+            $("#nav-menu").css("min-height", "");
+        }
+    });
+    $(window).resize();
+});
+
+$(window).load(function (event) {
+    // Triggers a <code>resize</code> event now as the document height might
+    // have changed.
+    $(window).resize();
 });
