@@ -73,6 +73,9 @@ ga('send', 'pageview');
                 <h:outputText value="#{user.bitbucketService.currentUser.username}"/>
               </h:outputLink>
               <ul class="pure-menu-children">
+                <li class="pure-menu-item#{view.viewId == '/myself.xhtml' ? ' pure-menu-selected' : ''}">
+                  <h:outputLink styleClass="pure-menu-link" value="#{request.contextPath}/myself.jsf">Profile</h:outputLink>
+                </li>
                 <li class="pure-menu-item">
                   <h:commandLink styleClass="pure-menu-link" action="#{user.logout}">Logout</h:commandLink>
                 </li>
@@ -91,14 +94,6 @@ ga('send', 'pageview');
         <nav id="nav-menu" class="pure-menu">
           <div class="pure-menu-heading">Users</div>
           <ul class="pure-menu-list">
-            <ui:fragment rendered="#{user.bitbucketService.authenticated}">
-              <li class="pure-menu-item#{view.viewId == '/myself.xhtml' ? ' pure-menu-selected' : ''}">
-                <h:outputLink styleClass="pure-menu-link" value="#{request.contextPath}/myself.jsf">Myself</h:outputLink>
-              </li>
-            </ui:fragment>
-            <ui:fragment rendered="#{not user.bitbucketService.authenticated}">
-              <li class="pure-menu-item pure-menu-disabled">Myself</li>
-            </ui:fragment>
             <li class="pure-menu-item pure-menu-disabled">Following</li>
           </ul>
           <div class="pure-menu-heading">Repositories</div>
