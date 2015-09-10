@@ -1,5 +1,5 @@
 /*
- * Credentials - credentials for the Bitbucket API Client Library
+ * OAuthCredentials
  * Copyright (C) 2015 Nishimura Software Studio
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -16,41 +16,43 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.vx68k.bitbucket.api.client;
+package org.vx68k.bitbucket.api.client.oauth;
 
 import java.io.Serializable;
 
 /**
- * Pair of an identifier and a shared secret.
+ * Pair of an identifier and a shared secret for OAuth authorization.
  * @author Kaz Nishimura
- * @since 1.0
+ * @since 4.0
  */
-public class Credentials implements Serializable {
+public class OAuthCredentials implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 4L;
 
     private String id;
 
     private String secret;
 
     /**
-     * Constructs this object without initialization.
+     * Constructs this object with no property values.
      */
-    public Credentials() {
+    public OAuthCredentials() {
     }
 
     /**
-     * Constructs a credentials with an identifier and a shared secret.
+     * Constructs a credentials with an identifier and a secret.
+     * This constructor is equivalent to the default one followed by calls to
+     * {@link #setId} and {@link #setSecret}.
      * @param id identifier
-     * @param secret shared secret
+     * @param secret secret
      */
-    public Credentials(String id, String secret) {
-        this.id = id;
-        this.secret = secret;
+    public OAuthCredentials(String id, String secret) {
+        setId(id);
+        setSecret(secret);
     }
 
     /**
-     * Returns the identifier of this object.
+     * Returns the identifier.
      * @return identifier
      */
     public String getId() {
@@ -58,24 +60,24 @@ public class Credentials implements Serializable {
     }
 
     /**
-     * Returns the shared secret of this object.
-     * @return shared secret
+     * Returns the secret.
+     * @return secret
      */
     public String getSecret() {
         return secret;
     }
 
     /**
-     * Sets the identifier of this object.
-     * @param id identifier
+     * Sets the identifier.
+     * @param id identifier to be set
      */
     public void setId(String id) {
         this.id = id;
     }
 
     /**
-     * Sets the shared secret of this object.
-     * @param secret shared secret.
+     * Sets the secret.
+     * @param secret secret to be set
      */
     public void setSecret(String secret) {
         this.secret = secret;
@@ -86,8 +88,8 @@ public class Credentials implements Serializable {
         if (this == object) {
             return true;
         }
-        if (object != null && object.getClass() == Credentials.class) {
-            Credentials credentials = (Credentials) object;
+        if (object != null && object.getClass() == OAuthCredentials.class) {
+            OAuthCredentials credentials = (OAuthCredentials) object;
             if (id != null) {
                 if (!id.equals(credentials.id)) {
                     return false;

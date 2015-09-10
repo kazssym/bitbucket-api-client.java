@@ -88,6 +88,11 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
+      <groupId>com.google.oauth-client</groupId>
+      <artifactId>google-oauth-client</artifactId>
+      <version>1.20.0</version>
+    </dependency>
+    <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>bitbucket-api-client</artifactId>
       <version>${project.version}</version>

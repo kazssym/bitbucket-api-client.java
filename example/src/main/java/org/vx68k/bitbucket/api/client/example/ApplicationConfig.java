@@ -21,8 +21,8 @@ package org.vx68k.bitbucket.api.client.example;
 import java.io.Serializable;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
-import org.vx68k.bitbucket.api.client.Client;
-import org.vx68k.bitbucket.api.client.Credentials;
+import org.vx68k.bitbucket.api.client.oauth.OAuthCredentials;
+import org.vx68k.bitbucket.api.client.oauth.OAuthClient;
 
 /**
  * Application configuration.
@@ -33,7 +33,7 @@ import org.vx68k.bitbucket.api.client.Credentials;
 @Named("config")
 public class ApplicationConfig implements Serializable {
 
-    private static final long serialVersionUID = 2L;
+    private static final long serialVersionUID = 4L;
 
     private static final String BITBUCKET_OAUTH_CLIENT_ID_ENV =
             "BITBUCKET_OAUTH_CLIENT_ID";
@@ -41,10 +41,10 @@ public class ApplicationConfig implements Serializable {
     private static final String BITBUCKET_OAUTH_CLIENT_SECRET_ENV =
             "BITBUCKET_OAUTH_CLIENT_SECRET";
 
-    private Client bitbucketClient;
+    private OAuthClient bitbucketClient;
 
     /**
-     * Constructs this object without initialization.
+     * Constructs this object.
      */
     public ApplicationConfig() {
     }
@@ -55,7 +55,7 @@ public class ApplicationConfig implements Serializable {
      * @return Bitbucket client
      * @since 4.0
      */
-    public Client getBitbucketClient() {
+    public OAuthClient getBitbucketClient() {
         synchronized (this) {
             if (bitbucketClient == null) {
                 bitbucketClient = getBitbucketClient(getClientCredentials());
@@ -70,8 +70,9 @@ public class ApplicationConfig implements Serializable {
      * @return Bitbucket client
      * @since 4.0
      */
-    public static Client getBitbucketClient(Credentials clientCredentials) {
-        return new Client(clientCredentials);
+    public static OAuthClient getBitbucketClient(
+            OAuthCredentials clientCredentials) {
+        return new OAuthClient(clientCredentials);
     }
 
     /**
@@ -79,7 +80,7 @@ public class ApplicationConfig implements Serializable {
      * @return configured client credentials
      * @since 4.0
      */
-    protected static Credentials getClientCredentials() {
+    protected static OAuthCredentials getClientCredentials() {
         String clientId = System.getProperty(
                 Properties.BITBUCKET_OAUTH_CLIENT_ID,
                 System.getenv(BITBUCKET_OAUTH_CLIENT_ID_ENV));
@@ -89,7 +90,7 @@ public class ApplicationConfig implements Serializable {
         if (clientId == null || clientSecret == null) {
             return null;
         }
-        return new Credentials(clientId, clientSecret);
+        return new OAuthCredentials(clientId, clientSecret);
     }
 
     /**

@@ -27,9 +27,9 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
-import org.vx68k.bitbucket.api.client.Client;
 import org.vx68k.bitbucket.api.client.Service;
 import org.vx68k.bitbucket.api.client.User;
+import org.vx68k.bitbucket.api.client.oauth.OAuthClient;
 import org.vx68k.bitbucket.api.client.oauth.OAuthUser;
 
 /**
@@ -46,7 +46,7 @@ public class SessionUser extends OAuthUser {
     private ApplicationConfig applicationConfig;
 
     /**
-     * Constructs this object without initialization.
+     * Constructs this object.
      */
     public SessionUser() {
     }
@@ -135,7 +135,7 @@ public class SessionUser extends OAuthUser {
     }
 
     @Override
-    protected Client getBitbucketClient() {
+    protected OAuthClient getBitbucketClient() {
         return applicationConfig.getBitbucketClient();
     }
 }

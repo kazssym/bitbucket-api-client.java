@@ -1,5 +1,5 @@
 /*
- * CredentialsTest - unit tests for Credentials
+ * OAuthCredentialsTest
  * Copyright (C) 2015 Nishimura Software Studio
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.vx68k.bitbucket.api.client;
+package org.vx68k.bitbucket.api.client.oauth;
 
 import org.junit.After;
 import org.junit.Before;
@@ -24,16 +24,15 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Collection of unit tests for {@link Credentials}.
- *
+ * Collection of unit tests for {@link OAuthCredentials}.
  * @author Kaz Nishimura
- * @since 1.0
+ * @since 4.0
  */
-public class CredentialsTest {
+public class OAuthCredentialsTest {
 
-    static final String CLIENT_ID = "id";
+    static final String ID = "id";
 
-    static final String CLIENT_SECRET = "secret";
+    static final String SECRET = "secret";
 
     @Before
     public void setUp() {
@@ -45,46 +44,46 @@ public class CredentialsTest {
 
     @Test
     public void testDefaultConstructor() {
-        Credentials credentials = new Credentials();
+        OAuthCredentials credentials = new OAuthCredentials();
         assertNull(credentials.getId());
         assertNull(credentials.getSecret());
     }
 
     @Test
     public void testConstructorWithIdAndSecret() {
-        Credentials credentials = new Credentials(CLIENT_ID, CLIENT_SECRET);
-        assertEquals(CLIENT_ID, credentials.getId());
-        assertEquals(CLIENT_SECRET, credentials.getSecret());
+        OAuthCredentials credentials = new OAuthCredentials(ID, SECRET);
+        assertEquals(ID, credentials.getId());
+        assertEquals(SECRET, credentials.getSecret());
     }
 
     @Test
-    public void testSetID() {
-        Credentials credentials = new Credentials();
-        credentials.setId(CLIENT_ID);
-        assertEquals(CLIENT_ID, credentials.getId());
+    public void testSetId() {
+        OAuthCredentials credentials = new OAuthCredentials();
+        credentials.setId(ID);
+        assertEquals(ID, credentials.getId());
     }
 
     @Test
     public void testSetSecret() {
-        Credentials credentials = new Credentials();
-        credentials.setSecret(CLIENT_SECRET);
-        assertEquals(CLIENT_SECRET, credentials.getSecret());
+        OAuthCredentials credentials = new OAuthCredentials();
+        credentials.setSecret(SECRET);
+        assertEquals(SECRET, credentials.getSecret());
     }
 
     @Test
     public void testEquals() {
-        Credentials c1 = new Credentials();
-        Credentials c1a = new Credentials();
-        Credentials c2 = new Credentials(CLIENT_ID, CLIENT_SECRET);
-        Credentials c2a = new Credentials(CLIENT_ID, CLIENT_SECRET);
-        Credentials c3 = new Credentials(CLIENT_ID, null);
-        Credentials c3a = new Credentials(CLIENT_ID, null);
-        Credentials c4 = new Credentials(null, CLIENT_SECRET);
-        Credentials c4a = new Credentials(null, CLIENT_SECRET);
-        Credentials c5 = new Credentials(CLIENT_ID, "");
-        Credentials c5a = new Credentials(CLIENT_ID, "");
-        Credentials c6 = new Credentials("", CLIENT_SECRET);
-        Credentials c6a = new Credentials("", CLIENT_SECRET);
+        OAuthCredentials c1 = new OAuthCredentials();
+        OAuthCredentials c1a = new OAuthCredentials();
+        OAuthCredentials c2 = new OAuthCredentials(ID, SECRET);
+        OAuthCredentials c2a = new OAuthCredentials(ID, SECRET);
+        OAuthCredentials c3 = new OAuthCredentials(ID, null);
+        OAuthCredentials c3a = new OAuthCredentials(ID, null);
+        OAuthCredentials c4 = new OAuthCredentials(null, SECRET);
+        OAuthCredentials c4a = new OAuthCredentials(null, SECRET);
+        OAuthCredentials c5 = new OAuthCredentials(ID, "");
+        OAuthCredentials c5a = new OAuthCredentials(ID, "");
+        OAuthCredentials c6 = new OAuthCredentials("", SECRET);
+        OAuthCredentials c6a = new OAuthCredentials("", SECRET);
         assertTrue(c1.equals(c1a));
         assertFalse(c1.equals(c2));
         assertFalse(c1.equals(c3));
@@ -110,18 +109,18 @@ public class CredentialsTest {
 
     @Test
     public void testHashCode() {
-        Credentials c1 = new Credentials();
-        Credentials c1a = new Credentials();
-        Credentials c2 = new Credentials(CLIENT_ID, CLIENT_SECRET);
-        Credentials c2a = new Credentials(CLIENT_ID, CLIENT_SECRET);
-        Credentials c3 = new Credentials(CLIENT_ID, null);
-        Credentials c3a = new Credentials(CLIENT_ID, null);
-        Credentials c4 = new Credentials(null, CLIENT_SECRET);
-        Credentials c4a = new Credentials(null, CLIENT_SECRET);
-        Credentials c5 = new Credentials(CLIENT_ID, "");
-        Credentials c5a = new Credentials(CLIENT_ID, "");
-        Credentials c6 = new Credentials("", CLIENT_SECRET);
-        Credentials c6a = new Credentials("", CLIENT_SECRET);
+        OAuthCredentials c1 = new OAuthCredentials();
+        OAuthCredentials c1a = new OAuthCredentials();
+        OAuthCredentials c2 = new OAuthCredentials(ID, SECRET);
+        OAuthCredentials c2a = new OAuthCredentials(ID, SECRET);
+        OAuthCredentials c3 = new OAuthCredentials(ID, null);
+        OAuthCredentials c3a = new OAuthCredentials(ID, null);
+        OAuthCredentials c4 = new OAuthCredentials(null, SECRET);
+        OAuthCredentials c4a = new OAuthCredentials(null, SECRET);
+        OAuthCredentials c5 = new OAuthCredentials(ID, "");
+        OAuthCredentials c5a = new OAuthCredentials(ID, "");
+        OAuthCredentials c6 = new OAuthCredentials("", SECRET);
+        OAuthCredentials c6a = new OAuthCredentials("", SECRET);
         assertTrue(c1.hashCode() == c1a.hashCode());
         assertTrue(c2.hashCode() == c2a.hashCode());
         assertTrue(c3.hashCode() == c3a.hashCode());
