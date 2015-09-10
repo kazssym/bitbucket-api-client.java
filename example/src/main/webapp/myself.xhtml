@@ -19,12 +19,58 @@
 -->
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets">
   <ui:composition template="templates/example.xhtml">
-    <ui:define name="title">Main</ui:define>
+    <ui:define name="title-prefix">My profile &#x2013;</ui:define>
     <ui:define name="main">
-      <h1>Myself</h1>
-      <p>
-        This page will describe the current user.
-      </p>
+      <h1>My profile</h1>
+      <ui:fragment rendered="#{user.bitbucketService.authenticated}">
+        <div class="inline-overflow-auto">
+          <table class="pure-table">
+            <tbody>
+              <tr>
+                <th>UUID</th>
+                <td>
+                  <h:outputText value="{#{user.bitbucketService.currentUser.uuid}}"/>
+                </td>
+              </tr>
+              <tr>
+                <th>Username</th>
+                <td>
+                  <h:outputLink value="#{user.bitbucketService.currentUser.links['html']}">
+                    <h:outputText value="#{user.bitbucketService.currentUser.username}"/>
+                  </h:outputLink>
+                </td>
+              </tr>
+              <tr>
+                <th>Display name</th>
+                <td>
+                  <h:outputText value="#{user.bitbucketService.currentUser.displayName}"/>
+                </td>
+              </tr>
+              <tr>
+                <th>Avatar</th>
+                <td>
+                  <h:graphicImage url="#{user.bitbucketService.currentUser.links['avatar']}"/>
+                </td>
+              </tr>
+              <ui:fragment rendered="#{not empty user.bitbucketService.currentUser.website}">
+                <tr>
+                  <th>Website</th>
+                  <td>
+                    <h:outputLink value="#{user.bitbucketService.currentUser.website}">
+                      <h:outputText value="#{user.bitbucketService.currentUser.website}"/>
+                    </h:outputLink>
+                  </td>
+                </tr>
+              </ui:fragment>
+            </tbody>
+          </table>
+        </div>
+      </ui:fragment>
+      <ui:fragment rendered="#{not user.bitbucketService.authenticated}">
+        <p>
+          You must login first!
+        </p>
+      </ui:fragment>
     </ui:define>
   </ui:composition>
 </html>

@@ -20,7 +20,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets">
   <h:head>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Bitbucket API Client Example</title>
+    <title>
+      <ui:insert name="title-prefix"/>
+      Bitbucket API Client Example
+    </title>
     <link href="https://cdn.jsdelivr.net/pure/0.6.0/pure-min.css" rel="stylesheet"/>
     <h:outputText value="&lt;!--[if lte IE 8]&gt;" escape="false"/>
     <link href="https://cdn.jsdelivr.net/pure/0.6.0/grids-responsive-old-ie-min.css" rel="stylesheet" media="screen"/>
@@ -42,6 +45,10 @@
 
       .inline-clear-both {
         clear: both;
+      }
+
+      .inline-overflow-auto {
+        overflow: auto;
       }
       /* ]]> */
     </style>
