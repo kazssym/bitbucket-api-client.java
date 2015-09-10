@@ -30,8 +30,6 @@
     <h:outputText value="&lt;![endif]&gt;" escape="false"/>
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"/>
     <link href="#{resource['stylesheets/example.css']}" rel="stylesheet"/>
-    <script src="https://cdn.jsdelivr.net/jquery/2.1.4/jquery.min.js"/>
-    <script src="#{resource['scripts/example.js']}" async="async"/>
     <ui:fragment rendered="#{config.analyticsId != null}">
       <script>
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -102,5 +100,7 @@ ga('send', 'pageview');
         </main>
       </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/jquery/2.1.4/jquery.min.js"/>
+    <script src="#{resource['scripts/example.js']}" async="async"/>
   </h:body>
 </html>
