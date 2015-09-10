@@ -43,7 +43,7 @@ ga('send', 'pageview');
     </ui:fragment>
   </h:head>
   <h:body>
-    <h:form id="example-toolbar" styleClass="pure-menu pure-menu-horizontal">
+    <h:form id="toolbar" styleClass="pure-menu pure-menu-horizontal">
       <h:outputLink styleClass="pure-menu-heading pure-menu-link" style="float: left;" value="#{request.contextPath}/">Bitbucket API Client Example</h:outputLink>
       <ul class="pure-menu-list" style="float: right;">
         <li class="pure-menu-item pure-menu-disabled">
@@ -51,7 +51,7 @@ ga('send', 'pageview');
         </li>
         <ui:fragment rendered="#{config.bitbucketClient.credentials != null}">
           <ui:fragment rendered="#{user.bitbucketService.authenticated}">
-            <li id="example-account-menu" class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+            <li id="account-menu" class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
               <h:outputLink styleClass="pure-menu-link" value="#" onclick="return false;">
                 <h:outputText value="#{user.bitbucketService.currentUser.username}"/>
               </h:outputLink>
@@ -71,7 +71,7 @@ ga('send', 'pageview');
     </h:form>
     <div class="pure-g">
       <div class="pure-u-1 pure-u-md-1-4">
-        <nav id="example-nav-menu" class="pure-menu">
+        <nav id="nav-menu" class="pure-menu">
           <div class="pure-menu-heading">Users</div>
           <ul class="pure-menu-list">
             <ui:fragment rendered="#{user.bitbucketService.authenticated}">
@@ -93,7 +93,7 @@ ga('send', 'pageview');
       </div>
       <div class="pure-u-1 pure-u-md-3-4">
         <main style="margin: 0.5em; overflow: auto;">
-          <h:form id="example-login" style="float: right;" rendered="#{config.bitbucketClient.credentials != null and not user.bitbucketService.authenticated}">
+          <h:form id="login" style="float: right;" rendered="#{config.bitbucketClient.credentials != null and not user.bitbucketService.authenticated}">
             <h:commandButton styleClass="pure-button pure-button-primary" action="#{user.login}" title="Login with Bitbucket" value="Login"/>
           </h:form>
           <ui:insert name="main"/>
