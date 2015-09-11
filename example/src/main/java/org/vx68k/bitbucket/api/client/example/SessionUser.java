@@ -111,8 +111,8 @@ public class SessionUser extends OAuthUser {
      * @throws IOException if an I/O error has occurred
      */
     public String login() throws URISyntaxException, IOException {
-        FacesContext context = FacesContext.getCurrentInstance();
-        ExternalContext externalContext = context.getExternalContext();
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        ExternalContext externalContext = facesContext.getExternalContext();
         HttpServletRequest request =
                 (HttpServletRequest) externalContext.getRequest();
 
