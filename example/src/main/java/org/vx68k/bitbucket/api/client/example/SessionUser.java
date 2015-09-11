@@ -85,7 +85,8 @@ public class SessionUser extends OAuthUser {
      * Indicates whether a user is authenticated or not.
      * @return <code>true</code> if a user is authenticated, or
      * <code>false</code> otherwise
-     * @deprecated As of version 2.0, use {#getBitbucketUser} instead.
+     * @deprecated As of version 4.0, use {@link #getBitbucketService} and
+     * {@link Service#isAuthenticated} instead.
      */
     @Deprecated
     public boolean isAuthenticated() {
@@ -97,7 +98,10 @@ public class SessionUser extends OAuthUser {
      * @return Bitbucket user, or <code>null</code> if no user is authenticated
      * @throws IOException if an I/O error has occurred
      * @since 2.0
+     * @deprecated As of version 4.0, use {@link #getBitbucketService} and
+     * {@link Service#getCurrentUser} instead.
      */
+    @Deprecated
     public User getBitbucketUser() throws IOException {
         Service bitbucketService = getBitbucketService();
         return bitbucketService.getCurrentUser();
