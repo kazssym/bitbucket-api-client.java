@@ -25,9 +25,51 @@ package org.vx68k.bitbucket.api.client;
 public class JsonKeys {
 
     /**
+     * JSON key for the <code>links</code> object.
+     * @since 4.0
+     */
+    public static final String LINKS = "links";
+
+    /**
      * JSON key for the <code>type</code> value.
      */
     public static final String TYPE = "type";
+
+    /**
+     * JSON key for the <code>uuid</code> value.
+     * @since 4.0
+     */
+    public static final String UUID = "uuid";
+
+    /**
+     * JSON key for the <code>username</code> value.
+     * @since 4.0
+     */
+    public static final String USERNAME = "username";
+
+    /**
+     * JSON key for the <code>display_name</code> value.
+     * @since 4.0
+     */
+    public static final String DISPLAY_NAME = "display_name";
+
+    /**
+     * JSON key for the <code>website</code> value.
+     * @since 4.0
+     */
+    public static final String WEBSITE = "website";
+
+    /**
+     * JSON key for the <code>location</code> value.
+     * @since 4.0
+     */
+    public static final String LOCATION = "location";
+
+    /**
+     * JSON key for the <code>created_on</code> value.
+     * @since 4.0
+     */
+    public static final String CREATED_ON = "created_on";
 
     private JsonKeys() {
     }

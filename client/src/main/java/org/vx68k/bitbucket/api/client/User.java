@@ -20,6 +20,7 @@ package org.vx68k.bitbucket.api.client;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Date;
 import java.util.Map;
 import java.util.UUID;
 import java.util.logging.Level;
@@ -33,62 +34,21 @@ import javax.json.JsonObject;
 public class User extends Entity {
 
     /**
-     * JSON key for the <code>uuid</code> value.
-     */
-    protected static final String UUID_JSON_KEY = "uuid";
-
-    /**
-     * JSON key for the <code>username</code> value.
-     */
-    protected static final String USERNAME_JSON_KEY = "username";
-
-    /**
-     * JSON key for the <code>display_name</code> value.
-     */
-    protected static final String DISPLAY_NAME_JSON_KEY = "display_name";
-
-    /**
-     * JSON key for the <code>website</code> value.
-     */
-    protected static final String WEBSITE_JSON_KEY = "website";
-
-    /**
-     * JSON key for the <code>links</code> object.
-     */
-    protected static final String LINKS_JSON_KEY = "links";
-
-    /**
      * Type value for users.
      */
     private static final String USER_TYPE = "user";
 
-    /**
-     * UUID of this user.
-     */
+    // Properties.
     private UUID uuid;
-
-    /**
-     * Username.
-     */
     private String username;
-
-    /**
-     * Display name of this user.
-     */
     private String displayName;
-
-    /**
-     * Website URL of this user.
-     */
-    private URL website;
-
-    /**
-     * Map of links about this user.
-     */
     private Map<String, URL> links;
+    private URL website;
+    private String location;
+    private Date created;
 
     /**
-     * Constructs a <em>blank</em> object.
+     * Constructs this object with no property values.
      */
     public User() {
         super(USER_TYPE);
@@ -96,82 +56,167 @@ public class User extends Entity {
     }
 
     /**
-     * Constructs an object from a JSON object.
-     * @param json JSON object that represents a Bitbucket user
+     * Constructs this object from a JSON object.
+     * @param jsonObject JSON object that represents a Bitbucket user
      */
-    public User(JsonObject json) {
-        super(json);
+    public User(JsonObject jsonObject) {
+        super(jsonObject);
         if (!getType().equals(USER_TYPE)) {
-            throw new IllegalArgumentException("Not user");
+            throw new IllegalArgumentException(
+                    "Type is not \"" + USER_TYPE + "\"");
         }
         Utilities.getLogger().log(
-                Level.INFO, "Parsing User JSON object: {0}", json);
-        this.uuid = Utilities.parseUuid(json.getString(UUID_JSON_KEY));
-        this.username = json.getString(USERNAME_JSON_KEY);
-        this.displayName = json.getString(DISPLAY_NAME_JSON_KEY);
+                Level.INFO,
+                "Parsing JSON object (\"" + USER_TYPE + "\"): {0}",
+                jsonObject);
+        uuid = Utilities.parseUuid(jsonObject.getString(JsonKeys.UUID));
+        username = jsonObject.getString(JsonKeys.USERNAME);
+        displayName = jsonObject.getString(JsonKeys.DISPLAY_NAME);
         try {
-            this.website = Utilities.parseURL(
-                    json.getString(WEBSITE_JSON_KEY, null));
+            links = Utilities.parseLinks(jsonObject.getJsonObject(
+                    JsonKeys.LINKS));
         } catch (MalformedURLException exception) {
             Utilities.getLogger().log(
-                    Level.WARNING, "Could not parse the \"website\" value",
+                    Level.WARNING,
+                    "Could not parse the \"" + JsonKeys.LINKS + "\" object",
                     exception);
         }
         try {
-            this.links = Utilities.parseLinks(
-                    json.getJsonObject(LINKS_JSON_KEY));
+            website = Utilities.parseURL(jsonObject.getString(
+                    JsonKeys.WEBSITE, null));
         } catch (MalformedURLException exception) {
             Utilities.getLogger().log(
-                    Level.WARNING, "Could not parse the \"links\" object",
+                    Level.WARNING,
+                    "Could not parse the \"" + JsonKeys.WEBSITE + "\" value",
                     exception);
         }
+        location = jsonObject.getString(JsonKeys.LOCATION, null);
+        // TODO: Parse the <code>created_on</code> value.
     }
 
+    /**
+     * Returns the UUID.
+     * @return UUID
+     */
     public UUID getUuid() {
         return uuid;
     }
 
+    /**
+     * Returns the username.
+     * @return username
+     */
     public String getUsername() {
         return username;
     }
 
+    /**
+     * Returns the display name.
+     * @return display name
+     */
     public String getDisplayName() {
         return displayName;
     }
 
-    public URL getWebsite() {
-        return website;
-    }
-
+    /**
+     * Returns the map of the links.
+     * @return map of the links
+     */
     public Map<String, URL> getLinks() {
         return links;
     }
 
+    /**
+     * Returns the URL of the website.
+     * This property is optional and may be <code>null</code>.
+     * @return URL of the website.
+     */
+    public URL getWebsite() {
+        return website;
+    }
+
+    /**
+     * Returns the location.
+     * This property is optional and may be <code>null</code>.
+     * @return location
+     * @since 4.0
+     */
+    public String getLocation() {
+        return location;
+    }
+
+    /**
+     * Returns the date when the user was created.
+     * This property is optional and may be <code>null</code>.
+     * @return date of creation
+     * @since 4.0
+     */
+    public Date getCreated() {
+        return created;
+    }
+
+    /**
+     * Sets the UUID.
+     * @param uuid UUID to be set
+     */
     public void setUuid(UUID uuid) {
         this.uuid = uuid;
     }
 
+    /**
+     * Sets the username.
+     * @param username username to be set
+     */
     public void setUsername(String username) {
         this.username = username;
     }
 
+    /**
+     * Sets the display name.
+     * @param displayName display name to be set
+     */
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
     }
 
-    public void setWebsite(URL website) {
-        this.website = website;
-    }
-
+    /**
+     * Sets the map of the links.
+     * @param links map of the links to be set
+     */
     public void setLinks(Map<String, URL> links) {
         this.links = links;
     }
 
     /**
+     * Sets the URL of the website.
+     * @param website URL of the website to be set
+     */
+    public void setWebsite(URL website) {
+        this.website = website;
+    }
+
+    /**
+     * Sets the location.
+     * @param location location to be set
+     * @since 4.0
+     */
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    /**
+     * Sets the date when the user was created.
+     * @param created date of creation to be set
+     * @since 4.0
+     */
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
+    /**
      * Tests whether this object equals to another or not.
-     * Equality is tested by {@link UUID}s first, and if they are
-     * <code>null</code>, usernames are compared.
-     *
+     * Equality is tested by UUIDs first, and if they are <code>null</code>,
+     * usernames are compared.
      * @param object another object
      * @return <code>true</code> if this object equals to the other object,
      * or <code>false</code> otherwise
@@ -202,7 +247,6 @@ public class User extends Entity {
 
     /**
      * Computes the hash code for this object.
-     *
      * @return hash code
      */
     @Override
