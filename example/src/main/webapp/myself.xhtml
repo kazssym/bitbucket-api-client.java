@@ -52,16 +52,31 @@
                   <h:graphicImage url="#{user.bitbucketService.currentUser.links['avatar']}"/>
                 </td>
               </tr>
-              <ui:fragment rendered="#{not empty user.bitbucketService.currentUser.website}">
-                <tr>
-                  <th>Website</th>
-                  <td>
-                    <h:outputLink value="#{user.bitbucketService.currentUser.website}">
-                      <h:outputText value="#{user.bitbucketService.currentUser.website}"/>
-                    </h:outputLink>
-                  </td>
-                </tr>
-              </ui:fragment>
+              <tr>
+                <th>Website</th>
+                <td>
+                  <h:outputLink rendered="#{not empty user.bitbucketService.currentUser.website}" value="#{user.bitbucketService.currentUser.website}">
+                    <h:outputText value="#{user.bitbucketService.currentUser.website}"/>
+                  </h:outputLink>
+                  <ui:fragment rendered="#{empty user.bitbucketService.currentUser.website}">Unspecified</ui:fragment>
+                </td>
+              </tr>
+              <tr>
+                <th>Location</th>
+                <td>
+                  <h:outputLink rendered="#{not empty user.bitbucketService.currentUser.location}" value="https://www.google.com/maps" target="_blank">
+                    <f:param name="q" value="#{user.bitbucketService.currentUser.location}"/>
+                    <h:outputText value="#{user.bitbucketService.currentUser.location}"/>
+                  </h:outputLink>
+                  <ui:fragment rendered="#{empty user.bitbucketService.currentUser.location}">Unspecified</ui:fragment>
+                </td>
+              </tr>
+              <tr>
+                <th>Since</th>
+                <td>
+                  <ui:fragment rendered="#{empty user.bitbucketService.currentUser.created}">Not implemented yet</ui:fragment>
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>
