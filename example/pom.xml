@@ -20,13 +20,13 @@
   <parent>
     <artifactId>bitbucket-api-client-parent</artifactId>
     <groupId>org.vx68k.bitbucket</groupId>
-    <version>3.0</version>
+    <version>4.0-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>bitbucket-api-client-example</artifactId>
   <packaging>war</packaging>
-  <name>Bitbucket API Client Example Web Application</name>
-  <description>Example web application for the Bitbucket API Client Library</description>
+  <name>Bitbucket API Client Example</name>
+  <description>Example web application of the Bitbucket API Client for Java</description>
   <build>
     <plugins>
       <plugin>

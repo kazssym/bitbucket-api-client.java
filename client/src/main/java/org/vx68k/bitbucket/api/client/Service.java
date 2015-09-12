@@ -46,16 +46,16 @@ public abstract class Service {
     public abstract User getCurrentUser() throws IOException;
 
     /**
-     * Returns a speicfic Bitbucket user by a username.
-     * @param username username of a Bitbucket user
+     * Returns the Bitbucket user identified by a name.
+     * @param name name of a Bitbucket user
      * @return Bitbucket user
      * @throws IOException if an I/O error has occurred
      * @since 2.0
      */
-    public abstract User getUser(String username) throws IOException;
+    public abstract User getUser(String name) throws IOException;
 
     /**
-     * Returns a specific Bitbucket user by a UUID.
+     * Returns the Bitbucket user identified by a UUID.
      * @param uuid UUID of a Bitbucket user
      * @return Bitbucket user
      * @throws IOException if an I/O error has occurred

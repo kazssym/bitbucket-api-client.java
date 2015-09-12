@@ -2,18 +2,9 @@
   example.css - custom stylesheet for bitbucket-api-client-example
   Copyright (C) 2015 Nishimura Software Studio
 
-  This program is free software: you can redistribute it and/or modify it
-  under the terms of the GNU Affero General Public License as published by the
-  Free Software Foundation, either version 3 of the License, or (at your
-  option) any later version.
-
-  This program is distributed in the hope that it will be useful, but WITHOUT
-  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-  FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public License
-  for more details.
-
-  You should have received a copy of the GNU Affero General Public License
-  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  Copying and distribution of this file, with or without modification, are
+  permitted in any medium without royalty provided the copyright notice and
+  this notice are preserved.  This file is offered as-is, without any warranty.
 */
 
 /* Works around for Normalize.css on Firefox 40 and later. */
@@ -25,7 +16,21 @@
 }
 
 html {
+  height: 100%;
   line-height: 1.2em;
+}
+
+body {
+  min-height: 100%;
+}
+
+main {
+  margin: 0.5em;
+  overflow: hidden;
+}
+
+nav {
+  overflow: hidden;
 }
 
 html, button, input, select, textarea,
@@ -37,25 +42,42 @@ html, button, input, select, textarea,
   background-color: #F7F7F7;
 }
 
-#example-toolbar,
-#example-toolbar .pure-menu-children {
+.example-icon {
+  vertical-align: middle;
+}
+
+#toolbar,
+#toolbar .pure-menu-children {
   color: #FFFFFF;
   background-color: #777799;
 }
 
-#example-toolbar .pure-menu-link {
-  color: inherit;
+#toolbar .pure-menu-separator {
 }
 
-#example-toolbar .pure-menu-link:hover,
-#example-toolbar .pure-menu-link:focus {
+#toolbar > .pure-menu-heading {
+  color: #F7F7FF;
+}
+
+#toolbar .pure-menu-link {
+  color: #F7F7F7;
+}
+
+#toolbar .pure-menu-active > .pure-menu-link,
+#toolbar .pure-menu-link:hover,
+#toolbar .pure-menu-link:focus {
   background-color: #8888AA;
 }
 
-#example-nav-menu {
+#toolbar .pure-menu-selected .pure-menu-link,
+#toolbar .pure-menu-selected .pure-menu-link:visited {
+  color: #FFFFFF;
+}
+
+#nav-menu {
   background-color: #F7F7F7;
 }
 
-#example-nav-menu > .pure-menu-heading {
+#nav-menu > .pure-menu-heading {
   background-color: #E6E6E6;
 }

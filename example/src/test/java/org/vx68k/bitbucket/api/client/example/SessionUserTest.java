@@ -23,6 +23,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.vx68k.bitbucket.api.client.Client;
+import org.vx68k.bitbucket.api.client.Service;
 import static org.junit.Assert.*;
 
 /**
@@ -48,14 +49,30 @@ public class SessionUserTest {
     @Test
     public void testDefaultConstructor() {
         SessionUser user = new SessionUser();
-        assertNull(user.getBitbucketClient());
+        assertNull(user.getApplicationConfig());
     }
 
     @Test
-    public void testIsAuthenticated() throws IOException {
+    public void testConstructorWithApplicationConfig() {
+        SessionUser user = new SessionUser(applicationConfig);
+        assertEquals(applicationConfig, user.getApplicationConfig());
+    }
+
+    @Test
+    public void testGetApplicationConfig() {
         SessionUser user = new SessionUser();
-        user.setBitbucketClient(new Client());
-        assertFalse(user.isAuthenticated());
-        // TODO: Add more assertions.
+        assertNull(user.getApplicationConfig());
+
+        user.setApplicationConfig(applicationConfig);
+        assertEquals(applicationConfig, user.getApplicationConfig());
+    }
+
+    @Test
+    public void testGetBitbucketService() throws IOException {
+        SessionUser user = new SessionUser();
+        user.setApplicationConfig(applicationConfig);
+        Service bitbucketService = user.getBitbucketService();
+        assertNotNull(bitbucketService);
+        assertNull(bitbucketService.getCurrentUser());
     }
 }

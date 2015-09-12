@@ -34,10 +34,10 @@ public abstract class Entity {
 
     /**
      * Constructs this object as the type in a JSON object.
-     * @param json JSON object
+     * @param jsonObject JSON object
      */
-    protected Entity(JsonObject json) {
-        this(json.getString(JsonKeys.TYPE));
+    protected Entity(JsonObject jsonObject) {
+        this(jsonObject.getString(JsonKeys.TYPE));
     }
 
     /**

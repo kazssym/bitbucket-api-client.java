@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!--
-  faces-config.xml - Faces configuration for bitbucket-api-client-example
+  faces-config.xml - JSF configuration for bitbucket-api-client-example
   Copyright (C) 2015 Nishimura Software Studio
 
   This program is free software: you can redistribute it and/or modify it
@@ -20,7 +20,7 @@
     <from-view-id>*</from-view-id>
     <navigation-case>
       <from-outcome>home</from-outcome>
-      <to-view-id>index</to-view-id>
+      <to-view-id>/index.xhtml</to-view-id>
       <redirect/>
     </navigation-case>
   </navigation-rule>

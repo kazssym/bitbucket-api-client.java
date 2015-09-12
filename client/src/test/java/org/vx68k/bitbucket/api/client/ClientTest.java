@@ -19,26 +19,22 @@
 package org.vx68k.bitbucket.api.client;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import com.google.api.client.auth.oauth2.AuthorizationCodeFlow;
+import com.google.api.client.http.HttpResponseException;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
  * Collection of unit tests for [@link Client}.
- *
  * @author Kaz Nishimura
  * @since 1.0
  */
 public class ClientTest {
 
-    private static final String CLIENT_ID = "9AmnPtR344BRPQx35N";
-    private static final String CLIENT_SECRET
-            = "9zpV93JzpYfBVHDvsspsWKAZRs3bdavN";
+    private static final String USER = "user";
+
+    private static final String PASSWORD = "password";
 
     @Before
     public void setUp() {
@@ -51,58 +47,50 @@ public class ClientTest {
     @Test
     public void testDefaultConstructor() {
         Client client = new Client();
-        assertNull(client.getCredentials());
+        assertNull(client.getUser());
+        assertNull(client.getPassword());
     }
 
     @Test
-    public void testSetCredentials() {
-        Client client = new Client();
-        client.setCredentials(new Credentials());
-        assertNotNull(client.getCredentials());
+    public void testConstructorWithUserAndPassword() {
+        Client client = new Client(USER, PASSWORD);
+        assertEquals(USER, client.getUser());
+        assertEquals(PASSWORD, client.getPassword());
     }
 
     @Test
-    public void testGetAuthorizationEndpoint() throws URISyntaxException {
+    public void testSetUser() {
         Client client = new Client();
+        client.setUser(USER);
+        assertEquals(USER, client.getUser());
+    }
+
+    @Test
+    public void testSetPassword() {
+        Client client = new Client();
+        client.setPassword(PASSWORD);
+        assertEquals(PASSWORD, client.getPassword());
+    }
+
+    @Test
+    public void testGetService() throws IOException {
+        Client client = new Client();
+        Service service1 = client.getService();
+        assertNotNull(service1);
+        assertFalse(service1.isAuthenticated());
+        assertNull(service1.getCurrentUser());
+
+        client.setUser(USER);
+        client.setPassword(PASSWORD);
+        Service service2 = client.getService();
+        assertNotNull(service2);
+        assertFalse(service2.isAuthenticated());
         try {
-            URI authorizationEndpoint = client.getAuthorizationEndpoint(null);
-            assertNull(authorizationEndpoint);
-        } catch (NullPointerException exception) {
+            User currentUser = service2.getCurrentUser();
+            assertNotNull(currentUser);
+        } catch (HttpResponseException exception) {
             // Expected.
+            assertEquals(401, exception.getStatusCode());
         }
-
-        client.setCredentials(new Credentials(CLIENT_ID, CLIENT_SECRET));
-        URI authorizationEndpoint = client.getAuthorizationEndpoint(null);
-        assertNotNull(authorizationEndpoint);
     }
-
-    @Ignore
-    @Test
-    public void testAuthorizationCodeFlow() throws IOException {
-        Client client = new Client();
-
-        AuthorizationCodeFlow flow1 = client.getAuthorizationCodeFlow(false);
-        assertNull(flow1);
-
-        AuthorizationCodeFlow flow2 = client.getAuthorizationCodeFlow(true);
-        assertNull(flow2);
-
-        client.setCredentials(new Credentials(CLIENT_ID, CLIENT_SECRET));
-
-        AuthorizationCodeFlow flow3 = client.getAuthorizationCodeFlow(false);
-        assertNotNull(flow3);
-
-        String authorizationURL = flow3.newAuthorizationUrl().build();
-        assertNotNull(authorizationURL);
-
-        AuthorizationCodeFlow flow4 = client.getAuthorizationCodeFlow(true);
-        assertNotNull(flow4);
-    }
-
-//    @Test
-//    public void testSession() {
-//        Client client = new Client();
-//        Service bitbucket = client.getService();
-//        assertNotNull(bitbucket);
-//    }
 }

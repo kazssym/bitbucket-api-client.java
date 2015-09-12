@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  web.xml - web deployment descriptor for bitbucket-api-client-example
+  web.xml - deployment descriptor for bitbucket-api-client-example
   Copyright (C) 2015 Nishimura Software Studio
 
   This program is free software: you can redistribute it and/or modify it
@@ -45,7 +45,7 @@
       <url-pattern>/resources/*</url-pattern>
     </web-resource-collection>
     <auth-constraint>
-      <description>Nobody has access to the JSF source files.</description>
+      <description>Nobody has access to internal files.</description>
       <role-name>nobody</role-name>
     </auth-constraint>
   </security-constraint>

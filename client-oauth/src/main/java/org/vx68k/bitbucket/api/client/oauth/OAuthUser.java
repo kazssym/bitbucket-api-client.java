@@ -23,7 +23,6 @@ import java.io.Serializable;
 import java.net.URI;
 import java.net.URISyntaxException;
 import javax.enterprise.event.Observes;
-import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -32,12 +31,13 @@ import org.vx68k.bitbucket.api.client.Service;
 
 /**
  * User with OAuth authorization by Bitbucket.
+ * <em>As of version 4.0, this class was changed to abstract.</em>
  * @author Kaz Nishimura
  * @since 3.0
  */
-public class OAuthUser implements Serializable {
+public abstract class OAuthUser implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 3L;
 
     /**
      * Scheme of HTTP.
@@ -59,43 +59,33 @@ public class OAuthUser implements Serializable {
      */
     private static final int DEFAULT_HTTPS_PORT = 443;
 
-    /**
-     * Associated Bitbucket client.
-     */
-    private Client bitbucketClient;
+    private transient URI redirectionEndpoint;
 
-    /**
-     * Current Bitbucket service.
-     */
     private transient Service bitbucketService;
 
     /**
-     * Constructs this object without initialization.
+     * Constructs this object.
      */
-    public OAuthUser() {
-    }
-
-    public OAuthUser(Client bitbucketClient) {
-        setBitbucketClient(bitbucketClient);
-    }
-
-    public Client getBitbucketClient() {
-        return bitbucketClient;
-    }
-
-    @Inject
-    public void setBitbucketClient(Client bitbucketClient) {
-        this.bitbucketClient = bitbucketClient;
+    protected OAuthUser() {
     }
 
     /**
-     * Returns the current Bitbucket service.
-     * If there is no current service, an anonymous service shall be created.
-     * @return current service
+     * Returns a Bitbucket client for getting a Bitbucket service.
+     * @return Bitbucket client that supports OAuth authorization
+     * @since 4.0
      */
-    protected Service getBitbucketService() {
+    protected abstract OAuthClient getBitbucketClient();
+
+    /**
+     * Returns the current Bitbucket service.
+     * If there is no current Bitbucket service, this method shall create an
+     * anonymous one.
+     * @return current Bitbucket service
+     */
+    public Service getBitbucketService() {
         synchronized (this) {
             if (bitbucketService == null) {
+                Client bitbucketClient = getBitbucketClient();
                 bitbucketService = bitbucketClient.getService();
             }
         }
@@ -111,15 +101,15 @@ public class OAuthUser implements Serializable {
      */
     protected URI getAuthorizationEndpoint(HttpServletRequest request)
             throws URISyntaxException, IOException {
-        // Redirects the user agent to the authorization endpoint.
-        URI redirectionEndpoint = new URI(
+        redirectionEndpoint = new URI(
                 request.getScheme(), null, request.getServerName(),
                 getExplicitServerPort(request), getRedirectionPath(request),
                 null, null);
-        bitbucketClient.setRedirectionEndpoint(redirectionEndpoint);
 
         HttpSession session = request.getSession();
-        return bitbucketClient.getAuthorizationEndpoint(session.getId());
+        OAuthClient bitbucketClient = getBitbucketClient();
+        return bitbucketClient.getAuthorizationEndpoint(
+                redirectionEndpoint, session.getId());
     }
 
     protected void requestToken(@Observes OAuthRedirection redirection)
@@ -130,21 +120,25 @@ public class OAuthUser implements Serializable {
             String state = request.getParameter("state");
             if (state != null && state.equals(session.getId())) {
                 // The redirection is for this session.
+                HttpServletResponse response = redirection.getResponse();
 
-                String code = request.getParameter("code");
-                if (code != null) {
+                String authorizationCode = request.getParameter("code");
+                if (authorizationCode != null) {
                     // The resource access was authorized.
+                    OAuthClient bitbucketClient = getBitbucketClient();
                     synchronized (this) {
-                        bitbucketService = bitbucketClient.getService(code);
+                        bitbucketService = bitbucketClient.getService(
+                                authorizationCode, redirectionEndpoint);
                     }
 
-                    HttpServletResponse response = redirection.getResponse();
                     StringBuilder path = new StringBuilder(
                             request.getContextPath());
                     if (request.getPathInfo() != null) {
                         path.append(request.getPathInfo());
                     }
                     response.sendRedirect(path.toString());
+                } else {
+                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
                 }
             }
         }

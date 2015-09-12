@@ -21,8 +21,8 @@ package org.vx68k.bitbucket.api.client.example;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.vx68k.bitbucket.api.client.Client;
-import org.vx68k.bitbucket.api.client.Credentials;
+import org.vx68k.bitbucket.api.client.oauth.OAuthClient;
+import org.vx68k.bitbucket.api.client.oauth.OAuthCredentials;
 import static org.junit.Assert.*;
 
 /**
@@ -33,9 +33,14 @@ import static org.junit.Assert.*;
 public class ApplicationConfigTest {
 
     private static final String envClientID =
-            System.getenv("BITBUCKET_CLIENT_ID");
+            System.getenv("BITBUCKET_OAUTH_CLIENT_ID");
+
     private static final String envClientSecret =
-            System.getenv("BITBUCKET_CLIENT_SECRET");
+            System.getenv("BITBUCKET_OAUTH_CLIENT_SECRET");
+
+    private static final String CLIENT_ID = "id";
+
+    private static final String CLIENT_SECRET = "secret";
 
     @Before
     public void setUp() {
@@ -49,14 +54,32 @@ public class ApplicationConfigTest {
 
     @Test
     public void testGetBitbucketClient() {
-        Client bitbucketClient = ApplicationConfig.getBitbucketClient();
-        Credentials clientCredentials = bitbucketClient.getCredentials();
+        ApplicationConfig applicationConfig = new ApplicationConfig();
+        OAuthClient bitbucketClient = applicationConfig.getBitbucketClient();
+        OAuthCredentials clientCredentials = bitbucketClient.getCredentials();
         if (envClientID != null && envClientSecret != null) {
+            assertNotNull(clientCredentials);
             assertEquals(envClientID, clientCredentials.getId());
             assertEquals(envClientSecret, clientCredentials.getSecret());
         } else {
             assertNull(clientCredentials);
         }
+
         // TODO: Add a test case with system properties.
+    }
+
+    @Test
+    public void testGetBitbucketClientWithCredentials() {
+        OAuthClient bitbucketClient1 = ApplicationConfig.getBitbucketClient(
+                null);
+        assertNull(bitbucketClient1.getCredentials());
+
+        OAuthClient bitbucketClient2 = ApplicationConfig.getBitbucketClient(
+                new OAuthCredentials(CLIENT_ID, CLIENT_SECRET));
+        OAuthCredentials clientCredentials2 =
+                bitbucketClient2.getCredentials();
+        assertNotNull(clientCredentials2);
+        assertEquals(CLIENT_ID, clientCredentials2.getId());
+        assertEquals(CLIENT_SECRET, clientCredentials2.getSecret());
     }
 }

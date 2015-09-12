@@ -25,9 +25,87 @@ package org.vx68k.bitbucket.api.client;
 public class JsonKeys {
 
     /**
+     * JSON key for the <code>links</code> object.
+     * @since 4.0
+     */
+    public static final String LINKS = "links";
+
+    /**
+     * JSON key for the <code>owner</code> object.
+     * @since 4.0
+     */
+    public static final String OWNER = "owner";
+
+    /**
      * JSON key for the <code>type</code> value.
      */
     public static final String TYPE = "type";
+
+    /**
+     * JSON key for the <code>href</code> value.
+     */
+    public static final String HREF = "href";
+
+    /**
+     * JSON key for the <code>uuid</code> value.
+     * @since 4.0
+     */
+    public static final String UUID = "uuid";
+
+    /**
+     * JSON key for the <code>username</code> value.
+     * @since 4.0
+     */
+    public static final String USERNAME = "username";
+
+    /**
+     * JSON key for the <code>display_name</code> value.
+     * @since 4.0
+     */
+    public static final String DISPLAY_NAME = "display_name";
+
+    /**
+     * JSON key for the <code>website</code> value.
+     * @since 4.0
+     */
+    public static final String WEBSITE = "website";
+
+    /**
+     * JSON key for the <code>location</code> value.
+     * @since 4.0
+     */
+    public static final String LOCATION = "location";
+
+    /**
+     * JSON key for the <code>created_on</code> value.
+     * @since 4.0
+     */
+    public static final String CREATED_ON = "created_on";
+
+    /**
+     * JSON key for the <code>name</code> value.
+     * @since 4.0
+     */
+    public static final String NAME = "name";
+
+    /**
+     * JSON key for the <code>full_name</code> value.
+     * @since 4.0
+     */
+    public static final String FULL_NAME = "full_name";
+
+    /**
+     * JSON key for the <code>scm</code> value, which is either
+     * <code>"git"</code> or <code>"hg"</code>.
+     * @since 4.0
+     */
+    public static final String SCM = "scm";
+
+    /**
+     * JSON key for the <code>is_private</code> value.
+     * @since 4.0
+     */
+    public static final String IS_PRIVATE = "is_private";
 
     private JsonKeys() {
     }

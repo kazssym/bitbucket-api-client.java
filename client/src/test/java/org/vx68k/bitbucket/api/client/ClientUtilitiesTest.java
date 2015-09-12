@@ -1,5 +1,5 @@
 /*
- * UtilitiesTest
+ * ClientUtilitiesTest
  * Copyright (C) 2015 Nishimura Software Studio
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -27,12 +27,12 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Collection of unit tests for {@link Utilities}.
+ * Collection of unit tests for {@link ClientUtilities}.
  *
  * @author Kaz Nishimura
  * @since 1.0
  */
-public class UtilitiesTest {
+public class ClientUtilitiesTest {
 
     @Before
     public void setUp() {
@@ -49,10 +49,10 @@ public class UtilitiesTest {
 
     @Test
     public void testParseURL() throws MalformedURLException {
-        URL url1 = Utilities.parseURL(null);
+        URL url1 = ClientUtilities.parseURL(null);
         assertNull(url1);
 
-        URL url2 = Utilities.parseURL("https://api.bitbucket.org/");
+        URL url2 = ClientUtilities.parseURL("https://api.bitbucket.org/");
         assertNotNull(url2);
     }
 

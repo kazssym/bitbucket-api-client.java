@@ -19,7 +19,6 @@ package org.vx68k.bitbucket.api.client;
 
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Handler;
-import java.util.logging.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -38,22 +37,20 @@ public class UserTest {
 
     @Before
     public void setUp() {
-        Logger logger = Utilities.getLogger();
         loggingHandler = new ConsoleHandler();
-        logger.addHandler(loggingHandler);
+        ClientUtilities.getLogger().addHandler(loggingHandler);
     }
 
     @After
     public void tearDown() {
-        Logger logger = Utilities.getLogger();
-        logger.removeHandler(loggingHandler);
+        ClientUtilities.getLogger().removeHandler(loggingHandler);
         loggingHandler = null;
     }
 
     @Test
     public void testDefaultUser() {
         User user = new User();
-        assertNull(user.getUsername());
+        assertNull(user.getName());
         assertEquals("user", user.getType());
         assertNull(user.getUuid());
         assertNull(user.getDisplayName());

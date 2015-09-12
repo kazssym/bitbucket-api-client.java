@@ -38,20 +38,22 @@ public class Commit extends Entity {
      */
     public Commit() {
         super(COMMIT_TYPE);
-        Utilities.getLogger().finer("Creating a blank commit");
+        ClientUtilities.getLogger().finer("Creating a blank Commit");
     }
 
     /**
      * Constructs this object from a JSON object.
-     * @param json JSON object that represents a commit.
+     * @param jsonObject JSON object that represents a commit.
      */
-    public Commit(JsonObject json) {
-        super(json);
+    public Commit(JsonObject jsonObject) {
+        super(jsonObject);
         if (!getType().equals(COMMIT_TYPE)) {
             throw new IllegalArgumentException("Not user");
         }
-        Utilities.getLogger().log(
-                Level.INFO, "Parsing JSON object (commit): {0}", json);
+        ClientUtilities.getLogger().log(
+                Level.INFO,
+                "Parsing JSON object (\"" + COMMIT_TYPE + "\"): {0}",
+                jsonObject);
         // TODO: Add fields.
     }
 }

@@ -33,7 +33,7 @@ import static org.junit.Assert.*;
  */
 public class ServiceTest {
 
-    private static final String USER_USERNAME = "kazssym";
+    private static final String USER_NAME = "kazssym";
 
     private static final UUID USER_UUID
             = UUID.fromString("cebb58cd-f699-4393-8762-e0f743ccf770");
@@ -66,11 +66,11 @@ public class ServiceTest {
     @Test
     public void testGetUser() throws IOException {
         Service service = client.getService();
-        User user1 = service.getUser(USER_USERNAME);
+        User user1 = service.getUser(USER_NAME);
         User user2 = service.getUser(USER_UUID);
         assertNotNull(user1);
         assertNotNull(user2);
-        assertEquals(USER_USERNAME, user1.getUsername());
+        assertEquals(USER_NAME, user1.getName());
         assertEquals(USER_UUID, user2.getUuid());
         assertTrue(user1.equals(user2));
     }
