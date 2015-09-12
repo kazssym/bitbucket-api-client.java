@@ -1,5 +1,5 @@
 /*
- * Utilities
+ * ClientUtilities
  * Copyright (C) 2015 Nishimura Software Studio
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -23,33 +23,32 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.json.JsonObject;
 import javax.json.JsonValue;
 
 /**
- * Collection of static utility methods for this library.
- *
+ * Collection of static utility methods.
  * @author Kaz Nishimura
- * @since 1.0
+ * @since 4.0
  */
-public class Utilities {
+public class ClientUtilities {
 
     private static final String PACKAGE_NAME =
-            Utilities.class.getPackage().getName();
+            ClientUtilities.class.getPackage().getName();
 
     /**
      * JSON key for the <code>href</code> value.
      */
     private static final String HREF_JSON_KEY = "href";
 
-    private Utilities() {
+    private ClientUtilities() {
     }
 
     /**
-     * Returns a logger with the name of this package.
-     *
-     * @return logger
+     * Returns a logger.
+     * @return logger for this package
      */
     public static Logger getLogger() {
         return Logger.getLogger(
@@ -59,12 +58,13 @@ public class Utilities {
     /**
      * Parses a string into a UUID.
      * The string representation of a UUID may be enclosed in braces.
-     *
      * @param string string that represents a UUID
-     * @return parsed {@link UUID} object, or <code>null</code> if the string
-     * is <code>null</code>
+     * @return {@link UUID} object, or <code>null</code> if the string is
+     * <code>null</code>
+     * @throws IllegalArgumentException if the string could not parsed as a
+     * UUID.
      */
-    public static UUID parseUuid(String string) {
+    public static UUID parseUUID(String string) {
         if (string == null) {
             return null;
         }
@@ -76,12 +76,43 @@ public class Utilities {
     }
 
     /**
+     * Parses a JSON object into a map of links.
+     * @param jsonObject JSON object
+     * @return map of links
+     */
+    public static Map<String, URL> parseLinks(JsonObject jsonObject) {
+        Map<String, URL> links = new HashMap<String, URL>();
+        for (Map.Entry<String, JsonValue> entry : jsonObject.entrySet()) {
+            try {
+                URL link = parseLink((JsonObject) entry.getValue());
+                links.put(entry.getKey(), link);
+            } catch (MalformedURLException exception) {
+                getLogger().log(
+                        Level.WARNING, "Could not parse a URL value",
+                        exception);
+            }
+        }
+        return links;
+    }
+
+    /**
+     * Parses a JSON object into a URL.
+     * @param jsonObject JSON object
+     * @return link
+     * @throws MalformedURLException if the <code>href</code> value could not
+     * be parsed as a URL.
+     */
+    protected static URL parseLink(JsonObject jsonObject)
+            throws MalformedURLException {
+        return parseURL(jsonObject.getString(HREF_JSON_KEY));
+    }
+
+    /**
      * Parses a string into a URL.
-     * @param string string that represents a URL, or <code>null</code>
+     * @param string string that represents a URL
      * @return parsed {@link URL} object, or <code>null</code> if the string
      * is <code>null</code>
-     * @throws MalformedURLException if the string does not represents a valid
-     * URL.
+     * @throws MalformedURLException if the string could not parsed as a URL.
      */
     public static URL parseURL(String string) throws MalformedURLException {
         if (string == null) {
@@ -89,34 +120,5 @@ public class Utilities {
         }
 
         return new URL(string);
-    }
-
-    /**
-     * Parses a JSON object into a map of links.
-     *
-     * @param json JSON object
-     * @return map of links
-     * @throws MalformedURLException if any URL was malformed
-     */
-    public static Map<String, URL> parseLinks(JsonObject json)
-            throws MalformedURLException {
-        Map<String, URL> links = new HashMap<String, URL>();
-        for (Map.Entry<String, JsonValue> entry : json.entrySet()) {
-            URL link = parseLink((JsonObject) entry.getValue());
-            links.put(entry.getKey(), link);
-        }
-        return links;
-    }
-
-    /**
-     * Parses a JSON object into a link.
-     *
-     * @param json JSON object
-     * @return link
-     * @throws MalformedURLException if the URL was malformed
-     */
-    protected static URL parseLink(JsonObject json)
-            throws MalformedURLException {
-        return new URL(json.getString(HREF_JSON_KEY));
     }
 }

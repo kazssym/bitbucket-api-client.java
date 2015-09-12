@@ -52,7 +52,7 @@ public class User extends Entity {
      */
     public User() {
         super(USER_TYPE);
-        Utilities.getLogger().finer("Creating a blank User");
+        ClientUtilities.getLogger().finer("Creating a blank User");
     }
 
     /**
@@ -65,27 +65,20 @@ public class User extends Entity {
             throw new IllegalArgumentException(
                     "Type is not \"" + USER_TYPE + "\"");
         }
-        Utilities.getLogger().log(
+        ClientUtilities.getLogger().log(
                 Level.INFO,
                 "Parsing JSON object (\"" + USER_TYPE + "\"): {0}",
                 jsonObject);
-        uuid = Utilities.parseUuid(jsonObject.getString(JsonKeys.UUID));
+        uuid = ClientUtilities.parseUUID(jsonObject.getString(JsonKeys.UUID));
         name = jsonObject.getString(JsonKeys.USERNAME);
         displayName = jsonObject.getString(JsonKeys.DISPLAY_NAME);
+        links = ClientUtilities.parseLinks(jsonObject.getJsonObject(
+                JsonKeys.LINKS));
         try {
-            links = Utilities.parseLinks(jsonObject.getJsonObject(
-                    JsonKeys.LINKS));
-        } catch (MalformedURLException exception) {
-            Utilities.getLogger().log(
-                    Level.WARNING,
-                    "Could not parse the \"" + JsonKeys.LINKS + "\" object",
-                    exception);
-        }
-        try {
-            website = Utilities.parseURL(jsonObject.getString(
+            website = ClientUtilities.parseURL(jsonObject.getString(
                     JsonKeys.WEBSITE, null));
         } catch (MalformedURLException exception) {
-            Utilities.getLogger().log(
+            ClientUtilities.getLogger().log(
                     Level.WARNING,
                     "Could not parse the \"" + JsonKeys.WEBSITE + "\" value",
                     exception);

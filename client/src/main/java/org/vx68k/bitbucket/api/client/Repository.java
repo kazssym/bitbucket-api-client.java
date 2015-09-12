@@ -18,7 +18,6 @@
 
 package org.vx68k.bitbucket.api.client;
 
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
 import java.util.UUID;
@@ -27,7 +26,6 @@ import javax.json.JsonObject;
 
 /**
  * Bitbucket repository.
- *
  * @author Kaz Nishimura
  * @since 1.0
  */
@@ -53,7 +51,7 @@ public class Repository extends Entity {
      */
     public Repository() {
         super(REPOSITORY_TYPE);
-        Utilities.getLogger().finer("Creating a blank Repository");
+        ClientUtilities.getLogger().finer("Creating a blank Repository");
     }
 
     public Repository(JsonObject jsonObject) {
@@ -62,25 +60,18 @@ public class Repository extends Entity {
             throw new IllegalArgumentException(
                     "Type is not \"" + REPOSITORY_TYPE + "\"");
         }
-        Utilities.getLogger().log(
+        ClientUtilities.getLogger().log(
                 Level.INFO,
                 "Parsing JSON object (\"" + REPOSITORY_TYPE + "\"): {0}",
                 jsonObject);
-        uuid = Utilities.parseUuid(jsonObject.getString(JsonKeys.UUID));
+        uuid = ClientUtilities.parseUUID(jsonObject.getString(JsonKeys.UUID));
         owner = new User(jsonObject.getJsonObject(JsonKeys.OWNER));
         name = jsonObject.getString(JsonKeys.NAME);
         fullName = jsonObject.getString(JsonKeys.FULL_NAME);
         scm = jsonObject.getString(JsonKeys.SCM);
         Private = jsonObject.getBoolean(JsonKeys.IS_PRIVATE);
-        try {
-            links = Utilities.parseLinks(jsonObject.getJsonObject(
-                    JsonKeys.LINKS));
-        } catch (MalformedURLException exception) {
-            Utilities.getLogger().log(
-                    Level.WARNING,
-                    "Could not parse the \"" + JsonKeys.LINKS + "\" object",
-                    exception);
-        }
+        links = ClientUtilities.parseLinks(jsonObject.getJsonObject(
+                JsonKeys.LINKS));
     }
 
     /**
