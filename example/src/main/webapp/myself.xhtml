@@ -49,7 +49,7 @@
               <tr>
                 <th>Avatar</th>
                 <td>
-                  <h:graphicImage url="#{user.bitbucketService.currentUser.links['avatar']}"/>
+                  <h:graphicImage url="#{user.bitbucketService.currentUser.links['avatar']}" alt="Avatar"/>
                 </td>
               </tr>
               <tr>
@@ -64,7 +64,7 @@
               <tr>
                 <th>Location</th>
                 <td>
-                  <h:outputLink rendered="#{not empty user.bitbucketService.currentUser.location}" value="https://www.google.com/maps" target="_blank">
+                  <h:outputLink rendered="#{not empty user.bitbucketService.currentUser.location}" value="https://www.google.com/maps" title="Search this location using Google Maps" target="_blank">
                     <f:param name="q" value="#{user.bitbucketService.currentUser.location}"/>
                     <h:outputText value="#{user.bitbucketService.currentUser.location}"/>
                   </h:outputLink>
