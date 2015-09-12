@@ -211,7 +211,7 @@ public class OAuthRedirectionTest {
         }
 
         @Override
-        public void login(String username, String password)
+        public void login(String user, String password)
                 throws ServletException {
             throw new UnsupportedOperationException("Not supported yet.");
         }

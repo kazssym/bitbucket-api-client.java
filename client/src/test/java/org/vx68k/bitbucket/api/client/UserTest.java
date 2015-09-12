@@ -53,7 +53,7 @@ public class UserTest {
     @Test
     public void testDefaultUser() {
         User user = new User();
-        assertNull(user.getUsername());
+        assertNull(user.getName());
         assertEquals("user", user.getType());
         assertNull(user.getUuid());
         assertNull(user.getDisplayName());

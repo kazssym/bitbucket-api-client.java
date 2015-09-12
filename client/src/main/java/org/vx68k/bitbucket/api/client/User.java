@@ -40,7 +40,7 @@ public class User extends Entity {
 
     // Properties.
     private UUID uuid;
-    private String username;
+    private String name;
     private String displayName;
     private Map<String, URL> links;
     private URL website;
@@ -70,7 +70,7 @@ public class User extends Entity {
                 "Parsing JSON object (\"" + USER_TYPE + "\"): {0}",
                 jsonObject);
         uuid = Utilities.parseUuid(jsonObject.getString(JsonKeys.UUID));
-        username = jsonObject.getString(JsonKeys.USERNAME);
+        name = jsonObject.getString(JsonKeys.USERNAME);
         displayName = jsonObject.getString(JsonKeys.DISPLAY_NAME);
         try {
             links = Utilities.parseLinks(jsonObject.getJsonObject(
@@ -103,11 +103,11 @@ public class User extends Entity {
     }
 
     /**
-     * Returns the username.
-     * @return username
+     * Returns the name.
+     * @return name
      */
-    public String getUsername() {
-        return username;
+    public String getName() {
+        return name;
     }
 
     /**
@@ -164,11 +164,11 @@ public class User extends Entity {
     }
 
     /**
-     * Sets the username.
-     * @param username username to be set
+     * Sets the name.
+     * @param name name to be set
      */
-    public void setUsername(String username) {
-        this.username = username;
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**
@@ -216,7 +216,7 @@ public class User extends Entity {
     /**
      * Tests whether this object equals to another or not.
      * Equality is tested by UUIDs first, and if they are <code>null</code>,
-     * usernames are compared.
+     * names are compared.
      * @param object another object
      * @return <code>true</code> if this object equals to the other object,
      * or <code>false</code> otherwise
@@ -235,9 +235,9 @@ public class User extends Entity {
             } else if (user.getUuid() != null) {
                 return false;
             }
-            if (username != null) {
-                return username.equals(user.getUsername());
-            } else if (user.getUsername() != null) {
+            if (name != null) {
+                return name.equals(user.getName());
+            } else if (user.getName() != null) {
                 return false;
             }
             return true;
@@ -254,8 +254,8 @@ public class User extends Entity {
         int code = getClass().hashCode();
         if (uuid != null) {
             code ^= uuid.hashCode();
-        } else if (username != null) {
-            code ^= username.hashCode();
+        } else if (name != null) {
+            code ^= name.hashCode();
         }
         return code;
     }

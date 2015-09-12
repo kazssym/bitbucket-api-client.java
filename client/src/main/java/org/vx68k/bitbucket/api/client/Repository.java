@@ -204,8 +204,8 @@ public class Repository extends Entity {
      * Updated the full name from the owner and the name.
      */
     protected void updateFullName() {
-        if (owner != null && name != null && owner.getUsername() != null) {
-            fullName = owner.getUsername() + "/" + name;
+        if (owner != null && name != null && owner.getName() != null) {
+            fullName = owner.getName() + "/" + name;
         }
     }
 }

@@ -77,7 +77,7 @@ ga('send', 'pageview');
           <ui:fragment rendered="#{user.bitbucketService.authenticated}">
             <li id="account-menu" class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
               <h:outputLink styleClass="pure-menu-link" value="#" onclick="return false;">
-                <h:outputText value="#{user.bitbucketService.currentUser.username}"/>
+                <h:outputText value="#{user.bitbucketService.currentUser.name}"/>
               </h:outputLink>
               <ul class="pure-menu-children">
                 <li class="pure-menu-item#{view.viewId == '/myself.xhtml' ? ' pure-menu-selected' : ''}">
