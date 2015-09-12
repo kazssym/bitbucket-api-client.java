@@ -34,145 +34,178 @@ import javax.json.JsonObject;
 public class Repository extends Entity {
 
     /**
-     * JSON key for the <code>uuid</code> value.
-     */
-    protected static final String UUID_JSON_KEY = "uuid";
-
-    /**
-     * JSON key for the <code>owner</code> object.
-     */
-    protected static final String OWNER_JSON_KEY = "owner";
-
-    /**
-     * JSON key for the <code>name</code> value.
-     */
-    protected static final String NAME_JSON_KEY = "name";
-
-    /**
-     * JSON key for the <code>full_name</code> value.
-     */
-    protected static final String FULL_NAME_JSON_KEY = "full_name";
-
-    /**
-     * JSON key for the <code>scm</code> value that is either
-     * <code>"git"</code> or <code>"hg"</code>.
-     */
-    protected static final String SCM_JSON_KEY = "scm";
-
-    /**
-     * JSON key for the <code>is_private</code> value.
-     */
-    protected static final String IS_PRIVATE_JSON_KEY = "is_private";
-
-    /**
-     * JSON key for the <code>links</code> object.
-     */
-    protected static final String LINKS_JSON_KEY = "links";
-
-    /**
      * Type value for repositories.
      */
     private static final String REPOSITORY_TYPE = "repository";
 
+    // Properties.
+    // Note: Since <code>private</code> is reserved, it is capitalized.
     private UUID uuid;
-
     private User owner;
-
     private String name;
-
     private String fullName;
-
     private String scm;
-
-    // Note: <code>private</code> is reserved so capitalized.
     private boolean Private;
-
     private Map<String, URL> links;
 
     /**
-     * Constructs a <em>blank</em> object.
+     * Constructs this object with no property values.
      */
     public Repository() {
         super(REPOSITORY_TYPE);
         Utilities.getLogger().finer("Creating a blank Repository");
     }
 
-    public Repository(JsonObject json) {
-        super(json);
+    public Repository(JsonObject jsonObject) {
+        super(jsonObject);
         if (!getType().equals(REPOSITORY_TYPE)) {
-            throw new IllegalArgumentException("Not user");
+            throw new IllegalArgumentException(
+                    "Type is not \"" + REPOSITORY_TYPE + "\"");
         }
         Utilities.getLogger().log(
-                Level.INFO, "Parsing Repository JSON object: {0}", json);
-        this.uuid = Utilities.parseUuid(json.getString(UUID_JSON_KEY));
-        this.owner = new User(json.getJsonObject(OWNER_JSON_KEY));
-        this.name = json.getString(NAME_JSON_KEY);
-        this.fullName = json.getString(FULL_NAME_JSON_KEY);
-        this.scm = json.getString(SCM_JSON_KEY);
-        this.Private = json.getBoolean(IS_PRIVATE_JSON_KEY);
+                Level.INFO,
+                "Parsing JSON object (\"" + REPOSITORY_TYPE + "\"): {0}",
+                jsonObject);
+        uuid = Utilities.parseUuid(jsonObject.getString(JsonKeys.UUID));
+        owner = new User(jsonObject.getJsonObject(JsonKeys.OWNER));
+        name = jsonObject.getString(JsonKeys.NAME);
+        fullName = jsonObject.getString(JsonKeys.FULL_NAME);
+        scm = jsonObject.getString(JsonKeys.SCM);
+        Private = jsonObject.getBoolean(JsonKeys.IS_PRIVATE);
         try {
-            this.links = Utilities.parseLinks(
-                    json.getJsonObject(LINKS_JSON_KEY));
+            links = Utilities.parseLinks(jsonObject.getJsonObject(
+                    JsonKeys.LINKS));
         } catch (MalformedURLException exception) {
             Utilities.getLogger().log(
-                    Level.WARNING, "Could not parse the \"links\" object",
+                    Level.WARNING,
+                    "Could not parse the \"" + JsonKeys.LINKS + "\" object",
                     exception);
         }
     }
 
+    /**
+     * Returns the UUID.
+     * @return UUID
+     */
     public UUID getUuid() {
         return uuid;
     }
 
+    /**
+     * Returns the owner.
+     * @return owner
+     */
     public User getOwner() {
         return owner;
     }
 
+    /**
+     * Returns the name.
+     * @return name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Returns the full name.
+     * @return full name
+     */
     public String getFullName() {
         return fullName;
     }
 
+    /**
+     * Returns the SCM.
+     * @return SCM, which is either <code>"git"</code> or <code>"hg"</code>
+     */
     public String getScm() {
         return scm;
     }
 
+    /**
+     * Returns the boolean value that indicates whether the repository is
+     * private or not.
+     * @return <code>true</code> if the repository is private, or
+     * <code>false</code> otherwise
+     */
     public boolean isPrivate() {
         return Private;
     }
 
+    /**
+     * Returns the map of the links.
+     * @return map of the links.
+     */
     public Map<String, URL> getLinks() {
         return links;
     }
 
+    /**
+     * Sets the UUID.
+     * @param uuid UUID to be set
+     */
     public void setUuid(UUID uuid) {
         this.uuid = uuid;
     }
 
+    /**
+     * Sets the owner.
+     * This method shall also set the full name if is can be derived.
+     * @param owner owner to be set
+     */
     public void setOwner(User owner) {
         this.owner = owner;
+        updateFullName();
     }
 
+    /**
+     * Sets the name.
+     * This method shall also set the full name if is can be derived.
+     * @param name to be set
+     */
     public void setName(String name) {
+        if (name.contains("/")) {
+            throw new IllegalArgumentException(
+                    "Repository name must not contain a \"/\"");
+        }
         this.name = name;
+        updateFullName();
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
+    /**
+     * Sets the SCM
+     * @param scm SCM to be set, which should be either <code>"git"</code> or
+     * <code>"hg"</code>
+     */
     public void setScm(String scm) {
         this.scm = scm;
     }
 
+    /**
+     * Sets the boolean value that indicates whether the repository is private
+     * or not.
+     * @param Private <code>true</code> if the repository is private, or
+     * <code>false</code> otherwise
+     */
     public void setPrivate(boolean Private) {
         this.Private = Private;
     }
 
+    /**
+     * Sets the map of the links.
+     * @param links map of the links to be set
+     */
     public void setLinks(Map<String, URL> links) {
         this.links = links;
+    }
+
+    /**
+     * Updated the full name from the owner and the name.
+     */
+    protected void updateFullName() {
+        if (owner != null && name != null && owner.getUsername() != null) {
+            fullName = owner.getUsername() + "/" + name;
+        }
     }
 }

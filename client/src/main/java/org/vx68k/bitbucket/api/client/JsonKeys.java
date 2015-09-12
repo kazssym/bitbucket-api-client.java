@@ -31,6 +31,12 @@ public class JsonKeys {
     public static final String LINKS = "links";
 
     /**
+     * JSON key for the <code>owner</code> object.
+     * @since 4.0
+     */
+    public static final String OWNER = "owner";
+
+    /**
      * JSON key for the <code>type</code> value.
      */
     public static final String TYPE = "type";
@@ -70,6 +76,31 @@ public class JsonKeys {
      * @since 4.0
      */
     public static final String CREATED_ON = "created_on";
+
+    /**
+     * JSON key for the <code>name</code> value.
+     * @since 4.0
+     */
+    public static final String NAME = "name";
+
+    /**
+     * JSON key for the <code>full_name</code> value.
+     * @since 4.0
+     */
+    public static final String FULL_NAME = "full_name";
+
+    /**
+     * JSON key for the <code>scm</code> value, which is either
+     * <code>"git"</code> or <code>"hg"</code>.
+     * @since 4.0
+     */
+    public static final String SCM = "scm";
+
+    /**
+     * JSON key for the <code>is_private</code> value.
+     * @since 4.0
+     */
+    public static final String IS_PRIVATE = "is_private";
 
     private JsonKeys() {
     }
