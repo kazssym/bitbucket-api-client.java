@@ -38,11 +38,6 @@ public class ClientUtilities {
     private static final String PACKAGE_NAME =
             ClientUtilities.class.getPackage().getName();
 
-    /**
-     * JSON key for the <code>href</code> value.
-     */
-    private static final String HREF_JSON_KEY = "href";
-
     private ClientUtilities() {
     }
 
@@ -104,7 +99,7 @@ public class ClientUtilities {
      */
     protected static URL parseLink(JsonObject jsonObject)
             throws MalformedURLException {
-        return parseURL(jsonObject.getString(HREF_JSON_KEY));
+        return parseURL(jsonObject.getString(JsonKeys.HREF));
     }
 
     /**

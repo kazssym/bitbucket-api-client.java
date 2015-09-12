@@ -42,6 +42,11 @@ public class JsonKeys {
     public static final String TYPE = "type";
 
     /**
+     * JSON key for the <code>href</code> value.
+     */
+    public static final String HREF = "href";
+
+    /**
      * JSON key for the <code>uuid</code> value.
      * @since 4.0
      */
