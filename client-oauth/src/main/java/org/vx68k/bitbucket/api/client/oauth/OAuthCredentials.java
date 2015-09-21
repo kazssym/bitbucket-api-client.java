@@ -24,7 +24,9 @@ import java.io.Serializable;
  * Pair of an identifier and a shared secret for OAuth authorization.
  * @author Kaz Nishimura
  * @since 4.0
+ * @deprecated As of version 5.0, replaced by simple string fields.
  */
+@Deprecated
 public class OAuthCredentials implements Serializable {
 
     private static final long serialVersionUID = 4L;

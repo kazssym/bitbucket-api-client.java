@@ -59,8 +59,6 @@ public abstract class OAuthUser implements Serializable {
      */
     private static final int DEFAULT_HTTPS_PORT = 443;
 
-    private transient URI redirectionEndpoint;
-
     private transient Service bitbucketService;
 
     /**
@@ -98,17 +96,18 @@ public abstract class OAuthUser implements Serializable {
      * @return authorization endpoint URI
      * @throws URISyntaxException if a URI syntax error has been occurred
      * @throws IOException if an I/O error has occurred
+     * @since 5.0
      */
-    protected URI getAuthorizationEndpoint(HttpServletRequest request)
+    protected String authorizationRequestUri(HttpServletRequest request)
             throws URISyntaxException, IOException {
-        redirectionEndpoint = new URI(
+        URI redirectionEndpoint = new URI(
                 request.getScheme(), null, request.getServerName(),
                 getExplicitServerPort(request), getRedirectionPath(request),
                 null, null);
 
         HttpSession session = request.getSession();
         OAuthClient bitbucketClient = getBitbucketClient();
-        return bitbucketClient.getAuthorizationEndpoint(
+        return bitbucketClient.authorizationRequestUri(
                 redirectionEndpoint, session.getId());
     }
 
@@ -128,7 +127,7 @@ public abstract class OAuthUser implements Serializable {
                     OAuthClient bitbucketClient = getBitbucketClient();
                     synchronized (this) {
                         bitbucketService = bitbucketClient.getService(
-                                authorizationCode, redirectionEndpoint);
+                                authorizationCode);
                     }
 
                     StringBuilder path = new StringBuilder(

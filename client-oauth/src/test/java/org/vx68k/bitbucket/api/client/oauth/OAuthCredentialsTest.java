@@ -28,6 +28,7 @@ import static org.junit.Assert.*;
  * @author Kaz Nishimura
  * @since 4.0
  */
+@Deprecated
 public class OAuthCredentialsTest {
 
     static final String ID = "id";

@@ -73,7 +73,7 @@ ga('send', 'pageview');
         <li class="pure-menu-item pure-menu-disabled">
           <h:graphicImage styleClass="example-icon" name="icons/ic_help_white_18dp.png" alt="Help" title="Help"/>
         </li>
-        <ui:fragment rendered="#{config.bitbucketClient.credentials != null}">
+        <ui:fragment rendered="#{config.bitbucketClient.configuredForOAuth}">
           <ui:fragment rendered="#{user.bitbucketService.authenticated}">
             <li id="account-menu" class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
               <h:outputLink styleClass="pure-menu-link" value="#" onclick="return false;">
@@ -90,7 +90,7 @@ ga('send', 'pageview');
             </li>
           </ui:fragment>
         </ui:fragment>
-        <ui:fragment rendered="#{config.bitbucketClient.credentials == null}">
+        <ui:fragment rendered="#{not config.bitbucketClient.configuredForOAuth}">
           <li class="pure-menu-item pure-menu-disabled">No client credentials</li>
         </ui:fragment>
       </ul>
@@ -119,7 +119,7 @@ ga('send', 'pageview');
       </div>
       <div class="pure-u-1 pure-u-sm-3-4">
         <main>
-          <h:form id="login" styleClass="inline-float-right" rendered="#{config.bitbucketClient.credentials != null and not user.bitbucketService.authenticated}">
+          <h:form id="login" styleClass="inline-float-right" rendered="#{config.bitbucketClient.configuredForOAuth and not user.bitbucketService.authenticated}">
             <h:commandButton styleClass="pure-button pure-button-primary" action="#{user.login}" title="Login with Bitbucket" value="Login"/>
           </h:form>
           <ui:insert name="main"/>

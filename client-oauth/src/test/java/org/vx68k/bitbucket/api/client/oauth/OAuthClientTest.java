@@ -19,7 +19,6 @@
 package org.vx68k.bitbucket.api.client.oauth;
 
 import java.io.IOException;
-import java.net.URI;
 import java.net.URISyntaxException;
 import com.google.api.client.auth.oauth2.AuthorizationCodeFlow;
 import org.junit.After;
@@ -51,45 +50,53 @@ public class OAuthClientTest {
     @Test
     public void testDefaultConstructor() {
         OAuthClient client = new OAuthClient();
-        assertNull(client.getCredentials());
+        assertNull(client.getClientId());
+        assertNull(client.getClientSecret());
     }
 
     @Test
-    public void testConstructorWithCredentials() {
-        OAuthClient client = new OAuthClient(
-                new OAuthCredentials(CLIENT_ID, CLIENT_SECRET));
-        OAuthCredentials clientCredentials = client.getCredentials();
-        assertNotNull(clientCredentials);
-        assertEquals(CLIENT_ID, clientCredentials.getId());
-        assertEquals(CLIENT_SECRET, clientCredentials.getSecret());
+    public void testConstructorWithIdAndSecret() {
+        OAuthClient client1 = new OAuthClient(CLIENT_ID, CLIENT_SECRET);
+        assertEquals(CLIENT_ID, client1.getClientId());
+        assertEquals(CLIENT_SECRET, client1.getClientSecret());
+
+        OAuthClient client2 = new OAuthClient("", "");
+        assertNull(client2.getClientId());
+        assertNull(client2.getClientSecret());
     }
 
     @Test
-    public void testSetCredentials() {
+    public void testSetClientId() {
         OAuthClient client = new OAuthClient();
-        client.setCredentials(new OAuthCredentials(CLIENT_ID, CLIENT_SECRET));
-        
-        OAuthCredentials clientCredentials = client.getCredentials();
-        assertNotNull(clientCredentials);
-        assertEquals(CLIENT_ID, clientCredentials.getId());
-        assertEquals(CLIENT_SECRET, clientCredentials.getSecret());
+        client.setClientId(CLIENT_ID);
+        assertEquals(CLIENT_ID, client.getClientId());
+        client.setClientId("");
+        assertNull(client.getClientId());
     }
 
     @Test
-    public void testGetAuthorizationEndpoint() throws URISyntaxException {
+    public void testSetClientSecret() {
+        OAuthClient client = new OAuthClient();
+        client.setClientSecret(CLIENT_SECRET);
+        assertEquals(CLIENT_SECRET, client.getClientSecret());
+        client.setClientSecret("");
+        assertNull(client.getClientSecret());
+    }
+
+    @Test
+    public void testauthorizationEndpointUri() throws URISyntaxException {
         OAuthClient client = new OAuthClient();
         try {
-            URI authorizationEndpoint = client.getAuthorizationEndpoint(
-                    null, null);
-            assertNull(authorizationEndpoint);
+            String uri1 = client.authorizationRequestUri(null, null);
+            assertNull(uri1);
         } catch (NullPointerException exception) {
             // Expected.
         }
 
-        client.setCredentials(new OAuthCredentials(CLIENT_ID, CLIENT_SECRET));
-        URI authorizationEndpoint = client.getAuthorizationEndpoint(
-                null, null);
-        assertNotNull(authorizationEndpoint);
+        client.setClientId(CLIENT_ID);
+        client.setClientSecret(CLIENT_SECRET);
+        String uri2 = client.authorizationRequestUri(null, null);
+        assertNotNull(uri2);
 
         // TODO: Add more tests.
     }
@@ -105,7 +112,8 @@ public class OAuthClientTest {
         AuthorizationCodeFlow flow2 = client.getAuthorizationCodeFlow(true);
         assertNull(flow2);
 
-        client.setCredentials(new OAuthCredentials(CLIENT_ID, CLIENT_SECRET));
+        client.setClientId(CLIENT_ID);
+        client.setClientSecret(CLIENT_SECRET);
 
         AuthorizationCodeFlow flow3 = client.getAuthorizationCodeFlow(false);
         assertNotNull(flow3);

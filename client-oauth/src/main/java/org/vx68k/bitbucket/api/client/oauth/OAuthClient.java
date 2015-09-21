@@ -20,7 +20,6 @@ package org.vx68k.bitbucket.api.client.oauth;
 
 import java.io.IOException;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.UnknownServiceException;
 import com.google.api.client.auth.oauth2.AuthorizationCodeFlow;
 import com.google.api.client.auth.oauth2.AuthorizationCodeRequestUrl;
@@ -42,23 +41,26 @@ import org.vx68k.bitbucket.api.client.Service;
  */
 public class OAuthClient extends Client {
 
-    private static final long serialVersionUID = 4L;
-
-    private OAuthCredentials credentials;
+    private static final long serialVersionUID = 5L;
 
     /**
      * OAuth authorization request endpoint of Bitbucket.
      */
-    private static final String AUTHORIZATION_ENDPOINT =
+    private static final String AUTHORIZATION_ENDPOINT_URI =
             "https://bitbucket.org/site/oauth2/authorize";
 
     /**
      * OAuth token request endpoint of Bitbucket.
      */
-    private static final String TOKEN_ENDPOINT =
+    private static final String TOKEN_ENDPOINT_URI =
             "https://bitbucket.org/site/oauth2/access_token";
 
     private static final String BEARER_TOKEN_TYPE = "bearer";
+
+    private String clientId;
+    private String clientSecret;
+
+    private transient String redirectionEndpointUri;
 
     /**
      * Constructs this object with no property values.
@@ -68,88 +70,189 @@ public class OAuthClient extends Client {
 
     /**
      * Constructs this object with a client identifier and a client secret.
-     * This constructor is equivalent to {@link #OAuthClient(OAuthCredentials)}
-     * called with a newly created {@link OAuthCredentials} object.
+     * This constructor is equivalent to the default one followed by each one
+     * call of {@link #setClientId} and {@link #setClientSecret}.
      * @param clientId client identifier
      * @param clientSecret client secret
      */
     public OAuthClient(String clientId, String clientSecret) {
-        this(new OAuthCredentials(clientId, clientSecret));
+        setClientId(clientId);
+        setClientSecret(clientSecret);
     }
 
     /**
      * Constructs this object with client credntials.
-     * This constructor is equivalent to the default one followed by a call to
+     * This constructor is equivalent to the default one followed by a call of
      * {@link #setCredentials}.
      * @param credentials client credentials
+     * @deprecated As of version 5.0, replaced by
+     * {@link #OAuthClient(String, String)}
      */
+    @Deprecated
     public OAuthClient(OAuthCredentials credentials) {
         setCredentials(credentials);
+    }
+
+    /**
+     * Returns the client identifier.
+     * @return client identifier
+     * @since 5.0
+     */
+    public String getClientId() {
+        return clientId;
+    }
+
+    /**
+     * Returns the client secret.
+     * @return client secret
+     * @since 5.0
+     */
+    public String getClientSecret() {
+        return clientSecret;
+    }
+
+    /**
+     * Sets the client identifier.
+     * @param clientId client identifier to be set; if this value is an empty
+     * string, the client identifier shall be set to <code>null</code>
+     * @since 5.0
+     */
+    public void setClientId(String clientId) {
+        if (clientId != null && clientId.isEmpty()) {
+            this.clientId = null;
+        } else {
+            this.clientId = clientId;
+        }
+    }
+
+    /**
+     * Sets the client secret.
+     * @param clientSecret client secret to be set; if this value is an empty
+     * string, the client secret shall be set to <code>null</code>
+     * @since 5.0
+     */
+    public void setClientSecret(String clientSecret) {
+        if (clientSecret != null && clientSecret.isEmpty()) {
+            this.clientSecret = null;
+        } else {
+            this.clientSecret = clientSecret;
+        }
+    }
+
+    /**
+     * Tests if this instance has client credentials.
+     * @return <code>true</code> if this instance has client credentials;
+     * <code>false</code> otherwise
+     * @since 5.0
+     */
+    public boolean isConfiguredForOAuth() {
+        return !(getClientId() == null || getClientSecret() == null);
     }
 
     /**
      * Returns the OAuth client credentials of this object.
      * @return OAuth client credentials, or <code>null</code> if this object
      * has no credentials
+     * @deprecated As of version 5.0, replaced by {@link #getClientId} and
+     * {@link #getClientSecret}
      */
+    @Deprecated
     public OAuthCredentials getCredentials() {
-        return credentials;
+        if (isConfiguredForOAuth()) {
+            return new OAuthCredentials(getClientId(), getClientSecret());
+        }
+        return null;
     }
 
     /**
      * Sets the OAuth client credentials of this object.
      * @param credentials OAuth client credentials; if this value is
      * <code>null</code>, this object shall not have any credentials
+     * @deprecated As of version 5.0, replaced by {@link #setClientId} and
+     * {@link #setClientSecret}
      */
+    @Deprecated
     public void setCredentials(OAuthCredentials credentials) {
-        this.credentials = credentials;
+        if (credentials != null) {
+            setClientId(credentials.getId());
+            setClientSecret(credentials.getSecret());
+        } else {
+            setClientId(null);
+            setClientSecret(null);
+        }
     }
 
     /**
-     * Returns the authorization endpoint URI for this object.
-     * @param redirectionEndpoint redirection endpoint URI for the
-     * authorization request; if this argument is <code>null</code>, the
-     * <code>redirect_uri</code> parameter shall not be used.
+     * Generates the authorization request URI for the client credentials
+     * without the <code>redirect_uri</code> and <code>state</code> parameters.
+     * @return authorization request URI
+     * @throws NullPointerException if this object had no client credentials
+     * @since 5.0
+     */
+    public String authorizationRequestUri() {
+        return authorizationRequestUri(null, null);
+    }
+
+    /**
+     * Generates the authorization request URI for the client credentials
+     * without the <code>state</code> parameter.
+     * @param redirectionEndpointUri redirection endpoint for the authorization
+     * and token requests; if this value is <code>null</code>,
+     * the <code>redirect_uri</code> parameter shall not be included.
+     * @return authorization request URI
+     * @throws NullPointerException if this object had no client credentials
+     * @since 5.0
+     */
+    public String authorizationRequestUri(URI redirectionEndpointUri) {
+        return authorizationRequestUri(redirectionEndpointUri, null);
+    }
+
+    /**
+     * Generates the authorization request URI for the client credentials.
+     * @param redirectionEndpoint redirection endpoint for the authorization
+     * and token requests; if this value is <code>null</code>, the
+     * <code>redirect_uri</code> parameter shall not be included.
      * @param state opaque state string for the authorization request; if this
      * argument is <code>null</code>, the <code>state</code> parameter shall
      * not be used
-     * @return authorization endpoint URI
-     * @throws URISyntaxException if the authorization endpoint URI could not
-     * be constructed
-     * @throws NullPointerException if this object has no client credentials
+     * @return authorization request URI
+     * @throws NullPointerException if this object had no client credentials
+     * @since 5.0
      */
-    public URI getAuthorizationEndpoint(URI redirectionEndpoint, String state)
-            throws URISyntaxException {
+    public String authorizationRequestUri(
+            URI redirectionEndpoint, String state) {
+        redirectionEndpointUri = null;
+        if (redirectionEndpoint != null) {
+            redirectionEndpointUri = redirectionEndpoint.toString();
+        }
+
         AuthorizationCodeFlow flow = getAuthorizationCodeFlow(false);
         AuthorizationCodeRequestUrl request = flow.newAuthorizationUrl();
-        if (redirectionEndpoint != null) {
-            request.setRedirectUri(redirectionEndpoint.toString());
+        if (redirectionEndpointUri != null) {
+            request.setRedirectUri(redirectionEndpointUri);
         }
         if (state != null) {
             request.setState(state);
         }
-        return new URI(request.build());
+        return request.build();
     }
 
     /**
      * Returns an authorized Bitbucket API service.
      * @param authorizationCode authorization code received by the redirection
      * endpoint
-     * @param redirectionEndpoint redirection endpoint URI that was used in the
-     * authorization request; if this argument is <code>null</code>, the
-     * <code>redirect_uri</code> parameter shall not be used.
-     * @return authorized Bitbucket REST API service
+     * @return authorized Bitbucket API service
      * @throws IOException if an I/O exception has occurred
      * @throws NullPointerException if this object has no client credentials
+     * @since 5.0
      */
-    public Service getService(
-            String authorizationCode, URI redirectionEndpoint)
+    public Service getService(String authorizationCode)
             throws IOException {
         AuthorizationCodeFlow flow = getAuthorizationCodeFlow(true);
         AuthorizationCodeTokenRequest request
                 = flow.newTokenRequest(authorizationCode);
-        if (redirectionEndpoint != null) {
-            request.setRedirectUri(redirectionEndpoint.toString());
+        if (redirectionEndpointUri != null) {
+            request.setRedirectUri(redirectionEndpointUri);
         }
 
         TokenResponse tokenResponse = request.execute();
@@ -170,22 +273,21 @@ public class OAuthClient extends Client {
      */
     protected AuthorizationCodeFlow getAuthorizationCodeFlow(
             boolean forTokenRequest) {
-        if (credentials == null) {
+        if (!isConfiguredForOAuth()) {
             throw new NullPointerException("No OAuth client credentials");
         }
 
-        HttpExecuteInterceptor clientAuthentication;
+        HttpExecuteInterceptor clientAuthenticator;
         if (forTokenRequest) {
-            clientAuthentication = getBasicAuthentication();
+            clientAuthenticator = getBasicAuthentication();
         } else {
-            clientAuthentication = getClientParameters();
+            clientAuthenticator = getClientParameters();
         }
-
         return new AuthorizationCodeFlow(
                 BearerToken.authorizationHeaderAccessMethod(),
                 getHttpTransport(), JacksonFactory.getDefaultInstance(),
-                new GenericUrl(TOKEN_ENDPOINT), clientAuthentication,
-                credentials.getId(), AUTHORIZATION_ENDPOINT);
+                new GenericUrl(TOKEN_ENDPOINT_URI), clientAuthenticator,
+                getClientId(), AUTHORIZATION_ENDPOINT_URI);
     }
 
     /**
@@ -196,7 +298,7 @@ public class OAuthClient extends Client {
     protected HttpExecuteInterceptor getClientParameters() {
         // Sets only the client identifier that is required in authorization
         // requests.
-        return new ClientParametersAuthentication(credentials.getId(), null);
+        return new ClientParametersAuthentication(getClientId(), null);
     }
 
     /**
@@ -205,7 +307,6 @@ public class OAuthClient extends Client {
      * @return HTTP execute interceptor
      */
     protected HttpExecuteInterceptor getBasicAuthentication() {
-        return new BasicAuthentication(
-                credentials.getId(), credentials.getSecret());
+        return new BasicAuthentication(getClientId(), getClientSecret());
     }
 }

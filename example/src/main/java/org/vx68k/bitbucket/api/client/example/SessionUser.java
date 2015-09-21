@@ -19,7 +19,6 @@
 package org.vx68k.bitbucket.api.client.example;
 
 import java.io.IOException;
-import java.net.URI;
 import java.net.URISyntaxException;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.ExternalContext;
@@ -46,13 +45,13 @@ public class SessionUser extends OAuthUser {
     private ApplicationConfig applicationConfig;
 
     /**
-     * Constructs this object.
+     * Constructs this instance.
      */
     public SessionUser() {
     }
 
     /**
-     * Constructs this object with an application configuration.
+     * Constructs this instance with an application configuration.
      * This constructor is equivalent to the default one followed by a call to
      * {@link #setApplicationConfig}.
      * @param applicationConfig application configuration
@@ -63,7 +62,7 @@ public class SessionUser extends OAuthUser {
     }
 
     /**
-     * Returns the application configuration associated to this object.
+     * Returns the application configuration.
      * @return application configuration
      * @since 4.0
      */
@@ -72,8 +71,8 @@ public class SessionUser extends OAuthUser {
     }
 
     /**
-     * Sets the application configuration associated to this object.
-     * @param applicationConfig new application configuration
+     * Sets the application configuration.
+     * @param applicationConfig application configuration to be set
      * @since 4.0
      */
     @Inject
@@ -85,8 +84,8 @@ public class SessionUser extends OAuthUser {
      * Indicates whether a user is authenticated or not.
      * @return <code>true</code> if a user is authenticated, or
      * <code>false</code> otherwise
-     * @deprecated As of version 4.0, use {@link #getBitbucketService} and
-     * {@link Service#isAuthenticated} instead.
+     * @deprecated As of version 4.0, replaced by {@link #getBitbucketService}
+     * and {@link Service#isAuthenticated} instead.
      */
     @Deprecated
     public boolean isAuthenticated() {
@@ -94,12 +93,12 @@ public class SessionUser extends OAuthUser {
     }
 
     /**
-     * Returns the Bitbucket user of this object.
+     * Returns the Bitbucket user of this instance.
      * @return Bitbucket user, or <code>null</code> if no user is authenticated
      * @throws IOException if an I/O error has occurred
      * @since 2.0
-     * @deprecated As of version 4.0, use {@link #getBitbucketService} and
-     * {@link Service#getCurrentUser} instead.
+     * @deprecated As of version 4.0, replaced by {@link #getBitbucketService}
+     * and {@link Service#getCurrentUser} instead.
      */
     @Deprecated
     public User getBitbucketUser() throws IOException {
@@ -121,8 +120,8 @@ public class SessionUser extends OAuthUser {
                 (HttpServletRequest) externalContext.getRequest();
 
         // Redirects the user agent to the authorization endpoint.
-        URI authorizationEndpoint = getAuthorizationEndpoint(request);
-        externalContext.redirect(authorizationEndpoint.toString());
+        String uri = authorizationRequestUri(request);
+        externalContext.redirect(uri);
 
         return null;
     }
