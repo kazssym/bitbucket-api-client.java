@@ -231,10 +231,13 @@ public class Client implements Serializable {
         public User getUser(String name) throws IOException {
             if (name.contains("/")) {
                 throw new IllegalArgumentException(
-                        "User name must not contains a \"/\"");
+                        "User name contains a \"/\"");
             }
+            return getUser(getEndpoint(USERS_ENDPOINT_PATH + "/" + name));
+        }
 
-            URI endpoint = getEndpoint(USERS_ENDPOINT_PATH + "/" + name);
+        @Override
+        public User getUser(URI endpoint) throws IOException {
             HttpRequest request = requestFactory.buildGetRequest(
                     new GenericUrl(endpoint.toString()));
             request.setInterceptor(authentication);
