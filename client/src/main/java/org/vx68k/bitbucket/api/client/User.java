@@ -31,7 +31,7 @@ import javax.json.JsonObject;
  * @author Kaz Nishimura
  * @since 1.0
  */
-public class User extends Entity {
+public class User extends BitbucketEntity {
 
     /**
      * Type value for users.
@@ -61,7 +61,7 @@ public class User extends Entity {
      */
     public User(JsonObject jsonObject) {
         super(jsonObject);
-        if (!getType().equals(USER_TYPE)) {
+        if (!getEntityType().equals(USER_TYPE)) {
             throw new IllegalArgumentException(
                     "Type is not \"" + USER_TYPE + "\"");
         }

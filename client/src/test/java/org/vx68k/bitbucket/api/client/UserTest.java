@@ -51,7 +51,7 @@ public class UserTest {
     public void testDefaultUser() {
         User user = new User();
         assertNull(user.getName());
-        assertEquals("user", user.getType());
+        assertEquals("user", user.getEntityType());
         assertNull(user.getUuid());
         assertNull(user.getDisplayName());
         assertNull(user.getWebsite());

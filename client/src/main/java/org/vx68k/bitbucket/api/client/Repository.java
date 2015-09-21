@@ -29,7 +29,7 @@ import javax.json.JsonObject;
  * @author Kaz Nishimura
  * @since 1.0
  */
-public class Repository extends Entity {
+public class Repository extends BitbucketEntity {
 
     /**
      * Type value for repositories.
@@ -56,7 +56,7 @@ public class Repository extends Entity {
 
     public Repository(JsonObject jsonObject) {
         super(jsonObject);
-        if (!getType().equals(REPOSITORY_TYPE)) {
+        if (!getEntityType().equals(REPOSITORY_TYPE)) {
             throw new IllegalArgumentException(
                     "Type is not \"" + REPOSITORY_TYPE + "\"");
         }
