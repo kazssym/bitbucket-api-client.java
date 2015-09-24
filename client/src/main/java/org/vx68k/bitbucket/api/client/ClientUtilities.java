@@ -20,6 +20,10 @@ package org.vx68k.bitbucket.api.client;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -38,7 +42,10 @@ public class ClientUtilities {
     private static final String PACKAGE_NAME =
             ClientUtilities.class.getPackage().getName();
 
-    private ClientUtilities() {
+    private static final DateFormat DATE_FORMAT = new SimpleDateFormat(
+            "yyyy-MM-dd'T'HH:mm:ssXXX");
+
+    protected ClientUtilities() {
     }
 
     /**
@@ -68,6 +75,28 @@ public class ClientUtilities {
             string = string.substring(1, string.length() - 1);
         }
         return UUID.fromString(string);
+    }
+
+    /**
+     * Parses a string into a date.
+     * @param date string that represents an ISO 8601 date and time
+     * @return parsed date, or <code>null</code> if the argument is
+     * <code>null</code>
+     * @throws IllegalArgumentException if the string could not be parsed as a
+     * date
+     */
+    public static Date parseDate(String date) {
+        if (date == null) {
+            return null;
+        }
+
+        try {
+            return DATE_FORMAT.parse(date);
+        } catch (ParseException exception) {
+            throw new IllegalArgumentException(
+                    "\"" + date + "\" could not be parsed as Date",
+                    exception);
+        }
     }
 
     /**
