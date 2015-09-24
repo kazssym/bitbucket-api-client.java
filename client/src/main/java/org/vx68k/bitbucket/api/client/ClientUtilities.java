@@ -99,7 +99,7 @@ public class ClientUtilities {
      */
     protected static URL parseLink(JsonObject jsonObject)
             throws MalformedURLException {
-        return parseURL(jsonObject.getString(JsonKeys.HREF));
+        return parseURL(jsonObject.getString(ClientJsonKeys.HREF));
     }
 
     /**

@@ -64,14 +64,15 @@ public class Repository extends BitbucketEntity {
                 Level.INFO,
                 "Parsing JSON object (\"" + REPOSITORY_TYPE + "\"): {0}",
                 jsonObject);
-        uuid = ClientUtilities.parseUUID(jsonObject.getString(JsonKeys.UUID));
-        owner = new User(jsonObject.getJsonObject(JsonKeys.OWNER));
-        name = jsonObject.getString(JsonKeys.NAME);
-        fullName = jsonObject.getString(JsonKeys.FULL_NAME);
-        scm = jsonObject.getString(JsonKeys.SCM);
-        Private = jsonObject.getBoolean(JsonKeys.IS_PRIVATE);
+        uuid = ClientUtilities.parseUUID(jsonObject.getString(
+                ClientJsonKeys.UUID));
+        owner = new User(jsonObject.getJsonObject(ClientJsonKeys.OWNER));
+        name = jsonObject.getString(ClientJsonKeys.NAME);
+        fullName = jsonObject.getString(ClientJsonKeys.FULL_NAME);
+        scm = jsonObject.getString(ClientJsonKeys.SCM);
+        Private = jsonObject.getBoolean(ClientJsonKeys.IS_PRIVATE);
         links = ClientUtilities.parseLinks(jsonObject.getJsonObject(
-                JsonKeys.LINKS));
+                ClientJsonKeys.LINKS));
     }
 
     /**

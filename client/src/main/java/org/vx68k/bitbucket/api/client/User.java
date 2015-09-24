@@ -69,21 +69,23 @@ public class User extends BitbucketEntity {
                 Level.INFO,
                 "Parsing JSON object (\"" + USER_TYPE + "\"): {0}",
                 jsonObject);
-        uuid = ClientUtilities.parseUUID(jsonObject.getString(JsonKeys.UUID));
-        name = jsonObject.getString(JsonKeys.USERNAME);
-        displayName = jsonObject.getString(JsonKeys.DISPLAY_NAME);
+        uuid = ClientUtilities.parseUUID(jsonObject.getString(
+                ClientJsonKeys.UUID));
+        name = jsonObject.getString(ClientJsonKeys.USERNAME);
+        displayName = jsonObject.getString(ClientJsonKeys.DISPLAY_NAME);
         links = ClientUtilities.parseLinks(jsonObject.getJsonObject(
-                JsonKeys.LINKS));
+                ClientJsonKeys.LINKS));
         try {
             website = ClientUtilities.parseURL(jsonObject.getString(
-                    JsonKeys.WEBSITE, null));
+                    ClientJsonKeys.WEBSITE, null));
         } catch (MalformedURLException exception) {
             ClientUtilities.getLogger().log(
                     Level.WARNING,
-                    "Could not parse the \"" + JsonKeys.WEBSITE + "\" value",
+                    "Could not parse the \"" + ClientJsonKeys.WEBSITE
+                    + "\" value",
                     exception);
         }
-        location = jsonObject.getString(JsonKeys.LOCATION, null);
+        location = jsonObject.getString(ClientJsonKeys.LOCATION, null);
         // TODO: Parse the <code>created_on</code> value.
     }
 

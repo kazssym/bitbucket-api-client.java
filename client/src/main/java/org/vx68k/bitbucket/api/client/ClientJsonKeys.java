@@ -1,4 +1,5 @@
 /*
+ * ClientJsonKeys
  * Copyright (C) 2015 Nishimura Software Studio
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -22,7 +23,7 @@ package org.vx68k.bitbucket.api.client;
  * @author Kaz Nishimura
  * @since 3.0
  */
-public class JsonKeys {
+public class ClientJsonKeys {
 
     /**
      * JSON key for the <code>links</code> object.
@@ -107,6 +108,6 @@ public class JsonKeys {
      */
     public static final String IS_PRIVATE = "is_private";
 
-    private JsonKeys() {
+    protected ClientJsonKeys() {
     }
 }

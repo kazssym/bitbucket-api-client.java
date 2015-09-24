@@ -46,7 +46,7 @@ public abstract class BitbucketEntity {
      * @param jsonObject JSON object
      */
     protected BitbucketEntity(JsonObject jsonObject) {
-        this(jsonObject.getString(JsonKeys.TYPE));
+        this(jsonObject.getString(ClientJsonKeys.TYPE));
     }
 
     public String getEntityType() {
