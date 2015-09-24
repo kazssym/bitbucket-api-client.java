@@ -27,7 +27,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import org.vx68k.bitbucket.api.client.Service;
-import org.vx68k.bitbucket.api.client.User;
+import org.vx68k.bitbucket.api.client.BitbucketUser;
 import org.vx68k.bitbucket.api.client.oauth.OAuthClient;
 import org.vx68k.bitbucket.api.client.oauth.OAuthUser;
 
@@ -101,7 +101,7 @@ public class SessionUser extends OAuthUser {
      * and {@link Service#getCurrentUser} instead.
      */
     @Deprecated
-    public User getBitbucketUser() throws IOException {
+    public BitbucketUser getBitbucketUser() throws IOException {
         Service bitbucketService = getBitbucketService();
         return bitbucketService.getCurrentUser();
     }

@@ -1,5 +1,5 @@
 /*
- * User
+ * BitbucketUser
  * Copyright (C) 2015 Nishimura Software Studio
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -31,7 +31,7 @@ import javax.json.JsonObject;
  * @author Kaz Nishimura
  * @since 1.0
  */
-public class User extends BitbucketEntity {
+public class BitbucketUser extends BitbucketEntity {
 
     /**
      * Type value for users.
@@ -50,7 +50,7 @@ public class User extends BitbucketEntity {
     /**
      * Constructs this object with no property values.
      */
-    public User() {
+    public BitbucketUser() {
         super(USER_TYPE);
         ClientUtilities.getLogger().finer("Creating a blank User");
     }
@@ -59,7 +59,7 @@ public class User extends BitbucketEntity {
      * Constructs this object from a JSON object.
      * @param jsonObject JSON object that represents a Bitbucket user
      */
-    public User(JsonObject jsonObject) {
+    public BitbucketUser(JsonObject jsonObject) {
         super(jsonObject);
         if (!getEntityType().equals(USER_TYPE)) {
             throw new IllegalArgumentException(
@@ -223,8 +223,8 @@ public class User extends BitbucketEntity {
             return true;
         }
         // Then, tests equality if the other object is of the same class.
-        if (object != null && object.getClass() == User.class) {
-            User user = (User) object;
+        if (object != null && object.getClass() == BitbucketUser.class) {
+            BitbucketUser user = (BitbucketUser) object;
             if (uuid != null) {
                 return uuid.equals(user.getUuid());
             } else if (user.getUuid() != null) {

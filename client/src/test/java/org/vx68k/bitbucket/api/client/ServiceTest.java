@@ -59,15 +59,15 @@ public class ServiceTest {
     @Test
     public void testGetCurrentUser() throws IOException {
         Service service = client.getService();
-        User currentUser = service.getCurrentUser();
+        BitbucketUser currentUser = service.getCurrentUser();
         assertNull(currentUser);
     }
 
     @Test
     public void testGetUser() throws IOException {
         Service service = client.getService();
-        User user1 = service.getUser(USER_NAME);
-        User user2 = service.getUser(USER_UUID);
+        BitbucketUser user1 = service.getUser(USER_NAME);
+        BitbucketUser user2 = service.getUser(USER_UUID);
         assertNotNull(user1);
         assertNotNull(user2);
         assertEquals(USER_NAME, user1.getName());

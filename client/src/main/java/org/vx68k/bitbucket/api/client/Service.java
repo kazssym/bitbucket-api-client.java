@@ -44,7 +44,7 @@ public abstract class Service {
      * @throws IOException if an I/O error has occurred
      * @since 2.0
      */
-    public abstract User getCurrentUser() throws IOException;
+    public abstract BitbucketUser getCurrentUser() throws IOException;
 
     /**
      * Returns the Bitbucket user identified by a UUID.
@@ -53,7 +53,7 @@ public abstract class Service {
      * @throws IOException if an I/O error has occurred
      * @since 2.0
      */
-    public User getUser(UUID uuid) throws IOException {
+    public BitbucketUser getUser(UUID uuid) throws IOException {
         return getUser("%7B" + uuid.toString() + "%7D");
     }
 
@@ -64,7 +64,7 @@ public abstract class Service {
      * @throws IOException if an I/O error has occurred
      * @since 2.0
      */
-    public abstract User getUser(String name) throws IOException;
+    public abstract BitbucketUser getUser(String name) throws IOException;
 
     /**
      * Returns the Bitbucket user from an endpoint.
@@ -73,5 +73,5 @@ public abstract class Service {
      * @throws IOException if an I/O error has occurred
      * @since 5.0
      */
-    public abstract User getUser(URI endpoint) throws IOException;
+    public abstract BitbucketUser getUser(URI endpoint) throws IOException;
 }

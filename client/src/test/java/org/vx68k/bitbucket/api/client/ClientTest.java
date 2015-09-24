@@ -86,7 +86,7 @@ public class ClientTest {
         assertNotNull(service2);
         assertFalse(service2.isAuthenticated());
         try {
-            User currentUser = service2.getCurrentUser();
+            BitbucketUser currentUser = service2.getCurrentUser();
             assertNotNull(currentUser);
         } catch (HttpResponseException exception) {
             // Expected.

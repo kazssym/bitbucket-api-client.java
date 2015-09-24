@@ -164,7 +164,7 @@ public class Client implements Serializable {
          * Cached current user of the Bitbucket REST API.
          * @since 3.0
          */
-        private User currentUser;
+        private BitbucketUser currentUser;
 
         /**
          * Constructs this object with a HTTP execute interceptor for
@@ -195,9 +195,10 @@ public class Client implements Serializable {
             }
         }
 
-        protected User getUser(HttpResponse response) throws IOException {
+        protected BitbucketUser getUser(HttpResponse response)
+                throws IOException {
             JsonReader reader = Json.createReader(response.getContent());
-            return new User(reader.readObject());
+            return new BitbucketUser(reader.readObject());
         }
 
         @Override
@@ -210,7 +211,7 @@ public class Client implements Serializable {
         }
 
         @Override
-        public User getCurrentUser() throws IOException {
+        public BitbucketUser getCurrentUser() throws IOException {
             if (authentication == null) {
                 return null;
             }
@@ -228,7 +229,7 @@ public class Client implements Serializable {
         }
 
         @Override
-        public User getUser(String name) throws IOException {
+        public BitbucketUser getUser(String name) throws IOException {
             if (name.contains("/")) {
                 throw new IllegalArgumentException(
                         "User name contains a \"/\"");
@@ -237,7 +238,7 @@ public class Client implements Serializable {
         }
 
         @Override
-        public User getUser(URI endpoint) throws IOException {
+        public BitbucketUser getUser(URI endpoint) throws IOException {
             HttpRequest request = requestFactory.buildGetRequest(
                     new GenericUrl(endpoint.toString()));
             request.setInterceptor(authentication);

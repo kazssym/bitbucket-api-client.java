@@ -39,7 +39,7 @@ public class Repository extends BitbucketEntity {
     // Properties.
     // Note: Since <code>private</code> is reserved, it is capitalized.
     private UUID uuid;
-    private User owner;
+    private BitbucketUser owner;
     private String name;
     private String fullName;
     private String scm;
@@ -66,7 +66,8 @@ public class Repository extends BitbucketEntity {
                 jsonObject);
         uuid = ClientUtilities.parseUUID(jsonObject.getString(
                 ClientJsonKeys.UUID));
-        owner = new User(jsonObject.getJsonObject(ClientJsonKeys.OWNER));
+        owner = new BitbucketUser(jsonObject.getJsonObject(
+                ClientJsonKeys.OWNER));
         name = jsonObject.getString(ClientJsonKeys.NAME);
         fullName = jsonObject.getString(ClientJsonKeys.FULL_NAME);
         scm = jsonObject.getString(ClientJsonKeys.SCM);
@@ -87,7 +88,7 @@ public class Repository extends BitbucketEntity {
      * Returns the owner.
      * @return owner
      */
-    public User getOwner() {
+    public BitbucketUser getOwner() {
         return owner;
     }
 
@@ -146,7 +147,7 @@ public class Repository extends BitbucketEntity {
      * This method shall also set the full name if is can be derived.
      * @param owner owner to be set
      */
-    public void setOwner(User owner) {
+    public void setOwner(BitbucketUser owner) {
         this.owner = owner;
         updateFullName();
     }

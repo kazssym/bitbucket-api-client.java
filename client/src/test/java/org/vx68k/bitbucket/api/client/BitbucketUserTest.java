@@ -26,12 +26,12 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Collection of unit tests for [@link User}.
+ * Collection of unit tests for [@link BitbucketUser}.
  *
  * @author Kaz Nishimura
  * @since 1.0
  */
-public class UserTest {
+public class BitbucketUserTest {
 
     private Handler loggingHandler;
 
@@ -49,7 +49,7 @@ public class UserTest {
 
     @Test
     public void testDefaultUser() {
-        User user = new User();
+        BitbucketUser user = new BitbucketUser();
         assertNull(user.getName());
         assertEquals("user", user.getEntityType());
         assertNull(user.getUuid());
