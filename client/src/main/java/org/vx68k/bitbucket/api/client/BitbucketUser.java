@@ -48,7 +48,7 @@ public class BitbucketUser extends BitbucketEntity {
     private Date created;
 
     /**
-     * Constructs this object with no property values.
+     * Constructs this instance with no property values.
      */
     public BitbucketUser() {
         super(USER_TYPE);
@@ -56,7 +56,7 @@ public class BitbucketUser extends BitbucketEntity {
     }
 
     /**
-     * Constructs this object from a JSON object.
+     * Constructs this instance from a JSON object.
      * @param jsonObject JSON object that represents a Bitbucket user
      */
     public BitbucketUser(JsonObject jsonObject) {
@@ -209,12 +209,12 @@ public class BitbucketUser extends BitbucketEntity {
     }
 
     /**
-     * Tests whether this object equals to another or not.
-     * Equality is tested by UUIDs first, and if they are <code>null</code>,
-     * names are compared.
-     * @param object another object
-     * @return <code>true</code> if this object equals to the other object,
-     * or <code>false</code> otherwise
+     * Tests whether this instance equals to another one or not.
+     * This method tests equality of {@link #uuid}s if either one is not
+     * <code>null</code>, otherwise equality of {@link #name}s.
+     * @param object other instance
+     * @return <code>true</code> if this instance equals to the other one;
+     * <code>false</code> otherwise
      */
     @Override
     public boolean equals(Object object) {
@@ -241,7 +241,7 @@ public class BitbucketUser extends BitbucketEntity {
     }
 
     /**
-     * Computes the hash code for this object.
+     * Computes the hash code for this instance.
      * @return hash code
      */
     @Override
