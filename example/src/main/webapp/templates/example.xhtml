@@ -35,19 +35,16 @@
     <link href="#{resource['stylesheets/example.css']}" rel="stylesheet"/>
     <style>
       /* <![CDATA[ */
-      .inline-float-left {
+      .local-float-left {
         float: left;
       }
-
-      .inline-float-right {
+      .local-float-right {
         float: right;
       }
-
-      .inline-clear-both {
+      .local-clear-both {
         clear: both;
       }
-
-      .inline-overflow-auto {
+      .local-overflow-auto {
         overflow: auto;
       }
       /* ]]> */
@@ -68,8 +65,8 @@ ga('send', 'pageview');
   </h:head>
   <h:body>
     <h:form id="toolbar" styleClass="pure-menu pure-menu-horizontal">
-      <h:outputLink styleClass="pure-menu-heading pure-menu-link inline-float-left" value="#{request.contextPath}/">Bitbucket API Client Example</h:outputLink>
-      <ul class="pure-menu-list inline-float-right">
+      <h:outputLink styleClass="pure-menu-heading pure-menu-link local-float-left" value="#{request.contextPath}/">Bitbucket API Client Example</h:outputLink>
+      <ul class="pure-menu-list local-float-right">
         <li class="pure-menu-item pure-menu-disabled">
           <h:graphicImage styleClass="example-icon" name="icons/ic_help_white_18dp.png" alt="Help" title="Help"/>
         </li>
@@ -94,7 +91,7 @@ ga('send', 'pageview');
           <li class="pure-menu-item pure-menu-disabled">No client credentials</li>
         </ui:fragment>
       </ul>
-      <div class="inline-clear-both"/>
+      <div class="local-clear-both"/>
     </h:form>
     <div class="pure-g">
       <div class="pure-u-1 pure-u-sm-1-4">
@@ -119,7 +116,7 @@ ga('send', 'pageview');
       </div>
       <div class="pure-u-1 pure-u-sm-3-4">
         <main>
-          <h:form id="login" styleClass="inline-float-right" rendered="#{config.bitbucketClient.configuredForOAuth and not user.bitbucketService.authenticated}">
+          <h:form id="login" styleClass="local-float-right" rendered="#{config.bitbucketClient.configuredForOAuth and not user.bitbucketService.authenticated}">
             <h:commandButton styleClass="pure-button pure-button-primary" action="#{user.login}" title="Login with Bitbucket" value="Login"/>
           </h:form>
           <ui:insert name="main"/>
