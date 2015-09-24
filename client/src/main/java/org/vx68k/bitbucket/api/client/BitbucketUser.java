@@ -223,16 +223,16 @@ public class BitbucketUser extends BitbucketEntity {
             return true;
         }
         // Then, tests equality if the other object is of the same class.
-        if (object != null && object.getClass() == BitbucketUser.class) {
-            BitbucketUser user = (BitbucketUser) object;
+        if (object != null && object.getClass() == getClass()) {
+            BitbucketUser that = (BitbucketUser) object;
             if (uuid != null) {
-                return uuid.equals(user.getUuid());
-            } else if (user.getUuid() != null) {
+                return uuid.equals(that.uuid);
+            } else if (that.uuid != null) {
                 return false;
             }
             if (name != null) {
-                return name.equals(user.getName());
-            } else if (user.getName() != null) {
+                return name.equals(that.name);
+            } else if (that.name != null) {
                 return false;
             }
             return true;
