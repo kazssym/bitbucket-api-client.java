@@ -163,6 +163,9 @@ public class BitbucketUser extends BitbucketEntity {
      * @param name name to be set
      */
     public void setName(String name) {
+        if (name != null && name.contains("/")) {
+            throw new IllegalArgumentException("'/' in name");
+        }
         this.name = name;
     }
 
