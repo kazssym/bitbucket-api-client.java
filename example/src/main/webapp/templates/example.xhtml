@@ -79,7 +79,7 @@ ga('send', 'pageview');
                   <h:outputLink styleClass="pure-menu-link" value="#{request.contextPath}/myself.jsf">Profile</h:outputLink>
                 </li>
                 <li class="pure-menu-item">
-                  <h:commandLink styleClass="pure-menu-link" action="#{user.logout}">Logout</h:commandLink>
+                  <h:commandLink styleClass="pure-menu-link" action="#{user.logout}">#{messages.logout}</h:commandLink>
                 </li>
               </ul>
             </li>
@@ -115,7 +115,7 @@ ga('send', 'pageview');
       <div class="pure-u-1 pure-u-sm-3-4">
         <main>
           <h:form id="login" styleClass="local-float-right" rendered="#{config.bitbucketClient.configuredForOAuth and not user.bitbucketService.authenticated}">
-            <h:commandButton styleClass="pure-button pure-button-primary" action="#{user.login}" title="Login with Bitbucket" value="Login"/>
+            <h:commandButton styleClass="pure-button pure-button-primary" action="#{user.login}" title="Login with Bitbucket" value="#{messages.login}"/>
           </h:form>
           <ui:insert name="main"/>
         </main>
