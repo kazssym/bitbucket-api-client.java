@@ -19,7 +19,18 @@
 -->
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets">
   <ui:composition template="templates/example.xhtml">
-    <ui:define name="title-prefix">My profile &#x2013;</ui:define>
+    <ui:define name="title-prefix">
+      My profile &#x2013;
+    </ui:define>
+    <ui:define name="head-additions">
+      <style>
+        /* <![CDATA[ */
+        .local-overflow-auto {
+          overflow: auto;
+        }
+        /* ]]> */
+      </style>
+    </ui:define>
     <ui:define name="main">
       <h1>My profile</h1>
       <ui:fragment rendered="#{user.bitbucketService.authenticated}">
