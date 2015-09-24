@@ -22,6 +22,10 @@
       <supported-locale>en</supported-locale>
       <supported-locale>ja</supported-locale>
     </locale-config>
+    <resource-bundle>
+      <base-name>org.vx68k.bitbucket.api.client.example.resources.Messages</base-name>
+      <var>messages</var>
+    </resource-bundle>
   </application>
   <navigation-rule>
     <from-view-id>*</from-view-id>
