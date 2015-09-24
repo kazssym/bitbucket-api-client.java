@@ -209,6 +209,21 @@ public class BitbucketUser extends BitbucketEntity {
     }
 
     /**
+     * Computes the hash code for this instance.
+     * @return hash code
+     */
+    @Override
+    public int hashCode() {
+        int code = getClass().hashCode();
+        if (uuid != null) {
+            code ^= uuid.hashCode();
+        } else if (name != null) {
+            code ^= name.hashCode();
+        }
+        return code;
+    }
+
+    /**
      * Tests whether this instance equals to another one or not.
      * This method tests equality of {@link #uuid}s if either one is not
      * <code>null</code>, otherwise equality of {@link #name}s.
@@ -241,17 +256,11 @@ public class BitbucketUser extends BitbucketEntity {
     }
 
     /**
-     * Computes the hash code for this instance.
-     * @return hash code
+     * Returns the name.
+     * @return name
      */
     @Override
-    public int hashCode() {
-        int code = getClass().hashCode();
-        if (uuid != null) {
-            code ^= uuid.hashCode();
-        } else if (name != null) {
-            code ^= name.hashCode();
-        }
-        return code;
+    public String toString() {
+        return getName();
     }
 }
