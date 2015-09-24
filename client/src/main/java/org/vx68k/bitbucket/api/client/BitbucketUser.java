@@ -86,7 +86,8 @@ public class BitbucketUser extends BitbucketEntity {
                     exception);
         }
         location = jsonObject.getString(ClientJsonKeys.LOCATION, null);
-        // TODO: Parse the <code>created_on</code> value.
+        created = ClientUtilities.parseDate(jsonObject.getString(
+                ClientJsonKeys.CREATED_ON, null));
     }
 
     /**
