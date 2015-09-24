@@ -45,6 +45,9 @@ public class ClientUtilities {
     private static final DateFormat DATE_FORMAT = new SimpleDateFormat(
             "yyyy-MM-dd'T'HH:mm:ssXXX");
 
+    private static final DateFormat FINE_DATE_FORMAT = new SimpleDateFormat(
+            "yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+
     protected ClientUtilities() {
     }
 
@@ -91,6 +94,25 @@ public class ClientUtilities {
         }
 
         try {
+            int p = date.indexOf('.');
+            if (p >= 0) {
+                // Counts the number of digits after the decimal point.
+                int q = p + 1;
+                while (q < date.length()
+                        && Character.isDigit(date.charAt(q))) {
+                    q += 1;
+                }
+                if (q >= p + 4) {
+                    if (q > p + 4) {
+                        // Cuts off sub-millisecond digits.
+                        date = date.substring(0, p + 4) + date.substring(q);
+                    }
+                    return FINE_DATE_FORMAT.parse(date);
+                }
+
+                // Cuts off sub-second digits.
+                date = date.substring(0, p) + date.substring(q);
+            }
             return DATE_FORMAT.parse(date);
         } catch (ParseException exception) {
             throw new IllegalArgumentException(
