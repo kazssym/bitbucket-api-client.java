@@ -33,10 +33,11 @@ the top-right corner of the web pages and users can log in with their
 Bitbucket accounts, though they can do nothing yet but log in.
 
 To configure the client credentials by Java system properties, set
-`org.vx68k.bitbucket.api.client.example.oauth.id` to the client identifier
-(consumer key) and `org.vx68k.bitbucket.api.client.example.oauth.secret` to
-the corresponding client secret (consumer secret).
+`org.vx68k.bitbucket.api.client.example.oauth.clientId` to the client
+identifier (consumer key) and
+`org.vx68k.bitbucket.api.client.example.oauth.clientSecret` to the
+corresponding client secret (consumer secret).
 If you do not set the system properties, the values of environment variables
 `BITBUCKET_CLIENT_ID` and `BITBUCKET_CLIENT_SECRET` will be used as the client
-credentials instead, and it would be useful if you cannot set any Java system
+credentials instead, and it would be useful if you cannot set any system
 properties for the web application.

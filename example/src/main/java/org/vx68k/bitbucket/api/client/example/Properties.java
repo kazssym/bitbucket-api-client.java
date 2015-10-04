@@ -32,13 +32,13 @@ public class Properties {
      * Property key for the Bitbucket OAuth client identifider (consumer key).
      */
     public static final String BITBUCKET_OAUTH_CLIENT_ID =
-            PREFIX + ".oauth.id";
+            PREFIX + ".oauth.clientId";
 
     /**
      * Property key for the Bitbucket OAuth client secret (consumer secret).
      */
     public static final String BITBUCKET_OAUTH_CLIENT_SECRET =
-            PREFIX + ".oauth.secret";
+            PREFIX + ".oauth.clientSecret";
 
     /**
      * Property key for the Google Analytics tracking ID.
