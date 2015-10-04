@@ -49,24 +49,24 @@ html, button, input, select, textarea,
 #toolbar,
 #toolbar .pure-menu-children {
   color: #FFFFFF;
-  background-color: #777799;
+  background-color: #444499;
 }
 
 #toolbar .pure-menu-separator {
 }
 
 #toolbar > .pure-menu-heading {
-  color: #F7F7FF;
+  color: #EEEEFF;
 }
 
 #toolbar .pure-menu-link {
-  color: #F7F7F7;
+  color: #EEEEEE;
 }
 
 #toolbar .pure-menu-active > .pure-menu-link,
 #toolbar .pure-menu-link:hover,
 #toolbar .pure-menu-link:focus {
-  background-color: #8888AA;
+  background-color: #6666BB;
 }
 
 #toolbar .pure-menu-selected .pure-menu-link,
@@ -75,9 +75,11 @@ html, button, input, select, textarea,
 }
 
 #nav-menu {
-  background-color: #F7F7F7;
+  background-color: #EEEEEE;
 }
 
-#nav-menu > .pure-menu-heading {
-  background-color: #E6E6E6;
+#nav-menu .pure-menu-active > .pure-menu-link,
+#nav-menu .pure-menu-link:hover,
+#nav-menu .pure-menu-link:focus {
+  background-color: #DDDDDD;
 }
