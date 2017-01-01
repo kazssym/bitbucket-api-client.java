@@ -7,6 +7,8 @@
 # without any warranty.
 ---
 engines:
+  csslint:
+    enabled: true
   fixme:
     enabled: true
     config:
@@ -17,3 +19,4 @@ engines:
 ratings:
   paths:
     - "src/**"
+    - "*/src/**"
