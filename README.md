@@ -10,10 +10,17 @@ under the terms of the *[GNU Affero General Public License][]* as published by
 the [Free Software Foundation][], either version 3 of the License, or (at your
 option) any later version.
 
+[![(License)](https://img.shields.io/badge/license-AGPL--3.0+-blue.svg)][AGPL-3.0]
+[![(Release Version)](https://img.shields.io/maven-central/v/org.vx68k.bitbucket/bitbucket-api-client.svg)][org.vx68k.bitbucket:bitbucket-api-client]
+[![(Build Status)](https://linuxfront-functions.azurewebsites.net/api/bitbucket/build/vx68k/bitbucket-api-client-java?branch=master)][vx68k/bitbucket-api-client-java]
+
 [Bitbucket]: <https://bitbucket.org/>
 [Free software]: <http://www.gnu.org/philosophy/free-sw.html> "What is free software?"
 [GNU Affero General Public License]: <http://www.gnu.org/licenses/agpl.html>
 [Free Software Foundation]: <http://www.fsf.org/>
+[AGPL-3.0]: https://opensource.org/licenses/AGPL-3.0 "GNU Affero General Public License v3.0"
+[org.vx68k.bitbucket:bitbucket-api-client]: https://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.vx68k.bitbucket%22%20AND%20a%3A%22bitbucket-api-client%22
+[vx68k/bitbucket-api-client-java]: https://bitbucket.org/vx68k/bitbucket-api-client-java
 
 ## Modules
 
