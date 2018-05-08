@@ -1,12 +1,8 @@
-# .hgignore
-
-# Maven output directory:
-(^|/)target/
-
-# NetBeans local files:
-(^|/)nb
-
-# Backup and garbage files:
-~$
-\.orig$
+syntax: regexp
+(^|/)target$
+(^|/)\.project$
+(^|/)\.classpath$
+(^|/)\.settings$
 \.rej$
+\.orig$
+~$
