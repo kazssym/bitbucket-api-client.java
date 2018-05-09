@@ -1,15 +1,27 @@
-# bitbucket-pipelines.yml - Bitbucket Pipelines configuration.
-# Copyright (C) 2016 Kaz Nishimura
+# bitbucket-pipelines.yml - Bitbucket Pipelines configuration
+# Copyright (C) 2016-2018 Kaz Nishimura
 #
 # Copying and distribution of this file, with or without modification,
 # are permitted in any medium without royalty provided the copyright
 # notice and this notice are preserved.  This file is offered as-is,
 # without any warranty.
 ---
-image: maven:3-jdk-7
+image: maven:3-jdk-8
 pipelines:
-  bookmarks:
-    "**":
+  default:
+    - step:
+        caches:
+          - maven
+        script:
+          - mvn -B -s etc/settings.xml install
+  branches:
+    production:
       - step:
+          deployment: production
+          caches:
+            - maven
           script:
-            - mvn -B install
+            - export GNUPGHOME=`mktemp -d`
+            - gpg --dump-options | grep -qx -e --pinentry-mode && (echo pinentry-mode loopback) >> $GNUPGHOME/gpg.conf
+            - gpg --batch --import < etc/keys.asc
+            - mvn -B -s etc/settings.xml ${OSSRHUSERNAME+-P ossrh} -Dmaven.deploy.skip deploy
