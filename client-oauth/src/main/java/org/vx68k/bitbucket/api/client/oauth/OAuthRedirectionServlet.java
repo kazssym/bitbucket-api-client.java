@@ -40,7 +40,9 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(
         name = "OAuth Redirection Endpoint Servlet",
         urlPatterns = {"/authorized/*"})
-public class OAuthRedirectionServlet extends HttpServlet {
+public class OAuthRedirectionServlet extends HttpServlet
+{
+    private static final long serialVersionUID = 1L;
 
     @Inject
     private Event<OAuthRedirection> redirectionEvent;
