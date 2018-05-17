@@ -22,7 +22,6 @@ import java.io.IOException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.vx68k.bitbucket.api.client.Client;
 import org.vx68k.bitbucket.api.client.Service;
 import static org.junit.Assert.*;
 
