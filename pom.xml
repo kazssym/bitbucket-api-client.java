@@ -45,6 +45,7 @@
     <modules>
         <module>client</module>
         <module>client-oauth</module>
+        <module>webhook</module>
         <module>example</module>
     </modules>
     <scm>
@@ -65,6 +66,11 @@
     </properties>
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>javax</groupId>
+                <artifactId>javaee-web-api</artifactId>
+                <version>7.0</version>
+            </dependency>
             <dependency>
                 <groupId>org.glassfish</groupId>
                 <artifactId>javax.json</artifactId>
