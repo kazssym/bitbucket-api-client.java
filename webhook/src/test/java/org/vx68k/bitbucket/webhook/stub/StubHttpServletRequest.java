@@ -1,6 +1,6 @@
 /*
  * StubHttpServletRequest
- * Copyright (C) 2015 Nishimura Software Studio
+ * Copyright (C) 2015-2018 Nishimura Software Studio
  *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Affero General Public License as published by the
@@ -57,37 +57,37 @@ public class StubHttpServletRequest implements HttpServletRequest {
 
     @Override
     public String getAuthType() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
     @Override
     public Cookie[] getCookies() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return new Cookie[0];
     }
 
     @Override
     public long getDateHeader(String name) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return -1;
     }
 
     @Override
     public String getHeader(String name) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
     @Override
     public Enumeration<String> getHeaders(String name) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
     @Override
     public Enumeration<String> getHeaderNames() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
     @Override
     public int getIntHeader(String name) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return 0;
     }
 
     @Override
@@ -97,176 +97,173 @@ public class StubHttpServletRequest implements HttpServletRequest {
 
     @Override
     public String getPathInfo() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
     @Override
     public String getPathTranslated() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
     @Override
     public String getContextPath() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
     @Override
     public String getQueryString() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
     @Override
     public String getRemoteUser() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
     @Override
     public boolean isUserInRole(String role) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return false;
     }
 
     @Override
     public Principal getUserPrincipal() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
     @Override
     public String getRequestedSessionId() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
     @Override
     public String getRequestURI() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
     @Override
     public StringBuffer getRequestURL() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
     @Override
     public String getServletPath() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
     @Override
     public HttpSession getSession(boolean create) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
     @Override
     public HttpSession getSession() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
     @Override
     public String changeSessionId()
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
     @Override
     public boolean isRequestedSessionIdValid() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return false;
     }
 
     @Override
     public boolean isRequestedSessionIdFromCookie() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return false;
     }
 
     @Override
     public boolean isRequestedSessionIdFromURL() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return false;
     }
 
     @Override
     public boolean isRequestedSessionIdFromUrl() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return false;
     }
 
     @Override
     public boolean authenticate(HttpServletResponse response)
             throws IOException, ServletException {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return false;
     }
 
     @Override
     public void login(String username, String password)
             throws ServletException {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public void logout() throws ServletException {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public Collection<Part> getParts() throws IOException, ServletException {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
     @Override
     public Part getPart(String name) throws IOException, ServletException {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
     @Override
     public Object getAttribute(String name) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
     @Override
     public Enumeration<String> getAttributeNames() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
     @Override
     public String getCharacterEncoding() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
     @Override
     public void setCharacterEncoding(String env)
             throws UnsupportedEncodingException {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public int getContentLength() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return 0;
     }
 
     @Override
     public String getContentType() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
     @Override
     public ServletInputStream getInputStream() throws IOException {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
     @Override
     public String getParameter(String name) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
     @Override
     public Enumeration<String> getParameterNames() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
     @Override
     public String[] getParameterValues(String name) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return new String[0];
     }
 
     @Override
     public Map<String, String[]> getParameterMap() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
     @Override
@@ -276,135 +273,139 @@ public class StubHttpServletRequest implements HttpServletRequest {
 
     @Override
     public String getScheme() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
     @Override
     public String getServerName() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
     @Override
     public int getServerPort() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return 80;
     }
 
     @Override
     public BufferedReader getReader() throws IOException {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
     @Override
     public String getRemoteAddr() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
     @Override
     public String getRemoteHost() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
     @Override
     public void setAttribute(String name, Object o) {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public void removeAttribute(String name) {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public Locale getLocale() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
     @Override
     public Enumeration<Locale> getLocales() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
     @Override
     public boolean isSecure() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return false;
     }
 
     @Override
     public RequestDispatcher getRequestDispatcher(String path) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
     @Override
     public String getRealPath(String path) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
     @Override
     public int getRemotePort() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return 0;
     }
 
     @Override
     public String getLocalName() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
     @Override
     public String getLocalAddr() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
     @Override
     public int getLocalPort() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return 80;
     }
 
     @Override
     public ServletContext getServletContext() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
     @Override
     public AsyncContext startAsync() throws IllegalStateException {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
     @Override
     public AsyncContext startAsync(
             ServletRequest request, ServletResponse response)
             throws IllegalStateException {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
     @Override
     public boolean isAsyncStarted() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return false;
     }
 
     @Override
     public boolean isAsyncSupported() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return false;
     }
 
     @Override
     public AsyncContext getAsyncContext() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
     @Override
     public DispatcherType getDispatcherType() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public <T extends HttpUpgradeHandler> T upgrade(Class<T> handlerClass) throws IOException, ServletException
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public long getContentLengthLong()
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return -1;
     }
 }
