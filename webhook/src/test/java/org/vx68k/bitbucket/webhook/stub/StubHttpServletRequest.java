@@ -50,6 +50,16 @@ import javax.servlet.http.Part;
 public class StubHttpServletRequest implements HttpServletRequest
 {
     /**
+     * Default HTTP server port.
+     */
+    public static final int HTTP_PORT = 80;
+
+    /**
+     * Default HTTPS server port.
+     */
+    public static final int HTTPS_PORT = 443;
+
+    /**
      * {@link ServletContext} object given to the constructor.
      */
     private ServletContext servletContext;
@@ -57,7 +67,7 @@ public class StubHttpServletRequest implements HttpServletRequest
     /**
      * Local port.
      */
-    private int localPort = 80;
+    private int localPort = HTTP_PORT;
 
     /**
      * Request method.
@@ -417,12 +427,13 @@ public class StubHttpServletRequest implements HttpServletRequest
     /**
      * {@inheritDoc}
      *
-     * <p>This implementation returns the local port (80 by default).</p>
+     * <p>This implementation returns the local port ({@value #HTTP_PORT} by
+     * default) of this request.</p>
      *
      * @return the local port
      */
     @Override
-    public int getLocalPort()
+    public final int getLocalPort()
     {
         return localPort;
     }
