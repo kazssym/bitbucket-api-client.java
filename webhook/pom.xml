@@ -11,9 +11,9 @@
     </parent>
     <artifactId>bitbucket-webhook</artifactId>
     <packaging>jar</packaging>
-    <name>Bitbucket Webhook for Java</name>
+    <name>Bitbucket Webhook Library</name>
     <description>
-    Library for processing HTTP requests from the Bitbucket webhooks
+    Library to process webhook requests from Bitbucket Cloud.
     </description>
     <dependencies>
         <dependency>
