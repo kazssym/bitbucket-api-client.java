@@ -14,7 +14,7 @@ capitals, as shown here.
 ## File encoding
 
 Unless mandated by the media type, a file SHOULD be encoded either in `UTF-8`
-(prefered) or in `US-ASCII`, and if it would be encoded in `UTF-8`, it MUST NOT
+(preferred) or in `US-ASCII`, and if it would be in `UTF-8`, it MUST NOT
 contain any BOM (U+FEFF).
 
 ## End-of-line convention
