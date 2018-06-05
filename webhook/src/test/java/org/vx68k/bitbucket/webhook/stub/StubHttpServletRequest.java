@@ -55,7 +55,12 @@ public class StubHttpServletRequest implements HttpServletRequest
     private ServletContext servletContext;
 
     /**
-     * Return value of {@link #getMethod getMethod}.
+     * Local port.
+     */
+    private int localPort = 80;
+
+    /**
+     * Request method.
      */
     private String method = "GET";
 
@@ -70,9 +75,9 @@ public class StubHttpServletRequest implements HttpServletRequest
     }
 
     /**
-     * Sets the return value of {@link #getMethod getMethod}.
+     * Sets the request method of this request to a {@link String} value.
      *
-     * @param value the new return value
+     * @param value {@link String} value for the request method
      */
     public final void setMethod(final String value)
     {
@@ -389,11 +394,6 @@ public class StubHttpServletRequest implements HttpServletRequest
         return null;
     }
 
-    @Override
-    public int getLocalPort() {
-        return 80;
-    }
-
     /**
      * {@inheritDoc}
      */
@@ -412,6 +412,19 @@ public class StubHttpServletRequest implements HttpServletRequest
     public long getContentLengthLong()
     {
         return -1;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>This implementation returns the local port (80 by default).</p>
+     *
+     * @return the local port
+     */
+    @Override
+    public int getLocalPort()
+    {
+        return localPort;
     }
 
     /**
