@@ -47,10 +47,18 @@ import javax.servlet.http.Part;
  * @author Kaz Nishimura
  * @since 1.0
  */
-public class StubHttpServletRequest implements HttpServletRequest {
-
+public class StubHttpServletRequest implements HttpServletRequest
+{
+    /**
+     * Return value of {@link #getMethod getMethod}.
+     */
     private String method = "GET";
 
+    /**
+     * Sets the return value of {@link #getMethod getMethod}.
+     *
+     * @param value the new return value
+     */
     public final void setMethod(final String value)
     {
         method = value;
