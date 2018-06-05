@@ -51,7 +51,7 @@ public class StubHttpServletRequest implements HttpServletRequest {
 
     private String method = "GET";
 
-    public void setMethod(final String value)
+    public final void setMethod(final String value)
     {
         method = value;
     }
