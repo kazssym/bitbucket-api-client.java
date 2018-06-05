@@ -51,7 +51,8 @@ public class StubHttpServletRequest implements HttpServletRequest {
 
     private String method = "GET";
 
-    public void setMethod(String method) {
+    public void setMethod(final String method)
+    {
         this.method = method;
     }
 
@@ -66,17 +67,20 @@ public class StubHttpServletRequest implements HttpServletRequest {
     }
 
     @Override
-    public long getDateHeader(String name) {
+    public long getDateHeader(final String name)
+    {
         return -1;
     }
 
     @Override
-    public String getHeader(String name) {
+    public String getHeader(final String name)
+    {
         return null;
     }
 
     @Override
-    public Enumeration<String> getHeaders(String name) {
+    public Enumeration<String> getHeaders(final String name)
+    {
         return null;
     }
 
@@ -86,7 +90,8 @@ public class StubHttpServletRequest implements HttpServletRequest {
     }
 
     @Override
-    public int getIntHeader(String name) {
+    public int getIntHeader(final String name)
+    {
         return 0;
     }
 
@@ -121,7 +126,8 @@ public class StubHttpServletRequest implements HttpServletRequest {
     }
 
     @Override
-    public boolean isUserInRole(String role) {
+    public boolean isUserInRole(final String role)
+    {
         return false;
     }
 
@@ -151,7 +157,8 @@ public class StubHttpServletRequest implements HttpServletRequest {
     }
 
     @Override
-    public HttpSession getSession(boolean create) {
+    public HttpSession getSession(final boolean create)
+    {
         return null;
     }
 
@@ -187,14 +194,16 @@ public class StubHttpServletRequest implements HttpServletRequest {
     }
 
     @Override
-    public boolean authenticate(HttpServletResponse response)
-            throws IOException, ServletException {
+    public boolean authenticate(final HttpServletResponse response)
+        throws IOException, ServletException
+    {
         return false;
     }
 
     @Override
-    public void login(String username, String password)
-            throws ServletException {
+    public void login(final String username, final String password)
+        throws ServletException
+    {
     }
 
     @Override
@@ -207,12 +216,15 @@ public class StubHttpServletRequest implements HttpServletRequest {
     }
 
     @Override
-    public Part getPart(String name) throws IOException, ServletException {
+    public Part getPart(final String name)
+        throws IOException, ServletException
+    {
         return null;
     }
 
     @Override
-    public Object getAttribute(String name) {
+    public Object getAttribute(final String name)
+    {
         return null;
     }
 
@@ -227,8 +239,9 @@ public class StubHttpServletRequest implements HttpServletRequest {
     }
 
     @Override
-    public void setCharacterEncoding(String env)
-            throws UnsupportedEncodingException {
+    public void setCharacterEncoding(final String env)
+        throws UnsupportedEncodingException
+    {
     }
 
     @Override
@@ -247,7 +260,8 @@ public class StubHttpServletRequest implements HttpServletRequest {
     }
 
     @Override
-    public String getParameter(String name) {
+    public String getParameter(final String name)
+    {
         return null;
     }
 
@@ -257,7 +271,8 @@ public class StubHttpServletRequest implements HttpServletRequest {
     }
 
     @Override
-    public String[] getParameterValues(String name) {
+    public String[] getParameterValues(final String name)
+    {
         return new String[0];
     }
 
@@ -302,7 +317,8 @@ public class StubHttpServletRequest implements HttpServletRequest {
     }
 
     @Override
-    public void setAttribute(String name, Object o) {
+    public void setAttribute(final String name, final Object o)
+    {
     }
 
     @Override
@@ -325,7 +341,8 @@ public class StubHttpServletRequest implements HttpServletRequest {
     }
 
     @Override
-    public RequestDispatcher getRequestDispatcher(String path) {
+    public RequestDispatcher getRequestDispatcher(final String path)
+    {
         return null;
     }
 
@@ -365,9 +382,10 @@ public class StubHttpServletRequest implements HttpServletRequest {
     }
 
     @Override
-    public AsyncContext startAsync(
-            ServletRequest request, ServletResponse response)
-            throws IllegalStateException {
+    public AsyncContext startAsync(final ServletRequest request,
+        final ServletResponse response)
+        throws IllegalStateException
+    {
         return null;
     }
 
@@ -395,7 +413,9 @@ public class StubHttpServletRequest implements HttpServletRequest {
      * {@inheritDoc}
      */
     @Override
-    public <T extends HttpUpgradeHandler> T upgrade(Class<T> handlerClass) throws IOException, ServletException
+    public <T extends HttpUpgradeHandler> T upgrade(
+        final Class<T> handlerClass)
+        throws IOException, ServletException
     {
         return null;
     }
