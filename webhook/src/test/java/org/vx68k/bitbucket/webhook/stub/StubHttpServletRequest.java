@@ -384,39 +384,6 @@ public class StubHttpServletRequest implements HttpServletRequest
         return null;
     }
 
-    @Override
-    public AsyncContext startAsync() throws IllegalStateException {
-        return null;
-    }
-
-    @Override
-    public AsyncContext startAsync(final ServletRequest request,
-        final ServletResponse response)
-        throws IllegalStateException
-    {
-        return null;
-    }
-
-    @Override
-    public boolean isAsyncStarted() {
-        return false;
-    }
-
-    @Override
-    public boolean isAsyncSupported() {
-        return false;
-    }
-
-    @Override
-    public AsyncContext getAsyncContext() {
-        return null;
-    }
-
-    @Override
-    public DispatcherType getDispatcherType() {
-        return null;
-    }
-
     /**
      * {@inheritDoc}
      */
@@ -435,5 +402,83 @@ public class StubHttpServletRequest implements HttpServletRequest
     public long getContentLengthLong()
     {
         return -1;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>This implementation always throws {@link IllegalStateException}.</p>
+     *
+     * @exception IllegalStateException always
+     */
+    @Override
+    public AsyncContext startAsync()
+    {
+        throw new IllegalStateException("Not supported");
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>This implementation always throws {@link IllegalStateException}.</p>
+     *
+     * @exception IllegalStateException always
+     */
+    @Override
+    public AsyncContext startAsync(final ServletRequest request,
+        final ServletResponse response)
+    {
+        throw new IllegalStateException("Not supported");
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>This implementation always returns {@code false}.</p>
+     *
+     * @return {@code false}
+     */
+    @Override
+    public boolean isAsyncStarted() {
+        return false;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>This implementation always returns false.</p>
+     *
+     * @return {@code false}
+     */
+    @Override
+    public boolean isAsyncSupported() {
+        return false;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>This implementation always throws {@link IllegalStateException}.</p>
+     *
+     * @exception IllegalStateException always
+     */
+    @Override
+    public AsyncContext getAsyncContext()
+    {
+        throw new IllegalStateException("Not supported");
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>This implementation always returns {@link DispathcerType#REQUEST}.
+     * Subclasses may override this method to return another value.</p>
+     *
+     * @return {@link DispatcherType#REQUEST}
+     */
+    @Override
+    public DispatcherType getDispatcherType()
+    {
+        return DispatcherType.REQUEST;
     }
 }
