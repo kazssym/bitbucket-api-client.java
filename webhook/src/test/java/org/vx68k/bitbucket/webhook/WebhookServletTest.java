@@ -1,6 +1,6 @@
 /*
  * BitbucketWebhookServetTest
- * Copyright (C) 2015 Nishimura Software Studio
+ * Copyright (C) 2015-2018 Nishimura Software Studio
  *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Affero General Public License as published by the
@@ -59,7 +59,7 @@ public class WebhookServletTest implements ServletConfig {
         WebhookServlet servlet = new WebhookServlet();
         servlet.init(this);
         try {
-            StubHttpServletRequest request = new StubHttpServletRequest();
+            StubHttpServletRequest request = new StubHttpServletRequest(null);
             request.setMethod("GET");
 
             StubHttpServletResponse response = new StubHttpServletResponse();
@@ -75,7 +75,7 @@ public class WebhookServletTest implements ServletConfig {
         WebhookServlet servlet = new WebhookServlet();
         servlet.init(this);
         try {
-            StubHttpServletRequest request = new StubHttpServletRequest();
+            StubHttpServletRequest request = new StubHttpServletRequest(null);
             request.setMethod("HEAD");
 
             StubHttpServletResponse response = new StubHttpServletResponse();

@@ -50,9 +50,24 @@ import javax.servlet.http.Part;
 public class StubHttpServletRequest implements HttpServletRequest
 {
     /**
+     * {@link ServletContext} object given to the constructor.
+     */
+    private ServletContext servletContext;
+
+    /**
      * Return value of {@link #getMethod getMethod}.
      */
     private String method = "GET";
+
+    /**
+     * Constructs this request with a {@link ServletContext} object.
+     *
+     * @param context {@link ServletContext} object
+     */
+    public StubHttpServletRequest(final ServletContext context)
+    {
+        servletContext = context;
+    }
 
     /**
      * Sets the return value of {@link #getMethod getMethod}.
@@ -379,11 +394,6 @@ public class StubHttpServletRequest implements HttpServletRequest
         return 80;
     }
 
-    @Override
-    public ServletContext getServletContext() {
-        return null;
-    }
-
     /**
      * {@inheritDoc}
      */
@@ -402,6 +412,20 @@ public class StubHttpServletRequest implements HttpServletRequest
     public long getContentLengthLong()
     {
         return -1;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>This implementation returns the {@link ServletContext} object given
+     * to the constructor.</p>
+     *
+     * @return the {@link ServletContext} object
+     */
+    @Override
+    public final ServletContext getServletContext()
+    {
+        return servletContext;
     }
 
     /**
