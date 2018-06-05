@@ -42,7 +42,7 @@ import javax.servlet.http.HttpUpgradeHandler;
 import javax.servlet.http.Part;
 
 /**
- * Stub for [@link HttpServletRequest}.
+ * Stub implementation of {@link HttpServletRequest}.
  *
  * @author Kaz Nishimura
  * @since 1.0
