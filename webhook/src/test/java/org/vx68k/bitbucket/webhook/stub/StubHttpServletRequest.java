@@ -23,6 +23,7 @@ package org.vx68k.bitbucket.webhook.stub;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.InetAddress;
 import java.security.Principal;
 import java.util.Collection;
 import java.util.Enumeration;
@@ -52,6 +53,11 @@ import javax.servlet.http.Part;
 public class StubHttpServletRequest implements HttpServletRequest
 {
     /**
+     * Default local host information.
+     */
+    private static final InetAddress LOCAL = InetAddress.getLoopbackAddress();
+
+    /**
      * Default HTTP server port.
      */
     public static final int HTTP_PORT = 80;
@@ -67,7 +73,22 @@ public class StubHttpServletRequest implements HttpServletRequest
     private ServletContext servletContext;
 
     /**
-     * Local port.
+     * Remote TCP port.
+     */
+    private int remotePort = 0;
+
+    /**
+     * Local host name.
+     */
+    private String localName = LOCAL.getHostName();
+
+    /**
+     * Local IP address.
+     */
+    private String localAddr = LOCAL.getHostAddress();
+
+    /**
+     * Local TCP port.
      */
     private int localPort = HTTP_PORT;
 
@@ -386,26 +407,6 @@ public class StubHttpServletRequest implements HttpServletRequest
         return null;
     }
 
-    @Override
-    public String getRealPath(String path) {
-        return null;
-    }
-
-    @Override
-    public int getRemotePort() {
-        return 0;
-    }
-
-    @Override
-    public String getLocalName() {
-        return null;
-    }
-
-    @Override
-    public String getLocalAddr() {
-        return null;
-    }
-
     /**
      * {@inheritDoc}
      */
@@ -429,10 +430,63 @@ public class StubHttpServletRequest implements HttpServletRequest
     /**
      * {@inheritDoc}
      *
-     * <p>This implementation returns the local port ({@value #HTTP_PORT} by
-     * default) of this request.</p>
+     * <p>This implementation uses {@link ServletContext#getReadlPath}.</p>
+     */
+    @Override
+    @Deprecated
+    public String getRealPath(final String path)
+    {
+        return servletContext.getRealPath(path);
+    }
+
+    /**
+     * {@inheritDoc}
      *
-     * @return the local port
+     * <p>This implementation returns the remote TCP port of this request.</p>
+     *
+     * @return the remote TCP port
+     */
+    @Override
+    public final int getRemotePort()
+    {
+        return remotePort;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>This implementation returns the local host name ({@value "localhost"}
+     * by default) of this request.</p>
+     *
+     * @return the local host name
+     */
+    @Override
+    public final String getLocalName()
+    {
+        return localName;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>This implementation returns the local IP address ({@value
+     * "127.0.0.1"} by default) of this request.</p>
+     *
+     * @return the local IP address
+     */
+    @Override
+    public final String getLocalAddr()
+    {
+        return localAddr;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>This implementation returns the local TCP port ({@value #HTTP_PORT}
+     * by default) of this request.</p>
+     *
+     * @return the local TCP port
      */
     @Override
     public final int getLocalPort()
@@ -489,7 +543,8 @@ public class StubHttpServletRequest implements HttpServletRequest
      * @return {@code false}
      */
     @Override
-    public boolean isAsyncStarted() {
+    public boolean isAsyncStarted()
+    {
         return false;
     }
 
@@ -501,7 +556,8 @@ public class StubHttpServletRequest implements HttpServletRequest
      * @return {@code false}
      */
     @Override
-    public boolean isAsyncSupported() {
+    public boolean isAsyncSupported()
+    {
         return false;
     }
 
