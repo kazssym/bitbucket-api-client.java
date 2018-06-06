@@ -19,6 +19,6 @@
  */
 
  /**
-  * Package of stub classes.
+  * Stub implementations.
   */
 package org.vx68k.bitbucket.webhook.stub;
