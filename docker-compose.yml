@@ -1,0 +1,23 @@
+# docker-compose.yml - compose file for test containers
+# Copyright (C) 2018 Kaz Nishimura
+#
+# Copying and distribution of this file, with or without modification, are
+# permitted in any medium without royalty provided the copyright notice and
+# this notice are preserved.  This file is offered as-is, without any warranty.
+---
+version: "3"
+services:
+  example:
+    image: kazssym/wildfly:latest
+    ports:
+      - "${EXAMPLE_HTTP_PORT:-8080}:8080"
+      - "${EXAMPLE_DEBUG_PORT:-8787}:8787"
+    environment:
+      JAVA_OPTS:
+      DEBUG:
+    volumes:
+      - ./example/target/bitbucket-api-client-example-${VERSION:-5.0-SNAPSHOT}.war:/opt/jboss/wildfly/standalone/deployments/ROOT.war:ro
+    working_dir: /opt/jboss/wildfly/standalone
+    command: /opt/jboss/wildfly/bin/standalone.sh -b=0.0.0.0
+    cap_drop:
+      - ALL

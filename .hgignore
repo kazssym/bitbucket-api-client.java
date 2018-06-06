@@ -1,5 +1,7 @@
 syntax: regexp
 (^|/)target$
+(^|/).env$
+(^|/)faces-config\.NavData$
 (^|/)\.project$
 (^|/)\.classpath$
 (^|/)\.settings$
