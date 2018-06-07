@@ -83,8 +83,9 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>2.10.3</version>
+                    <version>3.0.0</version>
                     <configuration>
+                        <locale>en_US</locale>
                         <links>
                             <link>https://docs.oracle.com/javase/8/docs/api/</link>
                             <link>https://docs.oracle.com/javaee/7/api/</link>
@@ -92,7 +93,6 @@
                             <link>https://developers.google.com/api-client-library/java/google-http-java-client/reference/1.20.0</link>
                         </links>
                         <detectLinks>true</detectLinks>
-                        <locale>en_US</locale>
                     </configuration>
                 </plugin>
                 <plugin>
