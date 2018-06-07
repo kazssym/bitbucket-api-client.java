@@ -54,7 +54,7 @@ import javax.servlet.http.Part;
 public class StubHttpServletRequest implements HttpServletRequest
 {
     /**
-     * Default local host information.
+     * Default local host address.
      */
     private static final InetAddress LOCAL = InetAddress.getLoopbackAddress();
 
@@ -74,6 +74,21 @@ public class StubHttpServletRequest implements HttpServletRequest
     private ServletContext servletContext;
 
     /**
+     * Authentication type.
+     */
+    private String authType = null;
+
+    /**
+     * Request method.
+     */
+    private String method = "GET";
+
+    /**
+     * Path information.
+     */
+    private String pathInfo = null;
+
+    /**
      * Remote TCP port.
      */
     private int remotePort = 0;
@@ -84,7 +99,7 @@ public class StubHttpServletRequest implements HttpServletRequest
     private String localName = LOCAL.getHostName();
 
     /**
-     * Local IP address.
+     * Local host IP address.
      */
     private String localAddr = LOCAL.getHostAddress();
 
@@ -92,11 +107,6 @@ public class StubHttpServletRequest implements HttpServletRequest
      * Local TCP port.
      */
     private int localPort = HTTP_PORT;
-
-    /**
-     * Request method.
-     */
-    private String method = "GET";
 
     /**
      * Constructs this request with a {@link ServletContext} object.
@@ -118,62 +128,152 @@ public class StubHttpServletRequest implements HttpServletRequest
         method = value;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public String getAuthType() {
+    public final String getAuthType()
+    {
+        return authType;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>This implementation always returns {@code null}.
+     * Subclasses may override this method to return other values.</p>
+     *
+     * @return {@code null}
+     */
+    @Override
+    public Cookie[] getCookies()
+    {
         return null;
     }
 
-    @Override
-    public Cookie[] getCookies() {
-        return new Cookie[0];
-    }
-
+    /**
+     * {@inheritDoc}
+     *
+     * <p>This implementation always return {@code -1}.
+     * Subclasses may override this method to return other values.</p>
+     *
+     * @return {@code -1}
+     */
     @Override
     public long getDateHeader(final String name)
     {
         return -1;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * <p>This implementation always return {@code null}.
+     * Subclasses may override this method to return other values.</p>
+     *
+     * @return {@code null}
+     */
     @Override
     public String getHeader(final String name)
     {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * <p>This implementation always return {@code null}.
+     * Subclasses may override this method to return other values.</p>
+     *
+     * @return {@code null}
+     */
     @Override
     public Enumeration<String> getHeaders(final String name)
     {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * <p>This implementation always return {@code null}.
+     * Subclasses may override this method to return other values.</p>
+     *
+     * @return {@code null}
+     */
     @Override
-    public Enumeration<String> getHeaderNames() {
+    public Enumeration<String> getHeaderNames()
+    {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * <p>This implementation always return {@code -1}.
+     * Subclasses may override this method to return other values.</p>
+     *
+     * @return {@code -1}
+     */
     @Override
     public int getIntHeader(final String name)
     {
-        return 0;
+        return -1;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * <p>This implementation returns the value set by {@link #setMethod
+     * setMethod}, which is set to {@code "GET"} by default.</p>
+     *
+     * @return the value set by {@link #setMethod setMethod}
+     */
     @Override
-    public String getMethod() {
+    public final String getMethod()
+    {
         return method;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * <p>This implementation returns the value set by {@link #setPathInfo
+     * setPathInfo}, which is set to {@code null} by default.</p>
+     *
+     * @return the value set by {@link #setPathInfo setPathInfo}
+     */
     @Override
-    public String getPathInfo() {
+    public final String getPathInfo()
+    {
+        return pathInfo;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>This implementation always returns {@code null}.
+     * Subclasses may override this method to other values.</p>
+     *
+     * @return {@code null}
+     */
+    @Override
+    public String getPathTranslated()
+    {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * <p>This implementation always returns {@code ""}.
+     * Subclasses may override this method to return other values.</p>
+     *
+     * @return {@code ""}
+     */
     @Override
-    public String getPathTranslated() {
-        return null;
-    }
-
-    @Override
-    public String getContextPath() {
+    public String getContextPath()
+    {
         return null;
     }
 
@@ -461,7 +561,7 @@ public class StubHttpServletRequest implements HttpServletRequest
      * {@inheritDoc}
      *
      * <p>This implementation always returns {@code null}.
-     * Subclasses may override this method to return another value.</p>
+     * Subclasses may override this method to return other values.</p>
      *
      * @return {@code null}
      */
@@ -622,7 +722,7 @@ public class StubHttpServletRequest implements HttpServletRequest
      * {@inheritDoc}
      *
      * <p>This implementation always returns {@link DispathcerType#REQUEST}.
-     * Subclasses may override this method to return another value.</p>
+     * Subclasses may override this method to return other values.</p>
      *
      * @return {@link DispatcherType#REQUEST}
      */
