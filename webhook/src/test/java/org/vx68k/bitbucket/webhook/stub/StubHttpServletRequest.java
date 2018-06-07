@@ -26,6 +26,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.InetAddress;
 import java.security.Principal;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.Locale;
 import java.util.Map;
@@ -377,36 +378,6 @@ public class StubHttpServletRequest implements HttpServletRequest
         return null;
     }
 
-    @Override
-    public void setAttribute(final String name, final Object o)
-    {
-    }
-
-    @Override
-    public void removeAttribute(String name) {
-    }
-
-    @Override
-    public Locale getLocale() {
-        return null;
-    }
-
-    @Override
-    public Enumeration<Locale> getLocales() {
-        return null;
-    }
-
-    @Override
-    public boolean isSecure() {
-        return false;
-    }
-
-    @Override
-    public RequestDispatcher getRequestDispatcher(final String path)
-    {
-        return null;
-    }
-
     /**
      * {@inheritDoc}
      */
@@ -430,11 +401,84 @@ public class StubHttpServletRequest implements HttpServletRequest
     /**
      * {@inheritDoc}
      *
+     * <p>This implementation does nothing.<p>
+     */
+    @Override
+    public final void setAttribute(final String name, final Object object)
+    {
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>This implementation does nothing.</p>
+     */
+    @Override
+    public final void removeAttribute(final String name)
+    {
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>This implementation returns the current locale.</p>
+     *
+     * @return the current locale
+     */
+    @Override
+    public final Locale getLocale()
+    {
+        return Locale.getDefault();
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>This implementation returns an empty enumeration.</p>
+     *
+     * @return an empty enumeration
+     */
+    @Override
+    public final Enumeration<Locale> getLocales()
+    {
+        return Collections.<Locale>emptyEnumeration();
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>This implementation always returns {@code false}.</p>
+     *
+     * @return {@code false}
+     */
+    @Override
+    public final boolean isSecure()
+    {
+        return false;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>This implementation always returns {@code null}.
+     * Subclasses may override this method to return another value.</p>
+     *
+     * @return {@code null}
+     */
+    @Override
+    public RequestDispatcher getRequestDispatcher(final String path)
+    {
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     *
      * <p>This implementation uses {@link ServletContext#getReadlPath}.</p>
      */
     @Override
     @Deprecated
-    public String getRealPath(final String path)
+    public final String getRealPath(final String path)
     {
         return servletContext.getRealPath(path);
     }
