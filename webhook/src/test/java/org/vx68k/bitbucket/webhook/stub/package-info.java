@@ -1,6 +1,6 @@
 /*
  * package-info.java
- * Copyright (C) 2015-2018 Nishimura Software Studio
+ * Copyright (C) 2015-2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Affero General Public License as published by
@@ -18,7 +18,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
- /**
-  * Stub implementations.
-  */
+/**
+ * Stub implementations.
+ */
 package org.vx68k.bitbucket.webhook.stub;

@@ -1,6 +1,6 @@
 /*
- * StubHttpServletRequest
- * Copyright (C) 2015-2018 Nishimura Software Studio
+ * StubHttpServletRequest.java - class StubHttpServletRequest
+ * Copyright (C) 2015-2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Affero General Public License as published by the
@@ -49,7 +49,7 @@ import javax.servlet.http.Part;
  * Stub implementation of {@link HttpServletRequest}.
  *
  * @author Kaz Nishimura
- * @since 1.0
+ * @since 5.0
  */
 public class StubHttpServletRequest implements HttpServletRequest
 {

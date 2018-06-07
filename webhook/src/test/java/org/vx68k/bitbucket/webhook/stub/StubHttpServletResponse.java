@@ -1,6 +1,6 @@
 /*
- * StubHttpServletResponse
- * Copyright (C) 2015-2018 Nishimura Software Studio
+ * StubHttpServletResponse.java - class StubHttpServletResponse
+ * Copyright (C) 2015-2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Affero General Public License as published by the
@@ -30,10 +30,10 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Stub for {@link HttpServletResponse}
+ * Stub implementation of {@link HttpServletResponse}.
  *
  * @author Kaz Nishimura
- * @since 1.0
+ * @since 5.0
  */
 public class StubHttpServletResponse implements HttpServletResponse {
 
