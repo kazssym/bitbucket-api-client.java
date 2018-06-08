@@ -32,7 +32,7 @@ public final class Properties {
             "org.vx68k.bitbucket.api.client.example";
 
     /**
-     * Property key for the Bitbucket OAuth client identifider (consumer key).
+     * Property key for the Bitbucket OAuth client identifier (consumer key).
      */
     public static final String BITBUCKET_OAUTH_CLIENT_ID =
             PREFIX + ".oauth.clientId";
@@ -49,6 +49,9 @@ public final class Properties {
     public static final String GOOGLE_ANALYTICS_TRACKING_ID =
             PREFIX + ".analytics.id";
 
+    /**
+     * Does nothing but forbids instantiation.
+     */
     private Properties() {
     }
 }
