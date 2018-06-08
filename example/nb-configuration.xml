@@ -14,6 +14,6 @@
         Any value defined here will override the pom.xml file value but is only applicable to the current project.
         -->
         <netbeans.hint.licensePath>${project.parent.basedir}/etc/nb-license.txt</netbeans.hint.licensePath>
-        <org-netbeans-modules-projectapi.jsf_2e_language>JSP</org-netbeans-modules-projectapi.jsf_2e_language>
+        <org-netbeans-modules-projectapi.jsf_2e_language>Facelets</org-netbeans-modules-projectapi.jsf_2e_language>
     </properties>
 </project-shared-configuration>
