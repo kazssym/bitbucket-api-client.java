@@ -25,6 +25,9 @@ package org.vx68k.bitbucket.api.client.example;
  */
 public class Properties {
 
+    /**
+     * Property prefix.
+     */
     private static final String PREFIX =
             "org.vx68k.bitbucket.api.client.example";
 
