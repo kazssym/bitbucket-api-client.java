@@ -49,7 +49,7 @@ public class OAuthRedirectionServlet extends HttpServlet
 
     @Override
     protected void doGet(
-            HttpServletRequest request, HttpServletResponse response)
+            final HttpServletRequest request, final HttpServletResponse response)
             throws ServletException, IOException {
         // Note: CDI events are synchronous.
         redirectionEvent.fire(new OAuthRedirection(request, response));

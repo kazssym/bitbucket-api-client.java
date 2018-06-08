@@ -34,7 +34,7 @@ public abstract class BitbucketEntity {
      * @param entityType entity type
      * @throws NullPointerException if the entity type was <code>null</code>
      */
-    protected BitbucketEntity(String entityType) {
+    protected BitbucketEntity(final String entityType) {
         if (entityType == null) {
             throw new NullPointerException("The entity type is null");
         }
@@ -45,7 +45,7 @@ public abstract class BitbucketEntity {
      * Constructs this instance with the entity type in a JSON object.
      * @param jsonObject JSON object
      */
-    protected BitbucketEntity(JsonObject jsonObject) {
+    protected BitbucketEntity(final JsonObject jsonObject) {
         this(jsonObject.getString(ClientJsonKeys.TYPE));
     }
 
@@ -54,7 +54,7 @@ public abstract class BitbucketEntity {
     }
 
     @Override
-    public boolean equals(Object object) {
+    public boolean equals(final Object object) {
         if (object == this) {
             return true;
         }

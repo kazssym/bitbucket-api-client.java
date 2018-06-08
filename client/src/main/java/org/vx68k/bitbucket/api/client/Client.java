@@ -62,7 +62,7 @@ public class Client implements Serializable {
      * @param password password
      * @since 4.0
      */
-    public Client(String user, String password) {
+    public Client(final String user, final String password) {
         setUser(user);
         setPassword(password);
     }
@@ -99,7 +99,7 @@ public class Client implements Serializable {
      * @param user user name to be set
      * @since 4.0
      */
-    public void setUser(String user) {
+    public void setUser(final String user) {
         this.user = user;
     }
 
@@ -108,7 +108,7 @@ public class Client implements Serializable {
      * @param password password to be set
      * @since 4.0
      */
-    public void setPassword(String password) {
+    public void setPassword(final String password) {
         this.password = password;
     }
 
@@ -135,7 +135,7 @@ public class Client implements Serializable {
      * <code>null</code>
      * @since 4.0
      */
-    public Service getService(String user, String password) {
+    public Service getService(final String user, final String password) {
         return new RestService(new BasicAuthentication(user, password));
     }
 
@@ -171,7 +171,7 @@ public class Client implements Serializable {
          * authentication.
          * @param authentication HTTP execute interceptor
          */
-        public RestService(HttpExecuteInterceptor authentication) {
+        public RestService(final HttpExecuteInterceptor authentication) {
             this.authentication = authentication;
         }
 
@@ -180,7 +180,7 @@ public class Client implements Serializable {
          * @param path endpoint path
          * @return endpoint URI
          */
-        protected URI getEndpoint(String path) {
+        protected URI getEndpoint(final String path) {
             URI root = URI.create(API_ROOT);
             return root.resolve(URI.create(path));
         }
@@ -195,7 +195,7 @@ public class Client implements Serializable {
             }
         }
 
-        protected BitbucketUser getUser(HttpResponse response)
+        protected BitbucketUser getUser(final HttpResponse response)
                 throws IOException {
             JsonReader reader = Json.createReader(response.getContent());
             return new BitbucketUser(reader.readObject());
@@ -229,7 +229,7 @@ public class Client implements Serializable {
         }
 
         @Override
-        public BitbucketUser getUser(String name) throws IOException {
+        public BitbucketUser getUser(final String name) throws IOException {
             if (name.contains("/")) {
                 throw new IllegalArgumentException(
                         "User name contains a \"/\"");
@@ -238,7 +238,7 @@ public class Client implements Serializable {
         }
 
         @Override
-        public BitbucketUser getUser(URI endpoint) throws IOException {
+        public BitbucketUser getUser(final URI endpoint) throws IOException {
             HttpRequest request = requestFactory.buildGetRequest(
                     new GenericUrl(endpoint.toString()));
             request.setInterceptor(authentication);

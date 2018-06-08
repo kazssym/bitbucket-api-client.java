@@ -98,7 +98,7 @@ public abstract class OAuthUser implements Serializable {
      * @throws IOException if an I/O error has occurred
      * @since 5.0
      */
-    protected String authorizationRequestUri(HttpServletRequest request)
+    protected String authorizationRequestUri(final HttpServletRequest request)
             throws URISyntaxException, IOException {
         URI redirectionEndpoint = new URI(
                 request.getScheme(), null, request.getServerName(),
@@ -111,7 +111,7 @@ public abstract class OAuthUser implements Serializable {
                 redirectionEndpoint, session.getId());
     }
 
-    protected void requestToken(@Observes OAuthRedirection redirection)
+    protected void requestToken(@Observes final OAuthRedirection redirection)
             throws IOException {
         HttpServletRequest request = redirection.getRequest();
         HttpSession session = request.getSession(false);
@@ -157,7 +157,7 @@ public abstract class OAuthUser implements Serializable {
      * @param request HTTP request
      * @return server port, or -1 if it is the default of the scheme
      */
-    protected static int getExplicitServerPort(HttpServletRequest request) {
+    protected static int getExplicitServerPort(final HttpServletRequest request) {
         int port = request.getServerPort();
         if (port == DEFAULT_HTTP_PORT
                 && request.getScheme().equals(HTTP_SCHEME)) {
@@ -175,7 +175,7 @@ public abstract class OAuthUser implements Serializable {
      * @param request HTTP request
      * @return redirection endpoint path
      */
-    protected static String getRedirectionPath(HttpServletRequest request) {
+    protected static String getRedirectionPath(final HttpServletRequest request) {
         StringBuilder path = new StringBuilder(request.getContextPath());
         path.append("/authorized");
         if (request.getServletPath() != null) {

@@ -75,7 +75,7 @@ public class OAuthClient extends Client {
      * @param clientId client identifier
      * @param clientSecret client secret
      */
-    public OAuthClient(String clientId, String clientSecret) {
+    public OAuthClient(final String clientId, final String clientSecret) {
         setClientId(clientId);
         setClientSecret(clientSecret);
     }
@@ -89,7 +89,7 @@ public class OAuthClient extends Client {
      * {@link #OAuthClient(String, String)}
      */
     @Deprecated
-    public OAuthClient(OAuthCredentials credentials) {
+    public OAuthClient(final OAuthCredentials credentials) {
         setCredentials(credentials);
     }
 
@@ -117,7 +117,7 @@ public class OAuthClient extends Client {
      * string, the client identifier shall be set to <code>null</code>
      * @since 5.0
      */
-    public void setClientId(String clientId) {
+    public void setClientId(final String clientId) {
         if (clientId != null && clientId.isEmpty()) {
             this.clientId = null;
         } else {
@@ -131,7 +131,7 @@ public class OAuthClient extends Client {
      * string, the client secret shall be set to <code>null</code>
      * @since 5.0
      */
-    public void setClientSecret(String clientSecret) {
+    public void setClientSecret(final String clientSecret) {
         if (clientSecret != null && clientSecret.isEmpty()) {
             this.clientSecret = null;
         } else {
@@ -172,7 +172,7 @@ public class OAuthClient extends Client {
      * {@link #setClientSecret}
      */
     @Deprecated
-    public void setCredentials(OAuthCredentials credentials) {
+    public void setCredentials(final OAuthCredentials credentials) {
         if (credentials != null) {
             setClientId(credentials.getId());
             setClientSecret(credentials.getSecret());
@@ -203,7 +203,7 @@ public class OAuthClient extends Client {
      * @throws NullPointerException if this object had no client credentials
      * @since 5.0
      */
-    public String authorizationRequestUri(URI redirectionEndpointUri) {
+    public String authorizationRequestUri(final URI redirectionEndpointUri) {
         return authorizationRequestUri(redirectionEndpointUri, null);
     }
 
@@ -220,7 +220,7 @@ public class OAuthClient extends Client {
      * @since 5.0
      */
     public String authorizationRequestUri(
-            URI redirectionEndpoint, String state) {
+            final URI redirectionEndpoint, final String state) {
         redirectionEndpointUri = null;
         if (redirectionEndpoint != null) {
             redirectionEndpointUri = redirectionEndpoint.toString();
@@ -246,7 +246,7 @@ public class OAuthClient extends Client {
      * @throws NullPointerException if this object has no client credentials
      * @since 5.0
      */
-    public Service getService(String authorizationCode)
+    public Service getService(final String authorizationCode)
             throws IOException {
         AuthorizationCodeFlow flow = getAuthorizationCodeFlow(true);
         AuthorizationCodeTokenRequest request
@@ -272,7 +272,7 @@ public class OAuthClient extends Client {
      * @throws NullPointerException if this object has no client credentials
      */
     protected AuthorizationCodeFlow getAuthorizationCodeFlow(
-            boolean forTokenRequest) {
+            final boolean forTokenRequest) {
         if (!isConfiguredForOAuth()) {
             throw new NullPointerException("No OAuth client credentials");
         }

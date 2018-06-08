@@ -90,17 +90,17 @@ public class OAuthRedirectionTest {
         }
 
         @Override
-        public long getDateHeader(String name) {
+        public long getDateHeader(final String name) {
             throw new UnsupportedOperationException("Not supported yet.");
         }
 
         @Override
-        public String getHeader(String name) {
+        public String getHeader(final String name) {
             throw new UnsupportedOperationException("Not supported yet.");
         }
 
         @Override
-        public Enumeration<String> getHeaders(String name) {
+        public Enumeration<String> getHeaders(final String name) {
             throw new UnsupportedOperationException("Not supported yet.");
         }
 
@@ -110,7 +110,7 @@ public class OAuthRedirectionTest {
         }
 
         @Override
-        public int getIntHeader(String name) {
+        public int getIntHeader(final String name) {
             throw new UnsupportedOperationException("Not supported yet.");
         }
 
@@ -145,7 +145,7 @@ public class OAuthRedirectionTest {
         }
 
         @Override
-        public boolean isUserInRole(String role) {
+        public boolean isUserInRole(final String role) {
             throw new UnsupportedOperationException("Not supported yet.");
         }
 
@@ -175,7 +175,7 @@ public class OAuthRedirectionTest {
         }
 
         @Override
-        public HttpSession getSession(boolean create) {
+        public HttpSession getSession(final boolean create) {
             throw new UnsupportedOperationException("Not supported yet.");
         }
 
@@ -205,13 +205,13 @@ public class OAuthRedirectionTest {
         }
 
         @Override
-        public boolean authenticate(HttpServletResponse response)
+        public boolean authenticate(final HttpServletResponse response)
                 throws ServletException, IOException {
             throw new UnsupportedOperationException("Not supported yet.");
         }
 
         @Override
-        public void login(String user, String password)
+        public void login(final String user, final String password)
                 throws ServletException {
             throw new UnsupportedOperationException("Not supported yet.");
         }
@@ -228,13 +228,13 @@ public class OAuthRedirectionTest {
         }
 
         @Override
-        public Part getPart(String name)
+        public Part getPart(final String name)
                 throws ServletException, IOException {
             throw new UnsupportedOperationException("Not supported yet.");
         }
 
         @Override
-        public Object getAttribute(String name) {
+        public Object getAttribute(final String name) {
             throw new UnsupportedOperationException("Not supported yet.");
         }
 
@@ -249,7 +249,7 @@ public class OAuthRedirectionTest {
         }
 
         @Override
-        public void setCharacterEncoding(String env)
+        public void setCharacterEncoding(final String env)
                 throws UnsupportedEncodingException {
             throw new UnsupportedOperationException("Not supported yet.");
         }
@@ -270,7 +270,7 @@ public class OAuthRedirectionTest {
         }
 
         @Override
-        public String getParameter(String name) {
+        public String getParameter(final String name) {
             throw new UnsupportedOperationException("Not supported yet.");
         }
 
@@ -280,7 +280,7 @@ public class OAuthRedirectionTest {
         }
 
         @Override
-        public String[] getParameterValues(String name) {
+        public String[] getParameterValues(final String name) {
             throw new UnsupportedOperationException("Not supported yet.");
         }
 
@@ -325,12 +325,12 @@ public class OAuthRedirectionTest {
         }
 
         @Override
-        public void setAttribute(String name, Object o) {
+        public void setAttribute(final String name, final Object o) {
             throw new UnsupportedOperationException("Not supported yet.");
         }
 
         @Override
-        public void removeAttribute(String name) {
+        public void removeAttribute(final String name) {
             throw new UnsupportedOperationException("Not supported yet.");
         }
 
@@ -350,12 +350,12 @@ public class OAuthRedirectionTest {
         }
 
         @Override
-        public RequestDispatcher getRequestDispatcher(String path) {
+        public RequestDispatcher getRequestDispatcher(final String path) {
             throw new UnsupportedOperationException("Not supported yet.");
         }
 
         @Override
-        public String getRealPath(String path) {
+        public String getRealPath(final String path) {
             throw new UnsupportedOperationException("Not supported yet.");
         }
 
@@ -391,8 +391,8 @@ public class OAuthRedirectionTest {
 
         @Override
         public AsyncContext startAsync(
-                ServletRequest servletRequest,
-                ServletResponse servletResponse)
+                final ServletRequest servletRequest,
+                final ServletResponse servletResponse)
                 throws IllegalStateException {
             throw new UnsupportedOperationException("Not supported yet.");
         }
@@ -421,87 +421,87 @@ public class OAuthRedirectionTest {
     protected static class StubResponse implements HttpServletResponse {
 
         @Override
-        public void addCookie(Cookie cookie) {
+        public void addCookie(final Cookie cookie) {
             throw new UnsupportedOperationException("Not supported yet.");
         }
 
         @Override
-        public boolean containsHeader(String name) {
+        public boolean containsHeader(final String name) {
             throw new UnsupportedOperationException("Not supported yet.");
         }
 
         @Override
-        public String encodeURL(String url) {
+        public String encodeURL(final String url) {
             throw new UnsupportedOperationException("Not supported yet.");
         }
 
         @Override
-        public String encodeRedirectURL(String url) {
+        public String encodeRedirectURL(final String url) {
             throw new UnsupportedOperationException("Not supported yet.");
         }
 
         @Override
-        public String encodeUrl(String url) {
+        public String encodeUrl(final String url) {
             throw new UnsupportedOperationException("Not supported yet.");
         }
 
         @Override
-        public String encodeRedirectUrl(String url) {
+        public String encodeRedirectUrl(final String url) {
             throw new UnsupportedOperationException("Not supported yet.");
         }
 
         @Override
-        public void sendError(int sc, String msg) throws IOException {
+        public void sendError(final int sc, final String msg) throws IOException {
             throw new UnsupportedOperationException("Not supported yet.");
         }
 
         @Override
-        public void sendError(int sc) throws IOException {
+        public void sendError(final int sc) throws IOException {
             throw new UnsupportedOperationException("Not supported yet.");
         }
 
         @Override
-        public void sendRedirect(String location) throws IOException {
+        public void sendRedirect(final String location) throws IOException {
             throw new UnsupportedOperationException("Not supported yet.");
         }
 
         @Override
-        public void setDateHeader(String name, long date) {
+        public void setDateHeader(final String name, final long date) {
             throw new UnsupportedOperationException("Not supported yet.");
         }
 
         @Override
-        public void addDateHeader(String name, long date) {
+        public void addDateHeader(final String name, final long date) {
             throw new UnsupportedOperationException("Not supported yet.");
         }
 
         @Override
-        public void setHeader(String name, String value) {
+        public void setHeader(final String name, final String value) {
             throw new UnsupportedOperationException("Not supported yet.");
         }
 
         @Override
-        public void addHeader(String name, String value) {
+        public void addHeader(final String name, final String value) {
             throw new UnsupportedOperationException("Not supported yet.");
         }
 
         @Override
-        public void setIntHeader(String name, int value) {
+        public void setIntHeader(final String name, final int value) {
             throw new UnsupportedOperationException("Not supported yet.");
         }
 
         @Override
-        public void addIntHeader(String name, int value) {
+        public void addIntHeader(final String name, final int value) {
             throw new UnsupportedOperationException("Not supported yet.");
         }
 
         @Override
-        public void setStatus(int sc) {
+        public void setStatus(final int sc) {
             throw new UnsupportedOperationException("Not supported yet.");
         }
 
         @Override
-        public void setStatus(int sc, String sm) {
+        public void setStatus(final int sc, final String sm) {
             throw new UnsupportedOperationException("Not supported yet.");
         }
 
@@ -511,12 +511,12 @@ public class OAuthRedirectionTest {
         }
 
         @Override
-        public String getHeader(String name) {
+        public String getHeader(final String name) {
             throw new UnsupportedOperationException("Not supported yet.");
         }
 
         @Override
-        public Collection<String> getHeaders(String name) {
+        public Collection<String> getHeaders(final String name) {
             throw new UnsupportedOperationException("Not supported yet.");
         }
 
@@ -546,22 +546,22 @@ public class OAuthRedirectionTest {
         }
 
         @Override
-        public void setCharacterEncoding(String charset) {
+        public void setCharacterEncoding(final String charset) {
             throw new UnsupportedOperationException("Not supported yet.");
         }
 
         @Override
-        public void setContentLength(int len) {
+        public void setContentLength(final int len) {
             throw new UnsupportedOperationException("Not supported yet.");
         }
 
         @Override
-        public void setContentType(String type) {
+        public void setContentType(final String type) {
             throw new UnsupportedOperationException("Not supported yet.");
         }
 
         @Override
-        public void setBufferSize(int size) {
+        public void setBufferSize(final int size) {
             throw new UnsupportedOperationException("Not supported yet.");
         }
 
@@ -591,7 +591,7 @@ public class OAuthRedirectionTest {
         }
 
         @Override
-        public void setLocale(Locale loc) {
+        public void setLocale(final Locale loc) {
             throw new UnsupportedOperationException("Not supported yet.");
         }
 

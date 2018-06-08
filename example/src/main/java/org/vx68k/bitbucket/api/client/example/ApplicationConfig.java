@@ -67,7 +67,7 @@ public class ApplicationConfig implements Serializable {
      * @since 5.0
      */
     public static OAuthClient getBitbucketClient(
-            String clientId, String clientSecret) {
+            final String clientId, final String clientSecret) {
         return new OAuthClient(clientId, clientSecret);
     }
 
@@ -81,7 +81,7 @@ public class ApplicationConfig implements Serializable {
      */
     @Deprecated
     public static OAuthClient getBitbucketClient(
-            OAuthCredentials clientCredentials) {
+            final OAuthCredentials clientCredentials) {
         return getBitbucketClient(
                 clientCredentials.getId(), clientCredentials.getSecret());
     }

@@ -48,7 +48,7 @@ public class OAuthCredentials implements Serializable {
      * @param id identifier
      * @param secret secret
      */
-    public OAuthCredentials(String id, String secret) {
+    public OAuthCredentials(final String id, final String secret) {
         setId(id);
         setSecret(secret);
     }
@@ -73,7 +73,7 @@ public class OAuthCredentials implements Serializable {
      * Sets the identifier.
      * @param id identifier to be set
      */
-    public void setId(String id) {
+    public void setId(final String id) {
         this.id = id;
     }
 
@@ -81,12 +81,12 @@ public class OAuthCredentials implements Serializable {
      * Sets the secret.
      * @param secret secret to be set
      */
-    public void setSecret(String secret) {
+    public void setSecret(final String secret) {
         this.secret = secret;
     }
 
     @Override
-    public boolean equals(Object object) {
+    public boolean equals(final Object object) {
         if (this == object) {
             return true;
         }

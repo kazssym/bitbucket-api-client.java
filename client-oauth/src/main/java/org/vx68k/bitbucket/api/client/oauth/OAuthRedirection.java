@@ -39,7 +39,7 @@ public class OAuthRedirection {
      * @param response HTTP servlet response
      */
     public OAuthRedirection(
-            HttpServletRequest request, HttpServletResponse response) {
+            final HttpServletRequest request, final HttpServletResponse response) {
         this.request = request;
         this.response = response;
     }

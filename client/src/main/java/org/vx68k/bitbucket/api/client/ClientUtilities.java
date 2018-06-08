@@ -69,15 +69,16 @@ public class ClientUtilities {
      * @throws IllegalArgumentException if the string could not parsed as a
      * UUID.
      */
-    public static UUID parseUUID(String string) {
+    public static UUID parseUUID(final String string) {
         if (string == null) {
             return null;
         }
 
-        if (string.startsWith("{") && string.endsWith("}")) {
-            string = string.substring(1, string.length() - 1);
+        String s = string;
+        if (s.startsWith("{") && s.endsWith("}")) {
+            s = s.substring(1, s.length() - 1);
         }
-        return UUID.fromString(string);
+        return UUID.fromString(s);
     }
 
     /**
@@ -88,32 +89,33 @@ public class ClientUtilities {
      * @throws IllegalArgumentException if the string could not be parsed as a
      * date
      */
-    public static Date parseDate(String date) {
+    public static Date parseDate(final String date) {
         if (date == null) {
             return null;
         }
 
         try {
-            int p = date.indexOf('.');
+            String d = date;
+            int p = d.indexOf('.');
             if (p >= 0) {
                 // Counts the number of digits after the decimal point.
                 int q = p + 1;
-                while (q < date.length()
-                        && Character.isDigit(date.charAt(q))) {
+                while (q < d.length()
+                        && Character.isDigit(d.charAt(q))) {
                     q += 1;
                 }
                 if (q >= p + 4) {
                     if (q > p + 4) {
                         // Cuts off sub-millisecond digits.
-                        date = date.substring(0, p + 4) + date.substring(q);
+                        d = d.substring(0, p + 4) + d.substring(q);
                     }
-                    return FINE_DATE_FORMAT.parse(date);
+                    return FINE_DATE_FORMAT.parse(d);
                 }
 
                 // Cuts off sub-second digits.
-                date = date.substring(0, p) + date.substring(q);
+                d = d.substring(0, p) + d.substring(q);
             }
-            return DATE_FORMAT.parse(date);
+            return DATE_FORMAT.parse(d);
         } catch (ParseException exception) {
             throw new IllegalArgumentException(
                     "\"" + date + "\" could not be parsed as Date",
@@ -126,7 +128,7 @@ public class ClientUtilities {
      * @param jsonObject JSON object
      * @return map of links
      */
-    public static Map<String, URL> parseLinks(JsonObject jsonObject) {
+    public static Map<String, URL> parseLinks(final JsonObject jsonObject) {
         Map<String, URL> links = new HashMap<String, URL>();
         for (Map.Entry<String, JsonValue> entry : jsonObject.entrySet()) {
             try {
@@ -148,7 +150,7 @@ public class ClientUtilities {
      * @throws MalformedURLException if the <code>href</code> value could not
      * be parsed as a URL.
      */
-    protected static URL parseLink(JsonObject jsonObject)
+    protected static URL parseLink(final JsonObject jsonObject)
             throws MalformedURLException {
         return parseURL(jsonObject.getString(ClientJsonKeys.HREF));
     }
@@ -160,7 +162,7 @@ public class ClientUtilities {
      * is <code>null</code>
      * @throws MalformedURLException if the string could not parsed as a URL.
      */
-    public static URL parseURL(String string) throws MalformedURLException {
+    public static URL parseURL(final String string) throws MalformedURLException {
         if (string == null) {
             return null;
         }

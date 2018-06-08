@@ -59,7 +59,7 @@ public class BitbucketUser extends BitbucketEntity {
      * Constructs this instance from a JSON object.
      * @param jsonObject JSON object that represents a Bitbucket user
      */
-    public BitbucketUser(JsonObject jsonObject) {
+    public BitbucketUser(final JsonObject jsonObject) {
         super(jsonObject);
         if (!getEntityType().equals(USER_TYPE)) {
             throw new IllegalArgumentException(
@@ -155,7 +155,7 @@ public class BitbucketUser extends BitbucketEntity {
      * Sets the UUID.
      * @param uuid UUID to be set
      */
-    public void setUuid(UUID uuid) {
+    public void setUuid(final UUID uuid) {
         this.uuid = uuid;
     }
 
@@ -163,7 +163,7 @@ public class BitbucketUser extends BitbucketEntity {
      * Sets the name.
      * @param name name to be set
      */
-    public void setName(String name) {
+    public void setName(final String name) {
         if (name != null && name.contains("/")) {
             throw new IllegalArgumentException("'/' in name");
         }
@@ -174,7 +174,7 @@ public class BitbucketUser extends BitbucketEntity {
      * Sets the display name.
      * @param displayName display name to be set
      */
-    public void setDisplayName(String displayName) {
+    public void setDisplayName(final String displayName) {
         this.displayName = displayName;
     }
 
@@ -182,7 +182,7 @@ public class BitbucketUser extends BitbucketEntity {
      * Sets the map of the links.
      * @param links map of the links to be set
      */
-    public void setLinks(Map<String, URL> links) {
+    public void setLinks(final Map<String, URL> links) {
         this.links = links;
     }
 
@@ -190,7 +190,7 @@ public class BitbucketUser extends BitbucketEntity {
      * Sets the URL of the website.
      * @param website URL of the website to be set
      */
-    public void setWebsite(URL website) {
+    public void setWebsite(final URL website) {
         this.website = website;
     }
 
@@ -199,7 +199,7 @@ public class BitbucketUser extends BitbucketEntity {
      * @param location location to be set
      * @since 4.0
      */
-    public void setLocation(String location) {
+    public void setLocation(final String location) {
         this.location = location;
     }
 
@@ -208,7 +208,7 @@ public class BitbucketUser extends BitbucketEntity {
      * @param created date of creation to be set
      * @since 4.0
      */
-    public void setCreated(Date created) {
+    public void setCreated(final Date created) {
         this.created = created;
     }
 
@@ -236,7 +236,7 @@ public class BitbucketUser extends BitbucketEntity {
      * <code>false</code> otherwise
      */
     @Override
-    public boolean equals(Object object) {
+    public boolean equals(final Object object) {
         // Returns <code>true</code> always if the objet is <code>this</code>.
         if (object == this) {
             return true;

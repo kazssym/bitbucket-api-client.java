@@ -62,37 +62,37 @@ public class StubHttpServletResponse implements HttpServletResponse {
     }
 
     @Override
-    public void addCookie(Cookie cookie) {
+    public void addCookie(final Cookie cookie) {
     }
 
     @Override
-    public boolean containsHeader(String name) {
+    public boolean containsHeader(final String name) {
         // TODO: Check the header name.
         return false;
     }
 
     @Override
-    public String encodeURL(String url) {
+    public String encodeURL(final String url) {
         return null;
     }
 
     @Override
-    public String encodeRedirectURL(String url) {
+    public String encodeRedirectURL(final String url) {
         return null;
     }
 
     @Override
-    public String encodeUrl(String url) {
+    public String encodeUrl(final String url) {
         return null;
     }
 
     @Override
-    public String encodeRedirectUrl(String url) {
+    public String encodeRedirectUrl(final String url) {
         return null;
     }
 
     @Override
-    public void sendError(int status, String message) throws IOException {
+    public void sendError(final int status, final String message) throws IOException {
         checkIfNotCommitted();
         setStatus(status);
         sentError = new Error(status, message);
@@ -102,40 +102,40 @@ public class StubHttpServletResponse implements HttpServletResponse {
     }
 
     @Override
-    public void sendError(int status) throws IOException {
+    public void sendError(final int status) throws IOException {
         sendError(status, null);
     }
 
     @Override
-    public void sendRedirect(String location) throws IOException {
+    public void sendRedirect(final String location) throws IOException {
     }
 
     @Override
-    public void setDateHeader(String name, long date) {
+    public void setDateHeader(final String name, final long date) {
     }
 
     @Override
-    public void addDateHeader(String name, long date) {
+    public void addDateHeader(final String name, final long date) {
     }
 
     @Override
-    public void setHeader(String name, String value) {
+    public void setHeader(final String name, final String value) {
     }
 
     @Override
-    public void addHeader(String name, String value) {
+    public void addHeader(final String name, final String value) {
     }
 
     @Override
-    public void setIntHeader(String name, int value) {
+    public void setIntHeader(final String name, final int value) {
     }
 
     @Override
-    public void addIntHeader(String name, int value) {
+    public void addIntHeader(final String name, final int value) {
     }
 
     @Override
-    public void setStatus(int status) {
+    public void setStatus(final int status) {
         if (!isCommitted()) {
             this.status = status;
         }
@@ -143,7 +143,7 @@ public class StubHttpServletResponse implements HttpServletResponse {
 
     @Deprecated
     @Override
-    public void setStatus(int status, String message) {
+    public void setStatus(final int status, final String message) {
         setStatus(status);
     }
 
@@ -153,12 +153,12 @@ public class StubHttpServletResponse implements HttpServletResponse {
     }
 
     @Override
-    public String getHeader(String name) {
+    public String getHeader(final String name) {
         return null;
     }
 
     @Override
-    public Collection<String> getHeaders(String name) {
+    public Collection<String> getHeaders(final String name) {
         return null;
     }
 
@@ -188,11 +188,11 @@ public class StubHttpServletResponse implements HttpServletResponse {
     }
 
     @Override
-    public void setCharacterEncoding(String charset) {
+    public void setCharacterEncoding(final String charset) {
     }
 
     @Override
-    public void setContentLength(int contentLength) {
+    public void setContentLength(final int contentLength) {
         if (!isCommitted()) {
             if (contentLength != content.length) {
                 content = Arrays.copyOf(content, contentLength);
@@ -202,14 +202,14 @@ public class StubHttpServletResponse implements HttpServletResponse {
     }
 
     @Override
-    public void setContentType(String contentType) {
+    public void setContentType(final String contentType) {
         if (!isCommitted()) {
             this.contentType = contentType;
         }
     }
 
     @Override
-    public void setBufferSize(int size) {
+    public void setBufferSize(final int size) {
     }
 
     @Override
@@ -235,7 +235,7 @@ public class StubHttpServletResponse implements HttpServletResponse {
     }
 
     @Override
-    public void setLocale(Locale loc) {
+    public void setLocale(final Locale loc) {
     }
 
     @Override
@@ -244,7 +244,7 @@ public class StubHttpServletResponse implements HttpServletResponse {
     }
 
     @Override
-    public void setContentLengthLong(long len)
+    public void setContentLengthLong(final long len)
     {
     }
 
@@ -253,7 +253,7 @@ public class StubHttpServletResponse implements HttpServletResponse {
         private final int status;
         private final String message;
 
-        public Error(int status, String message) {
+        public Error(final int status, final String message) {
             this.status = status;
             this.message = message;
         }

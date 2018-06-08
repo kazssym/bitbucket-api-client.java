@@ -57,7 +57,7 @@ public class SessionUser extends OAuthUser {
      * @param applicationConfig application configuration
      * @since 4.0
      */
-    public SessionUser(ApplicationConfig applicationConfig) {
+    public SessionUser(final ApplicationConfig applicationConfig) {
         setApplicationConfig(applicationConfig);
     }
 
@@ -76,7 +76,7 @@ public class SessionUser extends OAuthUser {
      * @since 4.0
      */
     @Inject
-    public void setApplicationConfig(ApplicationConfig applicationConfig) {
+    public void setApplicationConfig(final ApplicationConfig applicationConfig) {
         this.applicationConfig = applicationConfig;
     }
 

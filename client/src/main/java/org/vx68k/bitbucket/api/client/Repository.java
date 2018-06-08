@@ -54,7 +54,7 @@ public class Repository extends BitbucketEntity {
         ClientUtilities.getLogger().finer("Creating a blank Repository");
     }
 
-    public Repository(JsonObject jsonObject) {
+    public Repository(final JsonObject jsonObject) {
         super(jsonObject);
         if (!getEntityType().equals(REPOSITORY_TYPE)) {
             throw new IllegalArgumentException(
@@ -138,7 +138,7 @@ public class Repository extends BitbucketEntity {
      * Sets the UUID.
      * @param uuid UUID to be set
      */
-    public void setUuid(UUID uuid) {
+    public void setUuid(final UUID uuid) {
         this.uuid = uuid;
     }
 
@@ -147,7 +147,7 @@ public class Repository extends BitbucketEntity {
      * This method shall also set the full name if is can be derived.
      * @param owner owner to be set
      */
-    public void setOwner(BitbucketUser owner) {
+    public void setOwner(final BitbucketUser owner) {
         this.owner = owner;
         updateFullName();
     }
@@ -157,7 +157,7 @@ public class Repository extends BitbucketEntity {
      * This method shall also set the full name if is can be derived.
      * @param name to be set
      */
-    public void setName(String name) {
+    public void setName(final String name) {
         if (name.contains("/")) {
             throw new IllegalArgumentException(
                     "Repository name must not contain a \"/\"");
@@ -171,7 +171,7 @@ public class Repository extends BitbucketEntity {
      * @param scm SCM to be set, which should be either <code>"git"</code> or
      * <code>"hg"</code>
      */
-    public void setScm(String scm) {
+    public void setScm(final String scm) {
         this.scm = scm;
     }
 
@@ -181,7 +181,7 @@ public class Repository extends BitbucketEntity {
      * @param Private <code>true</code> if the repository is private, or
      * <code>false</code> otherwise
      */
-    public void setPrivate(boolean Private) {
+    public void setPrivate(final boolean Private) {
         this.Private = Private;
     }
 
@@ -189,7 +189,7 @@ public class Repository extends BitbucketEntity {
      * Sets the map of the links.
      * @param links map of the links to be set
      */
-    public void setLinks(Map<String, URL> links) {
+    public void setLinks(final Map<String, URL> links) {
         this.links = links;
     }
 

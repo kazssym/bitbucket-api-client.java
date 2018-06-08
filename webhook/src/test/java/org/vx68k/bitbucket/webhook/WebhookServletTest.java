@@ -97,7 +97,7 @@ public class WebhookServletTest implements ServletConfig {
     }
 
     @Override
-    public String getInitParameter(String name) {
+    public String getInitParameter(final String name) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
