@@ -5,6 +5,9 @@
 # are permitted in any medium without royalty provided the copyright
 # notice and this notice are preserved.  This file is offered as-is,
 # without any warranty.
+
+# See <https://confluence.atlassian.com/bitbucket/configure-bitbucket-pipelines-yml-792298910.html>
+# for details.
 ---
 image: maven:3-jdk-8
 pipelines:
