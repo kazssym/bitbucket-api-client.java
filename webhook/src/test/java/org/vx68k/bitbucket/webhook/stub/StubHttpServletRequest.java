@@ -74,11 +74,6 @@ public class StubHttpServletRequest implements HttpServletRequest
     private ServletContext servletContext;
 
     /**
-     * Authentication type.
-     */
-    private String authType = null;
-
-    /**
      * Request method.
      */
     private String method = "GET";
@@ -87,6 +82,11 @@ public class StubHttpServletRequest implements HttpServletRequest
      * Path information.
      */
     private String pathInfo = null;
+
+    /**
+     * Query string.
+     */
+    private String queryString = null;
 
     /**
      * Remote TCP port.
@@ -121,7 +121,7 @@ public class StubHttpServletRequest implements HttpServletRequest
     /**
      * Sets the request method of this request to a {@link String} value.
      *
-     * @param value {@link String} value for the request method
+     * @param value {@link String} value
      */
     public final void setMethod(final String value)
     {
@@ -130,11 +130,16 @@ public class StubHttpServletRequest implements HttpServletRequest
 
     /**
      * {@inheritDoc}
+     *
+     * <p>This implementation always returns {@code null}.
+     * Subclasses may override this method to return other values.</p>
+     *
+     * @return {@code null}
      */
     @Override
-    public final String getAuthType()
+    public String getAuthType()
     {
-        return authType;
+        return null;
     }
 
     /**
@@ -225,7 +230,7 @@ public class StubHttpServletRequest implements HttpServletRequest
      * {@inheritDoc}
      *
      * <p>This implementation returns the value set by {@link #setMethod
-     * setMethod}, which is set to {@code "GET"} by default.</p>
+     * setMethod}, which is {@code "GET"} by default.</p>
      *
      * @return the value set by {@link #setMethod setMethod}
      */
@@ -239,7 +244,7 @@ public class StubHttpServletRequest implements HttpServletRequest
      * {@inheritDoc}
      *
      * <p>This implementation returns the value set by {@link #setPathInfo
-     * setPathInfo}, which is set to {@code null} by default.</p>
+     * setPathInfo}, which is {@code null} by default.</p>
      *
      * @return the value set by {@link #setPathInfo setPathInfo}
      */
@@ -274,32 +279,77 @@ public class StubHttpServletRequest implements HttpServletRequest
     @Override
     public String getContextPath()
     {
-        return null;
+        return "";
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * <p>This implementation returns the value set by {@link #setQueryString
+     * setQueryString}, which is {@code null} by default.</p>
+     *
+     * @return the value set by {@link #setQueryString setQueryString}
+     */
     @Override
-    public String getQueryString() {
-        return null;
+    public final String getQueryString()
+    {
+        return queryString;
     }
 
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>This implementation always return {@code null}.
+     * Subclasses may override this method to return other values.</p>
+     *
+     * @return {@code null}
+     */
     @Override
-    public String getRemoteUser() {
+    public String getRemoteUser()
+    {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * <p>This implementation always return {@code false}.
+     * Subclasses may override this method to return other values.</p>
+     *
+     * @return {@code false}
+     */
     @Override
     public boolean isUserInRole(final String role)
     {
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * <p>This implementation always return {@code null}.
+     * Subclasses may override this method to return other values.</p>
+     *
+     * @return {@code null}
+     */
     @Override
-    public Principal getUserPrincipal() {
+    public Principal getUserPrincipal()
+    {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * <p>This implementation always return {@code null}.
+     * Subclasses may override this method to return other values.</p>
+     *
+     * @return {@code null}
+     */
     @Override
-    public String getRequestedSessionId() {
+    public String getRequestedSessionId()
+    {
         return null;
     }
 
@@ -350,9 +400,14 @@ public class StubHttpServletRequest implements HttpServletRequest
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public boolean isRequestedSessionIdFromUrl() {
-        return false;
+    @Deprecated
+    public final boolean isRequestedSessionIdFromUrl()
+    {
+        return isRequestedSessionIdFromURL();
     }
 
     @Override
