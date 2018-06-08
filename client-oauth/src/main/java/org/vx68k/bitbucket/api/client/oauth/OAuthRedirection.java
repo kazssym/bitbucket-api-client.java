@@ -35,13 +35,13 @@ public class OAuthRedirection {
     /**
      * Constructs a new object.
      *
-     * @param request HTTP servlet request
-     * @param response HTTP servlet response
+     * @param initRequest HTTP servlet request
+     * @param initResponse HTTP servlet response
      */
     public OAuthRedirection(
-            final HttpServletRequest request, final HttpServletResponse response) {
-        this.request = request;
-        this.response = response;
+            final HttpServletRequest initRequest, final HttpServletResponse initResponse) {
+        request = initRequest;
+        response = initResponse;
     }
 
     /**

@@ -72,12 +72,12 @@ public class SessionUser extends OAuthUser {
 
     /**
      * Sets the application configuration.
-     * @param applicationConfig application configuration to be set
+     * @param value application configuration to be set
      * @since 4.0
      */
     @Inject
-    public void setApplicationConfig(final ApplicationConfig applicationConfig) {
-        this.applicationConfig = applicationConfig;
+    public void setApplicationConfig(final ApplicationConfig value) {
+        applicationConfig = value;
     }
 
     /**

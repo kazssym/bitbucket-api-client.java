@@ -96,20 +96,20 @@ public class Client implements Serializable {
 
     /**
      * Sets the user name for Basic authentication.
-     * @param user user name to be set
+     * @param value user name to be set
      * @since 4.0
      */
-    public void setUser(final String user) {
-        this.user = user;
+    public void setUser(final String value) {
+        user = value;
     }
 
     /**
      * Sets the password for Basic authentication.
-     * @param password password to be set
+     * @param value password to be set
      * @since 4.0
      */
-    public void setPassword(final String password) {
-        this.password = password;
+    public void setPassword(final String value) {
+        password = value;
     }
 
     /**
@@ -169,10 +169,10 @@ public class Client implements Serializable {
         /**
          * Constructs this object with a HTTP execute interceptor for
          * authentication.
-         * @param authentication HTTP execute interceptor
+         * @param value HTTP execute interceptor
          */
-        public RestService(final HttpExecuteInterceptor authentication) {
-            this.authentication = authentication;
+        public RestService(final HttpExecuteInterceptor value) {
+            authentication = value;
         }
 
         /**

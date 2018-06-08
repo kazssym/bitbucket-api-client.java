@@ -136,61 +136,61 @@ public class Repository extends BitbucketEntity {
 
     /**
      * Sets the UUID.
-     * @param uuid UUID to be set
+     * @param value UUID to be set
      */
-    public void setUuid(final UUID uuid) {
-        this.uuid = uuid;
+    public void setUuid(final UUID value) {
+        uuid = value;
     }
 
     /**
      * Sets the owner.
      * This method shall also set the full name if is can be derived.
-     * @param owner owner to be set
+     * @param value owner to be set
      */
-    public void setOwner(final BitbucketUser owner) {
-        this.owner = owner;
+    public void setOwner(final BitbucketUser value) {
+        owner = value;
         updateFullName();
     }
 
     /**
      * Sets the name.
      * This method shall also set the full name if is can be derived.
-     * @param name to be set
+     * @param value to be set
      */
-    public void setName(final String name) {
-        if (name.contains("/")) {
+    public void setName(final String value) {
+        if (value.contains("/")) {
             throw new IllegalArgumentException(
                     "Repository name must not contain a \"/\"");
         }
-        this.name = name;
+        name = value;
         updateFullName();
     }
 
     /**
      * Sets the SCM
-     * @param scm SCM to be set, which should be either <code>"git"</code> or
+     * @param value SCM to be set, which should be either <code>"git"</code> or
      * <code>"hg"</code>
      */
-    public void setScm(final String scm) {
-        this.scm = scm;
+    public void setScm(final String value) {
+        scm = value;
     }
 
     /**
      * Sets the boolean value that indicates whether the repository is private
      * or not.
-     * @param Private <code>true</code> if the repository is private, or
+     * @param value <code>true</code> if the repository is private, or
      * <code>false</code> otherwise
      */
-    public void setPrivate(final boolean Private) {
-        this.Private = Private;
+    public void setPrivate(final boolean value) {
+        Private = value;
     }
 
     /**
      * Sets the map of the links.
-     * @param links map of the links to be set
+     * @param value map of the links to be set
      */
-    public void setLinks(final Map<String, URL> links) {
-        this.links = links;
+    public void setLinks(final Map<String, URL> value) {
+        links = value;
     }
 
     /**

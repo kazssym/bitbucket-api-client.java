@@ -61,10 +61,10 @@ public class RepositoryPush extends Activity {
 
     /**
      * Sets the list of the changes of this object.
-     * @param changes list of the change
+     * @param value list of the change
      */
-    public void setChanges(List<Change> changes) {
-        this.changes = changes;
+    public void setChanges(List<Change> value) {
+        changes = value;
     }
 
     /**
@@ -100,20 +100,20 @@ public class RepositoryPush extends Activity {
         // TODO: Remove this field.
         private final JsonObject jsonObject;
 
-        public Change(JsonObject jsonObject) {
+        public Change(JsonObject initJsonObject) {
             logger.log(
                     Level.INFO, "Parsing JSON object (change): {0}",
-                    jsonObject);
-            created = jsonObject.getBoolean(WebhookJsonKeys.CREATED);
-            closed = jsonObject.getBoolean(WebhookJsonKeys.CLOSED);
-            forced = jsonObject.getBoolean(WebhookJsonKeys.FORCED);
-            oldState = new WebhookBranch(jsonObject.getJsonObject(
+                    initJsonObject);
+            created = initJsonObject.getBoolean(WebhookJsonKeys.CREATED);
+            closed = initJsonObject.getBoolean(WebhookJsonKeys.CLOSED);
+            forced = initJsonObject.getBoolean(WebhookJsonKeys.FORCED);
+            oldState = new WebhookBranch(initJsonObject.getJsonObject(
                     WebhookJsonKeys.OLD));
-            newState = new WebhookBranch(jsonObject.getJsonObject(
+            newState = new WebhookBranch(initJsonObject.getJsonObject(
                     WebhookJsonKeys.NEW));
             // TODO: Parse commits.
 
-            this.jsonObject = jsonObject;
+            jsonObject = initJsonObject;
         }
 
         public boolean isCreated() {
@@ -144,28 +144,28 @@ public class RepositoryPush extends Activity {
             return jsonObject;
         }
 
-        public void setCreated(boolean created) {
-            this.created = created;
+        public void setCreated(boolean value) {
+            created = value;
         }
 
-        public void setClosed(boolean closed) {
-            this.closed = closed;
+        public void setClosed(boolean value) {
+            closed = value;
         }
 
-        public void setForced(boolean forced) {
-            this.forced = forced;
+        public void setForced(boolean value) {
+            forced = value;
         }
 
-        public void setOldState(WebhookBranch oldState) {
-            this.oldState = oldState;
+        public void setOldState(WebhookBranch value) {
+            oldState = value;
         }
 
-        public void setNewState(WebhookBranch newState) {
-            this.newState = newState;
+        public void setNewState(WebhookBranch value) {
+            newState = value;
         }
 
-        public void setCommits(List<Commit> commits) {
-            this.commits = commits;
+        public void setCommits(List<Commit> value) {
+            commits = value;
         }
     }
 }

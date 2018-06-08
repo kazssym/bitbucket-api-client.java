@@ -68,12 +68,12 @@ public class WebhookBranch extends BitbucketEntity {
         return heads;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String value) {
+        name = value;
     }
 
-    public void setHeads(List<Commit> heads) {
-        this.heads = heads;
+    public void setHeads(List<Commit> value) {
+        heads = value;
     }
 
     protected static List<Commit> parseCommits(JsonArray jsonArray) {

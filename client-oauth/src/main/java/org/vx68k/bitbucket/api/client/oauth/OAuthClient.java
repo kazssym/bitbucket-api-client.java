@@ -113,29 +113,29 @@ public class OAuthClient extends Client {
 
     /**
      * Sets the client identifier.
-     * @param clientId client identifier to be set; if this value is an empty
+     * @param value client identifier to be set; if this value is an empty
      * string, the client identifier shall be set to <code>null</code>
      * @since 5.0
      */
-    public void setClientId(final String clientId) {
-        if (clientId != null && clientId.isEmpty()) {
-            this.clientId = null;
+    public void setClientId(final String value) {
+        if (value != null && value.isEmpty()) {
+            clientId = null;
         } else {
-            this.clientId = clientId;
+            clientId = value;
         }
     }
 
     /**
      * Sets the client secret.
-     * @param clientSecret client secret to be set; if this value is an empty
+     * @param value client secret to be set; if this value is an empty
      * string, the client secret shall be set to <code>null</code>
      * @since 5.0
      */
-    public void setClientSecret(final String clientSecret) {
-        if (clientSecret != null && clientSecret.isEmpty()) {
-            this.clientSecret = null;
+    public void setClientSecret(final String value) {
+        if (value != null && value.isEmpty()) {
+            clientSecret = null;
         } else {
-            this.clientSecret = clientSecret;
+            clientSecret = value;
         }
     }
 

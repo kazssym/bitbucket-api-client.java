@@ -153,63 +153,63 @@ public class BitbucketUser extends BitbucketEntity {
 
     /**
      * Sets the UUID.
-     * @param uuid UUID to be set
+     * @param value UUID to be set
      */
-    public void setUuid(final UUID uuid) {
-        this.uuid = uuid;
+    public void setUuid(final UUID value) {
+        uuid = value;
     }
 
     /**
      * Sets the name.
-     * @param name name to be set
+     * @param value name to be set
      */
-    public void setName(final String name) {
-        if (name != null && name.contains("/")) {
+    public void setName(final String value) {
+        if (value != null && value.contains("/")) {
             throw new IllegalArgumentException("'/' in name");
         }
-        this.name = name;
+        name = value;
     }
 
     /**
      * Sets the display name.
-     * @param displayName display name to be set
+     * @param value display name to be set
      */
-    public void setDisplayName(final String displayName) {
-        this.displayName = displayName;
+    public void setDisplayName(final String value) {
+        displayName = value;
     }
 
     /**
      * Sets the map of the links.
-     * @param links map of the links to be set
+     * @param value map of the links to be set
      */
-    public void setLinks(final Map<String, URL> links) {
-        this.links = links;
+    public void setLinks(final Map<String, URL> value) {
+        links = value;
     }
 
     /**
      * Sets the URL of the website.
-     * @param website URL of the website to be set
+     * @param value URL of the website to be set
      */
-    public void setWebsite(final URL website) {
-        this.website = website;
+    public void setWebsite(final URL value) {
+        website = value;
     }
 
     /**
      * Sets the location.
-     * @param location location to be set
+     * @param value location to be set
      * @since 4.0
      */
-    public void setLocation(final String location) {
-        this.location = location;
+    public void setLocation(final String value) {
+        location = value;
     }
 
     /**
      * Sets the date when the user was created.
-     * @param created date of creation to be set
+     * @param value date of creation to be set
      * @since 4.0
      */
-    public void setCreated(final Date created) {
-        this.created = created;
+    public void setCreated(final Date value) {
+        created = value;
     }
 
     /**

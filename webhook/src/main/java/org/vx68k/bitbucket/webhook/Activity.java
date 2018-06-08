@@ -63,18 +63,18 @@ public abstract class Activity {
 
     /**
      * Sets the actor of this object.
-     * @param actor actor
+     * @param value actor
      */
-    public void setActor(BitbucketUser actor) {
-        this.actor = actor;
+    public void setActor(BitbucketUser value) {
+        actor = value;
     }
 
     /**
      * Sets the repository of this object.
-     * @param repository repository
+     * @param value repository
      */
-    public void setRepository(Repository repository) {
-        this.repository = repository;
+    public void setRepository(Repository value) {
+        repository = value;
     }
 
     /**

@@ -71,18 +71,18 @@ public class OAuthCredentials implements Serializable {
 
     /**
      * Sets the identifier.
-     * @param id identifier to be set
+     * @param value identifier to be set
      */
-    public void setId(final String id) {
-        this.id = id;
+    public void setId(final String value) {
+        id = value;
     }
 
     /**
      * Sets the secret.
-     * @param secret secret to be set
+     * @param value secret to be set
      */
-    public void setSecret(final String secret) {
-        this.secret = secret;
+    public void setSecret(final String value) {
+        secret = value;
     }
 
     @Override

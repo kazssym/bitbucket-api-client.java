@@ -31,14 +31,14 @@ public abstract class BitbucketEntity {
 
     /**
      * Constructs this instance with an entity type.
-     * @param entityType entity type
+     * @param initEntityType entity type
      * @throws NullPointerException if the entity type was <code>null</code>
      */
-    protected BitbucketEntity(final String entityType) {
-        if (entityType == null) {
+    protected BitbucketEntity(final String initEntityType) {
+        if (initEntityType == null) {
             throw new NullPointerException("The entity type is null");
         }
-        this.entityType = entityType;
+        entityType = initEntityType;
     }
 
     /**

@@ -135,9 +135,9 @@ public class StubHttpServletResponse implements HttpServletResponse {
     }
 
     @Override
-    public void setStatus(final int status) {
+    public void setStatus(final int value) {
         if (!isCommitted()) {
-            this.status = status;
+            status = value;
         }
     }
 
@@ -202,9 +202,9 @@ public class StubHttpServletResponse implements HttpServletResponse {
     }
 
     @Override
-    public void setContentType(final String contentType) {
+    public void setContentType(final String value) {
         if (!isCommitted()) {
-            this.contentType = contentType;
+            contentType = value;
         }
     }
 
@@ -253,9 +253,9 @@ public class StubHttpServletResponse implements HttpServletResponse {
         private final int status;
         private final String message;
 
-        public Error(final int status, final String message) {
-            this.status = status;
-            this.message = message;
+        public Error(final int initStatus, final String initMessage) {
+            status = initStatus;
+            message = initMessage;
         }
 
         public int getStatus() {
