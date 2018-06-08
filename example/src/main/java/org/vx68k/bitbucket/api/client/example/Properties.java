@@ -23,7 +23,7 @@ package org.vx68k.bitbucket.api.client.example;
  * @author Kaz Nishimura
  * @since 3.0
  */
-public class Properties {
+public final class Properties {
 
     /**
      * Property prefix.
