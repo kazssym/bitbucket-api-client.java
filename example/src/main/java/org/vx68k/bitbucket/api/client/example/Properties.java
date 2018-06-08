@@ -48,4 +48,7 @@ public class Properties {
      */
     public static final String GOOGLE_ANALYTICS_TRACKING_ID =
             PREFIX + ".analytics.id";
+
+    private Properties() {
+    }
 }
