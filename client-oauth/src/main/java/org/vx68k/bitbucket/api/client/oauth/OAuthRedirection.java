@@ -38,8 +38,9 @@ public class OAuthRedirection {
      * @param initRequest HTTP servlet request
      * @param initResponse HTTP servlet response
      */
-    public OAuthRedirection(
-            final HttpServletRequest initRequest, final HttpServletResponse initResponse) {
+    public OAuthRedirection(final HttpServletRequest initRequest,
+        final HttpServletResponse initResponse)
+    {
         request = initRequest;
         response = initResponse;
     }

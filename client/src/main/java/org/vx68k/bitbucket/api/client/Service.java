@@ -64,7 +64,8 @@ public abstract class Service {
      * @throws IOException if an I/O error has occurred
      * @since 2.0
      */
-    public abstract BitbucketUser getUser(final String name) throws IOException;
+    public abstract BitbucketUser getUser(final String name)
+        throws IOException;
 
     /**
      * Returns the Bitbucket user from an endpoint.
@@ -73,5 +74,6 @@ public abstract class Service {
      * @throws IOException if an I/O error has occurred
      * @since 5.0
      */
-    public abstract BitbucketUser getUser(final URI endpoint) throws IOException;
+    public abstract BitbucketUser getUser(final URI endpoint)
+        throws IOException;
 }

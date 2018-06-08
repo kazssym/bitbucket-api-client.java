@@ -157,7 +157,9 @@ public abstract class OAuthUser implements Serializable {
      * @param request HTTP request
      * @return server port, or -1 if it is the default of the scheme
      */
-    protected static int getExplicitServerPort(final HttpServletRequest request) {
+    protected static int getExplicitServerPort(
+        final HttpServletRequest request)
+    {
         int port = request.getServerPort();
         if (port == DEFAULT_HTTP_PORT
                 && request.getScheme().equals(HTTP_SCHEME)) {
@@ -175,7 +177,9 @@ public abstract class OAuthUser implements Serializable {
      * @param request HTTP request
      * @return redirection endpoint path
      */
-    protected static String getRedirectionPath(final HttpServletRequest request) {
+    protected static String getRedirectionPath(
+        final HttpServletRequest request)
+    {
         StringBuilder path = new StringBuilder(request.getContextPath());
         path.append("/authorized");
         if (request.getServletPath() != null) {

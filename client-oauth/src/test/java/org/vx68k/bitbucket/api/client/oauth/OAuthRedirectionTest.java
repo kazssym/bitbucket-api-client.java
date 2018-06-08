@@ -451,7 +451,9 @@ public class OAuthRedirectionTest {
         }
 
         @Override
-        public void sendError(final int sc, final String msg) throws IOException {
+        public void sendError(final int sc, final String msg)
+            throws IOException
+        {
             throw new UnsupportedOperationException("Not supported yet.");
         }
 

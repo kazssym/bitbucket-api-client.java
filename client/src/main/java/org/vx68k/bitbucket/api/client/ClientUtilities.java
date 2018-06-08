@@ -162,7 +162,9 @@ public class ClientUtilities {
      * is <code>null</code>
      * @throws MalformedURLException if the string could not parsed as a URL.
      */
-    public static URL parseURL(final String string) throws MalformedURLException {
+    public static URL parseURL(final String string)
+        throws MalformedURLException
+    {
         if (string == null) {
             return null;
         }

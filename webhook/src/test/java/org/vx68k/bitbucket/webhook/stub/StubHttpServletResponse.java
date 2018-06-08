@@ -92,7 +92,9 @@ public class StubHttpServletResponse implements HttpServletResponse {
     }
 
     @Override
-    public void sendError(final int status, final String message) throws IOException {
+    public void sendError(final int status, final String message)
+        throws IOException
+    {
         checkIfNotCommitted();
         setStatus(status);
         sentError = new Error(status, message);
