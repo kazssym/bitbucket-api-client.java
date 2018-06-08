@@ -61,36 +61,57 @@ public class StubHttpServletResponse implements HttpServletResponse {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addCookie(final Cookie cookie) {
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean containsHeader(final String name) {
         // TODO: Check the header name.
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String encodeURL(final String url) {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String encodeRedirectURL(final String url) {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String encodeUrl(final String url) {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String encodeRedirectUrl(final String url) {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void sendError(final int status, final String message)
         throws IOException
@@ -103,39 +124,66 @@ public class StubHttpServletResponse implements HttpServletResponse {
         commit();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void sendError(final int status) throws IOException {
         sendError(status, null);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void sendRedirect(final String location) throws IOException {
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setDateHeader(final String name, final long date) {
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addDateHeader(final String name, final long date) {
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setHeader(final String name, final String value) {
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addHeader(final String name, final String value) {
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setIntHeader(final String name, final int value) {
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addIntHeader(final String name, final int value) {
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setStatus(final int value) {
         if (!isCommitted()) {
@@ -143,56 +191,89 @@ public class StubHttpServletResponse implements HttpServletResponse {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Deprecated
     @Override
     public void setStatus(final int status, final String message) {
         setStatus(status);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getStatus() {
         return status;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getHeader(final String name) {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Collection<String> getHeaders(final String name) {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Collection<String> getHeaderNames() {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getCharacterEncoding() {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getContentType() {
         return contentType;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ServletOutputStream getOutputStream() throws IOException {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public PrintWriter getWriter() throws IOException {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setCharacterEncoding(final String charset) {
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setContentLength(final int contentLength) {
         if (!isCommitted()) {
@@ -203,6 +284,9 @@ public class StubHttpServletResponse implements HttpServletResponse {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setContentType(final String value) {
         if (!isCommitted()) {
@@ -210,41 +294,68 @@ public class StubHttpServletResponse implements HttpServletResponse {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setBufferSize(final int size) {
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getBufferSize() {
         return 0;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void flushBuffer() throws IOException {
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void resetBuffer() {
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isCommitted() {
         return committed;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void reset() {
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setLocale(final Locale loc) {
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Locale getLocale() {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setContentLengthLong(final long len)
     {
