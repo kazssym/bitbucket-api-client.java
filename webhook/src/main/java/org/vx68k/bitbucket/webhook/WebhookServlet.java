@@ -47,8 +47,8 @@ public class WebhookServlet extends HttpServlet {
     private Event<RepositoryPush> repositoryPushEvent;
 
     @Override
-    protected void doPost(HttpServletRequest request,
-            HttpServletResponse response) throws ServletException,
+    protected void doPost(final HttpServletRequest request,
+            final HttpServletResponse response) throws ServletException,
             IOException {
         JsonReader reader = Json.createReader(request.getInputStream());
         try {
@@ -63,7 +63,7 @@ public class WebhookServlet extends HttpServlet {
         response.getWriter().close();
     }
 
-    protected void dispatch(JsonObject jsonObject) {
+    protected void dispatch(final JsonObject jsonObject) {
         if (jsonObject.containsKey(WebhookJsonKeys.PUSH)) {
             repositoryPushEvent.fire(new RepositoryPush(jsonObject));
         } else {

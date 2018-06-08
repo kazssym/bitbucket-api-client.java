@@ -44,7 +44,7 @@ public class RepositoryPush extends Activity {
      *
      * @param jsonObject JSON object
      */
-    public RepositoryPush(JsonObject jsonObject) {
+    public RepositoryPush(final JsonObject jsonObject) {
         super(jsonObject);
 
         JsonObject push = jsonObject.getJsonObject(WebhookJsonKeys.PUSH);
@@ -63,7 +63,7 @@ public class RepositoryPush extends Activity {
      * Sets the list of the changes of this object.
      * @param value list of the change
      */
-    public void setChanges(List<Change> value) {
+    public void setChanges(final List<Change> value) {
         changes = value;
     }
 
@@ -72,7 +72,7 @@ public class RepositoryPush extends Activity {
      * @param jsonArray JSON array that represents list of changes
      * @return list of changes
      */
-    protected List<Change> parseChanges(JsonArray jsonArray) {
+    protected List<Change> parseChanges(final JsonArray jsonArray) {
         if (jsonArray == null) {
             return null;
         }
@@ -100,7 +100,7 @@ public class RepositoryPush extends Activity {
         // TODO: Remove this field.
         private final JsonObject jsonObject;
 
-        public Change(JsonObject initJsonObject) {
+        public Change(final JsonObject initJsonObject) {
             logger.log(
                     Level.INFO, "Parsing JSON object (change): {0}",
                     initJsonObject);
@@ -144,27 +144,27 @@ public class RepositoryPush extends Activity {
             return jsonObject;
         }
 
-        public void setCreated(boolean value) {
+        public void setCreated(final boolean value) {
             created = value;
         }
 
-        public void setClosed(boolean value) {
+        public void setClosed(final boolean value) {
             closed = value;
         }
 
-        public void setForced(boolean value) {
+        public void setForced(final boolean value) {
             forced = value;
         }
 
-        public void setOldState(WebhookBranch value) {
+        public void setOldState(final WebhookBranch value) {
             oldState = value;
         }
 
-        public void setNewState(WebhookBranch value) {
+        public void setNewState(final WebhookBranch value) {
             newState = value;
         }
 
-        public void setCommits(List<Commit> value) {
+        public void setCommits(final List<Commit> value) {
             commits = value;
         }
     }

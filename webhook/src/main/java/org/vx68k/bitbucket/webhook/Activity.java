@@ -39,7 +39,7 @@ public abstract class Activity {
     protected Activity() {
     }
 
-    protected Activity(JsonObject jsonObject) {
+    protected Activity(final JsonObject jsonObject) {
         actor = new BitbucketUser(jsonObject.getJsonObject(WebhookJsonKeys.ACTOR));
         repository = new Repository(
                 jsonObject.getJsonObject(WebhookJsonKeys.REPOSITORY));
@@ -65,7 +65,7 @@ public abstract class Activity {
      * Sets the actor of this object.
      * @param value actor
      */
-    public void setActor(BitbucketUser value) {
+    public void setActor(final BitbucketUser value) {
         actor = value;
     }
 
@@ -73,7 +73,7 @@ public abstract class Activity {
      * Sets the repository of this object.
      * @param value repository
      */
-    public void setRepository(Repository value) {
+    public void setRepository(final Repository value) {
         repository = value;
     }
 

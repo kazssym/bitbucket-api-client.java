@@ -44,7 +44,7 @@ public class WebhookBranch extends BitbucketEntity {
     private String name;
     private List<Commit> heads;
 
-    public WebhookBranch(JsonObject jsonObject) {
+    public WebhookBranch(final JsonObject jsonObject) {
         super(jsonObject);
         String entityType = getEntityType();
         if (!(entityType.equals(BRANCH) || entityType.equals(NAMED_BRANCH)
@@ -68,15 +68,15 @@ public class WebhookBranch extends BitbucketEntity {
         return heads;
     }
 
-    public void setName(String value) {
+    public void setName(final String value) {
         name = value;
     }
 
-    public void setHeads(List<Commit> value) {
+    public void setHeads(final List<Commit> value) {
         heads = value;
     }
 
-    protected static List<Commit> parseCommits(JsonArray jsonArray) {
+    protected static List<Commit> parseCommits(final JsonArray jsonArray) {
         List<Commit> commits = new ArrayList();
         for (JsonValue value : jsonArray) {
             commits.add(new Commit((JsonObject) value));
