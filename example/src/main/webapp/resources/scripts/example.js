@@ -7,6 +7,8 @@
   this notice are preserved.  This file is offered as-is, without any warranty.
 */
 
+/* eslint-env jquery */
+
 "use strict";
 
 $(document).ready(function () {
