@@ -45,7 +45,7 @@ public class Commit extends BitbucketEntity {
      * Constructs this object from a JSON object.
      * @param jsonObject JSON object that represents a commit.
      */
-    public Commit(JsonObject jsonObject) {
+    public Commit(final JsonObject jsonObject) {
         super(jsonObject);
         if (!getEntityType().equals(COMMIT_TYPE)) {
             throw new IllegalArgumentException("Not user");

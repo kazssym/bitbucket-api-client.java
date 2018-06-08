@@ -53,7 +53,7 @@ public abstract class Service {
      * @throws IOException if an I/O error has occurred
      * @since 2.0
      */
-    public BitbucketUser getUser(UUID uuid) throws IOException {
+    public BitbucketUser getUser(final UUID uuid) throws IOException {
         return getUser("%7B" + uuid.toString() + "%7D");
     }
 
