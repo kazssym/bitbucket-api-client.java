@@ -44,27 +44,16 @@ public abstract class Activity
     private final JsonObject jsonObject;
 
     /**
-     * User who caused this activity.
-     */
-    private BitbucketUser actor;
-
-    /**
-     * Repository on which this activity occurred.
-     */
-    private Repository repository;
-
-    /**
      * Constructs this activity from a {@link JsonObject} object.
      *
-     * @param object {@link JsonObject} object
+     * @param activityObject {@link JsonObject} object
      */
-    protected Activity(final JsonObject object)
+    protected Activity(final JsonObject activityObject)
     {
-        jsonObject = object;
-        actor = new BitbucketUser(
-            object.getJsonObject(WebhookJsonKeys.ACTOR));
-        repository = new Repository(
-                object.getJsonObject(WebhookJsonKeys.REPOSITORY));
+        if (activityObject == null) {
+            throw new IllegalArgumentException("JsonObject is null");
+        }
+        jsonObject = activityObject;
     }
 
     /**
@@ -83,7 +72,9 @@ public abstract class Activity
      */
     public final BitbucketUser getActor()
     {
-        return actor;
+        JsonObject activityObject = getJsonObject();
+        return new BitbucketUser(
+            activityObject.getJsonObject(WebhookJsonKeys.ACTOR));
     }
 
     /**
@@ -92,7 +83,9 @@ public abstract class Activity
      */
     public final Repository getRepository()
     {
-        return repository;
+        JsonObject activityObject = getJsonObject();
+        return new Repository(
+            activityObject.getJsonObject(WebhookJsonKeys.REPOSITORY));
     }
 
     /**
