@@ -11,7 +11,7 @@
     <name>Bitbucket API Client Library Parent</name>
     <description>Parent project for the Bitbucket API Client Library.
     </description>
-    <url>http://kazssym.bitbucket.org/bitbucket-api-client-java/</url>
+    <url>https://vx68k.bitbucket.io/bitbucket-api-client-java/</url>
     <inceptionYear>2015</inceptionYear>
     <licenses>
         <license>
@@ -33,14 +33,14 @@
         <module>example</module>
     </modules>
     <scm>
-        <connection>scm:hg:https://bitbucket.org/kazssym/bitbucket-api-client-java</connection>
-        <developerConnection>scm:hg:https://bitbucket.org/kazssym/bitbucket-api-client-java</developerConnection>
-        <tag>default</tag>
-        <url>https://bitbucket.org/kazssym/bitbucket-api-client-java/src</url>
+        <connection>scm:hg:https://bitbucket.org/vx68k/bitbucket-api-client-java</connection>
+        <developerConnection>scm:hg:ssh://hg@bitbucket.org/vx68k/bitbucket-api-client-java</developerConnection>
+        <tag>master</tag>
+        <url>https://bitbucket.org/vx68k/bitbucket-api-client-java/src</url>
     </scm>
     <issueManagement>
         <system>Bitbucket</system>
-        <url>https://bitbucket.org/kazssym/bitbucket-api-client-java/issues</url>
+        <url>https://bitbucket.org/vx68k/bitbucket-api-client-java/issues</url>
     </issueManagement>
     <properties>
         <encoding>UTF-8</encoding>
