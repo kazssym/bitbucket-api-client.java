@@ -71,7 +71,7 @@ public class StubHttpServletRequest implements HttpServletRequest
     /**
      * {@link ServletContext} object given to the constructor.
      */
-    private ServletContext servletContext;
+    private final ServletContext servletContext;
 
     /**
      * Request method.
