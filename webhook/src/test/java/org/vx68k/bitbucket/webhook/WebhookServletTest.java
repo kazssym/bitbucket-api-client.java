@@ -1,10 +1,10 @@
 /*
- * BitbucketWebhookServetTest
- * Copyright (C) 2015-2018 Nishimura Software Studio
+ * WebhookServetTest.java - class WebhookServletTest
+ * Copyright (C) 2015-2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Affero General Public License as published by the
- * Free Software Foundation, either version 3 of the License, or (at your
+ * under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or (at your
  * option) any later version.
  *
  * This program is distributed in the hope that it will be useful, but WITHOUT
@@ -14,9 +14,13 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
 package org.vx68k.bitbucket.webhook;
+
+import static org.junit.Assert.assertNotEquals;
 
 import java.io.IOException;
 import java.util.Enumeration;
@@ -24,38 +28,42 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletResponse;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.vx68k.bitbucket.stub.StubHttpServletRequest;
 import org.vx68k.bitbucket.stub.StubHttpServletResponse;
-import static org.junit.Assert.*;
 
 /**
  * Unit tests for {@link WebhookServlet}.
+ *
  * @author Kaz Nishimura
  * @since 4.0
  */
-public class WebhookServletTest implements ServletConfig {
-
-    @Before
-    public void setUp() {
-    }
-
-    @After
-    public void tearDown() {
-    }
-
+public class WebhookServletTest implements ServletConfig
+{
+    /**
+     * Tests {@link WebhookServlet#init init} and {@link
+     * WebhookServlet#destroy destroy}.
+     *
+     * @throws ServletException if a servlet error occurred
+     */
     @Test @Ignore
-    public void testLifecycle() throws ServletException {
+    public void testLifecycle() throws ServletException
+    {
         WebhookServlet servlet = new WebhookServlet();
         servlet.init(this);
         servlet.destroy();
     }
 
+    /**
+     * Tests responses for {@code GET} requests.
+     *
+     * @throws ServletException
+     * @throws IOException
+     */
     @Test @Ignore
-    public void testGet() throws ServletException, IOException {
+    public void testGet() throws ServletException, IOException
+    {
         WebhookServlet servlet = new WebhookServlet();
         servlet.init(this);
         try {
@@ -70,8 +78,15 @@ public class WebhookServletTest implements ServletConfig {
         }
     }
 
+    /**
+     * Tests responses for {@code HEAD} requests.
+     *
+     * @throws ServletException
+     * @throws IOException
+     */
     @Test @Ignore
-    public void testHead() throws ServletException, IOException {
+    public void testHead() throws ServletException, IOException
+    {
         WebhookServlet servlet = new WebhookServlet();
         servlet.init(this);
         try {
@@ -86,21 +101,33 @@ public class WebhookServletTest implements ServletConfig {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getServletName() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ServletContext getServletContext() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getInitParameter(final String name) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Enumeration<String> getInitParameterNames() {
         throw new UnsupportedOperationException("Not supported yet.");
