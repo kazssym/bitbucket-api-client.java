@@ -556,7 +556,7 @@ public class StubHttpServletRequest implements HttpServletRequest
     /**
      * {@inheritDoc}
      *
-     * <p>This implementation does nothing.<p>
+     * <p>This implementation does nothing.</p>
      */
     @Override
     public final void setAttribute(final String name, final Object object)
@@ -629,7 +629,7 @@ public class StubHttpServletRequest implements HttpServletRequest
     /**
      * {@inheritDoc}
      *
-     * <p>This implementation uses {@link ServletContext#getReadlPath}.</p>
+     * <p>This implementation uses {@link ServletContext#getRealPath}.</p>
      */
     @Override
     @Deprecated
@@ -654,7 +654,7 @@ public class StubHttpServletRequest implements HttpServletRequest
     /**
      * {@inheritDoc}
      *
-     * <p>This implementation returns the local host name ({@value "localhost"}
+     * <p>This implementation returns the local host name ({@code "localhost"}
      * by default) of this request.</p>
      *
      * @return the local host name
@@ -668,7 +668,7 @@ public class StubHttpServletRequest implements HttpServletRequest
     /**
      * {@inheritDoc}
      *
-     * <p>This implementation returns the local IP address ({@value
+     * <p>This implementation returns the local IP address ({@code
      * "127.0.0.1"} by default) of this request.</p>
      *
      * @return the local IP address
@@ -776,7 +776,7 @@ public class StubHttpServletRequest implements HttpServletRequest
     /**
      * {@inheritDoc}
      *
-     * <p>This implementation always returns {@link DispathcerType#REQUEST}.
+     * <p>This implementation always returns {@link DispatcherType#REQUEST}.
      * Subclasses may override this method to return other values.</p>
      *
      * @return {@link DispatcherType#REQUEST}
