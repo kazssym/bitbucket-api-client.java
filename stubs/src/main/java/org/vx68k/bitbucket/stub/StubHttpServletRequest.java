@@ -159,7 +159,7 @@ public class StubHttpServletRequest implements HttpServletRequest
     /**
      * {@inheritDoc}
      *
-     * <p>This implementation always return {@code -1}.
+     * <p>This implementation always returns {@code -1}.
      * Subclasses may override this method to return other values.</p>
      *
      * @return {@code -1}
@@ -173,7 +173,7 @@ public class StubHttpServletRequest implements HttpServletRequest
     /**
      * {@inheritDoc}
      *
-     * <p>This implementation always return {@code null}.
+     * <p>This implementation always returns {@code null}.
      * Subclasses may override this method to return other values.</p>
      *
      * @return {@code null}
@@ -187,7 +187,7 @@ public class StubHttpServletRequest implements HttpServletRequest
     /**
      * {@inheritDoc}
      *
-     * <p>This implementation always return {@code null}.
+     * <p>This implementation always returns {@code null}.
      * Subclasses may override this method to return other values.</p>
      *
      * @return {@code null}
@@ -201,7 +201,7 @@ public class StubHttpServletRequest implements HttpServletRequest
     /**
      * {@inheritDoc}
      *
-     * <p>This implementation always return {@code null}.
+     * <p>This implementation always returns {@code null}.
      * Subclasses may override this method to return other values.</p>
      *
      * @return {@code null}
@@ -215,7 +215,7 @@ public class StubHttpServletRequest implements HttpServletRequest
     /**
      * {@inheritDoc}
      *
-     * <p>This implementation always return {@code -1}.
+     * <p>This implementation always returns {@code -1}.
      * Subclasses may override this method to return other values.</p>
      *
      * @return {@code -1}
@@ -300,7 +300,7 @@ public class StubHttpServletRequest implements HttpServletRequest
     /**
      * {@inheritDoc}
      *
-     * <p>This implementation always return {@code null}.
+     * <p>This implementation always returns {@code null}.
      * Subclasses may override this method to return other values.</p>
      *
      * @return {@code null}
@@ -314,7 +314,7 @@ public class StubHttpServletRequest implements HttpServletRequest
     /**
      * {@inheritDoc}
      *
-     * <p>This implementation always return {@code false}.
+     * <p>This implementation always returns {@code false}.
      * Subclasses may override this method to return other values.</p>
      *
      * @return {@code false}
@@ -328,7 +328,7 @@ public class StubHttpServletRequest implements HttpServletRequest
     /**
      * {@inheritDoc}
      *
-     * <p>This implementation always return {@code null}.
+     * <p>This implementation always returns {@code null}.
      * Subclasses may override this method to return other values.</p>
      *
      * @return {@code null}
@@ -342,7 +342,7 @@ public class StubHttpServletRequest implements HttpServletRequest
     /**
      * {@inheritDoc}
      *
-     * <p>This implementation always return {@code null}.
+     * <p>This implementation always returns {@code null}.
      * Subclasses may override this method to return other values.</p>
      *
      * @return {@code null}
