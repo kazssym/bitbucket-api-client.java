@@ -1,5 +1,5 @@
 /*
- * package-info.java
+ * package-info.java - package org.vx68k.bitbucket.stub
  * Copyright (C) 2015-2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -19,6 +19,6 @@
  */
 
 /**
- * Stub implementations.
+ * Test stub classes.
  */
-package org.vx68k.bitbucket.webhook.stub;
+package org.vx68k.bitbucket.stub;

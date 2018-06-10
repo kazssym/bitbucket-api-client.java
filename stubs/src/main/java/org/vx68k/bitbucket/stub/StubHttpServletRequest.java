@@ -18,7 +18,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-package org.vx68k.bitbucket.webhook.stub;
+package org.vx68k.bitbucket.stub;
 
 import java.io.BufferedReader;
 import java.io.IOException;

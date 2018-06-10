@@ -28,8 +28,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.vx68k.bitbucket.webhook.stub.StubHttpServletRequest;
-import org.vx68k.bitbucket.webhook.stub.StubHttpServletResponse;
+import org.vx68k.bitbucket.stub.StubHttpServletRequest;
+import org.vx68k.bitbucket.stub.StubHttpServletResponse;
 import static org.junit.Assert.*;
 
 /**
