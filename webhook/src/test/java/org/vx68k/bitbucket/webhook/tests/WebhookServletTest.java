@@ -40,7 +40,7 @@ import org.vx68k.bitbucket.webhook.WebhookServlet;
  * @author Kaz Nishimura
  * @since 4.0
  */
-public class WebhookServletTest implements ServletConfig
+public final class WebhookServletTest implements ServletConfig
 {
     /**
      * Tests {@link WebhookServlet#init init} and {@link
