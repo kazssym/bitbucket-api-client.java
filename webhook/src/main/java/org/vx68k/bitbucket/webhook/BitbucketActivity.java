@@ -1,5 +1,5 @@
 /*
- * Activity.java - class Activity
+ * BitbucketActivity.java - class BitbucketActivity
  * Copyright (C) 2015-2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -31,7 +31,7 @@ import org.vx68k.bitbucket.api.client.BitbucketUser;
  * @author Kaz Nishimura
  * @since 5.0
  */
-public abstract class Activity
+public abstract class BitbucketActivity
 {
     /**
      * Name of log message resources.
@@ -48,7 +48,7 @@ public abstract class Activity
      *
      * @param activityObject {@link JsonObject} object
      */
-    protected Activity(final JsonObject activityObject)
+    protected BitbucketActivity(final JsonObject activityObject)
     {
         if (activityObject == null) {
             throw new IllegalArgumentException("JsonObject is null");
@@ -95,6 +95,6 @@ public abstract class Activity
     protected static Logger getLogger()
     {
         return Logger.getLogger(
-                Activity.class.getPackage().getName(), LOG_MESSAGES);
+            BitbucketActivity.class.getPackage().getName(), LOG_MESSAGES);
     }
 }

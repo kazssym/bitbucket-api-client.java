@@ -32,8 +32,8 @@ import org.vx68k.bitbucket.api.client.Commit;
  * @author Kaz Nishimura
  * @since 1.0
  */
-public class RepositoryPush extends Activity {
-
+public class RepositoryPush extends BitbucketActivity
+{
     private static final Logger logger =
             Logger.getLogger(RepositoryPush.class.getPackage().getName());
 
