@@ -18,7 +18,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-package org.vx68k.bitbucket.webhook;
+package org.vx68k.bitbucket.webhook.tests;
 
 import static org.junit.Assert.assertNotEquals;
 
@@ -32,6 +32,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.vx68k.bitbucket.stub.StubHttpServletRequest;
 import org.vx68k.bitbucket.stub.StubHttpServletResponse;
+import org.vx68k.bitbucket.webhook.WebhookServlet;
 
 /**
  * Unit tests for {@link WebhookServlet}.
