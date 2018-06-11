@@ -20,6 +20,8 @@
 
 package org.vx68k.bitbucket.api;
 
+import java.util.Iterator;
+
 /**
  * Bitbucket Issue Tracker.
  *
@@ -28,4 +30,11 @@ package org.vx68k.bitbucket.api;
  */
 public interface BitbucketIssueTracker
 {
+    /**
+     * Returns the tracked issues as an {@link Iterator} object.
+     * The order of the issues are not specified.
+     * 
+     * @return {@link Iterator} object
+     */
+    Iterator<BitbucketIssue> getIssues();
 }
