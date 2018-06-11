@@ -51,7 +51,7 @@ public final class WebhookServletTest implements ServletConfig
     @Test @Ignore
     public void testLifecycle() throws ServletException
     {
-        WebhookServlet servlet = new WebhookServlet();
+        WebhookServlet servlet = new WebhookServlet(null);
         servlet.init(this);
         servlet.destroy();
     }
@@ -65,7 +65,7 @@ public final class WebhookServletTest implements ServletConfig
     @Test @Ignore
     public void testGet() throws ServletException, IOException
     {
-        WebhookServlet servlet = new WebhookServlet();
+        WebhookServlet servlet = new WebhookServlet(null);
         servlet.init(this);
         try {
             StubHttpServletRequest request = new StubHttpServletRequest(null);
@@ -88,7 +88,7 @@ public final class WebhookServletTest implements ServletConfig
     @Test @Ignore
     public void testHead() throws ServletException, IOException
     {
-        WebhookServlet servlet = new WebhookServlet();
+        WebhookServlet servlet = new WebhookServlet(null);
         servlet.init(this);
         try {
             StubHttpServletRequest request = new StubHttpServletRequest(null);

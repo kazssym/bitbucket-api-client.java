@@ -27,7 +27,6 @@ import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 import javax.json.stream.JsonParsingException;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -42,13 +41,29 @@ public class WebhookServlet extends HttpServlet
 {
     private static final long serialVersionUID = 1L;
 
-    @Inject
-    private Event<RepositoryPush> repositoryPushEvent;
+    /**
+     * Event to fire.
+     */
+    private final Event<RepositoryPush> repositoryPushEvent;
 
+    /**
+     * Constructs this servlet with an {@link Event} object.
+     *
+     * @param event {@link Event} object
+     */
+    @Inject
+    public WebhookServlet(final Event<RepositoryPush> event)
+    {
+        repositoryPushEvent = event;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    protected void doPost(final HttpServletRequest request,
-            final HttpServletResponse response) throws ServletException,
-            IOException {
+    protected final void doPost(final HttpServletRequest request,
+        final HttpServletResponse response) throws IOException
+    {
         JsonReader reader = Json.createReader(request.getInputStream());
         try {
             JsonObject object = reader.readObject();
@@ -62,7 +77,12 @@ public class WebhookServlet extends HttpServlet
         response.getWriter().close();
     }
 
-    protected void dispatch(final JsonObject jsonObject) {
+    /**
+     * Dispatches an activity.
+     *
+     * @param jsonObject
+     */
+    protected final void dispatch(final JsonObject jsonObject) {
         if (jsonObject.containsKey(WebhookJsonKeys.PUSH)) {
             repositoryPushEvent.fire(new RepositoryPush(jsonObject));
         } else {
