@@ -32,17 +32,19 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>bitbucket-test-stubs</artifactId>
-            <version>5.0-SNAPSHOT</version>
-	    <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>bitbucket-stubs</artifactId>
+            <version>5.0-SNAPSHOT</version>
+	    <scope>test</scope>
+        </dependency>
     </dependencies>
     <build>
+        <plugins>
+        </plugins>
     </build>
 </project>

@@ -9,10 +9,10 @@
         <groupId>org.vx68k.bitbucket</groupId>
         <version>5.0-SNAPSHOT</version>
     </parent>
-    <artifactId>bitbucket-test-stubs</artifactId>
+    <artifactId>bitbucket-stubs</artifactId>
     <packaging>jar</packaging>
-    <name>Bitbucket Test Stubs</name>
-    <description>Test stub classes for the Bitbucket API Client Library.
+    <name>Bitbucket Shared Stubs</name>
+    <description>Shared stub classes for the Bitbucket API Client Library.
     </description>
     <dependencies>
         <dependency>
