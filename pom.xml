@@ -43,6 +43,12 @@
         <system>Bitbucket</system>
         <url>https://bitbucket.org/vx68k/bitbucket-api-client-java/issues</url>
     </issueManagement>
+    <distributionManagement>
+        <site>
+            <id>localhost</id>
+            <url>file:site/</url>
+        </site>
+    </distributionManagement>
     <properties>
         <encoding>UTF-8</encoding>
         <maven.compiler.source>1.8</maven.compiler.source>
