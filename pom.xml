@@ -31,7 +31,7 @@
         <module>client-oauth</module>
         <module>bitbucket-webhook</module>
         <module>bitbucket-stubs</module>
-        <module>example</module>
+        <module>bitbucket-api-client-example</module>
     </modules>
     <scm>
         <connection>scm:hg:https://bitbucket.org/vx68k/bitbucket-api-client-java</connection>
