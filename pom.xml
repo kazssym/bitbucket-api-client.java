@@ -37,7 +37,7 @@
         <connection>scm:hg:https://bitbucket.org/vx68k/bitbucket-api-client-java</connection>
         <developerConnection>scm:hg:ssh://hg@bitbucket.org/vx68k/bitbucket-api-client-java</developerConnection>
         <tag>master</tag>
-        <url>https://bitbucket.org/vx68k/bitbucket-api-client-java/src</url>
+        <url>https://bitbucket.org/vx68k/bitbucket-api-client-java/src/master/</url>
     </scm>
     <issueManagement>
         <system>Bitbucket</system>
