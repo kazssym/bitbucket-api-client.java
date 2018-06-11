@@ -35,19 +35,31 @@ import org.vx68k.bitbucket.api.client.Repository;
 public abstract class BitbucketActivity
 {
     /**
+     * Name of the {@code actor} object in a JSON object.
+     */
+    public static final String ACTOR = "actor";
+
+    /**
+     * Name of the {@code repository} object in a JSON object.
+     */
+    public static final String REPOSITORY = "repository";
+
+    /**
      * Name of log message resources.
      */
     private static final String LOG_MESSAGES = "resources/LogMessages";
 
     /**
-     * {@link JsonObject} object given to the constructor.
+     * JSON object given to the constructor.
      */
     private final JsonObject jsonObject;
 
     /**
-     * Constructs this activity from a {@link JsonObject} object.
+     * Constructs this activity from a JSON object.
      *
-     * @param activityObject {@link JsonObject} object
+     * @param activityObject JSON object
+     * @exception IllegalArgumentException if the given JSON object is {@code
+     * null}
      */
     protected BitbucketActivity(final JsonObject activityObject)
     {
@@ -58,9 +70,9 @@ public abstract class BitbucketActivity
     }
 
     /**
-     * Returns the {@link JsonObject} object given to the constructor.
+     * Returns the JSON object given to the constructor.
      *
-     * @return the {@link JsonObject} object
+     * @return the JSON object
      */
     public final JsonObject getJsonObject()
     {
@@ -68,25 +80,25 @@ public abstract class BitbucketActivity
     }
 
     /**
-     * Returns the actor of this object.
-     * @return actor
+     * Returns the actor of this activity as a {@link BitbucketUser} object.
+     *
+     * @return the actor
      */
     public final BitbucketUser getActor()
     {
         JsonObject activityObject = getJsonObject();
-        return new BitbucketClientUser(
-            activityObject.getJsonObject(WebhookJsonKeys.ACTOR));
+        return new BitbucketClientUser(activityObject.getJsonObject(ACTOR));
     }
 
     /**
      * Returns the repository of this object.
+     *
      * @return repository
      */
     public final Repository getRepository()
     {
         JsonObject activityObject = getJsonObject();
-        return new Repository(
-            activityObject.getJsonObject(WebhookJsonKeys.REPOSITORY));
+        return new Repository(activityObject.getJsonObject(REPOSITORY));
     }
 
     /**
