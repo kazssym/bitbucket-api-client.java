@@ -3,25 +3,20 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>bitbucket-api-client-parent</artifactId>
         <groupId>org.vx68k.bitbucket</groupId>
         <version>5.0-SNAPSHOT</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
     <artifactId>bitbucket-api-client</artifactId>
+    <packaging>jar</packaging>
     <name>Bitbucket API Client Library</name>
     <description>Client library for the Bitbucket REST API</description>
-    <url>http://kazssym.bitbucket.org/bitbucket-api-client-java/</url>
-    <build>
-        <plugins>
-        </plugins>
-    </build>
     <dependencies>
         <dependency>
             <groupId>javax.json</groupId>
             <artifactId>javax.json-api</artifactId>
-            <version>1.0</version>
         </dependency>
         <dependency>
             <groupId>com.google.http-client</groupId>
@@ -39,4 +34,8 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+    <build>
+        <plugins>
+        </plugins>
+    </build>
 </project>
