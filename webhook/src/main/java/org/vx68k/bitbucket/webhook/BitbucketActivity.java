@@ -22,8 +22,9 @@ package org.vx68k.bitbucket.webhook;
 
 import java.util.logging.Logger;
 import javax.json.JsonObject;
+import org.vx68k.bitbucket.api.BitbucketUser;
+import org.vx68k.bitbucket.api.client.BitbucketClientUser;
 import org.vx68k.bitbucket.api.client.Repository;
-import org.vx68k.bitbucket.api.client.BitbucketUser;
 
 /**
  * Activity on a Bitbucket repository.
@@ -73,7 +74,7 @@ public abstract class BitbucketActivity
     public final BitbucketUser getActor()
     {
         JsonObject activityObject = getJsonObject();
-        return new BitbucketUser(
+        return new BitbucketClientUser(
             activityObject.getJsonObject(WebhookJsonKeys.ACTOR));
     }
 
