@@ -48,7 +48,7 @@ public final class WebhookServletTest implements ServletConfig
      *
      * @throws ServletException if a servlet error occurred
      */
-    @Test @Ignore
+    @Test
     public void testLifecycle() throws ServletException
     {
         WebhookServlet servlet = new WebhookServlet(null);
@@ -62,7 +62,7 @@ public final class WebhookServletTest implements ServletConfig
      * @throws ServletException
      * @throws IOException
      */
-    @Test @Ignore
+    @Test
     public void testGet() throws ServletException, IOException
     {
         WebhookServlet servlet = new WebhookServlet(null);
@@ -85,7 +85,7 @@ public final class WebhookServletTest implements ServletConfig
      * @throws ServletException
      * @throws IOException
      */
-    @Test @Ignore
+    @Test
     public void testHead() throws ServletException, IOException
     {
         WebhookServlet servlet = new WebhookServlet(null);

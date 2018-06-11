@@ -26,6 +26,11 @@
             <artifactId>bitbucket-api-client</artifactId>
             <version>5.0-SNAPSHOT</version>
         </dependency>
+	<dependency>
+	    <groupId>org.glassfish</groupId>
+	    <artifactId>javax.servlet</artifactId>
+	    <scope>test</scope>
+	</dependency>
         <dependency>
             <groupId>org.glassfish</groupId>
             <artifactId>javax.json</artifactId>
