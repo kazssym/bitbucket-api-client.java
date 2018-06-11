@@ -33,6 +33,21 @@ import javax.servlet.ServletContext;
 public class StubServletConfig implements ServletConfig
 {
     /**
+     * {@link ServletContext} object given to the constructor.
+     */
+    private final ServletContext servletContext;
+
+    /**
+     * Constructs this configuration with a {@link ServletContext} object.
+     *
+     * @param context {@link ServletContext} object
+     */
+    public StubServletConfig(final ServletContext context)
+    {
+        servletContext = context;
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override
@@ -43,11 +58,16 @@ public class StubServletConfig implements ServletConfig
 
     /**
      * {@inheritDoc}
+     *
+     * <p>This implementation returns the {@link ServletContext} object given
+     * to the constructor.</p>
+     *
+     * @return the {@link ServletContext} object
      */
     @Override
-    public ServletContext getServletContext()
+    public final ServletContext getServletContext()
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return servletContext;
     }
 
     /**
