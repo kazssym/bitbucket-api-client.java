@@ -30,7 +30,7 @@
         <module>client</module>
         <module>client-oauth</module>
         <module>bitbucket-webhook</module>
-        <module>stubs</module>
+        <module>bitbucket-stubs</module>
         <module>example</module>
     </modules>
     <scm>
