@@ -28,21 +28,18 @@ import javax.json.JsonObject;
 import javax.json.JsonReader;
 import javax.json.stream.JsonParsingException;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
  * Processes HTTP requests from Bitbucket webhooks.
+ *
  * @author Kaz Nishimura
  * @since 4.0
  */
-@WebServlet(
-        name = "Bitbucket Webhook Servlet",
-        urlPatterns = {"/webhook/*"})
-public class WebhookServlet extends HttpServlet {
-
+public class WebhookServlet extends HttpServlet
+{
     private static final long serialVersionUID = 1L;
 
     @Inject
