@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <parent>
-    <artifactId>bitbucket-api-client-parent</artifactId>
-    <groupId>org.vx68k.bitbucket</groupId>
-    <version>5.0-SNAPSHOT</version>
-  </parent>
-  <modelVersion>4.0.0</modelVersion>
-  <artifactId>bitbucket-api-client</artifactId>
-  <name>Bitbucket API Client for Java</name>
-  <description>Client library for the Bitbucket REST API</description>
-  <url>http://kazssym.bitbucket.org/bitbucket-api-client-java/</url>
-  <build>
-    <plugins>
-    </plugins>
-  </build>
-  <dependencies>
-    <dependency>
-      <groupId>javax.json</groupId>
-      <artifactId>javax.json-api</artifactId>
-      <version>1.0</version>
-    </dependency>
-    <dependency>
-      <groupId>com.google.http-client</groupId>
-      <artifactId>google-http-client-jackson2</artifactId>
-      <version>1.20.0</version>
-    </dependency>
-    <dependency>
-      <groupId>org.glassfish</groupId>
-      <artifactId>javax.json</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
+    <parent>
+        <artifactId>bitbucket-api-client-parent</artifactId>
+        <groupId>org.vx68k.bitbucket</groupId>
+        <version>5.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>bitbucket-api-client</artifactId>
+    <name>Bitbucket API Client for Java</name>
+    <description>Client library for the Bitbucket REST API</description>
+    <url>http://kazssym.bitbucket.org/bitbucket-api-client-java/</url>
+    <build>
+        <plugins>
+        </plugins>
+    </build>
+    <dependencies>
+        <dependency>
+            <groupId>javax.json</groupId>
+            <artifactId>javax.json-api</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.http-client</groupId>
+            <artifactId>google-http-client-jackson2</artifactId>
+            <version>1.20.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>javax.json</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 </project>
