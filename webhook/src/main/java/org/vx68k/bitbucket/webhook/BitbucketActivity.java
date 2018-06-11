@@ -20,7 +20,6 @@
 
 package org.vx68k.bitbucket.webhook;
 
-import java.util.logging.Logger;
 import javax.json.JsonObject;
 import org.vx68k.bitbucket.api.BitbucketUser;
 import org.vx68k.bitbucket.api.client.BitbucketClientUser;
@@ -43,11 +42,6 @@ public abstract class BitbucketActivity
      * Name of the {@code repository} object in a JSON object.
      */
     public static final String REPOSITORY = "repository";
-
-    /**
-     * Name of log message resources.
-     */
-    private static final String LOG_MESSAGES = "resources/LogMessages";
 
     /**
      * JSON object given to the constructor.
@@ -99,15 +93,5 @@ public abstract class BitbucketActivity
     {
         JsonObject activityObject = getJsonObject();
         return new Repository(activityObject.getJsonObject(REPOSITORY));
-    }
-
-    /**
-     * Returns the logger for this package.
-     * @return logger
-     */
-    protected static Logger getLogger()
-    {
-        return Logger.getLogger(
-            BitbucketActivity.class.getPackage().getName(), LOG_MESSAGES);
     }
 }
