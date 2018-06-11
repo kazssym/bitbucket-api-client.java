@@ -130,6 +130,29 @@ public class StubHttpServletRequest implements HttpServletRequest
     }
 
     /**
+     * Sets the path information of this request to a {@link String} value.
+     * The given value will be returned by {@link #getPathInfo getPathInfo}.
+     *
+     * @param value {@link String} value
+     */
+    public final void setPathInfo(final String value)
+    {
+        pathInfo = value;
+    }
+
+    /**
+     * Sets the query string of this request to a {@link String} value.
+     * The given value will be returned by {@link #getQueryString
+     * getQueryString}.
+     *
+     * @param value {@link String} value
+     */
+    public final void setQueryString(final String value)
+    {
+        queryString = value;
+    }
+
+    /**
      * {@inheritDoc}
      *
      * <p>This implementation always returns {@code null}.
