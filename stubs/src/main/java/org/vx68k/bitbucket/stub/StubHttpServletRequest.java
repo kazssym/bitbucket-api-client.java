@@ -120,6 +120,7 @@ public class StubHttpServletRequest implements HttpServletRequest
 
     /**
      * Sets the request method of this request to a {@link String} value.
+     * The given value will be returned by {@link #getMethod getMethod}.
      *
      * @param value {@link String} value
      */
