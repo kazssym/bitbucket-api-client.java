@@ -33,7 +33,7 @@ public interface BitbucketIssueTracker
     /**
      * Returns the tracked issues as an {@link Iterator} object.
      * The order of the issues are not specified.
-     * 
+     *
      * @return {@link Iterator} object
      */
     Iterator<BitbucketIssue> getIssues();
