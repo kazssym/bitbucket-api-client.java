@@ -377,50 +377,84 @@ public class StubHttpServletRequest implements HttpServletRequest
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public String getRequestURI() {
+    public String getRequestURI()
+    {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public StringBuffer getRequestURL() {
+    public StringBuffer getRequestURL()
+    {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public String getServletPath() {
+    public String getServletPath()
+    {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public HttpSession getSession(final boolean create)
     {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public HttpSession getSession() {
+    public HttpSession getSession()
+    {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String changeSessionId()
     {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public boolean isRequestedSessionIdValid() {
+    public boolean isRequestedSessionIdValid()
+    {
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public boolean isRequestedSessionIdFromCookie() {
+    public boolean isRequestedSessionIdFromCookie()
+    {
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public boolean isRequestedSessionIdFromURL() {
+    public boolean isRequestedSessionIdFromURL()
+    {
         return false;
     }
 
@@ -434,6 +468,9 @@ public class StubHttpServletRequest implements HttpServletRequest
         return isRequestedSessionIdFromURL();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean authenticate(final HttpServletResponse response)
         throws IOException, ServletException
@@ -441,119 +478,39 @@ public class StubHttpServletRequest implements HttpServletRequest
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void login(final String username, final String password)
         throws ServletException
     {
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void logout() throws ServletException {
+    public void logout() throws ServletException
+    {
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Collection<Part> getParts() throws IOException, ServletException {
+    public Collection<Part> getParts() throws IOException, ServletException
+    {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Part getPart(final String name)
         throws IOException, ServletException
     {
-        return null;
-    }
-
-    @Override
-    public Object getAttribute(final String name)
-    {
-        return null;
-    }
-
-    @Override
-    public Enumeration<String> getAttributeNames() {
-        return null;
-    }
-
-    @Override
-    public String getCharacterEncoding() {
-        return null;
-    }
-
-    @Override
-    public void setCharacterEncoding(final String env)
-        throws UnsupportedEncodingException
-    {
-    }
-
-    @Override
-    public int getContentLength() {
-        return 0;
-    }
-
-    @Override
-    public String getContentType() {
-        return null;
-    }
-
-    @Override
-    public ServletInputStream getInputStream() throws IOException {
-        return null;
-    }
-
-    @Override
-    public String getParameter(final String name)
-    {
-        return null;
-    }
-
-    @Override
-    public Enumeration<String> getParameterNames() {
-        return null;
-    }
-
-    @Override
-    public String[] getParameterValues(final String name)
-    {
-        return new String[0];
-    }
-
-    @Override
-    public Map<String, String[]> getParameterMap() {
-        return null;
-    }
-
-    @Override
-    public String getProtocol() {
-        return "HTTP/1.1";
-    }
-
-    @Override
-    public String getScheme() {
-        return null;
-    }
-
-    @Override
-    public String getServerName() {
-        return null;
-    }
-
-    @Override
-    public int getServerPort() {
-        return 80;
-    }
-
-    @Override
-    public BufferedReader getReader() throws IOException {
-        return null;
-    }
-
-    @Override
-    public String getRemoteAddr() {
-        return null;
-    }
-
-    @Override
-    public String getRemoteHost() {
         return null;
     }
 
@@ -564,6 +521,168 @@ public class StubHttpServletRequest implements HttpServletRequest
     public <T extends HttpUpgradeHandler> T upgrade(
         final Class<T> handlerClass)
         throws IOException, ServletException
+    {
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Object getAttribute(final String name)
+    {
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Enumeration<String> getAttributeNames()
+    {
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getCharacterEncoding()
+    {
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setCharacterEncoding(final String env)
+        throws UnsupportedEncodingException
+    {
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getContentLength()
+    {
+        return 0;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getContentType()
+    {
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public ServletInputStream getInputStream() throws IOException
+    {
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getParameter(final String name)
+    {
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Enumeration<String> getParameterNames()
+    {
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String[] getParameterValues(final String name)
+    {
+        return new String[0];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Map<String, String[]> getParameterMap()
+    {
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getProtocol()
+    {
+        return "HTTP/1.1";
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getScheme()
+    {
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getServerName()
+    {
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getServerPort()
+    {
+        return 80;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public BufferedReader getReader() throws IOException
+    {
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getRemoteAddr()
+    {
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getRemoteHost()
     {
         return null;
     }
