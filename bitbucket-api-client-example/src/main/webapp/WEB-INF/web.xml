@@ -8,6 +8,15 @@
         <param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
         <param-value>true</param-value>
     </context-param>
+    <servlet>
+	<servlet-name>BitbucketWebhookServlet</servlet-name>
+	<servlet-class>org.vx68k.bitbucket.webhook.BitbucketWebhookServlet
+	</servlet-class>
+    </servlet>
+    <servlet-mapping>
+	<servlet-name>BitbucketWebhookServlet</servlet-name>
+	<url-pattern>/webhook/*</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>
     </session-config>
