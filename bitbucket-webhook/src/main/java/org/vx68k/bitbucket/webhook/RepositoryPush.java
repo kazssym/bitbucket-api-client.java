@@ -1,10 +1,10 @@
 /*
- * RepositoryPush - represents a push to a Bitbucket repository
+ * RepositoryPush.java - class RepositoryPush
  * Copyright (C) 2015 Nishimura Software Studio
  *
  * This program is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Affero General Public License as published by the
- * Free Software Foundation, either version 3 of the License, or (at your
+ * under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or (at your
  * option) any later version.
  *
  * This program is distributed in the hope that it will be useful, but WITHOUT
@@ -14,14 +14,14 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
 package org.vx68k.bitbucket.webhook;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonValue;
@@ -29,50 +29,30 @@ import org.vx68k.bitbucket.api.client.Commit;
 
 /**
  * Represents a push to a Bitbucket repository.
+ *
  * @author Kaz Nishimura
- * @since 1.0
+ * @since 5.0
  */
 public class RepositoryPush extends BitbucketActivity
 {
-    private static final Logger logger =
-            Logger.getLogger(RepositoryPush.class.getPackage().getName());
-
-    private List<Change> changes;
+    /**
+     * Name of the {@code push} object in a JSON object.
+     */
+    public static final String PUSH = "push";
 
     /**
-     * Constructs this object from a JSON object.
-     *
-     * @param jsonObject JSON object
+     * Name of the {@code changes} array in a {@code} object.
      */
-    public RepositoryPush(final JsonObject jsonObject) {
-        super(jsonObject);
-
-        JsonObject push = jsonObject.getJsonObject(WebhookJsonKeys.PUSH);
-        changes = parseChanges(push.getJsonArray(WebhookJsonKeys.CHANGES));
-    }
-
-    /**
-     * Returns the list of the changes of this object.
-     * @return list of the changes
-     */
-    public List<Change> getChanges() {
-        return changes;
-    }
-
-    /**
-     * Sets the list of the changes of this object.
-     * @param value list of the change
-     */
-    public void setChanges(final List<Change> value) {
-        changes = value;
-    }
+    public static final String CHANGES = "changes";
 
     /**
      * Parses a JSON array to a list of changes.
+     *
      * @param jsonArray JSON array that represents list of changes
      * @return list of changes
      */
-    protected List<Change> parseChanges(final JsonArray jsonArray) {
+    protected static List<Change> parseChanges(final JsonArray jsonArray)
+    {
         if (jsonArray == null) {
             return null;
         }
@@ -85,87 +65,119 @@ public class RepositoryPush extends BitbucketActivity
     }
 
     /**
-     * Change of a Bitbucket repository.
-     * @since 4.0
+     * Constructs this object from a JSON event object.
+     *
+     * @param eventObject JSON event object
      */
-    public static class Change {
+    public RepositoryPush(final JsonObject eventObject)
+    {
+        super(eventObject);
+    }
 
-        private boolean created;
-        private boolean closed;
-        private boolean forced;
-        private WebhookBranch oldState;
-        private WebhookBranch newState;
-        private List<Commit> commits;
+    /**
+     * Returns the list of the changes of this object.
+     *
+     * @return list of the changes
+     */
+    public final List<Change> getChanges()
+    {
+        JsonObject push = getJsonObject().getJsonObject(PUSH);
+        return parseChanges(push.getJsonArray(CHANGES));
+    }
 
-        // TODO: Remove this field.
+    /**
+     * Change in a Bitbucket repository.
+     */
+    public static class Change
+    {
+        /**
+         * JSON change object given to the constructor.
+         */
         private final JsonObject jsonObject;
 
-        public Change(final JsonObject initJsonObject) {
-            logger.log(
-                    Level.INFO, "Parsing JSON object (change): {0}",
-                    initJsonObject);
-            created = initJsonObject.getBoolean(WebhookJsonKeys.CREATED);
-            closed = initJsonObject.getBoolean(WebhookJsonKeys.CLOSED);
-            forced = initJsonObject.getBoolean(WebhookJsonKeys.FORCED);
-            oldState = new WebhookBranch(initJsonObject.getJsonObject(
+        /**
+         * Old state.
+         */
+        private WebhookBranch oldState;
+
+        /**
+         * New state.
+         */
+        private WebhookBranch newState;
+
+        /**
+         * Commits in this change.
+         */
+        private List<Commit> commits;
+
+        /**
+         * Constructs this change with a JSON change object.
+         *
+         * @param changeObject JSON change object
+         */
+        public Change(final JsonObject changeObject)
+        {
+            jsonObject = changeObject;
+            oldState = new WebhookBranch(changeObject.getJsonObject(
                     WebhookJsonKeys.OLD));
-            newState = new WebhookBranch(initJsonObject.getJsonObject(
+            newState = new WebhookBranch(changeObject.getJsonObject(
                     WebhookJsonKeys.NEW));
             // TODO: Parse commits.
-
-            jsonObject = initJsonObject;
         }
 
-        public boolean isCreated() {
-            return created;
-        }
-
-        public boolean isClosed() {
-            return closed;
-        }
-
-        public boolean isForced() {
-            return forced;
-        }
-
-        public WebhookBranch getOldState() {
-            return oldState;
-        }
-
-        public WebhookBranch getNewState() {
-            return newState;
-        }
-
-        public List<Commit> getCommits() {
-            return commits;
-        }
-
-        public JsonObject getJsonObject() {
+        /**
+         * Returns the JSON change object given to the constructor.
+         *
+         * @return the JSON change object
+         */
+        public final JsonObject getJsonObject()
+        {
             return jsonObject;
         }
 
-        public void setCreated(final boolean value) {
-            created = value;
+        /**
+         * Returns {@code true} if this change created a branch.
+         *
+         * @return {@code true} if created
+         */
+        public final boolean isCreated()
+        {
+            JsonObject changeObject = getJsonObject();
+            return changeObject.getBoolean(WebhookJsonKeys.CREATED);
         }
 
-        public void setClosed(final boolean value) {
-            closed = value;
+        /**
+         * Returns {@code true} if this change closed a branch.
+         *
+         * @return {@code true} if closed
+         */
+        public final boolean isClosed()
+        {
+            JsonObject changeObject = getJsonObject();
+            return changeObject.getBoolean(WebhookJsonKeys.CLOSED);
         }
 
-        public void setForced(final boolean value) {
-            forced = value;
+        /**
+         * Returns {@code true} if this change was forced.
+         *
+         * @return {@code true} if forced
+         */
+        public boolean isForced()
+        {
+            JsonObject changeObject = getJsonObject();
+            return changeObject.getBoolean(WebhookJsonKeys.FORCED);
         }
 
-        public void setOldState(final WebhookBranch value) {
-            oldState = value;
+        public final WebhookBranch getOldState() {
+            return oldState;
         }
 
-        public void setNewState(final WebhookBranch value) {
-            newState = value;
+        public final WebhookBranch getNewState() {
+            return newState;
         }
 
-        public void setCommits(final List<Commit> value) {
-            commits = value;
+        public final List<Commit> getCommits() {
+            return commits;
         }
     }
 }
