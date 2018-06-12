@@ -35,27 +35,58 @@ import javax.servlet.http.HttpServletResponse;
  * @author Kaz Nishimura
  * @since 5.0
  */
-public class StubHttpServletResponse implements HttpServletResponse {
-
+public class StubHttpServletResponse implements HttpServletResponse
+{
+    /**
+     * Indicates if this response is committed.
+     */
     private boolean committed = false;
 
+    /**
+     * HTTP status code.
+     */
     private int status = SC_OK;
 
+    /**
+     * Content type.
+     */
     private String contentType = null;
 
+    /**
+     * Content.
+     */
     private byte[] content = new byte[0];
 
+    /**
+     * Sent HTTP error.
+     */
     private Error sentError = null;
 
-    public Error getSentError() {
+    /**
+     * Returns the sent HTTP error.
+     *
+     * @return the sent errort
+     */
+    public Error getSentError()
+    {
         return sentError;
     }
 
-    protected void commit() {
+    /**
+     * Marks this response is committed.
+     */
+    protected void commit()
+    {
         committed = true;
     }
 
-    protected void checkIfNotCommitted() {
+    /**
+     * Checks if this response is not committed.
+     *
+     * @exception IllegalStateException if this response had been committed
+     */
+    protected void checkIfNotCommitted()
+    {
         if (isCommitted()) {
             throw new IllegalStateException("Already committed");
         }
@@ -65,48 +96,73 @@ public class StubHttpServletResponse implements HttpServletResponse {
      * {@inheritDoc}
      */
     @Override
-    public void addCookie(final Cookie cookie) {
+    public void addCookie(final Cookie cookie)
+    {
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public boolean containsHeader(final String name) {
+    public boolean containsHeader(final String name)
+    {
         // TODO: Check the header name.
         return false;
     }
 
     /**
      * {@inheritDoc}
+     *
+     * <p>This implementation always returns the given URL unchanged.
+     * Subclasses may override this method to return other values.</p>
+     *
+     * @param url URL to be encoded
+     * @return the given URL unchanged
      */
     @Override
-    public String encodeURL(final String url) {
-        return null;
+    public String encodeURL(final String url)
+    {
+        return url;
     }
 
     /**
      * {@inheritDoc}
+     *
+     * <p>This implementation always returns the given URL unchanged.
+     * Subclasses may override this method to return other values.</p>
+     *
+     * @param url URL to be encoded
+     * @return the given URL unchanged
      */
     @Override
-    public String encodeRedirectURL(final String url) {
-        return null;
+    public String encodeRedirectURL(final String url)
+    {
+        return url;
     }
 
     /**
      * {@inheritDoc}
+     *
+     * <p>This implementation uses {@link #encodeURL encodeURL} internally.</p>
      */
     @Override
-    public String encodeUrl(final String url) {
-        return null;
+    @Deprecated
+    public final String encodeUrl(final String url)
+    {
+        return encodeURL(url);
     }
 
     /**
      * {@inheritDoc}
+     *
+     * <p>This implementation uses {@link #encodeRedirectURL encodeRedirectURL}
+     * internally.</p>
      */
     @Override
-    public String encodeRedirectUrl(final String url) {
-        return null;
+    @Deprecated
+    public final String encodeRedirectUrl(final String url)
+    {
+        return encodeRedirectURL(url);
     }
 
     /**
@@ -128,7 +184,8 @@ public class StubHttpServletResponse implements HttpServletResponse {
      * {@inheritDoc}
      */
     @Override
-    public void sendError(final int status) throws IOException {
+    public final void sendError(final int status) throws IOException
+    {
         sendError(status, null);
     }
 
@@ -136,56 +193,64 @@ public class StubHttpServletResponse implements HttpServletResponse {
      * {@inheritDoc}
      */
     @Override
-    public void sendRedirect(final String location) throws IOException {
+    public void sendRedirect(final String location) throws IOException
+    {
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void setDateHeader(final String name, final long date) {
+    public void setDateHeader(final String name, final long date)
+    {
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void addDateHeader(final String name, final long date) {
+    public void addDateHeader(final String name, final long date)
+    {
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void setHeader(final String name, final String value) {
+    public void setHeader(final String name, final String value)
+    {
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void addHeader(final String name, final String value) {
+    public void addHeader(final String name, final String value)
+    {
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void setIntHeader(final String name, final int value) {
+    public void setIntHeader(final String name, final int value)
+    {
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void addIntHeader(final String name, final int value) {
+    public void addIntHeader(final String name, final int value)
+    {
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void setStatus(final int value) {
+    public void setStatus(final int value)
+    {
         if (!isCommitted()) {
             status = value;
         }
@@ -194,9 +259,10 @@ public class StubHttpServletResponse implements HttpServletResponse {
     /**
      * {@inheritDoc}
      */
-    @Deprecated
     @Override
-    public void setStatus(final int status, final String message) {
+    @Deprecated
+    public void setStatus(final int status, final String message)
+    {
         setStatus(status);
     }
 
@@ -204,7 +270,8 @@ public class StubHttpServletResponse implements HttpServletResponse {
      * {@inheritDoc}
      */
     @Override
-    public int getStatus() {
+    public int getStatus()
+    {
         return status;
     }
 
@@ -212,7 +279,8 @@ public class StubHttpServletResponse implements HttpServletResponse {
      * {@inheritDoc}
      */
     @Override
-    public String getHeader(final String name) {
+    public String getHeader(final String name)
+    {
         return null;
     }
 
@@ -220,7 +288,8 @@ public class StubHttpServletResponse implements HttpServletResponse {
      * {@inheritDoc}
      */
     @Override
-    public Collection<String> getHeaders(final String name) {
+    public Collection<String> getHeaders(final String name)
+    {
         return null;
     }
 
@@ -228,7 +297,8 @@ public class StubHttpServletResponse implements HttpServletResponse {
      * {@inheritDoc}
      */
     @Override
-    public Collection<String> getHeaderNames() {
+    public Collection<String> getHeaderNames()
+    {
         return null;
     }
 
@@ -236,7 +306,8 @@ public class StubHttpServletResponse implements HttpServletResponse {
      * {@inheritDoc}
      */
     @Override
-    public String getCharacterEncoding() {
+    public String getCharacterEncoding()
+    {
         return null;
     }
 
@@ -244,7 +315,8 @@ public class StubHttpServletResponse implements HttpServletResponse {
      * {@inheritDoc}
      */
     @Override
-    public String getContentType() {
+    public String getContentType()
+    {
         return contentType;
     }
 
@@ -252,7 +324,8 @@ public class StubHttpServletResponse implements HttpServletResponse {
      * {@inheritDoc}
      */
     @Override
-    public ServletOutputStream getOutputStream() throws IOException {
+    public ServletOutputStream getOutputStream() throws IOException
+    {
         return null;
     }
 
@@ -260,7 +333,8 @@ public class StubHttpServletResponse implements HttpServletResponse {
      * {@inheritDoc}
      */
     @Override
-    public PrintWriter getWriter() throws IOException {
+    public PrintWriter getWriter() throws IOException
+    {
         return null;
     }
 
@@ -268,14 +342,16 @@ public class StubHttpServletResponse implements HttpServletResponse {
      * {@inheritDoc}
      */
     @Override
-    public void setCharacterEncoding(final String charset) {
+    public void setCharacterEncoding(final String charset)
+    {
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void setContentLength(final int contentLength) {
+    public void setContentLength(final int contentLength)
+    {
         if (!isCommitted()) {
             if (contentLength != content.length) {
                 content = Arrays.copyOf(content, contentLength);
@@ -288,7 +364,8 @@ public class StubHttpServletResponse implements HttpServletResponse {
      * {@inheritDoc}
      */
     @Override
-    public void setContentType(final String value) {
+    public void setContentType(final String value)
+    {
         if (!isCommitted()) {
             contentType = value;
         }
@@ -298,14 +375,16 @@ public class StubHttpServletResponse implements HttpServletResponse {
      * {@inheritDoc}
      */
     @Override
-    public void setBufferSize(final int size) {
+    public void setBufferSize(final int size)
+    {
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public int getBufferSize() {
+    public int getBufferSize()
+    {
         return 0;
     }
 
@@ -313,21 +392,24 @@ public class StubHttpServletResponse implements HttpServletResponse {
      * {@inheritDoc}
      */
     @Override
-    public void flushBuffer() throws IOException {
+    public void flushBuffer() throws IOException
+    {
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void resetBuffer() {
+    public void resetBuffer()
+    {
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public boolean isCommitted() {
+    public boolean isCommitted()
+    {
         return committed;
     }
 
@@ -335,21 +417,24 @@ public class StubHttpServletResponse implements HttpServletResponse {
      * {@inheritDoc}
      */
     @Override
-    public void reset() {
+    public void reset()
+    {
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void setLocale(final Locale loc) {
+    public void setLocale(final Locale loc)
+    {
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Locale getLocale() {
+    public Locale getLocale()
+    {
         return null;
     }
 
@@ -361,21 +446,50 @@ public class StubHttpServletResponse implements HttpServletResponse {
     {
     }
 
-    public static class Error {
-
+    /**
+     * Error information.
+     */
+    public static class Error
+    {
+        /**
+         * HTTP status code.
+         */
         private final int status;
+
+        /**
+         * HTTP error message.
+         */
         private final String message;
 
-        public Error(final int initStatus, final String initMessage) {
+        /**
+         * Constructs this error with a status and a message.
+         *
+         * @param initStatus HTTP error status
+         * @param initMessage HTTP error message
+         */
+        public Error(final int initStatus, final String initMessage)
+        {
             status = initStatus;
             message = initMessage;
         }
 
-        public int getStatus() {
+        /**
+         * Returns the HTTP status code.
+         *
+         * @return the HTTP status
+         */
+        public final int getStatus()
+        {
             return status;
         }
 
-        public String getMessage() {
+        /**
+         * Returns the HTTP error message.
+         *
+         * @return the HTTP error message.
+         */
+        public final String getMessage()
+        {
             return message;
         }
     }
