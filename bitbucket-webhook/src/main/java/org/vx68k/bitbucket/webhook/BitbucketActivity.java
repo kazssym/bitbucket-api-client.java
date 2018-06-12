@@ -49,24 +49,24 @@ public abstract class BitbucketActivity
     private final JsonObject jsonObject;
 
     /**
-     * Constructs this activity from a JSON object.
+     * Constructs this activity from a JSON event object.
      *
-     * @param activityObject JSON object
+     * @param eventObject JSON event object
      * @exception IllegalArgumentException if the given JSON object is {@code
      * null}
      */
-    protected BitbucketActivity(final JsonObject activityObject)
+    protected BitbucketActivity(final JsonObject eventObject)
     {
-        if (activityObject == null) {
+        if (eventObject == null) {
             throw new IllegalArgumentException("JsonObject is null");
         }
-        jsonObject = activityObject;
+        jsonObject = eventObject;
     }
 
     /**
-     * Returns the JSON object given to the constructor.
+     * Returns the JSON event object given to the constructor.
      *
-     * @return the JSON object
+     * @return the JSON event object
      */
     public final JsonObject getJsonObject()
     {
@@ -80,18 +80,18 @@ public abstract class BitbucketActivity
      */
     public final BitbucketUser getActor()
     {
-        JsonObject activityObject = getJsonObject();
-        return new BitbucketClientUser(activityObject.getJsonObject(ACTOR));
+        JsonObject eventObject = getJsonObject();
+        return new BitbucketClientUser(eventObject.getJsonObject(ACTOR));
     }
 
     /**
      * Returns the repository of this object.
      *
-     * @return repository
+     * @return the repository
      */
     public final Repository getRepository()
     {
-        JsonObject activityObject = getJsonObject();
-        return new Repository(activityObject.getJsonObject(REPOSITORY));
+        JsonObject eventObject = getJsonObject();
+        return new Repository(eventObject.getJsonObject(REPOSITORY));
     }
 }
