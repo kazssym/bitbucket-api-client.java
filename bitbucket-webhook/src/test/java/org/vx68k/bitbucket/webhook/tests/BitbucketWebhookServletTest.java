@@ -23,24 +23,48 @@ package org.vx68k.bitbucket.webhook.tests;
 import static org.junit.Assert.assertNotEquals;
 
 import java.io.IOException;
-import java.util.Enumeration;
 import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletResponse;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.vx68k.bitbucket.stub.StubHttpServletRequest;
 import org.vx68k.bitbucket.stub.StubHttpServletResponse;
+import org.vx68k.bitbucket.stub.StubServletConfig;
 import org.vx68k.bitbucket.webhook.BitbucketWebhookServlet;
 
 /**
  * Unit tests for {@link BitbucketWebhookServlet}.
  *
  * @author Kaz Nishimura
- * @since 4.0
+ * @since 5.0
  */
-public final class BitbucketWebhookServletTest implements ServletConfig
+public final class BitbucketWebhookServletTest
 {
+    /**
+     * {@link ServletConfig} object for testing.
+     */
+    private ServletConfig servletConfig;
+
+    /**
+     * Prepares the {@link ServletConfig} object for testing.
+     */
+    @Before
+    public void setUp()
+    {
+        servletConfig = new StubServletConfig(null);
+    }
+
+    /**
+     * Releases the {@link ServletConfig} object.
+     */
+    @After
+    public void tearDown()
+    {
+        servletConfig = null;
+    }
+
     /**
      * Tests {@link BitbucketWebhookServlet#init init} and {@link
      * BitbucketWebhookServlet#destroy destroy}.
@@ -51,7 +75,7 @@ public final class BitbucketWebhookServletTest implements ServletConfig
     public void testLifecycle() throws ServletException
     {
         BitbucketWebhookServlet servlet = new BitbucketWebhookServlet(null);
-        servlet.init(this);
+        servlet.init(servletConfig);
         servlet.destroy();
     }
 
@@ -65,7 +89,7 @@ public final class BitbucketWebhookServletTest implements ServletConfig
     public void testGet() throws ServletException, IOException
     {
         BitbucketWebhookServlet servlet = new BitbucketWebhookServlet(null);
-        servlet.init(this);
+        servlet.init(servletConfig);
         try {
             StubHttpServletRequest request = new StubHttpServletRequest(null);
             request.setMethod("GET");
@@ -88,7 +112,7 @@ public final class BitbucketWebhookServletTest implements ServletConfig
     public void testHead() throws ServletException, IOException
     {
         BitbucketWebhookServlet servlet = new BitbucketWebhookServlet(null);
-        servlet.init(this);
+        servlet.init(servletConfig);
         try {
             StubHttpServletRequest request = new StubHttpServletRequest(null);
             request.setMethod("HEAD");
@@ -99,37 +123,5 @@ public final class BitbucketWebhookServletTest implements ServletConfig
         } finally {
             servlet.destroy();
         }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String getServletName() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public ServletContext getServletContext() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String getInitParameter(final String name) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Enumeration<String> getInitParameterNames() {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 }
