@@ -78,9 +78,9 @@ public class WebhookServlet extends HttpServlet
     }
 
     /**
-     * Dispatches an activity.
+     * Dispatches an event.
      *
-     * @param jsonObject
+     * @param jsonObject event
      */
     protected final void dispatch(final JsonObject jsonObject) {
         if (jsonObject.containsKey(WebhookJsonKeys.PUSH)) {
