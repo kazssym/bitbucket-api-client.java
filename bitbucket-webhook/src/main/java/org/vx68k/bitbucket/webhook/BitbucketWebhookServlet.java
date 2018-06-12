@@ -44,7 +44,7 @@ public class BitbucketWebhookServlet extends HttpServlet
     /**
      * Event to fire.
      */
-    private final Event<RepositoryPush> repositoryPushEvent;
+    private final Event<BitbucketPush> repositoryPushEvent;
 
     /**
      * Constructs this servlet with an {@link Event} object.
@@ -52,7 +52,7 @@ public class BitbucketWebhookServlet extends HttpServlet
      * @param event {@link Event} object
      */
     @Inject
-    public BitbucketWebhookServlet(final Event<RepositoryPush> event)
+    public BitbucketWebhookServlet(final Event<BitbucketPush> event)
     {
         repositoryPushEvent = event;
     }
@@ -83,8 +83,8 @@ public class BitbucketWebhookServlet extends HttpServlet
      * @param jsonObject event
      */
     protected final void dispatch(final JsonObject jsonObject) {
-        if (jsonObject.containsKey(RepositoryPush.PUSH)) {
-            repositoryPushEvent.fire(new RepositoryPush(jsonObject));
+        if (jsonObject.containsKey(BitbucketPush.PUSH)) {
+            repositoryPushEvent.fire(new BitbucketPush(jsonObject));
         } else {
             log("Unhandled JSON: " + jsonObject.toString());
         }

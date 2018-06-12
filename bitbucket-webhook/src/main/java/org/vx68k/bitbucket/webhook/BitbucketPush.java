@@ -1,5 +1,5 @@
 /*
- * RepositoryPush.java - class RepositoryPush
+ * BitbucketPush.java - class BitbucketPush
  * Copyright (C) 2015-2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -28,12 +28,12 @@ import javax.json.JsonValue;
 import org.vx68k.bitbucket.api.client.Commit;
 
 /**
- * Represents a push to a Bitbucket repository.
+ * Represents a push activity on a Bitbucket repository.
  *
  * @author Kaz Nishimura
  * @since 5.0
  */
-public class RepositoryPush extends BitbucketActivity
+public class BitbucketPush extends BitbucketActivity
 {
     /**
      * Name of the {@code push} object in a JSON object.
@@ -69,7 +69,7 @@ public class RepositoryPush extends BitbucketActivity
      *
      * @param eventObject JSON event object
      */
-    public RepositoryPush(final JsonObject eventObject)
+    public BitbucketPush(final JsonObject eventObject)
     {
         super(eventObject);
     }
