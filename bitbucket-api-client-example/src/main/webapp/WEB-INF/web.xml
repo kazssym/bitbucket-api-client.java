@@ -20,34 +20,4 @@
     <welcome-file-list>
         <welcome-file>index.jsf</welcome-file>
     </welcome-file-list>
-    <security-constraint>
-        <display-name>Protected resources</display-name>
-        <web-resource-collection>
-            <web-resource-name>faces-sources</web-resource-name>
-            <description>JSF source files</description>
-            <url-pattern>*.xhtml</url-pattern>
-        </web-resource-collection>
-        <web-resource-collection>
-            <web-resource-name>faces-templates</web-resource-name>
-            <description>JSF templates</description>
-            <url-pattern>/templates/*</url-pattern>
-        </web-resource-collection>
-        <web-resource-collection>
-            <web-resource-name>faces-resources</web-resource-name>
-            <description>JSF resources</description>
-            <url-pattern>/resources/*</url-pattern>
-        </web-resource-collection>
-        <auth-constraint>
-            <description>Nobody has access to internal files.</description>
-            <role-name>nobody</role-name>
-        </auth-constraint>
-    </security-constraint>
-    <login-config>
-        <auth-method>BASIC</auth-method>
-        <realm-name>Nobody May Login</realm-name>
-    </login-config>
-    <security-role>
-        <description>Nobody.</description>
-        <role-name>nobody</role-name>
-    </security-role>
 </web-app>
