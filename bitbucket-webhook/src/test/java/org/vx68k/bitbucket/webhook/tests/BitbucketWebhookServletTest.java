@@ -1,5 +1,5 @@
 /*
- * WebhookServetTest.java - class WebhookServletTest
+ * BitbucketWebhookServletTest.java - class BitbucketWebhookServletTest
  * Copyright (C) 2015-2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -31,26 +31,26 @@ import javax.servlet.http.HttpServletResponse;
 import org.junit.Test;
 import org.vx68k.bitbucket.stub.StubHttpServletRequest;
 import org.vx68k.bitbucket.stub.StubHttpServletResponse;
-import org.vx68k.bitbucket.webhook.WebhookServlet;
+import org.vx68k.bitbucket.webhook.BitbucketWebhookServlet;
 
 /**
- * Unit tests for {@link WebhookServlet}.
+ * Unit tests for {@link BitbucketWebhookServlet}.
  *
  * @author Kaz Nishimura
  * @since 4.0
  */
-public final class WebhookServletTest implements ServletConfig
+public final class BitbucketWebhookServletTest implements ServletConfig
 {
     /**
-     * Tests {@link WebhookServlet#init init} and {@link
-     * WebhookServlet#destroy destroy}.
+     * Tests {@link BitbucketWebhookServlet#init init} and {@link
+     * BitbucketWebhookServlet#destroy destroy}.
      *
      * @throws ServletException if a servlet error occurred
      */
     @Test
     public void testLifecycle() throws ServletException
     {
-        WebhookServlet servlet = new WebhookServlet(null);
+        BitbucketWebhookServlet servlet = new BitbucketWebhookServlet(null);
         servlet.init(this);
         servlet.destroy();
     }
@@ -64,7 +64,7 @@ public final class WebhookServletTest implements ServletConfig
     @Test
     public void testGet() throws ServletException, IOException
     {
-        WebhookServlet servlet = new WebhookServlet(null);
+        BitbucketWebhookServlet servlet = new BitbucketWebhookServlet(null);
         servlet.init(this);
         try {
             StubHttpServletRequest request = new StubHttpServletRequest(null);
@@ -87,7 +87,7 @@ public final class WebhookServletTest implements ServletConfig
     @Test
     public void testHead() throws ServletException, IOException
     {
-        WebhookServlet servlet = new WebhookServlet(null);
+        BitbucketWebhookServlet servlet = new BitbucketWebhookServlet(null);
         servlet.init(this);
         try {
             StubHttpServletRequest request = new StubHttpServletRequest(null);

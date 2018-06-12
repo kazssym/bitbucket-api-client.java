@@ -1,5 +1,5 @@
 /*
- * WebhookServlet.java - class WebhookServlet
+ * BitbucketWebhookServlet.java - class BitbucketWebhookServlet
  * Copyright (C) 2015-2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -37,7 +37,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author Kaz Nishimura
  * @since 4.0
  */
-public class WebhookServlet extends HttpServlet
+public class BitbucketWebhookServlet extends HttpServlet
 {
     private static final long serialVersionUID = 1L;
 
@@ -52,7 +52,7 @@ public class WebhookServlet extends HttpServlet
      * @param event {@link Event} object
      */
     @Inject
-    public WebhookServlet(final Event<RepositoryPush> event)
+    public BitbucketWebhookServlet(final Event<RepositoryPush> event)
     {
         repositoryPushEvent = event;
     }
