@@ -23,23 +23,8 @@ package org.vx68k.bitbucket.webhook;
  * @author Kaz Nishimura
  * @since 4.0
  */
-public class WebhookJsonKeys {
-
-    /**
-     * JSON key for the <code>actor</code> object.
-     */
-    public static final String ACTOR = "actor";
-
-    /**
-     * JSON key for the <code>repository</code> object.
-     */
-    public static final String REPOSITORY = "repository";
-
-    /**
-     * JSON key for the <code>push</code> object.
-     */
-    public static final String PUSH = "push";
-
+public class WebhookJsonKeys
+{
     /**
      * JSON key for the <code>links</code> object.
      */
@@ -54,11 +39,6 @@ public class WebhookJsonKeys {
      * JSON key for the <code>new</code> object.
      */
     public static final String NEW = "new";
-
-    /**
-     * JSON key for the <code>changes</code> array.
-     */
-    public static final String CHANGES = "changes";
 
     /**
      * JSON key for the <code>commits</code> array.

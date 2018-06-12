@@ -83,7 +83,7 @@ public class BitbucketWebhookServlet extends HttpServlet
      * @param jsonObject event
      */
     protected final void dispatch(final JsonObject jsonObject) {
-        if (jsonObject.containsKey(WebhookJsonKeys.PUSH)) {
+        if (jsonObject.containsKey(RepositoryPush.PUSH)) {
             repositoryPushEvent.fire(new RepositoryPush(jsonObject));
         } else {
             log("Unhandled JSON: " + jsonObject.toString());
