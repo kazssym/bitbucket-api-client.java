@@ -96,21 +96,6 @@ public class RepositoryPush extends BitbucketActivity
         private final JsonObject jsonObject;
 
         /**
-         * Old state.
-         */
-        private WebhookBranch oldState;
-
-        /**
-         * New state.
-         */
-        private WebhookBranch newState;
-
-        /**
-         * Commits in this change.
-         */
-        private List<Commit> commits;
-
-        /**
          * Constructs this change with a JSON change object.
          *
          * @param changeObject JSON change object
@@ -118,11 +103,6 @@ public class RepositoryPush extends BitbucketActivity
         public Change(final JsonObject changeObject)
         {
             jsonObject = changeObject;
-            oldState = new WebhookBranch(changeObject.getJsonObject(
-                    WebhookJsonKeys.OLD));
-            newState = new WebhookBranch(changeObject.getJsonObject(
-                    WebhookJsonKeys.NEW));
-            // TODO: Parse commits.
         }
 
         /**
@@ -162,22 +142,44 @@ public class RepositoryPush extends BitbucketActivity
          *
          * @return {@code true} if forced
          */
-        public boolean isForced()
+        public final boolean isForced()
         {
             JsonObject changeObject = getJsonObject();
             return changeObject.getBoolean(WebhookJsonKeys.FORCED);
         }
 
-        public final WebhookBranch getOldState() {
-            return oldState;
+        /**
+         * Returns the old branch before this change.
+         *
+         * @return the old branch
+         */
+        public final WebhookBranch getOld()
+        {
+            JsonObject changeObject = getJsonObject();
+            return new WebhookBranch(
+                changeObject.getJsonObject(WebhookJsonKeys.OLD));
         }
 
-        public final WebhookBranch getNewState() {
-            return newState;
+        /**
+         * Returns the new branch after this change.
+         *
+         * @return the new branch
+         */
+        public final WebhookBranch getNew()
+        {
+            JsonObject changeObject = getJsonObject();
+            return new WebhookBranch(
+                changeObject.getJsonObject(WebhookJsonKeys.NEW));
         }
 
+        /**
+         * Returns the commits in this change.
+         *
+         * @return the commits
+         */
         public final List<Commit> getCommits() {
-            return commits;
+            // TODO: Parse commits.
+            return null;
         }
     }
 }
