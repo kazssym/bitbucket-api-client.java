@@ -20,6 +20,7 @@
 
 package org.vx68k.bitbucket.api.client;
 
+import java.util.Date;
 import java.util.Map;
 import java.util.UUID;
 import javax.json.JsonObject;
@@ -53,6 +54,21 @@ public class BitbucketClientUser extends BitbucketClientObject
      * Name of the {@code display_name} value in a JSON user object.
      */
     private static final String DISPLAY_NAME = "display_name";
+
+    /**
+     * Name of the {@code website} value in a JSON user object.
+     */
+    private static final String WEBSITE = "website";
+
+    /**
+     * Name of the {@code location} value in a JSON user object.
+     */
+    private static final String LOCATION = "location";
+
+    /**
+     * Name of the {@code created_on} value in a JSON user object.
+     */
+    private static final String CREATED_ON = "created_on";
 
     /**
      * Name of the {@code links} object in a JSON user object.
@@ -101,6 +117,41 @@ public class BitbucketClientUser extends BitbucketClientObject
     {
         JsonObject userObject = getJsonObject();
         return userObject.getString(DISPLAY_NAME, null);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final String getWebsite()
+    {
+        JsonObject userObject = getJsonObject();
+        return userObject.getString(WEBSITE, null);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final String getLocation()
+    {
+        JsonObject userObject = getJsonObject();
+        return userObject.getString(LOCATION, null);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final Date getCreated()
+    {
+        JsonObject userObject = getJsonObject();
+        Date created = null;
+        if (userObject.containsKey(CREATED_ON)) {
+            created =
+                ClientUtilities.parseDate(userObject.getString(CREATED_ON));
+        }
+        return created;
     }
 
     /**

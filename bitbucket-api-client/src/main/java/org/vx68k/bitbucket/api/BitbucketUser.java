@@ -20,6 +20,7 @@
 
 package org.vx68k.bitbucket.api;
 
+import java.util.Date;
 import java.util.Map;
 import java.util.UUID;
 
@@ -51,6 +52,27 @@ public interface BitbucketUser
      * @return the display name
      */
     String getDisplayName();
+
+    /**
+     * Returns the website of this user.
+     *
+     * @return the website
+     */
+    String getWebsite();
+
+    /**
+     * Returns the location of this user.
+     *
+     * @return the location
+     */
+    String getLocation();
+
+    /**
+     * Returns the created-on date of this user.
+     *
+     * @return the created-on date
+     */
+    Date getCreated();
 
     /**
      * Returns the links of this user.
