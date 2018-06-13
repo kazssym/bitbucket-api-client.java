@@ -66,7 +66,7 @@ public class BitbucketPush
     }
 
     /**
-     * Constructs this push description from a JSON event object.
+     * Constructs this push description from a JSON push object.
      *
      * @param pushObject JSON push object
      */
