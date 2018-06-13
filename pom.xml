@@ -28,7 +28,7 @@
     </developers>
     <modules>
         <module>bitbucket-api-client</module>
-        <module>client-oauth</module>
+        <module>bitbucket-api-oauth2</module>
         <module>bitbucket-webhook</module>
         <module>bitbucket-stubs</module>
         <module>bitbucket-api-client-example</module>
