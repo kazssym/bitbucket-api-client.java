@@ -20,6 +20,8 @@
 
 package org.vx68k.bitbucket.api;
 
+import java.util.UUID;
+
 /**
  * Unique user on Bitbucket Cloud.
  *
@@ -29,9 +31,23 @@ package org.vx68k.bitbucket.api;
 public interface BitbucketUser
 {
     /**
+     * Returns the UUID of this user.
+     * 
+     * @return the UUID
+     */
+    UUID getUUID();
+
+    /**
      * Returns the name of this user.
      *
      * @return the name
      */
     String getName();
+
+    /**
+     * Returns the display name of this user.
+     *
+     * @return the display name
+     */
+    String getDisplayName();
 }

@@ -20,6 +20,7 @@
 
 package org.vx68k.bitbucket.api.client;
 
+import java.util.UUID;
 import javax.json.JsonObject;
 import org.vx68k.bitbucket.api.BitbucketUser;
 
@@ -32,12 +33,32 @@ import org.vx68k.bitbucket.api.BitbucketUser;
 public class BitbucketClientUser implements BitbucketUser
 {
     /**
-     * JSON object given to the constructor.
+     * Type value for JSON user objects.
+     */
+    private static final String USER = "user";
+
+    /**
+     * Name of the {@code uuid} value in a JSON user object.
+     */
+    private static final String UUID = "uuid";
+
+    /**
+     * Name of the {@code username} value in a JSON user object.
+     */
+    private static final String USERNAME = "username";
+
+    /**
+     * Name of the {@code display_name} value in a JSON user object.
+     */
+    private static final String DISPLAY_NAME = "display_name";
+
+    /**
+     * JSON user object given to the constructor.
      */
     private final JsonObject jsonObject;
 
     /**
-     * Constructs this user with a JSON object.
+     * Constructs this user with a JSON user object.
      *
      * @param userObject JSON object that represents a Bitbucket user
      * @exception IllegalArgumentException if the given JSON object did not
@@ -45,17 +66,28 @@ public class BitbucketClientUser implements BitbucketUser
      */
     public BitbucketClientUser(final JsonObject userObject)
     {
+        if (!(userObject.containsKey("type") &&
+              userObject.getString("type").equals(USER))) {
+            throw new IllegalArgumentException("JSON object is not a user");
+        }
         jsonObject = userObject;
     }
 
     /**
-     * Returns the JSON object given to the constructor.
+     * Returns the JSON user object given to the constructor.
      *
-     * @return the JSON object
+     * @return the JSON user object
      */
     public final JsonObject getJsonObject()
     {
         return jsonObject;
+    }
+
+    @Override
+    public final UUID getUUID()
+    {
+        // @todo Implement this method.
+        return null;
     }
 
     /**
@@ -64,6 +96,17 @@ public class BitbucketClientUser implements BitbucketUser
     @Override
     public final String getName()
     {
-        return null;
+        JsonObject userObject = getJsonObject();
+        return userObject.getString(USERNAME, null);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final String getDisplayName()
+    {
+        JsonObject userObject = getJsonObject();
+        return userObject.getString(DISPLAY_NAME, null);
     }
 }
