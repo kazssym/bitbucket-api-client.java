@@ -1,5 +1,5 @@
 /*
- * BitbucketActivity.java - class BitbucketActivity
+ * BitbucketEvent.java - class BitbucketEvent
  * Copyright (C) 2015-2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -31,7 +31,7 @@ import org.vx68k.bitbucket.api.client.Repository;
  * @author Kaz Nishimura
  * @since 5.0
  */
-public class BitbucketActivity
+public class BitbucketEvent
 {
     /**
      * Name of the {@code actor} object in a JSON event object.
@@ -54,12 +54,12 @@ public class BitbucketActivity
     private final JsonObject jsonObject;
 
     /**
-     * Constructs this activity from a JSON event object.
+     * Constructs this event from a JSON event object.
      *
      * @param eventObject JSON event object
      * @exception IllegalArgumentException if the given object is {@code null}
      */
-    protected BitbucketActivity(final JsonObject eventObject)
+    protected BitbucketEvent(final JsonObject eventObject)
     {
         if (eventObject == null) {
             throw new IllegalArgumentException("JSON object is null");
@@ -78,7 +78,7 @@ public class BitbucketActivity
     }
 
     /**
-     * Returns the actor of this activity as a {@link BitbucketUser} object.
+     * Returns the actor of this event as a {@link BitbucketUser} object.
      *
      * @return the actor
      */
@@ -93,7 +93,7 @@ public class BitbucketActivity
     }
 
     /**
-     * Returns the repository of this activity.
+     * Returns the repository of this event.
      *
      * @return the repository
      */
@@ -108,7 +108,7 @@ public class BitbucketActivity
     }
 
     /**
-     * Returns the push description of this activity.
+     * Returns the push description of this event.
      *
      * @return the push description
      */
