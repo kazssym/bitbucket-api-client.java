@@ -20,10 +20,11 @@
 
 package org.vx68k.bitbucket.api;
 
+import java.util.Map;
 import java.util.UUID;
 
 /**
- * Unique user on Bitbucket Cloud.
+ * User or team on Bitbucket Cloud.
  *
  * @author Kaz Nishimura
  * @since 5.0
@@ -32,7 +33,7 @@ public interface BitbucketUser
 {
     /**
      * Returns the UUID of this user.
-     * 
+     *
      * @return the UUID
      */
     UUID getUUID();
@@ -50,4 +51,11 @@ public interface BitbucketUser
      * @return the display name
      */
     String getDisplayName();
+
+    /**
+     * Returns the links of this user.
+     *
+     * @return the links
+     */
+    Map<String, String> getLinks();
 }

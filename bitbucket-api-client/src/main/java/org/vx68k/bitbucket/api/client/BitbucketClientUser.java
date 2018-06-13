@@ -20,6 +20,7 @@
 
 package org.vx68k.bitbucket.api.client;
 
+import java.util.Map;
 import java.util.UUID;
 import javax.json.JsonObject;
 import org.vx68k.bitbucket.api.BitbucketUser;
@@ -52,6 +53,11 @@ public class BitbucketClientUser extends BitbucketClientObject
      * Name of the {@code display_name} value in a JSON user object.
      */
     private static final String DISPLAY_NAME = "display_name";
+
+    /**
+     * Name of the {@code links} object in a JSON user object.
+     */
+    private static final String LINKS = "links";
 
     /**
      * Constructs this user with a JSON user object.
@@ -93,5 +99,15 @@ public class BitbucketClientUser extends BitbucketClientObject
     {
         JsonObject userObject = getJsonObject();
         return userObject.getString(DISPLAY_NAME, null);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final Map<String, String> getLinks()
+    {
+        // @todo Implement this method.
+        return null;
     }
 }
