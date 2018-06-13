@@ -51,7 +51,7 @@ public class BitbucketUserTest {
     public void testDefaultUser() {
         BitbucketUser user = new BitbucketUser();
         assertNull(user.getName());
-        assertEquals("user", user.getEntityType());
+        assertEquals("user", user.getType());
         assertNull(user.getUuid());
         assertNull(user.getDisplayName());
         assertNull(user.getWebsite());

@@ -30,7 +30,8 @@ import org.vx68k.bitbucket.api.BitbucketUser;
  * @author Kaz Nishimura
  * @since 5.0
  */
-public class BitbucketClientUser implements BitbucketUser
+public class BitbucketClientUser extends BitbucketClientObject
+    implements BitbucketUser
 {
     /**
      * Type value for JSON user objects.
@@ -53,11 +54,6 @@ public class BitbucketClientUser implements BitbucketUser
     private static final String DISPLAY_NAME = "display_name";
 
     /**
-     * JSON user object given to the constructor.
-     */
-    private final JsonObject jsonObject;
-
-    /**
      * Constructs this user with a JSON user object.
      *
      * @param userObject JSON object that represents a Bitbucket user
@@ -66,21 +62,10 @@ public class BitbucketClientUser implements BitbucketUser
      */
     public BitbucketClientUser(final JsonObject userObject)
     {
-        if (!(userObject.containsKey("type") &&
-              userObject.getString("type").equals(USER))) {
+        super(userObject);
+        if (!getType().equals(USER)) {
             throw new IllegalArgumentException("JSON object is not a user");
         }
-        jsonObject = userObject;
-    }
-
-    /**
-     * Returns the JSON user object given to the constructor.
-     *
-     * @return the JSON user object
-     */
-    public final JsonObject getJsonObject()
-    {
-        return jsonObject;
     }
 
     @Override

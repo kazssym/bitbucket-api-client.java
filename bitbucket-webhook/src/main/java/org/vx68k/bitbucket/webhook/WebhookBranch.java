@@ -26,13 +26,13 @@ import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonValue;
 import org.vx68k.bitbucket.api.client.Commit;
-import org.vx68k.bitbucket.api.client.BitbucketEntity;
+import org.vx68k.bitbucket.api.client.BitbucketClientObject;
 
 /**
  * Branch, named branch, or bookmark on a Bitbucket repository.
  * @author Kaz Nishimura
  */
-public class WebhookBranch extends BitbucketEntity {
+public class WebhookBranch extends BitbucketClientObject {
 
     private static final String BRANCH = "branch";
     private static final String NAMED_BRANCH = "named_branch";
@@ -46,7 +46,7 @@ public class WebhookBranch extends BitbucketEntity {
 
     public WebhookBranch(final JsonObject jsonObject) {
         super(jsonObject);
-        String entityType = getEntityType();
+        String entityType = getType();
         if (!(entityType.equals(BRANCH) || entityType.equals(NAMED_BRANCH)
                 || entityType.equals(BOOKMARK))) {
             throw new IllegalArgumentException(

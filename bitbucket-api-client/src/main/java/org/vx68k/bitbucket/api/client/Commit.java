@@ -26,7 +26,7 @@ import javax.json.JsonObject;
  * @author Kaz Nishimura
  * @since 3.0
  */
-public class Commit extends BitbucketEntity {
+public class Commit extends BitbucketClientObject {
 
     /**
      * Type value for commits.
@@ -47,7 +47,7 @@ public class Commit extends BitbucketEntity {
      */
     public Commit(final JsonObject jsonObject) {
         super(jsonObject);
-        if (!getEntityType().equals(COMMIT_TYPE)) {
+        if (!getType().equals(COMMIT_TYPE)) {
             throw new IllegalArgumentException("Not user");
         }
         ClientUtilities.getLogger().log(
