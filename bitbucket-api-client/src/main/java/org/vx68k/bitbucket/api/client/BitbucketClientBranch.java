@@ -25,6 +25,7 @@ import java.util.logging.Logger;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonValue;
+import org.vx68k.bitbucket.api.BitbucketBranch;
 
 /**
  * Branch, named branch, or bookmark represented by a JSON object.
@@ -32,8 +33,9 @@ import javax.json.JsonValue;
  * @author Kaz Nishimura
  * @since 5.0
  */
-public class BitbucketClientBranch extends BitbucketClientObject {
-
+public class BitbucketClientBranch extends BitbucketClientObject
+    implements BitbucketBranch
+{
     private static final String BRANCH = "branch";
     private static final String NAMED_BRANCH = "named_branch";
     private static final String BOOKMARK = "bookmark";
