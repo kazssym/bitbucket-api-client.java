@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.vx68k.bitbucket.webhook;
+package org.vx68k.bitbucket.api.client;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,12 +25,12 @@ import java.util.logging.Logger;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonValue;
-import org.vx68k.bitbucket.api.client.Commit;
-import org.vx68k.bitbucket.api.client.BitbucketClientObject;
 
 /**
- * Branch, named branch, or bookmark on a Bitbucket repository.
+ * Branch, named branch, or bookmark represented by a JSON object.
+ *
  * @author Kaz Nishimura
+ * @since 5.0
  */
 public class BitbucketClientBranch extends BitbucketClientObject {
 
@@ -56,8 +56,8 @@ public class BitbucketClientBranch extends BitbucketClientObject {
         logger.log(
                 Level.FINE, "Parsing JSON object (\"{0}\"): {1}",
                 new Object[] {entityType, jsonObject});
-        name = jsonObject.getString(WebhookJsonKeys.NAME);
-        heads = parseCommits(jsonObject.getJsonArray(WebhookJsonKeys.HEADS));
+        name = jsonObject.getString("name");
+        heads = parseCommits(jsonObject.getJsonArray("heads"));
     }
 
     public String getName() {
