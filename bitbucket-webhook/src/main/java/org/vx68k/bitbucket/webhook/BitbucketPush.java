@@ -36,7 +36,7 @@ import org.vx68k.bitbucket.api.client.Commit;
 public class BitbucketPush
 {
     /**
-     * Name of the {@code changes} array in a {@code} object.
+     * Name of the {@code changes} array in a JSON push object.
      */
     public static final String CHANGES = "changes";
 
@@ -99,10 +99,40 @@ public class BitbucketPush
     }
 
     /**
-     * Change in a Bitbucket repository.
+     * Change in a push description.
      */
     public static class Change
     {
+        /**
+         * Name of the {@code created} value in a JSON change object.
+         */
+        public static final String CREATED = "created";
+
+        /**
+         * Name of the {@code closed} value in a JSON change object.
+         */
+        public static final String CLOSED = "closed";
+
+        /**
+         * Name of the {@code forced} value in a JSON change object.
+         */
+        public static final String FORCED = "forced";
+
+        /**
+         * Name of the {@code old} object in a JSON change object.
+         */
+        public static final String OLD = "old";
+
+        /**
+         * Name of the {@code new} object in a JSON change object.
+         */
+        public static final String NEW = "new";
+
+        /**
+         * Name of the {@code commits} array in a JSON change object.
+         */
+        public static final String COMMITS = "commits";
+
         /**
          * JSON change object given to the constructor.
          */
@@ -136,7 +166,7 @@ public class BitbucketPush
         public final boolean isCreated()
         {
             JsonObject changeObject = getJsonObject();
-            return changeObject.getBoolean(WebhookJsonKeys.CREATED);
+            return changeObject.getBoolean(CREATED, false);
         }
 
         /**
@@ -147,7 +177,7 @@ public class BitbucketPush
         public final boolean isClosed()
         {
             JsonObject changeObject = getJsonObject();
-            return changeObject.getBoolean(WebhookJsonKeys.CLOSED);
+            return changeObject.getBoolean(CLOSED, false);
         }
 
         /**
@@ -158,7 +188,7 @@ public class BitbucketPush
         public final boolean isForced()
         {
             JsonObject changeObject = getJsonObject();
-            return changeObject.getBoolean(WebhookJsonKeys.FORCED);
+            return changeObject.getBoolean(FORCED, false);
         }
 
         /**
@@ -170,7 +200,7 @@ public class BitbucketPush
         {
             JsonObject changeObject = getJsonObject();
             return new WebhookBranch(
-                changeObject.getJsonObject(WebhookJsonKeys.OLD));
+                changeObject.getJsonObject(OLD));
         }
 
         /**
@@ -182,7 +212,7 @@ public class BitbucketPush
         {
             JsonObject changeObject = getJsonObject();
             return new WebhookBranch(
-                changeObject.getJsonObject(WebhookJsonKeys.NEW));
+                changeObject.getJsonObject(NEW));
         }
 
         /**
