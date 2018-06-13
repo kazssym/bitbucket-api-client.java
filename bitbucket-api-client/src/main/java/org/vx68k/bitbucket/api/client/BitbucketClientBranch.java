@@ -79,8 +79,8 @@ public class BitbucketClientBranch extends BitbucketClientObject
         super(branchObject);
 
         String type = getType();
-        if (!(type.equals(BRANCH) || type.equals(NAMED_BRANCH) ||
-              type.equals(BOOKMARK))) {
+        if (type == null || !(type.equals(BRANCH) || type.equals(NAMED_BRANCH)
+                              || type.equals(BOOKMARK))) {
             throw new IllegalArgumentException("JSON object is not branch");
         }
     }

@@ -69,7 +69,9 @@ public class BitbucketClientUser extends BitbucketClientObject
     public BitbucketClientUser(final JsonObject userObject)
     {
         super(userObject);
-        if (!getType().equals(USER)) {
+
+        String type = getType();
+        if (type == null || !getType().equals(USER)) {
             throw new IllegalArgumentException("JSON object is not user");
         }
     }

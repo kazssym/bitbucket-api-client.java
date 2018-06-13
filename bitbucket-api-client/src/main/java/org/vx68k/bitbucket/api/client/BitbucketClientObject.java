@@ -24,7 +24,7 @@ import javax.json.Json;
 import javax.json.JsonObject;
 
 /**
- * Superclass of typed objects represented by a JSON object.
+ * Superclass of objects represented by a JSON object.
  *
  * @author Kaz Nishimura
  * @since 5.0
@@ -58,15 +58,11 @@ public abstract class BitbucketClientObject
      *
      * @param object JSON object
      * @exception IllegalArgumentException if the JSON object is {@code null}
-     * or has no type
      */
     protected BitbucketClientObject(final JsonObject object)
     {
         if (object == null) {
             throw new IllegalArgumentException("JSON object is null");
-        }
-        if (object.getString(TYPE, null) == null) {
-            throw new IllegalArgumentException("JSON object has no type");
         }
         jsonObject = object;
     }
@@ -82,14 +78,14 @@ public abstract class BitbucketClientObject
     }
 
     /**
-     * Returns the type of this object.
+     * Returns the type name of this object.
      *
-     * @return the type
+     * @return the type name, or {@code null} if this object has no type
      */
     public String getType()
     {
         JsonObject object = getJsonObject();
-        return object.getString("type");
+        return object.getString(TYPE, null);
     }
 
     /**
