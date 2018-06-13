@@ -38,7 +38,7 @@ public class BitbucketPush
     /**
      * Name of the {@code changes} array in a JSON push object.
      */
-    public static final String CHANGES = "changes";
+    private static final String CHANGES = "changes";
 
     /**
      * JSON push object given to the constructor.
@@ -106,32 +106,32 @@ public class BitbucketPush
         /**
          * Name of the {@code created} value in a JSON change object.
          */
-        public static final String CREATED = "created";
+        private static final String CREATED = "created";
 
         /**
          * Name of the {@code closed} value in a JSON change object.
          */
-        public static final String CLOSED = "closed";
+        private static final String CLOSED = "closed";
 
         /**
          * Name of the {@code forced} value in a JSON change object.
          */
-        public static final String FORCED = "forced";
+        private static final String FORCED = "forced";
 
         /**
          * Name of the {@code old} object in a JSON change object.
          */
-        public static final String OLD = "old";
+        private static final String OLD = "old";
 
         /**
          * Name of the {@code new} object in a JSON change object.
          */
-        public static final String NEW = "new";
+        private static final String NEW = "new";
 
         /**
          * Name of the {@code commits} array in a JSON change object.
          */
-        public static final String COMMITS = "commits";
+        private static final String COMMITS = "commits";
 
         /**
          * JSON change object given to the constructor.
