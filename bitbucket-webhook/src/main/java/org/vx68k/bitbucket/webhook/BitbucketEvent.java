@@ -22,6 +22,7 @@ package org.vx68k.bitbucket.webhook;
 
 import javax.json.JsonObject;
 import org.vx68k.bitbucket.api.BitbucketUser;
+import org.vx68k.bitbucket.api.client.BitbucketClientObject;
 import org.vx68k.bitbucket.api.client.BitbucketClientUser;
 import org.vx68k.bitbucket.api.client.Repository;
 
@@ -31,27 +32,22 @@ import org.vx68k.bitbucket.api.client.Repository;
  * @author Kaz Nishimura
  * @since 5.0
  */
-public class BitbucketEvent
+public class BitbucketEvent extends BitbucketClientObject
 {
     /**
-     * Name of the {@code actor} object in a JSON event object.
+     * Name for the {@code actor} object in a JSON event object.
      */
-    public static final String ACTOR = "actor";
+    private static final String ACTOR = "actor";
 
     /**
-     * Name of the {@code repository} object in a JSON event object.
+     * Name for the {@code repository} object in a JSON event object.
      */
-    public static final String REPOSITORY = "repository";
+    private static final String REPOSITORY = "repository";
 
     /**
-     * Name of the {@code push} object in a JSON event object.
+     * Name for the {@code push} object in a JSON event object.
      */
-    public static final String PUSH = "push";
-
-    /**
-     * JSON event object given to the constructor.
-     */
-    private final JsonObject jsonObject;
+    private static final String PUSH = "push";
 
     /**
      * Constructs this event from a JSON event object.
@@ -59,22 +55,9 @@ public class BitbucketEvent
      * @param eventObject JSON event object
      * @exception IllegalArgumentException if the given object is {@code null}
      */
-    protected BitbucketEvent(final JsonObject eventObject)
+    public BitbucketEvent(final JsonObject eventObject)
     {
-        if (eventObject == null) {
-            throw new IllegalArgumentException("JSON object is null");
-        }
-        jsonObject = eventObject;
-    }
-
-    /**
-     * Returns the JSON event object given to the constructor.
-     *
-     * @return the JSON event object
-     */
-    public final JsonObject getJsonObject()
-    {
-        return jsonObject;
+        super(eventObject);
     }
 
     /**
