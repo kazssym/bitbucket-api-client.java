@@ -25,7 +25,7 @@ import javax.json.JsonObject;
 import org.vx68k.bitbucket.api.BitbucketUser;
 
 /**
- * Bitbucket user represented by a JSON object.
+ * User or team represented by a JSON object.
  *
  * @author Kaz Nishimura
  * @since 5.0
