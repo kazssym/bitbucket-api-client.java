@@ -28,4 +28,10 @@ package org.vx68k.bitbucket.api;
  */
 public interface BitbucketBranch
 {
+    /**
+     * Returns the name of this branch.
+     *
+     * @return the name
+     */
+    String getName();
 }

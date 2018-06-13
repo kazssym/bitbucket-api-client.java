@@ -22,8 +22,6 @@ package org.vx68k.bitbucket.api.client;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonValue;
@@ -61,9 +59,12 @@ public class BitbucketClientBranch extends BitbucketClientObject
      */
     protected static List<Commit> parseCommits(final JsonArray commitsArray)
     {
-        List<Commit> commits = new ArrayList();
-        for (JsonValue value : commitsArray) {
-            commits.add(new Commit((JsonObject) value));
+        List<Commit> commits = null;
+        if (commitsArray != null) {
+            commits = new ArrayList<>();
+            for (JsonValue value : commitsArray) {
+                commits.add(new Commit((JsonObject) value));
+            }
         }
         return commits;
     }
@@ -85,10 +86,9 @@ public class BitbucketClientBranch extends BitbucketClientObject
     }
 
     /**
-     * Returns the name of this branch.
-     *
-     * @return the name
+     * {@inheritDoc}
      */
+    @Override
     public final String getName()
     {
         JsonObject branchObject = getJsonObject();
@@ -100,9 +100,13 @@ public class BitbucketClientBranch extends BitbucketClientObject
      *
      * @return the heads
      */
-    public List<Commit> getHeads()
+    public final List<Commit> getHeads()
     {
         JsonObject branchObject = getJsonObject();
-        return parseCommits(branchObject.getJsonArray("heads"));
+        List<Commit> heads = null;
+        if (branchObject.containsKey("heads")) {
+            heads = parseCommits(branchObject.getJsonArray("heads"));
+        }
+        return heads;
     }
 }
