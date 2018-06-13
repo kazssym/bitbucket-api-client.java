@@ -26,8 +26,8 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
+import org.vx68k.bitbucket.api.BitbucketUser;
 import org.vx68k.bitbucket.api.client.Service;
-import org.vx68k.bitbucket.api.client.BitbucketUser;
 import org.vx68k.bitbucket.api.client.oauth.OAuthClient;
 import org.vx68k.bitbucket.api.client.oauth.OAuthUser;
 
