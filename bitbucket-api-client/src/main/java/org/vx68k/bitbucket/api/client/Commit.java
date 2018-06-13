@@ -38,7 +38,7 @@ public class Commit extends BitbucketClientObject {
      */
     public Commit() {
         super(COMMIT_TYPE);
-        ClientUtilities.getLogger().finer("Creating a blank Commit");
+        BitbucketClientUtilities.getLogger().finer("Creating a blank Commit");
     }
 
     /**
@@ -50,7 +50,7 @@ public class Commit extends BitbucketClientObject {
         if (!getType().equals(COMMIT_TYPE)) {
             throw new IllegalArgumentException("Not user");
         }
-        ClientUtilities.getLogger().log(
+        BitbucketClientUtilities.getLogger().log(
                 Level.INFO,
                 "Parsing JSON object (\"" + COMMIT_TYPE + "\"): {0}",
                 jsonObject);

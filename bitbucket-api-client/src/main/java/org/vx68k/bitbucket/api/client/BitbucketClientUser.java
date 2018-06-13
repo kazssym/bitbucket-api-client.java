@@ -148,8 +148,8 @@ public class BitbucketClientUser extends BitbucketClientObject
         JsonObject userObject = getJsonObject();
         Date created = null;
         if (userObject.containsKey(CREATED_ON)) {
-            created =
-                ClientUtilities.parseDate(userObject.getString(CREATED_ON));
+            created = BitbucketClientUtilities.parseDate(
+                userObject.getString(CREATED_ON));
         }
         return created;
     }

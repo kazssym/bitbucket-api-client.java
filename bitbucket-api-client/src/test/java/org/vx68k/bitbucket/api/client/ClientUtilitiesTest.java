@@ -27,7 +27,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Collection of unit tests for {@link ClientUtilities}.
+ * Collection of unit tests for {@link BitbucketClientUtilities}.
  *
  * @author Kaz Nishimura
  * @since 1.0
@@ -49,10 +49,10 @@ public class ClientUtilitiesTest {
 
     @Test
     public void testParseURL() throws MalformedURLException {
-        URL url1 = ClientUtilities.parseURL(null);
+        URL url1 = BitbucketClientUtilities.parseURL(null);
         assertNull(url1);
 
-        URL url2 = ClientUtilities.parseURL("https://api.bitbucket.org/");
+        URL url2 = BitbucketClientUtilities.parseURL("https://api.bitbucket.org/");
         assertNotNull(url2);
     }
 

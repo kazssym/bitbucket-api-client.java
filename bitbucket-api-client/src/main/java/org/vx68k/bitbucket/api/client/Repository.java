@@ -52,7 +52,7 @@ public class Repository extends BitbucketClientObject {
      */
     public Repository() {
         super(REPOSITORY_TYPE);
-        ClientUtilities.getLogger().finer("Creating a blank Repository");
+        BitbucketClientUtilities.getLogger().finer("Creating a blank Repository");
     }
 
     public Repository(final JsonObject jsonObject) {
@@ -61,11 +61,11 @@ public class Repository extends BitbucketClientObject {
             throw new IllegalArgumentException(
                     "Type is not \"" + REPOSITORY_TYPE + "\"");
         }
-        ClientUtilities.getLogger().log(
+        BitbucketClientUtilities.getLogger().log(
                 Level.INFO,
                 "Parsing JSON object (\"" + REPOSITORY_TYPE + "\"): {0}",
                 jsonObject);
-        uuid = ClientUtilities.parseUUID(jsonObject.getString(
+        uuid = BitbucketClientUtilities.parseUUID(jsonObject.getString(
                 ClientJsonKeys.UUID));
         owner = new BitbucketClientUser(jsonObject.getJsonObject(
                 ClientJsonKeys.OWNER));
@@ -73,7 +73,7 @@ public class Repository extends BitbucketClientObject {
         fullName = jsonObject.getString(ClientJsonKeys.FULL_NAME);
         scm = jsonObject.getString(ClientJsonKeys.SCM);
         Private = jsonObject.getBoolean(ClientJsonKeys.IS_PRIVATE);
-        links = ClientUtilities.parseLinks(jsonObject.getJsonObject(
+        links = BitbucketClientUtilities.parseLinks(jsonObject.getJsonObject(
                 ClientJsonKeys.LINKS));
     }
 

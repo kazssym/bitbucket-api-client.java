@@ -1,10 +1,10 @@
 /*
- * ClientUtilities
- * Copyright (C) 2015 Nishimura Software Studio
+ * BitbucketClientUtilities.java - class BitbucketClientUtilities
+ * Copyright (C) 2015-2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Affero General Public License as published by the
- * Free Software Foundation, either version 3 of the License, or (at your
+ * under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or (at your
  * option) any later version.
  *
  * This program is distributed in the hope that it will be useful, but WITHOUT
@@ -14,6 +14,8 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
 package org.vx68k.bitbucket.api.client;
@@ -34,13 +36,14 @@ import javax.json.JsonValue;
 
 /**
  * Collection of static utility methods.
+ *
  * @author Kaz Nishimura
- * @since 4.0
+ * @since 5.0
  */
-public class ClientUtilities {
-
+public class BitbucketClientUtilities
+{
     private static final String PACKAGE_NAME =
-            ClientUtilities.class.getPackage().getName();
+            BitbucketClientUtilities.class.getPackage().getName();
 
     private static final DateFormat DATE_FORMAT = new SimpleDateFormat(
             "yyyy-MM-dd'T'HH:mm:ssXXX");
@@ -48,7 +51,11 @@ public class ClientUtilities {
     private static final DateFormat FINE_DATE_FORMAT = new SimpleDateFormat(
             "yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
 
-    protected ClientUtilities() {
+    /**
+     * Does nothing but denies direct instantiation.
+     */
+    protected BitbucketClientUtilities()
+    {
     }
 
     /**
@@ -63,13 +70,15 @@ public class ClientUtilities {
     /**
      * Parses a string into a UUID.
      * The string representation of a UUID may be enclosed in braces.
+     *
      * @param string string that represents a UUID
      * @return {@link UUID} object, or <code>null</code> if the string is
      * <code>null</code>
      * @throws IllegalArgumentException if the string could not parsed as a
      * UUID.
      */
-    public static UUID parseUUID(final String string) {
+    public static UUID parseUUID(final String string)
+    {
         if (string == null) {
             return null;
         }
@@ -83,13 +92,15 @@ public class ClientUtilities {
 
     /**
      * Parses a string into a date.
+     *
      * @param date string that represents an ISO 8601 date and time
      * @return parsed date, or <code>null</code> if the argument is
      * <code>null</code>
      * @throws IllegalArgumentException if the string could not be parsed as a
      * date
      */
-    public static Date parseDate(final String date) {
+    public static Date parseDate(final String date)
+    {
         if (date == null) {
             return null;
         }
@@ -128,7 +139,8 @@ public class ClientUtilities {
      * @param jsonObject JSON object
      * @return map of links
      */
-    public static Map<String, URL> parseLinks(final JsonObject jsonObject) {
+    public static Map<String, URL> parseLinks(final JsonObject jsonObject)
+    {
         Map<String, URL> links = new HashMap<String, URL>();
         for (Map.Entry<String, JsonValue> entry : jsonObject.entrySet()) {
             try {
@@ -151,7 +163,8 @@ public class ClientUtilities {
      * be parsed as a URL.
      */
     protected static URL parseLink(final JsonObject jsonObject)
-            throws MalformedURLException {
+            throws MalformedURLException
+    {
         return parseURL(jsonObject.getString(ClientJsonKeys.HREF));
     }
 
