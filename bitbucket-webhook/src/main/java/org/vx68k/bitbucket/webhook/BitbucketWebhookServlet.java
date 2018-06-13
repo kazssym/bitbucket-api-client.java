@@ -69,8 +69,12 @@ public class BitbucketWebhookServlet extends HttpServlet
             JsonObject object = reader.readObject();
             dispatch(object);
             log("POST " + object.toString());
-        } catch (JsonParsingException t) {
-            log("JSON parsing error", t);
+        }
+        catch (JsonParsingException exception) {
+            log("JSON parsing error", exception);
+        }
+        finally {
+            reader.close();
         }
         // TODO: Use HttpServletResponse.SC_OK instead.
         response.setStatus(HttpServletResponse.SC_NO_CONTENT);
