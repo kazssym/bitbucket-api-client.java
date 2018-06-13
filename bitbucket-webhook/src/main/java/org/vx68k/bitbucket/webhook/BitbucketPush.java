@@ -196,10 +196,10 @@ public class BitbucketPush
          *
          * @return the old branch
          */
-        public final WebhookBranch getOld()
+        public final BitbucketClientBranch getOld()
         {
             JsonObject changeObject = getJsonObject();
-            return new WebhookBranch(
+            return new BitbucketClientBranch(
                 changeObject.getJsonObject(OLD));
         }
 
@@ -208,10 +208,10 @@ public class BitbucketPush
          *
          * @return the new branch
          */
-        public final WebhookBranch getNew()
+        public final BitbucketClientBranch getNew()
         {
             JsonObject changeObject = getJsonObject();
-            return new WebhookBranch(
+            return new BitbucketClientBranch(
                 changeObject.getJsonObject(NEW));
         }
 

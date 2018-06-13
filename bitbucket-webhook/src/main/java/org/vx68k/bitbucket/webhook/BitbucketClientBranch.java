@@ -1,5 +1,5 @@
 /*
- * WebhookBranch
+ * BitbucketClientBranch
  * Copyright (C) 2015 Nishimura Software Studio
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -32,19 +32,19 @@ import org.vx68k.bitbucket.api.client.BitbucketClientObject;
  * Branch, named branch, or bookmark on a Bitbucket repository.
  * @author Kaz Nishimura
  */
-public class WebhookBranch extends BitbucketClientObject {
+public class BitbucketClientBranch extends BitbucketClientObject {
 
     private static final String BRANCH = "branch";
     private static final String NAMED_BRANCH = "named_branch";
     private static final String BOOKMARK = "bookmark";
 
-    private static final Logger logger = Logger.getLogger(
-            WebhookBranch.class.getPackage().getName());
+    private static final Logger logger =
+        Logger.getLogger(BitbucketClientBranch.class.getPackage().getName());
 
     private String name;
     private List<Commit> heads;
 
-    public WebhookBranch(final JsonObject jsonObject) {
+    public BitbucketClientBranch(final JsonObject jsonObject) {
         super(jsonObject);
         String entityType = getType();
         if (!(entityType.equals(BRANCH) || entityType.equals(NAMED_BRANCH)
