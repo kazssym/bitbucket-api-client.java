@@ -31,6 +31,7 @@ import com.google.api.client.http.HttpRequestFactory;
 import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
+import org.vx68k.bitbucket.api.BitbucketUser;
 
 /**
  * Bitbucket REST API client.
@@ -198,7 +199,7 @@ public class Client implements Serializable {
         protected BitbucketUser getUser(final HttpResponse response)
                 throws IOException {
             JsonReader reader = Json.createReader(response.getContent());
-            return new BitbucketUser(reader.readObject());
+            return new BitbucketClientUser(reader.readObject());
         }
 
         @Override

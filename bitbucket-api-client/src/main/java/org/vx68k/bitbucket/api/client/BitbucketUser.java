@@ -30,7 +30,9 @@ import javax.json.JsonObject;
  * Bitbucket user.
  * @author Kaz Nishimura
  * @since 1.0
+ * @deprecated To be replaced by {@link BitbucketClientUser}.
  */
+@Deprecated
 public class BitbucketUser extends BitbucketClientObject {
 
     /**

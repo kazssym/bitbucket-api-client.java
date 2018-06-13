@@ -21,6 +21,7 @@ package org.vx68k.bitbucket.api.client;
 import java.io.IOException;
 import java.net.URI;
 import java.util.UUID;
+import org.vx68k.bitbucket.api.BitbucketUser;
 
 /**
  * Abstract Bitbucket API service.

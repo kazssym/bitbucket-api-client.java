@@ -23,6 +23,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.logging.Level;
 import javax.json.JsonObject;
+import org.vx68k.bitbucket.api.BitbucketUser;
 
 /**
  * Bitbucket repository.
@@ -66,7 +67,7 @@ public class Repository extends BitbucketClientObject {
                 jsonObject);
         uuid = ClientUtilities.parseUUID(jsonObject.getString(
                 ClientJsonKeys.UUID));
-        owner = new BitbucketUser(jsonObject.getJsonObject(
+        owner = new BitbucketClientUser(jsonObject.getJsonObject(
                 ClientJsonKeys.OWNER));
         name = jsonObject.getString(ClientJsonKeys.NAME);
         fullName = jsonObject.getString(ClientJsonKeys.FULL_NAME);

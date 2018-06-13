@@ -23,6 +23,7 @@ import com.google.api.client.http.HttpResponseException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.vx68k.bitbucket.api.BitbucketUser;
 import static org.junit.Assert.*;
 
 /**

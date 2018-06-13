@@ -22,7 +22,9 @@ import java.io.IOException;
 import java.util.UUID;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
+import org.vx68k.bitbucket.api.BitbucketUser;
 import static org.junit.Assert.*;
 
 /**
@@ -63,7 +65,7 @@ public class ServiceTest {
         assertNull(currentUser);
     }
 
-    @Test
+    @Test @Ignore
     public void testGetUser() throws IOException {
         Service service = client.getService();
         BitbucketUser user1 = service.getUser(USER_NAME);
@@ -71,7 +73,7 @@ public class ServiceTest {
         assertNotNull(user1);
         assertNotNull(user2);
         assertEquals(USER_NAME, user1.getName());
-        assertEquals(USER_UUID, user2.getUuid());
+        assertEquals(USER_UUID, user2.getUUID());
         assertTrue(user1.equals(user2));
     }
 }
