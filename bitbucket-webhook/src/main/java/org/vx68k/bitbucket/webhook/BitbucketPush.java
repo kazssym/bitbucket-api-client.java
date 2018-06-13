@@ -28,22 +28,22 @@ import javax.json.JsonValue;
 import org.vx68k.bitbucket.api.client.Commit;
 
 /**
- * Represents a push activity on a Bitbucket repository.
+ * Push description of a Bitbucket activity.
  *
  * @author Kaz Nishimura
  * @since 5.0
  */
-public class BitbucketPush extends BitbucketActivity
+public class BitbucketPush
 {
-    /**
-     * Name of the {@code push} object in a JSON object.
-     */
-    public static final String PUSH = "push";
-
     /**
      * Name of the {@code changes} array in a {@code} object.
      */
     public static final String CHANGES = "changes";
+
+    /**
+     * JSON push object given to the constructor.
+     */
+    private final JsonObject jsonObject;
 
     /**
      * Parses a JSON array to a list of changes.
@@ -65,13 +65,26 @@ public class BitbucketPush extends BitbucketActivity
     }
 
     /**
-     * Constructs this object from a JSON event object.
+     * Constructs this push description from a JSON event object.
      *
-     * @param eventObject JSON event object
+     * @param pushObject JSON push object
      */
-    public BitbucketPush(final JsonObject eventObject)
+    public BitbucketPush(final JsonObject pushObject)
     {
-        super(eventObject);
+        if (pushObject == null) {
+            throw new IllegalArgumentException("JSON object is null");
+        }
+        jsonObject = pushObject;
+    }
+
+    /**
+     * Returns the JSON push object given to the constructor.
+     *
+     * @return the JSON push object
+     */
+    public final JsonObject getJsonObject()
+    {
+        return jsonObject;
     }
 
     /**
@@ -81,8 +94,8 @@ public class BitbucketPush extends BitbucketActivity
      */
     public final List<Change> getChanges()
     {
-        JsonObject push = getJsonObject().getJsonObject(PUSH);
-        return parseChanges(push.getJsonArray(CHANGES));
+        JsonObject pushObject = getJsonObject();
+        return parseChanges(pushObject.getJsonArray(CHANGES));
     }
 
     /**

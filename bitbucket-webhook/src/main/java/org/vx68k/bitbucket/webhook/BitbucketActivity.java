@@ -31,20 +31,25 @@ import org.vx68k.bitbucket.api.client.Repository;
  * @author Kaz Nishimura
  * @since 5.0
  */
-public abstract class BitbucketActivity
+public class BitbucketActivity
 {
     /**
-     * Name of the {@code actor} object in a JSON object.
+     * Name of the {@code actor} object in a JSON event object.
      */
     public static final String ACTOR = "actor";
 
     /**
-     * Name of the {@code repository} object in a JSON object.
+     * Name of the {@code repository} object in a JSON event object.
      */
     public static final String REPOSITORY = "repository";
 
     /**
-     * JSON object given to the constructor.
+     * Name of the {@code push} object in a JSON event object.
+     */
+    public static final String PUSH = "push";
+
+    /**
+     * JSON event object given to the constructor.
      */
     private final JsonObject jsonObject;
 
@@ -52,13 +57,12 @@ public abstract class BitbucketActivity
      * Constructs this activity from a JSON event object.
      *
      * @param eventObject JSON event object
-     * @exception IllegalArgumentException if the given JSON object is {@code
-     * null}
+     * @exception IllegalArgumentException if the given object is {@code null}
      */
     protected BitbucketActivity(final JsonObject eventObject)
     {
         if (eventObject == null) {
-            throw new IllegalArgumentException("JsonObject is null");
+            throw new IllegalArgumentException("JSON object is null");
         }
         jsonObject = eventObject;
     }
@@ -81,17 +85,40 @@ public abstract class BitbucketActivity
     public final BitbucketUser getActor()
     {
         JsonObject eventObject = getJsonObject();
-        return new BitbucketClientUser(eventObject.getJsonObject(ACTOR));
+        BitbucketUser actor = null;
+        if (eventObject.containsKey(ACTOR)) {
+            actor = new BitbucketClientUser(eventObject.getJsonObject(ACTOR));
+        }
+        return actor;
     }
 
     /**
-     * Returns the repository of this object.
+     * Returns the repository of this activity.
      *
      * @return the repository
      */
     public final Repository getRepository()
     {
         JsonObject eventObject = getJsonObject();
-        return new Repository(eventObject.getJsonObject(REPOSITORY));
+        Repository repository = null;
+        if (eventObject.containsKey(REPOSITORY)) {
+            repository = new Repository(eventObject.getJsonObject(REPOSITORY));
+        }
+        return repository;
+    }
+
+    /**
+     * Returns the push description of this activity.
+     *
+     * @return the push description
+     */
+    public final BitbucketPush getPush()
+    {
+        JsonObject eventObject = getJsonObject();
+        BitbucketPush push = null;
+        if (eventObject.containsKey(PUSH)) {
+            push = new BitbucketPush(eventObject.getJsonObject(PUSH));
+        }
+        return push;
     }
 }

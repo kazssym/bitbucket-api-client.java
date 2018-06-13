@@ -44,7 +44,7 @@ public class BitbucketWebhookServlet extends HttpServlet
     /**
      * Event to fire.
      */
-    private final Event<BitbucketPush> repositoryPushEvent;
+    private final Event<BitbucketActivity> activityEvent;
 
     /**
      * Constructs this servlet with an {@link Event} object.
@@ -52,9 +52,9 @@ public class BitbucketWebhookServlet extends HttpServlet
      * @param event {@link Event} object
      */
     @Inject
-    public BitbucketWebhookServlet(final Event<BitbucketPush> event)
+    public BitbucketWebhookServlet(final Event<BitbucketActivity> event)
     {
-        repositoryPushEvent = event;
+        activityEvent = event;
     }
 
     /**
@@ -66,12 +66,14 @@ public class BitbucketWebhookServlet extends HttpServlet
     {
         JsonReader reader = Json.createReader(request.getInputStream());
         try {
-            JsonObject object = reader.readObject();
-            dispatch(object);
-            log("POST " + object.toString());
+            JsonObject eventObject = reader.readObject();
+            activityEvent.fire(new BitbucketActivity(eventObject));
+            log("POST " + eventObject.toString());
         }
         catch (JsonParsingException exception) {
             log("JSON parsing error", exception);
+            response.sendError(HttpServletResponse.SC_FORBIDDEN);
+            return;
         }
         finally {
             reader.close();
@@ -80,18 +82,5 @@ public class BitbucketWebhookServlet extends HttpServlet
         response.setStatus(HttpServletResponse.SC_NO_CONTENT);
         // TODO: Return a result page.
         response.getWriter().close();
-    }
-
-    /**
-     * Dispatches an event.
-     *
-     * @param jsonObject event
-     */
-    protected final void dispatch(final JsonObject jsonObject) {
-        if (jsonObject.containsKey(BitbucketPush.PUSH)) {
-            repositoryPushEvent.fire(new BitbucketPush(jsonObject));
-        } else {
-            log("Unhandled JSON: " + jsonObject.toString());
-        }
     }
 }
