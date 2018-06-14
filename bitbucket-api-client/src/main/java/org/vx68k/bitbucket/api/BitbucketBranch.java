@@ -21,7 +21,7 @@
 package org.vx68k.bitbucket.api;
 
 /**
- * Branch, named branch, or bookmark in a Bitbucket repository.
+ * Branch or bookmark in a Bitbucket repository.
  *
  * @author Kaz Nishimura
  * @since 5.0

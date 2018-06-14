@@ -23,7 +23,7 @@ package org.vx68k.bitbucket.api;
 import java.util.Iterator;
 
 /**
- * Bitbucket Issue Tracker.
+ * Issue tracker on Bitbucket Cloud.
  *
  * @author Kaz Nishimura
  * @since 5.0

@@ -21,7 +21,7 @@
 package org.vx68k.bitbucket.api;
 
 /**
- * Issue on the Bitbucket Issue Tracker.
+ * Issue in a Bitbucket issue tracker.
  *
  * @author Kaz Nishimura
  * @since 5.0
