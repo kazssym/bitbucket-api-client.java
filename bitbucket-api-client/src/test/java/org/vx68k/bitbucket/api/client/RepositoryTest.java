@@ -24,7 +24,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 /**
- * Collection of unit tests for [@link Repository}.
+ * Collection of unit tests for [@link BitbucketClientRepository}.
  *
  * @author Kaz Nishimura
  * @since 1.0
@@ -42,7 +42,7 @@ public class RepositoryTest {
     @Ignore
     @Test
     public void testDefaultRepository() {
-        Repository repository = new Repository(null);
+        BitbucketClientRepository repository = new BitbucketClientRepository(null);
         // TODO: Add test cases.
     }
 }

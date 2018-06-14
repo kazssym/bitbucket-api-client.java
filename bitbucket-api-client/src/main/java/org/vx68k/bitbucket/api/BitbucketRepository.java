@@ -20,6 +20,9 @@
 
 package org.vx68k.bitbucket.api;
 
+import java.util.Map;
+import java.util.UUID;
+
 /**
  * Repository on Bitbucket Cloud.
  *
@@ -28,4 +31,52 @@ package org.vx68k.bitbucket.api;
  */
 public interface BitbucketRepository
 {
+    /**
+     * Return the owner of this repository.
+     *
+     * @return the owner
+     */
+    BitbucketUser getOwner();
+
+    /**
+     * Returns the UUID of this repository.
+     *
+     * @return the UUID
+     */
+    UUID getUUID();
+
+    /**
+     * Returns the name of this repository.
+     *
+     * @return the name
+     */
+    String getName();
+
+    /**
+     * Returns the full name of this repository.
+     *
+     * @return the full name
+     */
+    String getFullName();
+
+    /**
+     * Returns the SCM type of this repository.
+     *
+     * @return the SCM type
+     */
+    String getSCM();
+
+    /**
+     * Returns {@code true} if this repository is private.
+     *
+     * @return {@code true} if private
+     */
+    boolean isPrivate();
+
+    /**
+     * Returns the links of this repository.
+     *
+     * @return the links
+     */
+    Map<String, String> getLinks();
 }
