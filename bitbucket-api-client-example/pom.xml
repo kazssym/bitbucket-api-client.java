@@ -23,6 +23,17 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
+            <artifactId>bitbucket-api-client</artifactId>
+            <version>5.0-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.json</groupId>
+                    <artifactId>javax.json-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
             <artifactId>bitbucket-api-oauth2</artifactId>
             <version>5.0-SNAPSHOT</version>
         </dependency>
