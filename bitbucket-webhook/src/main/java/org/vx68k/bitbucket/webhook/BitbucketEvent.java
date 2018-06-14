@@ -53,7 +53,8 @@ public class BitbucketEvent extends BitbucketClientObject
      * Constructs this event from a JSON event object.
      *
      * @param eventObject JSON event object
-     * @exception IllegalArgumentException if the given object is {@code null}
+     * @exception IllegalArgumentException if the given JSON object is {@code
+     * null}
      */
     public BitbucketEvent(final JsonObject eventObject)
     {
