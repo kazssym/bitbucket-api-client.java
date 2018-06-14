@@ -37,17 +37,17 @@ public class BitbucketClientBranch extends BitbucketClientObject
     implements BitbucketBranch
 {
     /**
-     * Type value for Git branches.
+     * Type name for JSON branch objects for Git.
      */
     private static final String BRANCH = "branch";
 
     /**
-     * Type value for Mercurial branches.
+     * Type name for JSON branch objects for Mercurial.
      */
     private static final String NAMED_BRANCH = "named_branch";
 
     /**
-     * Type value for Mercurial bookmarks.
+     * Type name for JSON bookmark objects for Mercurial.
      */
     private static final String BOOKMARK = "bookmark";
 
@@ -57,13 +57,14 @@ public class BitbucketClientBranch extends BitbucketClientObject
      * @param commitsArray JSON array of commits
      * @return list of commits
      */
-    protected static List<Commit> parseCommits(final JsonArray commitsArray)
+    protected static List<BitbucketClientCommit> parseCommits(
+        final JsonArray commitsArray)
     {
-        List<Commit> commits = null;
+        List<BitbucketClientCommit> commits = null;
         if (commitsArray != null) {
             commits = new ArrayList<>();
             for (JsonValue value : commitsArray) {
-                commits.add(new Commit((JsonObject) value));
+                commits.add(new BitbucketClientCommit((JsonObject) value));
             }
         }
         return commits;
@@ -100,10 +101,10 @@ public class BitbucketClientBranch extends BitbucketClientObject
      *
      * @return the heads
      */
-    public final List<Commit> getHeads()
+    public final List<BitbucketClientCommit> getHeads()
     {
         JsonObject branchObject = getJsonObject();
-        List<Commit> heads = null;
+        List<BitbucketClientCommit> heads = null;
         if (branchObject.containsKey("heads")) {
             heads = parseCommits(branchObject.getJsonArray("heads"));
         }
