@@ -72,7 +72,7 @@ public class BitbucketClientObject
     public final String getType()
     {
         JsonObject object = getJsonObject();
-        return object.getString(TYPE);
+        return object.getString(TYPE, null);
     }
 
     /**
