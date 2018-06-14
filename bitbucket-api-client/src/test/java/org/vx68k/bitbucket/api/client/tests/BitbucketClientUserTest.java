@@ -36,7 +36,7 @@ import org.vx68k.bitbucket.api.client.BitbucketClientUser;
 public final class BitbucketClientUserTest
 {
     /**
-     * Tests a non-user
+     * Tests a non-user object.
      */
     @Test(expected = IllegalArgumentException.class)
     public void testNonUser()
@@ -47,7 +47,7 @@ public final class BitbucketClientUserTest
     }
 
     /**
-     * Tests a blank user.
+     * Tests a blank user object.
      */
     @Test
     public void testBlankUser()
