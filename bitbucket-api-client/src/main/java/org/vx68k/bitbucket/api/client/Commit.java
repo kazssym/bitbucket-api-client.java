@@ -20,14 +20,15 @@ package org.vx68k.bitbucket.api.client;
 
 import java.util.logging.Level;
 import javax.json.JsonObject;
+import org.vx68k.bitbucket.api.BitbucketCommit;
 
 /**
  * Commit in a Bitbucket repository.
  * @author Kaz Nishimura
  * @since 3.0
  */
-public class Commit extends BitbucketClientObject {
-
+public class Commit extends BitbucketClientObject implements BitbucketCommit
+{
     /**
      * Type value for commits.
      */
