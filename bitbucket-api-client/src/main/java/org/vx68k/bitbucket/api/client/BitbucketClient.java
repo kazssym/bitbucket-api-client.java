@@ -22,6 +22,7 @@ package org.vx68k.bitbucket.api.client;
 
 import javax.json.JsonObject;
 import org.vx68k.bitbucket.api.BitbucketIssueTracker;
+import org.vx68k.bitbucket.api.BitbucketRepository;
 import org.vx68k.bitbucket.api.BitbucketUser;
 
 /**
@@ -40,17 +41,35 @@ public class BitbucketClient
     }
 
     /**
-     * Creates a user from a JSON user object.
+     * Creates a {@link BitbucketUser} object from a JSON object that
+     * represents a user or team.
      *
-     * @param userObject JSON user object, or {@code null}
+     * @param object JSON object, or {@code null}
      * @return new {@link BitbucketUser} object, or {@code null} if the given
      * JSON object is {@code null}
      */
-    public static BitbucketUser createUser(final JsonObject userObject)
+    public static BitbucketUser createUser(final JsonObject object)
     {
         BitbucketUser user = null;
-        if (userObject != null) {
-            return new BitbucketClientUser(userObject);
+        if (object != null) {
+            return new BitbucketClientUser(object);
+        }
+        return user;
+    }
+
+    /**
+     * Creates a {@link BitbucketRepository} object from a JSON object that
+     * represents a repository.
+     *
+     * @param object JSON object, or {@code null}
+     * @return new {@link BitbucketRepository} object, or {@code null} if the
+     * given JSON object is {@code null}
+     */
+    public static BitbucketRepository createRepository(final JsonObject object)
+    {
+        BitbucketRepository user = null;
+        if (object != null) {
+            return new BitbucketClientRepository(object);
         }
         return user;
     }

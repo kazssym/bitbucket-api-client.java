@@ -25,7 +25,6 @@ import org.vx68k.bitbucket.api.BitbucketRepository;
 import org.vx68k.bitbucket.api.BitbucketUser;
 import org.vx68k.bitbucket.api.client.BitbucketClient;
 import org.vx68k.bitbucket.api.client.BitbucketClientObject;
-import org.vx68k.bitbucket.api.client.BitbucketClientRepository;
 
 /**
  * Activity on a Bitbucket repository.
@@ -80,12 +79,8 @@ public class BitbucketEvent extends BitbucketClientObject
     public final BitbucketRepository getRepository()
     {
         JsonObject eventObject = getJsonObject();
-        BitbucketRepository repository = null;
-        if (eventObject.containsKey(REPOSITORY)) {
-            repository = new BitbucketClientRepository(
-                eventObject.getJsonObject(REPOSITORY));
-        }
-        return repository;
+        return BitbucketClient.createRepository(
+            eventObject.getJsonObject(REPOSITORY));
     }
 
     /**
