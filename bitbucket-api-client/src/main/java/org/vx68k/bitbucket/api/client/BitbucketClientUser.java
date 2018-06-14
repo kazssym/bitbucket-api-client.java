@@ -36,7 +36,7 @@ public class BitbucketClientUser extends BitbucketClientObject
     implements BitbucketUser
 {
     /**
-     * Type value for JSON user objects.
+     * Type name for JSON user objects.
      */
     private static final String USER = "user";
 
@@ -78,9 +78,9 @@ public class BitbucketClientUser extends BitbucketClientObject
     /**
      * Constructs this user with a JSON user object.
      *
-     * @param userObject JSON object that represents a Bitbucket user
-     * @exception IllegalArgumentException if the given JSON object did not
-     * represent a user
+     * @param userObject JSON user object
+     * @exception IllegalArgumentException if the given JSON object was {@code
+     * null} or did not represent a user
      */
     public BitbucketClientUser(final JsonObject userObject)
     {
