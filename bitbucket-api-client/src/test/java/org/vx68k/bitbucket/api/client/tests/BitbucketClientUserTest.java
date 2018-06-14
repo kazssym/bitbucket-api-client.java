@@ -35,6 +35,17 @@ import org.vx68k.bitbucket.api.client.BitbucketClientUser;
 public final class BitbucketClientUserTest
 {
     /**
+     * Tests a non-user
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testNonUser()
+    {
+        JsonObjectBuilder builder = Json.createObjectBuilder()
+            .add("type", "not_user");
+        new BitbucketClientUser(builder.build());
+    }
+
+    /**
      * Tests a blank user.
      */
     @Test
