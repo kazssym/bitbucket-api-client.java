@@ -42,6 +42,11 @@ import javax.json.JsonValue;
  */
 public class BitbucketClientUtilities
 {
+    /**
+     * JSON key for the <code>href</code> value.
+     */
+    private static final String HREF = "href";
+
     private static final String PACKAGE_NAME =
             BitbucketClientUtilities.class.getPackage().getName();
 
@@ -165,7 +170,7 @@ public class BitbucketClientUtilities
     protected static URL parseLink(final JsonObject jsonObject)
             throws MalformedURLException
     {
-        return parseURL(jsonObject.getString(ClientJsonKeys.HREF));
+        return parseURL(jsonObject.getString(HREF));
     }
 
     /**
