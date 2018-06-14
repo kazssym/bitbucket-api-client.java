@@ -26,6 +26,7 @@ import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonValue;
 import org.vx68k.bitbucket.api.client.BitbucketClientBranch;
+import org.vx68k.bitbucket.api.client.BitbucketClientObject;
 import org.vx68k.bitbucket.api.client.Commit;
 
 /**
@@ -34,7 +35,7 @@ import org.vx68k.bitbucket.api.client.Commit;
  * @author Kaz Nishimura
  * @since 5.0
  */
-public class BitbucketPush
+public class BitbucketPush extends BitbucketClientObject
 {
     /**
      * Name of the {@code changes} array in a JSON push object.
@@ -42,9 +43,14 @@ public class BitbucketPush
     private static final String CHANGES = "changes";
 
     /**
-     * JSON push object given to the constructor.
+     * Constructs this push description from a JSON push object.
+     *
+     * @param pushObject JSON push object
      */
-    private final JsonObject jsonObject;
+    public BitbucketPush(final JsonObject pushObject)
+    {
+        super(pushObject);
+    }
 
     /**
      * Parses a JSON array to a list of changes.
@@ -66,29 +72,6 @@ public class BitbucketPush
     }
 
     /**
-     * Constructs this push description from a JSON push object.
-     *
-     * @param pushObject JSON push object
-     */
-    public BitbucketPush(final JsonObject pushObject)
-    {
-        if (pushObject == null) {
-            throw new IllegalArgumentException("JSON object is null");
-        }
-        jsonObject = pushObject;
-    }
-
-    /**
-     * Returns the JSON push object given to the constructor.
-     *
-     * @return the JSON push object
-     */
-    public final JsonObject getJsonObject()
-    {
-        return jsonObject;
-    }
-
-    /**
      * Returns the list of the changes of this object.
      *
      * @return list of the changes
@@ -102,7 +85,7 @@ public class BitbucketPush
     /**
      * Change in a push description.
      */
-    public static class Change
+    public static class Change extends BitbucketClientObject
     {
         /**
          * Name of the {@code created} value in a JSON change object.
@@ -135,28 +118,13 @@ public class BitbucketPush
         private static final String COMMITS = "commits";
 
         /**
-         * JSON change object given to the constructor.
-         */
-        private final JsonObject jsonObject;
-
-        /**
          * Constructs this change with a JSON change object.
          *
          * @param changeObject JSON change object
          */
         public Change(final JsonObject changeObject)
         {
-            jsonObject = changeObject;
-        }
-
-        /**
-         * Returns the JSON change object given to the constructor.
-         *
-         * @return the JSON change object
-         */
-        public final JsonObject getJsonObject()
-        {
-            return jsonObject;
+            super(changeObject);
         }
 
         /**
