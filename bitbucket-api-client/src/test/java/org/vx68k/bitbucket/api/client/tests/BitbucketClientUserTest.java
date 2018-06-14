@@ -30,6 +30,7 @@ import org.vx68k.bitbucket.api.client.BitbucketClientUser;
 
 /**
  * Unit tests for {@link BitbucketClientUser}.
+ *
  * @author Kaz Nishimura
  */
 public final class BitbucketClientUserTest
