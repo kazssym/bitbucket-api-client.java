@@ -69,10 +69,10 @@ public class BitbucketClientObject
      *
      * @return the type name, or {@code null} if this object has no type
      */
-    public String getType()
+    public final String getType()
     {
         JsonObject object = getJsonObject();
-        return object.getString(TYPE, null);
+        return object.getString(TYPE);
     }
 
     /**
