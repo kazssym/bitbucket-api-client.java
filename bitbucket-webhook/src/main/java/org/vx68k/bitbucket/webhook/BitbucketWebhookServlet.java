@@ -64,8 +64,7 @@ public class BitbucketWebhookServlet extends HttpServlet
     protected final void doPost(final HttpServletRequest request,
         final HttpServletResponse response) throws IOException
     {
-        JsonReader reader = Json.createReader(request.getInputStream());
-        try {
+        try (JsonReader reader = Json.createReader(request.getInputStream())) {
             JsonObject eventObject = reader.readObject();
             bitbucketEvent.fire(new BitbucketEvent(eventObject));
             log("POST " + eventObject.toString());
@@ -74,9 +73,6 @@ public class BitbucketWebhookServlet extends HttpServlet
             log("JSON parsing error", exception);
             response.sendError(HttpServletResponse.SC_FORBIDDEN);
             return;
-        }
-        finally {
-            reader.close();
         }
         // TODO: Use HttpServletResponse.SC_OK instead.
         response.setStatus(HttpServletResponse.SC_NO_CONTENT);
