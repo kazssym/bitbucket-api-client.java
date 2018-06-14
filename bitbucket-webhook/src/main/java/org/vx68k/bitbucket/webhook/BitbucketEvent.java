@@ -21,10 +21,11 @@
 package org.vx68k.bitbucket.webhook;
 
 import javax.json.JsonObject;
+import org.vx68k.bitbucket.api.BitbucketRepository;
 import org.vx68k.bitbucket.api.BitbucketUser;
 import org.vx68k.bitbucket.api.client.BitbucketClientObject;
+import org.vx68k.bitbucket.api.client.BitbucketClientRepository;
 import org.vx68k.bitbucket.api.client.BitbucketClientUser;
-import org.vx68k.bitbucket.api.client.Repository;
 
 /**
  * Activity on a Bitbucket repository.
@@ -80,12 +81,13 @@ public class BitbucketEvent extends BitbucketClientObject
      *
      * @return the repository
      */
-    public final Repository getRepository()
+    public final BitbucketRepository getRepository()
     {
         JsonObject eventObject = getJsonObject();
-        Repository repository = null;
+        BitbucketRepository repository = null;
         if (eventObject.containsKey(REPOSITORY)) {
-            repository = new Repository(eventObject.getJsonObject(REPOSITORY));
+            repository = new BitbucketClientRepository(
+                eventObject.getJsonObject(REPOSITORY));
         }
         return repository;
     }
