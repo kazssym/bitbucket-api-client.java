@@ -87,7 +87,7 @@ public class BitbucketClientRepository extends BitbucketClientObject
         super(branchObject);
 
         String type = getType();
-        if (type == null || !getType().equals(REPOSITORY)) {
+        if (type == null || !type.equals(REPOSITORY)) {
             throw new IllegalArgumentException(
                 "JSON object is not repository");
         }
@@ -100,7 +100,7 @@ public class BitbucketClientRepository extends BitbucketClientObject
     public final BitbucketUser getOwner()
     {
         JsonObject repositoryObject = getJsonObject();
-        return new BitbucketClientUser(
+        return BitbucketClient.createUser(
             repositoryObject.getJsonObject(OWNER));
     }
 

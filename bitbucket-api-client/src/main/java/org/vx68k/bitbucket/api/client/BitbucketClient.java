@@ -20,7 +20,9 @@
 
 package org.vx68k.bitbucket.api.client;
 
+import javax.json.JsonObject;
 import org.vx68k.bitbucket.api.BitbucketIssueTracker;
+import org.vx68k.bitbucket.api.BitbucketUser;
 
 /**
  * Bitbucket client.
@@ -30,6 +32,29 @@ import org.vx68k.bitbucket.api.BitbucketIssueTracker;
  */
 public class BitbucketClient
 {
+    /**
+     * Does nothing but denies direct instantiation.
+     */
+    protected BitbucketClient()
+    {
+    }
+
+    /**
+     * Creates a user from a JSON user object.
+     *
+     * @param userObject JSON user object, or {@code null}
+     * @return new {@link BitbucketUser} object, or {@code null} if the given
+     * JSON object is {@code null}
+     */
+    public static BitbucketUser createUser(final JsonObject userObject)
+    {
+        BitbucketUser user = null;
+        if (userObject != null) {
+            return new BitbucketClientUser(userObject);
+        }
+        return user;
+    }
+
     /**
      * Returns the issue tracker for a repository.
      *
