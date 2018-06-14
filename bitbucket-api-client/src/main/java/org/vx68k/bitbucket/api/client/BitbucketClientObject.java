@@ -20,7 +20,6 @@
 
 package org.vx68k.bitbucket.api.client;
 
-import javax.json.Json;
 import javax.json.JsonObject;
 
 /**
@@ -32,7 +31,7 @@ import javax.json.JsonObject;
 public class BitbucketClientObject
 {
     /**
-     * Name of the {@code type} value in a JSON object.
+     * Name for the {@code type} value in a JSON object.
      */
     private static final String TYPE = "type";
 
@@ -40,18 +39,6 @@ public class BitbucketClientObject
      * JSON object given to the constructor.
      */
     private final JsonObject jsonObject;
-
-    /**
-     * Constructs this object with a JSON object type.
-     *
-     * @param type JSON object type
-     * @deprecated No replacement.
-     */
-    @Deprecated
-    protected BitbucketClientObject(final String type)
-    {
-        jsonObject = Json.createObjectBuilder().add(TYPE, type).build();
-    }
 
     /**
      * Constructs this object with a JSON object.

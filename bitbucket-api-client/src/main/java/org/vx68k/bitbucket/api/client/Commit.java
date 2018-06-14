@@ -35,14 +35,6 @@ public class Commit extends BitbucketClientObject implements BitbucketCommit
     private static final String COMMIT_TYPE = "commit";
 
     /**
-     * Constructs this object without initialization.
-     */
-    public Commit() {
-        super(COMMIT_TYPE);
-        BitbucketClientUtilities.getLogger().finer("Creating a blank Commit");
-    }
-
-    /**
      * Constructs this object from a JSON object.
      * @param jsonObject JSON object that represents a commit.
      */

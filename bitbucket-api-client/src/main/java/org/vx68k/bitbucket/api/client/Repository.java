@@ -47,14 +47,6 @@ public class Repository extends BitbucketClientObject {
     private boolean Private;
     private Map<String, URL> links;
 
-    /**
-     * Constructs this object with no property values.
-     */
-    public Repository() {
-        super(REPOSITORY_TYPE);
-        BitbucketClientUtilities.getLogger().finer("Creating a blank Repository");
-    }
-
     public Repository(final JsonObject jsonObject) {
         super(jsonObject);
         if (!getType().equals(REPOSITORY_TYPE)) {
