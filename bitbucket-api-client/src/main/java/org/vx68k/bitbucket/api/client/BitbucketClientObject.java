@@ -29,7 +29,7 @@ import javax.json.JsonObject;
  * @author Kaz Nishimura
  * @since 5.0
  */
-public abstract class BitbucketClientObject
+public class BitbucketClientObject
 {
     /**
      * Name of the {@code type} value in a JSON object.
@@ -59,7 +59,7 @@ public abstract class BitbucketClientObject
      * @param object JSON object
      * @exception IllegalArgumentException if the JSON object is {@code null}
      */
-    protected BitbucketClientObject(final JsonObject object)
+    public BitbucketClientObject(final JsonObject object)
     {
         if (object == null) {
             throw new IllegalArgumentException("JSON object is null");
