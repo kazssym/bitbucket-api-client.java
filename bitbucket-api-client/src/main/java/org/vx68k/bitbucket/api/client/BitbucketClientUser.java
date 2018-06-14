@@ -41,37 +41,37 @@ public class BitbucketClientUser extends BitbucketClientObject
     private static final String USER = "user";
 
     /**
-     * Name of the {@code uuid} value in a JSON user object.
+     * Name for the {@code uuid} value in a JSON user object.
      */
     private static final String UUID = "uuid";
 
     /**
-     * Name of the {@code username} value in a JSON user object.
+     * Name for the {@code username} value in a JSON user object.
      */
     private static final String USERNAME = "username";
 
     /**
-     * Name of the {@code display_name} value in a JSON user object.
+     * Name for the {@code display_name} value in a JSON user object.
      */
     private static final String DISPLAY_NAME = "display_name";
 
     /**
-     * Name of the {@code website} value in a JSON user object.
+     * Name for the {@code website} value in a JSON user object.
      */
     private static final String WEBSITE = "website";
 
     /**
-     * Name of the {@code location} value in a JSON user object.
+     * Name for the {@code location} value in a JSON user object.
      */
     private static final String LOCATION = "location";
 
     /**
-     * Name of the {@code created_on} value in a JSON user object.
+     * Name for the {@code created_on} value in a JSON user object.
      */
     private static final String CREATED_ON = "created_on";
 
     /**
-     * Name of the {@code links} object in a JSON user object.
+     * Name for the {@code links} object in a JSON user object.
      */
     private static final String LINKS = "links";
 
