@@ -42,7 +42,7 @@ public class RepositoryTest {
     @Ignore
     @Test
     public void testDefaultRepository() {
-        Repository repository = new Repository();
+        Repository repository = new Repository(null);
         // TODO: Add test cases.
     }
 }
