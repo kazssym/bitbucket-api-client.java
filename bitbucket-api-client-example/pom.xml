@@ -11,9 +11,8 @@
     </parent>
     <artifactId>bitbucket-api-client-example</artifactId>
     <packaging>war</packaging>
-    <name>Bitbucket API Client Example</name>
-    <description>
-    Example web app using the Bitbucket API Client Libraries
+    <name>Bitbucket API Client Example App</name>
+    <description>Example web app using the Bitbucket API Client Library.
     </description>
     <dependencies>
         <dependency>
