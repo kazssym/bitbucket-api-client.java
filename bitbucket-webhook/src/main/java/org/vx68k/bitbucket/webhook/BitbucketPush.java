@@ -38,7 +38,7 @@ import org.vx68k.bitbucket.api.client.BitbucketClientObject;
 public class BitbucketPush extends BitbucketClientObject
 {
     /**
-     * Name of the {@code changes} array in a JSON push object.
+     * Name for the {@code changes} array in a JSON push object.
      */
     private static final String CHANGES = "changes";
 
@@ -88,43 +88,48 @@ public class BitbucketPush extends BitbucketClientObject
     public static class Change extends BitbucketClientObject
     {
         /**
-         * Name of the {@code created} value in a JSON change object.
+         * Name for the {@code created} value in a JSON change object.
          */
         private static final String CREATED = "created";
 
         /**
-         * Name of the {@code closed} value in a JSON change object.
+         * Name for the {@code closed} value in a JSON change object.
          */
         private static final String CLOSED = "closed";
 
         /**
-         * Name of the {@code forced} value in a JSON change object.
+         * Name for the {@code forced} value in a JSON change object.
          */
         private static final String FORCED = "forced";
 
         /**
-         * Name of the {@code old} object in a JSON change object.
+         * Name for the {@code truncated} value in a JSON change object.
+         */
+        private static final String TRUNCATED = "truncated";
+
+        /**
+         * Name for the {@code old} object in a JSON change object.
          */
         private static final String OLD = "old";
 
         /**
-         * Name of the {@code new} object in a JSON change object.
+         * Name for the {@code new} object in a JSON change object.
          */
         private static final String NEW = "new";
 
         /**
-         * Name of the {@code commits} array in a JSON change object.
+         * Name for the {@code commits} array in a JSON change object.
          */
         private static final String COMMITS = "commits";
 
         /**
          * Constructs this change with a JSON change object.
          *
-         * @param changeObject JSON change object
+         * @param object JSON change object
          */
-        public Change(final JsonObject changeObject)
+        public Change(final JsonObject object)
         {
-            super(changeObject);
+            super(object);
         }
 
         /**
@@ -134,8 +139,8 @@ public class BitbucketPush extends BitbucketClientObject
          */
         public final boolean isCreated()
         {
-            JsonObject changeObject = getJsonObject();
-            return changeObject.getBoolean(CREATED, false);
+            JsonObject object = getJsonObject();
+            return object.getBoolean(CREATED, false);
         }
 
         /**
@@ -145,8 +150,8 @@ public class BitbucketPush extends BitbucketClientObject
          */
         public final boolean isClosed()
         {
-            JsonObject changeObject = getJsonObject();
-            return changeObject.getBoolean(CLOSED, false);
+            JsonObject object = getJsonObject();
+            return object.getBoolean(CLOSED, false);
         }
 
         /**
@@ -156,8 +161,19 @@ public class BitbucketPush extends BitbucketClientObject
          */
         public final boolean isForced()
         {
-            JsonObject changeObject = getJsonObject();
-            return changeObject.getBoolean(FORCED, false);
+            JsonObject object = getJsonObject();
+            return object.getBoolean(FORCED, false);
+        }
+
+        /**
+         * Returns {@code true} if this change was truncated.
+         *
+         * @return {@code true} if truncated
+         */
+        public final boolean isTruncated()
+        {
+            JsonObject object = getJsonObject();
+            return object.getBoolean(TRUNCATED, false);
         }
 
         /**
@@ -167,9 +183,8 @@ public class BitbucketPush extends BitbucketClientObject
          */
         public final BitbucketClientBranch getOld()
         {
-            JsonObject changeObject = getJsonObject();
-            return new BitbucketClientBranch(
-                changeObject.getJsonObject(OLD));
+            JsonObject object = getJsonObject();
+            return new BitbucketClientBranch(object.getJsonObject(OLD));
         }
 
         /**
@@ -179,9 +194,8 @@ public class BitbucketPush extends BitbucketClientObject
          */
         public final BitbucketClientBranch getNew()
         {
-            JsonObject changeObject = getJsonObject();
-            return new BitbucketClientBranch(
-                changeObject.getJsonObject(NEW));
+            JsonObject object = getJsonObject();
+            return new BitbucketClientBranch(object.getJsonObject(NEW));
         }
 
         /**
