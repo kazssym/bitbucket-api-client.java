@@ -25,7 +25,8 @@ import java.util.List;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonValue;
-import org.vx68k.bitbucket.api.client.BitbucketClientBranch;
+import org.vx68k.bitbucket.api.BitbucketBranch;
+import org.vx68k.bitbucket.api.client.BitbucketClient;
 import org.vx68k.bitbucket.api.client.BitbucketClientCommit;
 import org.vx68k.bitbucket.api.client.BitbucketClientObject;
 
@@ -181,10 +182,10 @@ public class BitbucketPush extends BitbucketClientObject
          *
          * @return the old branch
          */
-        public final BitbucketClientBranch getOld()
+        public final BitbucketBranch getOld()
         {
             JsonObject object = getJsonObject();
-            return new BitbucketClientBranch(object.getJsonObject(OLD));
+            return BitbucketClient.createBranch(object.getJsonObject(OLD));
         }
 
         /**
@@ -192,10 +193,10 @@ public class BitbucketPush extends BitbucketClientObject
          *
          * @return the new branch
          */
-        public final BitbucketClientBranch getNew()
+        public final BitbucketBranch getNew()
         {
             JsonObject object = getJsonObject();
-            return new BitbucketClientBranch(object.getJsonObject(NEW));
+            return BitbucketClient.createBranch(object.getJsonObject(NEW));
         }
 
         /**
