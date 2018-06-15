@@ -36,7 +36,7 @@ import org.vx68k.bitbucket.api.client.oauth.OAuthClient;
 @Named("config")
 public class Config implements Serializable
 {
-    private static final long serialVersionUID = 4L;
+    private static final long serialVersionUID = 1L;
 
     private static final String BITBUCKET_OAUTH_CLIENT_ID_ENV =
             "BITBUCKET_OAUTH_CLIENT_ID";
