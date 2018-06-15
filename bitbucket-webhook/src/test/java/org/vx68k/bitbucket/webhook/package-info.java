@@ -1,5 +1,5 @@
 /*
- * package-info.java - package org.vx68k.bitbucket.webhook.tests
+ * package-info.java - package org.vx68k.bitbucket.webhook (test)
  * Copyright (C) 2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -19,6 +19,6 @@
  */
 
 /**
- * Unit tests for {@link org.vx68k.bitbucket.webhook}.
+ * Unit tests.
  */
-package org.vx68k.bitbucket.webhook.tests;
+package org.vx68k.bitbucket.webhook;
