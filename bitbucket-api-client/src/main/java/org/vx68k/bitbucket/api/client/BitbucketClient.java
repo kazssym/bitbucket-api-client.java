@@ -22,6 +22,7 @@ package org.vx68k.bitbucket.api.client;
 
 import javax.json.JsonObject;
 import org.vx68k.bitbucket.api.BitbucketBranch;
+import org.vx68k.bitbucket.api.BitbucketCommit;
 import org.vx68k.bitbucket.api.BitbucketIssueTracker;
 import org.vx68k.bitbucket.api.BitbucketRepository;
 import org.vx68k.bitbucket.api.BitbucketUser;
@@ -90,6 +91,23 @@ public class BitbucketClient
             branch = new BitbucketClientBranch(object);
         }
         return branch;
+    }
+
+    /**
+     * Creates a {@link BitbucketCommit} object from a JSON object that
+     * represents a commit.
+     *
+     * @param object JSON object, or {@code null}
+     * @return new {@link BitbucketCommit} object, or {@code null} if the given
+     * JSON object is {@code null}
+     */
+    public static BitbucketCommit createCommit(final JsonObject object)
+    {
+        BitbucketCommit commit = null;
+        if (object != null) {
+            commit = new BitbucketClientCommit(object);
+        }
+        return commit;
     }
 
     /**
