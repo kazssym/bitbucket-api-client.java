@@ -38,7 +38,6 @@ import org.vx68k.bitbucket.webhook.BitbucketWebhookServlet;
  * Unit tests for {@link BitbucketWebhookServlet}.
  *
  * @author Kaz Nishimura
- * @since 5.0
  */
 public final class BitbucketWebhookServletTest
 {
