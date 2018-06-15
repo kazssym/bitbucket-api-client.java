@@ -33,11 +33,11 @@ import static org.junit.Assert.*;
  */
 public class SessionUserTest {
 
-    private ApplicationConfig applicationConfig;
+    private Config applicationConfig;
 
     @Before
     public void setUp() {
-        applicationConfig = new ApplicationConfig();
+        applicationConfig = new Config();
     }
 
     @After

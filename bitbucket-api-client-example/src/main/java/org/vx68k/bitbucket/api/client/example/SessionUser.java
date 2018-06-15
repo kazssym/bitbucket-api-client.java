@@ -42,7 +42,7 @@ public class SessionUser extends OAuthUser {
 
     private static final long serialVersionUID = 1L;
 
-    private ApplicationConfig applicationConfig;
+    private Config applicationConfig;
 
     /**
      * Constructs this instance.
@@ -57,7 +57,7 @@ public class SessionUser extends OAuthUser {
      * @param applicationConfig application configuration
      * @since 4.0
      */
-    public SessionUser(final ApplicationConfig applicationConfig) {
+    public SessionUser(final Config applicationConfig) {
         setApplicationConfig(applicationConfig);
     }
 
@@ -66,7 +66,7 @@ public class SessionUser extends OAuthUser {
      * @return application configuration
      * @since 4.0
      */
-    public ApplicationConfig getApplicationConfig() {
+    public Config getApplicationConfig() {
         return applicationConfig;
     }
 
@@ -76,7 +76,7 @@ public class SessionUser extends OAuthUser {
      * @since 4.0
      */
     @Inject
-    public void setApplicationConfig(final ApplicationConfig value) {
+    public void setApplicationConfig(final Config value) {
         applicationConfig = value;
     }
 

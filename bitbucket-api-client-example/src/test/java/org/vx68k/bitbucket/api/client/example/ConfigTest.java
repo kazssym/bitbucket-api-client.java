@@ -1,5 +1,5 @@
 /*
- * ApplicationConfigTest
+ * ConfigTest
  * Copyright (C) 2015 Nishimura Software Studio
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -25,11 +25,11 @@ import org.vx68k.bitbucket.api.client.oauth.OAuthClient;
 import static org.junit.Assert.*;
 
 /**
- * Collections of unit tests for [@link ApplicationConfig}.
+ * Collections of unit tests for [@link Config}.
  * @author Kaz Nishimura
  * @since 1.0
  */
-public class ApplicationConfigTest {
+public class ConfigTest {
 
     private static final String envClientId =
             System.getenv("BITBUCKET_OAUTH_CLIENT_ID");
@@ -53,7 +53,7 @@ public class ApplicationConfigTest {
 
     @Test
     public void testGetBitbucketClient() {
-        ApplicationConfig applicationConfig = new ApplicationConfig();
+        Config applicationConfig = new Config();
         OAuthClient bitbucketClient = applicationConfig.getBitbucketClient();
         String clientId = bitbucketClient.getClientId();
         String clientSecret = bitbucketClient.getClientSecret();
@@ -73,12 +73,12 @@ public class ApplicationConfigTest {
 
     @Test
     public void testGetBitbucketClientWithCredentials() {
-        OAuthClient bitbucketClient1 = ApplicationConfig.getBitbucketClient(
+        OAuthClient bitbucketClient1 = Config.getBitbucketClient(
                 null, null);
         assertNull(bitbucketClient1.getClientId());
         assertNull(bitbucketClient1.getClientSecret());
 
-        OAuthClient bitbucketClient2 = ApplicationConfig.getBitbucketClient(
+        OAuthClient bitbucketClient2 = Config.getBitbucketClient(
                 CLIENT_ID, CLIENT_SECRET);
         assertEquals(CLIENT_ID, bitbucketClient2.getClientId());
         assertEquals(CLIENT_SECRET, bitbucketClient2.getClientSecret());
