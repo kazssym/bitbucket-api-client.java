@@ -6,13 +6,13 @@
                         http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <distributable />
     <servlet>
-	<servlet-name>BitbucketWebhookServlet</servlet-name>
-	<servlet-class>org.vx68k.bitbucket.webhook.BitbucketWebhookServlet
-	</servlet-class>
+        <servlet-name>BitbucketWebhookServlet</servlet-name>
+        <servlet-class>org.vx68k.bitbucket.webhook.BitbucketWebhookServlet
+        </servlet-class>
     </servlet>
     <servlet-mapping>
-	<servlet-name>BitbucketWebhookServlet</servlet-name>
-	<url-pattern>/webhook/*</url-pattern>
+        <servlet-name>BitbucketWebhookServlet</servlet-name>
+        <url-pattern>/webhook/*</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>
