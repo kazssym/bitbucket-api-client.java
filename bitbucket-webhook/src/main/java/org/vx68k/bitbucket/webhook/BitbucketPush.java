@@ -26,8 +26,8 @@ import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonValue;
 import org.vx68k.bitbucket.api.BitbucketBranch;
+import org.vx68k.bitbucket.api.BitbucketCommit;
 import org.vx68k.bitbucket.api.client.BitbucketClient;
-import org.vx68k.bitbucket.api.client.BitbucketClientCommit;
 import org.vx68k.bitbucket.api.client.BitbucketClientObject;
 
 /**
@@ -204,7 +204,7 @@ public class BitbucketPush extends BitbucketClientObject
          *
          * @return the commits
          */
-        public final List<BitbucketClientCommit> getCommits() {
+        public final List<BitbucketCommit> getCommits() {
             // TODO: Parse commits.
             return null;
         }
