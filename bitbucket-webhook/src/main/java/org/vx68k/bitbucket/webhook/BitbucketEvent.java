@@ -27,7 +27,7 @@ import org.vx68k.bitbucket.api.client.BitbucketClient;
 import org.vx68k.bitbucket.api.client.BitbucketClientObject;
 
 /**
- * Activity on a Bitbucket repository.
+ * Event on a Bitbucket repository.
  *
  * @author Kaz Nishimura
  * @since 5.0
