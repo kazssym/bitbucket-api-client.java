@@ -21,6 +21,7 @@
 package org.vx68k.bitbucket.api.client;
 
 import javax.json.JsonObject;
+import org.vx68k.bitbucket.api.BitbucketBranch;
 import org.vx68k.bitbucket.api.BitbucketIssueTracker;
 import org.vx68k.bitbucket.api.BitbucketRepository;
 import org.vx68k.bitbucket.api.BitbucketUser;
@@ -52,7 +53,7 @@ public class BitbucketClient
     {
         BitbucketUser user = null;
         if (object != null) {
-            return new BitbucketClientUser(object);
+            user = new BitbucketClientUser(object);
         }
         return user;
     }
@@ -67,11 +68,28 @@ public class BitbucketClient
      */
     public static BitbucketRepository createRepository(final JsonObject object)
     {
-        BitbucketRepository user = null;
+        BitbucketRepository repository = null;
         if (object != null) {
-            return new BitbucketClientRepository(object);
+            repository = new BitbucketClientRepository(object);
         }
-        return user;
+        return repository;
+    }
+
+    /**
+     * Creates a {@link BitbucketBranch} object from a JSON object that
+     * represents a branch or bookmark.
+     *
+     * @param object JSON object, or {@code null}
+     * @return new {@link BitbucketBranch} object, or {@code null} if the given
+     * JSON object is {@code null}
+     */
+    public static BitbucketBranch createBranch(final JsonObject object)
+    {
+        BitbucketBranch branch = null;
+        if (object != null) {
+            branch = new BitbucketClientBranch(object);
+        }
+        return branch;
     }
 
     /**
