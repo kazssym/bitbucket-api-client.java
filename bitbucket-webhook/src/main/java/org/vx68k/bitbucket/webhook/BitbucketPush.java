@@ -20,11 +20,10 @@
 
 package org.vx68k.bitbucket.webhook;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
-import javax.json.JsonValue;
 import org.vx68k.bitbucket.api.BitbucketBranch;
 import org.vx68k.bitbucket.api.BitbucketCommit;
 import org.vx68k.bitbucket.api.client.BitbucketClient;
@@ -54,33 +53,21 @@ public class BitbucketPush extends BitbucketClientObject
     }
 
     /**
-     * Parses a JSON array to a list of changes.
+     * Returns the changes included in this push.
      *
-     * @param jsonArray JSON array that represents list of changes
-     * @return list of changes
-     */
-    protected static List<Change> parseChanges(final JsonArray jsonArray)
-    {
-        if (jsonArray == null) {
-            return null;
-        }
-
-        List<Change> changes = new ArrayList<Change>();
-        for (JsonValue value : jsonArray) {
-            changes.add(new Change((JsonObject) value));
-        }
-        return changes;
-    }
-
-    /**
-     * Returns the list of the changes of this object.
-     *
-     * @return list of the changes
+     * @return the changes
      */
     public final List<Change> getChanges()
     {
-        JsonObject pushObject = getJsonObject();
-        return parseChanges(pushObject.getJsonArray(CHANGES));
+        JsonObject object = getJsonObject();
+        JsonArray array = object.getJsonArray(CHANGES);
+        List<Change> changes = null;
+        if (array != null) {
+            changes = array.stream()
+                .map((x) -> new Change((JsonObject) x))
+                .collect(Collectors.toList());
+        }
+        return changes;
     }
 
     /**
@@ -200,13 +187,21 @@ public class BitbucketPush extends BitbucketClientObject
         }
 
         /**
-         * Returns the commits in this change.
+         * Returns the commits included in this change.
          *
          * @return the commits
          */
-        public final List<BitbucketCommit> getCommits() {
-            // TODO: Parse commits.
-            return null;
+        public final List<BitbucketCommit> getCommits()
+        {
+            JsonObject object = getJsonObject();
+            JsonArray array = object.getJsonArray(COMMITS);
+            List<BitbucketCommit> commits = null;
+            if (array != null) {
+                commits = array.stream()
+                    .map((x) -> BitbucketClient.createCommit((JsonObject) x))
+                    .collect(Collectors.toList());
+            }
+            return commits;
         }
     }
 }
