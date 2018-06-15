@@ -38,12 +38,6 @@ public class Config implements Serializable
 {
     private static final long serialVersionUID = 1L;
 
-    private static final String BITBUCKET_OAUTH_CLIENT_ID_ENV =
-            "BITBUCKET_OAUTH_CLIENT_ID";
-
-    private static final String BITBUCKET_OAUTH_CLIENT_SECRET_ENV =
-            "BITBUCKET_OAUTH_CLIENT_SECRET";
-
     private OAuthClient bitbucketClient;
 
     /**
@@ -99,8 +93,7 @@ public class Config implements Serializable
     protected static String getClientId()
     {
         return System.getProperty(
-                Properties.BITBUCKET_OAUTH_CLIENT_ID,
-                System.getenv(BITBUCKET_OAUTH_CLIENT_ID_ENV));
+                Properties.BITBUCKET_OAUTH_CLIENT_ID, null);
     }
 
     /**
@@ -110,8 +103,7 @@ public class Config implements Serializable
     protected static String getClientSecret()
     {
         return System.getProperty(
-                Properties.BITBUCKET_OAUTH_CLIENT_SECRET,
-                System.getenv(BITBUCKET_OAUTH_CLIENT_SECRET_ENV));
+                Properties.BITBUCKET_OAUTH_CLIENT_SECRET, null);
     }
 
     /**

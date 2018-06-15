@@ -1,10 +1,10 @@
 /*
- * ConfigTest
- * Copyright (C) 2015 Nishimura Software Studio
+ * ConfigTest.java - class ConfigTest
+ * Copyright (C) 2015-2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Affero General Public License as published by the
- * Free Software Foundation, either version 3 of the License, or (at your
+ * under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or (at your
  * option) any later version.
  *
  * This program is distributed in the hope that it will be useful, but WITHOUT
@@ -14,65 +14,68 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
 package org.vx68k.bitbucket.api.client.example;
 
-import org.junit.After;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.vx68k.bitbucket.api.client.oauth.OAuthClient;
-import static org.junit.Assert.*;
 
 /**
- * Collections of unit tests for [@link Config}.
+ * Unit tests for [@link Config}.
+ *
  * @author Kaz Nishimura
- * @since 1.0
  */
-public class ConfigTest {
-
-    private static final String envClientId =
-            System.getenv("BITBUCKET_OAUTH_CLIENT_ID");
-
-    private static final String envClientSecret =
-            System.getenv("BITBUCKET_OAUTH_CLIENT_SECRET");
-
+public final class ConfigTest
+{
+    /**
+     * Test value for the client identifier.
+     */
     private static final String CLIENT_ID = "id";
 
+    /**
+     * Test value for the client secret.
+     */
     private static final String CLIENT_SECRET = "secret";
 
+    /**
+     * Clears system properties.
+     */
     @Before
-    public void setUp() {
+    public void setUp()
+    {
         System.clearProperty(Properties.BITBUCKET_OAUTH_CLIENT_ID);
         System.clearProperty(Properties.BITBUCKET_OAUTH_CLIENT_SECRET);
     }
 
-    @After
-    public void tearDown() {
-    }
-
+    /**
+     * Tests anonymously.
+     */
     @Test
-    public void testGetBitbucketClient() {
+    public void testGetBitbucketClient()
+    {
         Config applicationConfig = new Config();
         OAuthClient bitbucketClient = applicationConfig.getBitbucketClient();
         String clientId = bitbucketClient.getClientId();
         String clientSecret = bitbucketClient.getClientSecret();
-        if (envClientId != null) {
-            assertEquals(envClientId, clientId);
-        } else {
-            assertNull(clientId);
-        }
-        if (envClientSecret != null) {
-            assertEquals(envClientSecret, clientSecret);
-        } else {
-            assertNull(clientSecret);
-        }
+        assertNull(clientId);
+        assertNull(clientSecret);
 
-        // TODO: Add a test case with system properties.
+        // @todo Add a test case with system properties.
     }
 
+    /**
+     * Tests with credentials.
+     */
     @Test
-    public void testGetBitbucketClientWithCredentials() {
+    public void testGetBitbucketClientWithCredentials()
+    {
         OAuthClient bitbucketClient1 = Config.getBitbucketClient(
                 null, null);
         assertNull(bitbucketClient1.getClientId());
