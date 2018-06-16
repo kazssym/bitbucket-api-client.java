@@ -18,7 +18,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-package org.vx68k.bitbucket.api.client.tests;
+package org.vx68k.bitbucket.api.client;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -26,7 +26,6 @@ import static org.junit.Assert.assertNull;
 import java.net.MalformedURLException;
 import java.net.URL;
 import org.junit.Test;
-import org.vx68k.bitbucket.api.client.BitbucketClientUtilities;
 
 /**
  * Unit tests for {@link BitbucketClientUtilities}.

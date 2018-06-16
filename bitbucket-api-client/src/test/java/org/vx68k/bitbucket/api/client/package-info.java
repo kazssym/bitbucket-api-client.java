@@ -1,5 +1,5 @@
 /*
- * package-info.java - package org.vx68k.bitbucket.api.client.tests
+ * package-info.java - package org.vx68k.bitbucket.api.client (test)
  * Copyright (C) 2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -19,6 +19,6 @@
  */
 
 /**
- * Unit test classes for {@link org.vx68k.bitbucket.api.client}.
+ * Unit test classes.
  */
-package org.vx68k.bitbucket.api.client.tests;
+package org.vx68k.bitbucket.api.client;
