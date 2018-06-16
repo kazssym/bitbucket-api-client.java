@@ -36,7 +36,16 @@ import org.junit.Test;
 public final class BitbucketClientObjectTest
 {
     /**
-     * Tests untyped objects.
+     * Tests with {@code null}.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testNull()
+    {
+        new BitbucketClientObject(null);
+    }
+
+    /**
+     * Tests with untyped JSON objects.
      */
     @Test
     public void testUntyped()
@@ -49,7 +58,7 @@ public final class BitbucketClientObjectTest
     }
 
     /**
-     * Tests typed objects.
+     * Tests with typed JSON objects.
      */
     @Test
     public void testTyped()
