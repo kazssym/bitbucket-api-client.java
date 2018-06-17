@@ -82,6 +82,16 @@
                 <version>1.0.4</version>
             </dependency>
             <dependency>
+                <groupId>org.glassfish</groupId>
+                <artifactId>jsonp-jaxrs</artifactId>
+                <version>1.0</version>
+            </dependency>
+	    <dependency>
+		<groupId>org.glassfish.jersey.core</groupId>
+		<artifactId>jersey-client</artifactId>
+		<version>2.25.1</version>
+	    </dependency>
+            <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
                 <version>4.12</version>

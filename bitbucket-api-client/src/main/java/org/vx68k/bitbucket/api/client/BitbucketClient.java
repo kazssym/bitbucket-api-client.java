@@ -21,6 +21,11 @@
 package org.vx68k.bitbucket.api.client;
 
 import javax.json.JsonObject;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.MediaType;
+import org.glassfish.json.jaxrs.JsonStructureBodyReader;
 import org.vx68k.bitbucket.api.BitbucketBranch;
 import org.vx68k.bitbucket.api.BitbucketCommit;
 import org.vx68k.bitbucket.api.BitbucketIssueTracker;
@@ -36,7 +41,12 @@ import org.vx68k.bitbucket.api.BitbucketUser;
 public class BitbucketClient
 {
     /**
-     * Does nothing but denies direct instantiation.
+     * Base URI of the Bitbucket API.
+     */
+    public static final String API_BASE = "https://api.bitbucket.org/2.0/";
+
+    /**
+     * Allows custom implementations to extend this class.
      */
     protected BitbucketClient()
     {
@@ -108,6 +118,22 @@ public class BitbucketClient
             commit = new BitbucketClientCommit(object);
         }
         return commit;
+    }
+
+    /**
+     * Returns a {@link BitbucketUser} object from Bitbucket Cloud.
+     *
+     * @param user name of the user
+     * @return {@link BitbucketUser} object
+     */
+    public static BitbucketUser getUser(final String user)
+    {
+        Client client = ClientBuilder.newClient()
+            .register(JsonStructureBodyReader.class);
+        WebTarget target = client.target(API_BASE).path("users/{user}");
+        JsonObject object = target.resolveTemplate("user", user)
+            .request(MediaType.APPLICATION_JSON).get(JsonObject.class);
+        return createUser(object);
     }
 
     /**
