@@ -18,6 +18,12 @@
 
 package org.vx68k.bitbucket.api.client;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
 import java.io.IOException;
 import java.util.UUID;
 import org.junit.After;
@@ -25,39 +31,60 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.vx68k.bitbucket.api.BitbucketUser;
-import static org.junit.Assert.*;
 
 /**
  * Collection of unit tests for {@link Service}.
  *
  * @author Kaz Nishimura
- * @since 1.0
  */
 public class ServiceTest {
 
+    /**
+     * Undocumented.
+     */
     private static final String USER_NAME = "kazssym";
 
+    /**
+     * Undocumented.
+     */
     private static final UUID USER_UUID
             = UUID.fromString("cebb58cd-f699-4393-8762-e0f743ccf770");
 
+    /**
+     * Undocumented.
+     */
     private Client client;
 
+    /**
+     * Undocumented.
+     */
     @Before
     public void setUp() {
         client = new Client();
     }
 
+    /**
+     * Undocumented.
+     */
     @After
     public void tearDown() {
         client = null;
     }
 
+    /**
+     * Undocumented.
+     */
     @Test
     public void testIsAuthenticated() {
         Service service = client.getService();
         assertFalse(service.isAuthenticated());
     }
 
+    /**
+     * Undocumented.
+     *
+     * @throws IOException undocumented
+     */
     @Test
     public void testGetCurrentUser() throws IOException {
         Service service = client.getService();
@@ -65,6 +92,11 @@ public class ServiceTest {
         assertNull(currentUser);
     }
 
+    /**
+     * Undocumented.
+     *
+     * @throws IOException undocumented
+     */
     @Test @Ignore
     public void testGetUser() throws IOException {
         Service service = client.getService();

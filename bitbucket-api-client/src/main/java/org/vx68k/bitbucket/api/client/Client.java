@@ -42,10 +42,19 @@ public class Client implements Serializable {
 
     private static final long serialVersionUID = 4L;
 
+    /**
+     * Undocumented.
+     */
     private static final HttpTransport httpTransport = new NetHttpTransport();
 
+    /**
+     * Undocumented.
+     */
     private String user;
 
+    /**
+     * Undocumented.
+     */
     private String password;
 
     /**
@@ -147,12 +156,24 @@ public class Client implements Serializable {
      */
     protected class RestService extends Service {
 
+        /**
+         * Undocumented.
+         */
         private static final String API_ROOT = "https://api.bitbucket.org/";
 
+        /**
+         * Undocumented.
+         */
         private static final String USER_ENDPOINT_PATH = "/2.0/user";
 
+        /**
+         * Undocumented.
+         */
         private static final String USERS_ENDPOINT_PATH = "/2.0/users";
 
+        /**
+         * Undocumented.
+         */
         private final HttpRequestFactory requestFactory =
                 getHttpTransport().createRequestFactory();
 
@@ -196,12 +217,22 @@ public class Client implements Serializable {
             }
         }
 
+        /**
+         * Undocumented.
+         *
+         * @param response undocumented
+         * @return undocumented
+         * @exception IOException undocumented
+         */
         protected BitbucketUser getUser(final HttpResponse response)
                 throws IOException {
             JsonReader reader = Json.createReader(response.getContent());
             return new BitbucketClientUser(reader.readObject());
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public boolean isAuthenticated() {
             try {
@@ -211,6 +242,9 @@ public class Client implements Serializable {
             }
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public BitbucketUser getCurrentUser() throws IOException {
             if (authentication == null) {
@@ -229,6 +263,9 @@ public class Client implements Serializable {
             return currentUser;
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public BitbucketUser getUser(final String name) throws IOException {
             if (name.contains("/")) {
@@ -238,6 +275,9 @@ public class Client implements Serializable {
             return getUser(getEndpoint(USERS_ENDPOINT_PATH + "/" + name));
         }
 
+        /**
+         * {@inheritDoc}
+         */
         @Override
         public BitbucketUser getUser(final URI endpoint) throws IOException {
             HttpRequest request = requestFactory.buildGetRequest(

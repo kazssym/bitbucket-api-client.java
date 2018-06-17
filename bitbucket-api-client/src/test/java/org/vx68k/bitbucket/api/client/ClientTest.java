@@ -18,33 +18,36 @@
 
 package org.vx68k.bitbucket.api.client;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
 import java.io.IOException;
 import com.google.api.client.http.HttpResponseException;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.vx68k.bitbucket.api.BitbucketUser;
-import static org.junit.Assert.*;
 
 /**
  * Collection of unit tests for [@link Client}.
+ *
  * @author Kaz Nishimura
- * @since 1.0
  */
 public class ClientTest {
 
+    /**
+     * Undocumented.
+     */
     private static final String USER = "user";
 
+    /**
+     * Undocumented.
+     */
     private static final String PASSWORD = "password";
 
-    @Before
-    public void setUp() {
-    }
-
-    @After
-    public void tearDown() {
-    }
-
+    /**
+     * Undocumented.
+     */
     @Test
     public void testDefaultConstructor() {
         Client client = new Client();
@@ -52,6 +55,9 @@ public class ClientTest {
         assertNull(client.getPassword());
     }
 
+    /**
+     * Undocumented.
+     */
     @Test
     public void testConstructorWithUserAndPassword() {
         Client client = new Client(USER, PASSWORD);
@@ -59,6 +65,9 @@ public class ClientTest {
         assertEquals(PASSWORD, client.getPassword());
     }
 
+    /**
+     * Undocumented.
+     */
     @Test
     public void testSetUser() {
         Client client = new Client();
@@ -66,6 +75,9 @@ public class ClientTest {
         assertEquals(USER, client.getUser());
     }
 
+    /**
+     * Undocumented.
+     */
     @Test
     public void testSetPassword() {
         Client client = new Client();
@@ -73,6 +85,11 @@ public class ClientTest {
         assertEquals(PASSWORD, client.getPassword());
     }
 
+    /**
+     * Undocumented.
+     *
+     * @exception IOException undocumented
+     */
     @Test
     public void testGetService() throws IOException {
         Client client = new Client();
