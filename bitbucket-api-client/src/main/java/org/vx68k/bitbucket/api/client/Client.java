@@ -35,9 +35,12 @@ import org.vx68k.bitbucket.api.BitbucketUser;
 
 /**
  * Bitbucket REST API client.
+ *
  * @author Kaz Nishimura
  * @since 1.0
+ * @deprecated To be removed.
  */
+@Deprecated
 public class Client implements Serializable {
 
     private static final long serialVersionUID = 4L;
