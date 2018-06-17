@@ -20,6 +20,9 @@
 
 package org.vx68k.bitbucket.api.client;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import org.junit.Test;
 import org.vx68k.bitbucket.api.BitbucketUser;
 
@@ -30,10 +33,16 @@ import org.vx68k.bitbucket.api.BitbucketUser;
  */
 public class BitbucketClientTest
 {
+    /**
+     * Tests {@link BitbucketClient#getUser(String)}.
+     */
     @Test
     public void testGetUser()
     {
         BitbucketUser user = BitbucketClient.getUser("kazssym");
         System.out.println(user);
+        // @todo assertNotNull(user.getUUID());
+        assertEquals("kazssym", user.getName());
+        assertNotNull(user.getDisplayName());
     }
 }
