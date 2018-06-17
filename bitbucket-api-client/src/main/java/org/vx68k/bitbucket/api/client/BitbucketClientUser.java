@@ -36,11 +36,6 @@ public class BitbucketClientUser extends BitbucketClientObject
     implements BitbucketUser
 {
     /**
-     * Type name for JSON user objects.
-     */
-    private static final String USER = "user";
-
-    /**
      * Name for the {@code uuid} value in a JSON user object.
      */
     private static final String UUID = "uuid";

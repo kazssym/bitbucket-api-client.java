@@ -33,6 +33,23 @@ import java.util.UUID;
 public interface BitbucketUser
 {
     /**
+     * Type value for users.
+     */
+    String USER = "user";
+
+    /**
+     * Type value for teams.
+     */
+    String TEAM = "team";
+
+    /**
+     * Returns the type of this object.
+     *
+     * @return the type
+     */
+    String getType();
+
+    /**
      * Returns the UUID of this user.
      *
      * @return the UUID
