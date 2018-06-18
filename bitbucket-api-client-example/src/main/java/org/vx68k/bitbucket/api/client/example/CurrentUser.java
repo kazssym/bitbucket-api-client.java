@@ -1,10 +1,10 @@
 /*
- * SessionUser
- * Copyright (C) 2015 Nishimura Software Studio
+ * CurrentUser.java - class CurrentUser
+ * Copyright (C) 2015-2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Affero General Public License as published by the
- * Free Software Foundation, either version 3 of the License, or (at your
+ * under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or (at your
  * option) any later version.
  *
  * This program is distributed in the hope that it will be useful, but WITHOUT
@@ -14,36 +14,35 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
 package org.vx68k.bitbucket.api.client.example;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.URISyntaxException;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.servlet.http.HttpServletRequest;
 import org.vx68k.bitbucket.api.BitbucketUser;
 import org.vx68k.bitbucket.api.client.Service;
-import org.vx68k.bitbucket.api.client.oauth.OAuthClient;
-import org.vx68k.bitbucket.api.client.oauth.OAuthUser;
 
 /**
- * User of the current session.
+ * Current user of the session.
+ *
  * @author Kaz Nishimura
- * @since 1.0
+ * @since 5.0
  */
 @SessionScoped
 @Named("user")
-public class SessionUser extends OAuthUser {
-
+public class CurrentUser implements Serializable
+{
     private static final long serialVersionUID = 1L;
 
     /**
-     * {@link BitbucketAPI} object.
+     * {@link BitbucketAPI} object given to the constructor.
      */
     private final BitbucketAPI bitbucketAPI;
 
@@ -53,15 +52,18 @@ public class SessionUser extends OAuthUser {
      * @param bitbucket {@link BitbucketAPI object}
      */
     @Inject
-    public SessionUser(final BitbucketAPI bitbucket) {
+    public CurrentUser(final BitbucketAPI bitbucket)
+    {
         bitbucketAPI = bitbucket;
     }
 
     /**
-     * Returns the {@link BitbucketAPI} object.
+     * Returns the {@link BitbucketAPI} object given to the constructor.
+     *
      * @return the {@link BitbucketAPI} object
      */
-    public BitbucketAPI getBitbucketAPI() {
+    public final BitbucketAPI getBitbucketAPI()
+    {
         return bitbucketAPI;
     }
 
@@ -73,8 +75,10 @@ public class SessionUser extends OAuthUser {
      * and {@link Service#isAuthenticated} instead.
      */
     @Deprecated
-    public boolean isAuthenticated() {
-        return getBitbucketService().isAuthenticated();
+    public boolean isAuthenticated()
+    {
+//return getBitbucketService().isAuthenticated();
+        return false;
     }
 
     /**
@@ -86,9 +90,11 @@ public class SessionUser extends OAuthUser {
      * and {@link Service#getCurrentUser} instead.
      */
     @Deprecated
-    public BitbucketUser getBitbucketUser() throws IOException {
-        Service bitbucketService = getBitbucketService();
-        return bitbucketService.getCurrentUser();
+    public BitbucketUser getBitbucketUser() throws IOException
+    {
+//        Service bitbucketService = getBitbucketService();
+//        return bitbucketService.getCurrentUser();
+        return null;
     }
 
     /**
@@ -98,15 +104,16 @@ public class SessionUser extends OAuthUser {
      * @throws URISyntaxException if a URI syntax error has been occurred
      * @throws IOException if an I/O error has occurred
      */
-    public String login() throws URISyntaxException, IOException {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        ExternalContext externalContext = facesContext.getExternalContext();
-        HttpServletRequest request =
-                (HttpServletRequest) externalContext.getRequest();
-
-        // Redirects the user agent to the authorization endpoint.
-        String uri = authorizationRequestUri(request);
-        externalContext.redirect(uri);
+    public String login() throws URISyntaxException, IOException
+    {
+//        FacesContext facesContext = FacesContext.getCurrentInstance();
+//        ExternalContext externalContext = facesContext.getExternalContext();
+//        HttpServletRequest request =
+//                (HttpServletRequest) externalContext.getRequest();
+//
+//        // Redirects the user agent to the authorization endpoint.
+//        String uri = authorizationRequestUri(request);
+//        externalContext.redirect(uri);
 
         return null;
     }
@@ -116,15 +123,10 @@ public class SessionUser extends OAuthUser {
      * @return <code>"home"</code>
      * @since 2.0
      */
-    public String logout() {
-        clearBitbucketService();
+    public String logout()
+    {
+//        clearBitbucketService();
 
         return "home";
-    }
-
-    @Override
-    protected OAuthClient getBitbucketClient() {
-//        return bitbucketAPI.getBitbucketClient();
-        return null;
     }
 }
