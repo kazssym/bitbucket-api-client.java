@@ -4,7 +4,7 @@
     xmlns:jsf="http://xmlns.jcp.org/jsf"
     xmlns:h="http://xmlns.jcp.org/jsf/html"
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-    <h:head>
+    <head jsf:lang="en-US">
         <meta content="text/html;charset=UTF-8" http-equiv="Content-Type" />
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <title>
@@ -12,12 +12,7 @@
           Bitbucket API Client Example
         </title>
         <link href="https://cdn.jsdelivr.net/pure/0.6.0/pure-min.css" rel="stylesheet"/>
-        <h:outputText value="&lt;!--[if lte IE 8]&gt;" escape="false"/>
-        <link href="https://cdn.jsdelivr.net/pure/0.6.0/grids-responsive-old-ie-min.css" rel="stylesheet" media="screen"/>
-        <h:outputText value="&lt;![endif]--&gt;" escape="false"/>
-        <h:outputText value="&lt;![if gt IE 8]&gt;" escape="false"/>
         <link href="https://cdn.jsdelivr.net/pure/0.6.0/grids-responsive-min.css" rel="stylesheet" media="screen"/>
-        <h:outputText value="&lt;![endif]&gt;" escape="false"/>
         <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"/>
         <link href="#{resource['stylesheets/example.css']}" rel="stylesheet"/>
         <style>
@@ -47,7 +42,7 @@ ga('send', 'pageview');
 // ]]>
             </script>
         </ui:fragment>
-    </h:head>
+    </head>
     <h:body>
         <h:form id="toolbar" styleClass="pure-menu pure-menu-horizontal">
             <h:outputLink styleClass="pure-menu-heading pure-menu-link local-float-left" value="#{request.contextPath}/">Bitbucket API Client Example</h:outputLink>
