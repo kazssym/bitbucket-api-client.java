@@ -33,7 +33,7 @@ import org.vx68k.bitbucket.api.client.oauth.OAuthClient;
  * @since 5.0
  */
 @ApplicationScoped
-@Named("config")
+@Named("bitbucket")
 public class BitbucketAPI implements Serializable
 {
     private static final long serialVersionUID = 1L;
