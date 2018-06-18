@@ -46,10 +46,35 @@ public class BitbucketClient
     public static final String API_BASE = "https://api.bitbucket.org/2.0/";
 
     /**
+     * Default {@BitbucketClient} object.
+     */
+    private static BitbucketClient defaultClient = new BitbucketClient();
+
+    /**
      * Allows custom implementations to extend this class.
      */
     protected BitbucketClient()
     {
+    }
+
+    /**
+     * Returns the default {@link BitbucketClient} object.
+     *
+     * @return the default {@link BitbucketClient} object
+     */
+    public static BitbucketClient getDefaultClient()
+    {
+        return defaultClient;
+    }
+
+    /**
+     * Returns a new {@link BitbucketClient} object.
+     *
+     * @return new {@link BitbucketClient} object
+     */
+    public static BitbucketClient newClient()
+    {
+        return new BitbucketClient();
     }
 
     /**
