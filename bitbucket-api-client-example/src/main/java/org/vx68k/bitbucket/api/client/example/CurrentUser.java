@@ -129,4 +129,17 @@ public class CurrentUser implements Serializable
 
         return "home";
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int hashCode()
+    {
+        int code = getClass().hashCode();
+        if (bitbucketAPI != null) {
+            code ^= bitbucketAPI.hashCode();
+        }
+        return code;
+    }
 }

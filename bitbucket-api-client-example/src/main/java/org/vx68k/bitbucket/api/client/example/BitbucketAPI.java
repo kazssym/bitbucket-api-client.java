@@ -155,4 +155,14 @@ public class BitbucketAPI implements Serializable
     {
         return System.getProperty(GOOGLE_ANALYTICS_ID);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int hashCode()
+    {
+        int code = getClass().hashCode();
+        return code;
+    }
 }
