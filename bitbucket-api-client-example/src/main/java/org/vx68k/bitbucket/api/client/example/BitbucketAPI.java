@@ -62,24 +62,24 @@ public class BitbucketAPI implements Serializable
     public static final String ANALYTICS_TRACKING_ID =
         PROPERTY_PREFIX + ".analytics.id";
 
-//    private OAuthClient bitbucketClient;
+    private OAuthClient bitbucketClient;
 
-//    /**
-//     * Returns the Bitbucket client with the configured client credentials.
-//     * This method shall returns the same Bitbucket client.
-//     *
-//     * @return Bitbucket client
-//     */
-//    public OAuthClient getBitbucketClient()
-//    {
-//        synchronized (this) {
-//            if (bitbucketClient == null) {
-//                bitbucketClient = getBitbucketClient(
-//                        getClientId(), getClientSecret());
-//            }
-//        }
-//        return bitbucketClient;
-//    }
+    /**
+     * Returns the Bitbucket client with the configured client credentials.
+     * This method shall returns the same Bitbucket client.
+     *
+     * @return Bitbucket client
+     */
+    public OAuthClient getBitbucketClient()
+    {
+        synchronized (this) {
+            if (bitbucketClient == null) {
+                bitbucketClient = getBitbucketClient(
+                        getClientId(), getClientSecret());
+            }
+        }
+        return bitbucketClient;
+    }
 
     /**
      * Returns a Bitbucket API client with a client identifier and a client
