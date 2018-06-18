@@ -142,4 +142,28 @@ public class CurrentUser implements Serializable
         }
         return code;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals(final Object object)
+    {
+        if (this != object) {
+            if (object == null || object.getClass() != getClass()) {
+                return false;
+            }
+
+            CurrentUser other = (CurrentUser) object;
+            if (bitbucketAPI != null) {
+                if (!bitbucketAPI.equals(other.bitbucketAPI)) {
+                    return false;
+                }
+            }
+            else if (bitbucketAPI != other.bitbucketAPI) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

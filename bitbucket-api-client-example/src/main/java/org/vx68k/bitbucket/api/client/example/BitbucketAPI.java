@@ -165,4 +165,18 @@ public class BitbucketAPI implements Serializable
         int code = getClass().hashCode();
         return code;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals(final Object object)
+    {
+        if (this != object) {
+            if (object == null || object.getClass() != getClass()) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
