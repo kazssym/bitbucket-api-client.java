@@ -104,4 +104,13 @@ public class BitbucketClientObject
         }
         return true;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString()
+    {
+        return jsonObject.toString();
+    }
 }
