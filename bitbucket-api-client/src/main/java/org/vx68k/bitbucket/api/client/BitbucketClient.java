@@ -123,17 +123,23 @@ public class BitbucketClient
     /**
      * Returns a {@link BitbucketUser} object from Bitbucket Cloud.
      *
-     * @param user name of the user
+     * @param userName name of the user
      * @return {@link BitbucketUser} object
      */
-    public static BitbucketUser getUser(final String user)
+    public static BitbucketUser getUser(final String userName)
     {
-        Client client = ClientBuilder.newClient()
-            .register(JsonStructureBodyReader.class);
-        WebTarget target = client.target(API_BASE).path("users/{user}");
-        JsonObject object = target.resolveTemplate("user", user)
-            .request(MediaType.APPLICATION_JSON).get(JsonObject.class);
-        return createUser(object);
+        Client client = ClientBuilder.newClient();
+        try {
+            WebTarget target = client.target(API_BASE).path("users/{user}");
+            JsonObject object = target.resolveTemplate("user", userName)
+                .register(JsonStructureBodyReader.class)
+                .request(MediaType.APPLICATION_JSON)
+                .get(JsonObject.class);
+            return createUser(object);
+        }
+        finally {
+            client.close();
+        }
     }
 
     /**
