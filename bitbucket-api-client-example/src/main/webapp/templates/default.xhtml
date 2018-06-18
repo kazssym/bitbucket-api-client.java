@@ -1,37 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets">
-  <h:head>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>
-      <ui:insert name="title-prefix"/>
-      Bitbucket API Client Example
-    </title>
-    <link href="https://cdn.jsdelivr.net/pure/0.6.0/pure-min.css" rel="stylesheet"/>
-    <h:outputText value="&lt;!--[if lte IE 8]&gt;" escape="false"/>
-    <link href="https://cdn.jsdelivr.net/pure/0.6.0/grids-responsive-old-ie-min.css" rel="stylesheet" media="screen"/>
-    <h:outputText value="&lt;![endif]--&gt;" escape="false"/>
-    <h:outputText value="&lt;![if gt IE 8]&gt;" escape="false"/>
-    <link href="https://cdn.jsdelivr.net/pure/0.6.0/grids-responsive-min.css" rel="stylesheet" media="screen"/>
-    <h:outputText value="&lt;![endif]&gt;" escape="false"/>
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"/>
-    <link href="#{resource['stylesheets/example.css']}" rel="stylesheet"/>
-    <style>
-      /* <![CDATA[ */
-      .local-float-left {
-        float: left;
-      }
-      .local-float-right {
-        float: right;
-      }
-      .local-clear-both {
-        clear: both;
-      }
-      /* ]]> */
-    </style>
-    <ui:insert name="head-additions"/>
-    <ui:fragment rendered="#{bitbucket.analyticsId != null}">
-      <script>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:jsf="http://xmlns.jcp.org/jsf"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <meta content="text/html;charset=UTF-8" http-equiv="Content-Type" />
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <title>
+            <ui:insert name="title-prefix"/>
+          Bitbucket API Client Example
+        </title>
+        <link href="https://cdn.jsdelivr.net/pure/0.6.0/pure-min.css" rel="stylesheet"/>
+        <h:outputText value="&lt;!--[if lte IE 8]&gt;" escape="false"/>
+        <link href="https://cdn.jsdelivr.net/pure/0.6.0/grids-responsive-old-ie-min.css" rel="stylesheet" media="screen"/>
+        <h:outputText value="&lt;![endif]--&gt;" escape="false"/>
+        <h:outputText value="&lt;![if gt IE 8]&gt;" escape="false"/>
+        <link href="https://cdn.jsdelivr.net/pure/0.6.0/grids-responsive-min.css" rel="stylesheet" media="screen"/>
+        <h:outputText value="&lt;![endif]&gt;" escape="false"/>
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"/>
+        <link href="#{resource['stylesheets/example.css']}" rel="stylesheet"/>
+        <style>
+            /* <![CDATA[ */
+            .local-float-left {
+              float: left;
+            }
+            .local-float-right {
+              float: right;
+            }
+            .local-clear-both {
+              clear: both;
+            }
+            /* ]]> */
+        </style>
+        <ui:insert name="head-additions"/>
+        <ui:fragment rendered="#{bitbucket.analyticsId != null}">
+            <script>
 // <![CDATA[
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -41,72 +45,72 @@ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 ga('create', '${config.analyticsId}', 'auto');
 ga('send', 'pageview');
 // ]]>
-      </script>
-    </ui:fragment>
-  </h:head>
-  <h:body>
-    <h:form id="toolbar" styleClass="pure-menu pure-menu-horizontal">
-      <h:outputLink styleClass="pure-menu-heading pure-menu-link local-float-left" value="#{request.contextPath}/">Bitbucket API Client Example</h:outputLink>
-      <ul class="pure-menu-list local-float-right">
-        <li class="pure-menu-item#{view.viewId == '/help.xhtml' ? ' pure-menu-selected' : ''}">
-          <h:outputLink styleClass="pure-menu-link" value="#{request.contextPath}/help.jsf">
-            <h:graphicImage styleClass="example-icon" name="icons/ic_help_white_18dp.png" alt="Help" title="Help"/>
-          </h:outputLink>
-        </li>
-        <ui:fragment rendered="#{bitbucket.bitbucketClient.configuredForOAuth}">
-          <ui:fragment rendered="#{user.bitbucketService.authenticated}">
-            <li id="account-menu" class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
-              <h:outputLink styleClass="pure-menu-link" value="#" onclick="return false;">
-                <h:outputText value="#{user.bitbucketService.currentUser.name}"/>
-              </h:outputLink>
-              <ul class="pure-menu-children">
-                <li class="pure-menu-item#{view.viewId == '/myself.xhtml' ? ' pure-menu-selected' : ''}">
-                  <h:outputLink styleClass="pure-menu-link" value="#{request.contextPath}/myself.jsf">Profile</h:outputLink>
-                </li>
-                <li class="pure-menu-item">
-                  <h:commandLink styleClass="pure-menu-link" action="#{user.logout}">#{messages.logout}</h:commandLink>
-                </li>
-              </ul>
-            </li>
-          </ui:fragment>
+            </script>
         </ui:fragment>
-        <ui:fragment rendered="#{not config.bitbucketClient.configuredForOAuth}">
-          <li class="pure-menu-item pure-menu-disabled">No client credentials</li>
-        </ui:fragment>
-      </ul>
-      <div class="local-clear-both"/>
-    </h:form>
-    <div class="pure-g">
-      <div class="pure-u-1 pure-u-sm-1-4">
-        <nav id="nav-menu" class="pure-menu">
-          <div class="pure-menu-heading">Users</div>
-          <ul class="pure-menu-list">
-            <li class="pure-menu-item pure-menu-disabled">Following</li>
-          </ul>
-          <div class="pure-menu-heading">Repositories</div>
-          <ul class="pure-menu-list">
-            <li class="pure-menu-item pure-menu-disabled">Mine</li>
-            <li class="pure-menu-item pure-menu-disabled">Watching</li>
-          </ul>
-          <div class="pure-menu-heading">Issues</div>
-          <ul class="pure-menu-list">
-            <li class="pure-menu-item pure-menu-disabled">Assigned to me</li>
-            <li class="pure-menu-item pure-menu-disabled">Reported by me</li>
-            <li class="pure-menu-item pure-menu-disabled">Participating</li>
-            <li class="pure-menu-item pure-menu-disabled">Watching</li>
-          </ul>
-        </nav>
-      </div>
-      <div class="pure-u-1 pure-u-sm-3-4">
-        <main>
-          <h:form id="login" styleClass="local-float-right" rendered="#{bitbucket.bitbucketClient.configuredForOAuth and not user.bitbucketService.authenticated}">
-            <h:commandButton styleClass="pure-button pure-button-primary" action="#{user.login}" title="Login with Bitbucket" value="#{messages.login}"/>
-          </h:form>
-          <ui:insert name="main"/>
-        </main>
-      </div>
-    </div>
-    <script src="https://cdn.jsdelivr.net/jquery/2.1.4/jquery.min.js"/>
-    <script src="#{resource['scripts/example.js']}" async="async"/>
-  </h:body>
+    </h:head>
+    <h:body>
+        <h:form id="toolbar" styleClass="pure-menu pure-menu-horizontal">
+            <h:outputLink styleClass="pure-menu-heading pure-menu-link local-float-left" value="#{request.contextPath}/">Bitbucket API Client Example</h:outputLink>
+            <ul class="pure-menu-list local-float-right">
+                <li class="pure-menu-item#{view.viewId == '/help.xhtml' ? ' pure-menu-selected' : ''}">
+                    <h:outputLink styleClass="pure-menu-link" value="#{request.contextPath}/help.jsf">
+                        <h:graphicImage styleClass="example-icon" name="icons/ic_help_white_18dp.png" alt="Help" title="Help"/>
+                    </h:outputLink>
+                </li>
+                <ui:fragment rendered="#{bitbucket.bitbucketClient.configuredForOAuth}">
+                    <ui:fragment rendered="#{user.bitbucketService.authenticated}">
+                        <li id="account-menu" class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+                            <h:outputLink styleClass="pure-menu-link" value="#" onclick="return false;">
+                                <h:outputText value="#{user.bitbucketService.currentUser.name}"/>
+                            </h:outputLink>
+                            <ul class="pure-menu-children">
+                                <li class="pure-menu-item#{view.viewId == '/myself.xhtml' ? ' pure-menu-selected' : ''}">
+                                    <h:outputLink styleClass="pure-menu-link" value="#{request.contextPath}/myself.jsf">Profile</h:outputLink>
+                                </li>
+                                <li class="pure-menu-item">
+                                    <h:commandLink styleClass="pure-menu-link" action="#{user.logout}">#{messages.logout}</h:commandLink>
+                                </li>
+                            </ul>
+                        </li>
+                    </ui:fragment>
+                </ui:fragment>
+                <ui:fragment rendered="#{not config.bitbucketClient.configuredForOAuth}">
+                    <li class="pure-menu-item pure-menu-disabled">No client credentials</li>
+                </ui:fragment>
+            </ul>
+            <div class="local-clear-both"/>
+        </h:form>
+        <div class="pure-g">
+            <div class="pure-u-1 pure-u-sm-1-4">
+                <nav id="nav-menu" class="pure-menu">
+                    <div class="pure-menu-heading">Users</div>
+                    <ul class="pure-menu-list">
+                        <li class="pure-menu-item pure-menu-disabled">Following</li>
+                    </ul>
+                    <div class="pure-menu-heading">Repositories</div>
+                    <ul class="pure-menu-list">
+                        <li class="pure-menu-item pure-menu-disabled">Mine</li>
+                        <li class="pure-menu-item pure-menu-disabled">Watching</li>
+                    </ul>
+                    <div class="pure-menu-heading">Issues</div>
+                    <ul class="pure-menu-list">
+                        <li class="pure-menu-item pure-menu-disabled">Assigned to me</li>
+                        <li class="pure-menu-item pure-menu-disabled">Reported by me</li>
+                        <li class="pure-menu-item pure-menu-disabled">Participating</li>
+                        <li class="pure-menu-item pure-menu-disabled">Watching</li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="pure-u-1 pure-u-sm-3-4">
+                <main>
+                    <h:form id="login" styleClass="local-float-right" rendered="#{bitbucket.bitbucketClient.configuredForOAuth and not user.bitbucketService.authenticated}">
+                        <h:commandButton styleClass="pure-button pure-button-primary" action="#{user.login}" title="Login with Bitbucket" value="#{messages.login}"/>
+                    </h:form>
+                    <ui:insert name="main"/>
+                </main>
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/jquery/2.1.4/jquery.min.js"/>
+        <script src="#{resource['scripts/example.js']}" async="async"/>
+    </h:body>
 </html>
