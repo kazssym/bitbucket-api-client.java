@@ -39,7 +39,7 @@ public class BitbucketAPI implements Serializable
     private static final long serialVersionUID = 1L;
 
     /**
-     * Prefix for the system properties.
+     * Prefix for the system property keys.
      */
     private static final String PROPERTY_PREFIX =
         "org.vx68k.bitbucket.api.client.example";
@@ -47,20 +47,20 @@ public class BitbucketAPI implements Serializable
     /**
      * Property key for the Bitbucket OAuth client identifier (consumer key).
      */
-    public static final String OAUTH_CLIENT_ID =
+    public static final String OAUTH_CLIENT_ID_PROPERTY =
         PROPERTY_PREFIX + ".oauth.clientId";
 
     /**
      * Property key for the Bitbucket OAuth client secret (consumer secret).
      */
-    public static final String OAUTH_CLIENT_SECRET =
+    public static final String OAUTH_CLIENT_SECRET_PROPERTY =
         PROPERTY_PREFIX + ".oauth.clientSecret";
 
     /**
      * Property key for the Google Analytics tracking ID.
      */
-    public static final String GOOGLE_ANALYTICS_ID =
-        PROPERTY_PREFIX + ".analytics.id";
+    public static final String GOOGLE_ANALYTICS_ID_PROPERTY =
+        PROPERTY_PREFIX + ".analyticsId";
 
     private OAuthClient bitbucketClient;
 
@@ -116,7 +116,7 @@ public class BitbucketAPI implements Serializable
      */
     protected static String getClientId()
     {
-        return System.getProperty(OAUTH_CLIENT_ID);
+        return System.getProperty(OAUTH_CLIENT_ID_PROPERTY);
     }
 
     /**
@@ -125,7 +125,7 @@ public class BitbucketAPI implements Serializable
      */
     protected static String getClientSecret()
     {
-        return System.getProperty(OAUTH_CLIENT_SECRET);
+        return System.getProperty(OAUTH_CLIENT_SECRET_PROPERTY);
     }
 
     /**
@@ -153,7 +153,7 @@ public class BitbucketAPI implements Serializable
      */
     public String getAnalyticsId()
     {
-        return System.getProperty(GOOGLE_ANALYTICS_ID);
+        return System.getProperty(GOOGLE_ANALYTICS_ID_PROPERTY);
     }
 
     /**
