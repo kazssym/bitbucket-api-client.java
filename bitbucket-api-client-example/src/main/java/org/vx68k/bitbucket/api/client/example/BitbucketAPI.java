@@ -59,7 +59,7 @@ public class BitbucketAPI implements Serializable
     /**
      * Property key for the Google Analytics tracking ID.
      */
-    public static final String ANALYTICS_TRACKING_ID =
+    public static final String GOOGLE_ANALYTICS_ID =
         PROPERTY_PREFIX + ".analytics.id";
 
     private OAuthClient bitbucketClient;
@@ -149,10 +149,10 @@ public class BitbucketAPI implements Serializable
     /**
      * Returns the tracking ID for Google Analytics.
      *
-     * @return tracking ID
+     * @return the tracking ID
      */
     public String getAnalyticsId()
     {
-        return System.getProperty(ANALYTICS_TRACKING_ID);
+        return System.getProperty(GOOGLE_ANALYTICS_ID);
     }
 }
