@@ -139,6 +139,7 @@ public class SessionUser extends OAuthUser {
 
     @Override
     protected OAuthClient getBitbucketClient() {
-        return applicationConfig.getBitbucketClient();
+//        return applicationConfig.getBitbucketClient();
+        return null;
     }
 }

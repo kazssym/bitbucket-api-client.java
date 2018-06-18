@@ -54,21 +54,21 @@ public final class ConfigTest
         System.clearProperty(Properties.BITBUCKET_OAUTH_CLIENT_SECRET);
     }
 
-    /**
-     * Tests anonymously.
-     */
-    @Test
-    public void testGetBitbucketClient()
-    {
-        Config applicationConfig = new Config();
-        OAuthClient bitbucketClient = applicationConfig.getBitbucketClient();
-        String clientId = bitbucketClient.getClientId();
-        String clientSecret = bitbucketClient.getClientSecret();
-        assertNull(clientId);
-        assertNull(clientSecret);
-
-        // @todo Add a test case with system properties.
-    }
+//    /**
+//     * Tests anonymously.
+//     */
+//    @Test
+//    public void testGetBitbucketClient()
+//    {
+//        Config applicationConfig = new Config();
+//        OAuthClient bitbucketClient = applicationConfig.getBitbucketClient();
+//        String clientId = bitbucketClient.getClientId();
+//        String clientSecret = bitbucketClient.getClientSecret();
+//        assertNull(clientId);
+//        assertNull(clientSecret);
+//
+//        // @todo Add a test case with system properties.
+//    }
 
     /**
      * Tests with credentials.
