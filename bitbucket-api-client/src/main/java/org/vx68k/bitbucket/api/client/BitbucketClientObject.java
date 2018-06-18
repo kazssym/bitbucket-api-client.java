@@ -92,16 +92,16 @@ public class BitbucketClientObject
     @Override
     public boolean equals(final Object object)
     {
-        if (object == this) {
-            return true;
-        }
-        if (object != null && object.getClass() == getClass()) {
-            BitbucketClientObject that = (BitbucketClientObject) object;
-            if (!jsonObject.equals(that.jsonObject)) {
+        if (this != object) {
+            if (object == null || object.getClass() != getClass()) {
                 return false;
             }
-            return true;
+
+            BitbucketClientObject other = (BitbucketClientObject) object;
+            if (!jsonObject.equals(other.jsonObject)) {
+                return false;
+            }
         }
-        return false;
+        return true;
     }
 }
