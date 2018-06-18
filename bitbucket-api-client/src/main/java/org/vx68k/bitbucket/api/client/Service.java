@@ -28,7 +28,9 @@ import org.vx68k.bitbucket.api.BitbucketUser;
  * <em>As of version 2.0, this class has been changed to abstract.</em>
  * @author Kaz Nishimura
  * @since 1.0
+ * @deprecated To be removed.
  */
+@Deprecated
 public abstract class Service {
 
     /**
