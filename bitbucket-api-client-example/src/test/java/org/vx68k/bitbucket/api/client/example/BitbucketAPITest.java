@@ -50,8 +50,8 @@ public final class BitbucketAPITest
     @Before
     public void setUp()
     {
-        System.clearProperty(Properties.BITBUCKET_OAUTH_CLIENT_ID);
-        System.clearProperty(Properties.BITBUCKET_OAUTH_CLIENT_SECRET);
+        System.clearProperty(BitbucketAPI.OAUTH_CLIENT_ID);
+        System.clearProperty(BitbucketAPI.OAUTH_CLIENT_SECRET);
     }
 
 //    /**
