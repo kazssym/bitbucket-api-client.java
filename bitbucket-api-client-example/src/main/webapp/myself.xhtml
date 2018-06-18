@@ -33,62 +33,62 @@
     </ui:define>
     <ui:define name="main">
       <h1>My profile</h1>
-      <ui:fragment rendered="#{user.bitbucketService.authenticated}">
+      <ui:fragment rendered="#{currentUser.bitbucketService.authenticated}">
         <div class="local-overflow-auto">
           <table class="pure-table">
             <tbody>
               <tr>
                 <th>UUID</th>
                 <td>
-                  <h:outputText value="{#{user.bitbucketService.currentUser.uuid}}"/>
+                  <h:outputText value="{#{currentUser.bitbucketService.currentUser.uuid}}"/>
                 </td>
               </tr>
               <tr>
                 <th>Name</th>
                 <td>
-                  <h:outputLink value="#{user.bitbucketService.currentUser.links['html']}">
-                    <h:outputText value="#{user.bitbucketService.currentUser.name}"/>
+                  <h:outputLink value="#{currentUser.bitbucketService.currentUser.links['html']}">
+                    <h:outputText value="#{currentUser.bitbucketService.currentUser.name}"/>
                   </h:outputLink>
                 </td>
               </tr>
               <tr>
                 <th>Display name</th>
                 <td>
-                  <h:outputText value="#{user.bitbucketService.currentUser.displayName}"/>
+                  <h:outputText value="#{currentUser.bitbucketService.currentUser.displayName}"/>
                 </td>
               </tr>
               <tr>
                 <th>Avatar</th>
                 <td>
-                  <h:graphicImage url="#{user.bitbucketService.currentUser.links['avatar']}" alt="Avatar"/>
+                  <h:graphicImage url="#{currentUser.bitbucketService.currentUser.links['avatar']}" alt="Avatar"/>
                 </td>
               </tr>
               <tr>
                 <th>Website</th>
                 <td>
-                  <h:outputLink rendered="#{user.bitbucketService.currentUser.website != null}" value="#{user.bitbucketService.currentUser.website}">
-                    <h:outputText value="#{user.bitbucketService.currentUser.website}"/>
+                  <h:outputLink rendered="#{currentUser.bitbucketService.currentUser.website != null}" value="#{currentUser.bitbucketService.currentUser.website}">
+                    <h:outputText value="#{currentUser.bitbucketService.currentUser.website}"/>
                   </h:outputLink>
-                  <ui:fragment rendered="#{user.bitbucketService.currentUser.website == null}">Unspecified</ui:fragment>
+                  <ui:fragment rendered="#{currentUser.bitbucketService.currentUser.website == null}">Unspecified</ui:fragment>
                 </td>
               </tr>
               <tr>
                 <th>Location</th>
                 <td>
-                  <h:outputLink rendered="#{user.bitbucketService.currentUser.location != null}" value="https://www.google.com/maps" title="Search this location using Google Maps" target="_blank">
-                    <f:param name="q" value="#{user.bitbucketService.currentUser.location}"/>
-                    <h:outputText value="#{user.bitbucketService.currentUser.location}"/>
+                  <h:outputLink rendered="#{currentUser.bitbucketService.currentUser.location != null}" value="https://www.google.com/maps" title="Search this location using Google Maps" target="_blank">
+                    <f:param name="q" value="#{currentUser.bitbucketService.currentUser.location}"/>
+                    <h:outputText value="#{currentUser.bitbucketService.currentUser.location}"/>
                   </h:outputLink>
-                  <ui:fragment rendered="#{user.bitbucketService.currentUser.location == null}">Unspecified</ui:fragment>
+                  <ui:fragment rendered="#{currentUser.bitbucketService.currentUser.location == null}">Unspecified</ui:fragment>
                 </td>
               </tr>
               <tr>
                 <th>Since</th>
                 <td>
-                  <h:outputFormat rendered="#{user.bitbucketService.currentUser.created != null}" value="{0, date, long}">
-                    <f:param value="#{user.bitbucketService.currentUser.created}"/>
+                  <h:outputFormat rendered="#{currentUser.bitbucketService.currentUser.created != null}" value="{0, date, long}">
+                    <f:param value="#{currentUser.bitbucketService.currentUser.created}"/>
                   </h:outputFormat>
-                  <ui:fragment rendered="#{user.bitbucketService.currentUser.created == null}">Unspecified</ui:fragment>
+                  <ui:fragment rendered="#{currentUser.bitbucketService.currentUser.created == null}">Unspecified</ui:fragment>
                 </td>
               </tr>
             </tbody>

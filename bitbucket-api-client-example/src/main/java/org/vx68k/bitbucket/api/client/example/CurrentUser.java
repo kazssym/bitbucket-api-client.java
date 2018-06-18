@@ -36,7 +36,7 @@ import org.vx68k.bitbucket.api.client.Service;
  * @since 5.0
  */
 @SessionScoped
-@Named("user")
+@Named("currentUser")
 public class CurrentUser implements Serializable
 {
     private static final long serialVersionUID = 1L;
