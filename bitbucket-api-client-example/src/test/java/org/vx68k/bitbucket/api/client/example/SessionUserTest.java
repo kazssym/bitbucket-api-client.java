@@ -33,37 +33,22 @@ import static org.junit.Assert.*;
  */
 public class SessionUserTest {
 
-    private Config applicationConfig;
+    private BitbucketAPI bitbucketAPI;
 
     @Before
     public void setUp() {
-        applicationConfig = new Config();
+        bitbucketAPI = new BitbucketAPI();
     }
 
     @After
     public void tearDown() {
-        applicationConfig = null;
-    }
-
-    @Test
-    public void testDefaultConstructor() {
-        SessionUser user = new SessionUser();
-        assertNull(user.getApplicationConfig());
+        bitbucketAPI = null;
     }
 
     @Test
     public void testConstructorWithApplicationConfig() {
-        SessionUser user = new SessionUser(applicationConfig);
-        assertEquals(applicationConfig, user.getApplicationConfig());
-    }
-
-    @Test
-    public void testGetApplicationConfig() {
-        SessionUser user = new SessionUser();
-        assertNull(user.getApplicationConfig());
-
-        user.setApplicationConfig(applicationConfig);
-        assertEquals(applicationConfig, user.getApplicationConfig());
+        SessionUser user = new SessionUser(bitbucketAPI);
+        assertEquals(bitbucketAPI, user.getBitbucketAPI());
     }
 
 //    @Test

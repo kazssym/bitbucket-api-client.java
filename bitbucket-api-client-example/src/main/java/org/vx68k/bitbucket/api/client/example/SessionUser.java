@@ -42,42 +42,27 @@ public class SessionUser extends OAuthUser {
 
     private static final long serialVersionUID = 1L;
 
-    private Config applicationConfig;
-
     /**
-     * Constructs this instance.
+     * {@link BitbucketAPI} object.
      */
-    public SessionUser() {
-    }
+    private final BitbucketAPI bitbucketAPI;
 
     /**
-     * Constructs this instance with an application configuration.
-     * This constructor is equivalent to the default one followed by a call to
-     * {@link #setApplicationConfig}.
-     * @param applicationConfig application configuration
-     * @since 4.0
-     */
-    public SessionUser(final Config applicationConfig) {
-        setApplicationConfig(applicationConfig);
-    }
-
-    /**
-     * Returns the application configuration.
-     * @return application configuration
-     * @since 4.0
-     */
-    public Config getApplicationConfig() {
-        return applicationConfig;
-    }
-
-    /**
-     * Sets the application configuration.
-     * @param value application configuration to be set
-     * @since 4.0
+     * Constructs this object with a {@link BitbucketAPI} object.
+     *
+     * @param bitbucket {@link BitbucketAPI object}
      */
     @Inject
-    public void setApplicationConfig(final Config value) {
-        applicationConfig = value;
+    public SessionUser(final BitbucketAPI bitbucket) {
+        bitbucketAPI = bitbucket;
+    }
+
+    /**
+     * Returns the {@link BitbucketAPI} object.
+     * @return the {@link BitbucketAPI} object
+     */
+    public BitbucketAPI getBitbucketAPI() {
+        return bitbucketAPI;
     }
 
     /**
@@ -139,7 +124,7 @@ public class SessionUser extends OAuthUser {
 
     @Override
     protected OAuthClient getBitbucketClient() {
-//        return applicationConfig.getBitbucketClient();
+//        return bitbucketAPI.getBitbucketClient();
         return null;
     }
 }

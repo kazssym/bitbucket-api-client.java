@@ -1,5 +1,5 @@
 /*
- * Config.java - class Config
+ * BitbucketAPI.java - class BitbucketAPI
  * Copyright (C) 2015-2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -27,14 +27,14 @@ import org.vx68k.bitbucket.api.client.oauth.OAuthCredentials;
 import org.vx68k.bitbucket.api.client.oauth.OAuthClient;
 
 /**
- * Application configuration.
+ * Bitbucket API.
  *
  * @author Kaz Nishimura
  * @since 5.0
  */
 @ApplicationScoped
 @Named("config")
-public class Config implements Serializable
+public class BitbucketAPI implements Serializable
 {
     private static final long serialVersionUID = 1L;
 
