@@ -11,8 +11,6 @@
             <ui:insert name="title-prefix"/>
           Bitbucket API Client Example
         </title>
-        <link href="https://cdn.jsdelivr.net/pure/0.6.0/pure-min.css" rel="stylesheet"/>
-        <link href="https://cdn.jsdelivr.net/pure/0.6.0/grids-responsive-min.css" rel="stylesheet" media="screen"/>
         <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"/>
         <style>
             /* <![CDATA[ */
@@ -106,7 +104,13 @@ ga('send', 'pageview');
         </div>
         <script src="https://cdn.jsdelivr.net/jquery/2.1.4/jquery.min.js"/>
         <script src="#{resource['scripts/example.js']}" async="async"/>
-        <link href="#{facesContext.externalContext
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css"
+              crossorigin="anonymous" rel="stylesheet"
+              integrity="sha256-Q0zCrUs2IfXWYx0uMKJfG93CvF6oVII21waYsAV4/8Q=" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css"
+              crossorigin="anonymous" rel="stylesheet" media="screen"
+              integrity="sha256-YqnnS/cQ7vE7gfVjdfx+JMi5EFD6m6Zqdemj81rs6PU=" />
+         <link href="#{facesContext.externalContext
                     .encodeResourceURL(resource['stylesheets/app.css'])}"
               rel="stylesheet" />
     </body>
