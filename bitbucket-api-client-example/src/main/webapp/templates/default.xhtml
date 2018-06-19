@@ -14,7 +14,6 @@
         <link href="https://cdn.jsdelivr.net/pure/0.6.0/pure-min.css" rel="stylesheet"/>
         <link href="https://cdn.jsdelivr.net/pure/0.6.0/grids-responsive-min.css" rel="stylesheet" media="screen"/>
         <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"/>
-        <link href="#{resource['stylesheets/example.css']}" rel="stylesheet"/>
         <style>
             /* <![CDATA[ */
             .local-float-left {
@@ -107,5 +106,8 @@ ga('send', 'pageview');
         </div>
         <script src="https://cdn.jsdelivr.net/jquery/2.1.4/jquery.min.js"/>
         <script src="#{resource['scripts/example.js']}" async="async"/>
+        <link href="#{facesContext.externalContext
+                    .encodeResourceURL(resource['stylesheets/example.css'])}"
+              rel="stylesheet" />
     </body>
 </html>
