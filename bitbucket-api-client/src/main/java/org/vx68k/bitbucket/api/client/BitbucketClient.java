@@ -25,12 +25,12 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
-import org.glassfish.json.jaxrs.JsonStructureBodyReader;
 import org.vx68k.bitbucket.api.BitbucketBranch;
 import org.vx68k.bitbucket.api.BitbucketCommit;
 import org.vx68k.bitbucket.api.BitbucketIssueTracker;
 import org.vx68k.bitbucket.api.BitbucketRepository;
 import org.vx68k.bitbucket.api.BitbucketUser;
+import org.vx68k.bitbucket.api.client.internal.JsonMessageBodyReader;
 
 /**
  * Bitbucket client.
@@ -157,7 +157,7 @@ public class BitbucketClient
         try {
             WebTarget target = client.target(API_BASE).path("users/{user}");
             JsonObject object = target.resolveTemplate("user", userName)
-                .register(JsonStructureBodyReader.class)
+                .register(JsonMessageBodyReader.class)
                 .request(MediaType.APPLICATION_JSON)
                 .get(JsonObject.class);
             return createUser(object);
