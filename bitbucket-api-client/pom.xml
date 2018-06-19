@@ -23,10 +23,6 @@
             <artifactId>javax.json-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.glassfish</groupId>
-            <artifactId>jsonp-jaxrs</artifactId>
-        </dependency>
-        <dependency>
             <groupId>com.google.http-client</groupId>
             <artifactId>google-http-client-jackson2</artifactId>
             <version>1.20.0</version>
