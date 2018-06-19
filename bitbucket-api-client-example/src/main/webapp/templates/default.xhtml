@@ -31,10 +31,12 @@ ga('send', 'pageview');
         <h:form id="toolbar" styleClass="pure-menu pure-menu-horizontal app-hbox app-top">
             <h:outputLink styleClass="pure-menu-heading pure-menu-link app-hbox-grow" value="#{request.contextPath}/">Bitbucket API Client Example</h:outputLink>
             <ul class="pure-menu-list">
-                <li class="pure-menu-item#{view.viewId == '/help.xhtml' ? ' pure-menu-selected' : ''}">
-                    <h:outputLink styleClass="pure-menu-link" value="#{request.contextPath}/help.jsf">
-                        <h:graphicImage styleClass="example-icon" name="icons/ic_help_white_18dp.png" alt="Help" title="Help"/>
-                    </h:outputLink>
+                <li class="pure-menu-item">
+                    <a class="pure-menu-link" jsf:value="#{request.contextPath}/help.jsf">
+                        <span class="app-icon">
+                            <ui:include src="/icons/ic_help_24px.svg" />
+                        </span>
+                    </a>
                 </li>
                 <ui:fragment rendered="#{bitbucket.bitbucketClient.configuredForOAuth}">
                     <ui:fragment rendered="#{user.bitbucketService.authenticated}">
