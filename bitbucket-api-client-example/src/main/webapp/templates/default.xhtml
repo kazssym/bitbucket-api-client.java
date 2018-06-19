@@ -43,8 +43,8 @@ ga('send', 'pageview');
             </script>
         </ui:fragment>
     </head>
-    <h:body>
-        <h:form id="toolbar" styleClass="pure-menu pure-menu-horizontal">
+    <body class="app-vbox" jsf:lang="en-US">
+        <h:form id="toolbar" styleClass="pure-menu pure-menu-horizontal app-hbox app-top">
             <h:outputLink styleClass="pure-menu-heading pure-menu-link local-float-left" value="#{request.contextPath}/">Bitbucket API Client Example</h:outputLink>
             <ul class="pure-menu-list local-float-right">
                 <li class="pure-menu-item#{view.viewId == '/help.xhtml' ? ' pure-menu-selected' : ''}">
@@ -107,5 +107,5 @@ ga('send', 'pageview');
         </div>
         <script src="https://cdn.jsdelivr.net/jquery/2.1.4/jquery.min.js"/>
         <script src="#{resource['scripts/example.js']}" async="async"/>
-    </h:body>
+    </body>
 </html>
