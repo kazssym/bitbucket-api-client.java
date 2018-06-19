@@ -7,14 +7,6 @@
   this notice are preserved.  This file is offered as-is, without any warranty.
 */
 
-/* Works around for Normalize.css on Firefox 40 and later. */
-@supports (text-decoration: underline dotted) {
-  abbr[title] {
-    border-bottom: inherit;
-    text-decoration: underline dotted;
-  }
-}
-
 html {
   height: 100%;
   line-height: 1.2em;
