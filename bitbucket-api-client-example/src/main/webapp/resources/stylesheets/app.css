@@ -34,6 +34,25 @@ html, button, input, select, textarea,
   background-color: #F7F7F7;
 }
 
+.app-hbox
+{
+    display: flex;
+    flex-direction: row;
+}
+
+.app-vbox
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.app-hbox > .app-hbox-grow,
+.app-vbox > .app-vbox-grow,
+.CodeMirror
+{
+    flex: auto;
+}
+
 .example-icon {
   vertical-align: middle;
 }
