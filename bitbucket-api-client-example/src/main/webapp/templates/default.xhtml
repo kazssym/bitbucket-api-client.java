@@ -41,8 +41,8 @@
                 </li>
             </ul>
         </form>
-        <div class="pure-g">
-            <div class="pure-u-1 pure-u-sm-1-4">
+        <div class="app-vbox-grow app-hbox">
+            <div class="">
                 <nav id="nav-menu" class="pure-menu">
                     <div class="pure-menu-heading">Users</div>
                     <ul class="pure-menu-list">
@@ -62,7 +62,7 @@
                     </ul>
                 </nav>
             </div>
-            <div class="pure-u-1 pure-u-sm-3-4">
+            <div class="app-hbox-grow">
                 <main>
                     <h:form id="login" styleClass="" rendered="#{bitbucket.bitbucketClient.configuredForOAuth and not user.bitbucketService.authenticated}">
                         <h:commandButton styleClass="pure-button pure-button-primary" action="#{user.login}" title="Login with Bitbucket" value="#{messages.login}"/>
