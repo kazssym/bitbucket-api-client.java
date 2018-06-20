@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/templates/default.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:jsf="http://xmlns.jcp.org/jsf"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:define name="main">
+        <form jsf:id="user">
+            <div>
+                <label jsf:for="name">User name:</label><br />
+                <input type="text" jsf:id="name"
+                    jsf:value="#{requestScope.userName}" />
+            </div>
+            <div>
+                <input type="submit" jsf:id="submit" jsf:value="Submit">
+                    <f:ajax execute="name" />
+                </input>
+            </div>
+        </form>
+    </ui:define>
+</ui:composition>
