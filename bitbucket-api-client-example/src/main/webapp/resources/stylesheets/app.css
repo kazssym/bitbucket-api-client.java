@@ -37,6 +37,11 @@ html, button, input, select, textarea,
   background-color: #F7F7F7;
 }
 
+.app-top
+{
+    background: #eeeeee;
+}
+
 .app-hbox
 {
     display: flex;
