@@ -4,7 +4,7 @@
     xmlns:jsf="http://xmlns.jcp.org/jsf"
     xmlns:h="http://xmlns.jcp.org/jsf/html"
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-    <head jsf:lang="en-US">
+    <head jsf:id="head">
         <meta content="text/html;charset=UTF-8" http-equiv="Content-Type" />
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <title>
@@ -27,7 +27,7 @@ ga('send', 'pageview');
             </script>
         </ui:fragment>
     </head>
-    <body class="app-vbox" jsf:lang="en-US">
+    <body class="app-vbox" jsf:id="body">
         <h:form id="toolbar" styleClass="pure-menu pure-menu-horizontal app-hbox app-top">
             <h:outputLink styleClass="pure-menu-heading pure-menu-link app-hbox-grow" value="#{request.contextPath}/">Bitbucket API Client Example</h:outputLink>
             <ul class="pure-menu-list">
