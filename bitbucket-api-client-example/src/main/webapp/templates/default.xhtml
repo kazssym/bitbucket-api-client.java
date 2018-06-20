@@ -31,6 +31,20 @@ ga('send', 'pageview');
         <h:form id="toolbar" styleClass="pure-menu pure-menu-horizontal app-hbox app-top">
             <h:outputLink styleClass="pure-menu-heading pure-menu-link app-hbox-grow" value="#{request.contextPath}/">Bitbucket API Client Example</h:outputLink>
             <ul class="pure-menu-list">
+                <li id="account-menu"
+                    class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+                    <h:outputLink styleClass="pure-menu-link" value="#" onclick="return false;">
+                        <h:outputText value="#{user.bitbucketService.currentUser.name}"/>
+                    </h:outputLink>
+                    <ul class="pure-menu-children">
+                        <li class="pure-menu-item#{view.viewId == '/myself.xhtml' ? ' pure-menu-selected' : ''}">
+                            <h:outputLink styleClass="pure-menu-link" value="#{request.contextPath}/myself.jsf">Profile</h:outputLink>
+                        </li>
+                        <li class="pure-menu-item">
+                            <h:commandLink styleClass="pure-menu-link" action="#{user.logout}">#{messages.logout}</h:commandLink>
+                        </li>
+                    </ul>
+                </li>
                 <li class="pure-menu-item">
                     <a class="pure-menu-link" jsf:value="#{request.contextPath}/help.jsf">
                         <span class="app-icon">
@@ -38,23 +52,6 @@ ga('send', 'pageview');
                         </span>
                     </a>
                 </li>
-                <ui:fragment rendered="#{bitbucket.bitbucketClient.configuredForOAuth}">
-                    <ui:fragment rendered="#{user.bitbucketService.authenticated}">
-                        <li id="account-menu" class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
-                            <h:outputLink styleClass="pure-menu-link" value="#" onclick="return false;">
-                                <h:outputText value="#{user.bitbucketService.currentUser.name}"/>
-                            </h:outputLink>
-                            <ul class="pure-menu-children">
-                                <li class="pure-menu-item#{view.viewId == '/myself.xhtml' ? ' pure-menu-selected' : ''}">
-                                    <h:outputLink styleClass="pure-menu-link" value="#{request.contextPath}/myself.jsf">Profile</h:outputLink>
-                                </li>
-                                <li class="pure-menu-item">
-                                    <h:commandLink styleClass="pure-menu-link" action="#{user.logout}">#{messages.logout}</h:commandLink>
-                                </li>
-                            </ul>
-                        </li>
-                    </ui:fragment>
-                </ui:fragment>
             </ul>
         </h:form>
         <div class="pure-g">
