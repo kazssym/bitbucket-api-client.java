@@ -22,7 +22,7 @@
             <ul class="pure-menu-list">
                 <li id="account-menu"
                     class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
-                    <span class="pure-menu-link">Account</span>
+                    <a class="pure-menu-link" href="#">Account</a>
                     <ul class="pure-menu-children">
                         <li class="pure-menu-item#{view.viewId == '/myself.xhtml' ? ' pure-menu-selected' : ''}">
                             <h:outputLink styleClass="pure-menu-link" value="#{request.contextPath}/myself.jsf">Profile</h:outputLink>
@@ -71,7 +71,6 @@
                 </main>
             </div>
         </div>
-        <script src="https://cdn.jsdelivr.net/jquery/2.1.4/jquery.min.js"/>
         <script async="async" defer="defer"
             src="#{facesContext.externalContext
                  .encodeResourceURL(resource['scripts/example.js'])}"></script>
