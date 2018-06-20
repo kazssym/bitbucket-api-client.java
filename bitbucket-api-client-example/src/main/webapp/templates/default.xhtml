@@ -72,7 +72,9 @@
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/jquery/2.1.4/jquery.min.js"/>
-        <script src="#{resource['scripts/example.js']}" async="async"/>
+        <script async="async" defer="defer"
+            src="#{facesContext.externalContext
+                 .encodeResourceURL(resource['scripts/example.js'])}"></script>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css"
               crossorigin="anonymous" rel="stylesheet"
               integrity="sha256-Q0zCrUs2IfXWYx0uMKJfG93CvF6oVII21waYsAV4/8Q=" />
