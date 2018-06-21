@@ -55,8 +55,7 @@ html, button, input, select, textarea,
 }
 
 .app-hbox > .app-hbox-grow,
-.app-vbox > .app-vbox-grow,
-.CodeMirror
+.app-vbox > .app-vbox-grow
 {
     flex: auto;
 }
