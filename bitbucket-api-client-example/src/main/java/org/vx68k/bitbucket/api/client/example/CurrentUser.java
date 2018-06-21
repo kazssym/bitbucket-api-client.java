@@ -68,16 +68,13 @@ public class CurrentUser implements Serializable
     }
 
     /**
-     * Indicates whether a user is authenticated or not.
-     * @return <code>true</code> if a user is authenticated, or
-     * <code>false</code> otherwise
-     * @deprecated As of version 4.0, replaced by {@link #getBitbucketService}
-     * and {@link Service#isAuthenticated} instead.
+     * Returns {@code true} if the current user is logged in.
+     *
+     * @return {@code true} if logged in, or {@code false} otherwise
      */
-    @Deprecated
-    public boolean isAuthenticated()
+    public final boolean isLoggedIn()
     {
-//return getBitbucketService().isAuthenticated();
+        // @todo Implement this method.
         return false;
     }
 
