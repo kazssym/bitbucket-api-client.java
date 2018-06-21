@@ -91,8 +91,13 @@ public class BitbucketClientUser extends BitbucketClientObject
     @Override
     public final UUID getUUID()
     {
-        // @todo Implement this method.
-        return null;
+        JsonObject userObject = getJsonObject();
+        UUID uuid = null;
+        if (userObject.containsKey(UUID)) {
+            uuid = BitbucketClientUtilities.parseUUID(
+                userObject.getString(UUID));
+        }
+        return uuid;
     }
 
     /**

@@ -42,7 +42,7 @@ public class BitbucketClientTest
         BitbucketUser user = BitbucketClient.getUser("kazssym");
         System.out.println("Got " + user);
         assertEquals(BitbucketUser.USER, user.getType());
-        // @todo assertNotNull(user.getUUID());
+        assertNotNull(user.getUUID());
         assertEquals("kazssym", user.getName());
         assertNotNull(user.getDisplayName());
         assertNotNull(user.getCreated());
