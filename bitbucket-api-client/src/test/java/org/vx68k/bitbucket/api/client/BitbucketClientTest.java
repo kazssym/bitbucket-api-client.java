@@ -45,6 +45,7 @@ public class BitbucketClientTest
         // @todo assertNotNull(user.getUUID());
         assertEquals("kazssym", user.getName());
         assertNotNull(user.getDisplayName());
+        assertNotNull(user.getCreated());
         // Other properties are unknown at test time.
     }
 }

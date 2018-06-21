@@ -20,7 +20,8 @@
 
 package org.vx68k.bitbucket.api.client;
 
-import java.util.Date;
+import java.time.Instant;
+import java.time.OffsetDateTime;
 import java.util.Map;
 import java.util.UUID;
 import javax.json.JsonObject;
@@ -138,13 +139,13 @@ public class BitbucketClientUser extends BitbucketClientObject
      * {@inheritDoc}
      */
     @Override
-    public final Date getCreated()
+    public final Instant getCreated()
     {
         JsonObject userObject = getJsonObject();
-        Date created = null;
+        Instant created = null;
         if (userObject.containsKey(CREATED_ON)) {
-            created = BitbucketClientUtilities.parseDate(
-                userObject.getString(CREATED_ON));
+            created = OffsetDateTime.parse(
+                userObject.getString(CREATED_ON)).toInstant();
         }
         return created;
     }

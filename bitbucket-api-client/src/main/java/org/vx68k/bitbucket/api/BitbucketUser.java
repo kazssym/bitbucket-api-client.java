@@ -20,7 +20,7 @@
 
 package org.vx68k.bitbucket.api;
 
-import java.util.Date;
+import java.time.Instant;
 import java.util.Map;
 import java.util.UUID;
 
@@ -85,11 +85,11 @@ public interface BitbucketUser
     String getLocation();
 
     /**
-     * Returns the created-on date of this user.
+     * Returns the instant when this user was created.
      *
-     * @return the created-on date
+     * @return the instant
      */
-    Date getCreated();
+    Instant getCreated();
 
     /**
      * Returns the links of this user.
