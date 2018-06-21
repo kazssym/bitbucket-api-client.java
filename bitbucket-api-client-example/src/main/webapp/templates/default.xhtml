@@ -28,7 +28,7 @@
                             <h:outputLink styleClass="pure-menu-link" value="#{request.contextPath}/myself.jsf">Profile</h:outputLink>
                         </li>
                         <li class="pure-menu-item">
-                            <h:commandLink styleClass="pure-menu-link" action="#{user.logout}">#{messages.logout}</h:commandLink>
+                            <h:commandLink styleClass="pure-menu-link" action="#{currentUser.logout}">#{messages.logout}</h:commandLink>
                         </li>
                     </ul>
                 </li>
@@ -63,10 +63,13 @@
                 </nav>
             </div>
             <div class="app-hbox-grow">
+                <form class="pure-form app-login" jsf:id="login"
+                    jsf:rendered="#{not currentUser.loggedIn}">
+                    <input class="pure-button" type="button" jsf:id="login"
+                        jsf:action="#{currentUser.login}"
+                        jsf:value="#{messages.login}" />
+                </form>
                 <main>
-                    <h:form id="login" styleClass="" rendered="#{bitbucket.bitbucketClient.configuredForOAuth and not user.bitbucketService.authenticated}">
-                        <h:commandButton styleClass="pure-button pure-button-primary" action="#{user.login}" title="Login with Bitbucket" value="#{messages.login}"/>
-                    </h:form>
                     <ui:insert name="main"/>
                 </main>
             </div>
