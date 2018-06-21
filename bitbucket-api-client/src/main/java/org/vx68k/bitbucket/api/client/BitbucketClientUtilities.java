@@ -22,10 +22,6 @@ package org.vx68k.bitbucket.api.client;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -49,12 +45,6 @@ public class BitbucketClientUtilities
 
     private static final String PACKAGE_NAME =
             BitbucketClientUtilities.class.getPackage().getName();
-
-    private static final DateFormat DATE_FORMAT = new SimpleDateFormat(
-            "yyyy-MM-dd'T'HH:mm:ssXXX");
-
-    private static final DateFormat FINE_DATE_FORMAT = new SimpleDateFormat(
-            "yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
 
     /**
      * Does nothing but denies direct instantiation.
@@ -93,50 +83,6 @@ public class BitbucketClientUtilities
             s = s.substring(1, s.length() - 1);
         }
         return UUID.fromString(s);
-    }
-
-    /**
-     * Parses a string into a date.
-     *
-     * @param date string that represents an ISO 8601 date and time
-     * @return parsed date, or <code>null</code> if the argument is
-     * <code>null</code>
-     * @throws IllegalArgumentException if the string could not be parsed as a
-     * date
-     */
-    public static Date parseDate(final String date)
-    {
-        if (date == null) {
-            return null;
-        }
-
-        try {
-            String d = date;
-            int p = d.indexOf('.');
-            if (p >= 0) {
-                // Counts the number of digits after the decimal point.
-                int q = p + 1;
-                while (q < d.length()
-                        && Character.isDigit(d.charAt(q))) {
-                    q += 1;
-                }
-                if (q >= p + 4) {
-                    if (q > p + 4) {
-                        // Cuts off sub-millisecond digits.
-                        d = d.substring(0, p + 4) + d.substring(q);
-                    }
-                    return FINE_DATE_FORMAT.parse(d);
-                }
-
-                // Cuts off sub-second digits.
-                d = d.substring(0, p) + d.substring(q);
-            }
-            return DATE_FORMAT.parse(d);
-        } catch (ParseException exception) {
-            throw new IllegalArgumentException(
-                    "\"" + date + "\" could not be parsed as Date",
-                    exception);
-        }
     }
 
     /**
