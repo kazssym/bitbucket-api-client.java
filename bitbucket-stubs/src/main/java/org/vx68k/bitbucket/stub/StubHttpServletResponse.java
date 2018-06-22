@@ -38,6 +38,11 @@ import javax.servlet.http.HttpServletResponse;
 public class StubHttpServletResponse implements HttpServletResponse
 {
     /**
+     * Content type value for a HTML document.
+     */
+    private static final String TEXT_HTML = "text/html";
+
+    /**
      * Indicates if this response is committed.
      */
     private boolean committed = false;
@@ -159,7 +164,7 @@ public class StubHttpServletResponse implements HttpServletResponse
     {
         checkIfNotCommitted();
         setStatus(statusCode);
-        setContentType("text/html");
+        setContentType(TEXT_HTML);
         // @todo Use {@code statusMessage} to make an error document.
         commit();
     }
