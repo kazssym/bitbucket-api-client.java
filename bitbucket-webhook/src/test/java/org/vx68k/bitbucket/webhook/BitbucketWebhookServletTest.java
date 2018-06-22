@@ -25,6 +25,7 @@ import static org.junit.Assert.assertNotEquals;
 import java.io.IOException;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;
 import org.junit.After;
 import org.junit.Before;
@@ -72,7 +73,7 @@ public final class BitbucketWebhookServletTest
     @Test
     public void testLifecycle() throws ServletException
     {
-        BitbucketWebhookServlet servlet = new BitbucketWebhookServlet(null);
+        HttpServlet servlet = new BitbucketWebhookServlet(null);
         servlet.init(servletConfig);
         servlet.destroy();
     }
@@ -80,13 +81,13 @@ public final class BitbucketWebhookServletTest
     /**
      * Tests responses for {@code GET} requests.
      *
-     * @throws ServletException
-     * @throws IOException
+     * @exception ServletException if a servlet error occurred
+     * @exception IOException if an I/O error occurred
      */
     @Test
     public void testGet() throws ServletException, IOException
     {
-        BitbucketWebhookServlet servlet = new BitbucketWebhookServlet(null);
+        HttpServlet servlet = new BitbucketWebhookServlet(null);
         servlet.init(servletConfig);
         try {
             StubHttpServletRequest request = new StubHttpServletRequest(null);
@@ -95,7 +96,8 @@ public final class BitbucketWebhookServletTest
             StubHttpServletResponse response = new StubHttpServletResponse();
             servlet.service(request, response);
             assertNotEquals(HttpServletResponse.SC_OK, response.getStatus());
-        } finally {
+        }
+        finally {
             servlet.destroy();
         }
     }
@@ -103,13 +105,13 @@ public final class BitbucketWebhookServletTest
     /**
      * Tests responses for {@code HEAD} requests.
      *
-     * @throws ServletException
-     * @throws IOException
+     * @exception ServletException if a servlet error occurred
+     * @exception IOException if an I/O error occurred
      */
     @Test
     public void testHead() throws ServletException, IOException
     {
-        BitbucketWebhookServlet servlet = new BitbucketWebhookServlet(null);
+        HttpServlet servlet = new BitbucketWebhookServlet(null);
         servlet.init(servletConfig);
         try {
             StubHttpServletRequest request = new StubHttpServletRequest(null);
@@ -118,7 +120,8 @@ public final class BitbucketWebhookServletTest
             StubHttpServletResponse response = new StubHttpServletResponse();
             servlet.service(request, response);
             assertNotEquals(HttpServletResponse.SC_OK, response.getStatus());
-        } finally {
+        }
+        finally {
             servlet.destroy();
         }
     }
