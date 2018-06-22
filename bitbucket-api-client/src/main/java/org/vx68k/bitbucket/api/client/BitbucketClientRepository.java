@@ -112,7 +112,7 @@ public class BitbucketClientRepository extends BitbucketClientObject
     {
         JsonObject repositoryObject = getJsonObject();
         return BitbucketClientUtilities.parseUUID(
-            repositoryObject.getString(UUID));
+            repositoryObject.getJsonString(UUID));
     }
 
     /**

@@ -28,6 +28,7 @@ import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.json.JsonObject;
+import javax.json.JsonString;
 import javax.json.JsonValue;
 
 /**
@@ -63,26 +64,26 @@ public class BitbucketClientUtilities
     }
 
     /**
-     * Parses a string into a UUID.
+     * Parses a UUID in a JSON string.
      * The string representation of a UUID may be enclosed in braces.
      *
-     * @param string string that represents a UUID
-     * @return {@link UUID} object, or <code>null</code> if the string is
-     * <code>null</code>
-     * @throws IllegalArgumentException if the string could not parsed as a
-     * UUID.
+     * @param jsonString JSON string, or {@code null}
+     * @return {@link UUID} object, or {@code null}
+     * @exception IllegalArgumentException if the JSON string did not represent
+     * a UUID
      */
-    public static UUID parseUUID(final String string)
+    public static UUID parseUUID(final JsonString jsonString)
+        throws IllegalArgumentException
     {
-        if (string == null) {
-            return null;
+        UUID uuid = null;
+        if (jsonString != null) {
+            String s = jsonString.getString();
+            if (s.startsWith("{") && s.endsWith("}")) {
+                s = s.substring(1, s.length() - 1);
+            }
+            uuid = UUID.fromString(s);
         }
-
-        String s = string;
-        if (s.startsWith("{") && s.endsWith("}")) {
-            s = s.substring(1, s.length() - 1);
-        }
-        return UUID.fromString(s);
+        return uuid;
     }
 
     /**
