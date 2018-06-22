@@ -93,7 +93,8 @@ public final class BitbucketWebhookServletTest
             StubHttpServletRequest request = new StubHttpServletRequest(null);
             request.setMethod("GET");
 
-            StubHttpServletResponse response = new StubHttpServletResponse();
+            StubHttpServletResponse response =
+                new StubHttpServletResponse(null);
             servlet.service(request, response);
             assertNotEquals(HttpServletResponse.SC_OK, response.getStatus());
         }
@@ -117,7 +118,8 @@ public final class BitbucketWebhookServletTest
             StubHttpServletRequest request = new StubHttpServletRequest(null);
             request.setMethod("HEAD");
 
-            StubHttpServletResponse response = new StubHttpServletResponse();
+            StubHttpServletResponse response =
+                new StubHttpServletResponse(null);
             servlet.service(request, response);
             assertNotEquals(HttpServletResponse.SC_OK, response.getStatus());
         }

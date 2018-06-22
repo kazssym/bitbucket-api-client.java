@@ -42,7 +42,7 @@ public class OAuthRedirectionTest {
     @Before
     public void setUp() {
         request = new StubHttpServletRequest(null);
-        response = new StubHttpServletResponse();
+        response = new StubHttpServletResponse(null);
     }
 
     @After

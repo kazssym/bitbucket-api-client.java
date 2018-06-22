@@ -43,6 +43,11 @@ public class StubHttpServletResponse implements HttpServletResponse
     private static final String TEXT_HTML = "text/html";
 
     /**
+     * {@link OutputStream} object for the response content.
+     */
+    private final ServletOutputStream outputStream;
+
+    /**
      * Indicates if this response is committed.
      */
     private boolean committed = false;
@@ -61,6 +66,16 @@ public class StubHttpServletResponse implements HttpServletResponse
      * Content.
      */
     private byte[] content = new byte[0];
+
+    /**
+     * Constructs thie object with a {@link ServletOutputStream} object.
+     *
+     * @param stream {@link ServletOutputStream} object
+     */
+    public StubHttpServletResponse(final ServletOutputStream stream)
+    {
+        outputStream = stream;
+    }
 
     /**
      * Marks this response is committed.
@@ -313,9 +328,9 @@ public class StubHttpServletResponse implements HttpServletResponse
      * {@inheritDoc}
      */
     @Override
-    public ServletOutputStream getOutputStream() throws IOException
+    public final ServletOutputStream getOutputStream()
     {
-        return null;
+        return outputStream;
     }
 
     /**
