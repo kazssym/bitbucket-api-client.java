@@ -27,7 +27,6 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.vx68k.bitbucket.api.BitbucketUser;
-import org.vx68k.bitbucket.api.client.Service;
 
 /**
  * Current user of the session.
