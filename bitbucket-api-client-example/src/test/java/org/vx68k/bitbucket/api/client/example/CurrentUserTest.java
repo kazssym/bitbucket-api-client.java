@@ -20,19 +20,18 @@
 
 package org.vx68k.bitbucket.api.client.example;
 
-import java.io.IOException;
+import static org.junit.Assert.assertEquals;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.vx68k.bitbucket.api.client.Service;
-import static org.junit.Assert.*;
 
 /**
  * Unit tests for {@link CurrentUser}.
  *
  * @author Kaz Nishimura
  */
-public class CurrentUserTest
+public final class CurrentUserTest
 {
     /**
      * {@link BitbucketAPI} object.
