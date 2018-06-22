@@ -20,11 +20,7 @@
 
 package org.vx68k.bitbucket.api.client;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-
-import java.net.MalformedURLException;
-import java.net.URL;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -35,24 +31,9 @@ import org.junit.Test;
 public final class BitbucketClientUtilitiesTest
 {
     /**
-     * Tests {@link BitbucketClientUtilities#parseURL parseURL}.
-     *
-     * @throws MalformedURLException
-     */
-    @Test
-    public void testParseURL() throws MalformedURLException
-    {
-        URL url1 = BitbucketClientUtilities.parseURL(null);
-        assertNull(url1);
-
-        URL url2 = BitbucketClientUtilities.parseURL("https://api.bitbucket.org/");
-        assertNotNull(url2);
-    }
-
-    /**
      * Tests {@link BitbucketClientUtilities#parseUUID parseUUID}.
      */
-    @Test
+    @Test @Ignore
     public void testParseUUID()
     {
         // @todo Write tests.
