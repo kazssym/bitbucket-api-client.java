@@ -20,12 +20,12 @@
 
 package org.vx68k.bitbucket.api.client;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import javax.json.JsonObject;
 import javax.json.JsonString;
-import javax.json.JsonValue;
 
 /**
  * Collection of static utility methods.
@@ -80,12 +80,11 @@ public class BitbucketClientUtilities
     {
         Map<String, String> links = null;
         if (jsonObject != null) {
-            // @todo This can be stream operation.
-            links = new HashMap<>();
-            for (Map.Entry<String, JsonValue> entry : jsonObject.entrySet()) {
-                JsonObject link = (JsonObject) entry.getValue();
-                links.put(entry.getKey(), link.getString(HREF, null));
-            }
+            links = jsonObject.keySet().stream().collect(
+                Collectors.toConcurrentMap(Function.identity(), (key) -> {
+                    JsonObject linkObject = jsonObject.getJsonObject(key);
+                    return linkObject.getString(HREF, null);
+                }));
         }
         return links;
     }
