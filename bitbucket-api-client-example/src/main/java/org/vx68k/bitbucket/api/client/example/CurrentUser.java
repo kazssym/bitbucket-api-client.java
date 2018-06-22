@@ -23,6 +23,9 @@ package org.vx68k.bitbucket.api.client.example;
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.URISyntaxException;
+import java.time.Instant;
+import java.util.Map;
+import java.util.UUID;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -36,7 +39,7 @@ import org.vx68k.bitbucket.api.BitbucketUser;
  */
 @SessionScoped
 @Named("currentUser")
-public class CurrentUser implements Serializable
+public class CurrentUser implements BitbucketUser, Serializable
 {
     private static final long serialVersionUID = 1L;
 
@@ -161,5 +164,85 @@ public class CurrentUser implements Serializable
             }
         }
         return true;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getType()
+    {
+        // @todo Implement this method.
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public UUID getUUID()
+    {
+        // @todo Implement this method.
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getName()
+    {
+        // @todo Implement this method.
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getDisplayName()
+    {
+        // @todo Implement this method.
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getWebsite()
+    {
+        // @todo Implement this method.
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getLocation()
+    {
+        // @todo Implement this method.
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Instant getCreated()
+    {
+        // @todo Implement this method.
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Map<String, String> getLinks()
+    {
+        // @todo Implement this method.
+        return null;
     }
 }
