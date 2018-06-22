@@ -58,21 +58,6 @@ public class StubHttpServletResponse implements HttpServletResponse
     private byte[] content = new byte[0];
 
     /**
-     * Sent HTTP error.
-     */
-    private Error sentError = null;
-
-    /**
-     * Returns the sent HTTP error.
-     *
-     * @return the sent errort
-     */
-    public Error getSentError()
-    {
-        return sentError;
-    }
-
-    /**
      * Marks this response is committed.
      */
     protected void commit()
@@ -169,14 +154,13 @@ public class StubHttpServletResponse implements HttpServletResponse
      * {@inheritDoc}
      */
     @Override
-    public void sendError(final int status, final String message)
+    public void sendError(final int statusCode, final String message)
         throws IOException
     {
         checkIfNotCommitted();
-        setStatus(status);
-        sentError = new Error(status, message);
-
+        setStatus(statusCode);
         setContentType("text/html");
+        // @todo Use {@code statusMessage} to make an error document.
         commit();
     }
 
@@ -184,9 +168,9 @@ public class StubHttpServletResponse implements HttpServletResponse
      * {@inheritDoc}
      */
     @Override
-    public final void sendError(final int status) throws IOException
+    public final void sendError(final int statusCode) throws IOException
     {
-        sendError(status, null);
+        sendError(statusCode, null);
     }
 
     /**
@@ -444,53 +428,5 @@ public class StubHttpServletResponse implements HttpServletResponse
     @Override
     public void setContentLengthLong(final long len)
     {
-    }
-
-    /**
-     * Error information.
-     */
-    public static class Error
-    {
-        /**
-         * HTTP status code.
-         */
-        private final int status;
-
-        /**
-         * HTTP error message.
-         */
-        private final String message;
-
-        /**
-         * Constructs this error with a status and a message.
-         *
-         * @param initStatus HTTP error status
-         * @param initMessage HTTP error message
-         */
-        public Error(final int initStatus, final String initMessage)
-        {
-            status = initStatus;
-            message = initMessage;
-        }
-
-        /**
-         * Returns the HTTP status code.
-         *
-         * @return the HTTP status
-         */
-        public final int getStatus()
-        {
-            return status;
-        }
-
-        /**
-         * Returns the HTTP error message.
-         *
-         * @return the HTTP error message.
-         */
-        public final String getMessage()
-        {
-            return message;
-        }
     }
 }
