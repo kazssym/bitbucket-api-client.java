@@ -20,8 +20,6 @@
 
 package org.vx68k.bitbucket.api.client;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
