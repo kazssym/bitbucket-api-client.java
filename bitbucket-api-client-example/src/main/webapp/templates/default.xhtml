@@ -23,11 +23,12 @@
                 >Bitbucket API Client Example</span>
             <ul class="pure-menu-list">
                 <ui:fragment rendered="#{not currentUser.loggedIn}">
-                    <li class="pure-menu-item">
-                        <a class="pure-menu-link" jsf:id="login"
-                            jsf:action="#{currentUser.login}">
-                            #{messages.login}<f:ajax execute="@form" /></a>
-                    </li>
+                <li class="pure-menu-item">
+                    <f:ajax render="@form">
+                    <a class="pure-menu-link" jsf:id="login"
+                        jsf:action="#{currentUser.login}">#{messages.login}</a>
+                    </f:ajax>
+                </li>
                 </ui:fragment>
                 <ui:fragment rendered="#{currentUser.loggedIn}">
                     <li id="account-menu"
