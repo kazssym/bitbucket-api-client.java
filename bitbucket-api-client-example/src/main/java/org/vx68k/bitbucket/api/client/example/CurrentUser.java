@@ -49,22 +49,30 @@ public class CurrentUser implements BitbucketUser, Serializable
     private final BitbucketAPI bitbucketAPI;
 
     /**
+     * Constructs this object with no {@link BitbucketAPI} object.
+     */
+    public CurrentUser()
+    {
+        this(null);
+    }
+
+    /**
      * Constructs this object with a {@link BitbucketAPI} object.
      *
-     * @param bitbucket {@link BitbucketAPI object}
+     * @param aBitbucketAPI {@link BitbucketAPI object}
      */
     @Inject
-    public CurrentUser(final BitbucketAPI bitbucket)
+    public CurrentUser(final BitbucketAPI aBitbucketAPI)
     {
-        bitbucketAPI = bitbucket;
+        bitbucketAPI = aBitbucketAPI;
     }
 
     /**
      * Returns the {@link BitbucketAPI} object given to the constructor.
      *
-     * @return the {@link BitbucketAPI} object
+     * @return the {@link BitbucketAPI} object given to the constructor
      */
-    public final BitbucketAPI getBitbucketAPI()
+    public BitbucketAPI getBitbucketAPI()
     {
         return bitbucketAPI;
     }
@@ -74,7 +82,7 @@ public class CurrentUser implements BitbucketUser, Serializable
      *
      * @return {@code true} if logged in, or {@code false} otherwise
      */
-    public final boolean isLoggedIn()
+    public boolean isLoggedIn()
     {
         // @todo Implement this method.
         return false;
