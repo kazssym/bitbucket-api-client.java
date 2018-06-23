@@ -3,6 +3,7 @@
 <html lang="#{facesContext.viewRoot.locale}"
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:jsf="http://xmlns.jcp.org/jsf"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
     xmlns:h="http://xmlns.jcp.org/jsf/html"
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <head jsf:id="head">
@@ -21,18 +22,27 @@
             <span class="pure-menu-heading app-hbox-grow"
                 >Bitbucket API Client Example</span>
             <ul class="pure-menu-list">
-                <li id="account-menu"
-                    class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
-                    <a class="pure-menu-link" href="#">Account</a>
-                    <ul class="pure-menu-children">
-                        <li class="pure-menu-item#{view.viewId == '/myself.xhtml' ? ' pure-menu-selected' : ''}">
-                            <h:outputLink styleClass="pure-menu-link" value="#{request.contextPath}/myself.jsf">Profile</h:outputLink>
-                        </li>
-                        <li class="pure-menu-item">
-                            <h:commandLink styleClass="pure-menu-link" action="#{currentUser.logout}">#{messages.logout}</h:commandLink>
-                        </li>
-                    </ul>
-                </li>
+                <ui:fragment rendered="#{not currentUser.loggedIn}">
+                    <li class="pure-menu-item">
+                        <a class="pure-menu-link" jsf:id="login"
+                            jsf:action="#{currentUser.login}">
+                            #{messages.login}<f:ajax execute="@form" /></a>
+                    </li>
+                </ui:fragment>
+                <ui:fragment rendered="#{currentUser.loggedIn}">
+                    <li id="account-menu"
+                        class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+                        <a class="pure-menu-link" href="#">Account</a>
+                        <ul class="pure-menu-children">
+                            <li class="pure-menu-item">
+                                <h:outputLink styleClass="pure-menu-link" value="#{request.contextPath}/myself.jsf">Profile</h:outputLink>
+                            </li>
+                            <li class="pure-menu-item">
+                                <h:commandLink styleClass="pure-menu-link" action="#{currentUser.logout}">#{messages.logout}</h:commandLink>
+                            </li>
+                        </ul>
+                    </li>
+                </ui:fragment>
                 <li class="pure-menu-item">
                     <a class="pure-menu-link" jsf:value="#{request.contextPath}/help.jsf">
                         <span class="app-icon">
@@ -64,12 +74,6 @@
                 </nav>
             </div>
             <div class="app-hbox-grow">
-                <form class="pure-form app-login" jsf:id="login"
-                    jsf:rendered="#{not currentUser.loggedIn}">
-                    <input class="pure-button" type="button" jsf:id="login"
-                        jsf:action="#{currentUser.login}"
-                        jsf:value="#{messages.login}" />
-                </form>
                 <main>
                     <ui:insert name="main"/>
                 </main>
