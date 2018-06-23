@@ -11,9 +11,10 @@
             <input type="text" jsf:id="name"
                 jsf:value="#{requestScope.userName}" />
             <div>
-                <input class="pure-button pure-button-primary" type="submit" jsf:id="submit" jsf:value="Submit">
-                    <f:ajax execute="name" />
-                </input>
+                <f:ajax execute="name" render="@form">
+                <input class="pure-button pure-button-primary"
+                    type="submit" jsf:id="submit" jsf:value="Submit" />
+                </f:ajax>
             </div>
         </form>
     </ui:define>
