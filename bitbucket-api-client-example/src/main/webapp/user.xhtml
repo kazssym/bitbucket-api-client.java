@@ -9,7 +9,7 @@
         <form class="pure-form pure-form-stacked" jsf:id="user">
             <label jsf:for="name">User name:</label>
             <input type="text" jsf:id="name"
-                jsf:value="#{requestScope.userName}" />
+                jsf:value="#{user.name}" />
             <div>
                 <f:ajax execute="name" render="@form">
                 <input class="pure-button pure-button-primary"
