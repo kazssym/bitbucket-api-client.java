@@ -97,4 +97,15 @@ public class User implements Serializable
     {
         name = value;
     }
+
+    /**
+     * Fetches the user object to view.
+     *
+     * @return {@code null}
+     */
+    public Object view()
+    {
+        // @todo Implement this method.
+        return null;
+    }
 }

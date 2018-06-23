@@ -10,12 +10,13 @@
             <label jsf:for="name">User name:</label>
             <input type="text" jsf:id="name"
                 jsf:value="#{user.name}" />
-            <div>
+            <span>
                 <f:ajax execute="name" render="@form">
                 <input class="pure-button pure-button-primary"
-                    type="submit" jsf:id="submit" jsf:value="Submit" />
+                    type="submit" jsf:id="submit" jsf:value="Submit"
+                    jsf:action="#{user.view}" />
                 </f:ajax>
-            </div>
+            </span>
         </form>
     </ui:define>
 </ui:composition>
