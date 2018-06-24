@@ -82,18 +82,18 @@
                 </main>
             </div>
         </div>
-        <script async="async" defer="defer"
-            src="#{facesContext.externalContext
-                 .encodeResourceURL(resource['scripts/example.js'])}"></script>
+        <script async="async" defer="defer" jsf:name="scripts/example.js">
+        </script>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css"
               crossorigin="anonymous" rel="stylesheet"
               integrity="sha256-Q0zCrUs2IfXWYx0uMKJfG93CvF6oVII21waYsAV4/8Q=" />
         <link href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css"
               crossorigin="anonymous" rel="stylesheet" media="screen"
               integrity="sha256-YqnnS/cQ7vE7gfVjdfx+JMi5EFD6m6Zqdemj81rs6PU=" />
-        <link href="#{facesContext.externalContext
-                    .encodeResourceURL(resource['stylesheets/app.css'])}"
-            rel="stylesheet" />
+        <ui:remove>
+        <!-- Note the 'resource[]' expression will be encoded in JSF 2.3. -->
+        </ui:remove>
+        <link href="#{resource['stylesheets/app.css']}" rel="stylesheet" />
         <ui:debug />
     </body>
 </html>
