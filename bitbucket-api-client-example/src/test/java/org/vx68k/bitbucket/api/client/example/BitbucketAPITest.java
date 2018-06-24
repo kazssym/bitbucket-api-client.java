@@ -25,7 +25,6 @@ import static org.junit.Assert.assertNull;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.vx68k.bitbucket.api.client.oauth.OAuthClient;
 
 /**
  * Unit tests for [@link BitbucketAPI}.
@@ -52,38 +51,5 @@ public final class BitbucketAPITest
     {
         System.clearProperty(BitbucketAPI.OAUTH_CLIENT_ID_PROPERTY);
         System.clearProperty(BitbucketAPI.OAUTH_CLIENT_SECRET_PROPERTY);
-    }
-
-//    /**
-//     * Tests anonymously.
-//     */
-//    @Test
-//    public void testGetBitbucketClient()
-//    {
-//        BitbucketAPI applicationConfig = new BitbucketAPI();
-//        OAuthClient bitbucketClient = applicationConfig.getBitbucketClient();
-//        String clientId = bitbucketClient.getClientId();
-//        String clientSecret = bitbucketClient.getClientSecret();
-//        assertNull(clientId);
-//        assertNull(clientSecret);
-//
-//        // @todo Add a test case with system properties.
-//    }
-
-    /**
-     * Tests with credentials.
-     */
-    @Test
-    public void testGetBitbucketClientWithCredentials()
-    {
-        OAuthClient bitbucketClient1 = BitbucketAPI.getBitbucketClient(
-                null, null);
-        assertNull(bitbucketClient1.getClientId());
-        assertNull(bitbucketClient1.getClientSecret());
-
-        OAuthClient bitbucketClient2 = BitbucketAPI.getBitbucketClient(
-                CLIENT_ID, CLIENT_SECRET);
-        assertEquals(CLIENT_ID, bitbucketClient2.getClientId());
-        assertEquals(CLIENT_SECRET, bitbucketClient2.getClientSecret());
     }
 }

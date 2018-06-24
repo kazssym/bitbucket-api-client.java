@@ -23,8 +23,6 @@ package org.vx68k.bitbucket.api.client.example;
 import java.io.Serializable;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
-import org.vx68k.bitbucket.api.client.oauth.OAuthCredentials;
-import org.vx68k.bitbucket.api.client.oauth.OAuthClient;
 
 /**
  * Bitbucket API.
@@ -62,56 +60,9 @@ public class BitbucketAPI implements Serializable
     public static final String GOOGLE_ANALYTICS_ID_PROPERTY =
         PROPERTY_PREFIX + ".analyticsId";
 
-    private OAuthClient bitbucketClient;
-
-    /**
-     * Returns the Bitbucket client with the configured client credentials.
-     * This method shall returns the same Bitbucket client.
-     *
-     * @return Bitbucket client
-     */
-    public OAuthClient getBitbucketClient()
-    {
-        synchronized (this) {
-            if (bitbucketClient == null) {
-                bitbucketClient = getBitbucketClient(
-                        getClientId(), getClientSecret());
-            }
-        }
-        return bitbucketClient;
-    }
-
-    /**
-     * Returns a Bitbucket API client with a client identifier and a client
-     * secret.
-     *
-     * @param clientId client identifier
-     * @return Bitbucket API client
-     */
-    public static OAuthClient getBitbucketClient(
-            final String clientId, final String clientSecret)
-    {
-        return new OAuthClient(clientId, clientSecret);
-    }
-
-    /**
-     * Returns a Bitbucket API client with client credentials.
-     *
-     * @param clientCredentials client credentials
-     * @return Bitbucket API client
-     * @deprecated As of version 5.0, replaced by
-     * {@link #getBitbucketClient(String, String)}
-     */
-    @Deprecated
-    public static OAuthClient getBitbucketClient(
-            final OAuthCredentials clientCredentials)
-    {
-        return getBitbucketClient(
-                clientCredentials.getId(), clientCredentials.getSecret());
-    }
-
     /**
      * Returns the configured client identifier.
+     *
      * @return configured client identifier
      */
     protected static String getClientId()
@@ -121,29 +72,12 @@ public class BitbucketAPI implements Serializable
 
     /**
      * Returns the configured client secret.
+     *
      * @return configured client secret
      */
     protected static String getClientSecret()
     {
         return System.getProperty(OAUTH_CLIENT_SECRET_PROPERTY);
-    }
-
-    /**
-     * Returns the configured client credentials.
-     *
-     * @return configured client credentials
-     * @deprecated As of version 5.0, replaced by {@link #getClientId} and
-     * {@link #getClientSecret}
-     */
-    @Deprecated
-    protected static OAuthCredentials getClientCredentials()
-    {
-        String clientId = getClientId();
-        String clientSecret = getClientSecret();
-        if (clientId == null || clientSecret == null) {
-            return null;
-        }
-        return new OAuthCredentials(clientId, clientSecret);
     }
 
     /**
