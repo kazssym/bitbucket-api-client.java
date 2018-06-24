@@ -25,10 +25,12 @@ import java.io.Serializable;
 import java.net.URISyntaxException;
 import java.time.Instant;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.vx68k.bitbucket.api.BitbucketRepository;
 import org.vx68k.bitbucket.api.BitbucketUser;
 
 /**
@@ -249,6 +251,16 @@ public class CurrentUser implements BitbucketUser, Serializable
      */
     @Override
     public Map<String, String> getLinks()
+    {
+        // @todo Implement this method.
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Set<BitbucketRepository> repositorySet()
     {
         // @todo Implement this method.
         return null;
