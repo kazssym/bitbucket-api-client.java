@@ -22,10 +22,12 @@ package org.vx68k.bitbucket.api.client;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 
 import javax.json.Json;
 import javax.json.JsonObjectBuilder;
 import org.junit.Test;
+import org.vx68k.bitbucket.api.BitbucketUser;
 
 /**
  * Unit tests for {@link BitbucketClientUser}.
@@ -35,27 +37,54 @@ import org.junit.Test;
 public final class BitbucketClientUserTest
 {
     /**
-     * Tests a non-user object.
+     * Tests the constructor with {@code null}.
      */
     @Test(expected = IllegalArgumentException.class)
-    public void testNonUser()
+    public void testNull()
+    {
+        new BitbucketClientUser(null);
+        fail();
+    }
+
+    /**
+     * Tests the constructor with an untyped object.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testUntyped()
+    {
+        JsonObjectBuilder builder = Json.createObjectBuilder();
+        new BitbucketClientUser(builder.build());
+        fail();
+    }
+
+    /**
+     * Tests the constructor with an object of a wrong type.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testWrongType()
     {
         JsonObjectBuilder builder = Json.createObjectBuilder()
             .add("type", "not_user");
         new BitbucketClientUser(builder.build());
+        fail();
     }
 
     /**
-     * Tests a blank user object.
+     * Tests the constructor with a blank {@code "user"} object.
      */
     @Test
     public void testBlankUser()
     {
         JsonObjectBuilder builder = Json.createObjectBuilder()
             .add("type", "user");
-        BitbucketClientUser target = new BitbucketClientUser(builder.build());
-        assertEquals("user", target.getType());
-        assertNull(target.getName());
-        assertNull(target.getDisplayName());
+        BitbucketClientUser user = new BitbucketClientUser(builder.build());
+        assertEquals(BitbucketUser.USER, user.getType());
+        assertNull(user.getUUID());
+        assertNull(user.getName());
+        assertNull(user.getDisplayName());
+        assertNull(user.getWebsite());
+        assertNull(user.getLocation());
+        assertNull(user.getCreated());
+        assertNull(user.getLinks());
     }
 }
