@@ -22,9 +22,12 @@ package org.vx68k.bitbucket.api.client;
 
 import java.time.Instant;
 import java.time.OffsetDateTime;
+import java.util.Collections;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 import javax.json.JsonObject;
+import org.vx68k.bitbucket.api.BitbucketRepository;
 import org.vx68k.bitbucket.api.BitbucketUser;
 
 /**
@@ -162,5 +165,15 @@ public class BitbucketClientUser extends BitbucketClientObject
     {
         // @todo Implement this method.
         return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final Set<BitbucketRepository> repositorySet()
+    {
+        // @todo Implement this method.
+        return Collections.emptySet();
     }
 }

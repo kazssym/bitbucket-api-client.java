@@ -22,6 +22,7 @@ package org.vx68k.bitbucket.api;
 
 import java.time.Instant;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -97,4 +98,12 @@ public interface BitbucketUser
      * @return the links
      */
     Map<String, String> getLinks();
+
+    /**
+     * Returns a {@link Set} view of the repositories which are owned by this
+     * user or team.
+     *
+     * @return {@link Set} view of the repositories
+     */
+    Set<BitbucketRepository> repositorySet();
 }
