@@ -20,11 +20,7 @@
 
 package org.vx68k.bitbucket.api.client.example;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-
 import org.junit.Before;
-import org.junit.Test;
 
 /**
  * Unit tests for [@link BitbucketAPI}.
