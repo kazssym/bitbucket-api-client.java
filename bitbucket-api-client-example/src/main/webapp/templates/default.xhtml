@@ -54,26 +54,28 @@
             </ul>
         </form>
         <div class="app-vbox-grow app-hbox">
-            <div class="">
-                <nav id="nav-menu" class="pure-menu">
-                    <div class="pure-menu-heading">Users</div>
-                    <ul class="pure-menu-list">
-                        <li class="pure-menu-item pure-menu-disabled">Following</li>
-                    </ul>
-                    <div class="pure-menu-heading">Repositories</div>
-                    <ul class="pure-menu-list">
-                        <li class="pure-menu-item pure-menu-disabled">Mine</li>
-                        <li class="pure-menu-item pure-menu-disabled">Watching</li>
-                    </ul>
-                    <div class="pure-menu-heading">Issues</div>
-                    <ul class="pure-menu-list">
-                        <li class="pure-menu-item pure-menu-disabled">Assigned to me</li>
-                        <li class="pure-menu-item pure-menu-disabled">Reported by me</li>
-                        <li class="pure-menu-item pure-menu-disabled">Participating</li>
-                        <li class="pure-menu-item pure-menu-disabled">Watching</li>
-                    </ul>
-                </nav>
-            </div>
+            <nav id="nav-menu" class="pure-menu">
+                <div class="pure-menu-heading">Users</div>
+                <ul class="pure-menu-list">
+                    <li class="pure-menu-item">
+                        <a class="pure-menu-link" jsf:outcome="user.jsf">
+                            User info</a>
+                    </li>
+                    <li class="pure-menu-item pure-menu-disabled">Following</li>
+                </ul>
+                <div class="pure-menu-heading">Repositories</div>
+                <ul class="pure-menu-list">
+                    <li class="pure-menu-item pure-menu-disabled">Mine</li>
+                    <li class="pure-menu-item pure-menu-disabled">Watching</li>
+                </ul>
+                <div class="pure-menu-heading">Issues</div>
+                <ul class="pure-menu-list">
+                    <li class="pure-menu-item pure-menu-disabled">Assigned to me</li>
+                    <li class="pure-menu-item pure-menu-disabled">Reported by me</li>
+                    <li class="pure-menu-item pure-menu-disabled">Participating</li>
+                    <li class="pure-menu-item pure-menu-disabled">Watching</li>
+                </ul>
+            </nav>
             <div class="app-hbox-grow">
                 <main>
                     <ui:insert name="main"/>
