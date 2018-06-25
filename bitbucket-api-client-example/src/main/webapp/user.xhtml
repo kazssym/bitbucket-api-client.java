@@ -8,8 +8,14 @@
     <ui:define name="main">
         <form class="pure-form pure-form-stacked" jsf:id="user">
             <label jsf:for="name">User name:</label>
-            <input type="text" jsf:id="name"
-                jsf:value="#{user.name}" />
+            <f:ajax render="name-message">
+            <input type="text" jsf:id="name" jsf:value="#{user.name}" />
+            </f:ajax>
+            <h:message id="name-message" for="name"
+                fatalClass="pure-form-message app-message-fatal"
+                errorClass="pure-form-message app-message-error"
+                warnClass="pure-form-message app-message-warn"
+                infoClass="pure-form-message app-message-info" />
             <span>
                 <f:ajax execute="name" render="@form">
                 <input class="pure-button pure-button-primary"
