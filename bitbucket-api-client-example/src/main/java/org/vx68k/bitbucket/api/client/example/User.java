@@ -25,6 +25,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 /**
  * Bitbucket user information.
@@ -47,6 +48,8 @@ public class User implements Serializable
      * User name.
      */
     @NotNull
+    @Pattern(regexp = "[^/]*",
+        message = "User name must not contain slashes.")
     private String name = "";
 
     /**
