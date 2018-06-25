@@ -26,6 +26,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import org.vx68k.bitbucket.api.BitbucketUser;
 
 /**
  * Bitbucket user information.
@@ -51,6 +52,11 @@ public class User implements Serializable
     @Pattern(regexp = "[^/]*",
         message = "User name must not contain slashes.")
     private String name = "";
+
+    /**
+     * Found {@link BitbucketUser} object.
+     */
+    private BitbucketUser bitbucketUser = null;
 
     /**
      * Constructs this object with no {@link CurrentUser} object.
@@ -99,6 +105,16 @@ public class User implements Serializable
     public void setName(final String value)
     {
         name = value;
+    }
+
+    /**
+     * Returns the found {@link BitbucietUser} object.
+     *
+     * @return the found {@link BitbucietUser} object
+     */
+    public BitbucketUser getBitbucketUser()
+    {
+        return bitbucketUser;
     }
 
     /**
