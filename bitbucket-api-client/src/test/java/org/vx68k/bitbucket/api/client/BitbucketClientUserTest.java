@@ -87,4 +87,22 @@ public final class BitbucketClientUserTest
         assertNull(user.getCreated());
         assertNull(user.getLinks());
     }
+
+    /**
+     * Tests the constructor with a blank {@code "team"} object.
+     */
+    @Test
+    public void testBlankTeam()
+    {
+        JsonObjectBuilder builder = Json.createObjectBuilder()
+            .add("type", "team");
+        BitbucketClientUser user = new BitbucketClientUser(builder.build());
+        assertNull(user.getUUID());
+        assertNull(user.getName());
+        assertNull(user.getDisplayName());
+        assertNull(user.getWebsite());
+        assertNull(user.getLocation());
+        assertNull(user.getCreated());
+        assertNull(user.getLinks());
+    }
 }
