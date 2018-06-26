@@ -107,7 +107,7 @@ public class BitbucketAPI implements Serializable
     public boolean equals(final Object object)
     {
         if (this != object) {
-            if (object == null || object.getClass() != getClass()) {
+            if (object == null || object.getClass() != getClass()) { // NOPMD
                 return false;
             }
         }
