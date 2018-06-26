@@ -20,9 +20,7 @@
 
 package org.vx68k.bitbucket.api.client.example;
 
-import java.io.IOException;
 import java.io.Serializable;
-import java.net.URISyntaxException;
 import java.time.Instant;
 import java.util.Map;
 import java.util.Set;
@@ -49,6 +47,12 @@ public class CurrentUser implements BitbucketUser, Serializable
      * {@link BitbucketAPI} object given to the constructor.
      */
     private final BitbucketAPI bitbucketAPI;
+
+    /**
+     * {@link BitbucketUser} object for the current user, or {@code null} if
+     * not logged in.
+     */
+    private BitbucketUser loggedInUser = null;
 
     /**
      * Constructs this object with no {@link BitbucketAPI} object.
@@ -86,34 +90,16 @@ public class CurrentUser implements BitbucketUser, Serializable
      */
     public boolean isLoggedIn()
     {
-        // @todo Implement this method.
-        return false;
-    }
-
-    /**
-     * Returns the Bitbucket user of this instance.
-     * @return Bitbucket user, or <code>null</code> if no user is authenticated
-     * @throws IOException if an I/O error has occurred
-     * @since 2.0
-     * @deprecated As of version 4.0, replaced by {@link #getBitbucketService}
-     * and {@link Service#getCurrentUser} instead.
-     */
-    @Deprecated
-    public BitbucketUser getBitbucketUser() throws IOException
-    {
-//        Service bitbucketService = getBitbucketService();
-//        return bitbucketService.getCurrentUser();
-        return null;
+        return loggedInUser != null;
     }
 
     /**
      * Performs a login action by redirecting the user agent to the
      * authorization endpoint.
-     * @return <code>null</code>
-     * @throws URISyntaxException if a URI syntax error has been occurred
-     * @throws IOException if an I/O error has occurred
+     *
+     * @return {@code null}
      */
-    public String login() throws URISyntaxException, IOException
+    public String login()
     {
 //        FacesContext facesContext = FacesContext.getCurrentInstance();
 //        ExternalContext externalContext = facesContext.getExternalContext();
