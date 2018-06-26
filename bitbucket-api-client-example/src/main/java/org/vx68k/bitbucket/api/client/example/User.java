@@ -27,6 +27,7 @@ import javax.inject.Named;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import org.vx68k.bitbucket.api.BitbucketUser;
+import org.vx68k.bitbucket.api.client.BitbucketClient;
 
 /**
  * Bitbucket user information.
@@ -124,7 +125,7 @@ public class User implements Serializable
      */
     public Object view()
     {
-        // @todo Implement this method.
+        bitbucketUser = BitbucketClient.getUser(name);
         return null;
     }
 }
