@@ -129,6 +129,123 @@ public class CurrentUser implements BitbucketUser, Serializable
      * {@inheritDoc}
      */
     @Override
+    public String getType()
+    {
+        String type = null;
+        if (loggedInUser != null) {
+            type = loggedInUser.getType();
+        }
+        return type;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public UUID getUUID()
+    {
+        UUID uuid = null;
+        if (loggedInUser != null) {
+            uuid = loggedInUser.getUUID();
+        }
+        return uuid;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getName()
+    {
+        String name = null;
+        if (loggedInUser != null) {
+            name = loggedInUser.getName();
+        }
+        return name;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getDisplayName()
+    {
+        String displayName = null;
+        if (loggedInUser != null) {
+            displayName = loggedInUser.getDisplayName();
+        }
+        return displayName;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getWebsite()
+    {
+        String website = null;
+        if (loggedInUser != null) {
+            website = loggedInUser.getWebsite();
+        }
+        return website;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getLocation()
+    {
+        String location = null;
+        if (loggedInUser != null) {
+            location = loggedInUser.getLocation();
+        }
+        return location;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Instant getCreated()
+    {
+        Instant created = null;
+        if (loggedInUser != null) {
+            created = loggedInUser.getCreated();
+        }
+        return created;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Map<String, String> getLinks()
+    {
+        Map<String, String> links = null;
+        if (loggedInUser != null) {
+            links = loggedInUser.getLinks();
+        }
+        return links;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Set<BitbucketRepository> repositorySet()
+    {
+        Set<BitbucketRepository> set = null;
+        if (loggedInUser != null) {
+            set = loggedInUser.repositorySet();
+        }
+        return set;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public int hashCode()
     {
         int code = getClass().hashCode();
@@ -160,95 +277,5 @@ public class CurrentUser implements BitbucketUser, Serializable
             }
         }
         return true;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String getType()
-    {
-        // @todo Implement this method.
-        return null;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public UUID getUUID()
-    {
-        // @todo Implement this method.
-        return null;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String getName()
-    {
-        // @todo Implement this method.
-        return null;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String getDisplayName()
-    {
-        // @todo Implement this method.
-        return null;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String getWebsite()
-    {
-        // @todo Implement this method.
-        return null;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String getLocation()
-    {
-        // @todo Implement this method.
-        return null;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Instant getCreated()
-    {
-        // @todo Implement this method.
-        return null;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Map<String, String> getLinks()
-    {
-        // @todo Implement this method.
-        return null;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Set<BitbucketRepository> repositorySet()
-    {
-        // @todo Implement this method.
-        return null;
     }
 }
