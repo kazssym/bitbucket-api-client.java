@@ -21,6 +21,7 @@
 package org.vx68k.bitbucket.api.client;
 
 import javax.json.JsonObject;
+import javax.ws.rs.NotFoundException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
@@ -156,11 +157,14 @@ public class BitbucketClient
         Client client = ClientBuilder.newClient();
         try {
             WebTarget target = client.target(API_BASE).path("users/{user}");
-            JsonObject object = target.resolveTemplate("user", userName)
+            JsonObject userObject = target.resolveTemplate("user", userName)
                 .register(JsonMessageBodyReader.class)
                 .request(MediaType.APPLICATION_JSON)
                 .get(JsonObject.class);
-            return createUser(object);
+            return createUser(userObject);
+        }
+        catch (NotFoundException exception) {
+            return null;
         }
         finally {
             client.close();
