@@ -42,6 +42,17 @@ html, button, input, select, textarea,
     background: #eeeeee;
 }
 
+.app-message-fatal,
+.app-message-error
+{
+    color: #FF3300;
+}
+
+.app-message-warn
+{
+    color: #FF6600;
+}
+
 .app-hbox
 {
     display: flex;
