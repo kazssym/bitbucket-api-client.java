@@ -22,6 +22,7 @@ package org.vx68k.bitbucket.api.client;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 import org.vx68k.bitbucket.api.BitbucketUser;
@@ -34,7 +35,7 @@ import org.vx68k.bitbucket.api.BitbucketUser;
 public class BitbucketClientTest
 {
     /**
-     * Tests {@link BitbucketClient#getUser(String)}.
+     * Tests {@link BitbucketClient#getUser(String)} with an existing user.
      */
     @Test
     public void testGetUser()
@@ -47,5 +48,16 @@ public class BitbucketClientTest
         assertNotNull(user.getDisplayName());
         assertNotNull(user.getCreated());
         // Other properties are unknown at test time.
+    }
+
+    /**
+     * Tests {@link BitbucketClient#getUser(String)} with a non-existing user.
+     */
+    @Test
+    public void testGetUserNotFound()
+    {
+        // "vx68k" is a team.
+        BitbucketUser user = BitbucketClient.getUser("vx68k");
+        assertNull(user);
     }
 }
