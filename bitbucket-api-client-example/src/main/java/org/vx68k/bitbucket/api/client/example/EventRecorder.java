@@ -23,6 +23,8 @@ package org.vx68k.bitbucket.api.client.example;
 import java.io.Serializable;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import org.vx68k.bitbucket.webhook.BitbucketEvent;
 
 /**
@@ -35,6 +37,22 @@ import org.vx68k.bitbucket.webhook.BitbucketEvent;
 public class EventRecorder implements Serializable
 {
     private static final long serialVersionUID = 1L;
+
+    /**
+     * Entity manager.
+     */
+    private EntityManager entityManager;
+
+    /**
+     * Sets the entity manager to a {@link EntityManager} value.
+     *
+     * @param value {@link EntityManager} value
+     */
+    @PersistenceContext(unitName = "BitbucketAPI")
+    public void setEntityManager(final EntityManager value)
+    {
+        entityManager = value;
+    }
 
     /**
      * Records a Bitbucket event.
