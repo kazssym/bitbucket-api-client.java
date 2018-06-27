@@ -41,7 +41,7 @@ public class EventRecorder implements Serializable
      *
      * @param event Bitbucket event to record
      */
-    public void record(@Observes BitbucketEvent event)
+    public void record(@Observes final BitbucketEvent event)
     {
         // @todo Implement this method.
     }
@@ -60,7 +60,7 @@ public class EventRecorder implements Serializable
      * {@inheritDoc}
      */
     @Override
-    public boolean equals(Object object)
+    public boolean equals(final Object object)
     {
         if (this != object) {
             if (object == null || object.getClass() != getClass()) { // NOPMD
