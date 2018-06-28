@@ -123,7 +123,12 @@ public class User implements Serializable
      */
     public Object view()
     {
-        bitbucketUser = BitbucketClient.getUser(name);
+        if (!name.isEmpty()) {
+            bitbucketUser = BitbucketClient.getUser(name);
+        }
+        else {
+            bitbucketUser = null;
+        }
         return null;
     }
 }
