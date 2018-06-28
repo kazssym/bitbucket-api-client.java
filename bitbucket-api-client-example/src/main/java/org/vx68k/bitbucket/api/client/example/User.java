@@ -36,7 +36,7 @@ import org.vx68k.bitbucket.api.client.BitbucketClient;
  * @since 5.0
  */
 @RequestScoped
-@Named("user")
+@Named
 public class User implements Serializable
 {
     private static final long serialVersionUID = 1L;
