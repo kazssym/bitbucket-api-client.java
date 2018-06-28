@@ -117,11 +117,11 @@ public class User implements Serializable
     }
 
     /**
-     * Fetches the user object to view.
+     * Perform an action to look up the user name.
      *
      * @return {@code null}
      */
-    public Object view()
+    public Object lookUp()
     {
         if (!name.isEmpty()) {
             bitbucketUser = BitbucketClient.getUser(name);
