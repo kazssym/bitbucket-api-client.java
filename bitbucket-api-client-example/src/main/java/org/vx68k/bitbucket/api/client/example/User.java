@@ -30,7 +30,7 @@ import org.vx68k.bitbucket.api.BitbucketUser;
 import org.vx68k.bitbucket.api.client.BitbucketClient;
 
 /**
- * Bitbucket user information.
+ * Managed bean for user name lookup.
  *
  * @author Kaz Nishimura
  * @since 5.0
@@ -102,7 +102,7 @@ public class User implements Serializable
     /**
      * Sets the user name to a {@link String} value.
      *
-     * @param value {@link String} value for the user name
+     * @param value {@link String} value
      */
     public void setName(final String value)
     {
@@ -130,7 +130,7 @@ public class User implements Serializable
     }
 
     /**
-     * Perform an action to look up the user name.
+     * Performs an action to look up the user name.
      *
      * @return {@code null}
      */
