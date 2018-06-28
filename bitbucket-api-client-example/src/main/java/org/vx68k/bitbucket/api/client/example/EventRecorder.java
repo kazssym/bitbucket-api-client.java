@@ -21,10 +21,17 @@
 package org.vx68k.bitbucket.api.client.example;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.EntityManager;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import org.vx68k.bitbucket.webhook.BitbucketEvent;
 
 /**
@@ -86,5 +93,97 @@ public class EventRecorder implements Serializable
             }
         }
         return true;
+    }
+
+    /**
+     * Event record.
+     */
+    @Entity
+    private static class Event
+    {
+        /**
+         * Length of the event data column.
+         */
+        private static final int DATA_LENGTH = 0x2000;
+
+        /**
+         * Record identifier.
+         */
+        @GeneratedValue
+        @Id
+        private int id;
+
+        /**
+         * Recorded timestamp.
+         */
+        @Column(nullable = false)
+        @Temporal(TemporalType.TIMESTAMP)
+        private Date recorded;
+
+        /**
+         * Event data.
+         */
+        @Column(length = DATA_LENGTH)
+        private String data;
+
+        /**
+         * Returns the identifier of this record.
+         *
+         * @return the identifier of this record
+         */
+        public final int getId()
+        {
+            return id;
+        }
+
+        /**
+         * Sets the identifier of this record to an {@code int} value.
+         *
+         * @param value {@code int} value
+         */
+        public final void setId(final int value)
+        {
+            id = value;
+        }
+
+        /**
+         * Returns the recorded timestamp.
+         *
+         * @return the recorded timestamp
+         */
+        public final Date getRecorded()
+        {
+            return recorded;
+        }
+
+        /**
+         * Sets the recorded timestamp to a {@link Date} value.
+         *
+         * @param value {@link Date} value
+         */
+        public final void setRecorded(final Date value)
+        {
+            recorded = value;
+        }
+
+        /**
+         * Returns the event data.
+         *
+         * @return the event data
+         */
+        public final String getData()
+        {
+            return data;
+        }
+
+        /**
+         * Sets the event data to a {@link String} value.
+         *
+         * @param value {@link String} value
+         */
+        public final void setData(final String value)
+        {
+            data = value;
+        }
     }
 }
