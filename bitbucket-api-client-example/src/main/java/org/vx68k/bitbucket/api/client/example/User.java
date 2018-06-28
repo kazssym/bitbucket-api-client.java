@@ -23,7 +23,6 @@ package org.vx68k.bitbucket.api.client.example;
 import java.io.Serializable;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import javax.inject.Named;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import org.vx68k.bitbucket.api.BitbucketUser;
@@ -36,7 +35,6 @@ import org.vx68k.bitbucket.api.client.BitbucketClient;
  * @since 5.0
  */
 @RequestScoped
-@Named("user")
 public class User implements Serializable
 {
     private static final long serialVersionUID = 1L;
