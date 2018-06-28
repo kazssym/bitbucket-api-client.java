@@ -55,9 +55,10 @@ public class User implements Serializable
     private String name = "";
 
     /**
-     * Found {@link BitbucketUser} object.
+     * {@link BitbucketUser} object of the found user, or {@code null} if no
+     * user was found.
      */
-    private BitbucketUser bitbucketUser = null;
+    private BitbucketUser foundUser = null;
 
     /**
      * Constructs this object with no {@link CurrentUser} object.
@@ -109,13 +110,23 @@ public class User implements Serializable
     }
 
     /**
-     * Returns the found {@link BitbucietUser} object.
+     * Returns {@code true} if a user was found.
      *
-     * @return the found {@link BitbucietUser} object
+     * @return {@code true} if a user was found
      */
-    public BitbucketUser getBitbucketUser()
+    public boolean isFound()
     {
-        return bitbucketUser;
+        return foundUser != null;
+    }
+
+    /**
+     * Returns the {@link BitbucietUser} object of the found user.
+     *
+     * @return the {@link BitbucietUser} object of the found user
+     */
+    public BitbucketUser getFoundUser()
+    {
+        return foundUser;
     }
 
     /**
@@ -126,10 +137,10 @@ public class User implements Serializable
     public Object lookUp()
     {
         if (!name.isEmpty()) {
-            bitbucketUser = BitbucketClient.getUser(name);
+            foundUser = BitbucketClient.getUser(name);
         }
         else {
-            bitbucketUser = null;
+            foundUser = null;
         }
         return null;
     }

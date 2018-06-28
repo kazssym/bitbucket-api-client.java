@@ -23,7 +23,7 @@
     jsf:id="submit" jsf:value="Look up" jsf:action="#{user.lookUp}" />
 </f:ajax>
 </span>
-<ui:fragment rendered="#{user.bitbucketUser != null}">
+<ui:fragment rendered="#{user.found}">
 <hr />
 <div>
 Found. User information will appear here.
