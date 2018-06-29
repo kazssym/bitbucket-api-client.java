@@ -28,11 +28,6 @@ nav {
   overflow: hidden;
 }
 
-html, button, input, select, textarea,
-.pure-g [class *= "pure-u"] {
-  font-family: Roboto, "San Francisco", "Helvetica Neue", Arial, sans-serif;
-}
-
 .pure-menu-children {
   background-color: #F7F7F7;
 }
