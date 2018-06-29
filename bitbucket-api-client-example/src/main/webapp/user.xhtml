@@ -28,9 +28,46 @@
     fatalClass="app-message-fatal" errorClass="app-message-error"
     warnClass="app-message-warn" infoClass="app-message-info" />
 <ui:fragment rendered="#{user.found}">
-<div>
-Found. User information will appear here.
-</div>
+<h2>Properties</h2>
+<table class="pure-table">
+<thead>
+<tr>
+<th>Name</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>#{user.foundUser.name}</td>
+</tr>
+<tr>
+<td>UUID</td>
+<td>{#{user.foundUser.UUID}}</td>
+</tr>
+<tr>
+<td>displayName</td>
+<td>#{user.foundUser.displayName}</td>
+</tr>
+<tr>
+<td>website</td>
+<td><a href="#{user.foundUser.website}" rel="external">
+#{user.foundUser.website}</a></td>
+</tr>
+<tr>
+<td>location</td>
+<td>#{user.foundUser.location}</td>
+</tr>
+<tr>
+<td>private</td>
+<td>#{user.foundUser.private}</td>
+</tr>
+<tr>
+<td>created</td>
+<td>#{user.foundUser.created}</td>
+</tr>
+</tbody>
+</table>
 </ui:fragment>
 </form>
 </ui:define>
