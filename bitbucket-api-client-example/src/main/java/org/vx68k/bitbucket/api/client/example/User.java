@@ -22,6 +22,9 @@ package org.vx68k.bitbucket.api.client.example;
 
 import java.io.Serializable;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.constraints.NotNull;
@@ -136,8 +139,14 @@ public class User implements Serializable
      */
     public Object lookUp()
     {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        UIComponent component = UIComponent.getCurrentComponent(facesContext);
         if (!name.isEmpty()) {
             foundUser = BitbucketClient.getUser(name);
+            if (!isFound()) {
+                facesContext.addMessage(component.getClientId(facesContext),
+                    new FacesMessage("User not found."));
+            }
         }
         else {
             foundUser = null;
