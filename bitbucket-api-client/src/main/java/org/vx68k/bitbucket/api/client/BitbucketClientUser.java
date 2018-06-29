@@ -40,14 +40,14 @@ public class BitbucketClientUser extends BitbucketClientObject
     implements BitbucketUser
 {
     /**
-     * Name for the {@code uuid} value in a JSON user object.
-     */
-    private static final String UUID = "uuid";
-
-    /**
      * Name for the {@code username} value in a JSON user object.
      */
     private static final String USERNAME = "username";
+
+    /**
+     * Name for the {@code uuid} value in a JSON user object.
+     */
+    private static final String UUID = "uuid";
 
     /**
      * Name for the {@code display_name} value in a JSON user object.
@@ -63,6 +63,11 @@ public class BitbucketClientUser extends BitbucketClientObject
      * Name for the {@code location} value in a JSON user object.
      */
     private static final String LOCATION = "location";
+
+    /**
+     * Name for the {@code is_private} value in a JSON user object.
+     */
+    private static final String IS_PRIVATE = "is_private";
 
     /**
      * Name for the {@code created_on} value in a JSON user object.
@@ -97,21 +102,21 @@ public class BitbucketClientUser extends BitbucketClientObject
      * {@inheritDoc}
      */
     @Override
-    public final UUID getUUID()
+    public final String getName()
     {
         JsonObject userObject = getJsonObject();
-        return BitbucketClientUtilities.parseUUID(
-                userObject.getJsonString(UUID));
+        return userObject.getString(USERNAME, null);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public final String getName()
+    public final UUID getUUID()
     {
         JsonObject userObject = getJsonObject();
-        return userObject.getString(USERNAME, null);
+        return BitbucketClientUtilities.parseUUID(
+                userObject.getJsonString(UUID));
     }
 
     /**
@@ -142,6 +147,16 @@ public class BitbucketClientUser extends BitbucketClientObject
     {
         JsonObject userObject = getJsonObject();
         return userObject.getString(LOCATION, null);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isPrivate()
+    {
+        JsonObject userObject = getJsonObject();
+        return userObject.getBoolean(IS_PRIVATE, false);
     }
 
     /**

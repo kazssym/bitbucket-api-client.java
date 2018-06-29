@@ -142,19 +142,6 @@ public class CurrentUser implements BitbucketUser, Serializable
      * {@inheritDoc}
      */
     @Override
-    public UUID getUUID()
-    {
-        UUID uuid = null;
-        if (loggedInUser != null) {
-            uuid = loggedInUser.getUUID();
-        }
-        return uuid;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public String getName()
     {
         String name = null;
@@ -162,6 +149,19 @@ public class CurrentUser implements BitbucketUser, Serializable
             name = loggedInUser.getName();
         }
         return name;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public UUID getUUID()
+    {
+        UUID uuid = null;
+        if (loggedInUser != null) {
+            uuid = loggedInUser.getUUID();
+        }
+        return uuid;
     }
 
     /**
@@ -201,6 +201,19 @@ public class CurrentUser implements BitbucketUser, Serializable
             location = loggedInUser.getLocation();
         }
         return location;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isPrivate()
+    {
+        boolean private_ = false;
+        if (loggedInUser != null) {
+            private_ = loggedInUser.isPrivate();
+        }
+        return private_;
     }
 
     /**

@@ -51,18 +51,18 @@ public interface BitbucketUser
     String getType();
 
     /**
-     * Returns the UUID of this user.
-     *
-     * @return the UUID
-     */
-    UUID getUUID();
-
-    /**
      * Returns the name of this user.
      *
      * @return the name
      */
     String getName();
+
+    /**
+     * Returns the UUID of this user.
+     *
+     * @return the UUID
+     */
+    UUID getUUID();
 
     /**
      * Returns the display name of this user.
@@ -84,6 +84,13 @@ public interface BitbucketUser
      * @return the location
      */
     String getLocation();
+
+    /**
+     * Returns {@code true} if and only if this user is private.
+     *
+     * @return {@code true} if private, or {@code false}
+     */
+    boolean isPrivate();
 
     /**
      * Returns the instant when this user was created.

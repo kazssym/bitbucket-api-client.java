@@ -79,8 +79,8 @@ public final class BitbucketClientUserTest
             .add("type", "user");
         BitbucketClientUser user = new BitbucketClientUser(builder.build());
         assertEquals(BitbucketUser.USER, user.getType());
-        assertNull(user.getUUID());
         assertNull(user.getName());
+        assertNull(user.getUUID());
         assertNull(user.getDisplayName());
         assertNull(user.getWebsite());
         assertNull(user.getLocation());
@@ -97,8 +97,8 @@ public final class BitbucketClientUserTest
         JsonObjectBuilder builder = Json.createObjectBuilder()
             .add("type", "team");
         BitbucketClientUser user = new BitbucketClientUser(builder.build());
-        assertNull(user.getUUID());
         assertNull(user.getName());
+        assertNull(user.getUUID());
         assertNull(user.getDisplayName());
         assertNull(user.getWebsite());
         assertNull(user.getLocation());
