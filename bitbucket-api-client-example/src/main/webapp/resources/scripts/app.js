@@ -40,7 +40,7 @@
 
 (() => {
     window.doAjaxError = function (error) {
-        console.info(error.description);
+        window.console.info(error.description);
         window.alert("Reload this page to recover from communication error.");
     };
 })();
