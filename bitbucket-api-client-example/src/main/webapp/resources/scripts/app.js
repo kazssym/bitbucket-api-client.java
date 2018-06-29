@@ -1,4 +1,4 @@
-// example.js - app-specific script
+// app.js - app-specific script
 // Copyright (C) 2015-2018 Kaz Nishimura
 //
 // Copying and distribution of this file, with or without modification, are
