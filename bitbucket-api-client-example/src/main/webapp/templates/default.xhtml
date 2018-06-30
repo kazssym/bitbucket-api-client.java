@@ -6,93 +6,90 @@
     xmlns:f="http://xmlns.jcp.org/jsf/core"
     xmlns:h="http://xmlns.jcp.org/jsf/html"
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-    <head jsf:id="head">
-        <meta content="text/html;charset=UTF-8" http-equiv="Content-Type" />
-        <meta content="width=device-width, initial-scale=1" name="viewport" />
-        <title>
-            <ui:insert name="title-prefix"/>
-          Bitbucket API Client Example
-        </title>
-        <ui:insert name="head-additions"/>
-    </head>
-    <body class="app-vbox" jsf:id="body">
-        <form class="pure-menu pure-menu-horizontal app-hbox app-top"
-            jsf:id="header">
-            <span class="pure-menu-heading app-hbox-grow"
-                >Bitbucket API Client Example</span>
-            <ul class="pure-menu-list">
-                <ui:fragment rendered="#{not currentUser.loggedIn}">
-                <li class="pure-menu-item">
-                    <f:ajax render="@form">
-                    <a class="pure-menu-link" jsf:id="login"
-                        jsf:action="#{currentUser.login}">#{messages.login}</a>
-                    </f:ajax>
-                </li>
-                </ui:fragment>
-                <ui:fragment rendered="#{currentUser.loggedIn}">
-                    <li id="account-menu"
-                        class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
-                        <a class="pure-menu-link" href="#">Account</a>
-                        <ul class="pure-menu-children">
-                            <li class="pure-menu-item">
-                                <h:outputLink styleClass="pure-menu-link" value="#{request.contextPath}/myself.jsf">Profile</h:outputLink>
-                            </li>
-                            <li class="pure-menu-item">
-                                <h:commandLink styleClass="pure-menu-link" action="#{currentUser.logout}">#{messages.logout}</h:commandLink>
-                            </li>
-                        </ul>
-                    </li>
-                </ui:fragment>
-                <li class="pure-menu-item">
-                    <a class="pure-menu-link" jsf:value="#{request.contextPath}/help.jsf">
-                        <span class="app-icon">
-                            <ui:include src="/icons/ic_help_24px.svg" />
-                        </span>
-                    </a>
-                </li>
-            </ul>
-        </form>
-        <div class="app-vbox-grow app-hbox">
-            <nav id="nav-menu" class="pure-menu">
-                <div class="pure-menu-heading">Users</div>
-                <ul class="pure-menu-list">
-                    <li class="pure-menu-item">
-                        <a class="pure-menu-link" jsf:outcome="user.jsf">
-                            User info</a>
-                    </li>
-                    <li class="pure-menu-item pure-menu-disabled">Following</li>
-                </ul>
-                <div class="pure-menu-heading">Repositories</div>
-                <ul class="pure-menu-list">
-                    <li class="pure-menu-item pure-menu-disabled">Mine</li>
-                    <li class="pure-menu-item pure-menu-disabled">Watching</li>
-                </ul>
-                <div class="pure-menu-heading">Issues</div>
-                <ul class="pure-menu-list">
-                    <li class="pure-menu-item pure-menu-disabled">Assigned to me</li>
-                    <li class="pure-menu-item pure-menu-disabled">Reported by me</li>
-                    <li class="pure-menu-item pure-menu-disabled">Participating</li>
-                    <li class="pure-menu-item pure-menu-disabled">Watching</li>
-                </ul>
-            </nav>
-            <div class="app-hbox-grow">
-                <main>
-                    <ui:insert name="main"/>
-                </main>
-            </div>
-        </div>
-        <script async="async" defer="defer" jsf:name="scripts/app.js">
-        </script>
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css"
-              crossorigin="anonymous" rel="stylesheet"
-              integrity="sha256-Q0zCrUs2IfXWYx0uMKJfG93CvF6oVII21waYsAV4/8Q=" />
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css"
-              crossorigin="anonymous" rel="stylesheet" media="screen"
-              integrity="sha256-YqnnS/cQ7vE7gfVjdfx+JMi5EFD6m6Zqdemj81rs6PU=" />
-        <ui:remove>
-        <!-- Note the 'resource[]' expression will be encoded in JSF 2.3. -->
-        </ui:remove>
-        <link href="#{resource['stylesheets/app.css']}" rel="stylesheet" />
-        <ui:debug />
-    </body>
+<head jsf:id="head">
+<meta content="text/html;charset=UTF-8" http-equiv="Content-Type" />
+<meta content="width=device-width, initial-scale=1" name="viewport" />
+<title>
+<ui:insert name="title-prefix" />
+Bitbucket API Client Example
+</title>
+<ui:insert name="head-additions" />
+</head>
+<body class="app-vbox" jsf:id="body">
+<form class="pure-menu pure-menu-horizontal app-hbox app-top"
+    jsf:id="header">
+<span class="pure-menu-heading app-hbox-grow">
+Bitbucket API Client Example</span>
+<ul class="pure-menu-list">
+<ui:fragment rendered="#{not currentUser.loggedIn}">
+<li class="pure-menu-item">
+<f:ajax render="@form">
+<a class="pure-menu-link" jsf:id="login" jsf:action="#{currentUser.login}">
+#{messages.login}</a>
+</f:ajax>
+</li>
+</ui:fragment>
+<ui:fragment rendered="#{currentUser.loggedIn}">
+<li id="account-menu"
+    class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+<a class="pure-menu-link" href="#">Account</a>
+<ul class="pure-menu-children">
+<li class="pure-menu-item">
+<h:outputLink styleClass="pure-menu-link" value="#{request.contextPath}/myself.jsf">Profile</h:outputLink>
+</li>
+<li class="pure-menu-item">
+<h:commandLink styleClass="pure-menu-link" action="#{currentUser.logout}">#{messages.logout}</h:commandLink>
+</li>
+</ul>
+</li>
+</ui:fragment>
+<li class="pure-menu-item">
+<a class="pure-menu-link" jsf:value="#{request.contextPath}/help.jsf">
+<span class="app-icon"><ui:include src="/icons/ic_help_24px.svg" /></span>
+</a>
+</li>
+</ul>
+</form>
+<div class="app-vbox-grow app-hbox">
+<nav id="nav-menu" class="pure-menu">
+<div class="pure-menu-heading">Users</div>
+<ul class="pure-menu-list">
+<li class="pure-menu-item">
+<a class="pure-menu-link" jsf:outcome="user.jsf">User info</a>
+</li>
+<li class="pure-menu-item pure-menu-disabled">Following</li>
+</ul>
+<div class="pure-menu-heading">Repositories</div>
+<ul class="pure-menu-list">
+<li class="pure-menu-item pure-menu-disabled">Mine</li>
+<li class="pure-menu-item pure-menu-disabled">Watching</li>
+</ul>
+<div class="pure-menu-heading">Issues</div>
+<ul class="pure-menu-list">
+<li class="pure-menu-item pure-menu-disabled">Assigned to me</li>
+<li class="pure-menu-item pure-menu-disabled">Reported by me</li>
+<li class="pure-menu-item pure-menu-disabled">Participating</li>
+<li class="pure-menu-item pure-menu-disabled">Watching</li>
+</ul>
+</nav>
+<div class="app-hbox-grow">
+<main>
+<ui:insert name="main"/>
+</main>
+</div>
+</div>
+<script async="async" defer="defer" jsf:name="scripts/app.js">
+</script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css"
+    crossorigin="anonymous" rel="stylesheet"
+    integrity="sha256-Q0zCrUs2IfXWYx0uMKJfG93CvF6oVII21waYsAV4/8Q=" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css"
+    crossorigin="anonymous" rel="stylesheet" media="screen"
+    integrity="sha256-YqnnS/cQ7vE7gfVjdfx+JMi5EFD6m6Zqdemj81rs6PU=" />
+<ui:remove>
+<!-- Note the 'resource[]' URL will be encoded in JSF 2.3. -->
+</ui:remove>
+<link href="#{resource['stylesheets/app.css']}" rel="stylesheet" />
+<ui:debug />
+</body>
 </html>
