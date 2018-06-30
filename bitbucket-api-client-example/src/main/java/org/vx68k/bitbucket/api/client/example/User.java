@@ -64,14 +64,6 @@ public class User implements Serializable
     private BitbucketUser foundUser = null;
 
     /**
-     * Constructs this object with no {@link CurrentUser} object.
-     */
-    public User()
-    {
-        this(null);
-    }
-
-    /**
      * Constructs this object with a {@link CurrentUser} object.
      *
      * @param aCurrentUser {@link CurrentUser} object
@@ -142,7 +134,8 @@ public class User implements Serializable
         FacesContext facesContext = FacesContext.getCurrentInstance();
         UIComponent component = UIComponent.getCurrentComponent(facesContext);
         if (!name.isEmpty()) {
-            foundUser = BitbucketClient.getUser(name);
+            BitbucketClient client = new BitbucketClient();
+            foundUser = client.getUser(name);
             if (!isFound()) {
                 facesContext.addMessage(component.getClientId(facesContext),
                     new FacesMessage("User not found."));

@@ -24,6 +24,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
+import javax.ws.rs.client.ClientBuilder;
 import org.junit.Test;
 import org.vx68k.bitbucket.api.BitbucketUser;
 
@@ -35,12 +36,30 @@ import org.vx68k.bitbucket.api.BitbucketUser;
 public class BitbucketClientTest
 {
     /**
-     * Tests {@link BitbucketClient#getUser(String)} with an existing user.
+     * Tests the default constructor.
+     */
+    public void testDefault()
+    {
+        BitbucketClient client = new BitbucketClient();
+    }
+
+    /**
+     * Tests the constructor with a {@link ClientBuilder} object.
+     */
+    public void testClientBuilder()
+    {
+        BitbucketClient client =
+            new BitbucketClient(ClientBuilder.newBuilder());
+    }
+
+    /**
+     * Tests {@link BitbucketClient#getUser getUser} with an existing user.
      */
     @Test
     public void testGetUser()
     {
-        BitbucketUser user = BitbucketClient.getUser("kazssym");
+        BitbucketClient client = new BitbucketClient();
+        BitbucketUser user = client.getUser("kazssym");
         System.out.println("Got " + user);
         assertEquals(BitbucketUser.USER, user.getType());
         assertNotNull(user.getUUID());
@@ -51,13 +70,13 @@ public class BitbucketClientTest
     }
 
     /**
-     * Tests {@link BitbucketClient#getUser(String)} with a non-existing user.
+     * Tests {@link BitbucketClient#getUser getUser} with a non-existing user.
      */
     @Test
     public void testGetUserNotFound()
     {
-        // "vx68k" is a team.
-        BitbucketUser user = BitbucketClient.getUser("vx68k");
+        BitbucketClient client = new BitbucketClient();
+        BitbucketUser user = client.getUser("vx68k"); // "vx68k" is a team.
         assertNull(user);
     }
 }

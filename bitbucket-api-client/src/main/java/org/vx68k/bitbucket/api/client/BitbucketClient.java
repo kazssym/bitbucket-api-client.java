@@ -47,35 +47,28 @@ public class BitbucketClient
     public static final String API_BASE = "https://api.bitbucket.org/2.0/";
 
     /**
-     * Default {@BitbucketClient} object.
+     * {@link ClientBuilder} object given to the constructor.
+     * This object is used to build a {@link Client} object.
      */
-    private static BitbucketClient defaultClient = new BitbucketClient();
+    private ClientBuilder clientBuilder;
 
     /**
-     * Allows custom implementations to extend this class.
+     * Constructs this object with no parameters.
      */
-    protected BitbucketClient()
+    public BitbucketClient()
     {
+        this(ClientBuilder.newBuilder());
     }
 
     /**
-     * Returns the default {@link BitbucketClient} object.
-     *
-     * @return the default {@link BitbucketClient} object
+     * Constructs this object with a {@link ClientBuilder} object.
      */
-    public static BitbucketClient getDefaultClient()
+    public BitbucketClient(final ClientBuilder builder)
     {
-        return defaultClient;
-    }
-
-    /**
-     * Returns a new {@link BitbucketClient} object.
-     *
-     * @return new {@link BitbucketClient} object
-     */
-    public static BitbucketClient newClient()
-    {
-        return new BitbucketClient();
+        clientBuilder = builder;
+        if (clientBuilder == null) {
+            throw new IllegalArgumentException("ClientBuilder is null");
+        }
     }
 
     /**
@@ -152,9 +145,9 @@ public class BitbucketClient
      * @param userName name of the user
      * @return {@link BitbucketUser} object
      */
-    public static BitbucketUser getUser(final String userName)
+    public BitbucketUser getUser(final String userName)
     {
-        Client client = ClientBuilder.newClient();
+        Client client = clientBuilder.build();
         try {
             WebTarget target = client.target(API_BASE).path("users/{user}");
             JsonObject userObject = target.resolveTemplate("user", userName)
