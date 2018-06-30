@@ -26,10 +26,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import javax.enterprise.context.SessionScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
 import org.vx68k.bitbucket.api.BitbucketRepository;
 import org.vx68k.bitbucket.api.BitbucketUser;
+import org.vx68k.bitbucket.api.client.BitbucketClient;
 
 /**
  * Current user of the session.
@@ -44,9 +44,9 @@ public class CurrentUser implements BitbucketUser, Serializable
     private static final long serialVersionUID = 1L;
 
     /**
-     * {@link BitbucketAPI} object given to the constructor.
+     * {@link BitbucketClient} object given to the constructor.
      */
-    private final BitbucketAPI bitbucketAPI;
+    private final BitbucketClient bitbucketClient;
 
     /**
      * {@link BitbucketUser} object for the current user, or {@code null} if
@@ -55,32 +55,11 @@ public class CurrentUser implements BitbucketUser, Serializable
     private BitbucketUser loggedInUser = null;
 
     /**
-     * Constructs this object with no {@link BitbucketAPI} object.
+     * Constructs this object with no parameters.
      */
     public CurrentUser()
     {
-        this(null);
-    }
-
-    /**
-     * Constructs this object with a {@link BitbucketAPI} object.
-     *
-     * @param aBitbucketAPI {@link BitbucketAPI object}
-     */
-    @Inject
-    public CurrentUser(final BitbucketAPI aBitbucketAPI)
-    {
-        bitbucketAPI = aBitbucketAPI;
-    }
-
-    /**
-     * Returns the {@link BitbucketAPI} object given to the constructor.
-     *
-     * @return the {@link BitbucketAPI} object given to the constructor
-     */
-    public BitbucketAPI getBitbucketAPI()
-    {
-        return bitbucketAPI;
+        bitbucketClient = new BitbucketClient();
     }
 
     /**
@@ -262,9 +241,8 @@ public class CurrentUser implements BitbucketUser, Serializable
     public int hashCode()
     {
         int code = getClass().hashCode();
-        if (bitbucketAPI != null) {
-            code ^= bitbucketAPI.hashCode();
-        }
+        assert bitbucketClient != null;
+        code ^= bitbucketClient.hashCode();
         return code;
     }
 
@@ -280,12 +258,8 @@ public class CurrentUser implements BitbucketUser, Serializable
             }
 
             CurrentUser other = (CurrentUser) object;
-            if (bitbucketAPI != null) {
-                if (!bitbucketAPI.equals(other.bitbucketAPI)) {
-                    return false;
-                }
-            }
-            else if (bitbucketAPI != other.bitbucketAPI) {
+            assert bitbucketClient != null;
+            if (!bitbucketClient.equals(other.bitbucketClient)) {
                 return false;
             }
         }

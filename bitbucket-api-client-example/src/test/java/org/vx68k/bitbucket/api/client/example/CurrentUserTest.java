@@ -20,10 +20,8 @@
 
 package org.vx68k.bitbucket.api.client.example;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -34,44 +32,12 @@ import org.junit.Test;
 public final class CurrentUserTest
 {
     /**
-     * {@link BitbucketAPI} object.
-     */
-    private BitbucketAPI bitbucketAPI;
-
-    /**
-     * Prepares for a test run.
-     */
-    @Before
-    public void setUp()
-    {
-        bitbucketAPI = new BitbucketAPI();
-    }
-
-    /**
-     * Releases the resources used by a test run.
-     */
-    @After
-    public void tearDown()
-    {
-        bitbucketAPI = null;
-    }
-
-    /**
-     * Tests the constructor.
+     * Tests the default constructor.
      */
     @Test
-    public void testBitbucketAPI()
+    public void testDefault()
     {
-        CurrentUser user = new CurrentUser(bitbucketAPI);
-        assertEquals(bitbucketAPI, user.getBitbucketAPI());
+        CurrentUser currentUser = new CurrentUser();
+        assertFalse(currentUser.isLoggedIn());
     }
-
-//    @Test
-//    public void testGetBitbucketService() throws IOException {
-//        CurrentUser user = new CurrentUser();
-//        user.setApplicationConfig(applicationConfig);
-//        Service bitbucketService = user.getBitbucketService();
-//        assertNotNull(bitbucketService);
-//        assertNull(bitbucketService.getCurrentUser());
-//    }
 }
