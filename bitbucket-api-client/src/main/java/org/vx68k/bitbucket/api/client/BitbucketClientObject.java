@@ -82,6 +82,7 @@ public class BitbucketClientObject
     public int hashCode()
     {
         int code = getClass().hashCode();
+        assert jsonObject != null;
         code ^= jsonObject.hashCode();
         return code;
     }
@@ -98,6 +99,7 @@ public class BitbucketClientObject
             }
 
             BitbucketClientObject other = (BitbucketClientObject) object;
+            assert jsonObject != null;
             if (!jsonObject.equals(other.jsonObject)) {
                 return false;
             }
