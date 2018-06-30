@@ -44,7 +44,7 @@ public class CurrentUser implements BitbucketUser, Serializable
     private static final long serialVersionUID = 1L;
 
     /**
-     * {@link BitbucketClient} object given to the constructor.
+     * {@link BitbucketClient} object.
      */
     private final BitbucketClient bitbucketClient;
 
@@ -60,6 +60,16 @@ public class CurrentUser implements BitbucketUser, Serializable
     public CurrentUser()
     {
         bitbucketClient = new BitbucketClient();
+    }
+
+    /**
+     * Returns the {@link BitbucketClient} object.
+     *
+     * @return the {@link BitbucketClient} object
+     */
+    public BitbucketClient getBitbucketClient()
+    {
+        return bitbucketClient;
     }
 
     /**
