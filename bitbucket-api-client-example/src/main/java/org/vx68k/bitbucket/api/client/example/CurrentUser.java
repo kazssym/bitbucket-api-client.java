@@ -110,11 +110,11 @@ public class CurrentUser implements BitbucketUser, Serializable
     @Override
     public String getType()
     {
-        String type = null;
+        String value = null;
         if (loggedInUser != null) {
-            type = loggedInUser.getType();
+            value = loggedInUser.getType();
         }
-        return type;
+        return value;
     }
 
     /**
@@ -123,11 +123,11 @@ public class CurrentUser implements BitbucketUser, Serializable
     @Override
     public String getName()
     {
-        String name = null;
+        String value = null;
         if (loggedInUser != null) {
-            name = loggedInUser.getName();
+            value = loggedInUser.getName();
         }
-        return name;
+        return value;
     }
 
     /**
@@ -136,11 +136,11 @@ public class CurrentUser implements BitbucketUser, Serializable
     @Override
     public UUID getUUID()
     {
-        UUID uuid = null;
+        UUID value = null;
         if (loggedInUser != null) {
-            uuid = loggedInUser.getUUID();
+            value = loggedInUser.getUUID();
         }
-        return uuid;
+        return value;
     }
 
     /**
@@ -149,11 +149,11 @@ public class CurrentUser implements BitbucketUser, Serializable
     @Override
     public String getDisplayName()
     {
-        String displayName = null;
+        String value = null;
         if (loggedInUser != null) {
-            displayName = loggedInUser.getDisplayName();
+            value = loggedInUser.getDisplayName();
         }
-        return displayName;
+        return value;
     }
 
     /**
@@ -162,11 +162,11 @@ public class CurrentUser implements BitbucketUser, Serializable
     @Override
     public String getWebsite()
     {
-        String website = null;
+        String value = null;
         if (loggedInUser != null) {
-            website = loggedInUser.getWebsite();
+            value = loggedInUser.getWebsite();
         }
-        return website;
+        return value;
     }
 
     /**
@@ -175,11 +175,11 @@ public class CurrentUser implements BitbucketUser, Serializable
     @Override
     public String getLocation()
     {
-        String location = null;
+        String value = null;
         if (loggedInUser != null) {
-            location = loggedInUser.getLocation();
+            value = loggedInUser.getLocation();
         }
-        return location;
+        return value;
     }
 
     /**
@@ -188,11 +188,11 @@ public class CurrentUser implements BitbucketUser, Serializable
     @Override
     public boolean isPrivate()
     {
-        boolean private_ = false;
+        boolean value = false;
         if (loggedInUser != null) {
-            private_ = loggedInUser.isPrivate();
+            value = loggedInUser.isPrivate();
         }
-        return private_;
+        return value;
     }
 
     /**
@@ -201,11 +201,11 @@ public class CurrentUser implements BitbucketUser, Serializable
     @Override
     public Instant getCreated()
     {
-        Instant created = null;
+        Instant value = null;
         if (loggedInUser != null) {
-            created = loggedInUser.getCreated();
+            value = loggedInUser.getCreated();
         }
-        return created;
+        return value;
     }
 
     /**
@@ -214,11 +214,11 @@ public class CurrentUser implements BitbucketUser, Serializable
     @Override
     public Map<String, String> getLinks()
     {
-        Map<String, String> links = null;
+        Map<String, String> value = null;
         if (loggedInUser != null) {
-            links = loggedInUser.getLinks();
+            value = loggedInUser.getLinks();
         }
-        return links;
+        return value;
     }
 
     /**
@@ -227,11 +227,11 @@ public class CurrentUser implements BitbucketUser, Serializable
     @Override
     public Set<BitbucketRepository> repositorySet()
     {
-        Set<BitbucketRepository> set = null;
+        Set<BitbucketRepository> value = null;
         if (loggedInUser != null) {
-            set = loggedInUser.repositorySet();
+            value = loggedInUser.repositorySet();
         }
-        return set;
+        return value;
     }
 
     /**
@@ -240,10 +240,10 @@ public class CurrentUser implements BitbucketUser, Serializable
     @Override
     public int hashCode()
     {
-        int code = getClass().hashCode();
+        int value = getClass().hashCode();
         assert bitbucketClient != null;
-        code ^= bitbucketClient.hashCode();
-        return code;
+        value ^= bitbucketClient.hashCode();
+        return value;
     }
 
     /**
