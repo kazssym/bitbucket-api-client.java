@@ -48,7 +48,7 @@ public class BitbucketClient
 
     /**
      * {@link ClientBuilder} object given to the constructor.
-     * This object is used to build a {@link Client} object.
+     * This object is used to build JAX-RS {@link Client} objects.
      */
     private ClientBuilder clientBuilder;
 
@@ -62,6 +62,9 @@ public class BitbucketClient
 
     /**
      * Constructs this object with a {@link ClientBuilder} object.
+     *
+     * @param builder {@link ClientBuilder} object to be used to build JAX-RS
+     * {@link Client} objects.
      */
     public BitbucketClient(final ClientBuilder builder)
     {
