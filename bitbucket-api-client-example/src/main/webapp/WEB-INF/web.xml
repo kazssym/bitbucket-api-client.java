@@ -18,4 +18,17 @@
 <welcome-file-list>
 <welcome-file>index.jsf</welcome-file>
 </welcome-file-list>
+<data-source>
+<name>jdbc/Bitbucket</name>
+<class-name>org.apache.derby.jdbc.ClientDataSource</class-name>
+<server-name>derby</server-name>
+<database-name>Bitbucket</database-name>
+<user>app</user>
+<password>no</password>
+<property>
+<name>createDatabase</name>
+<value>create</value>
+</property>
+<isolation-level>TRANSACTION_READ_COMMITTED</isolation-level>
+</data-source>
 </web-app>
