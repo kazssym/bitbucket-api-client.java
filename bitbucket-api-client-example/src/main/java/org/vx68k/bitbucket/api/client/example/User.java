@@ -30,7 +30,6 @@ import javax.inject.Named;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import org.vx68k.bitbucket.api.BitbucketUser;
-import org.vx68k.bitbucket.api.client.BitbucketClient;
 
 /**
  * Managed bean for user name lookup.
@@ -134,8 +133,7 @@ public class User implements Serializable
         FacesContext facesContext = FacesContext.getCurrentInstance();
         UIComponent component = UIComponent.getCurrentComponent(facesContext);
         if (!name.isEmpty()) {
-            BitbucketClient client = new BitbucketClient();
-            foundUser = client.getUser(name);
+            foundUser = currentUser.getBitbucketClient().getUser(name);
             if (!isFound()) {
                 facesContext.addMessage(component.getClientId(facesContext),
                     new FacesMessage("User not found."));
