@@ -106,7 +106,7 @@ public class EventRecorder implements Serializable
     /**
      * Event record.
      */
-    @Entity
+    @Entity(name = "Event")
     private static class Event
     {
         /**
