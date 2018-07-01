@@ -28,10 +28,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.transaction.Transactional;
 import org.vx68k.bitbucket.webhook.BitbucketEvent;
 
 /**
@@ -66,9 +68,15 @@ public class EventRecorder implements Serializable
      *
      * @param event Bitbucket event to record
      */
+    @Transactional
     public void record(@Observes final BitbucketEvent event)
     {
-        // @todo Implement this method.
+        if (entityManager != null) {
+            Event record = new Event();
+            record.setRecorded(new Date());
+            record.setData(event.toString());
+            entityManager.persist(record);
+        }
     }
 
     /**
@@ -109,7 +117,7 @@ public class EventRecorder implements Serializable
         /**
          * Record identifier.
          */
-        @GeneratedValue
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Id
         private int id;
 
