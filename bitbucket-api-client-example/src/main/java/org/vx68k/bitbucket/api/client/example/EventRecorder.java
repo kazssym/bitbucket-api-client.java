@@ -105,7 +105,7 @@ public class EventRecorder implements Serializable
      * Event record.
      */
     @Entity(name = "Event")
-    private static class Event
+    protected static class Event
     {
         /**
          * Length of the event data column.
