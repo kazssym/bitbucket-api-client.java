@@ -72,9 +72,7 @@ public class EventRecorder implements Serializable
     public void record(@Observes final BitbucketEvent event)
     {
         if (entityManager != null) {
-            Event record = new Event();
-            record.setRecorded(new Date());
-            record.setData(event.toString());
+            Event record = new Event(event.toString());
             entityManager.persist(record);
         }
     }
@@ -85,8 +83,8 @@ public class EventRecorder implements Serializable
     @Override
     public int hashCode()
     {
-        int code = getClass().hashCode();
-        return code;
+        int value = getClass().hashCode();
+        return value;
     }
 
     /**
@@ -133,6 +131,26 @@ public class EventRecorder implements Serializable
          */
         @Column(length = DATA_LENGTH)
         private String data;
+
+        /**
+         * Constructs this object with no parameters.
+         */
+        public Event()
+        {
+            this(null);
+        }
+
+        /**
+         * Constructs this object with a {@link String} value for {@code data}.
+         *
+         * @param dataValue {@link String} value for {@code data}
+         */
+        public Event(final String dataValue)
+        {
+            id = 0;
+            recorded = new Date();
+            data = dataValue;
+        }
 
         /**
          * Returns the identifier of this record.
