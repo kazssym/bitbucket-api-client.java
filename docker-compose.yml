@@ -9,6 +9,8 @@ version: "3"
 services:
   example:
     image: kazssym/wildfly:latest
+    depends_on:
+      - derby
     ports:
       - "${EXAMPLE_HTTP_PORT:-8080}:8080"
       - "${EXAMPLE_DEBUG_PORT:-8787}:8787"
@@ -18,6 +20,11 @@ services:
     volumes:
       - ./bitbucket-api-client-example/target/bitbucket-api-client-example-${VERSION:-5.0-SNAPSHOT}.war:/opt/jboss/wildfly/standalone/deployments/ROOT.war:ro
     working_dir: /opt/jboss/wildfly/standalone
-    command: /opt/jboss/wildfly/bin/standalone.sh -b=0.0.0.0
+    cap_drop:
+      - ALL
+  derby:
+    image: kazssym/derby:latest
+    working_dir: /opt/apache/derby/databases
+    command: java -jar /opt/apache/derby/lib/derbynet.jar -h 0.0.0.0 start
     cap_drop:
       - ALL
