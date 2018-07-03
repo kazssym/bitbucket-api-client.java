@@ -124,8 +124,7 @@ public class StubServletRequest implements ServletRequest
      */
     public StubServletRequest(final ServletContext context)
     {
-        // @todo Create a {@link ServletInputStream} object.
-        this(context, null);
+        this(context, new StubServletInputStream());
     }
 
     /**
@@ -360,7 +359,11 @@ public class StubServletRequest implements ServletRequest
     @Override
     public final String getRemoteHost()
     {
-        return remoteHost != null ? remoteHost : getRemoteAddr();
+        String value = remoteHost;
+        if (value == null) {
+            value = getRemoteAddr();
+        }
+        return value;
     }
 
     /**
