@@ -22,6 +22,7 @@ package org.vx68k.bitbucket.api.client.example;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 import javax.inject.Named;
@@ -34,6 +35,7 @@ import javax.persistence.Id;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import org.vx68k.bitbucket.webhook.BitbucketEvent;
 
@@ -63,6 +65,18 @@ public class EventRecorder implements Serializable
     public void setEntityManager(final EntityManager value)
     {
         entityManager = value;
+    }
+
+    /**
+     * Returns a {@link List} view of all the recored events.
+     *
+     * @return {@link List} view of all the recored events
+     */
+    public List<Event> getRecordedEvents()
+    {
+        TypedQuery<Event> query =
+            entityManager.createQuery("SELECT e FROM Event e", Event.class);
+        return query.getResultList();
     }
 
     /**
