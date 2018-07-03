@@ -24,6 +24,7 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
+import javax.inject.Named;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
@@ -43,6 +44,7 @@ import org.vx68k.bitbucket.webhook.BitbucketEvent;
  * @since 5.0
  */
 @ApplicationScoped
+@Named
 public class EventRecorder implements Serializable
 {
     private static final long serialVersionUID = 1L;
