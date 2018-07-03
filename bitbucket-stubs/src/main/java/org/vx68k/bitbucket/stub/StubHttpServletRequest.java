@@ -21,7 +21,6 @@
 package org.vx68k.bitbucket.stub;
 
 import java.io.IOException;
-import java.net.InetAddress;
 import java.security.Principal;
 import java.util.Collection;
 import java.util.Enumeration;
