@@ -20,25 +20,14 @@
 
 package org.vx68k.bitbucket.stub;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.net.InetAddress;
 import java.security.Principal;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Enumeration;
-import java.util.Locale;
-import java.util.Map;
-import javax.servlet.AsyncContext;
-import javax.servlet.DispatcherType;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletInputStream;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -52,28 +41,9 @@ import javax.servlet.http.Part;
  * @author Kaz Nishimura
  * @since 5.0
  */
-public class StubHttpServletRequest implements HttpServletRequest
+public class StubHttpServletRequest extends StubServletRequest
+    implements HttpServletRequest
 {
-    /**
-     * Default HTTP server port.
-     */
-    public static final int HTTP_PORT = 80;
-
-    /**
-     * Default HTTPS server port.
-     */
-    public static final int HTTPS_PORT = 443;
-
-    /**
-     * Default local host address.
-     */
-    private static final InetAddress LOCAL = InetAddress.getLoopbackAddress();
-
-    /**
-     * {@link ServletContext} object given to the constructor.
-     */
-    private final ServletContext servletContext;
-
     /**
      * Request method.
      */
@@ -90,53 +60,27 @@ public class StubHttpServletRequest implements HttpServletRequest
     private String queryString = null;
 
     /**
-     * Server name.
-     */
-    private String serverName = LOCAL.getHostName();
-
-    /**
-     * Server port.
-     */
-    private int serverPort = HTTP_PORT;
-
-    /**
-     * Remote host address.
-     */
-    private String remoteAddr = LOCAL.getHostAddress();
-
-    /**
-     * Remote host name.
-     */
-    private String remoteHost = LOCAL.getHostName();
-
-    /**
-     * Remote TCP port.
-     */
-    private int remotePort = 0;
-
-    /**
-     * Local host address.
-     */
-    private String localAddr = LOCAL.getHostAddress();
-
-    /**
-     * Local host name.
-     */
-    private String localName = LOCAL.getHostName();
-
-    /**
-     * Local TCP port.
-     */
-    private int localPort = HTTP_PORT;
-
-    /**
-     * Constructs this request with a {@link ServletContext} object.
+     * Constructs this object with a {@link ServletContext} object.
+     * The input stream shall be set to empty.
      *
      * @param context {@link ServletContext} object
      */
     public StubHttpServletRequest(final ServletContext context)
     {
-        servletContext = context;
+        super(context);
+    }
+
+    /**
+     * Constructs this object with a {@link ServletContext} object and a {@link
+     * ServletInputStream} object.
+     *
+     * @param context {@link ServletContext} object
+     * @param stream {@link ServletInputStream} object
+     */
+    public StubHttpServletRequest(final ServletContext context,
+        final ServletInputStream stream)
+    {
+        super(context, stream);
     }
 
     /**
@@ -171,26 +115,6 @@ public class StubHttpServletRequest implements HttpServletRequest
     public final void setQueryString(final String value)
     {
         queryString = value;
-    }
-
-    /**
-     * Sets the server name to a {@link String} value.
-     *
-     * @param value {@link String} value to which the server name shall be set
-     */
-    public final void setServerName(final String value)
-    {
-        serverName = value;
-    }
-
-    /**
-     * Sets the server port to an {@code int} value.
-     *
-     * @param value {@code int} value to which the server port shall be set
-     */
-    public final void setServerPort(final int value)
-    {
-        serverPort = value;
     }
 
     /**
@@ -564,415 +488,5 @@ public class StubHttpServletRequest implements HttpServletRequest
         throws IOException, ServletException
     {
         return null;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Object getAttribute(final String name)
-    {
-        return null;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Enumeration<String> getAttributeNames()
-    {
-        return null;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String getCharacterEncoding()
-    {
-        return null;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setCharacterEncoding(final String env)
-        throws UnsupportedEncodingException
-    {
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public int getContentLength()
-    {
-        return 0;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String getContentType()
-    {
-        return null;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public ServletInputStream getInputStream() throws IOException
-    {
-        return null;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String getParameter(final String name)
-    {
-        return null;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Enumeration<String> getParameterNames()
-    {
-        return null;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String[] getParameterValues(final String name)
-    {
-        return new String[0];
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Map<String, String[]> getParameterMap()
-    {
-        return null;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String getProtocol()
-    {
-        return "HTTP/1.1";
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String getScheme()
-    {
-        return "http";
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final String getServerName()
-    {
-        return serverName;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final int getServerPort()
-    {
-        return serverPort;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final BufferedReader getReader() throws IOException
-    {
-        String charset = getCharacterEncoding();
-        if (charset == null) {
-            charset = "ISO-8859-1";
-        }
-        return new BufferedReader(
-            new InputStreamReader(getInputStream(), charset));
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final String getRemoteAddr()
-    {
-        return remoteAddr;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final String getRemoteHost()
-    {
-        return remoteHost != null ? remoteHost : getRemoteAddr();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public long getContentLengthLong()
-    {
-        return -1;
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * <p>This implementation does nothing.</p>
-     */
-    @Override
-    public final void setAttribute(final String name, final Object object)
-    {
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * <p>This implementation does nothing.</p>
-     */
-    @Override
-    public final void removeAttribute(final String name)
-    {
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * <p>This implementation returns the current locale.</p>
-     *
-     * @return the current locale
-     */
-    @Override
-    public final Locale getLocale()
-    {
-        return Locale.getDefault();
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * <p>This implementation returns an empty enumeration.</p>
-     *
-     * @return an empty enumeration
-     */
-    @Override
-    public final Enumeration<Locale> getLocales()
-    {
-        return Collections.<Locale>emptyEnumeration();
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * <p>This implementation always returns {@code false}.</p>
-     *
-     * @return {@code false}
-     */
-    @Override
-    public final boolean isSecure()
-    {
-        return false;
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * <p>This implementation always returns {@code null}.
-     * Subclasses may override this method to return other values.</p>
-     *
-     * @return {@code null}
-     */
-    @Override
-    public RequestDispatcher getRequestDispatcher(final String path)
-    {
-        return null;
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * <p>This implementation uses {@link ServletContext#getRealPath}.</p>
-     */
-    @Override
-    @Deprecated
-    public final String getRealPath(final String path)
-    {
-        return servletContext.getRealPath(path);
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * <p>This implementation returns the remote TCP port of this request.</p>
-     *
-     * @return the remote TCP port
-     */
-    @Override
-    public final int getRemotePort()
-    {
-        return remotePort;
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * <p>This implementation returns the local host name ({@code "localhost"}
-     * by default) of this request.</p>
-     *
-     * @return the local host name
-     */
-    @Override
-    public final String getLocalName()
-    {
-        return localName;
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * <p>This implementation returns the local IP address ({@code
-     * "127.0.0.1"} by default) of this request.</p>
-     *
-     * @return the local IP address
-     */
-    @Override
-    public final String getLocalAddr()
-    {
-        return localAddr;
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * <p>This implementation returns the local TCP port ({@value #HTTP_PORT}
-     * by default) of this request.</p>
-     *
-     * @return the local TCP port
-     */
-    @Override
-    public final int getLocalPort()
-    {
-        return localPort;
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * <p>This implementation returns the {@link ServletContext} object given
-     * to the constructor.</p>
-     *
-     * @return the {@link ServletContext} object
-     */
-    @Override
-    public final ServletContext getServletContext()
-    {
-        return servletContext;
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * <p>This implementation always throws {@link IllegalStateException}.</p>
-     *
-     * @exception IllegalStateException always
-     */
-    @Override
-    public AsyncContext startAsync()
-    {
-        throw new IllegalStateException("Not supported");
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * <p>This implementation always throws {@link IllegalStateException}.</p>
-     *
-     * @exception IllegalStateException always
-     */
-    @Override
-    public AsyncContext startAsync(final ServletRequest request,
-        final ServletResponse response)
-    {
-        throw new IllegalStateException("Not supported");
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * <p>This implementation always returns {@code false}.</p>
-     *
-     * @return {@code false}
-     */
-    @Override
-    public boolean isAsyncStarted()
-    {
-        return false;
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * <p>This implementation always returns false.</p>
-     *
-     * @return {@code false}
-     */
-    @Override
-    public boolean isAsyncSupported()
-    {
-        return false;
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * <p>This implementation always throws {@link IllegalStateException}.</p>
-     *
-     * @exception IllegalStateException always
-     */
-    @Override
-    public AsyncContext getAsyncContext()
-    {
-        throw new IllegalStateException("Not supported");
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * <p>This implementation always returns {@link DispatcherType#REQUEST}.
-     * Subclasses may override this method to return other values.</p>
-     *
-     * @return {@link DispatcherType#REQUEST}
-     */
-    @Override
-    public DispatcherType getDispatcherType()
-    {
-        return DispatcherType.REQUEST;
     }
 }
