@@ -22,6 +22,7 @@ package org.vx68k.bitbucket.stub;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.InetAddress;
 import java.security.Principal;
@@ -54,11 +55,6 @@ import javax.servlet.http.Part;
 public class StubHttpServletRequest implements HttpServletRequest
 {
     /**
-     * Default local host address.
-     */
-    private static final InetAddress LOCAL = InetAddress.getLoopbackAddress();
-
-    /**
      * Default HTTP server port.
      */
     public static final int HTTP_PORT = 80;
@@ -67,6 +63,11 @@ public class StubHttpServletRequest implements HttpServletRequest
      * Default HTTPS server port.
      */
     public static final int HTTPS_PORT = 443;
+
+    /**
+     * Default local host address.
+     */
+    private static final InetAddress LOCAL = InetAddress.getLoopbackAddress();
 
     /**
      * {@link ServletContext} object given to the constructor.
@@ -89,19 +90,39 @@ public class StubHttpServletRequest implements HttpServletRequest
     private String queryString = null;
 
     /**
+     * Server name.
+     */
+    private String serverName = LOCAL.getHostName();
+
+    /**
+     * Server port.
+     */
+    private int serverPort = HTTP_PORT;
+
+    /**
+     * Remote host address.
+     */
+    private String remoteAddr = LOCAL.getHostAddress();
+
+    /**
+     * Remote host name.
+     */
+    private String remoteHost = LOCAL.getHostName();
+
+    /**
      * Remote TCP port.
      */
     private int remotePort = 0;
 
     /**
+     * Local host address.
+     */
+    private String localAddr = LOCAL.getHostAddress();
+
+    /**
      * Local host name.
      */
     private String localName = LOCAL.getHostName();
-
-    /**
-     * Local host IP address.
-     */
-    private String localAddr = LOCAL.getHostAddress();
 
     /**
      * Local TCP port.
@@ -150,6 +171,26 @@ public class StubHttpServletRequest implements HttpServletRequest
     public final void setQueryString(final String value)
     {
         queryString = value;
+    }
+
+    /**
+     * Sets the server name to a {@link String} value.
+     *
+     * @param value {@link String} value to which the server name shall be set
+     */
+    public final void setServerName(final String value)
+    {
+        serverName = value;
+    }
+
+    /**
+     * Sets the server port to an {@code int} value.
+     *
+     * @param value {@code int} value to which the server port shall be set
+     */
+    public final void setServerPort(final int value)
+    {
+        serverPort = value;
     }
 
     /**
@@ -639,52 +680,57 @@ public class StubHttpServletRequest implements HttpServletRequest
     @Override
     public String getScheme()
     {
-        return null;
+        return "http";
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public String getServerName()
+    public final String getServerName()
     {
-        return null;
+        return serverName;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public int getServerPort()
+    public final int getServerPort()
     {
-        return 80;
+        return serverPort;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public BufferedReader getReader() throws IOException
+    public final BufferedReader getReader() throws IOException
     {
-        return null;
+        String charset = getCharacterEncoding();
+        if (charset == null) {
+            charset = "ISO-8859-1";
+        }
+        return new BufferedReader(
+            new InputStreamReader(getInputStream(), charset));
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public String getRemoteAddr()
+    public final String getRemoteAddr()
     {
-        return null;
+        return remoteAddr;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public String getRemoteHost()
+    public final String getRemoteHost()
     {
-        return null;
+        return remoteHost != null ? remoteHost : getRemoteAddr();
     }
 
     /**
