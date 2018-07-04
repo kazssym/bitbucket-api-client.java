@@ -145,6 +145,7 @@ public class EventRecorder implements Serializable
         /**
          * Event data.
          */
+        @Column(columnDefinition = "CLOB")
         @Lob
         private String event;
 
