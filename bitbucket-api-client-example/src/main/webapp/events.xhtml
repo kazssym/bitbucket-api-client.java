@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/templates/default.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:jsf="http://xmlns.jcp.org/jsf"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<ui:define name="main">
+<main>
+<h1>Events</h1>
+<h:dataTable styleClass="pure-table" columnClasses="app-align-right,"
+    var="record" value="#{eventRecorder.records}">
+<h:column>
+<f:facet name="header">Id</f:facet>
+#{record.id}
+</h:column>
+<h:column>
+<f:facet name="header">Recorded</f:facet>
+#{record.recorded}
+</h:column>
+<h:column>
+<f:facet name="header">Event</f:facet>
+#{record.event}
+</h:column>
+</h:dataTable>
+</main>
+</ui:define>
+</ui:composition>
