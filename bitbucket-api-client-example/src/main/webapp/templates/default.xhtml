@@ -15,6 +15,7 @@ Bitbucket API Client Example
 </title>
 <ui:insert name="head-additions" />
 </head>
+
 <body class="app-vbox" jsf:id="body">
 <form class="pure-menu pure-menu-horizontal app-hbox app-top"
     jsf:id="header">
@@ -29,6 +30,7 @@ Bitbucket API Client Example</span>
 </f:ajax>
 </li>
 </ui:fragment>
+
 <ui:fragment rendered="#{currentUser.loggedIn}">
 <li id="account-menu"
     class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
@@ -50,6 +52,7 @@ Bitbucket API Client Example</span>
 </li>
 </ul>
 </form>
+
 <div class="app-vbox-grow app-hbox">
 <nav id="nav-menu" class="pure-menu">
 <div class="pure-menu-heading">Users</div>
@@ -72,10 +75,12 @@ Bitbucket API Client Example</span>
 <li class="pure-menu-item pure-menu-disabled">Watching</li>
 </ul>
 </nav>
+
 <div class="app-hbox-grow">
 <ui:insert name="main" />
 </div>
 </div>
+
 <script async="async" defer="defer" jsf:name="scripts/app.js">
 </script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css"
