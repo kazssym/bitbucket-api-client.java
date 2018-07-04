@@ -19,8 +19,19 @@
 #{record.recorded}
 </h:column>
 <h:column>
-<f:facet name="header">Event</f:facet>
-#{record.event}
+<f:facet name="header">Repository</f:facet>
+<a jsf:value="#{record.event.repository.links['html']}" jsf:rel="external"
+   >#{record.event.repository.fullName}</a>
+</h:column>
+<h:column>
+<f:facet name="header">Actor</f:facet>
+<a jsf:value="#{record.event.actor.links['html']}" jsf:rel="external"
+   ><span title="#{record.event.actor.displayName}"
+       >@#{record.event.actor.name}</span></a>
+</h:column>
+<h:column>
+<f:facet name="header">Activity</f:facet>
+<ui:fragment rendered="#{record.event.push != null}">Push</ui:fragment>
 </h:column>
 </h:dataTable>
 </main>
