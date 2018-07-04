@@ -16,25 +16,22 @@ body
 {
     height: 100%;
     color: #333333;
-    background: #ffffff;
+    background: #FFFFFF;
 }
 
-main {
-  margin: 0.5em;
-  overflow: hidden;
+main
+{
+    margin: 0.5em;
 }
 
-nav {
-  overflow: hidden;
-}
-
-.pure-menu-children {
-  background-color: #F7F7F7;
+.pure-menu-children
+{
+    background-color: #F7F7F7;
 }
 
 .app-top
 {
-    background: #eeeeee;
+    background: #EEEEEE;
 }
 
 .app-message-fatal,
@@ -46,6 +43,22 @@ nav {
 .app-message-warn
 {
     color: #FF6600;
+}
+
+.app-message-info
+{
+    color: inherit;
+}
+
+.app-align-right
+{
+    text-align: right;
+}
+
+.app-icon > svg
+{
+    width: 1.25em;
+    height: 1.25em;
 }
 
 .app-hbox
@@ -60,14 +73,15 @@ nav {
     flex-direction: column;
 }
 
+.app-hbox > *,
+.app-vbox > *
+{
+    flex: 0 0 auto;
+    overflow: auto;
+}
+
 .app-hbox > .app-hbox-grow,
 .app-vbox > .app-vbox-grow
 {
-    flex: auto;
-}
-
-.app-icon > svg
-{
-    width: 1.25em;
-    height: 1.25em;
+    flex: 1 1 auto;
 }
