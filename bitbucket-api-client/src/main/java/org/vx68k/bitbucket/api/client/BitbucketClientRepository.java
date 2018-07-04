@@ -164,7 +164,8 @@ public class BitbucketClientRepository extends BitbucketClientObject
     @Override
     public final Map<String, String> getLinks()
     {
-        // @todo Implement this method.
-        return null;
+        JsonObject object = getJsonObject();
+        return BitbucketClientUtilities.parseLinks(
+            object.getJsonObject(LINKS));
     }
 }
