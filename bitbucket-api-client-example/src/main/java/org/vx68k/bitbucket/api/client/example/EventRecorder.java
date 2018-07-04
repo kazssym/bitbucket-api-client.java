@@ -21,17 +21,21 @@
 package org.vx68k.bitbucket.api.client.example;
 
 import java.io.Serializable;
+import java.io.StringReader;
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 import javax.inject.Named;
+import javax.json.Json;
+import javax.json.JsonReader;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -68,14 +72,15 @@ public class EventRecorder implements Serializable
     }
 
     /**
-     * Returns a {@link List} view of all the recored events.
+     * Returns a {@link Collection} view of all the records.
      *
-     * @return {@link List} view of all the recored events
+     * @return {@link Collection} view of all the records
      */
-    public List<Event> getRecordedEvents()
+    public Collection<EventRecord> getRecords()
     {
-        TypedQuery<Event> query =
-            entityManager.createQuery("SELECT e FROM Event e", Event.class);
+        TypedQuery<EventRecord> query =
+            entityManager.createQuery("SELECT record FROM EventRecord record",
+                EventRecord.class);
         return query.getResultList();
     }
 
@@ -88,7 +93,7 @@ public class EventRecorder implements Serializable
     public void record(@Observes final BitbucketEvent event)
     {
         if (entityManager != null) {
-            Event record = new Event(event.toString());
+            EventRecord record = new EventRecord(event.toString());
             entityManager.persist(record);
         }
     }
@@ -120,14 +125,9 @@ public class EventRecorder implements Serializable
     /**
      * Event record.
      */
-    @Entity(name = "Event")
-    protected static class Event
+    @Entity(name = "EventRecord")
+    public static class EventRecord
     {
-        /**
-         * Length of the event data column.
-         */
-        private static final int DATA_LENGTH = 0x2000;
-
         /**
          * Record identifier.
          */
@@ -145,27 +145,27 @@ public class EventRecorder implements Serializable
         /**
          * Event data.
          */
-        @Column(length = DATA_LENGTH)
-        private String data;
+        @Lob
+        private String event;
 
         /**
          * Constructs this object with no parameters.
          */
-        public Event()
+        public EventRecord()
         {
             this(null);
         }
 
         /**
-         * Constructs this object with a {@link String} value for {@code data}.
+         * Constructs this object with a {@link String} value for {@code event}.
          *
-         * @param dataValue {@link String} value for {@code data}
+         * @param eventValue {@link String} value for {@code event}
          */
-        public Event(final String dataValue)
+        public EventRecord(final String eventValue)
         {
             id = 0;
             recorded = new Date();
-            data = dataValue;
+            event = eventValue;
         }
 
         /**
@@ -209,23 +209,26 @@ public class EventRecorder implements Serializable
         }
 
         /**
-         * Returns the event data.
+         * Returns the Bitbucket event.
          *
-         * @return the event data
+         * @return the Bitbucket event
          */
-        public final String getData()
+        public final BitbucketEvent getEvent()
         {
-            return data;
+            try (JsonReader reader =
+                Json.createReader(new StringReader(event))) {
+                return new BitbucketEvent(reader.readObject());
+            }
         }
 
         /**
-         * Sets the event data to a {@link String} value.
+         * Sets the event to a {@link String} value.
          *
          * @param value {@link String} value
          */
-        public final void setData(final String value)
+        public final void setEvent(final String value)
         {
-            data = value;
+            event = value;
         }
     }
 }
