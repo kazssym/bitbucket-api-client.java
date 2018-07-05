@@ -24,6 +24,8 @@ services:
       - ALL
   derby:
     image: kazssym/derby:latest
+    ports:
+      - "${DERBY_PORT:-1527}:1527"
     working_dir: /opt/apache/derby/databases
     command: java -jar /opt/apache/derby/lib/derbynet.jar -h 0.0.0.0 start
     cap_drop:
