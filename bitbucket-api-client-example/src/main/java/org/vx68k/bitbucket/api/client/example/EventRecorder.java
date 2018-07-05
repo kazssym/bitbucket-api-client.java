@@ -35,8 +35,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.Lob;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.TypedQuery;
@@ -125,6 +127,9 @@ public class EventRecorder implements Serializable
     /**
      * Event record.
      */
+    @Table(indexes = {
+        @Index(columnList = "recorded", name = "EventRecord_recorded"),
+    })
     @Entity(name = "EventRecord")
     public static class EventRecord
     {
