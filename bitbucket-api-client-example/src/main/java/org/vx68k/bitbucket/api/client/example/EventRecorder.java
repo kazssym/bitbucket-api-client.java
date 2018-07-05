@@ -65,7 +65,7 @@ public class EventRecorder implements Serializable
      *
      * @param value {@link EntityManager} value
      */
-    @PersistenceContext(unitName = "BitbucketAPI")
+    @PersistenceContext(unitName = "Bitbucket")
     public void setEntityManager(final EntityManager value)
     {
         entityManager = value;
