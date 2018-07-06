@@ -16,6 +16,7 @@ services:
       - "${EXAMPLE_DEBUG_PORT:-8787}:8787"
     environment:
       JAVA_OPTS:
+      GC_LOG:
       DEBUG:
     volumes:
       - ./bitbucket-api-client-example/target/bitbucket-api-client-example-${VERSION:-5.0-SNAPSHOT}.war:/opt/jboss/wildfly/standalone/deployments/ROOT.war:ro
