@@ -28,6 +28,9 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 import javax.inject.Named;
 import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonArrayBuilder;
+import javax.json.JsonObjectBuilder;
 import javax.json.JsonReader;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -43,16 +46,19 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
 import org.vx68k.bitbucket.webhook.BitbucketEvent;
 
 /**
- * Managed bean to record Bitbucket events.
+ * Application-scoped bean to record Bitbucket events.
  *
  * @author Kaz Nishimura
  * @since 5.0
  */
-@ApplicationScoped
+@Path("events")
 @Named
+@ApplicationScoped
 public class EventRecorder implements Serializable
 {
     private static final long serialVersionUID = 1L;
@@ -80,10 +86,29 @@ public class EventRecorder implements Serializable
      */
     public Collection<EventRecord> getRecords()
     {
-        TypedQuery<EventRecord> query =
-            entityManager.createQuery("SELECT record FROM EventRecord record",
-                EventRecord.class);
+        TypedQuery<EventRecord> query = entityManager.createQuery(
+            "SELECT record FROM EventRecord record"
+                + " ORDER BY record.recorded ASC", EventRecord.class);
         return query.getResultList();
+    }
+
+    /**
+     * Returns a JSON array of all the event records.
+     *
+     * @return JSON array
+     */
+    @GET
+    public JsonArray listRecords()
+    {
+        JsonArrayBuilder builder = Json.createArrayBuilder();
+        getRecords().forEach((record) -> {
+            JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+            objectBuilder.add("recorded",
+                record.getRecorded().toInstant().toString());
+            objectBuilder.add("event", record.getEvent().getJsonObject());
+            builder.add(objectBuilder);
+        });
+        return builder.build();
     }
 
     /**
