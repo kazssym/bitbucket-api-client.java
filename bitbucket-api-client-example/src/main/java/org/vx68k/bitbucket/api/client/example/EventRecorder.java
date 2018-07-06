@@ -60,7 +60,7 @@ public class EventRecorder implements Serializable
     /**
      * Entity manager.
      */
-    private EntityManager entityManager;
+    private transient EntityManager entityManager;
 
     /**
      * Sets the entity manager to a {@link EntityManager} value.
