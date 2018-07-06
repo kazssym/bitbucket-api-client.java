@@ -16,7 +16,9 @@
 </h:column>
 <h:column>
 <f:facet name="header">Recorded</f:facet>
-#{record.recorded}
+<h:outputText value="#{record.recorded}">
+<f:convertDateTime type="both" timeStyle="long" timeZone="UTC" />
+</h:outputText>
 </h:column>
 <h:column>
 <f:facet name="header">Repository</f:facet>
