@@ -114,13 +114,13 @@ public class EventRecorder implements Serializable
     /**
      * Records a Bitbucket event.
      *
-     * @param event Bitbucket event to record
+     * @param bitbucketEvent Bitbucket event to record
      */
     @Transactional
-    public void record(@Observes final BitbucketEvent event)
+    public void record(@Observes final BitbucketEvent bitbucketEvent)
     {
         if (entityManager != null) {
-            EventRecord record = new EventRecord(event.toString());
+            EventRecord record = new EventRecord(bitbucketEvent);
             entityManager.persist(record);
         }
     }
@@ -188,15 +188,20 @@ public class EventRecorder implements Serializable
         }
 
         /**
-         * Constructs this object with a {@link String} value for {@code event}.
+         * Constructs this object with a {@link BitbucketEvent} value.
          *
-         * @param eventValue {@link String} value for {@code event}
+         * @param bitbucketEvent {@link BitbucketEvent} value
          */
-        public EventRecord(final String eventValue)
+        public EventRecord(final BitbucketEvent bitbucketEvent)
         {
             id = 0;
             recorded = new Date();
-            event = eventValue;
+
+            String value = null;
+            if (bitbucketEvent != null) {
+                value = bitbucketEvent.getJsonObject().toString();
+            }
+            event = value;
         }
 
         /**
@@ -246,20 +251,24 @@ public class EventRecorder implements Serializable
          */
         public final BitbucketEvent getEvent()
         {
-            try (JsonReader reader =
-                Json.createReader(new StringReader(event))) {
-                return new BitbucketEvent(reader.readObject());
+            BitbucketEvent value = null;
+            if (event != null) {
+                try (JsonReader reader =
+                    Json.createReader(new StringReader(event))) {
+                    value = new BitbucketEvent(reader.readObject());
+                }
             }
+            return value;
         }
 
         /**
-         * Sets the event to a {@link String} value.
+         * Sets the Bitbucket event.
          *
-         * @param value {@link String} value
+         * @param value Bitbucket event
          */
-        public final void setEvent(final String value)
+        public final void setEvent(final BitbucketEvent value)
         {
-            event = value;
+            event = value.getJsonObject().toString();
         }
     }
 }
