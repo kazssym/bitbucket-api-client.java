@@ -12,6 +12,12 @@
 <servlet-name>BitbucketWebhookServlet</servlet-name>
 <url-pattern>/webhook/*</url-pattern>
 </servlet-mapping>
+
+<servlet-mapping>
+<servlet-name>javax.ws.rs.core.Application</servlet-name>
+<url-pattern>/api/*</url-pattern>
+</servlet-mapping>
+
 <session-config>
 <session-timeout>30</session-timeout>
 </session-config>
