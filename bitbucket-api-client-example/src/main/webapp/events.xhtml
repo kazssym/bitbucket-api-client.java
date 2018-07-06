@@ -8,12 +8,8 @@
 <ui:define name="main">
 <main>
 <h1>Events</h1>
-<h:dataTable styleClass="pure-table" columnClasses="app-align-right,"
+<h:dataTable styleClass="pure-table"
     var="record" value="#{eventRecorder.records}">
-<h:column>
-<f:facet name="header">Id</f:facet>
-#{record.id}
-</h:column>
 <h:column>
 <f:facet name="header">Recorded</f:facet>
 <h:outputText value="#{record.recorded}">
