@@ -5,9 +5,17 @@
     xmlns:f="http://xmlns.jcp.org/jsf/core"
     xmlns:h="http://xmlns.jcp.org/jsf/html"
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
 <ui:define name="main">
 <main>
 <h1>Events</h1>
+
+<form class="pure-form pure-form-stacked" jsf:id="events">
+<div>
+<input class="pure-button" type="button"
+    jsf:id="refresh" jsf:value="Refresh" />
+</div>
+
 <h:dataTable styleClass="pure-table"
     var="record" value="#{eventRecorder.records}">
 <h:column>
@@ -34,6 +42,7 @@ Push #{record.event.push.changes[0].new.type}
 #{record.event.push.changes[0].new.name}</ui:fragment>
 </h:column>
 </h:dataTable>
+</form>
 </main>
 </ui:define>
 </ui:composition>
