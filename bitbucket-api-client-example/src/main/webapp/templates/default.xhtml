@@ -17,6 +17,9 @@ Bitbucket API Client Example
 </head>
 
 <body class="app-vbox" jsf:id="body">
+<f:view>
+<ui:insert name="metadata" />
+
 <form class="pure-menu pure-menu-horizontal app-hbox app-top"
     jsf:id="header">
 <span class="pure-menu-heading app-hbox-grow">
@@ -80,6 +83,7 @@ Bitbucket API Client Example</span>
 <ui:insert name="main" />
 </div>
 </div>
+</f:view>
 
 <script async="async" defer="defer" jsf:name="scripts/app.js">
 </script>
