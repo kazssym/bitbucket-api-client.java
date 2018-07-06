@@ -41,6 +41,8 @@
 (() => {
     window.doAjaxError = function (error) {
         window.console.info(error.description);
-        window.alert("Reload this page to recover from communication error.");
+        window.alert(
+            "An unexpected error occurred and this page must be reloaded.");
+        window.location.reload();
     };
 })();
