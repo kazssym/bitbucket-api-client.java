@@ -25,7 +25,9 @@ import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
 import javax.json.JsonReader;
+import javax.json.JsonWriter;
 import javax.json.stream.JsonParsingException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -42,12 +44,17 @@ public class BitbucketWebhookServlet extends HttpServlet
     private static final long serialVersionUID = 1L;
 
     /**
+     * Content type of the responses.
+     */
+    private static final String CONTENT_TYPE = "application/json";
+
+    /**
      * Event to fire.
      */
     private final Event<BitbucketEvent> bitbucketEvent;
 
     /**
-     * Constructs this servlet with an {@link Event} object.
+     * Constructs this object with an {@link Event} object.
      *
      * @param event {@link Event} object
      */
@@ -65,18 +72,22 @@ public class BitbucketWebhookServlet extends HttpServlet
         final HttpServletResponse response) throws IOException
     {
         try (JsonReader reader = Json.createReader(request.getInputStream())) {
-            JsonObject eventObject = reader.readObject();
-            bitbucketEvent.fire(new BitbucketEvent(eventObject));
-            log("POST " + eventObject.toString());
+            JsonObject object = reader.readObject();
+            bitbucketEvent.fire(new BitbucketEvent(object));
         }
         catch (JsonParsingException exception) {
             log("JSON parsing error", exception);
             response.sendError(HttpServletResponse.SC_FORBIDDEN);
             return;
         }
-        // TODO: Use HttpServletResponse.SC_OK instead.
-        response.setStatus(HttpServletResponse.SC_NO_CONTENT);
-        // TODO: Return a result page.
-        response.getWriter().close();
+
+        response.setStatus(HttpServletResponse.SC_OK);
+        response.setContentType(CONTENT_TYPE);
+        try (JsonWriter writer = Json.createWriter(
+            response.getOutputStream())) {
+            JsonObjectBuilder builder = Json.createObjectBuilder()
+                .add("status", "OK");
+            writer.write(builder.build());
+        }
     }
 }
