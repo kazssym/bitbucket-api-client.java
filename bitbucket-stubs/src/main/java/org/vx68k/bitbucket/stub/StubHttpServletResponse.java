@@ -265,9 +265,9 @@ public class StubHttpServletResponse implements HttpServletResponse
      */
     @Override
     @Deprecated
-    public void setStatus(final int status, final String message)
+    public void setStatus(final int statusCode, final String message)
     {
-        setStatus(status);
+        setStatus(statusCode);
     }
 
     /**
