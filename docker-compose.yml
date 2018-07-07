@@ -5,7 +5,7 @@
 # permitted in any medium without royalty provided the copyright notice and
 # this notice are preserved.  This file is offered as-is, without any warranty.
 ---
-version: "3"
+version: "2.1"
 services:
   example:
     image: kazssym/wildfly:latest
