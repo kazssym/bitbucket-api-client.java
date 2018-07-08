@@ -44,7 +44,7 @@ public class StubServletResponse implements ServletResponse
      * Indicates if this response is committed.
      */
     private boolean committed = false;
-    
+
     /**
      * Content type.
      */
