@@ -21,10 +21,7 @@
 package org.vx68k.bitbucket.stub;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.Locale;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -35,22 +32,13 @@ import javax.servlet.http.HttpServletResponse;
  * @author Kaz Nishimura
  * @since 5.0
  */
-public class StubHttpServletResponse implements HttpServletResponse
+public class StubHttpServletResponse extends StubServletResponse
+    implements HttpServletResponse
 {
     /**
-     * Content type value for a HTML document.
+     * Content type for a HTML document.
      */
     private static final String TEXT_HTML = "text/html";
-
-    /**
-     * {@link OutputStream} object for the response content.
-     */
-    private final ServletOutputStream outputStream;
-
-    /**
-     * Indicates if this response is committed.
-     */
-    private boolean committed = false;
 
     /**
      * HTTP status code.
@@ -58,43 +46,75 @@ public class StubHttpServletResponse implements HttpServletResponse
     private int status = SC_OK;
 
     /**
-     * Content type.
-     */
-    private String contentType = null;
-
-    /**
-     * Content.
-     */
-    private byte[] content = new byte[0];
-
-    /**
-     * Constructs thie object with a {@link ServletOutputStream} object.
+     * Constructs this object with a {@link ServletOutputStream} object.
      *
      * @param stream {@link ServletOutputStream} object
      */
     public StubHttpServletResponse(final ServletOutputStream stream)
     {
-        outputStream = stream;
+        super(stream);
     }
 
     /**
-     * Marks this response is committed.
+     * {@inheritDoc}
      */
-    protected void commit()
+    @Override
+    public final int getStatus()
     {
-        committed = true;
+        return status;
     }
 
     /**
-     * Checks if this response is not committed.
-     *
-     * @exception IllegalStateException if this response had been committed
+     * {@inheritDoc}
      */
-    protected void checkIfNotCommitted()
+    @Override
+    public final void setStatus(final int value)
     {
-        if (isCommitted()) {
-            throw new IllegalStateException("Already committed");
+        if (!isCommitted()) {
+            status = value;
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @Deprecated
+    public final void setStatus(final int statusCode, final String message)
+    {
+        setStatus(statusCode);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final void sendError(final int statusCode, final String message)
+        throws IOException
+    {
+        checkNotCommitted();
+        setStatus(statusCode);
+        setContentType(TEXT_HTML);
+        // @todo Use {@code message} to make an error document.
+        commit();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final void sendError(final int statusCode) throws IOException
+    {
+        sendError(statusCode, null);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final void sendRedirect(final String location) throws IOException
+    {
+        commit();
     }
 
     /**
@@ -174,37 +194,6 @@ public class StubHttpServletResponse implements HttpServletResponse
      * {@inheritDoc}
      */
     @Override
-    public void sendError(final int statusCode, final String message)
-        throws IOException
-    {
-        checkIfNotCommitted();
-        setStatus(statusCode);
-        setContentType(TEXT_HTML);
-        // @todo Use {@code statusMessage} to make an error document.
-        commit();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final void sendError(final int statusCode) throws IOException
-    {
-        sendError(statusCode, null);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void sendRedirect(final String location) throws IOException
-    {
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public void setDateHeader(final String name, final long date)
     {
     }
@@ -253,36 +242,6 @@ public class StubHttpServletResponse implements HttpServletResponse
      * {@inheritDoc}
      */
     @Override
-    public void setStatus(final int value)
-    {
-        if (!isCommitted()) {
-            status = value;
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    @Deprecated
-    public void setStatus(final int statusCode, final String message)
-    {
-        setStatus(statusCode);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public int getStatus()
-    {
-        return status;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public String getHeader(final String name)
     {
         return null;
@@ -304,149 +263,5 @@ public class StubHttpServletResponse implements HttpServletResponse
     public Collection<String> getHeaderNames()
     {
         return null;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String getCharacterEncoding()
-    {
-        return null;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String getContentType()
-    {
-        return contentType;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final ServletOutputStream getOutputStream()
-    {
-        return outputStream;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public PrintWriter getWriter() throws IOException
-    {
-        return null;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setCharacterEncoding(final String charset)
-    {
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setContentLength(final int contentLength)
-    {
-        if (!isCommitted()) {
-            if (contentLength != content.length) {
-                content = Arrays.copyOf(content, contentLength);
-            }
-            // TODO: Set the Content-Length header.
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setContentType(final String value)
-    {
-        if (!isCommitted()) {
-            contentType = value;
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setBufferSize(final int size)
-    {
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public int getBufferSize()
-    {
-        return 0;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void flushBuffer() throws IOException
-    {
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void resetBuffer()
-    {
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isCommitted()
-    {
-        return committed;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void reset()
-    {
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setLocale(final Locale loc)
-    {
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Locale getLocale()
-    {
-        return null;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void setContentLengthLong(final long len)
-    {
     }
 }
