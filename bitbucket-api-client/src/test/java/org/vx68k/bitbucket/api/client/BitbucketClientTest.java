@@ -24,7 +24,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
-import javax.ws.rs.client.ClientBuilder;
 import org.junit.Test;
 import org.vx68k.bitbucket.api.BitbucketUser;
 
@@ -41,15 +40,6 @@ public class BitbucketClientTest
     public void testDefault()
     {
         BitbucketClient client = new BitbucketClient();
-    }
-
-    /**
-     * Tests the constructor with a {@link ClientBuilder} object.
-     */
-    public void testClientBuilder()
-    {
-        BitbucketClient client =
-            new BitbucketClient(ClientBuilder.newBuilder());
     }
 
     /**

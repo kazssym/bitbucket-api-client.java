@@ -20,6 +20,7 @@
 
 package org.vx68k.bitbucket.api.client;
 
+import java.io.Serializable;
 import javax.json.JsonObject;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.client.Client;
@@ -39,39 +40,27 @@ import org.vx68k.bitbucket.api.client.internal.JsonMessageBodyReader;
  * @author Kaz Nishimura
  * @since 5.0
  */
-public class BitbucketClient
+public class BitbucketClient implements Serializable
 {
+    private static final long serialVersionUID = 1L;
+
     /**
      * Base URI of the Bitbucket API.
      */
     public static final String API_BASE = "https://api.bitbucket.org/2.0/";
 
     /**
-     * {@link ClientBuilder} object given to the constructor.
+     * {@link ClientBuilder} object created in the constructor.
      * This object is used to build JAX-RS {@link Client} objects.
      */
-    private ClientBuilder clientBuilder;
+    private final transient ClientBuilder clientBuilder;
 
     /**
-     * Constructs this object with no parameters.
+     * Constructs this object with a new {@link ClientBuilder} object.
      */
     public BitbucketClient()
     {
-        this(ClientBuilder.newBuilder());
-    }
-
-    /**
-     * Constructs this object with a {@link ClientBuilder} object.
-     *
-     * @param builder {@link ClientBuilder} object to be used to build JAX-RS
-     * {@link Client} objects.
-     */
-    public BitbucketClient(final ClientBuilder builder)
-    {
-        clientBuilder = builder;
-        if (clientBuilder == null) {
-            throw new IllegalArgumentException("ClientBuilder is null");
-        }
+        clientBuilder = ClientBuilder.newBuilder();
     }
 
     /**
