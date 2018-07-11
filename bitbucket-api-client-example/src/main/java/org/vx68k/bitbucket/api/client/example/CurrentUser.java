@@ -25,6 +25,7 @@ import java.time.Instant;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
+import javax.annotation.Resource;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import org.vx68k.bitbucket.api.BitbucketRepository;
@@ -44,6 +45,16 @@ public class CurrentUser implements BitbucketUser, Serializable
     private static final long serialVersionUID = 1L;
 
     /**
+     * OAuth client identifier for the Bitbucket API.
+     */
+    private static String bitbucketClientId = null;
+
+    /**
+     * OAuth client secret for the Bitbucket API.
+     */
+    private static String bitbucketClientSecret = null;
+
+    /**
      * {@link BitbucketClient} object.
      */
     private final BitbucketClient bitbucketClient;
@@ -60,6 +71,55 @@ public class CurrentUser implements BitbucketUser, Serializable
     public CurrentUser()
     {
         bitbucketClient = new BitbucketClient();
+    }
+
+    /**
+     * Returns the OAuth client identifier for the Bitbucket API.
+     * The return value may be {@code null} if not configured.
+     *
+     * @return the OAuth client identifier for the Bitbucket API, or {@code
+     * null}
+     */
+    public static String getBitbucketClientId()
+    {
+        return bitbucketClientId;
+    }
+
+    /**
+     * Sets the OAuth client identifier for the Bitbucket API.
+     *
+     * @param value {@code String} value to which the OAuth client identifier
+     * shall be set
+     */
+    @Resource(name = "bitbucketClientId",
+        description = "OAuth client identifier for the Bitbucket API.")
+    public static void setBitbucketClientId(final String value)
+    {
+        bitbucketClientId = value;
+    }
+
+    /**
+     * Returns the OAuth client secret for the Bitbucket API.
+     * The return value may be {@code null} if not configured.
+     *
+     * @return the OAuth client secret for the Bitbucket API, or {@code null}
+     */
+    public static String getBitbucketClientSecret()
+    {
+        return bitbucketClientSecret;
+    }
+
+    /**
+     * Sets the OAuth client secret for the Bitbucket API.
+     *
+     * @param value {@code String} value to which the OAuth client secret shall
+     * be set
+     */
+    @Resource(name = "bitbucketClientSecret",
+        description = "OAuth client secret for the Bitbucket API.")
+    public static void setBitbucketClientSecret(final String value)
+    {
+        bitbucketClientSecret = value;
     }
 
     /**
