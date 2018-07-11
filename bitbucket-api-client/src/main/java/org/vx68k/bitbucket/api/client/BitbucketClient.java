@@ -50,6 +50,11 @@ public class BitbucketClient implements Serializable
     public static final String API_BASE = "https://api.bitbucket.org/2.0/";
 
     /**
+     * Default {@link BitbucketClient} object.
+     */
+    private static BitbucketClient defaultInstance = new BitbucketClient();
+
+    /**
      * {@link ClientBuilder} object created in the constructor.
      * This object is used to build JAX-RS {@link Client} objects.
      */
@@ -62,6 +67,26 @@ public class BitbucketClient implements Serializable
     {
         clientBuilder = ClientBuilder.newBuilder();
         clientBuilder.register(JsonMessageBodyReader.class);
+    }
+
+    /**
+     * Returns the default {@link BitbucketClient} object.
+     *
+     * @return the default {@link BitbucketClient} object
+     */
+    public static BitbucketClient getDefault()
+    {
+        return defaultInstance;
+    }
+
+    /**
+     * Sets the default {@link BitbucketClient} object.
+     *
+     * @param value {@link BitbucketClient} object
+     */
+    public static void setDefault(final BitbucketClient value)
+    {
+        defaultInstance = value;
     }
 
     /**
