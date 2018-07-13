@@ -82,13 +82,13 @@ public class BitbucketClientUser extends BitbucketClientObject
     /**
      * Constructs this user with a JSON user object.
      *
-     * @param userObject JSON user object
+     * @param object JSON user object
      * @exception IllegalArgumentException if the given JSON object was {@code
      * null} or did not represent a user
      */
-    public BitbucketClientUser(final JsonObject userObject)
+    public BitbucketClientUser(final JsonObject object)
     {
-        super(userObject);
+        super(object);
 
         String type = getType();
         if (type == null
@@ -104,8 +104,8 @@ public class BitbucketClientUser extends BitbucketClientObject
     @Override
     public final String getName()
     {
-        JsonObject userObject = getJsonObject();
-        return userObject.getString(USERNAME, null);
+        JsonObject object = getJsonObject();
+        return object.getString(USERNAME, null);
     }
 
     /**
@@ -114,9 +114,9 @@ public class BitbucketClientUser extends BitbucketClientObject
     @Override
     public final UUID getUUID()
     {
-        JsonObject userObject = getJsonObject();
+        JsonObject object = getJsonObject();
         return BitbucketClientUtilities.parseUUID(
-                userObject.getJsonString(UUID));
+                object.getJsonString(UUID));
     }
 
     /**
@@ -125,8 +125,8 @@ public class BitbucketClientUser extends BitbucketClientObject
     @Override
     public final String getDisplayName()
     {
-        JsonObject userObject = getJsonObject();
-        return userObject.getString(DISPLAY_NAME, null);
+        JsonObject object = getJsonObject();
+        return object.getString(DISPLAY_NAME, null);
     }
 
     /**
@@ -135,8 +135,8 @@ public class BitbucketClientUser extends BitbucketClientObject
     @Override
     public final String getWebsite()
     {
-        JsonObject userObject = getJsonObject();
-        return userObject.getString(WEBSITE, null);
+        JsonObject object = getJsonObject();
+        return object.getString(WEBSITE, null);
     }
 
     /**
@@ -145,8 +145,8 @@ public class BitbucketClientUser extends BitbucketClientObject
     @Override
     public final String getLocation()
     {
-        JsonObject userObject = getJsonObject();
-        return userObject.getString(LOCATION, null);
+        JsonObject object = getJsonObject();
+        return object.getString(LOCATION, null);
     }
 
     /**
@@ -155,8 +155,8 @@ public class BitbucketClientUser extends BitbucketClientObject
     @Override
     public boolean isPrivate()
     {
-        JsonObject userObject = getJsonObject();
-        return userObject.getBoolean(IS_PRIVATE, false);
+        JsonObject object = getJsonObject();
+        return object.getBoolean(IS_PRIVATE, false);
     }
 
     /**
@@ -165,11 +165,11 @@ public class BitbucketClientUser extends BitbucketClientObject
     @Override
     public final Instant getCreated()
     {
-        JsonObject userObject = getJsonObject();
+        JsonObject object = getJsonObject();
         Instant created = null;
-        if (userObject.containsKey(CREATED_ON)) {
-            created = OffsetDateTime.parse(
-                userObject.getString(CREATED_ON)).toInstant();
+        if (object.containsKey(CREATED_ON)) {
+            created = OffsetDateTime.parse(object.getString(CREATED_ON))
+                .toInstant();
         }
         return created;
     }
@@ -180,9 +180,9 @@ public class BitbucketClientUser extends BitbucketClientObject
     @Override
     public final Map<String, String> getLinks()
     {
-        JsonObject userObject = getJsonObject();
+        JsonObject object = getJsonObject();
         return BitbucketClientUtilities.parseLinks(
-            userObject.getJsonObject(LINKS));
+            object.getJsonObject(LINKS));
     }
 
     /**
