@@ -78,13 +78,13 @@ public class BitbucketClientRepository extends BitbucketClientObject
     /**
      * Constructs this repository with a JSON repository object.
      *
-     * @param branchObject JSON repository object
+     * @param object JSON repository object
      * @exception IllegalArgumentException if the given JSON object was {@code
      * null} or did not represent a repository
      */
-    public BitbucketClientRepository(final JsonObject branchObject)
+    public BitbucketClientRepository(final JsonObject object)
     {
-        super(branchObject);
+        super(object);
 
         String type = getType();
         if (type == null || !type.equals(REPOSITORY)) {
@@ -99,20 +99,8 @@ public class BitbucketClientRepository extends BitbucketClientObject
     @Override
     public final BitbucketUser getOwner()
     {
-        JsonObject repositoryObject = getJsonObject();
-        return BitbucketClient.createUser(
-            repositoryObject.getJsonObject(OWNER));
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final UUID getUUID()
-    {
-        JsonObject repositoryObject = getJsonObject();
-        return BitbucketClientUtilities.parseUUID(
-            repositoryObject.getJsonString(UUID));
+        JsonObject object = getJsonObject();
+        return BitbucketClient.createUser(object.getJsonObject(OWNER));
     }
 
     /**
@@ -121,8 +109,19 @@ public class BitbucketClientRepository extends BitbucketClientObject
     @Override
     public final String getName()
     {
-        JsonObject repositoryObject = getJsonObject();
-        return repositoryObject.getString(NAME, null);
+        JsonObject object = getJsonObject();
+        return object.getString(NAME, null);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final UUID getUUID()
+    {
+        JsonObject object = getJsonObject();
+        return BitbucketClientUtilities.parseUUID(
+            object.getJsonString(UUID));
     }
 
     /**
@@ -131,8 +130,8 @@ public class BitbucketClientRepository extends BitbucketClientObject
     @Override
     public final String getFullName()
     {
-        JsonObject repositoryObject = getJsonObject();
-        return repositoryObject.getString(FULL_NAME, null);
+        JsonObject object = getJsonObject();
+        return object.getString(FULL_NAME, null);
     }
 
     /**
@@ -141,21 +140,18 @@ public class BitbucketClientRepository extends BitbucketClientObject
     @Override
     public final String getSCM()
     {
-        JsonObject repositoryObject = getJsonObject();
-        return repositoryObject.getString(SCM, null);
+        JsonObject object = getJsonObject();
+        return object.getString(SCM, null);
     }
 
     /**
-     * Returns the boolean value that indicates whether the repository is
-     * private or not.
-     * @return <code>true</code> if the repository is private, or
-     * <code>false</code> otherwise
+     * {@inheritDoc}
      */
     @Override
     public final boolean isPrivate()
     {
-        JsonObject repositoryObject = getJsonObject();
-        return repositoryObject.getBoolean(IS_PRIVATE, false);
+        JsonObject object = getJsonObject();
+        return object.getBoolean(IS_PRIVATE, false);
     }
 
     /**
