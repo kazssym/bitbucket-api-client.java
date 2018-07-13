@@ -45,19 +45,19 @@ public class CurrentUser implements BitbucketUser, Serializable
     private static final long serialVersionUID = 1L;
 
     /**
+     * {@link BitbucketClient} object.
+     */
+    private final BitbucketClient bitbucketClient;
+
+    /**
      * OAuth client identifier for the Bitbucket API.
      */
-    private static String bitbucketClientId = null;
+    private String bitbucketClientId = null;
 
     /**
      * OAuth client secret for the Bitbucket API.
      */
-    private static String bitbucketClientSecret = null;
-
-    /**
-     * {@link BitbucketClient} object.
-     */
-    private final BitbucketClient bitbucketClient;
+    private String bitbucketClientSecret = null;
 
     /**
      * {@link BitbucketUser} object for the current user, or {@code null} if
@@ -74,13 +74,23 @@ public class CurrentUser implements BitbucketUser, Serializable
     }
 
     /**
+     * Returns the {@link BitbucketClient} object.
+     *
+     * @return the {@link BitbucketClient} object
+     */
+    public BitbucketClient getBitbucketClient()
+    {
+        return bitbucketClient;
+    }
+
+    /**
      * Returns the OAuth client identifier for the Bitbucket API.
      * The return value may be {@code null} if not configured.
      *
      * @return the OAuth client identifier for the Bitbucket API, or {@code
      * null}
      */
-    public static String getBitbucketClientId()
+    public String getBitbucketClientId()
     {
         return bitbucketClientId;
     }
@@ -91,9 +101,9 @@ public class CurrentUser implements BitbucketUser, Serializable
      * @param value {@code String} value to which the OAuth client identifier
      * shall be set
      */
-    @Resource(name = "bitbucketClientId",
+    @Resource(name = "bitbucketClientId", type = String.class,
         description = "OAuth client identifier for the Bitbucket API.")
-    public static void setBitbucketClientId(final String value)
+    public void setBitbucketClientId(final String value)
     {
         bitbucketClientId = value;
     }
@@ -104,7 +114,7 @@ public class CurrentUser implements BitbucketUser, Serializable
      *
      * @return the OAuth client secret for the Bitbucket API, or {@code null}
      */
-    public static String getBitbucketClientSecret()
+    public String getBitbucketClientSecret()
     {
         return bitbucketClientSecret;
     }
@@ -115,21 +125,11 @@ public class CurrentUser implements BitbucketUser, Serializable
      * @param value {@code String} value to which the OAuth client secret shall
      * be set
      */
-    @Resource(name = "bitbucketClientSecret",
+    @Resource(name = "bitbucketClientSecret", type = String.class,
         description = "OAuth client secret for the Bitbucket API.")
-    public static void setBitbucketClientSecret(final String value)
+    public void setBitbucketClientSecret(final String value)
     {
         bitbucketClientSecret = value;
-    }
-
-    /**
-     * Returns the {@link BitbucketClient} object.
-     *
-     * @return the {@link BitbucketClient} object
-     */
-    public BitbucketClient getBitbucketClient()
-    {
-        return bitbucketClient;
     }
 
     /**
@@ -313,6 +313,12 @@ public class CurrentUser implements BitbucketUser, Serializable
         int value = getClass().hashCode();
         assert bitbucketClient != null;
         value ^= bitbucketClient.hashCode();
+        if (bitbucketClientId != null) {
+            value ^= bitbucketClientId.hashCode();
+        }
+        if (bitbucketClientSecret != null) {
+            value ^= bitbucketClientSecret.hashCode();
+        }
         return value;
     }
 
@@ -330,6 +336,20 @@ public class CurrentUser implements BitbucketUser, Serializable
             CurrentUser other = (CurrentUser) object;
             assert bitbucketClient != null;
             if (!bitbucketClient.equals(other.bitbucketClient)) {
+                return false;
+            }
+            if (bitbucketClientId != null
+                && !bitbucketClientId.equals(other.bitbucketClientId)) {
+                return false;
+            }
+            else if (other.bitbucketClientId != null) {
+                return false;
+            }
+            if (bitbucketClientSecret != null
+                && !bitbucketClientSecret.equals(other.bitbucketClientSecret)) {
+                return false;
+            }
+            else if (other.bitbucketClientSecret != null) {
                 return false;
             }
         }
