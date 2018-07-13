@@ -33,13 +33,13 @@ import org.vx68k.bitbucket.api.BitbucketUser;
 import org.vx68k.bitbucket.api.client.BitbucketClient;
 
 /**
- * Current user of the session.
+ * Session-scoped bean for the current user of the session.
  *
  * @author Kaz Nishimura
  * @since 5.0
  */
+@Named
 @SessionScoped
-@Named("currentUser")
 public class CurrentUser implements BitbucketUser, Serializable
 {
     private static final long serialVersionUID = 1L;
