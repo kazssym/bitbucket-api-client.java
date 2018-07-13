@@ -37,6 +37,7 @@ public class BitbucketClientTest
     /**
      * Tests the default constructor.
      */
+    @Test
     public void testDefault()
     {
         BitbucketClient client = new BitbucketClient();
@@ -68,5 +69,33 @@ public class BitbucketClientTest
         BitbucketClient client = new BitbucketClient();
         BitbucketUser user = client.getUser("vx68k"); // "vx68k" is a team.
         assertNull(user);
+    }
+
+    /**
+     * Tests {@link BitbucketClient#getTeam getTeam} with an existing team.
+     */
+    @Test
+    public void testGetTeam()
+    {
+        BitbucketClient client = new BitbucketClient();
+        BitbucketUser team = client.getTeam("vx68k");
+        System.out.println("Got " + team);
+        assertEquals(BitbucketUser.TEAM, team.getType());
+        assertNotNull(team.getUUID());
+        assertEquals("vx68k", team.getName());
+        assertNotNull(team.getDisplayName());
+        assertNotNull(team.getCreated());
+        // Other properties are unknown at test time.
+    }
+
+    /**
+     * Tests {@link BitbucketClient#getUser getUser} with a non-existing user.
+     */
+    @Test
+    public void testGetTeamNotFound()
+    {
+        BitbucketClient client = new BitbucketClient();
+        BitbucketUser team = client.getTeam("kazssym");
+        assertNull(team);
     }
 }

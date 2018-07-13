@@ -158,7 +158,7 @@ public class BitbucketClient implements Serializable
     }
 
     /**
-     * Returns a {@link BitbucketUser} object fetched from Bitbucket Cloud.
+     * Returns a {@link BitbucketUser} object for a user.
      *
      * @param name user name
      * @return {@link BitbucketUser} object
@@ -169,6 +169,30 @@ public class BitbucketClient implements Serializable
         try {
             WebTarget base = client.target(API_BASE);
             WebTarget path = base.path("users/{name}");
+            JsonObject object = path.resolveTemplate("name", name)
+                .request(MediaType.APPLICATION_JSON).get(JsonObject.class);
+            return createUser(object);
+        }
+        catch (NotFoundException exception) {
+            return null;
+        }
+        finally {
+            client.close();
+        }
+    }
+
+    /**
+     * Returns a {@link BitbucketUser} object for a team.
+     *
+     * @param name team name
+     * @return {@link BitbucketUser} object
+     */
+    public BitbucketUser getTeam(final String name)
+    {
+        Client client = clientBuilder.build();
+        try {
+            WebTarget base = client.target(API_BASE);
+            WebTarget path = base.path("teams/{name}");
             JsonObject object = path.resolveTemplate("name", name)
                 .request(MediaType.APPLICATION_JSON).get(JsonObject.class);
             return createUser(object);
