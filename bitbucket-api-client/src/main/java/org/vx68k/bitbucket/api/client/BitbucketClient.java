@@ -99,11 +99,11 @@ public class BitbucketClient implements Serializable
      */
     public static BitbucketUser createUser(final JsonObject object)
     {
-        BitbucketUser user = null;
+        BitbucketUser value = null;
         if (object != null) {
-            user = new BitbucketClientUser(object);
+            value = new BitbucketClientUser(object);
         }
-        return user;
+        return value;
     }
 
     /**
@@ -116,11 +116,11 @@ public class BitbucketClient implements Serializable
      */
     public static BitbucketRepository createRepository(final JsonObject object)
     {
-        BitbucketRepository repository = null;
+        BitbucketRepository value = null;
         if (object != null) {
-            repository = new BitbucketClientRepository(object);
+            value = new BitbucketClientRepository(object);
         }
-        return repository;
+        return value;
     }
 
     /**
@@ -133,11 +133,11 @@ public class BitbucketClient implements Serializable
      */
     public static BitbucketBranch createBranch(final JsonObject object)
     {
-        BitbucketBranch branch = null;
+        BitbucketBranch value = null;
         if (object != null) {
-            branch = new BitbucketClientBranch(object);
+            value = new BitbucketClientBranch(object);
         }
-        return branch;
+        return value;
     }
 
     /**
@@ -150,11 +150,11 @@ public class BitbucketClient implements Serializable
      */
     public static BitbucketCommit createCommit(final JsonObject object)
     {
-        BitbucketCommit commit = null;
+        BitbucketCommit value = null;
         if (object != null) {
-            commit = new BitbucketClientCommit(object);
+            value = new BitbucketClientCommit(object);
         }
-        return commit;
+        return value;
     }
 
     /**
@@ -167,11 +167,11 @@ public class BitbucketClient implements Serializable
     {
         Client client = clientBuilder.build();
         try {
-            WebTarget target = client.target(API_BASE).path("users/{user}");
-            JsonObject userObject = target.resolveTemplate("user", name)
-                .request(MediaType.APPLICATION_JSON)
-                .get(JsonObject.class);
-            return createUser(userObject);
+            WebTarget base = client.target(API_BASE);
+            WebTarget path = base.path("users/{name}");
+            JsonObject object = path.resolveTemplate("name", name)
+                .request(MediaType.APPLICATION_JSON).get(JsonObject.class);
+            return createUser(object);
         }
         catch (NotFoundException exception) {
             return null;
