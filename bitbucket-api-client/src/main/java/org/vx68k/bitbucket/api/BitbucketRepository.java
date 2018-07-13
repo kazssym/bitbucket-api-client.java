@@ -39,18 +39,18 @@ public interface BitbucketRepository
     BitbucketUser getOwner();
 
     /**
-     * Returns the UUID of this repository.
-     *
-     * @return the UUID
-     */
-    UUID getUUID();
-
-    /**
      * Returns the name of this repository.
      *
      * @return the name
      */
     String getName();
+
+    /**
+     * Returns the UUID of this repository.
+     *
+     * @return the UUID
+     */
+    UUID getUUID();
 
     /**
      * Returns the full name of this repository.
