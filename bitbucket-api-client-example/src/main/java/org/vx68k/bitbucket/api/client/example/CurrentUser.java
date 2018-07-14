@@ -58,6 +58,16 @@ public class CurrentUser implements BitbucketUser, Serializable
     private static final long serialVersionUID = 1L;
 
     /**
+     * Default HTTP port.
+     */
+    private static final int HTTP_PORT = 80;
+
+    /**
+     * Default HTTPS port.
+     */
+    private static final int HTTPS_PORT = 443;
+
+    /**
      * OAuth authorization endpoint URI for the Bitbucket API.
      */
     private static final String BITBUCKET_AUTHORIZATION_ENDPOINT =
@@ -168,6 +178,32 @@ public class CurrentUser implements BitbucketUser, Serializable
     }
 
     /**
+     * Constructs the origin of the server.
+     *
+     * @param externalContext {@link ExternalContext} object
+     * @return {@link URI} object of the origin
+     */
+    protected static URI getOrigin(final ExternalContext externalContext)
+    {
+        String scheme = externalContext.getRequestScheme();
+        String serverName = externalContext.getRequestServerName();
+        int serverPort = externalContext.getRequestServerPort();
+        if (scheme.equals("http") && serverPort == HTTP_PORT) {
+            serverPort = -1;
+        }
+        else if (scheme.equals("https") && serverPort == HTTPS_PORT) {
+            serverPort = -1;
+        }
+        try {
+            return new URI(
+                scheme, null, serverName, serverPort, null, null, null);
+        }
+        catch (final URISyntaxException exception) {
+            throw new FacesException("Unexpected exception", exception);
+        }
+    }
+
+    /**
      * Performs a login action by redirecting the user agent to the
      * authorization endpoint.
      *
@@ -186,16 +222,7 @@ public class CurrentUser implements BitbucketUser, Serializable
             facesContext, view.getViewId(), emptyMap(), true);
 
         // The redirection URI must be absolute.
-        URI origin;
-        try {
-            origin = new URI(
-                externalContext.getRequestScheme(), null,
-                externalContext.getRequestServerName(),
-                externalContext.getRequestServerPort(), null, null, null);
-        }
-        catch (final URISyntaxException exception) {
-            throw new FacesException("Unexpected exception", exception);
-        }
+        URI origin = getOrigin(externalContext);
         redirectionURI = origin.resolve(redirectionURI).toString();
 
         Map<String, List<String>> parameters = new HashMap<>();
@@ -203,11 +230,11 @@ public class CurrentUser implements BitbucketUser, Serializable
         parameters.put("client_id", singletonList(clientId));
         parameters.put("redirect_uri", singletonList(redirectionURI));
 
-        String authorizationURL = externalContext.encodeRedirectURL(
+        String authorizationURI = externalContext.encodeRedirectURL(
             BITBUCKET_AUTHORIZATION_ENDPOINT, parameters);
-        externalContext.log("Redirecting to " + authorizationURL);
+        externalContext.log("Redirecting to " + authorizationURI);
         try {
-            externalContext.redirect(authorizationURL);
+            externalContext.redirect(authorizationURI);
         }
         catch (final IOException exception) {
             throw new FacesException("Redirection failure", exception);
