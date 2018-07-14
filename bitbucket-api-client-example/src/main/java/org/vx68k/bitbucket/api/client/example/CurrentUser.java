@@ -20,13 +20,26 @@
 
 package org.vx68k.bitbucket.api.client.example;
 
+import static java.util.Collections.emptyMap;
+import static java.util.Collections.singletonList;
+
+import java.io.IOException;
 import java.io.Serializable;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.time.Instant;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import javax.annotation.Resource;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.FacesException;
+import javax.faces.application.ViewHandler;
+import javax.faces.component.UIViewRoot;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import org.vx68k.bitbucket.api.BitbucketRepository;
 import org.vx68k.bitbucket.api.BitbucketUser;
@@ -43,6 +56,18 @@ import org.vx68k.bitbucket.api.client.BitbucketClient;
 public class CurrentUser implements BitbucketUser, Serializable
 {
     private static final long serialVersionUID = 1L;
+
+    /**
+     * OAuth authorization endpoint URI for the Bitbucket API.
+     */
+    private static final String BITBUCKET_AUTHORIZATION_ENDPOINT =
+        "https://bitbucket.org/site/oauth2/authorize";
+
+    /**
+     * OAuth token endpoint URI for the Bitbucket API.
+     */
+    private static final String BITBUCKET_TOKEN_ENDPOINT =
+        "https://bitbucket.org/site/oauth2/access_token";
 
     /**
      * {@link BitbucketClient} object.
@@ -150,15 +175,43 @@ public class CurrentUser implements BitbucketUser, Serializable
      */
     public String login()
     {
-//        FacesContext facesContext = FacesContext.getCurrentInstance();
-//        ExternalContext externalContext = facesContext.getExternalContext();
-//        HttpServletRequest request =
-//                (HttpServletRequest) externalContext.getRequest();
-//
-//        // Redirects the user agent to the authorization endpoint.
-//        String uri = authorizationRequestUri(request);
-//        externalContext.redirect(uri);
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        ExternalContext externalContext = facesContext.getExternalContext();
+        UIViewRoot view = facesContext.getViewRoot();
+        ViewHandler viewHandler =
+            facesContext.getApplication().getViewHandler();
 
+        String clientId = getBitbucketClientId();
+        String redirectionURI = viewHandler.getRedirectURL(
+            facesContext, view.getViewId(), emptyMap(), true);
+
+        // The redirection URI must be absolute.
+        URI origin;
+        try {
+            origin = new URI(
+                externalContext.getRequestScheme(), null,
+                externalContext.getRequestServerName(),
+                externalContext.getRequestServerPort(), null, null, null);
+        }
+        catch (final URISyntaxException exception) {
+            throw new FacesException("Unexpected exception", exception);
+        }
+        redirectionURI = origin.resolve(redirectionURI).toString();
+
+        Map<String, List<String>> parameters = new HashMap<>();
+        parameters.put("response_type", singletonList("code"));
+        parameters.put("client_id", singletonList(clientId));
+        parameters.put("redirect_uri", singletonList(redirectionURI));
+
+        String authorizationURL = externalContext.encodeRedirectURL(
+            BITBUCKET_AUTHORIZATION_ENDPOINT, parameters);
+        externalContext.log("Redirecting to " + authorizationURL);
+        try {
+            externalContext.redirect(authorizationURL);
+        }
+        catch (final IOException exception) {
+            throw new FacesException("Redirection failure", exception);
+        }
         return null;
     }
 
