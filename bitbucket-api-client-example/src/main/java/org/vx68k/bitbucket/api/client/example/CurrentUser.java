@@ -31,6 +31,7 @@ import java.time.Instant;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 import javax.annotation.Resource;
@@ -393,15 +394,9 @@ public class CurrentUser implements BitbucketUser, Serializable
         int value = getClass().hashCode();
         assert bitbucketClient != null;
         value ^= bitbucketClient.hashCode();
-        if (bitbucketClientId != null) {
-            value ^= bitbucketClientId.hashCode();
-        }
-        if (bitbucketClientSecret != null) {
-            value ^= bitbucketClientSecret.hashCode();
-        }
-        if (loggedInUser != null) {
-            value ^= loggedInUser.hashCode();
-        }
+        value ^= Objects.hashCode(bitbucketClientId);
+        value ^= Objects.hashCode(bitbucketClientSecret);
+        value ^= Objects.hashCode(loggedInUser);
         return value;
     }
 
@@ -421,25 +416,14 @@ public class CurrentUser implements BitbucketUser, Serializable
             if (!bitbucketClient.equals(other.bitbucketClient)) {
                 return false;
             }
-            if (bitbucketClientId != null
-                && !bitbucketClientId.equals(other.bitbucketClientId)) {
+            if (!Objects.equals(bitbucketClientId, other.bitbucketClientId)) {
                 return false;
             }
-            else if (other.bitbucketClientId != null) {
+            if (!Objects.equals(
+                bitbucketClientSecret, other.bitbucketClientSecret)) {
                 return false;
             }
-            if (bitbucketClientSecret != null
-                && !bitbucketClientSecret.equals(other.bitbucketClientSecret)) {
-                return false;
-            }
-            else if (other.bitbucketClientSecret != null) {
-                return false;
-            }
-            if (loggedInUser != null
-                && !loggedInUser.equals(other.loggedInUser)) {
-                return false;
-            }
-            else if (other.loggedInUser != null) {
+            if (!Objects.equals(loggedInUser, other.loggedInUser)) {
                 return false;
             }
         }
