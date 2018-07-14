@@ -399,6 +399,9 @@ public class CurrentUser implements BitbucketUser, Serializable
         if (bitbucketClientSecret != null) {
             value ^= bitbucketClientSecret.hashCode();
         }
+        if (loggedInUser != null) {
+            value ^= loggedInUser.hashCode();
+        }
         return value;
     }
 
@@ -430,6 +433,13 @@ public class CurrentUser implements BitbucketUser, Serializable
                 return false;
             }
             else if (other.bitbucketClientSecret != null) {
+                return false;
+            }
+            if (loggedInUser != null
+                && !loggedInUser.equals(other.loggedInUser)) {
+                return false;
+            }
+            else if (other.loggedInUser != null) {
                 return false;
             }
         }
