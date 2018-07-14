@@ -70,12 +70,14 @@ public class CurrentUser implements BitbucketUser, Serializable
 
     /**
      * OAuth authorization endpoint URI for the Bitbucket API.
+     * This constant would be in {@link BitbucketClient}.
      */
     private static final String BITBUCKET_AUTHORIZATION_ENDPOINT =
         "https://bitbucket.org/site/oauth2/authorize";
 
     /**
      * OAuth token endpoint URI for the Bitbucket API.
+     * This constant would be in {@link BitbucketClient}.
      */
     private static final String BITBUCKET_TOKEN_ENDPOINT =
         "https://bitbucket.org/site/oauth2/access_token";
