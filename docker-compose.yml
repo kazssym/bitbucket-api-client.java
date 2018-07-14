@@ -13,14 +13,17 @@ services:
       - derby
     ports:
       - "${EXAMPLE_HTTP_PORT:-8080}:8080"
+      - "${EXAMPLE_MANAGEMENT_PORT:-9990}:9990"
       - "${EXAMPLE_DEBUG_PORT:-8787}:8787"
     environment:
       JAVA_OPTS:
       GC_LOG:
       DEBUG:
     volumes:
+      - configuration:/opt/jboss/wildfly/standalone/configuration:rw
       - ./bitbucket-api-client-example/target/bitbucket-api-client-example-${VERSION:-5.0-SNAPSHOT}.war:/opt/jboss/wildfly/standalone/deployments/ROOT.war:ro
     working_dir: /opt/jboss/wildfly/standalone
+    command: /opt/jboss/wildfly/bin/standalone.sh -b=0.0.0.0 -bmanagement=0.0.0.0
     cap_drop:
       - ALL
   derby:
@@ -31,3 +34,5 @@ services:
     command: java -jar /opt/apache/derby/lib/derbynet.jar -h 0.0.0.0 start
     cap_drop:
       - ALL
+volumes:
+  configuration: {}
