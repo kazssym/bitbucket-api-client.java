@@ -114,9 +114,9 @@ public class User implements Serializable
     }
 
     /**
-     * Returns the {@link BitbucietUser} object of the found user.
+     * Returns the {@link BitbucketUser} object of the found user.
      *
-     * @return the {@link BitbucietUser} object of the found user
+     * @return the {@link BitbucketUser} object of the found user
      */
     public BitbucketUser getFoundUser()
     {
