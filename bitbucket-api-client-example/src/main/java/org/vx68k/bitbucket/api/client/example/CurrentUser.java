@@ -48,6 +48,20 @@ import org.vx68k.bitbucket.api.client.BitbucketClient;
 
 /**
  * Session-scoped bean for the current user of the session.
+ * <p>To enable authentication by OAuth, the deployment descriptor must be
+ * configured as follows:</p>
+ * <pre>
+ * &lt;env-entry&gt;
+ * &lt;env-entry-name&gt;bitbucketClientId&lt;/env-entry-name&gt;
+ * &lt;env-entry-type&gt;java.lang.String&lt;/env-entry-type&gt;
+ * &lt;lookup-name&gt;java:global/env/bitbucketClientId&lt;/lookup-name&gt;
+ * &lt;/env-entry&gt;
+ * &lt;env-entry&gt;
+ * &lt;env-entry-name&gt;bitbucketClientSecret&lt;/env-entry-name&gt;
+ * &lt;env-entry-type&gt;java.lang.String&lt;/env-entry-type&gt;
+ * &lt;lookup-name&gt;java:global/env/bitbucketClientSecret&lt;/lookup-name&gt;
+ * &lt;/env-entry&gt;
+ * </pre>
  *
  * @author Kaz Nishimura
  * @since 5.0
