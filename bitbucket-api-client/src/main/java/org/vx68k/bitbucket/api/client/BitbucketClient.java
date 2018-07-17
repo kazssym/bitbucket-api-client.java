@@ -58,7 +58,7 @@ public class BitbucketClient implements Serializable
      * {@link ClientBuilder} object created in the constructor.
      * This object is used to build JAX-RS {@link Client} objects.
      */
-    private final transient ClientBuilder clientBuilder;
+    private final ClientBuilder clientBuilder;
 
     /**
      * Constructs this object with a new {@link ClientBuilder} object.
