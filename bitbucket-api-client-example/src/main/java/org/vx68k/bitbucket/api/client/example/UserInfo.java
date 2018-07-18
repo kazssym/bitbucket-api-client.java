@@ -44,9 +44,9 @@ public class UserInfo implements Serializable
     private static final long serialVersionUID = 1L;
 
     /**
-     * {@link CurrentUser} object given to the constructor.
+     * {@link UserContext} object given to the constructor.
      */
-    private final CurrentUser currentUser;
+    private final UserContext currentUser;
 
     /**
      * User name.
@@ -63,22 +63,22 @@ public class UserInfo implements Serializable
     private BitbucketUser foundUser = null;
 
     /**
-     * Constructs this object with a {@link CurrentUser} object.
+     * Constructs this object with a {@link UserContext} object.
      *
-     * @param context {@link CurrentUser} object
+     * @param context {@link UserContext} object
      */
     @Inject
-    public UserInfo(final CurrentUser context)
+    public UserInfo(final UserContext context)
     {
         currentUser = context;
     }
 
     /**
-     * Returns the {@link CurrentUser} object given to the constructor.
+     * Returns the {@link UserContext} object given to the constructor.
      *
-     * @return the {@link CurrentUser} object given to the constructor
+     * @return the {@link UserContext} object given to the constructor
      */
-    public CurrentUser getCurrentUser()
+    public UserContext getCurrentUser()
     {
         return currentUser;
     }

@@ -1,5 +1,5 @@
 /*
- * CurrentUserTest.java - class CurrentUserTest
+ * UserContextTest.java - class UserContextTest
  * Copyright (C) 2015-2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -25,11 +25,11 @@ import static org.junit.Assert.assertFalse;
 import org.junit.Test;
 
 /**
- * Unit tests for {@link CurrentUser}.
+ * Unit tests for {@link UserContext}.
  *
  * @author Kaz Nishimura
  */
-public final class CurrentUserTest
+public final class UserContextTest
 {
     /**
      * Tests the default constructor.
@@ -37,7 +37,7 @@ public final class CurrentUserTest
     @Test
     public void testDefault()
     {
-        CurrentUser currentUser = new CurrentUser();
-        assertFalse(currentUser.isLoggedIn());
+        UserContext userContext = new UserContext();
+        assertFalse(userContext.isLoggedIn());
     }
 }

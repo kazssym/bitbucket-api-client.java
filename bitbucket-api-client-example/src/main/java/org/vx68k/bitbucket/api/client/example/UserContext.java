@@ -1,5 +1,5 @@
 /*
- * CurrentUser.java - class CurrentUser
+ * UserContext.java - class UserContext
  * Copyright (C) 2015-2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -68,7 +68,7 @@ import org.vx68k.bitbucket.api.client.BitbucketClient;
  */
 @Named
 @SessionScoped
-public class CurrentUser implements BitbucketUser, Serializable
+public class UserContext implements BitbucketUser, Serializable
 {
     private static final long serialVersionUID = 1L;
 
@@ -120,7 +120,7 @@ public class CurrentUser implements BitbucketUser, Serializable
     /**
      * Constructs this object with no parameters.
      */
-    public CurrentUser()
+    public UserContext()
     {
         bitbucketClient = new BitbucketClient();
     }
@@ -427,7 +427,7 @@ public class CurrentUser implements BitbucketUser, Serializable
                 return false;
             }
 
-            CurrentUser other = (CurrentUser) object;
+            UserContext other = (UserContext) object;
             assert bitbucketClient != null;
             if (!bitbucketClient.equals(other.bitbucketClient)) {
                 return false;

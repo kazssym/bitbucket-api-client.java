@@ -25,16 +25,16 @@ Bitbucket API Client Example
 <span class="pure-menu-heading app-hbox-grow">
 Bitbucket API Client Example</span>
 <ul class="pure-menu-list">
-<ui:fragment rendered="#{not currentUser.loggedIn}">
+<ui:fragment rendered="#{not userContext.loggedIn}">
 <li class="pure-menu-item">
 <f:ajax render="@form">
-<a class="pure-menu-link" jsf:id="login" jsf:action="#{currentUser.login}">
+<a class="pure-menu-link" jsf:id="login" jsf:action="#{userContext.login}">
 #{messages.login}</a>
 </f:ajax>
 </li>
 </ui:fragment>
 
-<ui:fragment rendered="#{currentUser.loggedIn}">
+<ui:fragment rendered="#{userContext.loggedIn}">
 <li id="account-menu"
     class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
 <a class="pure-menu-link" href="#">Account</a>
@@ -43,7 +43,7 @@ Bitbucket API Client Example</span>
 <h:outputLink styleClass="pure-menu-link" value="#{request.contextPath}/myself.jsf">Profile</h:outputLink>
 </li>
 <li class="pure-menu-item">
-<h:commandLink styleClass="pure-menu-link" action="#{currentUser.logout}">#{messages.logout}</h:commandLink>
+<h:commandLink styleClass="pure-menu-link" action="#{userContext.logout}">#{messages.logout}</h:commandLink>
 </li>
 </ul>
 </li>

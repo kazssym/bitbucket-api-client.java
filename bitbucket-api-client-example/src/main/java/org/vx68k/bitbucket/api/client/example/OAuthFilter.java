@@ -43,9 +43,9 @@ public class OAuthFilter implements Filter, Serializable
     private static final long serialVersionUID = 1L;
 
     /**
-     * {@link CurrentUser} object given to the constructor.
+     * {@link UserContext} object given to the constructor.
      */
-    private final CurrentUser currentUser;
+    private final UserContext currentUser;
 
     /**
      * {@link FilterConfig} object given to {@link #init init}.
@@ -55,10 +55,10 @@ public class OAuthFilter implements Filter, Serializable
     /**
      * Constructs this object.
      *
-     * @param user {@link CurrentUser} object to authenticate.
+     * @param user {@link UserContext} object to authenticate.
      */
     @Inject
-    public OAuthFilter(final CurrentUser user)
+    public OAuthFilter(final UserContext user)
     {
         currentUser = user;
     }
