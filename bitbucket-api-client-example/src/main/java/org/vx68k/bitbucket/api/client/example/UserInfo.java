@@ -1,5 +1,5 @@
 /*
- * User.java - class User
+ * UserInfo.java - class UserInfo
  * Copyright (C) 2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -37,9 +37,9 @@ import org.vx68k.bitbucket.api.BitbucketUser;
  * @author Kaz Nishimura
  * @since 5.0
  */
-@RequestScoped
 @Named
-public class User implements Serializable
+@RequestScoped
+public class UserInfo implements Serializable
 {
     private static final long serialVersionUID = 1L;
 
@@ -65,12 +65,12 @@ public class User implements Serializable
     /**
      * Constructs this object with a {@link CurrentUser} object.
      *
-     * @param aCurrentUser {@link CurrentUser} object
+     * @param context {@link CurrentUser} object
      */
     @Inject
-    public User(final CurrentUser aCurrentUser)
+    public UserInfo(final CurrentUser context)
     {
-        currentUser = aCurrentUser;
+        currentUser = context;
     }
 
     /**
