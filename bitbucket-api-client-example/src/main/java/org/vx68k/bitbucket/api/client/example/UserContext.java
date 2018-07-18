@@ -97,6 +97,23 @@ public class UserContext implements BitbucketUser, Serializable
         "https://bitbucket.org/site/oauth2/access_token";
 
     /**
+     * Prefix for property keys.
+     */
+    private static final String PROPERTY_PREFIX = "org.vx68k.bitbucket.";
+
+    /**
+     * Property key for the OAuth client identifier.
+     */
+    public static final String BITBUCKET_CLIENT_ID =
+        PROPERTY_PREFIX + "clientId";
+
+    /**
+     * Property key for the OAuth client secret.
+     */
+    public static final String BITBUCKET_CLIENT_SECRET =
+        PROPERTY_PREFIX + "clientSecret";
+
+    /**
      * {@link BitbucketClient} object.
      */
     private final BitbucketClient bitbucketClient;
@@ -104,12 +121,13 @@ public class UserContext implements BitbucketUser, Serializable
     /**
      * OAuth client identifier for the Bitbucket API.
      */
-    private String bitbucketClientId = null;
+    private String bitbucketClientId = System.getProperty(BITBUCKET_CLIENT_ID);
 
     /**
      * OAuth client secret for the Bitbucket API.
      */
-    private String bitbucketClientSecret = null;
+    private String bitbucketClientSecret = System.getProperty(
+        BITBUCKET_CLIENT_SECRET);
 
     /**
      * {@link BitbucketUser} object for the current user, or {@code null} if
