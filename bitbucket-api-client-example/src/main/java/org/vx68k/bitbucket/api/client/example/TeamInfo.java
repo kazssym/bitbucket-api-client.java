@@ -46,7 +46,7 @@ public class TeamInfo implements Serializable
     /**
      * {@link UserContext} object given to the constructor.
      */
-    private final UserContext currentUser;
+    private final UserContext userContext;
 
     /**
      * User name.
@@ -70,7 +70,7 @@ public class TeamInfo implements Serializable
     @Inject
     public TeamInfo(final UserContext context)
     {
-        currentUser = context;
+        userContext = context;
     }
 
     /**
@@ -78,9 +78,9 @@ public class TeamInfo implements Serializable
      *
      * @return the {@link UserContext} object given to the constructor
      */
-    public UserContext getCurrentUser()
+    public UserContext getUserContext()
     {
-        return currentUser;
+        return userContext;
     }
 
     /**
@@ -104,16 +104,6 @@ public class TeamInfo implements Serializable
     }
 
     /**
-     * Returns {@code true} if a user was found.
-     *
-     * @return {@code true} if a user was found
-     */
-    public boolean isFound()
-    {
-        return foundTeam != null;
-    }
-
-    /**
      * Returns the {@link BitbucketUser} object of the found user.
      *
      * @return the {@link BitbucketUser} object of the found user
@@ -121,6 +111,16 @@ public class TeamInfo implements Serializable
     public BitbucketUser getFoundTeam()
     {
         return foundTeam;
+    }
+
+    /**
+     * Returns {@code true} if a user was found.
+     *
+     * @return {@code true} if a user was found
+     */
+    public boolean isFound()
+    {
+        return foundTeam != null;
     }
 
     /**
@@ -133,7 +133,7 @@ public class TeamInfo implements Serializable
         FacesContext facesContext = FacesContext.getCurrentInstance();
         UIComponent component = UIComponent.getCurrentComponent(facesContext);
         if (!name.isEmpty()) {
-            foundTeam = currentUser.getBitbucketClient().getTeam(name);
+            foundTeam = userContext.getBitbucketClient().getTeam(name);
             if (!isFound()) {
                 facesContext.addMessage(component.getClientId(facesContext),
                     new FacesMessage("Team not found."));

@@ -46,7 +46,7 @@ public class UserInfo implements Serializable
     /**
      * {@link UserContext} object given to the constructor.
      */
-    private final UserContext currentUser;
+    private final UserContext userContext;
 
     /**
      * User name.
@@ -70,7 +70,7 @@ public class UserInfo implements Serializable
     @Inject
     public UserInfo(final UserContext context)
     {
-        currentUser = context;
+        userContext = context;
     }
 
     /**
@@ -78,9 +78,9 @@ public class UserInfo implements Serializable
      *
      * @return the {@link UserContext} object given to the constructor
      */
-    public UserContext getCurrentUser()
+    public UserContext getUserContext()
     {
-        return currentUser;
+        return userContext;
     }
 
     /**
@@ -104,16 +104,6 @@ public class UserInfo implements Serializable
     }
 
     /**
-     * Returns {@code true} if a user was found.
-     *
-     * @return {@code true} if a user was found
-     */
-    public boolean isFound()
-    {
-        return foundUser != null;
-    }
-
-    /**
      * Returns the {@link BitbucketUser} object of the found user.
      *
      * @return the {@link BitbucketUser} object of the found user
@@ -121,6 +111,16 @@ public class UserInfo implements Serializable
     public BitbucketUser getFoundUser()
     {
         return foundUser;
+    }
+
+    /**
+     * Returns {@code true} if a user was found.
+     *
+     * @return {@code true} if a user was found
+     */
+    public boolean isFound()
+    {
+        return foundUser != null;
     }
 
     /**
@@ -133,7 +133,7 @@ public class UserInfo implements Serializable
         FacesContext facesContext = FacesContext.getCurrentInstance();
         UIComponent component = UIComponent.getCurrentComponent(facesContext);
         if (!name.isEmpty()) {
-            foundUser = currentUser.getBitbucketClient().getUser(name);
+            foundUser = userContext.getBitbucketClient().getUser(name);
             if (!isFound()) {
                 facesContext.addMessage(component.getClientId(facesContext),
                     new FacesMessage("User not found."));
