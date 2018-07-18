@@ -24,10 +24,12 @@ Bitbucket API Client Example
     jsf:id="header">
 <span class="pure-menu-heading app-hbox-grow">
 Bitbucket API Client Example</span>
+
 <ul class="pure-menu-list">
+
 <ui:fragment rendered="#{not userContext.loggedIn}">
 <li class="pure-menu-item">
-<f:ajax render="@form">
+<f:ajax render="@form" onerror="doAjaxError">
 <a class="pure-menu-link" jsf:id="login" jsf:action="#{userContext.login}">
 #{messages.login}</a>
 </f:ajax>
