@@ -60,7 +60,8 @@
 </tr>
 <tr>
 <td>website</td>
-<td><a href="#{teamInfo.foundTeam.website}" rel="external">
+<td><a jsf:value="#{teamInfo.foundTeam.website}" jsf:rel="external"
+    jsf:rendered="#{not empty teamInfo.foundTeam.website}">
 #{teamInfo.foundTeam.website}</a></td>
 </tr>
 <tr>
