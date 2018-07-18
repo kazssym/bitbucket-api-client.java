@@ -185,6 +185,16 @@ public class UserContext implements BitbucketUser, Serializable
     }
 
     /**
+     * Returns the logged-in user.
+     *
+     * @return the logged-in user
+     */
+    public BitbucketUser getLoggedInUser()
+    {
+        return loggedInUser;
+    }
+
+    /**
      * Returns {@code true} if the current user is logged in.
      *
      * @return {@code true} if logged in, or {@code false} otherwise
