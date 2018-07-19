@@ -20,6 +20,7 @@
 
 package org.vx68k.bitbucket.api.client;
 
+import java.util.Objects;
 import javax.json.JsonObject;
 
 /**
@@ -44,14 +45,15 @@ public class BitbucketClientObject
      * Constructs this object with a JSON object.
      *
      * @param object JSON object
-     * @exception IllegalArgumentException if the JSON object is {@code null}
+     * @exception IllegalArgumentException if {@code object} is {@code null}
      */
-    public BitbucketClientObject(final JsonObject object)
+        public BitbucketClientObject(final JsonObject object)
     {
-        if (object == null) {
+        jsonObject = object;
+
+        if (jsonObject == null) {
             throw new IllegalArgumentException("JSON object is null");
         }
-        jsonObject = object;
     }
 
     /**
@@ -81,10 +83,9 @@ public class BitbucketClientObject
     @Override
     public int hashCode()
     {
-        int code = getClass().hashCode();
-        assert jsonObject != null;
-        code ^= jsonObject.hashCode();
-        return code;
+        int value = getClass().hashCode();
+        value ^= Objects.hashCode(jsonObject);
+        return value;
     }
 
     /**
@@ -99,8 +100,7 @@ public class BitbucketClientObject
             }
 
             BitbucketClientObject other = (BitbucketClientObject) object;
-            assert jsonObject != null;
-            if (!jsonObject.equals(other.jsonObject)) {
+            if (!Objects.equals(jsonObject, other.jsonObject)) {
                 return false;
             }
         }
