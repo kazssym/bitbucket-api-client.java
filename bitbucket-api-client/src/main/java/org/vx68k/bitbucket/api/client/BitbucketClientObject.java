@@ -42,18 +42,48 @@ public class BitbucketClientObject
     private final JsonObject jsonObject;
 
     /**
+     * {@link BitbucketClient} object.
+     */
+    private final BitbucketClient bitbucketClient;
+
+    /**
      * Constructs this object with a JSON object.
      *
      * @param object JSON object
      * @exception IllegalArgumentException if {@code object} is {@code null}
      */
-        public BitbucketClientObject(final JsonObject object)
+    public BitbucketClientObject(final JsonObject object)
+    {
+        this(object, null);
+    }
+
+    /**
+     * Constructs this object with a JSON object and a {@link BitbucketClient}
+     * object.
+     *
+     * @param object JSON object
+     * @param client {@link BitbucketClient} object
+     * @exception IllegalArgumentException if {@code object} is {@code null}
+     */
+    public BitbucketClientObject(final JsonObject object,
+        final BitbucketClient client)
     {
         jsonObject = object;
+        bitbucketClient = client;
 
         if (jsonObject == null) {
             throw new IllegalArgumentException("JSON object is null");
         }
+    }
+
+    /**
+     * Returns the {@link BitbucketClient} object.
+     *
+     * @return the {@link BitbucketClient} object
+     */
+    public final BitbucketClient getBitbucketClient()
+    {
+        return bitbucketClient;
     }
 
     /**
@@ -85,6 +115,7 @@ public class BitbucketClientObject
     {
         int value = getClass().hashCode();
         value ^= Objects.hashCode(jsonObject);
+        value ^= Objects.hashCode(bitbucketClient);
         return value;
     }
 
@@ -101,6 +132,9 @@ public class BitbucketClientObject
 
             BitbucketClientObject other = (BitbucketClientObject) object;
             if (!Objects.equals(jsonObject, other.jsonObject)) {
+                return false;
+            }
+            if (!Objects.equals(bitbucketClient, other.bitbucketClient)) {
                 return false;
             }
         }
