@@ -83,12 +83,14 @@ public class BitbucketClientUser extends BitbucketClientObject
      * Constructs this user with a JSON user object.
      *
      * @param object JSON user object
+     * @param client {@link BitbucketClient} object
      * @exception IllegalArgumentException if the given JSON object was {@code
      * null} or did not represent a user
      */
-    public BitbucketClientUser(final JsonObject object)
+    public BitbucketClientUser(final JsonObject object,
+        final BitbucketClient client)
     {
-        super(object);
+        super(object, client);
 
         String type = getType();
         if (type == null

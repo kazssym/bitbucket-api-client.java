@@ -101,7 +101,7 @@ public class BitbucketClient implements Serializable
     {
         BitbucketUser value = null;
         if (object != null) {
-            value = new BitbucketClientUser(object);
+            value = new BitbucketClientUser(object, getDefault());
         }
         return value;
     }
