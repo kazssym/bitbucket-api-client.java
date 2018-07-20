@@ -48,6 +48,8 @@ import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import org.vx68k.bitbucket.webhook.BitbucketEvent;
 
 /**
@@ -57,6 +59,7 @@ import org.vx68k.bitbucket.webhook.BitbucketEvent;
  * @since 5.0
  */
 @Path("events")
+@Produces({MediaType.APPLICATION_JSON})
 @Named
 @ApplicationScoped
 public class EventRecorder implements Serializable
