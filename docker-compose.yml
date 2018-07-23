@@ -19,6 +19,7 @@ services:
       JAVA_OPTS:
       GC_LOG:
       DEBUG:
+      DEBUG_PORT: 0.0.0.0:8787
     volumes:
       - configuration:/opt/jboss/wildfly/standalone/configuration:rw
       - ./bitbucket-api-client-example/target/bitbucket-api-client-example-${VERSION:-5.0-SNAPSHOT}.war:/opt/jboss/wildfly/standalone/deployments/ROOT.war:ro
