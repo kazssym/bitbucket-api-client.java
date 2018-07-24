@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/templates/default.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:jsf="http://xmlns.jcp.org/jsf"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<ui:define name="metadata">
+<f:metadata>
+<f:viewParam name="owner" value="#{repositoryInfo.ownerName}" />
+<f:viewParam name="name" value="#{repositoryInfo.name}" />
+<f:viewAction action="#{repositoryInfo.lookUp}" />
+</f:metadata>
+</ui:define>
+
+<ui:define name="main">
+<main>
+<h1>Repository information</h1>
+<form class="pure-form pure-form-stacked" jsf:id="repository">
+
+<label jsf:for="owner">Owner name:</label>
+<f:ajax render="@this name-message" onerror="doAjaxError">
+<input type="text" jsf:id="owner" jsf:value="${repositoryInfo.ownerName}" />
+</f:ajax>
+<h:message id="name-message" for="owner"
+    fatalClass="pure-form-message app-message-fatal"
+    errorClass="pure-form-message app-message-error"
+    warnClass="pure-form-message app-message-warn"
+    infoClass="pure-form-message app-message-info" />
+
+<label jsf:for="name">Repository name:</label>
+<f:ajax render="@this name-message" onerror="doAjaxError">
+<input type="text" jsf:id="name" jsf:value="${repositoryInfo.name}" />
+</f:ajax>
+<h:message id="name-message" for="name"
+    fatalClass="pure-form-message app-message-fatal"
+    errorClass="pure-form-message app-message-error"
+    warnClass="pure-form-message app-message-warn"
+    infoClass="pure-form-message app-message-info" />
+
+<span>
+<f:ajax execute="@this owner name" render="@form" onerror="doAjaxError">
+<input class="pure-button pure-button-primary" type="submit"
+    jsf:id="submit" jsf:value="Look up" jsf:action="#{repositoryInfo.lookUp}" />
+</f:ajax>
+</span>
+
+<hr />
+
+<h:message for="submit"
+    fatalClass="app-message-fatal" errorClass="app-message-error"
+    warnClass="app-message-warn" infoClass="app-message-info" />
+
+<ui:fragment rendered="#{repositoryInfo.found}">
+<h2>Properties</h2>
+<table class="pure-table">
+<thead>
+<tr>
+<th>Name</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>owner</td>
+<td>#{repositoryInfo.foundRepository.owner}</td>
+</tr>
+<tr>
+<td>name</td>
+<td>#{repositoryInfo.foundRepository.name}</td>
+</tr>
+<tr>
+<td>UUID</td>
+<td>{#{repositoryInfo.foundRepository.UUID}}</td>
+</tr>
+<tr>
+<td>fullName</td>
+<td>#{repositoryInfo.foundRepository.fullName}</td>
+</tr>
+<tr>
+<td>private</td>
+<td>#{repositoryInfo.foundRepository.private}</td>
+</tr>
+<tr>
+<td>created</td>
+<td>#{repositoryInfo.foundRepository.created}</td>
+</tr>
+</tbody>
+</table>
+</ui:fragment>
+</form>
+</main>
+</ui:define>
+</ui:composition>
