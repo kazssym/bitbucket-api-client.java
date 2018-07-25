@@ -90,18 +90,34 @@ public class BitbucketClient implements Serializable
     }
 
     /**
-     * Creates a {@link BitbucketUser} object from a JSON object that
-     * represents a user or team.
+     * Creates a {@link BitbucketUser} object from a JSON object of a user or a
+     * team associating the default {@link BitbucketClient} object.
      *
      * @param object JSON object, or {@code null}
-     * @return new {@link BitbucketUser} object, or {@code null} if the given
-     * JSON object is {@code null}
+     * @return new {@link BitbucketUser} object unless the value of {@code
+     * object} is {@code null}; {@code null} otherwise
      */
     public static BitbucketUser createUser(final JsonObject object)
     {
+        return createUser(object, getDefault());
+    }
+
+    /**
+     * Creates a {@link BitbucketUser} object from a JSON object of a user or a
+     * team.
+     *
+     * @param object JSON object, or {@code null}
+     * @param client {@link BitbucketClient} object to associate, or {@code
+     * null}
+     * @return new {@link BitbucketUser} object unless the value of {@code
+     * object} is {@code null}; {@code null} otherwise
+     */
+    public static BitbucketUser createUser(final JsonObject object,
+        final BitbucketClient client)
+    {
         BitbucketUser value = null;
         if (object != null) {
-            value = new BitbucketClientUser(object, getDefault());
+            value = new BitbucketClientUser(object, client);
         }
         return value;
     }
