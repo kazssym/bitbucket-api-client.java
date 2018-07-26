@@ -49,7 +49,7 @@ public class TeamInfo implements Serializable
     private final UserContext userContext;
 
     /**
-     * User name.
+     * Team name.
      */
     @NotNull
     @Pattern(regexp = "[^/]*",
@@ -57,8 +57,8 @@ public class TeamInfo implements Serializable
     private String name = "";
 
     /**
-     * {@link BitbucketUser} object of the found user, or {@code null} if no
-     * user was found.
+     * {@link BitbucketUser} object of the found team, or {@code null} if no
+     * team was found.
      */
     private transient BitbucketUser foundTeam = null;
 
@@ -84,9 +84,9 @@ public class TeamInfo implements Serializable
     }
 
     /**
-     * Returns the user name.
+     * Returns the team name.
      *
-     * @return the user name
+     * @return the team name
      */
     public String getName()
     {
@@ -94,7 +94,7 @@ public class TeamInfo implements Serializable
     }
 
     /**
-     * Sets the user name to a {@link String} value.
+     * Sets the team name to a {@link String} value.
      *
      * @param value {@link String} value
      */
@@ -104,9 +104,9 @@ public class TeamInfo implements Serializable
     }
 
     /**
-     * Returns the {@link BitbucketUser} object of the found user.
+     * Returns the {@link BitbucketUser} object of the found team.
      *
-     * @return the {@link BitbucketUser} object of the found user
+     * @return the {@link BitbucketUser} object of the found team
      */
     public BitbucketUser getFoundTeam()
     {
@@ -114,9 +114,9 @@ public class TeamInfo implements Serializable
     }
 
     /**
-     * Returns {@code true} if a user was found.
+     * Returns {@code true} if a team was found.
      *
-     * @return {@code true} if a user was found
+     * @return {@code true} if a team was found
      */
     public boolean isFound()
     {
@@ -124,7 +124,7 @@ public class TeamInfo implements Serializable
     }
 
     /**
-     * Performs an action to look up the user name.
+     * Performs an action to look up the team name.
      *
      * @return {@code null}
      */
