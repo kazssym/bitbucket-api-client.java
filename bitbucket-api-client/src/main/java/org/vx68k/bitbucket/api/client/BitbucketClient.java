@@ -187,7 +187,7 @@ public class BitbucketClient implements Serializable
             WebTarget path = base.path("users/{name}");
             JsonObject object = path.resolveTemplate("name", name)
                 .request(MediaType.APPLICATION_JSON).get(JsonObject.class);
-            return createUser(object);
+            return createUser(object, this);
         }
         catch (NotFoundException exception) {
             return null;
@@ -211,7 +211,7 @@ public class BitbucketClient implements Serializable
             WebTarget path = base.path("teams/{name}");
             JsonObject object = path.resolveTemplate("name", name)
                 .request(MediaType.APPLICATION_JSON).get(JsonObject.class);
-            return createUser(object);
+            return createUser(object, this);
         }
         catch (NotFoundException exception) {
             return null;
