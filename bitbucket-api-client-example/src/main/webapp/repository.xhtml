@@ -23,7 +23,7 @@
 <f:ajax render="@this name-message" onerror="doAjaxError">
 <input type="text" jsf:id="owner" jsf:value="${repositoryInfo.ownerName}" />
 </f:ajax>
-<h:message id="name-message" for="owner"
+<h:message id="owner-message" for="owner"
     fatalClass="pure-form-message app-message-fatal"
     errorClass="pure-form-message app-message-error"
     warnClass="pure-form-message app-message-warn"
@@ -63,28 +63,28 @@
 </thead>
 <tbody>
 <tr>
-<td>owner</td>
-<td>#{repositoryInfo.foundRepository.owner}</td>
+<td>owner.name</td>
+<td>#{repositoryInfo.repository.owner.name}</td>
 </tr>
 <tr>
 <td>name</td>
-<td>#{repositoryInfo.foundRepository.name}</td>
+<td>#{repositoryInfo.repository.name}</td>
 </tr>
 <tr>
 <td>UUID</td>
-<td>{#{repositoryInfo.foundRepository.UUID}}</td>
+<td>{#{repositoryInfo.repository.UUID}}</td>
 </tr>
 <tr>
 <td>fullName</td>
-<td>#{repositoryInfo.foundRepository.fullName}</td>
+<td>#{repositoryInfo.repository.fullName}</td>
 </tr>
 <tr>
 <td>private</td>
-<td>#{repositoryInfo.foundRepository.private}</td>
+<td>#{repositoryInfo.repository.private}</td>
 </tr>
 <tr>
 <td>created</td>
-<td>#{repositoryInfo.foundRepository.created}</td>
+<td>#{repositoryInfo.repository.created}</td>
 </tr>
 </tbody>
 </table>
