@@ -20,9 +20,11 @@
 
 package org.vx68k.bitbucket.api.client;
 
+import java.util.Iterator;
 import java.util.Map;
 import java.util.UUID;
 import javax.json.JsonObject;
+import org.vx68k.bitbucket.api.BitbucketIssue;
 import org.vx68k.bitbucket.api.BitbucketRepository;
 import org.vx68k.bitbucket.api.BitbucketUser;
 
@@ -163,5 +165,15 @@ public class BitbucketClientRepository extends BitbucketClientObject
         JsonObject object = getJsonObject();
         return BitbucketClientUtilities.parseLinks(
             object.getJsonObject(LINKS));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Iterator<BitbucketIssue> getIssues()
+    {
+        // @todo Implemtnt this method.
+        return null;
     }
 }

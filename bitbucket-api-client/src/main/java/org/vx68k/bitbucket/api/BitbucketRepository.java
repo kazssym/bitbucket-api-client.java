@@ -29,7 +29,7 @@ import java.util.UUID;
  * @author Kaz Nishimura
  * @since 5.0
  */
-public interface BitbucketRepository
+public interface BitbucketRepository extends BitbucketIssueTracker
 {
     /**
      * Return the owner of this repository.
