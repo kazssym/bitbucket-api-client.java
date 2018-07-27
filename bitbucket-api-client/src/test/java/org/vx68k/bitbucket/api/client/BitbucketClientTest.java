@@ -21,10 +21,12 @@
 package org.vx68k.bitbucket.api.client;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
+import org.vx68k.bitbucket.api.BitbucketRepository;
 import org.vx68k.bitbucket.api.BitbucketUser;
 
 /**
@@ -34,6 +36,21 @@ import org.vx68k.bitbucket.api.BitbucketUser;
  */
 public class BitbucketClientTest
 {
+    /**
+     * User name for tests.
+     */
+    private static final String USER_NAME = "kazssym";
+
+    /**
+     * Team name for tests.
+     */
+    private static final String TEAM_NAME = "vx68k";
+
+    /**
+     * Repository name for tests.
+     */
+    private static final String REPOSITORY_NAME = "bitbucket-api-client-java";
+
     /**
      * Tests the default constructor.
      */
@@ -97,5 +114,30 @@ public class BitbucketClientTest
         BitbucketClient client = new BitbucketClient();
         BitbucketUser team = client.getTeam("kazssym");
         assertNull(team);
+    }
+
+    /**
+     * Tests {@link BitbucketClient#getRepository getRepository}.
+     */
+    @Test
+    public void testGetRepository()
+    {
+        BitbucketClient client = new BitbucketClient();
+
+        // Case to be found.
+        BitbucketRepository repository =
+            client.getRepository(TEAM_NAME, REPOSITORY_NAME);
+        System.out.println("Got " + repository);
+        assertNotNull(repository.getOwner());
+        assertEquals(TEAM_NAME, repository.getOwner().getName());
+        assertEquals(REPOSITORY_NAME, repository.getName());
+        assertNotNull(repository.getUUID());
+        assertEquals(
+            TEAM_NAME + "/" + REPOSITORY_NAME, repository.getFullName());
+        assertEquals("hg", repository.getSCM());
+        assertFalse(repository.isPrivate());
+
+        // Case not to be found.
+        assertNull(client.getRepository(TEAM_NAME, "non-existent"));
     }
 }

@@ -222,14 +222,29 @@ public class BitbucketClient implements Serializable
     }
 
     /**
-     * Returns the issue tracker for a repository.
+     * Returns a {@link BitbucketRepository} object for a repository.
      *
-     * @param name repository name
-     * @return the issue tracker
+     * @param ownerName owner name of the repository
+     * @param name name of the repository
+     * @return {@link BitbucketRepository} object
      */
-    public static BitbucketIssueTracker getIssueTracker(final String name)
+    public BitbucketRepository getRepository(
+        final String ownerName, final String name)
     {
-        // @todo Implement this method.
-        return null;
+        Client client = clientBuilder.build();
+        try {
+            WebTarget base = client.target(API_BASE);
+            JsonObject object = base.path("repositories/{owner}/{name}")
+                .resolveTemplate("owner", ownerName)
+                .resolveTemplate("name", name)
+                .request(MediaType.APPLICATION_JSON).get(JsonObject.class);
+            return createRepository(object); // @todo Pass {@code this} here.
+        }
+        catch (NotFoundException exception) {
+            return null;
+        }
+        finally {
+            client.close();
+        }
     }
 }
