@@ -20,6 +20,7 @@
 
 package org.vx68k.bitbucket.api;
 
+import java.time.Instant;
 import java.util.Map;
 import java.util.UUID;
 
@@ -67,11 +68,32 @@ public interface BitbucketRepository extends BitbucketIssueTracker
     String getSCM();
 
     /**
+     * Returns the main branch of this repository.
+     *
+     * @return the main branch
+     */
+    BitbucketBranch getMainBranch();
+
+    /**
      * Returns {@code true} if this repository is private.
      *
      * @return {@code true} if private
      */
     boolean isPrivate();
+
+    /**
+     * Returns the creation time of this repository.
+     *
+     * @return the creation time
+     */
+    Instant getCreated();
+
+    /**
+     * Returns the last update time of this repository.
+     *
+     * @return the last update time
+     */
+    Instant getUpdated();
 
     /**
      * Returns the links of this repository.
