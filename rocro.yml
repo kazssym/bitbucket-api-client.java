@@ -8,6 +8,9 @@
 # See <https://inspecode.rocro.com/help/configuration.html> for details.
 ---
 inspecode:
+  experimental:
+    ignore:
+      - bitbucket-api-oauth2
   misspell: {}
   checkstyle:
     config-file: etc/checkstyle.xml
