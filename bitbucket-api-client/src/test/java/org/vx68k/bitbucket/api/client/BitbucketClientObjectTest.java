@@ -25,6 +25,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import javax.json.Json;
+import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import org.junit.Test;
 
@@ -42,6 +43,26 @@ public final class BitbucketClientObjectTest
     public void testNull()
     {
         new BitbucketClientObject(null);
+    }
+
+    /**
+     * Tests {@link BitbucketClientObject#getBitbucketClient}.
+     */
+    @Test
+    public void testGetBitbucketClient()
+    {
+        JsonObject jsonObject = Json.createObjectBuilder().build();
+        BitbucketClient bitbucketClient = BitbucketClient.getDefault();
+
+        BitbucketClientObject object = new BitbucketClientObject(jsonObject);
+        assertNull(object.getBitbucketClient());
+        object.setBitbucketClient(bitbucketClient);
+        assertEquals(bitbucketClient, object.getBitbucketClient());
+
+        object = new BitbucketClientObject(jsonObject, bitbucketClient);
+        assertEquals(bitbucketClient, object.getBitbucketClient());
+        object.setBitbucketClient(null);
+        assertNull(object.getBitbucketClient());
     }
 
     /**

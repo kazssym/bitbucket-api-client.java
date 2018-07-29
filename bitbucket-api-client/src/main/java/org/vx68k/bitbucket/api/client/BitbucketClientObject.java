@@ -44,7 +44,7 @@ public class BitbucketClientObject
     /**
      * {@link BitbucketClient} object.
      */
-    private final BitbucketClient bitbucketClient;
+    private BitbucketClient bitbucketClient;
 
     /**
      * Constructs this object with a JSON object.
@@ -77,6 +77,16 @@ public class BitbucketClientObject
     }
 
     /**
+     * Returns the JSON object given to the constructor.
+     *
+     * @return the JSON object
+     */
+    public final JsonObject getJsonObject()
+    {
+        return jsonObject;
+    }
+
+    /**
      * Returns the {@link BitbucketClient} object.
      *
      * @return the {@link BitbucketClient} object
@@ -87,13 +97,13 @@ public class BitbucketClientObject
     }
 
     /**
-     * Returns the JSON object given to the constructor.
+     * Associates a Bitbucket client.
      *
-     * @return the JSON object
+     * @param value Bitbucket client to associate, or {@code null}
      */
-    public final JsonObject getJsonObject()
+    public final void setBitbucketClient(final BitbucketClient value)
     {
-        return jsonObject;
+        bitbucketClient = value;
     }
 
     /**
