@@ -17,6 +17,7 @@
 <main>
 <h1>Team information</h1>
 <form class="pure-form pure-form-stacked" jsf:id="team">
+
 <label jsf:for="name">Team name:</label>
 <f:ajax render="@this name-message" onerror="doAjaxError">
 <input type="text" jsf:id="name" jsf:value="#{teamInfo.name}" />
@@ -26,16 +27,20 @@
     errorClass="pure-form-message app-message-error"
     warnClass="pure-form-message app-message-warn"
     infoClass="pure-form-message app-message-info" />
+
 <span>
 <f:ajax execute="@this name" render="@form" onerror="doAjaxError">
 <input class="pure-button pure-button-primary" type="submit"
     jsf:id="submit" jsf:value="Look up" jsf:action="#{teamInfo.lookUp}" />
 </f:ajax>
 </span>
+
 <hr />
+
 <h:message for="submit"
     fatalClass="app-message-fatal" errorClass="app-message-error"
     warnClass="app-message-warn" infoClass="app-message-info" />
+
 <ui:fragment rendered="#{teamInfo.found}">
 <h2>Properties</h2>
 <table class="pure-table">
@@ -48,33 +53,33 @@
 <tbody>
 <tr>
 <td>name</td>
-<td>#{teamInfo.foundTeam.name}</td>
+<td>#{teamInfo.team.name}</td>
 </tr>
 <tr>
 <td>UUID</td>
-<td>{#{teamInfo.foundTeam.UUID}}</td>
+<td>{#{teamInfo.team.UUID}}</td>
 </tr>
 <tr>
 <td>displayName</td>
-<td>#{teamInfo.foundTeam.displayName}</td>
+<td>#{teamInfo.team.displayName}</td>
 </tr>
 <tr>
 <td>website</td>
-<td><a jsf:value="#{teamInfo.foundTeam.website}" jsf:rel="external"
-    jsf:rendered="#{not empty teamInfo.foundTeam.website}">
-#{teamInfo.foundTeam.website}</a></td>
+<td><a jsf:value="#{teamInfo.team.website}" jsf:rel="external"
+    jsf:rendered="#{not empty teamInfo.team.website}">
+#{teamInfo.team.website}</a></td>
 </tr>
 <tr>
 <td>location</td>
-<td>#{teamInfo.foundTeam.location}</td>
+<td>#{teamInfo.team.location}</td>
 </tr>
 <tr>
 <td>private</td>
-<td>#{teamInfo.foundTeam.private}</td>
+<td>#{teamInfo.team.private}</td>
 </tr>
 <tr>
 <td>created</td>
-<td>#{teamInfo.foundTeam.created}</td>
+<td>#{teamInfo.team.created}</td>
 </tr>
 </tbody>
 </table>

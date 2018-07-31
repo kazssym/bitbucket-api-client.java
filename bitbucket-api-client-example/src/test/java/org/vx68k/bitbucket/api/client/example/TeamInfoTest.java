@@ -99,14 +99,14 @@ public final class TeamInfoTest
         teamInfo.setName("");
         outcome = teamInfo.lookUp();
         assertNull(outcome);
-        assertNull(teamInfo.getFoundTeam());
+        assertNull(teamInfo.getTeam());
         assertFalse(teamInfo.isFound());
 
         teamInfo.setName("vx68k");
         outcome = teamInfo.lookUp();
         assertNull(outcome);
-        assertNotNull(teamInfo.getFoundTeam());
+        assertNotNull(teamInfo.getTeam());
         assertTrue(teamInfo.isFound());
-        assertEquals("kazssym", teamInfo.getFoundTeam().getName());
+        assertEquals("kazssym", teamInfo.getTeam().getName());
     }
 }

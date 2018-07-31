@@ -99,14 +99,14 @@ public final class UserInfoTest
         userInfo.setName("");
         outcome = userInfo.lookUp();
         assertNull(outcome);
-        assertNull(userInfo.getFoundUser());
+        assertNull(userInfo.getUser());
         assertFalse(userInfo.isFound());
 
         userInfo.setName("kazssym");
         outcome = userInfo.lookUp();
         assertNull(outcome);
-        assertNotNull(userInfo.getFoundUser());
+        assertNotNull(userInfo.getUser());
         assertTrue(userInfo.isFound());
-        assertEquals("kazssym", userInfo.getFoundUser().getName());
+        assertEquals("kazssym", userInfo.getUser().getName());
     }
 }

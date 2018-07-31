@@ -30,9 +30,10 @@ import javax.inject.Named;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import org.vx68k.bitbucket.api.BitbucketUser;
+import org.vx68k.bitbucket.api.client.BitbucketClient;
 
 /**
- * Managed bean for team name lookup.
+ * Request-scoped bean to look up a team name on Bitbucket Cloud.
  *
  * @author Kaz Nishimura
  * @since 5.0
@@ -44,12 +45,12 @@ public class TeamInfo implements Serializable
     private static final long serialVersionUID = 1L;
 
     /**
-     * {@link UserContext} object given to the constructor.
+     * User context given to the constructor.
      */
     private final UserContext userContext;
 
     /**
-     * Team name.
+     * Team name to look up.
      */
     @NotNull
     @Pattern(regexp = "[^/]*",
@@ -57,15 +58,14 @@ public class TeamInfo implements Serializable
     private String name = "";
 
     /**
-     * {@link BitbucketUser} object of the found team, or {@code null} if no
-     * team was found.
+     * Team found by the last lookup, or {@code null} if no team was found.
      */
-    private transient BitbucketUser foundTeam = null;
+    private transient BitbucketUser team = null;
 
     /**
-     * Constructs this object with a {@link UserContext} object.
+     * Constructs this object.
      *
-     * @param context {@link UserContext} object
+     * @param context user context
      */
     @Inject
     public TeamInfo(final UserContext context)
@@ -74,9 +74,9 @@ public class TeamInfo implements Serializable
     }
 
     /**
-     * Returns the {@link UserContext} object given to the constructor.
+     * Returns the user context given to the constructor.
      *
-     * @return the {@link UserContext} object given to the constructor
+     * @return the user context
      */
     public UserContext getUserContext()
     {
@@ -84,7 +84,17 @@ public class TeamInfo implements Serializable
     }
 
     /**
-     * Returns the team name.
+     * Returns the Bitbucket client of the user context.
+     *
+     * @return the Bitbucket client
+     */
+    protected BitbucketClient getBitbucketClient()
+    {
+        return userContext.getBitbucketClient();
+    }
+
+    /**
+     * Returns the team name to look up.
      *
      * @return the team name
      */
@@ -94,9 +104,9 @@ public class TeamInfo implements Serializable
     }
 
     /**
-     * Sets the team name to a {@link String} value.
+     * Sets the team name to look up.
      *
-     * @param value {@link String} value
+     * @param value new value of the team name
      */
     public void setName(final String value)
     {
@@ -104,43 +114,46 @@ public class TeamInfo implements Serializable
     }
 
     /**
-     * Returns the {@link BitbucketUser} object of the found team.
+     * Returns the team found by the last lookup.
      *
-     * @return the {@link BitbucketUser} object of the found team
+     * @return the team if one was found; {@code null} otherwise
+     * @see #isFound
      */
-    public BitbucketUser getFoundTeam()
+    public BitbucketUser getTeam()
     {
-        return foundTeam;
+        return team;
     }
 
     /**
-     * Returns {@code true} if a team was found.
+     * Returns {@code true} if a team was found by the last lookup.
      *
-     * @return {@code true} if a team was found
+     * @return {@code true} if found; {@code false} otherwise
      */
     public boolean isFound()
     {
-        return foundTeam != null;
+        return team != null;
     }
 
     /**
-     * Performs an action to look up the team name.
+     * Performs an action to look up.
+     * <p>This method always returns {@code null}.</p>
      *
      * @return {@code null}
      */
     public Object lookUp()
     {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        UIComponent component = UIComponent.getCurrentComponent(facesContext);
         if (!name.isEmpty()) {
-            foundTeam = userContext.getBitbucketClient().getTeam(name);
+            BitbucketClient bitbucketClient = getBitbucketClient();
+            team = bitbucketClient.getTeam(name);
             if (!isFound()) {
-                facesContext.addMessage(component.getClientId(facesContext),
+                FacesContext facesContext = FacesContext.getCurrentInstance();
+                UIComponent c = UIComponent.getCurrentComponent(facesContext);
+                facesContext.addMessage(c.getClientId(facesContext),
                     new FacesMessage("Team not found."));
             }
         }
         else {
-            foundTeam = null;
+            team = null;
         }
         return null;
     }

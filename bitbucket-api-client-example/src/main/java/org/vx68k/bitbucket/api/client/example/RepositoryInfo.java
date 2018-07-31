@@ -33,7 +33,7 @@ import org.vx68k.bitbucket.api.BitbucketRepository;
 import org.vx68k.bitbucket.api.client.BitbucketClient;
 
 /**
- * Managed bean for repository name lookup.
+ * Request-scoped bean to look up a repository name on Bitbucket Cloud.
  *
  * @author Kaz Nishimura
  * @since 5.0
@@ -45,12 +45,12 @@ public class RepositoryInfo implements Serializable
     private static final long serialVersionUID = 1L;
 
     /**
-     * {@link UserContext} object given to the constructor.
+     * User context given to the constructor.
      */
     private final UserContext userContext;
 
     /**
-     * Owner name of the repository to look up.
+     * Owner name to look up.
      */
     @NotNull
     @Pattern(regexp = "[^/]*",
@@ -58,7 +58,7 @@ public class RepositoryInfo implements Serializable
     private String ownerName = "";
 
     /**
-     * Name of the repository to look up.
+     * Repository name to look up.
      */
     @NotNull
     @Pattern(regexp = "[^/]*",
@@ -66,14 +66,15 @@ public class RepositoryInfo implements Serializable
     private String name = "";
 
     /**
-     * Found repository, or {@code null} if not found.
+     * Repository found by the last lookup, or {@code null} if no repository
+     * was found.
      */
     private transient BitbucketRepository repository = null;
 
     /**
-     * Constructs this object with a {@link UserContext} object.
+     * Constructs this object.
      *
-     * @param context {@link UserContext} object
+     * @param context user context
      */
     @Inject
     public RepositoryInfo(final UserContext context)
@@ -82,9 +83,9 @@ public class RepositoryInfo implements Serializable
     }
 
     /**
-     * Returns the {@link UserContext} object given to the constructor.
+     * Returns the user context given to the constructor.
      *
-     * @return the {@link UserContext} object given to the constructor
+     * @return the user context
      */
     protected UserContext getUserContext()
     {
@@ -92,9 +93,9 @@ public class RepositoryInfo implements Serializable
     }
 
     /**
-     * Returns the {@link BitbucketClient} object from the user context.
+     * Returns the Bitbucket client of the user context.
      *
-     * @return {@link BitbucketClient} object
+     * @return the Bitbucket client
      */
     protected BitbucketClient getBitbucketClient()
     {
@@ -102,9 +103,9 @@ public class RepositoryInfo implements Serializable
     }
 
     /**
-     * Returns the owner name of the repository to lookup.
+     * Returns the owner name to look up.
      *
-     * @return the owner name of the repository
+     * @return the owner name
      */
     public String getOwnerName()
     {
@@ -112,9 +113,9 @@ public class RepositoryInfo implements Serializable
     }
 
     /**
-     * Sets the owner name of the repository to lookup.
+     * Sets the owner name to look up.
      *
-     * @param value {@link String} value
+     * @param value new value of the owner name
      */
     public void setOwnerName(final String value)
     {
@@ -122,7 +123,7 @@ public class RepositoryInfo implements Serializable
     }
 
     /**
-     * Returns the repository name.
+     * Returns the repository name to look up.
      *
      * @return the repository name
      */
@@ -132,9 +133,9 @@ public class RepositoryInfo implements Serializable
     }
 
     /**
-     * Sets the repository name to a {@link String} value.
+     * Sets the repository name to look up.
      *
-     * @param value {@link String} value
+     * @param value new value of the repository name
      */
     public void setName(final String value)
     {
@@ -142,9 +143,10 @@ public class RepositoryInfo implements Serializable
     }
 
     /**
-     * Returns the found repository.
+     * Returns the repository found by the last lookup.
      *
-     * @return the found repository, or {@code null} if not found
+     * @return the repository if one was found; {@code null} otherwise
+     * @see #isFound
      */
     public BitbucketRepository getRepository()
     {
@@ -152,9 +154,9 @@ public class RepositoryInfo implements Serializable
     }
 
     /**
-     * Returns {@code true} if a repository was found.
+     * Returns {@code true} if a repository was found by the last lookup.
      *
-     * @return {@code true} if a repository was found
+     * @return {@code true} if found; {@code false} otherwise
      */
     public boolean isFound()
     {

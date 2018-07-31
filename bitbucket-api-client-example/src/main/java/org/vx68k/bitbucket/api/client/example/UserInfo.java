@@ -30,9 +30,10 @@ import javax.inject.Named;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import org.vx68k.bitbucket.api.BitbucketUser;
+import org.vx68k.bitbucket.api.client.BitbucketClient;
 
 /**
- * Managed bean for user name lookup.
+ * Request-scoped bean to look up a user name on Bitbucket Cloud.
  *
  * @author Kaz Nishimura
  * @since 5.0
@@ -44,12 +45,12 @@ public class UserInfo implements Serializable
     private static final long serialVersionUID = 1L;
 
     /**
-     * {@link UserContext} object given to the constructor.
+     * User context given to the constructor.
      */
     private final UserContext userContext;
 
     /**
-     * User name.
+     * User name to look up.
      */
     @NotNull
     @Pattern(regexp = "[^/]*",
@@ -57,15 +58,14 @@ public class UserInfo implements Serializable
     private String name = "";
 
     /**
-     * {@link BitbucketUser} object of the found user, or {@code null} if no
-     * user was found.
+     * User found by the last lookup, or {@code null} if no user was found.
      */
-    private BitbucketUser foundUser = null;
+    private transient BitbucketUser user = null;
 
     /**
-     * Constructs this object with a {@link UserContext} object.
+     * Constructs this object.
      *
-     * @param context {@link UserContext} object
+     * @param context user context
      */
     @Inject
     public UserInfo(final UserContext context)
@@ -74,9 +74,9 @@ public class UserInfo implements Serializable
     }
 
     /**
-     * Returns the {@link UserContext} object given to the constructor.
+     * Returns the user context given to the constructor.
      *
-     * @return the {@link UserContext} object given to the constructor
+     * @return the user context
      */
     public UserContext getUserContext()
     {
@@ -84,7 +84,17 @@ public class UserInfo implements Serializable
     }
 
     /**
-     * Returns the user name.
+     * Returns the Bitbucket client of the user context.
+     *
+     * @return the Bitbucket client
+     */
+    protected BitbucketClient getBitbucketClient()
+    {
+        return userContext.getBitbucketClient();
+    }
+
+    /**
+     * Returns the user name to look up.
      *
      * @return the user name
      */
@@ -94,9 +104,9 @@ public class UserInfo implements Serializable
     }
 
     /**
-     * Sets the user name to a {@link String} value.
+     * Sets the user name to look up.
      *
-     * @param value {@link String} value
+     * @param value new value of the user name
      */
     public void setName(final String value)
     {
@@ -104,43 +114,46 @@ public class UserInfo implements Serializable
     }
 
     /**
-     * Returns the {@link BitbucketUser} object of the found user.
+     * Returns the user found by the last lookup.
      *
-     * @return the {@link BitbucketUser} object of the found user
+     * @return the user if one was found; {@code null} otherwise
+     * @see #isFound
      */
-    public BitbucketUser getFoundUser()
+    public BitbucketUser getUser()
     {
-        return foundUser;
+        return user;
     }
 
     /**
-     * Returns {@code true} if a user was found.
+     * Returns {@code true} if a user was found by the last lookup.
      *
-     * @return {@code true} if a user was found
+     * @return {@code true} if found; {@code false} otherwise
      */
     public boolean isFound()
     {
-        return foundUser != null;
+        return user != null;
     }
 
     /**
-     * Performs an action to look up the user name.
+     * Performs an action to look up.
+     * <p>This method always returns {@code null}.</p>
      *
      * @return {@code null}
      */
     public Object lookUp()
     {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        UIComponent component = UIComponent.getCurrentComponent(facesContext);
         if (!name.isEmpty()) {
-            foundUser = userContext.getBitbucketClient().getUser(name);
+            BitbucketClient bitbucketClient = getBitbucketClient();
+            user = bitbucketClient.getUser(name);
             if (!isFound()) {
-                facesContext.addMessage(component.getClientId(facesContext),
+                FacesContext facesContext = FacesContext.getCurrentInstance();
+                UIComponent c = UIComponent.getCurrentComponent(facesContext);
+                facesContext.addMessage(c.getClientId(facesContext),
                     new FacesMessage("User not found."));
             }
         }
         else {
-            foundUser = null;
+            user = null;
         }
         return null;
     }
