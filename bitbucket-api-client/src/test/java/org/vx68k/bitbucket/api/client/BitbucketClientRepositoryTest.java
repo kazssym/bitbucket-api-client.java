@@ -24,7 +24,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 /**
- * Unit tests for [@link BitbucketClientRepository}.
+ * Unit tests for {@link BitbucketClientRepository}.
  *
  * @author Kaz Nishimura
  */
