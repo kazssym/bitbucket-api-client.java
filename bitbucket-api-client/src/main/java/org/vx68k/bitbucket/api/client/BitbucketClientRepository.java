@@ -46,6 +46,11 @@ public class BitbucketClientRepository extends BitbucketClientObject
     private static final String REPOSITORY = "repository";
 
     /**
+     * Name for the {@code scm} value in a JSON object.
+     */
+    private static final String SCM = "scm";
+
+    /**
      * Name for the {@code owner} object in a JSON object.
      */
     private static final String OWNER = "owner";
@@ -66,9 +71,9 @@ public class BitbucketClientRepository extends BitbucketClientObject
     private static final String FULL_NAME = "full_name";
 
     /**
-     * Name for the {@code scm} value in a JSON object.
+     * Name for the {@code description} value in a JSON object.
      */
-    private static final String SCM = "scm";
+    private static final String DESCRIPTION = "description";
 
     /**
      * Name for the {@code mainbranch} value in a JSON object.
@@ -117,6 +122,16 @@ public class BitbucketClientRepository extends BitbucketClientObject
      * {@inheritDoc}
      */
     @Override
+    public final String getSCM()
+    {
+        JsonObject object = getJsonObject();
+        return object.getString(SCM, null);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public final BitbucketUser getOwner()
     {
         JsonObject object = getJsonObject();
@@ -156,12 +171,14 @@ public class BitbucketClientRepository extends BitbucketClientObject
 
     /**
      * {@inheritDoc}
+     * <p>This implementation takes the string of {@code "description"} in the
+     * underlying JSON object.</p>
      */
     @Override
-    public final String getSCM()
+    public final String getDescription()
     {
         JsonObject object = getJsonObject();
-        return object.getString(SCM, null);
+        return object.getString(DESCRIPTION, null);
     }
 
     /**

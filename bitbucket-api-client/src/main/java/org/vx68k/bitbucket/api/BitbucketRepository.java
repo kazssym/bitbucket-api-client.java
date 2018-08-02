@@ -69,6 +69,13 @@ public interface BitbucketRepository extends BitbucketIssueTracker
     String getFullName();
 
     /**
+     * Returns the description of the repository.
+     *
+     * @return the description
+     */
+    String getDescription();
+
+    /**
      * Returns the main branch of this repository.
      *
      * @return the main branch
