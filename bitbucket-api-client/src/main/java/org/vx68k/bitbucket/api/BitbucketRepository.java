@@ -33,6 +33,14 @@ import java.util.UUID;
 public interface BitbucketRepository extends BitbucketIssueTracker
 {
     /**
+     * Returns the SCM type of the repository.
+     * The return value shall be either {@code "git"} or {@code "hg"}.
+     *
+     * @return the SCM type
+     */
+    String getSCM();
+
+    /**
      * Return the owner of this repository.
      *
      * @return the owner
@@ -59,13 +67,6 @@ public interface BitbucketRepository extends BitbucketIssueTracker
      * @return the full name
      */
     String getFullName();
-
-    /**
-     * Returns the SCM type of this repository.
-     *
-     * @return the SCM type
-     */
-    String getSCM();
 
     /**
      * Returns the main branch of this repository.
