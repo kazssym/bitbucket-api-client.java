@@ -20,7 +20,10 @@
 
 package org.vx68k.bitbucket.api.client;
 
-import org.junit.Ignore;
+import static org.junit.Assert.fail;
+
+import javax.json.Json;
+import javax.json.JsonObject;
 import org.junit.Test;
 
 /**
@@ -30,12 +33,22 @@ import org.junit.Test;
  */
 public class BitbucketClientRepositoryTest
 {
-    @Ignore
+    /**
+     * Tests the constructor.
+     */
     @Test
-    public void testDefaultRepository()
+    public void testConstructor()
     {
-        BitbucketClientRepository repository =
+        JsonObject repositoryObject = Json.createObjectBuilder()
+            .add("type", "repository").build();
+        new BitbucketClientRepository(repositoryObject);
+
+        try {
             new BitbucketClientRepository(null);
-        // TODO: Add test cases.
+            fail();
+        }
+        catch (final IllegalArgumentException exception) {
+            // OK.
+        }
     }
 }
