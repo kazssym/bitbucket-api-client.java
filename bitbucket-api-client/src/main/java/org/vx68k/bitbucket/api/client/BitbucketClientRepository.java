@@ -76,6 +76,11 @@ public class BitbucketClientRepository extends BitbucketClientObject
     private static final String DESCRIPTION = "description";
 
     /**
+     * Name for the {@code is_private} value in a JSON object.
+     */
+    private static final String IS_PRIVATE = "is_private";
+
+    /**
      * Name for the {@code mainbranch} value in a JSON object.
      */
     private static final String MAINBRANCH = "mainbranch";
@@ -91,30 +96,38 @@ public class BitbucketClientRepository extends BitbucketClientObject
     private static final String UPDATED_ON = "updated_on";
 
     /**
-     * Name for the {@code is_private} value in a JSON object.
-     */
-    private static final String IS_PRIVATE = "is_private";
-
-    /**
      * Name for the {@code links} object in a JSON object.
      */
     private static final String LINKS = "links";
 
     /**
-     * Constructs this repository with a JSON repository object.
+     * Constructs this object.
      *
      * @param object JSON repository object
-     * @exception IllegalArgumentException if the given JSON object was {@code
-     * null} or did not represent a repository
+     * @exception IllegalArgumentException if {@code object} is {@code null} or
+     * is not a repository object
      */
     public BitbucketClientRepository(final JsonObject object)
     {
-        super(object);
+        this(object, null);
+    }
+
+    /**
+     * Constructs this object with a Bitbucket client.
+     *
+     * @param object JSON repository object
+     * @param client Bitbucket client
+     * @exception IllegalArgumentException if {@code object} is {@code null} or
+     * is not a repository object
+     */
+    public BitbucketClientRepository(
+        final JsonObject object, final BitbucketClient client)
+    {
+        super(object, client);
 
         String type = getType();
         if (type == null || !type.equals(REPOSITORY)) {
-            throw new IllegalArgumentException(
-                "JSON object is not repository");
+            throw new IllegalArgumentException("Not repository");
         }
     }
 
@@ -135,7 +148,8 @@ public class BitbucketClientRepository extends BitbucketClientObject
     public final BitbucketUser getOwner()
     {
         JsonObject object = getJsonObject();
-        return BitbucketClient.createUser(object.getJsonObject(OWNER));
+        return BitbucketClient.createUser(
+            object.getJsonObject(OWNER), getBitbucketClient());
     }
 
     /**
@@ -183,6 +197,16 @@ public class BitbucketClientRepository extends BitbucketClientObject
 
     /**
      * {@inheritDoc}
+     */
+    @Override
+    public final boolean isPrivate()
+    {
+        JsonObject object = getJsonObject();
+        return object.getBoolean(IS_PRIVATE, false);
+    }
+
+    /**
+     * {@inheritDoc}
      * <p>This implementation takes the object of {@code "mainbranch"} in the
      * underlying JSON object.</p>
      */
@@ -190,17 +214,8 @@ public class BitbucketClientRepository extends BitbucketClientObject
     public final BitbucketBranch getMainBranch()
     {
         JsonObject object = getJsonObject();
+        // @todo Pass the Bitbucket client.
         return BitbucketClient.createBranch(object.getJsonObject(MAINBRANCH));
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final boolean isPrivate()
-    {
-        JsonObject object = getJsonObject();
-        return object.getBoolean(IS_PRIVATE, false);
     }
 
     /**
