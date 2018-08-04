@@ -20,6 +20,7 @@
 
 package org.vx68k.bitbucket.api.client;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import javax.json.Json;
@@ -50,5 +51,24 @@ public class BitbucketClientRepositoryTest
         catch (final IllegalArgumentException exception) {
             // OK.
         }
+    }
+
+    /**
+     * Tests {@link BitbucketClientRepository#getSCM}.
+     */
+    @Test
+    public void testGetSCM()
+    {
+        JsonObject repositoryObject1 = Json.createObjectBuilder()
+            .add("type", "repository").add("scm", "git").build();
+        BitbucketClientRepository repository1 =
+            new BitbucketClientRepository(repositoryObject1);
+        assertEquals("git", repository1.getSCM());
+
+        JsonObject repositoryObject2 = Json.createObjectBuilder()
+            .add("type", "repository").add("scm", "hg").build();
+        BitbucketClientRepository repository2 =
+            new BitbucketClientRepository(repositoryObject2);
+        assertEquals("hg", repository2.getSCM());
     }
 }
