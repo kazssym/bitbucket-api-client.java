@@ -172,7 +172,12 @@ public class BitbucketPush extends BitbucketClientObject
         public final BitbucketBranch getOld()
         {
             JsonObject object = getJsonObject();
-            return BitbucketClient.createBranch(object.getJsonObject(OLD));
+            BitbucketBranch value = null;
+            if (object.containsKey(OLD) && !object.isNull(OLD)) {
+                value = BitbucketClient.createBranch(
+                    object.getJsonObject(OLD));
+            }
+            return value;
         }
 
         /**
@@ -183,7 +188,12 @@ public class BitbucketPush extends BitbucketClientObject
         public final BitbucketBranch getNew()
         {
             JsonObject object = getJsonObject();
-            return BitbucketClient.createBranch(object.getJsonObject(NEW));
+            BitbucketBranch value = null;
+            if (object.containsKey(NEW) && !object.isNull(NEW)) {
+                value = BitbucketClient.createBranch(
+                    object.getJsonObject(NEW));
+            }
+            return value;
         }
 
         /**
