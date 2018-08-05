@@ -24,9 +24,10 @@
 <welcome-file-list>
 <welcome-file>index.jsf</welcome-file>
 </welcome-file-list>
+
 <data-source>
 <name>jdbc/Bitbucket</name>
-<class-name>org.apache.derby.jdbc.ClientDataSource</class-name>
+<class-name>org.apache.derby.jdbc.ClientConnectionPoolDataSource</class-name>
 <server-name>derby</server-name>
 <database-name>Bitbucket</database-name>
 <user>app</user>
