@@ -52,7 +52,7 @@ public final class BitbucketClientObjectTest
     public void testGetBitbucketClient()
     {
         JsonObject jsonObject = Json.createObjectBuilder().build();
-        BitbucketClient bitbucketClient = BitbucketClient.getDefault();
+        BitbucketClient bitbucketClient = BitbucketClient.getDefaultInstance();
 
         BitbucketClientObject object = new BitbucketClientObject(jsonObject);
         assertNull(object.getBitbucketClient());

@@ -73,7 +73,7 @@ public class BitbucketClient implements Serializable
      *
      * @return the default {@link BitbucketClient} object
      */
-    public static BitbucketClient getDefault()
+    public static BitbucketClient getDefaultInstance()
     {
         return defaultInstance;
     }
@@ -83,7 +83,7 @@ public class BitbucketClient implements Serializable
      *
      * @param value {@link BitbucketClient} object
      */
-    public static void setDefault(final BitbucketClient value)
+    public static void setDefaultInstance(final BitbucketClient value)
     {
         defaultInstance = value;
     }
@@ -98,7 +98,7 @@ public class BitbucketClient implements Serializable
      */
     public static BitbucketUser createUser(final JsonObject object)
     {
-        return createUser(object, getDefault());
+        return createUser(object, getDefaultInstance());
     }
 
     /**
