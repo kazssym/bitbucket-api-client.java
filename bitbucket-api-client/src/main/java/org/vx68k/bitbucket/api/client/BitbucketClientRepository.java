@@ -41,7 +41,7 @@ public class BitbucketClientRepository extends BitbucketClientObject
     implements BitbucketRepository
 {
     /**
-     * Type name for JSON repository objects.
+     * Type name for repositories.
      */
     private static final String REPOSITORY = "repository";
 
@@ -103,9 +103,9 @@ public class BitbucketClientRepository extends BitbucketClientObject
     /**
      * Constructs this object.
      *
-     * @param object JSON repository object
+     * @param object JSON object for a repository
      * @exception IllegalArgumentException if {@code object} is {@code null} or
-     * is not a repository object
+     * is not for a repository
      */
     public BitbucketClientRepository(final JsonObject object)
     {
@@ -115,10 +115,10 @@ public class BitbucketClientRepository extends BitbucketClientObject
     /**
      * Constructs this object with a Bitbucket client.
      *
-     * @param object JSON repository object
+     * @param object JSON object for a repository
      * @param client Bitbucket client
      * @exception IllegalArgumentException if {@code object} is {@code null} or
-     * is not a repository object
+     * is not for a repository
      */
     public BitbucketClientRepository(
         final JsonObject object, final BitbucketClient client)
