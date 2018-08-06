@@ -80,12 +80,24 @@ public class BitbucketClientUser extends BitbucketClientObject
     private static final String LINKS = "links";
 
     /**
-     * Constructs this user with a JSON user object.
+     * Constructs this object.
      *
-     * @param object JSON user object
-     * @param client {@link BitbucketClient} object
-     * @exception IllegalArgumentException if the given JSON object was {@code
-     * null} or did not represent a user
+     * @param object JSON object for a user or a team
+     * @exception IllegalArgumentException if {@code object} is {@code null} or
+     * is not for a user or a team
+     */
+    public BitbucketClientUser(final JsonObject object)
+    {
+        this(object, null);
+    }
+
+    /**
+     * Constructs this object with a Bitbucket client.
+     *
+     * @param object JSON object for a user or a team
+     * @param client Bitbucket client
+     * @exception IllegalArgumentException if {@code object} is {@code null} or
+     * is not for a user or a team
      */
     public BitbucketClientUser(final JsonObject object,
         final BitbucketClient client)
@@ -93,10 +105,8 @@ public class BitbucketClientUser extends BitbucketClientObject
         super(object, client);
 
         String type = getType();
-        if (type == null
-            || !(type.equals(USER) || type.equals(TEAM))) {
-            throw new IllegalArgumentException(
-                "JSON object is not user or team");
+        if (type == null || !(type.equals(USER) || type.equals(TEAM))) {
+            throw new IllegalArgumentException("Not user or team");
         }
     }
 
