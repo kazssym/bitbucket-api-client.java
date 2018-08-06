@@ -34,7 +34,7 @@ import org.vx68k.bitbucket.api.BitbucketUser;
 import org.vx68k.bitbucket.api.client.internal.JsonMessageBodyReader;
 
 /**
- * Bitbucket client.
+ * Bitbucket API client.
  *
  * @author Kaz Nishimura
  * @since 5.0
@@ -122,20 +122,32 @@ public class BitbucketClient implements Serializable
     }
 
     /**
-     * Creates a {@link BitbucketRepository} object from a JSON object that
-     * represents a repository.
+     * Creates a {@link BitbucketRepository} object from a JSON object.
      *
-     * @param object JSON object, or {@code null}
-     * @return new {@link BitbucketRepository} object, or {@code null} if the
-     * given JSON object is {@code null}
+     * @param object JSON object
+     * @return new {@link BitbucketRepository} object
+     * @exception IllegalArgumentException if {@code object} is {@code null} or
+     * is not for a repository
      */
     public static BitbucketRepository createRepository(final JsonObject object)
     {
-        BitbucketRepository value = null;
-        if (object != null) {
-            value = new BitbucketClientRepository(object);
-        }
-        return value;
+        return createRepository(object, getDefaultInstance());
+    }
+
+    /**
+     * Creates a {@link BitbucketRepository} object from a JSON object and a
+     * Bitbucket API client.
+     *
+     * @param object JSON object
+     * @param bitbucketClient Bitbucket API client
+     * @return new {@link BitbucketRepository} object
+     * @exception IllegalArgumentException if {@code object} is {@code null} or
+     * is not for a repository
+     */
+    public static BitbucketRepository createRepository(
+        final JsonObject object, final BitbucketClient bitbucketClient)
+    {
+        return new BitbucketClientRepository(object, bitbucketClient);
     }
 
     /**
@@ -221,10 +233,11 @@ public class BitbucketClient implements Serializable
     }
 
     /**
-     * Returns a {@link BitbucketRepository} object for a repository.
+     * Returns a {@link BitbucketRepository} object for a repository on
+     * Bitbucket Cloud.
      *
      * @param ownerName owner name of the repository
-     * @param name name of the repository
+     * @param name repository name
      * @return {@link BitbucketRepository} object
      */
     public BitbucketRepository getRepository(
@@ -236,12 +249,14 @@ public class BitbucketClient implements Serializable
             JsonObject object = base.path("repositories/{owner}/{name}")
                 .resolveTemplate("owner", ownerName)
                 .resolveTemplate("name", name)
-                .request(MediaType.APPLICATION_JSON).get(JsonObject.class);
-            return createRepository(object); // @todo Pass {@code this} here.
+                .request(MediaType.APPLICATION_JSON)
+                .get(JsonObject.class);
+            return createRepository(object, this);
         }
         catch (NotFoundException exception) {
             return null;
         }
+        // @todo Catch other JAX-RS exceptions?
         finally {
             client.close();
         }
