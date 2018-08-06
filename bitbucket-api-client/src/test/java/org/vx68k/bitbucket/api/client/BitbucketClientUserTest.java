@@ -42,7 +42,7 @@ public final class BitbucketClientUserTest
     @Test(expected = IllegalArgumentException.class)
     public void testNull()
     {
-        new BitbucketClientUser(null, null);
+        new BitbucketClientUser(null);
         fail();
     }
 
@@ -53,7 +53,7 @@ public final class BitbucketClientUserTest
     public void testUntyped()
     {
         JsonObjectBuilder builder = Json.createObjectBuilder();
-        new BitbucketClientUser(builder.build(), null);
+        new BitbucketClientUser(builder.build());
         fail();
     }
 
@@ -65,7 +65,7 @@ public final class BitbucketClientUserTest
     {
         JsonObjectBuilder builder = Json.createObjectBuilder()
             .add("type", "not_user");
-        new BitbucketClientUser(builder.build(), null);
+        new BitbucketClientUser(builder.build());
         fail();
     }
 
@@ -78,7 +78,7 @@ public final class BitbucketClientUserTest
         JsonObjectBuilder builder = Json.createObjectBuilder()
             .add("type", "user");
         BitbucketClientUser user = new BitbucketClientUser(
-            builder.build(), null);
+            builder.build());
         assertEquals(BitbucketUser.USER, user.getType());
         assertNull(user.getName());
         assertNull(user.getUUID());
@@ -98,7 +98,7 @@ public final class BitbucketClientUserTest
         JsonObjectBuilder builder = Json.createObjectBuilder()
             .add("type", "team");
         BitbucketClientUser user = new BitbucketClientUser(
-            builder.build(), null);
+            builder.build());
         assertNull(user.getName());
         assertNull(user.getUUID());
         assertNull(user.getDisplayName());
