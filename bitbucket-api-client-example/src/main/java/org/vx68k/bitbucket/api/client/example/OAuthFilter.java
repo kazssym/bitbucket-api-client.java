@@ -43,9 +43,9 @@ public class OAuthFilter implements Filter, Serializable
     private static final long serialVersionUID = 1L;
 
     /**
-     * {@link UserContext} object given to the constructor.
+     * User context given to the constructor.
      */
-    private final UserContext currentUser;
+    private final UserContext userContext;
 
     /**
      * {@link FilterConfig} object given to {@link #init init}.
@@ -55,12 +55,12 @@ public class OAuthFilter implements Filter, Serializable
     /**
      * Constructs this object.
      *
-     * @param user {@link UserContext} object to authenticate.
+     * @param context user context
      */
     @Inject
-    public OAuthFilter(final UserContext user)
+    public OAuthFilter(final UserContext context)
     {
-        currentUser = user;
+        userContext = context;
     }
 
     /**
@@ -95,11 +95,18 @@ public class OAuthFilter implements Filter, Serializable
      * {@inheritDoc}
      */
     @Override
-    public void doFilter(final ServletRequest request,
-        final ServletResponse response, final FilterChain chain)
-        throws ServletException, IOException
+    public void doFilter(
+        final ServletRequest request, final ServletResponse response,
+        final FilterChain chain) throws ServletException, IOException
     {
-        // @todo Process authentication.
+        String code = request.getParameter("code");
+        String error = request.getParameter("error");
+        if (code != null) {
+            // @todo Continue the authorization flow.
+        }
+        else if (error != null) {
+            // @todo Handle error and reset the authorization flow.
+        }
         chain.doFilter(request, response);
     }
 }
