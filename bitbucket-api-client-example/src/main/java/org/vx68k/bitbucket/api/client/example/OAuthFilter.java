@@ -26,6 +26,7 @@ import javax.inject.Inject;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -74,6 +75,16 @@ public class OAuthFilter implements Filter, Serializable
     }
 
     /**
+     * Returns the servlet context.
+     *
+     * @return the servlet context
+     */
+    public final ServletContext getServletContext()
+    {
+        return filterConfig.getServletContext();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override
@@ -99,13 +110,18 @@ public class OAuthFilter implements Filter, Serializable
         final ServletRequest request, final ServletResponse response,
         final FilterChain chain) throws ServletException, IOException
     {
+        ServletContext servletContext = getServletContext();
         String code = request.getParameter("code");
-        String error = request.getParameter("error");
         if (code != null) {
             // @todo Continue the authorization flow.
+            servletContext.log("code = " + code);
         }
-        else if (error != null) {
-            // @todo Handle error and reset the authorization flow.
+        else {
+            String error = request.getParameter("error");
+            if (error != null) {
+                // @todo Handle error and reset the authorization flow.
+                servletContext.log("error = " + error);
+            }
         }
         chain.doFilter(request, response);
     }
