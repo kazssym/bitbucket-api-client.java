@@ -68,7 +68,7 @@ import org.vx68k.bitbucket.api.client.BitbucketClient;
  */
 @Named
 @SessionScoped
-public class UserContext implements BitbucketUser, Serializable
+public class UserContext implements Serializable
 {
     private static final long serialVersionUID = 1L;
 
@@ -303,141 +303,10 @@ public class UserContext implements BitbucketUser, Serializable
      * {@inheritDoc}
      */
     @Override
-    public String getType()
-    {
-        String value = null;
-        if (loggedInUser != null) {
-            value = loggedInUser.getType();
-        }
-        return value;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String getName()
-    {
-        String value = null;
-        if (loggedInUser != null) {
-            value = loggedInUser.getName();
-        }
-        return value;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public UUID getUUID()
-    {
-        UUID value = null;
-        if (loggedInUser != null) {
-            value = loggedInUser.getUUID();
-        }
-        return value;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String getDisplayName()
-    {
-        String value = null;
-        if (loggedInUser != null) {
-            value = loggedInUser.getDisplayName();
-        }
-        return value;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String getWebsite()
-    {
-        String value = null;
-        if (loggedInUser != null) {
-            value = loggedInUser.getWebsite();
-        }
-        return value;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String getLocation()
-    {
-        String value = null;
-        if (loggedInUser != null) {
-            value = loggedInUser.getLocation();
-        }
-        return value;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isPrivate()
-    {
-        boolean value = false;
-        if (loggedInUser != null) {
-            value = loggedInUser.isPrivate();
-        }
-        return value;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Instant getCreated()
-    {
-        Instant value = null;
-        if (loggedInUser != null) {
-            value = loggedInUser.getCreated();
-        }
-        return value;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Map<String, String> getLinks()
-    {
-        Map<String, String> value = null;
-        if (loggedInUser != null) {
-            value = loggedInUser.getLinks();
-        }
-        return value;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Set<BitbucketRepository> repositorySet()
-    {
-        Set<BitbucketRepository> value = null;
-        if (loggedInUser != null) {
-            value = loggedInUser.repositorySet();
-        }
-        return value;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public int hashCode()
     {
         int value = getClass().hashCode();
-        assert bitbucketClient != null;
-        value ^= bitbucketClient.hashCode();
+        value ^= Objects.hashCode(bitbucketClient);
         value ^= Objects.hashCode(bitbucketClientId);
         value ^= Objects.hashCode(bitbucketClientSecret);
         value ^= Objects.hashCode(loggedInUser);
@@ -456,8 +325,7 @@ public class UserContext implements BitbucketUser, Serializable
             }
 
             UserContext other = (UserContext) object;
-            assert bitbucketClient != null;
-            if (!bitbucketClient.equals(other.bitbucketClient)) {
+            if (!Objects.equals(bitbucketClient, other.bitbucketClient)) {
                 return false;
             }
             if (!Objects.equals(bitbucketClientId, other.bitbucketClientId)) {
