@@ -20,6 +20,8 @@
 
 package org.vx68k.bitbucket.api;
 
+import java.time.Instant;
+
 /**
  * Issue in a Bitbucket issue tracker.
  *
@@ -29,9 +31,58 @@ package org.vx68k.bitbucket.api;
 public interface BitbucketIssue
 {
     /**
-     * Returns the description of this issue.
+     * Returns the repository of the issue.
      *
-     * @return the description
+     * @return the repository
      */
-    String getDescription();
+    BitbucketRepository getRepository();
+
+    /**
+     * Returns the identifier of the issue.
+     *
+     * @return the identifier
+     */
+    int getId();
+
+    /**
+     * Returns the reporter of the issue.
+     *
+     * @return the reporter
+     */
+    BitbucketUser getReporter();
+
+    /**
+     * Returns the title of the issue.
+     *
+     * @return the title
+     */
+    String getTitle();
+
+    /**
+     * Returns the state of the issue.
+     *
+     * @return the state
+     */
+    String getState();
+
+    /**
+     * Returns the instant when the issue was created.
+     *
+     * @return the instant of creation
+     */
+    Instant getCreated();
+
+    /**
+     * Returns the instant when the issue was last edited.
+     *
+     * @return the instant of the last edit
+     */
+    Instant getEdited();
+
+    /**
+     * Returns the instant when the issue was last updated.
+     *
+     * @return the instant of the last update
+     */
+    Instant getUpdated();
 }
