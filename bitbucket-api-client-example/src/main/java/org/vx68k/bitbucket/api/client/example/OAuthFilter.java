@@ -111,16 +111,19 @@ public class OAuthFilter implements Filter, Serializable
         final FilterChain chain) throws ServletException, IOException
     {
         ServletContext servletContext = getServletContext();
+        String state = request.getParameter("state");
         String code = request.getParameter("code");
         if (code != null) {
-            // @todo Continue the authorization flow.
             servletContext.log("code = " + code);
+            userContext.continueLogin(code, state);
         }
         else {
             String error = request.getParameter("error");
             if (error != null) {
-                // @todo Handle error and reset the authorization flow.
+                String errorDescription =
+                    request.getParameter("error_description");
                 servletContext.log("error = " + error);
+                userContext.abortLogin(errorDescription, state);
             }
         }
         chain.doFilter(request, response);

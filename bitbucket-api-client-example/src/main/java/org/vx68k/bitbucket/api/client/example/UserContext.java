@@ -296,6 +296,28 @@ public class UserContext implements Serializable
     }
 
     /**
+     * Continues the current authorization flow to complete.
+     *
+     * @param code the authorization code
+     * @param state the state of the client
+     */
+    public void continueLogin(final String code, final String state)
+    {
+        // @todo Request the token.
+    }
+
+    /**
+     * Aborts the current authorization flow.
+     *
+     * @param errorDescription the error description
+     * @param state the state of the client
+     */
+    public void abortLogin(final String errorDescription, final String state)
+    {
+        // @todo Reset the authorization flow.
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override
