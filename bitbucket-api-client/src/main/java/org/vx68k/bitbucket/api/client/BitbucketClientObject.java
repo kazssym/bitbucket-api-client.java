@@ -34,7 +34,7 @@ public class BitbucketClientObject
     /**
      * Name for the {@code type} value in a JSON object.
      */
-    private static final String TYPE = "type";
+    public static final String TYPE = "type";
 
     /**
      * JSON object given to the constructor.
