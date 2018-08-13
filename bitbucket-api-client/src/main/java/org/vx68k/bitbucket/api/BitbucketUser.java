@@ -20,106 +20,18 @@
 
 package org.vx68k.bitbucket.api;
 
-import java.time.Instant;
-import java.util.Collection;
-import java.util.Map;
-import java.util.UUID;
-
 /**
- * User or team on Bitbucket Cloud.
+ * User on Bitbucket Cloud.
  *
  * @author Kaz Nishimura
  * @since 5.0
  */
-public interface BitbucketUser
+public interface BitbucketUser extends BitbucketAccount
 {
     /**
-     * Type value for users.
-     */
-    String USER = "user";
-
-    /**
-     * Type value for teams.
-     */
-    String TEAM = "team";
-
-    /**
-     * Returns the type of this object.
+     * Returns {@code true} if the user is staff.
      *
-     * @return the type
+     * @return {@code true} if staff; {@code false} otherwise
      */
-    String getType();
-
-    /**
-     * Returns the name of the user or team.
-     *
-     * @return the name
-     */
-    String getName();
-
-    /**
-     * Returns the UUID of the user or team.
-     *
-     * @return the UUID
-     */
-    UUID getUUID();
-
-    /**
-     * Returns the display name of the user or team.
-     *
-     * @return the display name
-     */
-    String getDisplayName();
-
-    /**
-     * Returns the website of the user or team.
-     *
-     * @return the website
-     */
-    String getWebsite();
-
-    /**
-     * Returns the location of the user or team.
-     *
-     * @return the location
-     */
-    String getLocation();
-
-    /**
-     * Returns {@code true} if the user or team is private.
-     *
-     * @return {@code true} if private; {@code false} otherwise
-     */
-    boolean isPrivate();
-
-    /**
-     * Returns the instant when the user or team was created.
-     *
-     * @return the instant
-     */
-    Instant getCreated();
-
-    /**
-     * Returns the links of the user or team.
-     *
-     * @return the links
-     */
-    Map<String, String> getLinks();
-
-    /**
-     * Returns a repository which is owned by the user or team.
-     *
-     * @param name repository name
-     * @return {@link BitbucketRepository} object for the repository if one was
-     * found; {@code null} otherwise
-     */
-    BitbucketRepository getRepository(String name);
-
-    /**
-     * Returns a {@link Collection} view of the repositories which are owned by
-     * the user or team.
-     *
-     * @return {@link Collection} view of the repositories
-     */
-    Collection<BitbucketRepository> repositories();
+    boolean isStaff();
 }

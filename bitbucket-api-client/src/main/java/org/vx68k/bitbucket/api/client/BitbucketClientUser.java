@@ -20,71 +20,34 @@
 
 package org.vx68k.bitbucket.api.client;
 
-import java.time.Instant;
-import java.time.OffsetDateTime;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Map;
-import java.util.UUID;
 import javax.json.JsonObject;
-import org.vx68k.bitbucket.api.BitbucketRepository;
 import org.vx68k.bitbucket.api.BitbucketUser;
 
 /**
- * User or team represented by a JSON object.
+ * User represented by a JSON object.
  *
  * @author Kaz Nishimura
  * @since 5.0
  */
-public class BitbucketClientUser extends BitbucketClientObject
+public class BitbucketClientUser extends BitbucketClientAccount
     implements BitbucketUser
 {
     /**
-     * Name for the {@code username} value in a JSON user object.
+     * Type value for users.
      */
-    private static final String USERNAME = "username";
+    public static final String USER_TYPE = "user";
 
     /**
-     * Name for the {@code uuid} value in a JSON user object.
+     * Name for the {@code is_staff} value in a JSON user object.
      */
-    private static final String UUID = "uuid";
+    private static final String IS_STAFF = "is_staff";
 
     /**
-     * Name for the {@code display_name} value in a JSON user object.
-     */
-    private static final String DISPLAY_NAME = "display_name";
-
-    /**
-     * Name for the {@code website} value in a JSON user object.
-     */
-    private static final String WEBSITE = "website";
-
-    /**
-     * Name for the {@code location} value in a JSON user object.
-     */
-    private static final String LOCATION = "location";
-
-    /**
-     * Name for the {@code is_private} value in a JSON user object.
-     */
-    private static final String IS_PRIVATE = "is_private";
-
-    /**
-     * Name for the {@code created_on} value in a JSON user object.
-     */
-    private static final String CREATED_ON = "created_on";
-
-    /**
-     * Name for the {@code links} object in a JSON user object.
-     */
-    private static final String LINKS = "links";
-
-    /**
-     * Constructs this object.
+     * Constructs this object with no Bitbucket client.
      *
-     * @param object JSON object for a user or a team
+     * @param object JSON object for a user
      * @exception IllegalArgumentException if {@code object} is {@code null} or
-     * is not for a user or a team
+     * is not for a user
      */
     public BitbucketClientUser(final JsonObject object)
     {
@@ -92,12 +55,12 @@ public class BitbucketClientUser extends BitbucketClientObject
     }
 
     /**
-     * Constructs this object with a Bitbucket client.
+     * Constructs this object.
      *
-     * @param object JSON object for a user or a team
-     * @param client Bitbucket client
+     * @param object JSON object for a user
+     * @param client Bitbucket client, or {@code null}
      * @exception IllegalArgumentException if {@code object} is {@code null} or
-     * is not for a user or a team
+     * is not for a user
      */
     public BitbucketClientUser(final JsonObject object,
         final BitbucketClient client)
@@ -105,8 +68,8 @@ public class BitbucketClientUser extends BitbucketClientObject
         super(object, client);
 
         String type = getType();
-        if (type == null || !(type.equals(USER) || type.equals(TEAM))) {
-            throw new IllegalArgumentException("Not user or team");
+        if (type == null || !type.equals(USER_TYPE)) {
+            throw new IllegalArgumentException("Not user");
         }
     }
 
@@ -114,106 +77,9 @@ public class BitbucketClientUser extends BitbucketClientObject
      * {@inheritDoc}
      */
     @Override
-    public final String getName()
+    public boolean isStaff()
     {
         JsonObject object = getJsonObject();
-        return object.getString(USERNAME, null);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final UUID getUUID()
-    {
-        JsonObject object = getJsonObject();
-        return BitbucketClientUtilities.parseUUID(
-                object.getJsonString(UUID));
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final String getDisplayName()
-    {
-        JsonObject object = getJsonObject();
-        return object.getString(DISPLAY_NAME, null);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final String getWebsite()
-    {
-        JsonObject object = getJsonObject();
-        return object.getString(WEBSITE, null);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final String getLocation()
-    {
-        JsonObject object = getJsonObject();
-        return object.getString(LOCATION, null);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isPrivate()
-    {
-        JsonObject object = getJsonObject();
-        return object.getBoolean(IS_PRIVATE, false);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final Instant getCreated()
-    {
-        JsonObject object = getJsonObject();
-        Instant created = null;
-        if (object.containsKey(CREATED_ON)) {
-            created = OffsetDateTime.parse(object.getString(CREATED_ON))
-                .toInstant();
-        }
-        return created;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final Map<String, String> getLinks()
-    {
-        JsonObject object = getJsonObject();
-        return BitbucketClientUtilities.parseLinks(
-            object.getJsonObject(LINKS));
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final BitbucketRepository getRepository(final String name)
-    {
-        BitbucketClient client = getBitbucketClient();
-        return client.getRepository(getName(), name);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final Collection<BitbucketRepository> repositories()
-    {
-        // @todo Implement this method.
-        return Collections.emptySet();
+        return object.getBoolean(IS_STAFF, false);
     }
 }
