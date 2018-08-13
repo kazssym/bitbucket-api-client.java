@@ -44,7 +44,7 @@ public class BitbucketClientTeam extends BitbucketClientAccount
      * @exception IllegalArgumentException if {@code object} is {@code null} or
      * is not of a team
      */
-    public BitbucketClientTeam(JsonObject object)
+    public BitbucketClientTeam(final JsonObject object)
     {
         this(object, null);
     }
