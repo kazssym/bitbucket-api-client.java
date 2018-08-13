@@ -26,10 +26,10 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.UUID;
 import javax.json.JsonObject;
+import org.vx68k.bitbucket.api.BitbucketAccount;
 import org.vx68k.bitbucket.api.BitbucketBranch;
 import org.vx68k.bitbucket.api.BitbucketIssue;
 import org.vx68k.bitbucket.api.BitbucketRepository;
-import org.vx68k.bitbucket.api.BitbucketUser;
 
 /**
  * Repository represented by a JSON object.
@@ -145,11 +145,22 @@ public class BitbucketClientRepository extends BitbucketClientObject
      * {@inheritDoc}
      */
     @Override
-    public final BitbucketUser getOwner()
+    public final BitbucketAccount getOwner()
     {
         JsonObject object = getJsonObject();
-        return BitbucketClient.createUser(
-            object.getJsonObject(OWNER), getBitbucketClient());
+        BitbucketAccount value = null;
+        JsonObject owner = object.getJsonObject(OWNER);
+        if (owner != null) {
+            BitbucketClient client = getBitbucketClient();
+            String type = owner.getString(TYPE);
+            if (type.equals(BitbucketClientTeam.TEAM_TYPE)) {
+                value = BitbucketClient.createTeam(owner, client);
+            }
+            else {
+                value = BitbucketClient.createUser(owner, client);
+            }
+        }
+        return value;
     }
 
     /**

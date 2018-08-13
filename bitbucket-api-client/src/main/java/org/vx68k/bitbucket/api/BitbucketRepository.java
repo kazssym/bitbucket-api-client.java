@@ -45,7 +45,7 @@ public interface BitbucketRepository extends BitbucketIssueTracker
      *
      * @return the owner
      */
-    BitbucketUser getOwner();
+    BitbucketAccount getOwner();
 
     /**
      * Returns the name of this repository.
