@@ -30,6 +30,7 @@ import javax.ws.rs.core.MediaType;
 import org.vx68k.bitbucket.api.BitbucketBranch;
 import org.vx68k.bitbucket.api.BitbucketCommit;
 import org.vx68k.bitbucket.api.BitbucketRepository;
+import org.vx68k.bitbucket.api.BitbucketTeam;
 import org.vx68k.bitbucket.api.BitbucketUser;
 import org.vx68k.bitbucket.api.client.internal.JsonMessageBodyReader;
 
@@ -122,6 +123,31 @@ public class BitbucketClient implements Serializable
     }
 
     /**
+     * Creates a {@link BitbucketTeam} instance from a JSON object with the
+     * default Bitbucket client.
+     *
+     * @param object JSON object for a team
+     * @return {@link BitbucketUser} instance
+     */
+    public static BitbucketTeam createTeam(final JsonObject object)
+    {
+        return createTeam(object, getDefaultInstance());
+    }
+
+    /**
+     * Creates a {@link BitbucketTeam} instance from a JSON object.
+     *
+     * @param object JSON object for a team
+     * @param client Bitbucket client, or {@code null}
+     * @return {@link BitbucketTeam} instance
+     */
+    public static BitbucketTeam createTeam(
+        final JsonObject object, final BitbucketClient client)
+    {
+        return new BitbucketClientTeam(object, client);
+    }
+
+    /**
      * Creates a {@link BitbucketRepository} object from a JSON object.
      *
      * @param object JSON object
@@ -195,8 +221,8 @@ public class BitbucketClient implements Serializable
         Client client = clientBuilder.build();
         try {
             WebTarget base = client.target(API_BASE);
-            WebTarget path = base.path("users/{name}");
-            JsonObject object = path.resolveTemplate("name", name)
+            WebTarget path = base.path("users/{user}");
+            JsonObject object = path.resolveTemplate("user", name)
                 .request(MediaType.APPLICATION_JSON).get(JsonObject.class);
             return createUser(object, this);
         }
@@ -209,20 +235,20 @@ public class BitbucketClient implements Serializable
     }
 
     /**
-     * Returns a {@link BitbucketUser} object for a team.
+     * Returns a {@link BitbucketTeam} instance for a team.
      *
      * @param name team name
-     * @return {@link BitbucketUser} object
+     * @return {@link BitbucketTeam} instance
      */
-    public BitbucketUser getTeam(final String name)
+    public BitbucketTeam getTeam(final String name)
     {
         Client client = clientBuilder.build();
         try {
             WebTarget base = client.target(API_BASE);
-            WebTarget path = base.path("teams/{name}");
-            JsonObject object = path.resolveTemplate("name", name)
+            WebTarget path = base.path("teams/{team}");
+            JsonObject object = path.resolveTemplate("team", name)
                 .request(MediaType.APPLICATION_JSON).get(JsonObject.class);
-            return createUser(object, this);
+            return createTeam(object, this);
         }
         catch (NotFoundException exception) {
             return null;
