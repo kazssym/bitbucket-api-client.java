@@ -27,6 +27,7 @@ import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 import org.vx68k.bitbucket.api.BitbucketRepository;
+import org.vx68k.bitbucket.api.BitbucketTeam;
 import org.vx68k.bitbucket.api.BitbucketUser;
 
 /**
@@ -69,7 +70,6 @@ public class BitbucketClientTest
         BitbucketClient client = new BitbucketClient();
         BitbucketUser user = client.getUser("kazssym");
         System.out.println("Got " + user);
-        assertEquals(BitbucketUser.USER, user.getType());
         assertNotNull(user.getUUID());
         assertEquals("kazssym", user.getName());
         assertNotNull(user.getDisplayName());
@@ -95,9 +95,8 @@ public class BitbucketClientTest
     public void testGetTeam()
     {
         BitbucketClient client = new BitbucketClient();
-        BitbucketUser team = client.getTeam("vx68k");
+        BitbucketTeam team = client.getTeam("vx68k");
         System.out.println("Got " + team);
-        assertEquals(BitbucketUser.TEAM, team.getType());
         assertNotNull(team.getUUID());
         assertEquals("vx68k", team.getName());
         assertNotNull(team.getDisplayName());
@@ -112,7 +111,7 @@ public class BitbucketClientTest
     public void testGetTeamNotFound()
     {
         BitbucketClient client = new BitbucketClient();
-        BitbucketUser team = client.getTeam("kazssym");
+        BitbucketTeam team = client.getTeam("kazssym");
         assertNull(team);
     }
 
