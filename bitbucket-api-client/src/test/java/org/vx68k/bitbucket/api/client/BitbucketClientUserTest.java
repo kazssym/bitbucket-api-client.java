@@ -27,6 +27,7 @@ import static org.junit.Assert.fail;
 import javax.json.Json;
 import javax.json.JsonObjectBuilder;
 import org.junit.Test;
+import org.vx68k.bitbucket.api.BitbucketTeam;
 import org.vx68k.bitbucket.api.BitbucketUser;
 
 /**
@@ -77,9 +78,7 @@ public final class BitbucketClientUserTest
     {
         JsonObjectBuilder builder = Json.createObjectBuilder()
             .add("type", "user");
-        BitbucketClientUser user = new BitbucketClientUser(
-            builder.build());
-        assertEquals(BitbucketUser.USER, user.getType());
+        BitbucketUser user = new BitbucketClientUser(builder.build());
         assertNull(user.getName());
         assertNull(user.getUUID());
         assertNull(user.getDisplayName());
@@ -97,14 +96,13 @@ public final class BitbucketClientUserTest
     {
         JsonObjectBuilder builder = Json.createObjectBuilder()
             .add("type", "team");
-        BitbucketClientUser user = new BitbucketClientUser(
-            builder.build());
-        assertNull(user.getName());
-        assertNull(user.getUUID());
-        assertNull(user.getDisplayName());
-        assertNull(user.getWebsite());
-        assertNull(user.getLocation());
-        assertNull(user.getCreated());
-        assertNull(user.getLinks());
+        BitbucketTeam team = new BitbucketClientTeam(builder.build());
+        assertNull(team.getName());
+        assertNull(team.getUUID());
+        assertNull(team.getDisplayName());
+        assertNull(team.getWebsite());
+        assertNull(team.getLocation());
+        assertNull(team.getCreated());
+        assertNull(team.getLinks());
     }
 }
