@@ -20,14 +20,12 @@
 
 package org.vx68k.bitbucket.api.client;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
 import javax.json.Json;
 import javax.json.JsonObjectBuilder;
 import org.junit.Test;
-import org.vx68k.bitbucket.api.BitbucketTeam;
 import org.vx68k.bitbucket.api.BitbucketUser;
 
 /**
@@ -86,23 +84,5 @@ public final class BitbucketClientUserTest
         assertNull(user.getLocation());
         assertNull(user.getCreated());
         assertNull(user.getLinks());
-    }
-
-    /**
-     * Tests the constructor with a blank {@code "team"} object.
-     */
-    @Test
-    public void testBlankTeam()
-    {
-        JsonObjectBuilder builder = Json.createObjectBuilder()
-            .add("type", "team");
-        BitbucketTeam team = new BitbucketClientTeam(builder.build());
-        assertNull(team.getName());
-        assertNull(team.getUUID());
-        assertNull(team.getDisplayName());
-        assertNull(team.getWebsite());
-        assertNull(team.getLocation());
-        assertNull(team.getCreated());
-        assertNull(team.getLinks());
     }
 }
