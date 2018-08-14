@@ -29,7 +29,7 @@ import javax.json.JsonObjectBuilder;
 import org.junit.Test;
 
 /**
- * Unit tests for {@link BitbucketClientUser}.
+ * Unit tests for {@link BitbucketClientTeam}.
  *
  * @author Kaz Nishimura
  */
