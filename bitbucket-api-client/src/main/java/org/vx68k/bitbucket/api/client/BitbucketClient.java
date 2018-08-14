@@ -127,7 +127,7 @@ public class BitbucketClient implements Serializable
      * default Bitbucket client.
      *
      * @param object JSON object for a team
-     * @return {@link BitbucketUser} instance
+     * @return {@link BitbucketTeam} instance
      */
     public static BitbucketTeam createTeam(final JsonObject object)
     {
