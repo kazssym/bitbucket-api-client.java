@@ -43,6 +43,11 @@ public class BitbucketClientUser extends BitbucketClientAccount
     private static final String IS_STAFF = "is_staff";
 
     /**
+     * Name for the {@code account_id} value in a JSON user object.
+     */
+    private static final String ACCOUNT_ID = "account_id";
+
+    /**
      * Constructs this object with no Bitbucket client.
      *
      * @param object JSON object for a user
@@ -81,5 +86,15 @@ public class BitbucketClientUser extends BitbucketClientAccount
     {
         JsonObject object = getJsonObject();
         return object.getBoolean(IS_STAFF, false);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getAccountId()
+    {
+        JsonObject object = getJsonObject();
+        return object.getString(ACCOUNT_ID, null);
     }
 }

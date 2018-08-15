@@ -34,4 +34,11 @@ public interface BitbucketUser extends BitbucketAccount
      * @return {@code true} if staff; {@code false} otherwise
      */
     boolean isStaff();
+
+    /**
+     * Returns the Atlassian account identifier.
+     *
+     * @return the Atlassian account identifier
+     */
+    String getAccountId();
 }
