@@ -24,6 +24,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
+import java.util.UUID;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
@@ -57,7 +58,6 @@ public final class BitbucketClientTeamTest
         JsonObject object1 = createTeamObjectBuilder().build();
         BitbucketClientTeam team1 = new BitbucketClientTeam(object1);
         assertNull(team1.getBitbucketClient());
-//        assertNull(team.getUUID());
 //        assertNull(team.getDisplayName());
 //        assertNull(team.getWebsite());
 //        assertNull(team.getLocation());
@@ -109,5 +109,23 @@ public final class BitbucketClientTeamTest
             .add("username", "testName").build();
         BitbucketClientTeam team2 = new BitbucketClientTeam(object2);
         assertEquals("testName", team2.getName());
+    }
+
+    /**
+     * Tests {@link BitbucketClientTeam#getUUID()}.
+     */
+    @Test
+    public void testGetUUID()
+    {
+        JsonObject object1 = createTeamObjectBuilder().build();
+        BitbucketClientTeam team1 = new BitbucketClientTeam(object1);
+        assertNull(team1.getUUID());
+
+        JsonObject object2 = createTeamObjectBuilder()
+            .add("uuid", "{01234567-89ab-cdef-0123-456789abcdef}").build();
+        BitbucketClientTeam team2 = new BitbucketClientTeam(object2);
+        assertEquals(
+            UUID.fromString("01234567-89ab-cdef-0123-456789abcdef"),
+            team2.getUUID());
     }
 }
