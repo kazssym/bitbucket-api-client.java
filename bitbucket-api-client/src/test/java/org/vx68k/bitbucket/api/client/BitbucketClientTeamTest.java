@@ -20,6 +20,7 @@
 
 package org.vx68k.bitbucket.api.client;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
@@ -35,6 +36,18 @@ import org.junit.Test;
  */
 public final class BitbucketClientTeamTest
 {
+    /**
+     * Returns a JSON object builder which is typed for a team.
+     *
+     * @return a JSON object builder
+     */
+    protected static JsonObjectBuilder createTeamObjectBuilder()
+    {
+        JsonObjectBuilder value = Json.createObjectBuilder();
+        value.add("type", "team");
+        return value;
+    }
+
     /**
      * Tests the constructor with an untyped object.
      */
@@ -64,11 +77,9 @@ public final class BitbucketClientTeamTest
     @Test
     public void testConstructor()
     {
-        JsonObject object = Json.createObjectBuilder()
-            .add("type", "team").build();
+        JsonObject object = createTeamObjectBuilder().build();
         BitbucketClientTeam team = new BitbucketClientTeam(object);
         assertNull(team.getBitbucketClient());
-//        assertNull(team.getName());
 //        assertNull(team.getUUID());
 //        assertNull(team.getDisplayName());
 //        assertNull(team.getWebsite());
@@ -83,5 +94,21 @@ public final class BitbucketClientTeamTest
         catch (final IllegalArgumentException exception) {
             System.out.println("Caught " + exception.toString());
         }
+    }
+
+    /**
+     * Tests {@link BitbucketClientTeam#getName()}.
+     */
+    @Test
+    public void testGetName()
+    {
+        JsonObject object1 = createTeamObjectBuilder().build();
+        BitbucketClientTeam team1 = new BitbucketClientTeam(object1);
+        assertNull(team1.getName());
+
+        JsonObject object2 = createTeamObjectBuilder()
+            .add("username", "testName").build();
+        BitbucketClientTeam team2 = new BitbucketClientTeam(object2);
+        assertEquals("testName", team2.getName());
     }
 }
