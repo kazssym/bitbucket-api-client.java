@@ -49,37 +49,14 @@ public final class BitbucketClientTeamTest
     }
 
     /**
-     * Tests the constructor with an untyped object.
-     */
-    @Test(expected = IllegalArgumentException.class)
-    public void testUntyped()
-    {
-        JsonObjectBuilder builder = Json.createObjectBuilder();
-        new BitbucketClientTeam(builder.build());
-        fail();
-    }
-
-    /**
-     * Tests the constructor with an object of a wrong type.
-     */
-    @Test(expected = IllegalArgumentException.class)
-    public void testWrongType()
-    {
-        JsonObjectBuilder builder = Json.createObjectBuilder()
-            .add("type", "not_user");
-        new BitbucketClientTeam(builder.build());
-        fail();
-    }
-
-    /**
      * Tests the constructor.
      */
     @Test
     public void testConstructor()
     {
-        JsonObject object = createTeamObjectBuilder().build();
-        BitbucketClientTeam team = new BitbucketClientTeam(object);
-        assertNull(team.getBitbucketClient());
+        JsonObject object1 = createTeamObjectBuilder().build();
+        BitbucketClientTeam team1 = new BitbucketClientTeam(object1);
+        assertNull(team1.getBitbucketClient());
 //        assertNull(team.getUUID());
 //        assertNull(team.getDisplayName());
 //        assertNull(team.getWebsite());
@@ -87,8 +64,30 @@ public final class BitbucketClientTeamTest
 //        assertNull(team.getCreated());
 //        assertNull(team.getLinks());
 
+        // Case with a null pointer.
         try {
             new BitbucketClientTeam(null);
+            fail();
+        }
+        catch (final IllegalArgumentException exception) {
+            System.out.println("Caught " + exception.toString());
+        }
+
+        // Case with an empty JSON object.
+        JsonObject emptyObject = Json.createObjectBuilder().build();
+        try {
+            new BitbucketClientTeam(emptyObject);
+            fail();
+        }
+        catch (final IllegalArgumentException exception) {
+            System.out.println("Caught " + exception.toString());
+        }
+
+        // Case with a JSON object of a wrong type.
+        JsonObject wrongObject = Json.createObjectBuilder()
+            .add("type", "user").build();
+        try {
+            new BitbucketClientTeam(wrongObject);
             fail();
         }
         catch (final IllegalArgumentException exception) {
