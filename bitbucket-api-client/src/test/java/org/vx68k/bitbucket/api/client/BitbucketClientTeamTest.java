@@ -58,9 +58,6 @@ public final class BitbucketClientTeamTest
         JsonObject object1 = createTeamObjectBuilder().build();
         BitbucketClientTeam team1 = new BitbucketClientTeam(object1);
         assertNull(team1.getBitbucketClient());
-//        assertNull(team.getDisplayName());
-//        assertNull(team.getWebsite());
-//        assertNull(team.getLocation());
 //        assertNull(team.getCreated());
 //        assertNull(team.getLinks());
 
@@ -127,5 +124,53 @@ public final class BitbucketClientTeamTest
         assertEquals(
             UUID.fromString("01234567-89ab-cdef-0123-456789abcdef"),
             team2.getUUID());
+    }
+
+    /**
+     * Tests {@link BitbucketClientTeam#getDisplayName()}.
+     */
+    @Test
+    public void testGetDisplayName()
+    {
+        JsonObject object1 = createTeamObjectBuilder().build();
+        BitbucketClientTeam team1 = new BitbucketClientTeam(object1);
+        assertNull(team1.getDisplayName());
+
+        JsonObject object2 = createTeamObjectBuilder()
+            .add("display_name", "testName").build();
+        BitbucketClientTeam team2 = new BitbucketClientTeam(object2);
+        assertEquals("testName", team2.getDisplayName());
+    }
+
+    /**
+     * Tests {@link BitbucketClientTeam#getWebsite()}.
+     */
+    @Test
+    public void testGetWebsite()
+    {
+        JsonObject object1 = createTeamObjectBuilder().build();
+        BitbucketClientTeam team1 = new BitbucketClientTeam(object1);
+        assertNull(team1.getWebsite());
+
+        JsonObject object2 = createTeamObjectBuilder()
+            .add("website", "http://example.com/").build();
+        BitbucketClientTeam team2 = new BitbucketClientTeam(object2);
+        assertEquals("http://example.com/", team2.getWebsite());
+    }
+
+    /**
+     * Tests {@link BitbucketClientTeam#getLocation()}.
+     */
+    @Test
+    public void testGetLocation()
+    {
+        JsonObject object1 = createTeamObjectBuilder().build();
+        BitbucketClientTeam team1 = new BitbucketClientTeam(object1);
+        assertNull(team1.getLocation());
+
+        JsonObject object2 = createTeamObjectBuilder()
+            .add("location", "testLocation").build();
+        BitbucketClientTeam team2 = new BitbucketClientTeam(object2);
+        assertEquals("testLocation", team2.getLocation());
     }
 }
