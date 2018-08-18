@@ -83,6 +83,5 @@ public final class BitbucketClientUserTest
         assertNull(user.getWebsite());
         assertNull(user.getLocation());
         assertNull(user.getCreated());
-        assertNull(user.getLinks());
     }
 }

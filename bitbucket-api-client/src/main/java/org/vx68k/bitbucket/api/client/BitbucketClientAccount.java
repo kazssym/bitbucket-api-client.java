@@ -24,7 +24,6 @@ import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Map;
 import java.util.UUID;
 import javax.json.JsonObject;
 import org.vx68k.bitbucket.api.BitbucketAccount;
@@ -68,11 +67,6 @@ public abstract class BitbucketClientAccount extends BitbucketClientObject
      * Name for the {@code created_on} value in a JSON account object.
      */
     private static final String CREATED_ON = "created_on";
-
-    /**
-     * Name for the {@code links} object in a JSON account object.
-     */
-    private static final String LINKS = "links";
 
     /**
      * Constructs this object with no Bitbucket client.
@@ -162,17 +156,6 @@ public abstract class BitbucketClientAccount extends BitbucketClientObject
                 .toInstant();
         }
         return created;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final Map<String, String> getLinks()
-    {
-        JsonObject object = getJsonObject();
-        return BitbucketClientUtilities.parseLinks(
-            object.getJsonObject(LINKS));
     }
 
     /**

@@ -37,6 +37,16 @@ public class BitbucketClientObject
     public static final String TYPE = "type";
 
     /**
+     * Name for the {@code links} object in a JSON object.
+     */
+    private static final String LINKS = "links";
+
+    /**
+     * Name for the {@code href} object in a JSON {@code links} object.
+     */
+    private static final String HREF = "href";
+
+    /**
      * JSON object given to the constructor.
      */
     private final JsonObject jsonObject;
@@ -109,12 +119,31 @@ public class BitbucketClientObject
     /**
      * Returns the type name of this object.
      *
-     * @return the type name, or {@code null} if this object has no type
+     * @return the type name if it was specified in the JSON object;
+     * {@code null} otherwise
      */
     public final String getType()
     {
         JsonObject object = getJsonObject();
         return object.getString(TYPE, null);
+    }
+
+    /**
+     * Returns the link of this object identified by a name.
+     *
+     * @param name name of the link
+     * @return the link if it was specified in the JSON object; {@code null}
+     * otherwise
+     */
+    public final String getLink(final String name)
+    {
+        JsonObject object = getJsonObject();
+        String value = null;
+        JsonObject links = object.getJsonObject(LINKS);
+        if (links != null) {
+            value = links.getString(HREF, null);
+        }
+        return value;
     }
 
     /**

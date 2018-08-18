@@ -22,7 +22,6 @@ package org.vx68k.bitbucket.api;
 
 import java.time.Instant;
 import java.util.Collection;
-import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -74,13 +73,6 @@ public interface BitbucketAccount
      * @return the instant
      */
     Instant getCreated();
-
-    /**
-     * Returns the links of the account.
-     *
-     * @return the links
-     */
-    Map<String, String> getLinks();
 
     /**
      * Returns a repository which is owned by the account.

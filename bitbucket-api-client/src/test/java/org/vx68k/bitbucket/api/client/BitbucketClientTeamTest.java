@@ -59,7 +59,6 @@ public final class BitbucketClientTeamTest
         BitbucketClientTeam team1 = new BitbucketClientTeam(object1);
         assertNull(team1.getBitbucketClient());
 //        assertNull(team.getCreated());
-//        assertNull(team.getLinks());
 
         // Case with a null pointer.
         try {

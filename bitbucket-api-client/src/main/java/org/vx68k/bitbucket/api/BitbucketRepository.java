@@ -21,7 +21,6 @@
 package org.vx68k.bitbucket.api;
 
 import java.time.Instant;
-import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -102,11 +101,4 @@ public interface BitbucketRepository extends BitbucketIssueTracker
      * @return the last update time
      */
     Instant getUpdated();
-
-    /**
-     * Returns the links of this repository.
-     *
-     * @return the links
-     */
-    Map<String, String> getLinks();
 }
