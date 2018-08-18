@@ -20,6 +20,8 @@
 
 package org.vx68k.bitbucket.api.client;
 
+import static org.vx68k.bitbucket.api.client.BitbucketClientUtilities.parseUUID;
+
 import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.util.Collection;
@@ -109,8 +111,7 @@ public abstract class BitbucketClientAccount extends BitbucketClientObject
     public final UUID getUUID()
     {
         JsonObject object = getJsonObject();
-        return BitbucketClientUtilities.parseUUID(
-                object.getJsonString(UUID));
+        return parseUUID(object.getJsonString(UUID));
     }
 
     /**
