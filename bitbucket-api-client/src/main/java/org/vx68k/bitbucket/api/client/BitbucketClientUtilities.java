@@ -20,11 +20,7 @@
 
 package org.vx68k.bitbucket.api.client;
 
-import java.util.Map;
 import java.util.UUID;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-import javax.json.JsonObject;
 import javax.json.JsonString;
 
 /**
@@ -68,24 +64,5 @@ public class BitbucketClientUtilities
             uuid = UUID.fromString(s);
         }
         return uuid;
-    }
-
-    /**
-     * Parses links in a JSON object.
-     *
-     * @param jsonObject JSON object, or {@code null}
-     * @return {@link Map} object, or {@code null}
-     */
-    public static Map<String, String> parseLinks(final JsonObject jsonObject)
-    {
-        Map<String, String> links = null;
-        if (jsonObject != null) {
-            links = jsonObject.keySet().stream().collect(
-                Collectors.toConcurrentMap(Function.identity(), (key) -> {
-                    JsonObject linkObject = jsonObject.getJsonObject(key);
-                    return linkObject.getString(HREF, null);
-                }));
-        }
-        return links;
     }
 }
