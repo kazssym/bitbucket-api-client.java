@@ -152,7 +152,7 @@ public abstract class BitbucketClientAccount extends BitbucketClientObject
     {
         JsonObject object = getJsonObject();
         Instant created = null;
-        if (object.containsKey(CREATED_ON)) {
+        if (object.containsKey(CREATED_ON) && !object.isNull(CREATED_ON)) {
             created = OffsetDateTime.parse(object.getString(CREATED_ON))
                 .toInstant();
         }
