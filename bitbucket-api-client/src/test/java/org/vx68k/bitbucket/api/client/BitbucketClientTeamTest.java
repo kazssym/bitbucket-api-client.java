@@ -24,6 +24,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
+import java.time.Instant;
 import java.util.UUID;
 import javax.json.Json;
 import javax.json.JsonObject;
@@ -58,7 +59,6 @@ public final class BitbucketClientTeamTest
         JsonObject object1 = createTeamObjectBuilder().build();
         BitbucketClientTeam team1 = new BitbucketClientTeam(object1);
         assertNull(team1.getBitbucketClient());
-//        assertNull(team.getCreated());
 
         // Case with a null pointer.
         try {
@@ -171,5 +171,22 @@ public final class BitbucketClientTeamTest
             .add("location", "testLocation").build();
         BitbucketClientTeam team2 = new BitbucketClientTeam(object2);
         assertEquals("testLocation", team2.getLocation());
+    }
+
+    /**
+     * Tests {@link BitbucketClientTeam#getCreated()}.
+     */
+    @Test
+    public void testGetCreated()
+    {
+        JsonObject object1 = createTeamObjectBuilder().build();
+        BitbucketClientTeam team1 = new BitbucketClientTeam(object1);
+        assertNull(team1.getCreated());
+
+        JsonObject object2 = createTeamObjectBuilder()
+            .add("created_on", "2001-01-01T01:23:45.678Z").build();
+        BitbucketClientTeam team2 = new BitbucketClientTeam(object2);
+        assertEquals(
+            Instant.parse("2001-01-01T01:23:45.678Z"), team2.getCreated());
     }
 }
