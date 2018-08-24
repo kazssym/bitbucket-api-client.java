@@ -132,6 +132,11 @@ public class UserContext implements Serializable
     private BitbucketUser loggedInUser = null;
 
     /**
+     * Redirection endpoint URI.
+     */
+    private transient String redirectionURI = null;
+
+    /**
      * Constructs this object with no parameters.
      */
     public UserContext()
@@ -253,16 +258,21 @@ public class UserContext implements Serializable
     public String login()
     {
         FacesContext facesContext = FacesContext.getCurrentInstance();
+
+        String clientId = getBitbucketClientId();
+        if (clientId == null) {
+            // @todo Fail gracefully?
+            throw new FacesException();
+        }
+
         ExternalContext externalContext = facesContext.getExternalContext();
         UIViewRoot view = facesContext.getViewRoot();
         ViewHandler viewHandler =
             facesContext.getApplication().getViewHandler();
-
-        String clientId = getBitbucketClientId();
-        String redirectionURI = viewHandler.getRedirectURL(
+        redirectionURI = viewHandler.getRedirectURL(
             facesContext, view.getViewId(), emptyMap(), true);
 
-        // The redirection URI must be absolute.
+        // The redirection endpoint URI must be absolute.
         URI origin = getOrigin(externalContext);
         redirectionURI = origin.resolve(redirectionURI).toString();
 
@@ -280,6 +290,7 @@ public class UserContext implements Serializable
         catch (final IOException exception) {
             throw new FacesException("Redirection failure", exception);
         }
+
         return null;
     }
 
