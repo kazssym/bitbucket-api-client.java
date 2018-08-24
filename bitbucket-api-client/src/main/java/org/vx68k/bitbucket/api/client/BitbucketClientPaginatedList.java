@@ -81,14 +81,22 @@ public class BitbucketClientPaginatedList<E extends BitbucketClientObject>
     }
 
     /**
+     * Fetches the next page.
+     */
+    protected final void fetchNext()
+    {
+        // @todo Fetch the next page through {@link BitbucketClient}.
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override
     public final E get(final int index)
     {
         while (index >= knownValues.size() && nextURL != null) {
-            // @todo Fetch more.
-            throw new UnsupportedOperationException("Not supported yet.");
+            fetchNext();
         }
         return knownValues.get(index);
     }
@@ -101,8 +109,7 @@ public class BitbucketClientPaginatedList<E extends BitbucketClientObject>
     {
         while (knownSize < 0) {
             assert nextURL != null;
-            // @todo Fetch more.
-            throw new UnsupportedOperationException("Not supported yet.");
+            fetchNext();
         }
         return knownSize;
     }
