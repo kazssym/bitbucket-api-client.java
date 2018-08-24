@@ -26,7 +26,7 @@ package org.vx68k.bitbucket.api.client.cli;
  * @author Kaz Nishimura
  * @since 5.0
  */
-public class CLI
+public class CLI extends CommandGroup
 {
     /**
      * Command entry point.
@@ -35,5 +35,7 @@ public class CLI
      */
     public static void main(final String[] args)
     {
+        CLI cli = new CLI();
+        cli.run("CLI", args);
     }
 }
