@@ -38,6 +38,19 @@ public class CommandGroup implements Command
     private Map<String, Command> commandMap = new HashMap<>();
 
     /**
+     * Add a command.
+     *
+     * @param name command name
+     * @param command command
+     * @return the modified object
+     */
+    public CommandGroup add(final String name, final Command command)
+    {
+        commandMap.put(name, command);
+        return this;
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override
