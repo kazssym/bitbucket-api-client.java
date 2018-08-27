@@ -29,6 +29,14 @@ package org.vx68k.bitbucket.api.client.cli;
 public class CLI extends CommandGroup
 {
     /**
+     * Constructs this object.
+     */
+    public CLI()
+    {
+        // @todo Add commands here.
+    }
+
+    /**
      * Command entry point.
      *
      * @param args command arguments
