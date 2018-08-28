@@ -66,7 +66,7 @@ public class BitbucketClientPaginatedList<E extends BitbucketClientObject>
         bitbucketClient = client;
         // @todo Rethink the procedure.
         nextURL = firstURL;
-        knownSize = 0;
+        knownSize = -1;
         knownValues = null;
     }
 
