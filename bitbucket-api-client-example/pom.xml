@@ -10,10 +10,10 @@
 <version>5.0-SNAPSHOT</version>
 </parent>
 
-<artifactId>bitbucket-api-client-example</artifactId>
+<artifactId>bitbucket-api-client-webapp</artifactId>
 <packaging>war</packaging>
-<name>Bitbucket API Client Example App</name>
-<description>Example web app using the Bitbucket API Client Library.
+<name>Bitbucket API Client Example Web App</name>
+<description>Example web application using the Bitbucket API Client Library.
 </description>
 
 <dependencies>

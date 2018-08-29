@@ -7,7 +7,7 @@
 ---
 version: "2.1"
 services:
-  example:
+  webapp:
     image: kazssym/wildfly:latest
     depends_on:
       - derby
@@ -22,7 +22,7 @@ services:
       DEBUG_PORT: 0.0.0.0:8787
     volumes:
       - configuration:/opt/jboss/wildfly/standalone/configuration:rw
-      - ./bitbucket-api-client-example/target/bitbucket-api-client-example-${VERSION:-5.0-SNAPSHOT}.war:/opt/jboss/wildfly/standalone/deployments/ROOT.war:ro
+      - ./bitbucket-api-client-example/target/bitbucket-api-client-webapp-${VERSION:-5.0-SNAPSHOT}.war:/opt/jboss/wildfly/standalone/deployments/ROOT.war:ro
     working_dir: /opt/jboss/wildfly/standalone
     command: /opt/jboss/wildfly/bin/standalone.sh -b=0.0.0.0 -bmanagement=0.0.0.0
     cap_drop:
