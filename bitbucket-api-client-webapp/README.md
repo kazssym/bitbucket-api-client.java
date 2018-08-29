@@ -1,6 +1,6 @@
-This file documents the `bitbucket-api-client-example` project.
+This file documents the `bitbucket-api-client-webapp` project.
 
 # Description
 
-This project builds an example web application of the Bitbucket API Client
-Library for Java.
+This project builds an example web application using the Bitbucket API Client
+Library.
