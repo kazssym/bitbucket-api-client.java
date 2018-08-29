@@ -31,5 +31,5 @@ The parent Maven project contains the following modules:
 
   * bitbucket-api-client – core library.
   * bitbucket-webhook – webhook library.
-  * bitbucket-api-client-example – example web application that uses the libraries.
+  * bitbucket-api-client-webapp – example web application that uses the libraries.
   * bitbucket-stubs – stub library for tests,
