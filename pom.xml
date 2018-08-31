@@ -35,7 +35,7 @@
 <module>bitbucket-api-client</module>
 <module>bitbucket-webhook</module>
 <module>bitbucket-stubs</module>
-<module>bitbucket-api-client-example</module>
+<module>bitbucket-api-client-webapp</module>
 <module>bitbucket-api-client-cli</module>
 </modules>
 
