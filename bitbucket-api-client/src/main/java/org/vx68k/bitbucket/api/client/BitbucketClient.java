@@ -211,6 +211,28 @@ public class BitbucketClient implements Serializable
     }
 
     /**
+     * Gets a JSON object from a link.
+     *
+     * @param link URI of the link
+     * @return JSON object if found; {@code null} otherwise
+     */
+    public JsonObject getJsonObject(final String link)
+    {
+        Client client = clientBuilder.build();
+        try {
+            return client.target(link)
+                .request(MediaType.APPLICATION_JSON)
+                .get(JsonObject.class);
+        }
+        catch (NotFoundException exception) {
+            return null;
+        }
+        finally {
+            client.close();
+        }
+    }
+
+    /**
      * Returns a {@link BitbucketUser} object for a user.
      *
      * @param name user name
