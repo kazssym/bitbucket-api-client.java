@@ -5,7 +5,7 @@
 <parent>
 <artifactId>bitbucket-api-client-parent</artifactId>
 <groupId>org.vx68k.bitbucket</groupId>
-<version>5.0-alpha.1</version>
+<version>5.0-SNAPSHOT</version>
 </parent>
 
 <artifactId>bitbucket-api-client-cli</artifactId>
@@ -19,7 +19,7 @@ Client for Java.</description>
 <dependency>
 <groupId>${project.groupId}</groupId>
 <artifactId>bitbucket-api-client</artifactId>
-<version>5.0-alpha.1</version>
+<version>5.0-SNAPSHOT</version>
 </dependency>
 
 <dependency>

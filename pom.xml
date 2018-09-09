@@ -4,7 +4,7 @@
 
 <groupId>org.vx68k.bitbucket</groupId>
 <artifactId>bitbucket-api-client-parent</artifactId>
-<version>5.0-alpha.1</version>
+<version>5.0-SNAPSHOT</version>
 <packaging>pom</packaging>
 <name>Bitbucket API Client Library Parent</name>
 <description>Parent project for the Bitbucket API Client Library.
@@ -40,7 +40,7 @@
 <scm>
 <connection>scm:hg:https://bitbucket.org/vx68k/bitbucket-api-client-java</connection>
 <developerConnection>scm:hg:ssh://hg@bitbucket.org/vx68k/bitbucket-api-client-java</developerConnection>
-<tag>prerelease/5.0-alpha.1</tag>
+<tag>master</tag>
 <url>https://bitbucket.org/vx68k/bitbucket-api-client-java/src/master/</url>
 </scm>
 
