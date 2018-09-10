@@ -18,7 +18,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-package org.vx68k.bitbucket.api.client.example;
+package org.vx68k.bitbucket.api.client.webapp;
 
 import java.io.IOException;
 import java.io.Serializable;

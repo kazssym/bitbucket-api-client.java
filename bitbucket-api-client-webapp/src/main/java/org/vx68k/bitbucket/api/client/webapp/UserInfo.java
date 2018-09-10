@@ -1,5 +1,5 @@
 /*
- * RepositoryInfo.java - class RepositoryInfo
+ * UserInfo.java - class UserInfo
  * Copyright (C) 2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -18,7 +18,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-package org.vx68k.bitbucket.api.client.example;
+package org.vx68k.bitbucket.api.client.webapp;
 
 import java.io.Serializable;
 import javax.enterprise.context.RequestScoped;
@@ -29,18 +29,18 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import org.vx68k.bitbucket.api.BitbucketRepository;
+import org.vx68k.bitbucket.api.BitbucketUser;
 import org.vx68k.bitbucket.api.client.BitbucketClient;
 
 /**
- * Request-scoped bean to look up a repository name on Bitbucket Cloud.
+ * Request-scoped bean to look up a user name on Bitbucket Cloud.
  *
  * @author Kaz Nishimura
  * @since 5.0
  */
 @Named
 @RequestScoped
-public class RepositoryInfo implements Serializable
+public class UserInfo implements Serializable
 {
     private static final long serialVersionUID = 1L;
 
@@ -50,26 +50,17 @@ public class RepositoryInfo implements Serializable
     private final UserContext userContext;
 
     /**
-     * Owner name to look up.
+     * User name to look up.
      */
     @NotNull
     @Pattern(regexp = "[^/]*",
-        message = "Owner name must not contain slashes.")
-    private String ownerName = "";
-
-    /**
-     * Repository name to look up.
-     */
-    @NotNull
-    @Pattern(regexp = "[^/]*",
-        message = "Repository name must not contain slashes.")
+        message = "User name must not contain slashes.")
     private String name = "";
 
     /**
-     * Repository found by the last lookup, or {@code null} if no repository
-     * was found.
+     * User found by the last lookup, or {@code null} if no user was found.
      */
-    private transient BitbucketRepository repository = null;
+    private transient BitbucketUser user = null;
 
     /**
      * Constructs this object.
@@ -77,7 +68,7 @@ public class RepositoryInfo implements Serializable
      * @param context user context
      */
     @Inject
-    public RepositoryInfo(final UserContext context)
+    public UserInfo(final UserContext context)
     {
         userContext = context;
     }
@@ -87,7 +78,7 @@ public class RepositoryInfo implements Serializable
      *
      * @return the user context
      */
-    protected UserContext getUserContext()
+    public UserContext getUserContext()
     {
         return userContext;
     }
@@ -103,29 +94,9 @@ public class RepositoryInfo implements Serializable
     }
 
     /**
-     * Returns the owner name to look up.
+     * Returns the user name to look up.
      *
-     * @return the owner name
-     */
-    public String getOwnerName()
-    {
-        return ownerName;
-    }
-
-    /**
-     * Sets the owner name to look up.
-     *
-     * @param value new value of the owner name
-     */
-    public void setOwnerName(final String value)
-    {
-        ownerName = value;
-    }
-
-    /**
-     * Returns the repository name to look up.
-     *
-     * @return the repository name
+     * @return the user name
      */
     public String getName()
     {
@@ -133,9 +104,9 @@ public class RepositoryInfo implements Serializable
     }
 
     /**
-     * Sets the repository name to look up.
+     * Sets the user name to look up.
      *
-     * @param value new value of the repository name
+     * @param value new value of the user name
      */
     public void setName(final String value)
     {
@@ -143,24 +114,24 @@ public class RepositoryInfo implements Serializable
     }
 
     /**
-     * Returns the repository found by the last lookup.
+     * Returns the user found by the last lookup.
      *
-     * @return the repository if one was found; {@code null} otherwise
+     * @return the user if one was found; {@code null} otherwise
      * @see #isFound
      */
-    public BitbucketRepository getRepository()
+    public BitbucketUser getUser()
     {
-        return repository;
+        return user;
     }
 
     /**
-     * Returns {@code true} if a repository was found by the last lookup.
+     * Returns {@code true} if a user was found by the last lookup.
      *
      * @return {@code true} if found; {@code false} otherwise
      */
     public boolean isFound()
     {
-        return repository != null;
+        return user != null;
     }
 
     /**
@@ -169,20 +140,20 @@ public class RepositoryInfo implements Serializable
      *
      * @return {@code null}
      */
-    public String lookUp()
+    public Object lookUp()
     {
-        if (!ownerName.isEmpty() && !name.isEmpty()) {
+        if (!name.isEmpty()) {
             BitbucketClient bitbucketClient = getBitbucketClient();
-            repository = bitbucketClient.getRepository(ownerName, name);
+            user = bitbucketClient.getUser(name);
             if (!isFound()) {
                 FacesContext facesContext = FacesContext.getCurrentInstance();
                 UIComponent c = UIComponent.getCurrentComponent(facesContext);
                 facesContext.addMessage(c.getClientId(facesContext),
-                    new FacesMessage("Repository not found."));
+                    new FacesMessage("User not found."));
             }
         }
         else {
-            repository = null;
+            user = null;
         }
         return null;
     }

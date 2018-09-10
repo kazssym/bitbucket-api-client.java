@@ -1,5 +1,5 @@
 /*
- * TeamInfo.java - class TeamInfo
+ * RepositoryInfo.java - class RepositoryInfo
  * Copyright (C) 2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -18,7 +18,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-package org.vx68k.bitbucket.api.client.example;
+package org.vx68k.bitbucket.api.client.webapp;
 
 import java.io.Serializable;
 import javax.enterprise.context.RequestScoped;
@@ -29,18 +29,18 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import org.vx68k.bitbucket.api.BitbucketTeam;
+import org.vx68k.bitbucket.api.BitbucketRepository;
 import org.vx68k.bitbucket.api.client.BitbucketClient;
 
 /**
- * Request-scoped bean to look up a team name on Bitbucket Cloud.
+ * Request-scoped bean to look up a repository name on Bitbucket Cloud.
  *
  * @author Kaz Nishimura
  * @since 5.0
  */
 @Named
 @RequestScoped
-public class TeamInfo implements Serializable
+public class RepositoryInfo implements Serializable
 {
     private static final long serialVersionUID = 1L;
 
@@ -50,17 +50,26 @@ public class TeamInfo implements Serializable
     private final UserContext userContext;
 
     /**
-     * Team name to look up.
+     * Owner name to look up.
      */
     @NotNull
     @Pattern(regexp = "[^/]*",
-        message = "Team name must not contain slashes.")
+        message = "Owner name must not contain slashes.")
+    private String ownerName = "";
+
+    /**
+     * Repository name to look up.
+     */
+    @NotNull
+    @Pattern(regexp = "[^/]*",
+        message = "Repository name must not contain slashes.")
     private String name = "";
 
     /**
-     * Team found by the last lookup, or {@code null} if no team was found.
+     * Repository found by the last lookup, or {@code null} if no repository
+     * was found.
      */
-    private transient BitbucketTeam team = null;
+    private transient BitbucketRepository repository = null;
 
     /**
      * Constructs this object.
@@ -68,7 +77,7 @@ public class TeamInfo implements Serializable
      * @param context user context
      */
     @Inject
-    public TeamInfo(final UserContext context)
+    public RepositoryInfo(final UserContext context)
     {
         userContext = context;
     }
@@ -78,7 +87,7 @@ public class TeamInfo implements Serializable
      *
      * @return the user context
      */
-    public UserContext getUserContext()
+    protected UserContext getUserContext()
     {
         return userContext;
     }
@@ -94,9 +103,29 @@ public class TeamInfo implements Serializable
     }
 
     /**
-     * Returns the team name to look up.
+     * Returns the owner name to look up.
      *
-     * @return the team name
+     * @return the owner name
+     */
+    public String getOwnerName()
+    {
+        return ownerName;
+    }
+
+    /**
+     * Sets the owner name to look up.
+     *
+     * @param value new value of the owner name
+     */
+    public void setOwnerName(final String value)
+    {
+        ownerName = value;
+    }
+
+    /**
+     * Returns the repository name to look up.
+     *
+     * @return the repository name
      */
     public String getName()
     {
@@ -104,9 +133,9 @@ public class TeamInfo implements Serializable
     }
 
     /**
-     * Sets the team name to look up.
+     * Sets the repository name to look up.
      *
-     * @param value new value of the team name
+     * @param value new value of the repository name
      */
     public void setName(final String value)
     {
@@ -114,24 +143,24 @@ public class TeamInfo implements Serializable
     }
 
     /**
-     * Returns the team found by the last lookup.
+     * Returns the repository found by the last lookup.
      *
-     * @return the team if one was found; {@code null} otherwise
+     * @return the repository if one was found; {@code null} otherwise
      * @see #isFound
      */
-    public BitbucketTeam getTeam()
+    public BitbucketRepository getRepository()
     {
-        return team;
+        return repository;
     }
 
     /**
-     * Returns {@code true} if a team was found by the last lookup.
+     * Returns {@code true} if a repository was found by the last lookup.
      *
      * @return {@code true} if found; {@code false} otherwise
      */
     public boolean isFound()
     {
-        return team != null;
+        return repository != null;
     }
 
     /**
@@ -140,20 +169,20 @@ public class TeamInfo implements Serializable
      *
      * @return {@code null}
      */
-    public Object lookUp()
+    public String lookUp()
     {
-        if (!name.isEmpty()) {
+        if (!ownerName.isEmpty() && !name.isEmpty()) {
             BitbucketClient bitbucketClient = getBitbucketClient();
-            team = bitbucketClient.getTeam(name);
+            repository = bitbucketClient.getRepository(ownerName, name);
             if (!isFound()) {
                 FacesContext facesContext = FacesContext.getCurrentInstance();
                 UIComponent c = UIComponent.getCurrentComponent(facesContext);
                 facesContext.addMessage(c.getClientId(facesContext),
-                    new FacesMessage("Team not found."));
+                    new FacesMessage("Repository not found."));
             }
         }
         else {
-            team = null;
+            repository = null;
         }
         return null;
     }

@@ -21,4 +21,4 @@
 /**
  * Unit tests.
  */
-package org.vx68k.bitbucket.api.client.example;
+package org.vx68k.bitbucket.api.client.webapp;
