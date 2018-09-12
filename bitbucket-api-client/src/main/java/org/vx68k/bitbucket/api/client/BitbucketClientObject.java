@@ -137,11 +137,13 @@ public class BitbucketClientObject
      */
     public final String getLink(final String name)
     {
-        JsonObject object = getJsonObject();
         String value = null;
-        JsonObject links = object.getJsonObject(LINKS);
+        JsonObject links = getJsonObject().getJsonObject(LINKS);
         if (links != null) {
-            value = links.getString(HREF, null);
+            JsonObject link = links.getJsonObject(name);
+            if (link != null) {
+                value = link.getString(HREF, null);
+            }
         }
         return value;
     }
