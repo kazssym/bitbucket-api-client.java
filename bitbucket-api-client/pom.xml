@@ -10,8 +10,8 @@
 
 <artifactId>bitbucket-api-client</artifactId>
 <packaging>jar</packaging>
-<name>Bitbucket API Client Library</name>
-<description>Client library for the Bitbucket REST API</description>
+<name>Bitbucket API Client</name>
+<description>Client implementation for the Bitbucket API.</description>
 
 <dependencies>
 
