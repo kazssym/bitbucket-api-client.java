@@ -27,3 +27,14 @@ pipelines:
             - gpg --dump-options | grep -qx -e --pinentry-mode && (echo pinentry-mode loopback) >> $GNUPGHOME/gpg.conf
             - gpg --batch --import < etc/keys.asc
             - mvn -B -s etc/settings.xml ${OSSRHUSERNAME+-P ossrh} -Dmaven.deploy.skip deploy
+  custom:
+    snapshot:
+      - step:
+          deployment: test
+          caches:
+            - maven
+          script:
+            - export GNUPGHOME=`mktemp -d`
+            - gpg --dump-options | grep -qx -e --pinentry-mode && (echo pinentry-mode loopback) >> $GNUPGHOME/gpg.conf
+            - gpg --batch --import < etc/keys.asc
+            - mvn -B -s etc/settings.xml ${OSSRHUSERNAME+-P ossrh} -Dmaven.deploy.skip deploy
