@@ -1,5 +1,5 @@
 /*
- * CLI.java - class CLI
+ * UserCommandGroup.java
  * Copyright (C) 2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -21,30 +21,9 @@
 package org.vx68k.bitbucket.api.client.cli;
 
 /**
- * Command line interface.
  *
  * @author Kaz Nishimura
- * @since 5.0
  */
-public class CLI extends CommandGroup
+public class UserCommandGroup extends CommandGroup
 {
-    /**
-     * Constructs this object.
-     */
-    public CLI()
-    {
-        add("user", new UserCommandGroup());
-        // @todo Add commands here.
-    }
-
-    /**
-     * Command entry point.
-     *
-     * @param args command arguments
-     */
-    public static void main(final String[] args)
-    {
-        CLI cli = new CLI();
-        cli.run("CLI", args);
-    }
 }
