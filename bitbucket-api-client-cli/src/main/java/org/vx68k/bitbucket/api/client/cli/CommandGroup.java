@@ -61,7 +61,7 @@ public class CommandGroup implements Command
         }
         else if (commandMap.containsKey(args[0])) {
             Command command = commandMap.get(args[0]);
-            command.run(args[0], Arrays.copyOfRange(args, 1, args.length - 1));
+            command.run(args[0], Arrays.copyOfRange(args, 1, args.length));
         }
     }
 }
