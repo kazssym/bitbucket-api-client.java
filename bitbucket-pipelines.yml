@@ -8,13 +8,14 @@
 # See <https://confluence.atlassian.com/bitbucket/configure-bitbucket-pipelines-yml-792298910.html>
 # for details.
 ---
-image: maven:3-jdk-8
+image: maven:3-ibmjava-8
 pipelines:
   default:
     - step:
         caches:
           - maven
         script:
+          - export MAVEN_OPTS="-Xquickstart"
           - mvn -B -s etc/settings.xml test
   branches:
     production:
@@ -26,6 +27,7 @@ pipelines:
             - export GNUPGHOME=`mktemp -d`
             - gpg --dump-options | grep -qx -e --pinentry-mode && (echo pinentry-mode loopback) >> $GNUPGHOME/gpg.conf
             - gpg --batch --import < etc/keys.asc
+            - export MAVEN_OPTS="-Xquickstart"
             - mvn -B -s etc/settings.xml ${OSSRHUSERNAME+-P ossrh} -Dmaven.deploy.skip deploy
   custom:
     snapshot:
@@ -37,4 +39,5 @@ pipelines:
             - export GNUPGHOME=`mktemp -d`
             - gpg --dump-options | grep -qx -e --pinentry-mode && (echo pinentry-mode loopback) >> $GNUPGHOME/gpg.conf
             - gpg --batch --import < etc/keys.asc
+            - export MAVEN_OPTS="-Xquickstart"
             - mvn -B -s etc/settings.xml ${OSSRHUSERNAME+-P ossrh} -Dmaven.deploy.skip deploy
