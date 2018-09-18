@@ -71,7 +71,7 @@ public class BitbucketWebhookServlet extends HttpServlet
     protected final void doPost(final HttpServletRequest request,
         final HttpServletResponse response) throws IOException
     {
-        try (JsonReader reader = Json.createReader(request.getInputStream())) {
+        try (JsonReader reader = Json.createReader(request.getReader())) {
             JsonObject object = reader.readObject();
             bitbucketEvent.fire(new BitbucketEvent(object));
         }
