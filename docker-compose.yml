@@ -21,7 +21,7 @@ services:
       DEBUG:
       DEBUG_PORT: 0.0.0.0:8787
     volumes:
-      - configuration:/opt/jboss/wildfly/standalone/configuration:rw
+      - ./configuration:/opt/jboss/wildfly/standalone/configuration:rw
       - ./bitbucket-api-client-webapp/target/bitbucket-api-client-webapp-${VERSION:-5.0-SNAPSHOT}.war:/opt/jboss/wildfly/standalone/deployments/ROOT.war:ro
     working_dir: /opt/jboss/wildfly/standalone
     command: /opt/jboss/wildfly/bin/standalone.sh -b=0.0.0.0 -bmanagement=0.0.0.0
@@ -35,5 +35,3 @@ services:
     command: java -jar /opt/apache/derby/lib/derbynet.jar -h 0.0.0.0 start
     cap_drop:
       - ALL
-volumes:
-  configuration: {}
