@@ -25,8 +25,7 @@ pipelines:
             - maven
           script:
             - export GNUPGHOME=`mktemp -d`
-            - gpg --dump-options | grep -qx -e --pinentry-mode && (echo pinentry-mode loopback) >> $GNUPGHOME/gpg.conf
-            - gpg --batch --import < etc/keys.asc
+            - sh etc/gpginit.sh
             - export MAVEN_OPTS="-Xquickstart"
             - mvn -B -s etc/settings.xml ${OSSRHUSERNAME+-P ossrh} -Dmaven.deploy.skip deploy
   custom:
@@ -37,7 +36,6 @@ pipelines:
             - maven
           script:
             - export GNUPGHOME=`mktemp -d`
-            - gpg --dump-options | grep -qx -e --pinentry-mode && (echo pinentry-mode loopback) >> $GNUPGHOME/gpg.conf
-            - gpg --batch --import < etc/keys.asc
+            - sh etc/gpginit.sh
             - export MAVEN_OPTS="-Xquickstart"
             - mvn -B -s etc/settings.xml ${OSSRHUSERNAME+-P ossrh} -Dmaven.deploy.skip deploy
