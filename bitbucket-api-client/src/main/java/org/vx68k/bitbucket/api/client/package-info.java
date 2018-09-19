@@ -19,6 +19,9 @@
  */
 
 /**
- * Client classes for the Bitbucket API.
+ * Client implementation for the Bitbucket API.
+ * <p>This package is contained in artifact {@code bitbucket-api-client} and
+ * will be exported by module {@code org.vx68k.bitbucket.api.client} on Java SE
+ * 9 and later.</p>
  */
 package org.vx68k.bitbucket.api.client;
