@@ -10,9 +10,8 @@
 
 <artifactId>bitbucket-webhook</artifactId>
 <packaging>jar</packaging>
-<name>Bitbucket Webhook Library</name>
-<description>Library to process webhook requests from Bitbucket Cloud.
-</description>
+<name>Bitbucket Webhook</name>
+<description>Webhook implementation for Bitbucket Cloud.</description>
 
 <dependencies>
 
@@ -55,6 +54,7 @@
 </dependencies>
 
 <build>
+
 <plugins>
 
 <plugin>
