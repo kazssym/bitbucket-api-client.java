@@ -35,4 +35,16 @@ public interface Command
      * @param args command arguments
      */
     void run(String name, String[] args);
+
+    /**
+     * Returns the description of the command.
+     * This method is used to make a list of commands.
+     * <p>The default implementation returns {@code "(undocumented)"}.</p>
+     *
+     * @return description of the command
+     */
+    default String getDescription()
+    {
+        return "(undocumented)";
+    }
 }
