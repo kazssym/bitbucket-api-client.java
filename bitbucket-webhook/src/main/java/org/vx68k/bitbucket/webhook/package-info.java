@@ -1,5 +1,5 @@
 /*
- * package-info.java
+ * package-info.java - package org.vx68k.bitbucket.webhook
  * Copyright (C) 2015-2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -19,6 +19,9 @@
  */
 
 /**
- * Webhook implementations.
+ * Webhook implementation for Bitbucket Cloud.
+ * <p>This package is contained in artifact {@code bitbucket-webhook} and will
+ * be exported by module {@code org.vx68k.bitbucket.webhook} on Java SE 9 and
+ * later.
  */
 package org.vx68k.bitbucket.webhook;
