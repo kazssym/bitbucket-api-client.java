@@ -44,9 +44,14 @@ public class BitbucketWebhookServlet extends HttpServlet
     private static final long serialVersionUID = 1L;
 
     /**
-     * Content type of the responses.
+     * Media type for JSON streams.
      */
-    private static final String CONTENT_TYPE = "application/json";
+    private static final String APPLICATION_JSON = "application/json";
+
+    /**
+     * Character encoding of UTF-8.
+     */
+    private static final String UTF8 = "UTF-8";
 
     /**
      * Event to fire.
@@ -71,6 +76,22 @@ public class BitbucketWebhookServlet extends HttpServlet
     protected final void doPost(final HttpServletRequest request,
         final HttpServletResponse response) throws IOException
     {
+        String contentType = request.getContentType();
+        // Content types may be followed by parameters.
+        if (contentType != null && contentType.contains(";")) {
+            contentType = contentType.substring(0, contentType.indexOf(";"))
+                .trim();
+        }
+        if (!APPLICATION_JSON.equalsIgnoreCase(contentType)) {
+            log("Unexpected content type: " + contentType);
+            response.sendError(HttpServletResponse.SC_NOT_ACCEPTABLE);
+            return;
+        }
+
+        // Default encoding for JSON streams is UTF-8.
+        if (request.getCharacterEncoding() == null) {
+            request.setCharacterEncoding(UTF8);
+        }
         try (JsonReader reader = Json.createReader(request.getReader())) {
             JsonObject object = reader.readObject();
             bitbucketEvent.fire(new BitbucketEvent(object));
@@ -82,9 +103,9 @@ public class BitbucketWebhookServlet extends HttpServlet
         }
 
         response.setStatus(HttpServletResponse.SC_OK);
-        response.setContentType(CONTENT_TYPE);
-        try (JsonWriter writer = Json.createWriter(
-            response.getOutputStream())) {
+        response.setContentType(APPLICATION_JSON);
+        response.setCharacterEncoding(UTF8);
+        try (JsonWriter writer = Json.createWriter(response.getWriter())) {
             JsonObjectBuilder builder = Json.createObjectBuilder()
                 .add("status", "OK");
             writer.write(builder.build());
