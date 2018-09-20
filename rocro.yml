@@ -20,3 +20,7 @@ inspecode:
   eslint:
     options:
       --env: browser,es6
+docstand:
+  javadoc:
+    input:
+      - "**/src/main/java"
