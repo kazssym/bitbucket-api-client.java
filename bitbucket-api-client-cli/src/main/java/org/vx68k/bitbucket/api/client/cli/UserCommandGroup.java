@@ -1,5 +1,5 @@
 /*
- * UserCommandGroup.java
+ * UserCommandGroup.java - class UserCommandGroup
  * Copyright (C) 2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -21,9 +21,35 @@
 package org.vx68k.bitbucket.api.client.cli;
 
 /**
+ * {@code user} command group.
  *
  * @author Kaz Nishimura
  */
 public class UserCommandGroup extends CommandGroup
 {
+    /**
+     * Constructs this object.
+     */
+    public UserCommandGroup()
+    {
+        add("show", new UserShowCommand());
+        // @todo Add more commands
+    }
+
+    /**
+     * {@code user show} command.
+     */
+    public static class UserShowCommand implements Command
+    {
+        @Override
+        public void run(final String name, final String[] args)
+        {
+            if (args.length >= 1) {
+                System.err.println("This command is not implemented yet.");
+            }
+            else {
+                System.err.println(name + ": Missing parameter");
+            }
+        }
+    }
 }
