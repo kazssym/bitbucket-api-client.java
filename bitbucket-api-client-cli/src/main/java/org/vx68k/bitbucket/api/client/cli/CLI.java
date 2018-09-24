@@ -20,8 +20,10 @@
 
 package org.vx68k.bitbucket.api.client.cli;
 
+import org.vx68k.bitbucket.api.client.BitbucketClient;
+
 /**
- * Command line interface.
+ * Main class of the CLI.
  *
  * @author Kaz Nishimura
  * @since 5.0
@@ -29,10 +31,19 @@ package org.vx68k.bitbucket.api.client.cli;
 public class CLI extends CommandGroup
 {
     /**
-     * Constructs this object.
+     * Bitbucket client.
      */
-    public CLI()
+    private final BitbucketClient bitbucketClient;
+
+    /**
+     * Constructs this object.
+     *
+     * @param bitbucketClientValue value for the Bitbucket client
+     */
+    public CLI(final BitbucketClient bitbucketClientValue)
     {
+        bitbucketClient = bitbucketClientValue;
+
         add("user", new UserCommandGroup());
         // @todo Add commands here.
     }
@@ -44,7 +55,7 @@ public class CLI extends CommandGroup
      */
     public static void main(final String[] args)
     {
-        CLI cli = new CLI();
+        CLI cli = new CLI(new BitbucketClient());
         cli.run("CLI", args);
     }
 }
