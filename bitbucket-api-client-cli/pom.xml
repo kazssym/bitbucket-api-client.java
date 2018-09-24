@@ -10,9 +10,8 @@
 
 <artifactId>bitbucket-api-client-cli</artifactId>
 <packaging>jar</packaging>
-<name>CLI for the Bitbucket API Client Library</name>
-<description>This project builds an experimental CLI for the Bitbucket API
-Client for Java.</description>
+<name>Bitbucket API Client CLI</name>
+<description>This project builds an experimental CLI for the Bitbucket API.</description>
 
 <dependencies>
 
