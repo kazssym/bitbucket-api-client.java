@@ -39,7 +39,7 @@ public class UserCommandGroup extends CommandGroup
     /**
      * {@code user show} command.
      */
-    public static class UserShowCommand implements Command
+    public static final class UserShowCommand implements Command
     {
         @Override
         public void run(final String name, final String[] args)
