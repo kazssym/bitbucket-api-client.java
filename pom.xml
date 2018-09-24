@@ -149,8 +149,8 @@
 <version>3.0.1</version>
 <configuration>
 <locale>en_US</locale>
+<apiLink>https://docs.oracle.com/javase/8/docs/api</apiLink>
 <links>
-<link>https://docs.oracle.com/javase/8/docs/api</link>
 <link>https://docs.oracle.com/javaee/7/api</link>
 </links>
 </configuration>
