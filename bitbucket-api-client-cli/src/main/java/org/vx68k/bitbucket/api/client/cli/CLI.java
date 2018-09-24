@@ -55,7 +55,13 @@ public class CLI extends CommandGroup
      */
     public static void main(final String[] args)
     {
+        String commandName = System.getProperty("_0", "CLI");
+        int lastSlash = commandName.lastIndexOf("/");
+        if (lastSlash >= 0) {
+            commandName = commandName.substring(lastSlash + 1);
+        }
+
         CLI cli = new CLI(new BitbucketClient());
-        cli.run("CLI", args);
+        cli.run(commandName, args);
     }
 }
