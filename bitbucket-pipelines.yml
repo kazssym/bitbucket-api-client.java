@@ -28,6 +28,17 @@ pipelines:
             - sh etc/gpginit.sh
             - export MAVEN_OPTS="-Xquickstart"
             - mvn -B -s etc/settings.xml ${OSSRHUSERNAME+-P ossrh} -Dmaven.deploy.skip deploy
+  bookmarks:
+    staging:
+      - step:
+          deployment: staging
+          caches:
+            - maven
+          script:
+            - export GNUPGHOME=`mktemp -d`
+            - sh etc/gpginit.sh
+            - export MAVEN_OPTS="-Xquickstart"
+            - mvn -B -s etc/settings.xml ${OSSRHUSERNAME+-P ossrh} -Dmaven.deploy.skip deploy
   custom:
     snapshot:
       - step:
