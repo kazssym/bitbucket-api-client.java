@@ -31,21 +31,16 @@ import org.vx68k.bitbucket.api.client.BitbucketClient;
 public class CLI extends CommandGroup
 {
     /**
-     * Bitbucket client.
-     */
-    private final BitbucketClient bitbucketClient;
-
-    /**
      * Constructs this object.
      *
      * @param bitbucketClientValue value for the Bitbucket client
      */
     public CLI(final BitbucketClient bitbucketClientValue)
     {
-        bitbucketClient = bitbucketClientValue;
+        super(bitbucketClientValue);
 
-        add("user", new UserCommandGroup());
-        // @todo Add commands here.
+        add("user", new UserCommandGroup(getBitbucketClient()));
+        // @todo Add more commands.
     }
 
     /**

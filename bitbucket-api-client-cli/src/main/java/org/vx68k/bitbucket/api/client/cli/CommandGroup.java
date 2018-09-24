@@ -23,6 +23,7 @@ package org.vx68k.bitbucket.api.client.cli;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import org.vx68k.bitbucket.api.client.BitbucketClient;
 
 /**
  * Group of commands.
@@ -33,9 +34,35 @@ import java.util.Map;
 public class CommandGroup implements Command
 {
     /**
+     * Bitbucket API client.
+     */
+    private final BitbucketClient bitbucketClient;
+
+    /**
      * Name-to-command map.
      */
-    private Map<String, Command> commandMap = new HashMap<>();
+    private final Map<String, Command> commandMap;
+
+    /**
+     * Constructs this object.
+     *
+     * @param bitbucketClientValue value for the Bitbucket API client
+     */
+    public CommandGroup(final BitbucketClient bitbucketClientValue)
+    {
+        bitbucketClient = bitbucketClientValue;
+        commandMap = new HashMap<>();
+    }
+
+    /**
+     * Returns the Bitbucket API client.
+     *
+     * @return the Bitbucket API client
+     */
+    public final BitbucketClient getBitbucketClient()
+    {
+        return bitbucketClient;
+    }
 
     /**
      * Add a command.
@@ -44,7 +71,7 @@ public class CommandGroup implements Command
      * @param command command
      * @return the modified object
      */
-    public CommandGroup add(final String name, final Command command)
+    public final CommandGroup add(final String name, final Command command)
     {
         commandMap.put(name, command);
         return this;

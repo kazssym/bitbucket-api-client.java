@@ -20,6 +20,8 @@
 
 package org.vx68k.bitbucket.api.client.cli;
 
+import org.vx68k.bitbucket.api.client.BitbucketClient;
+
 /**
  * {@code user} command group.
  *
@@ -29,9 +31,13 @@ public class UserCommandGroup extends CommandGroup
 {
     /**
      * Constructs this object.
+     *
+     * @param bitbucketClientValue value for the Bitbucket API client
      */
-    public UserCommandGroup()
+    public UserCommandGroup(final BitbucketClient bitbucketClientValue)
     {
+        super(bitbucketClientValue);
+
         add("show", new UserShowCommand());
         // @todo Add more commands
     }
