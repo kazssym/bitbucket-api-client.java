@@ -9,7 +9,7 @@
 </parent>
 
 <artifactId>bitbucket-api-client</artifactId>
-<packaging>jar</packaging>
+<packaging>bundle</packaging>
 <name>Bitbucket API Client</name>
 <description>Client implementation for the Bitbucket API.</description>
 
@@ -51,6 +51,7 @@
 </dependencies>
 
 <build>
+
 <plugins>
 
 <plugin>
@@ -62,6 +63,19 @@
 <Automatic-Module-Name>org.vx68k.bitbucket.api.client</Automatic-Module-Name>
 </manifestEntries>
 </archive>
+</configuration>
+</plugin>
+
+<plugin>
+<groupId>org.apache.felix</groupId>
+<artifactId>maven-bundle-plugin</artifactId>
+<extensions>true</extensions>
+<configuration>
+<instructions>
+<Bundle-SymbolicName>org.vx68k.bitbucket.api.client</Bundle-SymbolicName>
+<Export-Package>org.vx68k.bitbucket.api, org.vx68k.bitbucket.api.client</Export-Package>
+<Private-Package>org.vx68k.bitbucket.api.client.*</Private-Package>
+</instructions>
 </configuration>
 </plugin>
 </plugins>

@@ -175,6 +175,12 @@
 </plugin>
 
 <plugin>
+<groupId>org.apache.felix</groupId>
+<artifactId>maven-bundle-plugin</artifactId>
+<version>4.0.0</version>
+</plugin>
+
+<plugin>
 <groupId>org.sonatype.plugins</groupId>
 <artifactId>nexus-staging-maven-plugin</artifactId>
 <version>1.6.8</version>
@@ -184,6 +190,7 @@
 </build>
 
 <reporting>
+
 <plugins>
 
 <plugin>
