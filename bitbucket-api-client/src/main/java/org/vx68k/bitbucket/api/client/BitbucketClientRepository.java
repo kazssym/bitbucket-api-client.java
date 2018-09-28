@@ -32,16 +32,17 @@ import javax.json.JsonObject;
 import org.vx68k.bitbucket.api.BitbucketAccount;
 import org.vx68k.bitbucket.api.BitbucketBranch;
 import org.vx68k.bitbucket.api.BitbucketIssue;
+import org.vx68k.bitbucket.api.BitbucketIssueTracker;
 import org.vx68k.bitbucket.api.BitbucketRepository;
 
 /**
- * Repository represented by a JSON object.
+ * Bitbucket Cloud repository represented by a JSON object.
  *
  * @author Kaz Nishimura
  * @since 5.0
  */
-public class BitbucketClientRepository extends BitbucketClientObject
-    implements BitbucketRepository
+public class BitbucketClientRepository extends
+    BitbucketClientObject implements BitbucketRepository, BitbucketIssueTracker
 {
     /**
      * Type name for repositories.
