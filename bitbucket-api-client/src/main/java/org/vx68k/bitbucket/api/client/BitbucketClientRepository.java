@@ -20,6 +20,7 @@
 
 package org.vx68k.bitbucket.api.client;
 
+import static org.vx68k.bitbucket.api.client.BitbucketClientUtilities.toInstant;
 import static org.vx68k.bitbucket.api.client.BitbucketClientUtilities.toUUID;
 
 import java.time.Instant;
@@ -234,10 +235,10 @@ public class BitbucketClientRepository extends BitbucketClientObject
     public final Instant getCreated()
     {
         JsonObject object = getJsonObject();
+        // This may be a JSON null.
         Instant value = null;
-        if (object.containsKey(CREATED_ON)) {
-            value = OffsetDateTime.parse(object.getString(CREATED_ON))
-                .toInstant();
+        if (object.containsKey(CREATED_ON) && !object.isNull(CREATED_ON)) {
+            value = toInstant(object.getJsonString(CREATED_ON));
         }
         return value;
     }
@@ -251,10 +252,10 @@ public class BitbucketClientRepository extends BitbucketClientObject
     public final Instant getUpdated()
     {
         JsonObject object = getJsonObject();
+        // This may be a JSON null.
         Instant value = null;
-        if (object.containsKey(UPDATED_ON)) {
-            value = OffsetDateTime.parse(object.getString(UPDATED_ON))
-                .toInstant();
+        if (object.containsKey(UPDATED_ON) && !object.isNull(UPDATED_ON)) {
+            value = toInstant(object.getJsonString(UPDATED_ON));
         }
         return value;
     }
