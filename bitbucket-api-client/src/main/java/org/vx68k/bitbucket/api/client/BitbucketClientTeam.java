@@ -24,13 +24,13 @@ import javax.json.JsonObject;
 import org.vx68k.bitbucket.api.BitbucketTeam;
 
 /**
- * Team on Bitbucket Cloud.
+ * Bitbucket Cloud team account represented by a JSON object.
  *
  * @author Kaz Nishimura
  * @since 5.0
  */
-public class BitbucketClientTeam extends BitbucketClientAccount
-    implements BitbucketTeam
+public class BitbucketClientTeam extends BitbucketClientAccount implements
+    BitbucketTeam
 {
     /**
      * Type value for teams.

@@ -24,13 +24,13 @@ import javax.json.JsonObject;
 import org.vx68k.bitbucket.api.BitbucketUser;
 
 /**
- * User represented by a JSON object.
+ * Bitbucket Cloud user account represented by a JSON object.
  *
  * @author Kaz Nishimura
  * @since 5.0
  */
-public class BitbucketClientUser extends BitbucketClientAccount
-    implements BitbucketUser
+public class BitbucketClientUser extends BitbucketClientAccount implements
+    BitbucketUser
 {
     /**
      * Type value for users.

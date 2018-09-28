@@ -24,7 +24,7 @@ import java.util.Objects;
 import javax.json.JsonObject;
 
 /**
- * Superclass of objects represented by a JSON object.
+ * Common super object represented by a JSON object.
  *
  * @author Kaz Nishimura
  * @since 5.0

@@ -33,13 +33,13 @@ import org.vx68k.bitbucket.api.BitbucketAccount;
 import org.vx68k.bitbucket.api.BitbucketRepository;
 
 /**
- * Account represented by a JSON object.
+ * Bitbucket Cloud account represented by a JSON object.
  *
  * @author Kaz Nishimura
  * @since 5.0
  */
-public abstract class BitbucketClientAccount extends BitbucketClientObject
-    implements BitbucketAccount
+public abstract class BitbucketClientAccount extends
+    BitbucketClientObject implements BitbucketAccount
 {
     /**
      * Name for the {@code username} value in a JSON account object.
