@@ -14,9 +14,7 @@ inspecode:
   pmd:
     ignore:
       - "**/*.js"
-  eslint:
-    options:
-      --env: browser,es6
+  eslint: {}
 docstand:
   javadoc:
     input:
