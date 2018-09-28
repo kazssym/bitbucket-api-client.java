@@ -21,6 +21,8 @@
 package org.vx68k.bitbucket.api.client;
 
 import java.io.Serializable;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 import javax.json.JsonObject;
 import javax.ws.rs.NotFoundException;
@@ -97,6 +99,7 @@ public class BitbucketClient implements Serializable
      * @param object JSON object, or {@code null}
      * @return new {@link BitbucketUser} object unless the value of {@code
      * object} is {@code null}; {@code null} otherwise
+     * @exception IllegalArgumentException if {@code object} is not of a user
      */
     public static BitbucketUser createUser(final JsonObject object)
     {
@@ -108,10 +111,10 @@ public class BitbucketClient implements Serializable
      * team.
      *
      * @param object JSON object, or {@code null}
-     * @param client {@link BitbucketClient} object to associate, or {@code
-     * null}
+     * @param client Bitbucket API client, or {@code null}
      * @return new {@link BitbucketUser} object unless the value of {@code
      * object} is {@code null}; {@code null} otherwise
+     * @exception IllegalArgumentException if {@code object} is not of a user
      */
     public static BitbucketUser createUser(final JsonObject object,
         final BitbucketClient client)
@@ -127,8 +130,9 @@ public class BitbucketClient implements Serializable
      * Creates a {@link BitbucketTeam} instance from a JSON object with the
      * default Bitbucket client.
      *
-     * @param object JSON object for a team
+     * @param object JSON object of a team, or {@code null}
      * @return {@link BitbucketTeam} instance
+     * @exception IllegalArgumentException if {@code object} is not of a team
      */
     public static BitbucketTeam createTeam(final JsonObject object)
     {
@@ -138,23 +142,28 @@ public class BitbucketClient implements Serializable
     /**
      * Creates a {@link BitbucketTeam} instance from a JSON object.
      *
-     * @param object JSON object for a team
-     * @param client Bitbucket client, or {@code null}
+     * @param object JSON object of a team, or {@code null}
+     * @param client Bitbucket API client, or {@code null}
      * @return {@link BitbucketTeam} instance
+     * @exception IllegalArgumentException if {@code object} is not of a team
      */
     public static BitbucketTeam createTeam(
         final JsonObject object, final BitbucketClient client)
     {
-        return new BitbucketClientTeam(object, client);
+        BitbucketTeam value = null;
+        if (object != null) {
+            value = new BitbucketClientTeam(object, client);
+        }
+        return value;
     }
 
     /**
      * Creates a {@link BitbucketRepository} object from a JSON object.
      *
-     * @param object JSON object
+     * @param object JSON object, or {@code null}
      * @return new {@link BitbucketRepository} object
-     * @exception IllegalArgumentException if {@code object} is {@code null} or
-     * is not for a repository
+     * @exception IllegalArgumentException if {@code object} is not of a
+     * repository
      */
     public static BitbucketRepository createRepository(final JsonObject object)
     {
@@ -165,16 +174,20 @@ public class BitbucketClient implements Serializable
      * Creates a {@link BitbucketRepository} object from a JSON object and a
      * Bitbucket API client.
      *
-     * @param object JSON object
-     * @param bitbucketClient Bitbucket API client
+     * @param object JSON object, or {@code null}
+     * @param client Bitbucket API client, or {@code null}
      * @return new {@link BitbucketRepository} object
-     * @exception IllegalArgumentException if {@code object} is {@code null} or
-     * is not for a repository
+     * @exception IllegalArgumentException if {@code object} is not of a
+     * repository
      */
     public static BitbucketRepository createRepository(
-        final JsonObject object, final BitbucketClient bitbucketClient)
+        final JsonObject object, final BitbucketClient client)
     {
-        return new BitbucketClientRepository(object, bitbucketClient);
+        BitbucketRepository value = null;
+        if (object != null) {
+            value = new BitbucketClientRepository(object, client);
+        }
+        return value;
     }
 
     /**
@@ -226,6 +239,7 @@ public class BitbucketClient implements Serializable
     /**
      * Gets a media object by a link.
      *
+     * @param <T> return type
      * @param link URI for the link
      * @param mediaTypes acceptable MIME media types
      * @param type type of the media object to return
@@ -251,17 +265,17 @@ public class BitbucketClient implements Serializable
      * Gets a JSON object from a resource.
      *
      * @param path path of the resource with templates
-     * @param templateValues template values, or {@code null}
+     * @param values template values, or {@code null}
      * @return JSON object if found, {@code null} otherwise
      */
     public JsonObject getResource(
-        final String path, final Map<String, Object> templateValues)
+        final String path, final Map<String, Object> values)
     {
         Client client = clientBuilder.build();
         try {
             WebTarget target = client.target(API_BASE).path(path);
-            if (templateValues != null) {
-                target = target.resolveTemplates(templateValues);
+            if (values != null) {
+                target = target.resolveTemplates(values);
             }
             return target.request()
                 .accept(MediaType.APPLICATION_JSON).get(JsonObject.class);
@@ -282,20 +296,8 @@ public class BitbucketClient implements Serializable
      */
     public BitbucketUser getUser(final String name)
     {
-        Client client = clientBuilder.build();
-        try {
-            WebTarget base = client.target(API_BASE);
-            WebTarget path = base.path("users/{user}");
-            JsonObject object = path.resolveTemplate("user", name)
-                .request(MediaType.APPLICATION_JSON).get(JsonObject.class);
-            return createUser(object, this);
-        }
-        catch (NotFoundException exception) {
-            return null;
-        }
-        finally {
-            client.close();
-        }
+        Map<String, Object> values = Collections.singletonMap("user", name);
+        return createUser(getResource("/users/{user}", values), this);
     }
 
     /**
@@ -306,20 +308,8 @@ public class BitbucketClient implements Serializable
      */
     public BitbucketTeam getTeam(final String name)
     {
-        Client client = clientBuilder.build();
-        try {
-            WebTarget base = client.target(API_BASE);
-            WebTarget path = base.path("teams/{team}");
-            JsonObject object = path.resolveTemplate("team", name)
-                .request(MediaType.APPLICATION_JSON).get(JsonObject.class);
-            return createTeam(object, this);
-        }
-        catch (NotFoundException exception) {
-            return null;
-        }
-        finally {
-            client.close();
-        }
+        Map<String, Object> values = Collections.singletonMap("team", name);
+        return createTeam(getResource("/teams/{team}", values), this);
     }
 
     /**
@@ -333,22 +323,10 @@ public class BitbucketClient implements Serializable
     public BitbucketRepository getRepository(
         final String ownerName, final String name)
     {
-        Client client = clientBuilder.build();
-        try {
-            WebTarget base = client.target(API_BASE);
-            JsonObject object = base.path("repositories/{owner}/{name}")
-                .resolveTemplate("owner", ownerName)
-                .resolveTemplate("name", name)
-                .request(MediaType.APPLICATION_JSON)
-                .get(JsonObject.class);
-            return createRepository(object, this);
-        }
-        catch (NotFoundException exception) {
-            return null;
-        }
-        // @todo Catch other JAX-RS exceptions?
-        finally {
-            client.close();
-        }
+        Map<String, Object> values = new HashMap<>();
+        values.put("owner", ownerName);
+        values.put("repository", name);
+        return createRepository(
+            getResource("/repositories/{owner}/{repository}", values), this);
     }
 }
