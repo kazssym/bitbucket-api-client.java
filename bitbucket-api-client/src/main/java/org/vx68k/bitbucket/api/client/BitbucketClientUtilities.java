@@ -20,6 +20,8 @@
 
 package org.vx68k.bitbucket.api.client;
 
+import java.time.Instant;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 import javax.json.JsonString;
 
@@ -44,25 +46,44 @@ public class BitbucketClientUtilities
     }
 
     /**
-     * Parses a UUID in a JSON string.
-     * The string representation of a UUID may be enclosed in braces.
+     * Converts a JSON date-time string to an instant.
+     * The date-time string may have a time offset.
      *
-     * @param jsonString JSON string, or {@code null}
-     * @return {@link UUID} object, or {@code null}
-     * @exception IllegalArgumentException if the JSON string did not represent
-     * a UUID
+     * @param string JSON date-time string, or {@code null}
+     * @return {@link Instant} object if {@code string} is not {@code null},
+     * {@code null} otherwise
+     * @exception DateTimeParseException if {@code string} could not be
+     * parsed as a date-time
      */
-    public static UUID parseUUID(final JsonString jsonString)
-        throws IllegalArgumentException
+    public static Instant toInstant(final JsonString string)
     {
-        UUID uuid = null;
-        if (jsonString != null) {
-            String s = jsonString.getString();
-            if (s.startsWith("{") && s.endsWith("}")) {
-                s = s.substring(1, s.length() - 1);
-            }
-            uuid = UUID.fromString(s);
+        Instant value = null;
+        if (string != null) {
+            value = OffsetDateTime.parse(string.getString()).toInstant();
         }
-        return uuid;
+        return value;
+    }
+
+    /**
+     * Converts a JSON string to a UUID.
+     * The string may enclose a UUID in a pair of braces.
+     *
+     * @param string JSON string, or {@code null}
+     * @return {@link UUID} object if {@code string} is not {@code null},
+     * {@code null} otherwise
+     * @exception IllegalArgumentException if {@code string} could not be
+     * parsed as a UUID
+     */
+    public static UUID toUUID(final JsonString string)
+    {
+        UUID value = null;
+        if (string != null) {
+            String uuidString = string.getString();
+            if (uuidString.startsWith("{") && uuidString.endsWith("}")) {
+                uuidString = uuidString.substring(1, uuidString.length() - 1);
+            }
+            value = UUID.fromString(uuidString);
+        }
+        return value;
     }
 }
