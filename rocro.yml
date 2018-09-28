@@ -11,7 +11,9 @@ inspecode:
   misspell: {}
   checkstyle:
     config-file: etc/checkstyle.xml
-  eslint: {}
+  eslint:
+    machine:
+      cpu: 0.25
 docstand:
   javadoc:
     input:
