@@ -21,6 +21,7 @@
 package org.vx68k.bitbucket.api.client;
 
 import java.io.Serializable;
+import java.util.Map;
 import javax.json.JsonObject;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.client.Client;
@@ -211,18 +212,59 @@ public class BitbucketClient implements Serializable
     }
 
     /**
-     * Gets a JSON object from a link.
+     * Gets a JSON object by a link.
      *
-     * @param link URI of the link
-     * @return JSON object if found; {@code null} otherwise
+     * @param link URI for the link
+     * @return JSON object if found, {@code null} otherwise
      */
-    public JsonObject getJsonObject(final String link)
+    public JsonObject get(final String link)
+    {
+        return get(
+            link, new String[] {MediaType.APPLICATION_JSON}, JsonObject.class);
+    }
+
+    /**
+     * Gets a media object by a link.
+     *
+     * @param link URI for the link
+     * @param mediaTypes acceptable MIME media types
+     * @param type type of the media object to return
+     * @return media object if found; {@code null} otherwise
+     */
+    public <T> T get(
+        final String link, final String[] mediaTypes, final Class<T> type)
     {
         Client client = clientBuilder.build();
         try {
-            return client.target(link)
-                .request(MediaType.APPLICATION_JSON)
-                .get(JsonObject.class);
+            WebTarget target = client.target(link);
+            return target.request().accept(mediaTypes).get(type);
+        }
+        catch (NotFoundException exception) {
+            return null;
+        }
+        finally {
+            client.close();
+        }
+    }
+
+    /**
+     * Gets a JSON object from a resource.
+     *
+     * @param path path of the resource with templates
+     * @param templateValues template values, or {@code null}
+     * @return JSON object if found, {@code null} otherwise
+     */
+    public JsonObject getResource(
+        final String path, final Map<String, Object> templateValues)
+    {
+        Client client = clientBuilder.build();
+        try {
+            WebTarget target = client.target(API_BASE).path(path);
+            if (templateValues != null) {
+                target = target.resolveTemplates(templateValues);
+            }
+            return target.request()
+                .accept(MediaType.APPLICATION_JSON).get(JsonObject.class);
         }
         catch (NotFoundException exception) {
             return null;
