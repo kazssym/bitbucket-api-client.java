@@ -11,9 +11,6 @@ inspecode:
   misspell: {}
   checkstyle:
     config-file: etc/checkstyle.xml
-  pmd:
-    ignore:
-      - "**/*.js"
   eslint: {}
 docstand:
   javadoc:
