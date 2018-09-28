@@ -230,7 +230,7 @@ public class BitbucketClientRepository extends BitbucketClientObject
      * in the underlying JSON object.</p>
      */
     @Override
-    public Instant getCreated()
+    public final Instant getCreated()
     {
         JsonObject object = getJsonObject();
         Instant value = null;
@@ -247,7 +247,7 @@ public class BitbucketClientRepository extends BitbucketClientObject
      * in the underlying JSON object.</p>
      */
     @Override
-    public Instant getUpdated()
+    public final Instant getUpdated()
     {
         JsonObject object = getJsonObject();
         Instant value = null;
