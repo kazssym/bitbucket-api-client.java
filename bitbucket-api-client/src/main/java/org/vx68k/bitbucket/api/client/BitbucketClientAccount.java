@@ -24,7 +24,6 @@ import static org.vx68k.bitbucket.api.client.BitbucketClientUtilities.toInstant;
 import static org.vx68k.bitbucket.api.client.BitbucketClientUtilities.toUUID;
 
 import java.time.Instant;
-import java.time.OffsetDateTime;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.UUID;
