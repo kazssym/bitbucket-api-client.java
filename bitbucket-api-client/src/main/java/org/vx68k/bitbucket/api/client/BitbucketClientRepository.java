@@ -22,7 +22,8 @@ package org.vx68k.bitbucket.api.client;
 
 import java.time.Instant;
 import java.time.OffsetDateTime;
-import java.util.Iterator;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.UUID;
 import javax.json.JsonObject;
 import org.vx68k.bitbucket.api.BitbucketAccount;
@@ -261,9 +262,19 @@ public class BitbucketClientRepository extends BitbucketClientObject
      * {@inheritDoc}
      */
     @Override
-    public Iterator<BitbucketIssue> getIssues()
+    public final BitbucketIssue getIssue(final int id)
+    {
+        // @todo Implement this method.
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final Collection<BitbucketIssue> issues()
     {
         // @todo Implemtnt this method.
-        return null;
+        return Collections.emptyList();
     }
 }

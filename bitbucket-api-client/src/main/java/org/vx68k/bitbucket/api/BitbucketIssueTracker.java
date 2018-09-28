@@ -20,10 +20,10 @@
 
 package org.vx68k.bitbucket.api;
 
-import java.util.Iterator;
+import java.util.Collection;
 
 /**
- * Issue tracker on Bitbucket Cloud.
+ * Issue tracker interface for a Bitbucket Cloud repository.
  *
  * @author Kaz Nishimura
  * @since 5.0
@@ -31,10 +31,18 @@ import java.util.Iterator;
 public interface BitbucketIssueTracker
 {
     /**
-     * Returns the tracked issues as an {@link Iterator} object.
-     * The order of the issues are not specified.
+     * Returns the issue specified by an identifier.
      *
-     * @return {@link Iterator} object
+     * @param id identifier of the issue
+     * @return issue if found, {@code null} otherwise
      */
-    Iterator<BitbucketIssue> getIssues();
+    BitbucketIssue getIssue(int id);
+
+    /**
+     * Returns a collection view of the issues.
+     * The order of the issues are unspecified.
+     *
+     * @return {@link Collection} object
+     */
+    Collection<BitbucketIssue> issues();
 }
