@@ -22,6 +22,12 @@
 </dependency>
 
 <dependency>
+<groupId>javax.activation</groupId>
+<artifactId>javax.activation-api</artifactId>
+<scope>runtime</scope>
+</dependency>
+
+<dependency>
 <groupId>org.glassfish</groupId>
 <artifactId>javax.json</artifactId>
 <scope>runtime</scope>
@@ -36,12 +42,6 @@
 <dependency>
 <groupId>junit</groupId>
 <artifactId>junit</artifactId>
-<scope>test</scope>
-</dependency>
-
-<dependency>
-<groupId>javax.activation</groupId>
-<artifactId>javax.activation-api</artifactId>
 <scope>test</scope>
 </dependency>
 </dependencies>
