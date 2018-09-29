@@ -29,7 +29,6 @@ import java.util.UUID;
 import javax.json.Json;
 import javax.json.JsonObjectBuilder;
 import org.junit.Test;
-import org.vx68k.bitbucket.api.BitbucketUser;
 import org.vx68k.bitbucket.api.client.BitbucketClientUser;
 
 /**
