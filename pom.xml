@@ -171,6 +171,12 @@
 
 <plugin>
 <groupId>org.apache.maven.plugins</groupId>
+<artifactId>maven-pmd-plugin</artifactId>
+<version>3.10.0</version>
+</plugin>
+
+<plugin>
+<groupId>org.apache.maven.plugins</groupId>
 <artifactId>maven-gpg-plugin</artifactId>
 <version>1.6</version>
 </plugin>
@@ -197,6 +203,7 @@
 <plugin>
 <groupId>org.apache.maven.plugins</groupId>
 <artifactId>maven-javadoc-plugin</artifactId>
+
 <reportSets>
 
 <reportSet>
@@ -211,6 +218,20 @@
 <report>aggregate</report>
 </reports>
 <inherited>false</inherited>
+</reportSet>
+</reportSets>
+</plugin>
+
+<plugin>
+<groupId>org.apache.maven.plugins</groupId>
+<artifactId>maven-pmd-plugin</artifactId>
+
+<reportSets>
+
+<reportSet>
+<reports>
+<report>pmd</report>
+</reports>
 </reportSet>
 </reportSets>
 </plugin>
