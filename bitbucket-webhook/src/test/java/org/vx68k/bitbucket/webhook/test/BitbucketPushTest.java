@@ -1,5 +1,5 @@
 /*
- * package-info.java - package org.vx68k.bitbucket.api.client.example (test)
+ * BitbucketPushTest.java - class BitbucketPushTest
  * Copyright (C) 2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -18,7 +18,24 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
+package org.vx68k.bitbucket.webhook.test;
+
+import org.junit.Test;
+import org.vx68k.bitbucket.webhook.BitbucketPush;
+
 /**
- * Unit tests.
+ * Unit tests for {@link BitbucketPush}.
+ *
+ * @author Kaz Nishimura
  */
-package org.vx68k.bitbucket.api.client.webapp;
+public final class BitbucketPushTest
+{
+    /**
+     * Tests a {@code null} object.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testNullObject()
+    {
+        new BitbucketPush(null);
+    }
+}

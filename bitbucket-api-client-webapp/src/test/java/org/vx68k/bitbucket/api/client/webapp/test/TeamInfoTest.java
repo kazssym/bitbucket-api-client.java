@@ -1,5 +1,5 @@
 /*
- * UserInfoTest.jar - class UserInfoTest
+ * TeamInfoTest.jar - class TeamInfoTest
  * Copyright (C) 2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -18,7 +18,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-package org.vx68k.bitbucket.api.client.webapp;
+package org.vx68k.bitbucket.api.client.webapp.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -30,13 +30,15 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.vx68k.bitbucket.api.client.webapp.TeamInfo;
+import org.vx68k.bitbucket.api.client.webapp.UserContext;
 
 /**
- * Unit tests for {@link UserInfo}.
+ * Unit tests for {@link TeamInfo}.
  *
  * @author Kaz Nishimura
  */
-public final class UserInfoTest
+public final class TeamInfoTest
 {
     /**
      * {@link UserContext} object for each test.
@@ -62,51 +64,51 @@ public final class UserInfoTest
     }
 
     /**
-     * Tests {@link UserInfo#getUserContext getUserContext}.
+     * Tests {@link TeamInfo#getUserContext getUserContext}.
      */
     @Test
     public void testGetUserContext()
     {
-        UserInfo userInfo = new UserInfo(userContext);
-        assertEquals(userContext, userInfo.getUserContext());
+        TeamInfo teamInfo = new TeamInfo(userContext);
+        assertEquals(userContext, teamInfo.getUserContext());
     }
 
     /**
-     * Tests{@link UserInfo#getName getName}.
+     * Tests{@link TeamInfo#getName getName}.
      */
     @Test
     public void testGetName()
     {
-        UserInfo userInfo = new UserInfo(userContext);
+        TeamInfo teamInfo = new TeamInfo(userContext);
 
-        userInfo.setName("");
-        assertEquals("", userInfo.getName());
+        teamInfo.setName("");
+        assertEquals("", teamInfo.getName());
 
-        userInfo.setName("user");
-        assertEquals("user", userInfo.getName());
+        teamInfo.setName("user");
+        assertEquals("user", teamInfo.getName());
     }
 
     /**
-     * Tests {@link UserInfo#lookUp lookUp}.
+     * Tests {@link TeamInfo#lookUp lookUp}.
      */
     @Ignore("Faces runtime is required")
     @Test
     public void testLookUp()
     {
-        UserInfo userInfo = new UserInfo(userContext);
+        TeamInfo teamInfo = new TeamInfo(userContext);
         Object outcome;
 
-        userInfo.setName("");
-        outcome = userInfo.lookUp();
+        teamInfo.setName("");
+        outcome = teamInfo.lookUp();
         assertNull(outcome);
-        assertNull(userInfo.getUser());
-        assertFalse(userInfo.isFound());
+        assertNull(teamInfo.getTeam());
+        assertFalse(teamInfo.isFound());
 
-        userInfo.setName("kazssym");
-        outcome = userInfo.lookUp();
+        teamInfo.setName("vx68k");
+        outcome = teamInfo.lookUp();
         assertNull(outcome);
-        assertNotNull(userInfo.getUser());
-        assertTrue(userInfo.isFound());
-        assertEquals("kazssym", userInfo.getUser().getName());
+        assertNotNull(teamInfo.getTeam());
+        assertTrue(teamInfo.isFound());
+        assertEquals("kazssym", teamInfo.getTeam().getName());
     }
 }
