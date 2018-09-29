@@ -23,7 +23,9 @@ package org.vx68k.bitbucket.api.client;
 import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.util.UUID;
+import javax.json.JsonObject;
 import javax.json.JsonString;
+import javax.ws.rs.core.Link;
 
 /**
  * Collection of static utility methods.
@@ -34,7 +36,7 @@ import javax.json.JsonString;
 public class BitbucketClientUtilities
 {
     /**
-     * JSON key for the <code>href</code> value.
+     * Name for the {@code href} value in a JSON link object.
      */
     private static final String HREF = "href";
 
@@ -79,6 +81,22 @@ public class BitbucketClientUtilities
                 uuidString = uuidString.substring(1, uuidString.length() - 1);
             }
             value = UUID.fromString(uuidString);
+        }
+        return value;
+    }
+
+    /**
+     * Converts a JSON object to a link.
+     *
+     * @param object JSON object, or {@code null}.
+     * @return {@link Link} object if {@code object} represents a valid link;
+     * {@code null} otherwise.
+     */
+    public static Link toLink(final JsonObject object)
+    {
+        Link value = null;
+        if (object != null && object.containsKey(HREF)) {
+            value = Link.fromUri(object.getString(HREF)).build();
         }
         return value;
     }
