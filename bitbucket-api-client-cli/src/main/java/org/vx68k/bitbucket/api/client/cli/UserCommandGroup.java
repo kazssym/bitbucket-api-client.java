@@ -80,17 +80,16 @@ public class UserCommandGroup extends CommandGroup
         @Override
         public void run(final String commandName, final String[] args)
         {
-            if (args.length >= 1) {
-                BitbucketUser user = getBitbucketClient().getUser(args[0]);
-                if (user != null) {
-                    print(user);
-                }
-                else {
-                    System.err.println(commandName + ": User not found");
-                }
+            if (args.length < 1) {
+                throw new CLIException("Missing arguments");
+            }
+
+            BitbucketUser user = getBitbucketClient().getUser(args[0]);
+            if (user != null) {
+                print(user);
             }
             else {
-                System.err.println(commandName + ": Missing argument");
+                System.err.format("%s: %s\n", args[0], "User not found");
             }
         }
     }

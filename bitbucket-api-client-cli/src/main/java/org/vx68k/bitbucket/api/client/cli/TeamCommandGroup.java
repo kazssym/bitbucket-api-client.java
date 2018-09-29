@@ -80,17 +80,16 @@ public class TeamCommandGroup extends CommandGroup
         @Override
         public void run(final String commandName, final String[] args)
         {
-            if (args.length >= 1) {
-                BitbucketTeam team = getBitbucketClient().getTeam(args[0]);
-                if (team != null) {
-                    print(team);
-                }
-                else {
-                    System.err.println(commandName + ": Team not found");
-                }
+            if (args.length < 1) {
+                throw new CLIException("Missing arguments");
+            }
+
+            BitbucketTeam team = getBitbucketClient().getTeam(args[0]);
+            if (team != null) {
+                print(team);
             }
             else {
-                System.err.println(commandName + ": Missing argument");
+                System.err.println(commandName + ": Team not found");
             }
         }
     }

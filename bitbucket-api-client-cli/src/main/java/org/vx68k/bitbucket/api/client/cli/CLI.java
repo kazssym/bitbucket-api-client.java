@@ -58,6 +58,11 @@ public class CLI extends CommandGroup
         }
 
         CLI cli = new CLI(new BitbucketClient());
-        cli.run(commandName, args);
+        try {
+            cli.run(commandName, args);
+        }
+        catch (final CLIException exception) {
+            System.err.format("%s: %s\n", commandName, exception.getMessage());
+        }
     }
 }

@@ -62,7 +62,7 @@ public class CLIException extends RuntimeException
      * @param message message of this exception
      * @param cause cause of this exception
      */
-    public CLIException(String message, Throwable cause)
+    public CLIException(final String message, final Throwable cause)
     {
         super(message, cause);
     }
