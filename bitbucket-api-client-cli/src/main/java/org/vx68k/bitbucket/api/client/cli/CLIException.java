@@ -28,4 +28,42 @@ package org.vx68k.bitbucket.api.client.cli;
  */
 public class CLIException extends RuntimeException
 {
+    /**
+     * Initializes this exception with default properties.
+     */
+    public CLIException()
+    {
+        this(null, null);
+    }
+
+    /**
+     * Initializes this exception with a message.
+     *
+     * @param message message of this exception
+     */
+    public CLIException(final String message)
+    {
+        this(message, null);
+    }
+
+    /**
+     * Initializes this exception with a cause.
+     *
+     * @param cause cause of this exception
+     */
+    public CLIException(final Throwable cause)
+    {
+        this(null, cause);
+    }
+
+    /**
+     * Initializes this exception with a message and a cause.
+     *
+     * @param message message of this exception
+     * @param cause cause of this exception
+     */
+    public CLIException(String message, Throwable cause)
+    {
+        super(message, cause);
+    }
 }
