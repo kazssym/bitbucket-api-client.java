@@ -52,8 +52,6 @@ public class BitbucketClientUtilities
      * @param string JSON date-time string, or {@code null}
      * @return {@link Instant} object if {@code string} is not {@code null},
      * {@code null} otherwise
-     * @exception DateTimeParseException if {@code string} could not be
-     * parsed as a date-time
      */
     public static Instant toInstant(final JsonString string)
     {
@@ -71,8 +69,6 @@ public class BitbucketClientUtilities
      * @param string JSON string, or {@code null}
      * @return {@link UUID} object if {@code string} is not {@code null},
      * {@code null} otherwise
-     * @exception IllegalArgumentException if {@code string} could not be
-     * parsed as a UUID
      */
     public static UUID toUUID(final JsonString string)
     {
