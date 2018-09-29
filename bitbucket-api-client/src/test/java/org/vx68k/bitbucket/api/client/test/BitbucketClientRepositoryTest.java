@@ -18,7 +18,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-package org.vx68k.bitbucket.api.client;
+package org.vx68k.bitbucket.api.client.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -26,6 +26,7 @@ import static org.junit.Assert.fail;
 import javax.json.Json;
 import javax.json.JsonObject;
 import org.junit.Test;
+import org.vx68k.bitbucket.api.client.BitbucketClientRepository;
 
 /**
  * Unit tests for {@link BitbucketClientRepository}.

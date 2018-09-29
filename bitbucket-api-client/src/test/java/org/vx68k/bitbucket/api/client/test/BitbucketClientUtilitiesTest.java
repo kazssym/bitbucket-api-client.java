@@ -1,6 +1,6 @@
 /*
- * package-info.java - package org.vx68k.bitbucket.api.client (test)
- * Copyright (C) 2018 Kaz Nishimura
+ * BitbucketClientUtilitiesTest.java - class BitbucketClientUtilitiesTest
+ * Copyright (C) 2015-2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Affero General Public License as published by
@@ -18,7 +18,24 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
+package org.vx68k.bitbucket.api.client.test;
+
+import org.junit.Ignore;
+import org.junit.Test;
+
 /**
- * Unit test classes.
+ * Unit tests for {@link BitbucketClientUtilities}.
+ *
+ * @author Kaz Nishimura
  */
-package org.vx68k.bitbucket.api.client;
+public final class BitbucketClientUtilitiesTest
+{
+    /**
+     * Tests {@link BitbucketClientUtilities#parseUUID parseUUID}.
+     */
+    @Test @Ignore
+    public void testParseUUID()
+    {
+        // @todo Write tests.
+    }
+}

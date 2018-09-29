@@ -1,5 +1,5 @@
 /*
- * BitbucketClientCommitTest.java - class BitbucketClientCommitTest
+ * package-info.java - package org.vx68k.bitbucket.api.client.test
  * Copyright (C) 2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -18,28 +18,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-package org.vx68k.bitbucket.api.client;
-
-import static org.junit.Assert.fail;
-
-import org.junit.Ignore;
-import org.junit.Test;
-
 /**
- * Unit tests for {@link BitbucketClientCommit}.
- *
- * @author Kaz Nishimura
+ * Unit test classes.
  */
-public class BitbucketClientCommitTest
-{
-    // @todo Add test methods.
-
-    /**
-     * Tests nothing. This method is a placeholder.
-     */
-    @Test @Ignore
-    public void testNothing()
-    {
-        fail();
-    }
-}
+package org.vx68k.bitbucket.api.client.test;
