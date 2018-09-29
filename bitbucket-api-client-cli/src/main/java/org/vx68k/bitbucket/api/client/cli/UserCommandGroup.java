@@ -20,6 +20,8 @@
 
 package org.vx68k.bitbucket.api.client.cli;
 
+import java.io.PrintWriter;
+import org.vx68k.bitbucket.api.BitbucketUser;
 import org.vx68k.bitbucket.api.client.BitbucketClient;
 
 /**
@@ -38,23 +40,57 @@ public class UserCommandGroup extends CommandGroup
     {
         super(bitbucketClientValue);
 
-        add("show", new UserShowCommand());
-        // @todo Add more commands
+        add("show", new ShowCommand());
+        // @todo Add more commands.
     }
 
     /**
-     * {@code user show} command.
+     * {@code show} command.
      */
-    final class UserShowCommand implements Command
+    final class ShowCommand implements Command
     {
+        /**
+         * Print format.
+         */
+        private static final String FORMAT = "%-12s  %s\n";
+
+        /**
+         * Prints a user information.
+         *
+         * @param user user to print
+         */
+        void print(final BitbucketUser user)
+        {
+            PrintWriter out = new PrintWriter(System.out);
+            out.format(FORMAT, "Name", user.getName());
+            out.format(FORMAT, "UUID", user.getUUID());
+            out.format(FORMAT, "Display Name", user.getDisplayName());
+            out.format(FORMAT, "Website", user.getWebsite());
+            out.format(FORMAT, "Location", user.getLocation());
+            out.format(FORMAT, "Created", user.getCreated());
+            out.flush();
+        }
+
+        /**
+         * Runs the {@code show} command.
+         *
+         * @param commandName actual command name
+         * @param args command arguments
+         */
         @Override
-        public void run(final String name, final String[] args)
+        public void run(final String commandName, final String[] args)
         {
             if (args.length >= 1) {
-                System.err.println("This command is not implemented yet.");
+                BitbucketUser user = getBitbucketClient().getUser(args[0]);
+                if (user != null) {
+                    print(user);
+                }
+                else {
+                    System.err.println(commandName + ": User not found");
+                }
             }
             else {
-                System.err.println(name + ": Missing parameter");
+                System.err.println(commandName + ": Missing argument");
             }
         }
     }
