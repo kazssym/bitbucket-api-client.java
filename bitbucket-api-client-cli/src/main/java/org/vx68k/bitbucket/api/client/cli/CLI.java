@@ -40,6 +40,7 @@ public class CLI extends CommandGroup
         super(bitbucketClientValue);
 
         add("user", new UserCommandGroup(getBitbucketClient()));
+        add("team", new TeamCommandGroup(getBitbucketClient()));
         // @todo Add more commands.
     }
 
