@@ -183,7 +183,12 @@ public class BitbucketClientObject
     }
 
     /**
-     * {@inheritDoc}
+     * Returns a string representation of the object.
+     * <p>This implementation just returns a string representation of the
+     * underlying JSON object.  Subclasses may override this method to return
+     * other values.</p>
+     *
+     * @return a string representation of the object
      */
     @Override
     public String toString()
