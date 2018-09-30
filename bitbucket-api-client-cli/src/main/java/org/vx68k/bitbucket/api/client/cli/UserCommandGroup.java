@@ -34,11 +34,11 @@ public class UserCommandGroup extends CommandGroup
     /**
      * Constructs this object.
      *
-     * @param bitbucketClientValue value for the Bitbucket API client
+     * @param bitbucketClient value for the Bitbucket API client
      */
-    public UserCommandGroup(final BitbucketClient bitbucketClientValue)
+    public UserCommandGroup(final BitbucketClient bitbucketClient)
     {
-        super(bitbucketClientValue);
+        super(bitbucketClient);
 
         add("show", new ShowCommand());
         // @todo Add more commands.

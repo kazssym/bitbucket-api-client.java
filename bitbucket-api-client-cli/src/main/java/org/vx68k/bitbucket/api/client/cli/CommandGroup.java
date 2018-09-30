@@ -46,11 +46,11 @@ public class CommandGroup implements Command
     /**
      * Constructs this object.
      *
-     * @param bitbucketClientValue value for the Bitbucket API client
+     * @param bitbucketClient value for the Bitbucket API client
      */
-    public CommandGroup(final BitbucketClient bitbucketClientValue)
+    public CommandGroup(final BitbucketClient bitbucketClient)
     {
-        bitbucketClient = bitbucketClientValue;
+        this.bitbucketClient = bitbucketClient;
         commandMap = new HashMap<>();
     }
 
@@ -81,10 +81,10 @@ public class CommandGroup implements Command
      * {@inheritDoc}
      */
     @Override
-    public final void run(final String name, final String[] args)
+    public final void run(final String commandName, final String[] args)
     {
         if (args.length == 0) {
-            System.err.printf("%s: Missing subcommand\n", name);
+            System.err.printf("%s: Missing subcommand\n", commandName);
         }
         else if (commandMap.containsKey(args[0])) {
             Command command = commandMap.get(args[0]);
