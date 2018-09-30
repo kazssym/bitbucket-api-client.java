@@ -20,8 +20,11 @@
 
 package org.vx68k.bitbucket.api.client;
 
+import static org.vx68k.bitbucket.api.client.BitbucketClientUtilities.toLink;
+
 import java.util.Objects;
 import javax.json.JsonObject;
+import javax.ws.rs.core.Link;
 
 /**
  * Common super object represented by a JSON object.
@@ -40,11 +43,6 @@ public class BitbucketClientObject
      * Name for the {@code links} object in a JSON object.
      */
     private static final String LINKS = "links";
-
-    /**
-     * Name for the {@code href} object in a JSON {@code links} object.
-     */
-    private static final String HREF = "href";
 
     /**
      * JSON object given to the constructor.
@@ -134,15 +132,12 @@ public class BitbucketClientObject
      * @return the link if it was specified in the JSON object; {@code null}
      * otherwise
      */
-    public final String getLink(final String name)
+    public final Link getLink(final String name)
     {
-        String value = null;
+        Link value = null;
         JsonObject links = getJsonObject().getJsonObject(LINKS);
         if (links != null) {
-            JsonObject link = links.getJsonObject(name);
-            if (link != null) {
-                value = link.getString(HREF, null);
-            }
+            value = toLink(links.getJsonObject(name));
         }
         return value;
     }
