@@ -82,7 +82,7 @@ public class BitbucketClientUser extends BitbucketClientAccount implements
      * {@inheritDoc}
      */
     @Override
-    public boolean isStaff()
+    public final boolean isStaff()
     {
         JsonObject object = getJsonObject();
         return object.getBoolean(IS_STAFF, false);
@@ -92,7 +92,7 @@ public class BitbucketClientUser extends BitbucketClientAccount implements
      * {@inheritDoc}
      */
     @Override
-    public String getAccountId()
+    public final String getAccountId()
     {
         JsonObject object = getJsonObject();
         return object.getString(ACCOUNT_ID, null);

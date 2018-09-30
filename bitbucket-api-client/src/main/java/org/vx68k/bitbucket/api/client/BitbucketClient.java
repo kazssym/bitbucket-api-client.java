@@ -230,7 +230,7 @@ public class BitbucketClient implements Serializable
      * @param link URI for the link
      * @return JSON object if found, {@code null} otherwise
      */
-    public JsonObject get(final String link)
+    public final JsonObject get(final String link)
     {
         return get(
             link, new String[] {MediaType.APPLICATION_JSON}, JsonObject.class);
@@ -245,7 +245,7 @@ public class BitbucketClient implements Serializable
      * @param type type of the media object to return
      * @return media object if found; {@code null} otherwise
      */
-    public <T> T get(
+    public final <T> T get(
         final String link, final String[] mediaTypes, final Class<T> type)
     {
         Client client = clientBuilder.build();
@@ -268,7 +268,7 @@ public class BitbucketClient implements Serializable
      * @param values template values, or {@code null}
      * @return JSON object if found, {@code null} otherwise
      */
-    public JsonObject getResource(
+    public final JsonObject getResource(
         final String path, final Map<String, Object> values)
     {
         Client client = clientBuilder.build();
@@ -294,7 +294,7 @@ public class BitbucketClient implements Serializable
      * @param name user name
      * @return {@link BitbucketUser} object
      */
-    public BitbucketUser getUser(final String name)
+    public final BitbucketUser getUser(final String name)
     {
         Map<String, Object> values = Collections.singletonMap("user", name);
         return createUser(getResource("/users/{user}", values), this);
@@ -306,7 +306,7 @@ public class BitbucketClient implements Serializable
      * @param name team name
      * @return {@link BitbucketTeam} instance
      */
-    public BitbucketTeam getTeam(final String name)
+    public final BitbucketTeam getTeam(final String name)
     {
         Map<String, Object> values = Collections.singletonMap("team", name);
         return createTeam(getResource("/teams/{team}", values), this);
@@ -320,7 +320,7 @@ public class BitbucketClient implements Serializable
      * @param name repository name
      * @return {@link BitbucketRepository} object
      */
-    public BitbucketRepository getRepository(
+    public final BitbucketRepository getRepository(
         final String ownerName, final String name)
     {
         Map<String, Object> values = new HashMap<>();
