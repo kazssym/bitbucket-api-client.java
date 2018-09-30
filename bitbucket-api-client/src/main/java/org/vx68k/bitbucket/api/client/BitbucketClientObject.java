@@ -55,7 +55,7 @@ public class BitbucketClientObject
     private BitbucketClient bitbucketClient;
 
     /**
-     * Initialized the object with a JSON object.
+     * Initializes the object with a JSON object.
      *
      * @param jsonObject a JSON object
      * @exception IllegalArgumentException if {@code object} is {@code null}
