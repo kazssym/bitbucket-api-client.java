@@ -57,31 +57,30 @@ public class BitbucketClientObject
     private BitbucketClient bitbucketClient;
 
     /**
-     * Constructs this object with a JSON object.
+     * Initialized the object with a JSON object.
      *
-     * @param object JSON object
+     * @param jsonObject a JSON object
      * @exception IllegalArgumentException if {@code object} is {@code null}
      */
-    public BitbucketClientObject(final JsonObject object)
+    public BitbucketClientObject(final JsonObject jsonObject)
     {
-        this(object, null);
+        this(jsonObject, null);
     }
 
     /**
-     * Constructs this object with a JSON object and a {@link BitbucketClient}
-     * object.
+     * Initializes the object with a JSON object and a Bitbucket API client.
      *
-     * @param object JSON object
-     * @param client {@link BitbucketClient} object
+     * @param jsonObject a JSON object
+     * @param bitbucketClient a Bitbucket API client
      * @exception IllegalArgumentException if {@code object} is {@code null}
      */
-    public BitbucketClientObject(final JsonObject object,
-        final BitbucketClient client)
+    public BitbucketClientObject(
+        final JsonObject jsonObject, final BitbucketClient bitbucketClient)
     {
-        jsonObject = object;
-        bitbucketClient = client;
+        this.jsonObject = jsonObject;
+        this.bitbucketClient = bitbucketClient;
 
-        if (jsonObject == null) {
+        if (this.jsonObject == null) {
             throw new IllegalArgumentException("JSON object is null");
         }
     }
