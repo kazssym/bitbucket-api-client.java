@@ -1,5 +1,5 @@
 /*
- * BitbucketClientPaginatedList.java - class BitbucketClientPaginatedList
+ * BitbucketClientPaginatedList.java
  * Copyright (C) 2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -20,8 +20,12 @@
 
 package org.vx68k.bitbucket.api.client;
 
+import java.net.URI;
 import java.util.AbstractList;
-import java.util.List;
+import java.util.ArrayList;
+import java.util.function.Function;
+import javax.json.JsonArray;
+import javax.json.JsonObject;
 
 /**
  * Paginated list on Bitbucket Cloud.
@@ -30,8 +34,7 @@ import java.util.List;
  * @param <E> type of the elements
  * @since 5.0
  */
-public class BitbucketClientPaginatedList<E extends BitbucketClientObject>
-    extends AbstractList<E>
+public class BitbucketClientPaginatedList<E> extends AbstractList<E>
 {
     /**
      * Bitbucket client given to the constructor.
@@ -39,45 +42,40 @@ public class BitbucketClientPaginatedList<E extends BitbucketClientObject>
     private final BitbucketClient bitbucketClient;
 
     /**
-     * URL for the next page.
+     * Function to create each element.
      */
-    private String nextURL;
+    private final Function<JsonObject, ? extends E> creator;
+
+    /**
+     * URL of the next page.
+     */
+    private URI nextPage;
+
+    /**
+     * List of the known values.
+     */
+    private final ArrayList<E> knownValues = new ArrayList<>();
 
     /**
      * Known size of the list.
      * If this value is less than zero, all the element must be fetched.
      */
-    private int knownSize;
+    private int knownSize = -1;
 
     /**
-     * List of the known values.
-     */
-    private List<E> knownValues;
-
-    /**
-     * Constructs this object.
+     * Initializes this object.
      *
-     * @param client Bitbucket client
-     * @param firstURL first URL to fetch
+     * @param firstPage the URI of the first page
+     * @param bitbucketClient a Bitbucket API client
+     * @param creator a function to create each element
      */
     public BitbucketClientPaginatedList(
-        final BitbucketClient client, final String firstURL)
+        final URI firstPage, final BitbucketClient bitbucketClient,
+        final Function<JsonObject, ? extends E> creator)
     {
-        bitbucketClient = client;
-        // @todo Rethink the procedure.
-        nextURL = firstURL;
-        knownSize = -1;
-        knownValues = null;
-    }
-
-    /**
-     * Returns the Bitbucket client given to the constructor.
-     *
-     * @return the Bitbucket client
-     */
-    public final BitbucketClient getBitbucketClient()
-    {
-        return bitbucketClient;
+        this.bitbucketClient = bitbucketClient;
+        this.creator = creator;
+        this.nextPage = firstPage;
     }
 
     /**
@@ -85,8 +83,28 @@ public class BitbucketClientPaginatedList<E extends BitbucketClientObject>
      */
     protected final void fetchNext()
     {
-        // @todo Fetch the next page through {@link BitbucketClient}.
-        throw new UnsupportedOperationException("Not supported yet.");
+        JsonObject object = bitbucketClient.get(nextPage.toString());
+        if (knownSize < 0) {
+            knownSize = object.getInt("size", -1);
+            if (knownSize >= 0) {
+                knownValues.ensureCapacity(knownSize);
+            }
+        }
+
+        JsonArray values = object.getJsonArray("values");
+        values.stream()
+            .map((value) -> (JsonObject) value)
+            .map(creator)
+            .forEachOrdered((e) -> knownValues.add(e));
+
+        String next = object.getString("next", null);
+        if (next != null) {
+            nextPage = URI.create(next);
+        }
+        else {
+            nextPage = null;
+            knownSize = knownValues.size();
+        }
     }
 
     /**
@@ -95,7 +113,7 @@ public class BitbucketClientPaginatedList<E extends BitbucketClientObject>
     @Override
     public final E get(final int index)
     {
-        while (index >= knownValues.size() && nextURL != null) {
+        while (nextPage != null && index >= knownValues.size()) {
             fetchNext();
         }
         return knownValues.get(index);
@@ -107,10 +125,10 @@ public class BitbucketClientPaginatedList<E extends BitbucketClientObject>
     @Override
     public final int size()
     {
-        while (knownSize < 0) {
-            assert nextURL != null;
+        while (nextPage != null && knownSize < 0) {
             fetchNext();
         }
+        assert knownSize >= 0;
         return knownSize;
     }
 }
