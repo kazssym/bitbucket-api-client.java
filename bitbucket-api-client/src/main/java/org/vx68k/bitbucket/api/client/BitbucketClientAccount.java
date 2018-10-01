@@ -92,6 +92,12 @@ public class BitbucketClientAccount extends BitbucketClientObject implements
         final JsonObject object, final BitbucketClient client)
     {
         super(object, client);
+
+        String type = getType();
+        if (!(USER.equals(type) || TEAM.equals(type))) {
+            throw new IllegalArgumentException(
+                "JSON object type is not user or team");
+        }
     }
 
     /**
