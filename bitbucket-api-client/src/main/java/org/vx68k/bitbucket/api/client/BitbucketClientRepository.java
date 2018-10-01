@@ -152,7 +152,7 @@ public class BitbucketClientRepository extends
         if (owner != null) {
             BitbucketClient client = getBitbucketClient();
             String type = owner.getString(TYPE);
-            if (type.equals(BitbucketClientTeam.TEAM_TYPE)) {
+            if (type.equals(BitbucketAccount.TEAM)) {
                 value = BitbucketClient.createTeam(owner, client);
             }
             else {

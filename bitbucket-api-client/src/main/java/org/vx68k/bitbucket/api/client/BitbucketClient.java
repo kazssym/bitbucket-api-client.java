@@ -35,7 +35,6 @@ import org.vx68k.bitbucket.api.BitbucketAccount;
 import org.vx68k.bitbucket.api.BitbucketBranch;
 import org.vx68k.bitbucket.api.BitbucketCommit;
 import org.vx68k.bitbucket.api.BitbucketRepository;
-import org.vx68k.bitbucket.api.BitbucketTeam;
 import org.vx68k.bitbucket.api.BitbucketUser;
 import org.vx68k.bitbucket.api.client.internal.JsonMessageBodyReader;
 
@@ -129,11 +128,11 @@ public class BitbucketClient implements Bitbucket, Serializable
     }
 
     /**
-     * Creates a {@link BitbucketTeam} instance from a JSON object with the
+     * Creates a {@link BitbucketAccount} instance from a JSON object with the
      * default Bitbucket client.
      *
      * @param object JSON object of a team, or {@code null}
-     * @return {@link BitbucketTeam} instance
+     * @return {@link BitbucketAccount} instance
      * @exception IllegalArgumentException if {@code object} is not of a team
      */
     public static BitbucketAccount createTeam(final JsonObject object)
@@ -142,11 +141,11 @@ public class BitbucketClient implements Bitbucket, Serializable
     }
 
     /**
-     * Creates a {@link BitbucketTeam} instance from a JSON object.
+     * Creates a {@link BitbucketAccount} instance from a JSON object.
      *
      * @param object JSON object of a team, or {@code null}
      * @param client Bitbucket API client, or {@code null}
-     * @return {@link BitbucketTeam} instance
+     * @return {@link BitbucketAccount} instance
      * @exception IllegalArgumentException if {@code object} is not of a team
      */
     public static BitbucketAccount createTeam(
@@ -303,10 +302,10 @@ public class BitbucketClient implements Bitbucket, Serializable
     }
 
     /**
-     * Returns a {@link BitbucketTeam} instance for a team.
+     * Returns a {@link BitbucketAccount} instance for a team.
      *
      * @param name team name
-     * @return {@link BitbucketTeam} instance
+     * @return {@link BitbucketAccount} instance
      */
     public final BitbucketAccount getTeam(final String name)
     {
