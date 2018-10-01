@@ -82,7 +82,7 @@ public final class BitbucketClientAccountTest
 
         // Case with a JSON object of a wrong type.
         JsonObject wrongObject = Json.createObjectBuilder()
-            .add("type", "user").build();
+            .add("type", "other").build();
         try {
             new BitbucketClientAccount(wrongObject);
             fail();
