@@ -31,6 +31,7 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import org.vx68k.bitbucket.api.Bitbucket;
+import org.vx68k.bitbucket.api.BitbucketAccount;
 import org.vx68k.bitbucket.api.BitbucketBranch;
 import org.vx68k.bitbucket.api.BitbucketCommit;
 import org.vx68k.bitbucket.api.BitbucketRepository;
@@ -135,7 +136,7 @@ public class BitbucketClient implements Bitbucket, Serializable
      * @return {@link BitbucketTeam} instance
      * @exception IllegalArgumentException if {@code object} is not of a team
      */
-    public static BitbucketTeam createTeam(final JsonObject object)
+    public static BitbucketAccount createTeam(final JsonObject object)
     {
         return createTeam(object, getDefaultInstance());
     }
@@ -148,12 +149,12 @@ public class BitbucketClient implements Bitbucket, Serializable
      * @return {@link BitbucketTeam} instance
      * @exception IllegalArgumentException if {@code object} is not of a team
      */
-    public static BitbucketTeam createTeam(
+    public static BitbucketAccount createTeam(
         final JsonObject object, final BitbucketClient client)
     {
-        BitbucketTeam value = null;
+        BitbucketAccount value = null;
         if (object != null) {
-            value = new BitbucketClientTeam(object, client);
+            value = new BitbucketClientAccount(object, client);
         }
         return value;
     }
@@ -307,7 +308,7 @@ public class BitbucketClient implements Bitbucket, Serializable
      * @param name team name
      * @return {@link BitbucketTeam} instance
      */
-    public final BitbucketTeam getTeam(final String name)
+    public final BitbucketAccount getTeam(final String name)
     {
         Map<String, Object> values = Collections.singletonMap("team", name);
         return createTeam(getResource("/teams/{team}", values), this);

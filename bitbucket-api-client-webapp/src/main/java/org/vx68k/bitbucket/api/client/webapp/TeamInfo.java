@@ -29,7 +29,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import org.vx68k.bitbucket.api.BitbucketTeam;
+import org.vx68k.bitbucket.api.BitbucketAccount;
 import org.vx68k.bitbucket.api.client.BitbucketClient;
 
 /**
@@ -60,7 +60,7 @@ public class TeamInfo implements Serializable
     /**
      * Team found by the last lookup, or {@code null} if no team was found.
      */
-    private transient BitbucketTeam team = null;
+    private transient BitbucketAccount team = null;
 
     /**
      * Constructs this object.
@@ -119,7 +119,7 @@ public class TeamInfo implements Serializable
      * @return the team if one was found; {@code null} otherwise
      * @see #isFound
      */
-    public BitbucketTeam getTeam()
+    public BitbucketAccount getTeam()
     {
         return team;
     }

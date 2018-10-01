@@ -21,7 +21,7 @@
 package org.vx68k.bitbucket.api.client.cli;
 
 import java.io.PrintWriter;
-import org.vx68k.bitbucket.api.BitbucketTeam;
+import org.vx68k.bitbucket.api.BitbucketAccount;
 import org.vx68k.bitbucket.api.client.BitbucketClient;
 
 /**
@@ -59,7 +59,7 @@ public class TeamCommandGroup extends CommandGroup
          *
          * @param team team to print
          */
-        void print(final BitbucketTeam team)
+        void print(final BitbucketAccount team)
         {
             PrintWriter out = new PrintWriter(System.out);
             out.format(FORMAT, "Name", team.getName());
@@ -84,7 +84,7 @@ public class TeamCommandGroup extends CommandGroup
                 throw new CLIException("Missing arguments");
             }
 
-            BitbucketTeam team = getBitbucketClient().getTeam(args[0]);
+            BitbucketAccount team = getBitbucketClient().getTeam(args[0]);
             if (team != null) {
                 print(team);
             }
