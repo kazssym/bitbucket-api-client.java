@@ -76,7 +76,7 @@ public class BitbucketClientAccount extends BitbucketClientObject implements
      * @param object JSON object
      * @exception IllegalArgumentException if {@code object} is {@code null}
      */
-    protected BitbucketClientAccount(final JsonObject object)
+    public BitbucketClientAccount(final JsonObject object)
     {
         this(object, null);
     }
@@ -88,7 +88,7 @@ public class BitbucketClientAccount extends BitbucketClientObject implements
      * @param client Bitbucket client, or {@code null}
      * @exception IllegalArgumentException if {@code object} is {@code null}
      */
-    protected BitbucketClientAccount(
+    public BitbucketClientAccount(
         final JsonObject object, final BitbucketClient client)
     {
         super(object, client);
