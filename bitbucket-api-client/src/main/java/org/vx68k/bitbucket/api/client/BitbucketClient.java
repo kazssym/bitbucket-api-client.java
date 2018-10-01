@@ -30,6 +30,7 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
+import org.vx68k.bitbucket.api.Bitbucket;
 import org.vx68k.bitbucket.api.BitbucketBranch;
 import org.vx68k.bitbucket.api.BitbucketCommit;
 import org.vx68k.bitbucket.api.BitbucketRepository;
@@ -43,7 +44,7 @@ import org.vx68k.bitbucket.api.client.internal.JsonMessageBodyReader;
  * @author Kaz Nishimura
  * @since 5.0
  */
-public class BitbucketClient implements Serializable
+public class BitbucketClient implements Bitbucket, Serializable
 {
     private static final long serialVersionUID = 1L;
 
