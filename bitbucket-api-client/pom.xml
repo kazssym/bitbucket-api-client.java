@@ -13,6 +13,16 @@
 <name>Bitbucket API Client</name>
 <description>Client implementation for the Bitbucket API.</description>
 
+<licenses>
+
+<license>
+<name>GNU General Public License</name>
+<url>https://www.gnu.org/licenses/gpl.txt</url>
+<distribution>repo</distribution>
+<comments>Version 3 or any later version.</comments>
+</license>
+</licenses>
+
 <dependencies>
 
 <dependency>
