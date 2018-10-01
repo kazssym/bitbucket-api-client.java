@@ -1,5 +1,5 @@
 /*
- * BitbucketClientRepository.java - class BitbucketClientRepository
+ * BitbucketClientRepository.java
  * Copyright (C) 2015-2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -25,7 +25,8 @@ import static org.vx68k.bitbucket.api.client.BitbucketClientUtilities.toUUID;
 
 import java.time.Instant;
 import java.util.Collection;
-import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 import javax.json.JsonObject;
 import org.vx68k.bitbucket.api.BitbucketAccount;
@@ -266,8 +267,20 @@ public class BitbucketClientRepository extends
     @Override
     public final BitbucketIssue getIssue(final int id)
     {
-        // @todo Implement this method.
-        return null;
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("owner", getOwner().getName());
+        parameters.put("name", getName());
+        parameters.put("id", id);
+
+        BitbucketClient client = getBitbucketClient();
+        JsonObject object = client.getResource(
+            "/repositories/{owner}/{name}/issues/{id}", parameters);
+
+        BitbucketIssue value = null;
+        if (object != null) {
+            value = new BitbucketClientIssue(object, client);
+        }
+        return value;
     }
 
     /**
@@ -276,7 +289,9 @@ public class BitbucketClientRepository extends
     @Override
     public final Collection<BitbucketIssue> issues()
     {
-        // @todo Implemtnt this method.
-        return Collections.emptyList();
+        BitbucketClient client = getBitbucketClient();
+        return new BitbucketClientPaginatedList<>(
+            getLink("issues").getUri(), client,
+            BitbucketClientIssue.creator(client));
     }
 }
