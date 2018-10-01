@@ -21,7 +21,7 @@
 package org.vx68k.bitbucket.api;
 
 /**
- * Bitbucket API
+ * Abstraction of the Bitbucket API.
  *
  * @author Kaz Nishimura
  * @since 5.0
