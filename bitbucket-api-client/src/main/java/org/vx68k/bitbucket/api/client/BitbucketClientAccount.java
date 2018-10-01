@@ -37,8 +37,8 @@ import org.vx68k.bitbucket.api.BitbucketRepository;
  * @author Kaz Nishimura
  * @since 5.0
  */
-public abstract class BitbucketClientAccount extends
-    BitbucketClientObject implements BitbucketAccount
+public class BitbucketClientAccount extends BitbucketClientObject implements
+    BitbucketAccount
 {
     /**
      * Name for the {@code username} value in a JSON account object.
