@@ -84,7 +84,8 @@ public class UserCommandGroup extends CommandGroup
                 throw new CLIException("Missing arguments");
             }
 
-            BitbucketUser user = getBitbucketClient().getUser(args[0]);
+            BitbucketUser user = (BitbucketUser)
+                getBitbucketClient().getUser(args[0]);
             if (user != null) {
                 print(user);
             }

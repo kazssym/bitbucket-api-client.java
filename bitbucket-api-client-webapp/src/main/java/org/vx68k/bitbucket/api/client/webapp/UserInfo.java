@@ -29,7 +29,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import org.vx68k.bitbucket.api.BitbucketUser;
+import org.vx68k.bitbucket.api.BitbucketAccount;
 import org.vx68k.bitbucket.api.client.BitbucketClient;
 
 /**
@@ -60,7 +60,7 @@ public class UserInfo implements Serializable
     /**
      * User found by the last lookup, or {@code null} if no user was found.
      */
-    private transient BitbucketUser user = null;
+    private transient BitbucketAccount user = null;
 
     /**
      * Constructs this object.
@@ -119,7 +119,7 @@ public class UserInfo implements Serializable
      * @return the user if one was found; {@code null} otherwise
      * @see #isFound
      */
-    public BitbucketUser getUser()
+    public BitbucketAccount getUser()
     {
         return user;
     }
