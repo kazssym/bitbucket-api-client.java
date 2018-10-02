@@ -291,28 +291,45 @@ public class BitbucketClient implements Bitbucket, Serializable
     }
 
     /**
-     * Returns a {@link BitbucketUser} object for a user.
+     * {@inheritDoc}
+     * <p>This implementation gets the user resource remotely from Bitbucket
+     * Cloud.</p>
      */
     @Override
-    public final BitbucketUser getUser(final String name)
+    public final BitbucketAccount getUser(final String name)
     {
-        Map<String, Object> values = Collections.singletonMap("user", name);
-        return createUser(getResource("/users/{user}", values), this);
+        Map<String, Object> values = Collections.singletonMap("name", name);
+
+        JsonObject object = getResource("/users/{name}", values);
+        BitbucketAccount value = null;
+        if (object != null) {
+            value = new BitbucketClientUser(object, this);
+        }
+        return value;
     }
 
     /**
-     * Returns a {@link BitbucketAccount} instance for a team.
+     * {@inheritDoc}
+     * <p>This implementation gets the team resource remotely from Bitbucket
+     * Cloud.</p>
      */
     @Override
     public final BitbucketAccount getTeam(final String name)
     {
-        Map<String, Object> values = Collections.singletonMap("team", name);
-        return createTeam(getResource("/teams/{team}", values), this);
+        Map<String, Object> values = Collections.singletonMap("name", name);
+
+        JsonObject object = getResource("/teams/{name}", values);
+        BitbucketAccount value = null;
+        if (object != null) {
+            value = new BitbucketClientAccount(object, this);
+        }
+        return value;
     }
 
     /**
-     * Returns a {@link BitbucketRepository} object for a repository on
-     * Bitbucket Cloud.
+     * {@inheritDoc}
+     * <p>This implementation gets the repository resource remotely from
+     * Bitbucket Cloud.</p>
      */
     @Override
     public final BitbucketRepository getRepository(
@@ -320,8 +337,14 @@ public class BitbucketClient implements Bitbucket, Serializable
     {
         Map<String, Object> values = new HashMap<>();
         values.put("owner", ownerName);
-        values.put("repository", name);
-        return createRepository(
-            getResource("/repositories/{owner}/{repository}", values), this);
+        values.put("name", name);
+
+        JsonObject object = getResource(
+            "/repositories/{owner}/{name}", values);
+        BitbucketRepository value = null;
+        if (object != null) {
+            value = new BitbucketClientRepository(object, this);
+        }
+        return value;
     }
 }
