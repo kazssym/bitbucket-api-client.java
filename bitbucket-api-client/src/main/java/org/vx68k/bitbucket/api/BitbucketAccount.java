@@ -1,5 +1,5 @@
 /*
- * BitbucketAccount.java - interface BitbucketAccount
+ * BitbucketAccount.java
  * Copyright (C) 2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -25,9 +25,15 @@ import java.util.Collection;
 import java.util.UUID;
 
 /**
- * Account on Bitbucket Cloud.
+ * Account resource on Bitbucket Cloud.
+ * A Bitbucket Cloud account is either a user or a team.
+ * This interface can represent both types of accounts, but the attributes
+ * specific to user accounts are not accessible with this interface but with
+ * {@link BitbucketUser}.
  *
  * @author Kaz Nishimura
+ * @see BitbucketUser
+ * @see BitbucketRepository
  * @since 5.0
  */
 public interface BitbucketAccount
@@ -51,60 +57,62 @@ public interface BitbucketAccount
 
     /**
      * Returns the name of the account.
+     * This property identifies the account.
      *
-     * @return the name
+     * @return the name of the account
      */
     String getName();
 
     /**
      * Returns the UUID of the account.
      *
-     * @return the UUID
+     * @return the UUID of the account
      */
     UUID getUUID();
 
     /**
      * Returns the display name of the account.
      *
-     * @return the display name
+     * @return the display name of the account
      */
     String getDisplayName();
 
     /**
-     * Returns the website of the account.
+     * Returns the website URI of the account.
      *
-     * @return the website
+     * @return the website URI of the account
      */
     String getWebsite();
 
     /**
      * Returns the location of the account.
      *
-     * @return the location
+     * @return the location of the account
      */
     String getLocation();
 
     /**
-     * Returns the instant when the account was created.
+     * Returns the date and time when the account was created.
      *
-     * @return the instant
+     * @return the date and time when the account was created
      */
     Instant getCreated();
 
     /**
-     * Returns a repository which is owned by the account.
+     * Returns a repository owned by the account.
      *
-     * @param name repository name
-     * @return {@link BitbucketRepository} object for the repository if one was
-     * found; {@code null} otherwise
+     * @param name the name of a repository
+     * @return a repository owned by the account if one was found; {@code null}
+     * otherwise
      */
     BitbucketRepository getRepository(String name);
 
     /**
-     * Returns a {@link Collection} view of the repositories which are owned by
-     * the account.
+     * Returns a {@link Collection} view of the repositories owned by the
+     * account.
      *
-     * @return {@link Collection} view of the repositories
+     * @return a {@link Collection} view of the repositories owned by the
+     * account
      */
     Collection<BitbucketRepository> repositories();
 }
