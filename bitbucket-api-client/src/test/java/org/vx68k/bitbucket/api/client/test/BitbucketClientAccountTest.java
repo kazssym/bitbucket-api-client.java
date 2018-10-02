@@ -27,7 +27,6 @@ import static org.junit.Assert.fail;
 import java.time.Instant;
 import java.util.UUID;
 import javax.json.Json;
-import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import org.junit.Test;
 import org.vx68k.bitbucket.api.client.BitbucketClientAccount;
@@ -39,6 +38,34 @@ import org.vx68k.bitbucket.api.client.BitbucketClientAccount;
  */
 public final class BitbucketClientAccountTest
 {
+    /**
+     * UUID for tests.
+     */
+    static final UUID TEST_UUID =
+        UUID.fromString("01234567-89ab-cdef-0123-456789abcdef");
+
+    /**
+     * Adds the {@code "user"} type to a JSON object builder.
+     *
+     * @param builder a JSON object builder
+     * @return the same JSON object builder
+     */
+    static JsonObjectBuilder addUserType(final JsonObjectBuilder builder)
+    {
+        return builder.add("type", "user");
+    }
+
+    /**
+     * Adds the {@code "team"} type to a JSON object builder.
+     *
+     * @param builder a JSON object builder
+     * @return the same JSON object builder
+     */
+    static JsonObjectBuilder addTeamType(final JsonObjectBuilder builder)
+    {
+        return builder.add("type", "team");
+    }
+
     /**
      * Returns a JSON object builder which is typed for a team.
      *
@@ -57,38 +84,48 @@ public final class BitbucketClientAccountTest
     @Test
     public void testConstructor()
     {
-        JsonObject object1 = createTeamObjectBuilder().build();
-        BitbucketClientAccount team1 = new BitbucketClientAccount(object1);
-        assertNull(team1.getBitbucketClient());
-
         // Case with a null pointer.
         try {
             new BitbucketClientAccount(null);
             fail();
         }
         catch (final IllegalArgumentException exception) {
-            System.out.println("Caught " + exception.toString());
+            System.out.format("OK, caught %s\n", exception);
         }
+
+        JsonObjectBuilder builder = Json.createObjectBuilder();
 
         // Case with an empty JSON object.
-        JsonObject emptyObject = Json.createObjectBuilder().build();
         try {
-            new BitbucketClientAccount(emptyObject);
+            new BitbucketClientAccount(builder.build());
             fail();
         }
         catch (final IllegalArgumentException exception) {
-            System.out.println("Caught " + exception.toString());
+            System.out.format("OK, caught %s\n", exception);
         }
 
+        // NOTE: A builder can be reused.
+
+        addUserType(builder);
+
+        BitbucketClientAccount user1 =
+            new BitbucketClientAccount(builder.build());
+        assertNull(user1.getBitbucketClient());
+
+        addTeamType(builder);
+
+        BitbucketClientAccount team1 =
+            new BitbucketClientAccount(builder.build());
+        assertNull(team1.getBitbucketClient());
+
         // Case with a JSON object of a wrong type.
-        JsonObject wrongObject = Json.createObjectBuilder()
-            .add("type", "other").build();
+        builder.add("type", "other");
         try {
-            new BitbucketClientAccount(wrongObject);
+            new BitbucketClientAccount(builder.build());
             fail();
         }
         catch (final IllegalArgumentException exception) {
-            System.out.println("Caught " + exception.toString());
+            System.out.format("OK, caught %s\n", exception);
         }
     }
 
@@ -98,14 +135,14 @@ public final class BitbucketClientAccountTest
     @Test
     public void testGetName()
     {
-        JsonObject object1 = createTeamObjectBuilder().build();
-        BitbucketClientAccount team1 = new BitbucketClientAccount(object1);
-        assertNull(team1.getName());
+        JsonObjectBuilder builder = Json.createObjectBuilder();
 
-        JsonObject object2 = createTeamObjectBuilder()
-            .add("username", "testName").build();
-        BitbucketClientAccount team2 = new BitbucketClientAccount(object2);
-        assertEquals("testName", team2.getName());
+        addTeamType(builder);
+        assertNull(new BitbucketClientAccount(builder.build()).getName());
+
+        addTeamType(builder).add("username", "test");
+        assertEquals(
+            "test", new BitbucketClientAccount(builder.build()).getName());
     }
 
     /**
@@ -114,16 +151,14 @@ public final class BitbucketClientAccountTest
     @Test
     public void testGetUUID()
     {
-        JsonObject object1 = createTeamObjectBuilder().build();
-        BitbucketClientAccount team1 = new BitbucketClientAccount(object1);
-        assertNull(team1.getUUID());
+        JsonObjectBuilder builder = Json.createObjectBuilder();
 
-        JsonObject object2 = createTeamObjectBuilder()
-            .add("uuid", "{01234567-89ab-cdef-0123-456789abcdef}").build();
-        BitbucketClientAccount team2 = new BitbucketClientAccount(object2);
+        addTeamType(builder);
+        assertNull(new BitbucketClientAccount(builder.build()).getUUID());
+
+        addTeamType(builder).add("uuid", "{" + TEST_UUID.toString() + "}");
         assertEquals(
-            UUID.fromString("01234567-89ab-cdef-0123-456789abcdef"),
-            team2.getUUID());
+            TEST_UUID, new BitbucketClientAccount(builder.build()).getUUID());
     }
 
     /**
@@ -132,14 +167,16 @@ public final class BitbucketClientAccountTest
     @Test
     public void testGetDisplayName()
     {
-        JsonObject object1 = createTeamObjectBuilder().build();
-        BitbucketClientAccount team1 = new BitbucketClientAccount(object1);
-        assertNull(team1.getDisplayName());
+        JsonObjectBuilder builder = Json.createObjectBuilder();
 
-        JsonObject object2 = createTeamObjectBuilder()
-            .add("display_name", "testName").build();
-        BitbucketClientAccount team2 = new BitbucketClientAccount(object2);
-        assertEquals("testName", team2.getDisplayName());
+        addTeamType(builder);
+        assertNull(
+            new BitbucketClientAccount(builder.build()).getDisplayName());
+
+        addTeamType(builder).add("display_name", "Test Account");
+        assertEquals(
+            "Test Account",
+            new BitbucketClientAccount(builder.build()).getDisplayName());
     }
 
     /**
@@ -148,14 +185,15 @@ public final class BitbucketClientAccountTest
     @Test
     public void testGetWebsite()
     {
-        JsonObject object1 = createTeamObjectBuilder().build();
-        BitbucketClientAccount team1 = new BitbucketClientAccount(object1);
-        assertNull(team1.getWebsite());
+        JsonObjectBuilder builder = Json.createObjectBuilder();
 
-        JsonObject object2 = createTeamObjectBuilder()
-            .add("website", "http://example.com/").build();
-        BitbucketClientAccount team2 = new BitbucketClientAccount(object2);
-        assertEquals("http://example.com/", team2.getWebsite());
+        addTeamType(builder);
+        assertNull(new BitbucketClientAccount(builder.build()).getWebsite());
+
+        addTeamType(builder).add("website", "http://example.com/");
+        assertEquals(
+            "http://example.com/",
+            new BitbucketClientAccount(builder.build()).getWebsite());
     }
 
     /**
@@ -164,14 +202,15 @@ public final class BitbucketClientAccountTest
     @Test
     public void testGetLocation()
     {
-        JsonObject object1 = createTeamObjectBuilder().build();
-        BitbucketClientAccount team1 = new BitbucketClientAccount(object1);
-        assertNull(team1.getLocation());
+        JsonObjectBuilder builder = Json.createObjectBuilder();
 
-        JsonObject object2 = createTeamObjectBuilder()
-            .add("location", "testLocation").build();
-        BitbucketClientAccount team2 = new BitbucketClientAccount(object2);
-        assertEquals("testLocation", team2.getLocation());
+        addTeamType(builder);
+        assertNull(new BitbucketClientAccount(builder.build()).getLocation());
+
+        addTeamType(builder).add("location", "Somewhere");
+        assertEquals(
+            "Somewhere",
+            new BitbucketClientAccount(builder.build()).getLocation());
     }
 
     /**
@@ -180,14 +219,15 @@ public final class BitbucketClientAccountTest
     @Test
     public void testGetCreated()
     {
-        JsonObject object1 = createTeamObjectBuilder().build();
-        BitbucketClientAccount team1 = new BitbucketClientAccount(object1);
-        assertNull(team1.getCreated());
+        JsonObjectBuilder builder = Json.createObjectBuilder();
 
-        JsonObject object2 = createTeamObjectBuilder()
-            .add("created_on", "2001-01-01T01:23:45.678Z").build();
-        BitbucketClientAccount team2 = new BitbucketClientAccount(object2);
+        addTeamType(builder);
+        assertNull(new BitbucketClientAccount(builder.build()).getCreated());
+
+        addTeamType(builder).add(
+            "created_on", "2001-01-01T01:23:45.678901+00:00");
         assertEquals(
-            Instant.parse("2001-01-01T01:23:45.678Z"), team2.getCreated());
+            Instant.parse("2001-01-01T01:23:45.678901Z"),
+            new BitbucketClientAccount(builder.build()).getCreated());
     }
 }
