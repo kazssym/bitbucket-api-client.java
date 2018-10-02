@@ -21,6 +21,7 @@
 package org.vx68k.bitbucket.api.client;
 
 import java.io.Serializable;
+import java.net.URI;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -228,26 +229,26 @@ public class BitbucketClient implements Bitbucket, Serializable
     /**
      * Gets a JSON object by a link.
      *
-     * @param link URI for the link
-     * @return JSON object if found, {@code null} otherwise
+     * @param link the URI for a link
+     * @return a JSON object if one was found; {@code null} otherwise
      */
-    public final JsonObject get(final String link)
+    public final JsonObject get(final URI link)
     {
-        return get(
-            link, new String[] {MediaType.APPLICATION_JSON}, JsonObject.class);
+        String[] mediaTypes = new String[] {MediaType.APPLICATION_JSON};
+        return get(link, mediaTypes, JsonObject.class);
     }
 
     /**
      * Gets a media object by a link.
      *
      * @param <T> return type
-     * @param link URI for the link
+     * @param link the URI for a link
      * @param mediaTypes acceptable MIME media types
-     * @param type type of the media object to return
-     * @return media object if found; {@code null} otherwise
+     * @param type the type of the media object to return
+     * @return media object if one was found; {@code null} otherwise
      */
     public final <T> T get(
-        final String link, final String[] mediaTypes, final Class<T> type)
+        final URI link, final String[] mediaTypes, final Class<T> type)
     {
         Client client = clientBuilder.build();
         try {
