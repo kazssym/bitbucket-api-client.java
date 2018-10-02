@@ -24,8 +24,34 @@ package org.vx68k.bitbucket.api;
  * Abstraction of the Bitbucket API.
  *
  * @author Kaz Nishimura
+ * @see BitbucketAccount
+ * @see BitbucketRepository
  * @since 5.0
  */
 public interface Bitbucket
 {
+    /**
+     * Returns an account resource for a user.
+     *
+     * @param name the name of a user
+     * @return an account resource for a user
+     */
+    BitbucketAccount getUser(String name);
+
+    /**
+     * Returns an account resource for a team.
+     *
+     * @param name the name of a team
+     * @return an account resource for a team
+     */
+    BitbucketAccount getTeam(String name);
+
+    /**
+     * Returns a repository resource for a repository.
+     *
+     * @param ownerName the owner name of a repository
+     * @param name the name of a repository
+     * @return a repository resource for a repository
+     */
+    BitbucketRepository getRepository(String ownerName, String name);
 }

@@ -295,6 +295,7 @@ public class BitbucketClient implements Bitbucket, Serializable
      * @param name user name
      * @return {@link BitbucketUser} object
      */
+    @Override
     public final BitbucketUser getUser(final String name)
     {
         Map<String, Object> values = Collections.singletonMap("user", name);
@@ -307,6 +308,7 @@ public class BitbucketClient implements Bitbucket, Serializable
      * @param name team name
      * @return {@link BitbucketAccount} instance
      */
+    @Override
     public final BitbucketAccount getTeam(final String name)
     {
         Map<String, Object> values = Collections.singletonMap("team", name);
@@ -321,6 +323,7 @@ public class BitbucketClient implements Bitbucket, Serializable
      * @param name repository name
      * @return {@link BitbucketRepository} object
      */
+    @Override
     public final BitbucketRepository getRepository(
         final String ownerName, final String name)
     {
