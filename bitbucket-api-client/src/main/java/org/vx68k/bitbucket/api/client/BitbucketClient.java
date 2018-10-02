@@ -1,5 +1,5 @@
 /*
- * BitbucketClient.java - class BitbucketClient
+ * BitbucketClient.java
  * Copyright (C) 2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -292,9 +292,6 @@ public class BitbucketClient implements Bitbucket, Serializable
 
     /**
      * Returns a {@link BitbucketUser} object for a user.
-     *
-     * @param name user name
-     * @return {@link BitbucketUser} object
      */
     @Override
     public final BitbucketUser getUser(final String name)
@@ -305,9 +302,6 @@ public class BitbucketClient implements Bitbucket, Serializable
 
     /**
      * Returns a {@link BitbucketAccount} instance for a team.
-     *
-     * @param name team name
-     * @return {@link BitbucketAccount} instance
      */
     @Override
     public final BitbucketAccount getTeam(final String name)
@@ -319,10 +313,6 @@ public class BitbucketClient implements Bitbucket, Serializable
     /**
      * Returns a {@link BitbucketRepository} object for a repository on
      * Bitbucket Cloud.
-     *
-     * @param ownerName owner name of the repository
-     * @param name repository name
-     * @return {@link BitbucketRepository} object
      */
     @Override
     public final BitbucketRepository getRepository(
