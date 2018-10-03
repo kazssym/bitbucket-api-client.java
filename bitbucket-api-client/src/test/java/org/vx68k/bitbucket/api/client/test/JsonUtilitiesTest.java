@@ -1,5 +1,5 @@
 /*
- * BitbucketClientUtilitiesTest.java - class BitbucketClientUtilitiesTest
+ * JsonUtilitiesTest.java - class JsonUtilitiesTest
  * Copyright (C) 2015-2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -28,7 +28,7 @@ import org.junit.Test;
  *
  * @author Kaz Nishimura
  */
-public final class BitbucketClientUtilitiesTest
+public final class JsonUtilitiesTest
 {
     /**
      * Tests {@link BitbucketClientUtilities#parseUUID parseUUID}.
