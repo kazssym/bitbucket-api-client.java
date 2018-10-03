@@ -21,11 +21,15 @@
 package org.vx68k.bitbucket.api.client.test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
 import javax.json.Json;
+import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
-import org.junit.Ignore;
+import javax.json.JsonReader;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.vx68k.bitbucket.api.client.BitbucketClientIssue;
 
@@ -37,6 +41,11 @@ import org.vx68k.bitbucket.api.client.BitbucketClientIssue;
 public final class BitbucketClientIssueTest
 {
     /**
+     * Sample JSON object for an issue.
+     */
+    private static JsonObject sampleIssue1;
+
+    /**
      * Adds the {@code issue} type to a JSON object builder.
      *
      * @param builder a JSON object builder
@@ -45,6 +54,20 @@ public final class BitbucketClientIssueTest
     static JsonObjectBuilder addIssueType(final JsonObjectBuilder builder)
     {
         return builder.add("type", "issue");
+    }
+
+    /**
+     * Prepares test samples.
+     * As {@link JsonObject} is immutable, it is instantiated only once.
+     */
+    @BeforeClass
+    public static void setUpClass()
+    {
+        try (JsonReader reader = Json.createReader(
+            BitbucketClientIssueTest.class.getResourceAsStream(
+                "samples/issue1.json"))) {
+            sampleIssue1 = reader.readObject();
+        }
     }
 
     /**
@@ -65,15 +88,20 @@ public final class BitbucketClientIssueTest
     /**
      * Tests {@link BitbucketClientIssue#getRepository()}.
      */
-    @Ignore
     @Test
     public void testGetRepository()
     {
         JsonObjectBuilder builder = Json.createObjectBuilder();
         addIssueType(builder);
 
-        BitbucketClientIssue issue1 =
-            new BitbucketClientIssue(builder.build());
-        assertEquals(null, issue1.getRepository());
+        BitbucketClientIssue issue0 = new BitbucketClientIssue(
+            builder.build());
+        assertNull(issue0.getRepository());
+
+        BitbucketClientIssue issue1 = new BitbucketClientIssue(sampleIssue1);
+        assertNotNull(issue1.getRepository());
+        assertEquals(
+            "vx68k/bitbucket-api-client-java",
+            issue1.getRepository().getFullName());
     }
 }
