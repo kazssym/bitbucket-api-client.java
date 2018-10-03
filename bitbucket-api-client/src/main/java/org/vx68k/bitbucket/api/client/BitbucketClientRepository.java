@@ -290,7 +290,7 @@ public class BitbucketClientRepository extends
     public final Collection<BitbucketIssue> issues()
     {
         BitbucketClient client = getBitbucketClient();
-        return new BitbucketClientPaginatedList<>(
+        return new PaginatedList<>(
             getLink("issues").getUri(), client,
             BitbucketClientIssue.creator(client));
     }

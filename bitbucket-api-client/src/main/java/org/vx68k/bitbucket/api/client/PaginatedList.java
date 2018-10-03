@@ -1,5 +1,5 @@
 /*
- * BitbucketClientPaginatedList.java
+ * PaginatedList.java
  * Copyright (C) 2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -34,7 +34,7 @@ import javax.json.JsonObject;
  * @param <E> type of the elements
  * @since 5.0
  */
-public class BitbucketClientPaginatedList<E> extends AbstractList<E>
+public class PaginatedList<E> extends AbstractList<E>
 {
     /**
      * Bitbucket client given to the constructor.
@@ -69,7 +69,7 @@ public class BitbucketClientPaginatedList<E> extends AbstractList<E>
      * @param bitbucketClient a Bitbucket API client
      * @param creator a function to create each element
      */
-    public BitbucketClientPaginatedList(
+    public PaginatedList(
         final URI firstPage, final BitbucketClient bitbucketClient,
         final Function<JsonObject, ? extends E> creator)
     {

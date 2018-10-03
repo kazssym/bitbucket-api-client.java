@@ -1,5 +1,5 @@
 /*
- * BitbucketClientPaginatedListTest.java
+ * PaginatedListTest.java
  * Copyright (C) 2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -28,14 +28,14 @@ import org.junit.Test;
 import org.vx68k.bitbucket.api.BitbucketIssue;
 import org.vx68k.bitbucket.api.client.BitbucketClient;
 import org.vx68k.bitbucket.api.client.BitbucketClientIssue;
-import org.vx68k.bitbucket.api.client.BitbucketClientPaginatedList;
+import org.vx68k.bitbucket.api.client.PaginatedList;
 
 /**
- * Unit tests for {@link BitbucketClientPaginatedList}.
+ * Unit tests for {@link PaginatedList}.
  *
  * @author Kaz Nishimura
  */
-public class BitbucketClientPaginatedListTest
+public class PaginatedListTest
 {
     /**
      * Test resource.
@@ -45,13 +45,13 @@ public class BitbucketClientPaginatedListTest
         + "repositories/vx68k/bitbucket-api-client-java/issues");
 
     /**
-     * Tests {@link BitbucketClientPaginatedList#get(int) get}.
+     * Tests {@link PaginatedList#get(int) get}.
      */
     @Test
     public void testGet()
     {
         BitbucketClient client = BitbucketClient.getDefaultInstance();
-        List<BitbucketIssue> issues = new BitbucketClientPaginatedList<>(
+        List<BitbucketIssue> issues = new PaginatedList<>(
             TEST_RESOURCE, client, BitbucketClientIssue.creator(client));
 
         BitbucketIssue issue = issues.get(0);
@@ -59,13 +59,13 @@ public class BitbucketClientPaginatedListTest
     }
 
     /**
-     * Tests {@link BitbucketClientPaginatedList#size() size}.
+     * Tests {@link PaginatedList#size() size}.
      */
     @Test
     public void testSize()
     {
         BitbucketClient client = BitbucketClient.getDefaultInstance();
-        List<BitbucketIssue> issues = new BitbucketClientPaginatedList<>(
+        List<BitbucketIssue> issues = new PaginatedList<>(
             TEST_RESOURCE, client, BitbucketClientIssue.creator(client));
 
         assertTrue(issues.size() >= 0);
