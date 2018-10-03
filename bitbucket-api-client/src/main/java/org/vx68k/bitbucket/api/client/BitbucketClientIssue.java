@@ -20,6 +20,8 @@
 
 package org.vx68k.bitbucket.api.client;
 
+import static org.vx68k.bitbucket.api.client.JsonUtilities.toInstant;
+
 import java.time.Instant;
 import java.util.function.Function;
 import javax.json.JsonObject;
@@ -63,6 +65,36 @@ public class BitbucketClientIssue extends BitbucketClientObject implements
      * Name for the {@code state} value in a JSON object.
      */
     private static final String STATE = "state";
+
+    /**
+     * Name for the {@code assignee} value in a JSON object.
+     */
+    private static final String ASSIGNEE = "assignee";
+
+    /**
+     * Name for the {@code kind} value in a JSON object.
+     */
+    private static final String KIND = "kind";
+
+    /**
+     * Name for the {@code priority} value in a JSON object.
+     */
+    private static final String PRIORITY = "priority";
+
+    /**
+     * Name for the {@code created_on} value in a JSON object.
+     */
+    private static final String CREATED_ON = "created_on";
+
+    /**
+     * Name for the {@code updated_on} value in a JSON object.
+     */
+    private static final String UPDATED_ON = "updated_on";
+
+    /**
+     * Name for the {@code edited_on} value in a JSON object.
+     */
+    private static final String EDITED_ON = "edited_on";
 
     /**
      * Initializes the object from a JSON object.
@@ -140,6 +172,7 @@ public class BitbucketClientIssue extends BitbucketClientObject implements
     {
         JsonObject object = getJsonObject();
         JsonObject reporter = object.getJsonObject(REPORTER);
+
         BitbucketAccount value = null;
         if (reporter != null) {
             value = new BitbucketClientAccount(reporter, getBitbucketClient());
@@ -162,20 +195,65 @@ public class BitbucketClientIssue extends BitbucketClientObject implements
     }
 
     @Override
-    public final Instant getCreated()
+    public BitbucketAccount getAssignee()
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        JsonObject object = getJsonObject();
+        JsonObject assignee = object.getJsonObject(ASSIGNEE);
+
+        BitbucketAccount value = null;
+        if (assignee != null) {
+            value = new BitbucketClientAccount(assignee, getBitbucketClient());
+        }
+        return value;
     }
 
     @Override
-    public final Instant getEdited()
+    public String getKind()
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        JsonObject object = getJsonObject();
+        return object.getString(KIND, null);
+    }
+
+    @Override
+    public String getPriority()
+    {
+        JsonObject object = getJsonObject();
+        return object.getString(PRIORITY, null);
+    }
+
+    @Override
+    public final Instant getCreated()
+    {
+        JsonObject object = getJsonObject();
+        // This may be a JSON null.
+        Instant value = null;
+        if (object.containsKey(CREATED_ON) && !object.isNull(CREATED_ON)) {
+            value = toInstant(object.getJsonString(CREATED_ON));
+        }
+        return value;
     }
 
     @Override
     public final Instant getUpdated()
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        JsonObject object = getJsonObject();
+        // This may be a JSON null.
+        Instant value = null;
+        if (object.containsKey(UPDATED_ON) && !object.isNull(UPDATED_ON)) {
+            value = toInstant(object.getJsonString(UPDATED_ON));
+        }
+        return value;
+    }
+
+    @Override
+    public final Instant getEdited()
+    {
+        JsonObject object = getJsonObject();
+        // This may be a JSON null.
+        Instant value = null;
+        if (object.containsKey(EDITED_ON) && !object.isNull(EDITED_ON)) {
+            value = toInstant(object.getJsonString(EDITED_ON));
+        }
+        return value;
     }
 }

@@ -66,6 +66,27 @@ public interface BitbucketIssue
     String getState();
 
     /**
+     * Returns the assignee of the issue.
+     *
+     * @return the assignee of the issue
+     */
+    BitbucketAccount getAssignee();
+
+    /**
+     * Returns the kind of the issue.
+     *
+     * @return the kind of the issue
+     */
+    String getKind();
+
+    /**
+     * Returns the priority of the issue.
+     *
+     * @return the priority of the issue
+     */
+    String getPriority();
+
+    /**
      * Returns the instant when the issue was created.
      *
      * @return the instant when the issue was created
@@ -73,16 +94,16 @@ public interface BitbucketIssue
     Instant getCreated();
 
     /**
-     * Returns the instant when the issue was last edited.
-     *
-     * @return the instant when the issue was last edited
-     */
-    Instant getEdited();
-
-    /**
      * Returns the instant when the issue was last updated.
      *
      * @return the instant when the issue was last updated
      */
     Instant getUpdated();
+
+    /**
+     * Returns the instant when the issue was last edited.
+     *
+     * @return the instant when the issue was last edited
+     */
+    Instant getEdited();
 }
