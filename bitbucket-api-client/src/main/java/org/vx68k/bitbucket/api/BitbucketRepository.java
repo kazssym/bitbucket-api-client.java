@@ -32,6 +32,16 @@ import java.util.UUID;
 public interface BitbucketRepository extends BitbucketIssueTracker
 {
     /**
+     * SCM type value for Git repositories.
+     */
+    String GIT = "git";
+
+    /**
+     * SCM type value for Mercurial repositories.
+     */
+    String HG = "hg";
+
+    /**
      * Returns the SCM type of the repository.
      * The return value shall be either {@code "git"} or {@code "hg"}.
      *
