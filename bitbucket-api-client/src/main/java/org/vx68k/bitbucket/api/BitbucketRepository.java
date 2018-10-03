@@ -43,72 +43,72 @@ public interface BitbucketRepository extends BitbucketIssueTracker
 
     /**
      * Returns the SCM type of the repository.
-     * The return value shall be either {@code "git"} or {@code "hg"}.
+     * The return value shall be either {@code #GIT} or {@code #HG}.
      *
-     * @return the SCM type
+     * @return the SCM type of the repository
      */
     String getSCM();
 
     /**
-     * Return the owner of this repository.
+     * Returns the owner of the repository.
      *
-     * @return the owner
+     * @return the owner of the repository
      */
     BitbucketAccount getOwner();
 
     /**
-     * Returns the name of this repository.
+     * Returns the name of the repository.
      *
-     * @return the name
+     * @return the name of the repository
      */
     String getName();
 
     /**
-     * Returns the UUID of this repository.
+     * Returns the full name of the repository.
      *
-     * @return the UUID
-     */
-    UUID getUUID();
-
-    /**
-     * Returns the full name of this repository.
-     *
-     * @return the full name
+     * @return the full name of the repository
      */
     String getFullName();
 
     /**
+     * Returns the UUID of the repository.
+     *
+     * @return the UUID of the repository
+     */
+    UUID getUUID();
+
+    /**
      * Returns the description of the repository.
      *
-     * @return the description
+     * @return the description of the repository
      */
     String getDescription();
 
     /**
-     * Returns the main branch of this repository.
+     * Returns the main branch of the repository.
      *
-     * @return the main branch
+     * @return the main branch of the repository
      */
     BitbucketBranch getMainBranch();
 
     /**
-     * Returns {@code true} if this repository is private.
+     * Returns {@code true} if and only if the repository is private.
      *
-     * @return {@code true} if private
+     * @return {@code true} if and only if the repository is private
      */
     boolean isPrivate();
 
     /**
-     * Returns the creation time of this repository.
+     * Returns the instant when the repository was created.
      *
-     * @return the creation time
+     * @return the instant when the repository was created
      */
     Instant getCreated();
 
     /**
-     * Returns the last update time of this repository.
+     * Returns the instant when the repository was last updated.
      *
-     * @return the last update time
+     * @return the instant when the repository was last updated
      */
     Instant getUpdated();
 }

@@ -33,56 +33,56 @@ public interface BitbucketIssue
     /**
      * Returns the repository of the issue.
      *
-     * @return the repository
+     * @return the repository of the issue
      */
     BitbucketRepository getRepository();
 
     /**
      * Returns the identifier of the issue.
      *
-     * @return the identifier
+     * @return the identifier of the issue
      */
     int getId();
 
     /**
      * Returns the reporter of the issue.
      *
-     * @return the reporter
+     * @return the reporter of the issue
      */
     BitbucketUser getReporter();
 
     /**
      * Returns the title of the issue.
      *
-     * @return the title
+     * @return the title of the issue
      */
     String getTitle();
 
     /**
      * Returns the state of the issue.
      *
-     * @return the state
+     * @return the state of the issue
      */
     String getState();
 
     /**
      * Returns the instant when the issue was created.
      *
-     * @return the instant of creation
+     * @return the instant when the issue was created
      */
     Instant getCreated();
 
     /**
      * Returns the instant when the issue was last edited.
      *
-     * @return the instant of the last edit
+     * @return the instant when the issue was last edited
      */
     Instant getEdited();
 
     /**
      * Returns the instant when the issue was last updated.
      *
-     * @return the instant of the last update
+     * @return the instant when the issue was last updated
      */
     Instant getUpdated();
 }
