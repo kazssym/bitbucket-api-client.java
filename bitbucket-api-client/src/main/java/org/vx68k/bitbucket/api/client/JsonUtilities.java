@@ -1,5 +1,5 @@
 /*
- * BitbucketClientUtilities.java - class BitbucketClientUtilities
+ * JsonUtilities.java - class JsonUtilities
  * Copyright (C) 2015-2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -33,7 +33,7 @@ import javax.ws.rs.core.Link;
  * @author Kaz Nishimura
  * @since 5.0
  */
-public class BitbucketClientUtilities
+public class JsonUtilities
 {
     /**
      * Name for the {@code href} value in a JSON link object.
@@ -43,7 +43,7 @@ public class BitbucketClientUtilities
     /**
      * Does nothing but denies direct instantiation.
      */
-    protected BitbucketClientUtilities()
+    protected JsonUtilities()
     {
     }
 

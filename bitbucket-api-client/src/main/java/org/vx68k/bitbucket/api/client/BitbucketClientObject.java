@@ -20,7 +20,7 @@
 
 package org.vx68k.bitbucket.api.client;
 
-import static org.vx68k.bitbucket.api.client.BitbucketClientUtilities.toLink;
+import static org.vx68k.bitbucket.api.client.JsonUtilities.toLink;
 
 import java.util.Objects;
 import javax.json.JsonObject;

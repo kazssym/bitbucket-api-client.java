@@ -20,8 +20,8 @@
 
 package org.vx68k.bitbucket.api.client;
 
-import static org.vx68k.bitbucket.api.client.BitbucketClientUtilities.toInstant;
-import static org.vx68k.bitbucket.api.client.BitbucketClientUtilities.toUUID;
+import static org.vx68k.bitbucket.api.client.JsonUtilities.toInstant;
+import static org.vx68k.bitbucket.api.client.JsonUtilities.toUUID;
 
 import java.time.Instant;
 import java.util.Collection;
