@@ -23,9 +23,9 @@ package org.vx68k.bitbucket.api.client;
 import java.time.Instant;
 import java.util.function.Function;
 import javax.json.JsonObject;
+import org.vx68k.bitbucket.api.BitbucketAccount;
 import org.vx68k.bitbucket.api.BitbucketIssue;
 import org.vx68k.bitbucket.api.BitbucketRepository;
-import org.vx68k.bitbucket.api.BitbucketUser;
 
 /**
  *
@@ -35,9 +35,34 @@ public class BitbucketClientIssue extends BitbucketClientObject implements
     BitbucketIssue
 {
     /**
-     * Type name for issues.
+     * Type value for issues.
      */
-    private static final String ISSUE_TYPE = "issue";
+    private static final String ISSUE = "issue";
+
+    /**
+     * Name for the {@code repository} value in a JSON object.
+     */
+    private static final String REPOSITORY = "repository";
+
+    /**
+     * Name for the {@code id} value in a JSON object.
+     */
+    private static final String ID = "id";
+
+    /**
+     * Name for the {@code reporter} value in a JSON object.
+     */
+    private static final String REPORTER = "reporter";
+
+    /**
+     * Name for the {@code title} value in a JSON object.
+     */
+    private static final String TITLE = "title";
+
+    /**
+     * Name for the {@code state} value in a JSON object.
+     */
+    private static final String STATE = "state";
 
     /**
      * Initializes the object from a JSON object.
@@ -62,7 +87,7 @@ public class BitbucketClientIssue extends BitbucketClientObject implements
         super(jsonObject, bitbucketClient);
 
         String type = getType();
-        if (!ISSUE_TYPE.equals(type)) {
+        if (!ISSUE.equals(type)) {
             throw new IllegalArgumentException("Object is not of an issue");
         }
     }
@@ -93,31 +118,47 @@ public class BitbucketClientIssue extends BitbucketClientObject implements
     @Override
     public final BitbucketRepository getRepository()
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        JsonObject object = getJsonObject();
+        JsonObject repository = object.getJsonObject(REPOSITORY);
+        BitbucketRepository value = null;
+        if (repository != null) {
+            value = new BitbucketClientRepository(
+                repository, getBitbucketClient());
+        }
+        return value;
     }
 
     @Override
     public final int getId()
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        JsonObject object = getJsonObject();
+        return object.getInt(ID, 0);
     }
 
     @Override
-    public final BitbucketUser getReporter()
+    public final BitbucketAccount getReporter()
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        JsonObject object = getJsonObject();
+        JsonObject reporter = object.getJsonObject(REPORTER);
+        BitbucketAccount value = null;
+        if (reporter != null) {
+            value = new BitbucketClientAccount(reporter, getBitbucketClient());
+        }
+        return value;
     }
 
     @Override
     public final String getTitle()
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        JsonObject object = getJsonObject();
+        return object.getString(TITLE, null);
     }
 
     @Override
     public final String getState()
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        JsonObject object = getJsonObject();
+        return object.getString(STATE, null);
     }
 
     @Override

@@ -49,7 +49,7 @@ public interface BitbucketIssue
      *
      * @return the reporter of the issue
      */
-    BitbucketUser getReporter();
+    BitbucketAccount getReporter();
 
     /**
      * Returns the title of the issue.
