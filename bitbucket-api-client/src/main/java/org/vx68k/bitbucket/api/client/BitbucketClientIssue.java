@@ -152,6 +152,7 @@ public class BitbucketClientIssue extends BitbucketClientObject implements
     {
         JsonObject object = getJsonObject();
         JsonObject repository = object.getJsonObject(REPOSITORY);
+
         BitbucketRepository value = null;
         if (repository != null) {
             value = new BitbucketClientRepository(
@@ -195,7 +196,7 @@ public class BitbucketClientIssue extends BitbucketClientObject implements
     }
 
     @Override
-    public BitbucketAccount getAssignee()
+    public final BitbucketAccount getAssignee()
     {
         JsonObject object = getJsonObject();
         JsonObject assignee = object.getJsonObject(ASSIGNEE);
@@ -208,14 +209,14 @@ public class BitbucketClientIssue extends BitbucketClientObject implements
     }
 
     @Override
-    public String getKind()
+    public final String getKind()
     {
         JsonObject object = getJsonObject();
         return object.getString(KIND, null);
     }
 
     @Override
-    public String getPriority()
+    public final String getPriority()
     {
         JsonObject object = getJsonObject();
         return object.getString(PRIORITY, null);
