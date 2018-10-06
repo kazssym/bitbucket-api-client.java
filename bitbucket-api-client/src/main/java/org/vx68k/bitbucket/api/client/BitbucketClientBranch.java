@@ -104,7 +104,7 @@ public class BitbucketClientBranch extends BitbucketClientObject
 
         BitbucketCommit value = null;
         if (target != null) {
-            value = new BitbucketClientCommit(target/*, getBitbucketClient()*/);
+            value = new BitbucketClientCommit(target, getBitbucketClient());
         }
         return value;
     }
