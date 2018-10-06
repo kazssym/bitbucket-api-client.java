@@ -147,7 +147,7 @@ public interface BitbucketIssue
      *
      * @author Kaz Nishimura
      */
-    public static interface Component
+    public interface Component
     {
     }
 
@@ -156,7 +156,7 @@ public interface BitbucketIssue
      *
      * @author Kaz Nishimura
      */
-    public static interface Milestone
+    public interface Milestone
     {
     }
 
@@ -165,7 +165,7 @@ public interface BitbucketIssue
      *
      * @author Kaz Nishimura
      */
-    public static interface Version
+    public interface Version
     {
     }
 }
