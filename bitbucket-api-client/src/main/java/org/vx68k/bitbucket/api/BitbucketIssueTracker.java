@@ -40,9 +40,18 @@ public interface BitbucketIssueTracker
 
     /**
      * Returns a collection view of the issues.
-     * The order of the issues are unspecified.
+     * The order of the returned issues are unspecified.
      *
-     * @return {@link Collection} object
+     * @return a {@link Collection} view of the issues
      */
     Collection<BitbucketIssue> issues();
+
+    /**
+     * Returns a collection view of the issues that match a filter expression.
+     * The order of the returned issues are unspecified.
+     *
+     * @param filter a filter expression
+     * @return a {@link Collection} view of the issues
+     */
+    Collection<BitbucketIssue> issues(String filter);
 }

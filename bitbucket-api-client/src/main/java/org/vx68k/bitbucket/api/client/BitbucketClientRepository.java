@@ -23,12 +23,14 @@ package org.vx68k.bitbucket.api.client;
 import static org.vx68k.bitbucket.api.client.JsonUtilities.toInstant;
 import static org.vx68k.bitbucket.api.client.JsonUtilities.toUUID;
 
+import java.net.URI;
 import java.time.Instant;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import javax.json.JsonObject;
+import javax.ws.rs.core.Link;
 import org.vx68k.bitbucket.api.BitbucketAccount;
 import org.vx68k.bitbucket.api.BitbucketBranch;
 import org.vx68k.bitbucket.api.BitbucketIssue;
@@ -289,9 +291,24 @@ public class BitbucketClientRepository extends
     @Override
     public final Collection<BitbucketIssue> issues()
     {
+        return issues(null);
+    }
+
+    @Override
+    public final Collection<BitbucketIssue> issues(final String filter)
+    {
+
+        Link issues = getLink("issues");
+        URI uri;
+        if (filter != null) {
+            uri = issues.getUriBuilder().queryParam("q", filter).build();
+        }
+        else {
+            uri = issues.getUri();
+        }
+
         BitbucketClient client = getBitbucketClient();
         return new PaginatedList<>(
-            getLink("issues").getUri(), client,
-            BitbucketClientIssue.creator(client));
+            uri, client, BitbucketClientIssue.creator(client));
     }
 }
