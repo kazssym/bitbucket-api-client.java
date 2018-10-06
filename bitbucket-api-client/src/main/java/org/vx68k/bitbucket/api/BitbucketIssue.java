@@ -45,13 +45,6 @@ public interface BitbucketIssue
     int getId();
 
     /**
-     * Returns the reporter of the issue.
-     *
-     * @return the reporter of the issue
-     */
-    BitbucketAccount getReporter();
-
-    /**
      * Returns the title of the issue.
      *
      * @return the title of the issue
@@ -59,11 +52,11 @@ public interface BitbucketIssue
     String getTitle();
 
     /**
-     * Returns the state of the issue.
+     * Returns the reporter of the issue.
      *
-     * @return the state of the issue
+     * @return the reporter of the issue
      */
-    String getState();
+    BitbucketAccount getReporter();
 
     /**
      * Returns the assignee of the issue.
@@ -87,6 +80,48 @@ public interface BitbucketIssue
     String getPriority();
 
     /**
+     * Returns the state of the issue.
+     *
+     * @return the state of the issue
+     */
+    String getState();
+
+    /**
+     * Returns the component of the issue.
+     *
+     * @return the component of the issue
+     */
+    Component getComponent();
+
+    /**
+     * Returns the milestone of the issue.
+     *
+     * @return the milestone of the issue
+     */
+    Milestone getMilestone();
+
+    /**
+     * Returns the version of the issue.
+     *
+     * @return the version of the issue
+     */
+    Version getVersion();
+
+    /**
+     * Returns the number of votes.
+     *
+     * @return the number of votes
+     */
+    int getVotes();
+
+    /**
+     * Returns the number of watches.
+     *
+     * @return the number of watches
+     */
+    int getWatches();
+
+    /**
      * Returns the instant when the issue was created.
      *
      * @return the instant when the issue was created
@@ -106,4 +141,31 @@ public interface BitbucketIssue
      * @return the instant when the issue was last edited
      */
     Instant getEdited();
+
+    /**
+     * Issue component resource on Bitbucket Cloud.
+     *
+     * @author Kaz Nishimura
+     */
+    public static interface Component
+    {
+    }
+
+    /**
+     * Issue milestone resource on Bitbucket Cloud.
+     *
+     * @author Kaz Nishimura
+     */
+    public static interface Milestone
+    {
+    }
+
+    /**
+     * Issue version resource on Bitbucket Cloud.
+     *
+     * @author Kaz Nishimura
+     */
+    public static interface Version
+    {
+    }
 }

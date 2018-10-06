@@ -52,19 +52,14 @@ public class BitbucketClientIssue extends BitbucketClientObject implements
     private static final String ID = "id";
 
     /**
-     * Name for the {@code reporter} value in a JSON object.
-     */
-    private static final String REPORTER = "reporter";
-
-    /**
      * Name for the {@code title} value in a JSON object.
      */
     private static final String TITLE = "title";
 
     /**
-     * Name for the {@code state} value in a JSON object.
+     * Name for the {@code reporter} value in a JSON object.
      */
-    private static final String STATE = "state";
+    private static final String REPORTER = "reporter";
 
     /**
      * Name for the {@code assignee} value in a JSON object.
@@ -80,6 +75,11 @@ public class BitbucketClientIssue extends BitbucketClientObject implements
      * Name for the {@code priority} value in a JSON object.
      */
     private static final String PRIORITY = "priority";
+
+    /**
+     * Name for the {@code state} value in a JSON object.
+     */
+    private static final String STATE = "state";
 
     /**
      * Name for the {@code created_on} value in a JSON object.
@@ -169,6 +169,13 @@ public class BitbucketClientIssue extends BitbucketClientObject implements
     }
 
     @Override
+    public final String getTitle()
+    {
+        JsonObject object = getJsonObject();
+        return object.getString(TITLE, null);
+    }
+
+    @Override
     public final BitbucketAccount getReporter()
     {
         JsonObject object = getJsonObject();
@@ -179,20 +186,6 @@ public class BitbucketClientIssue extends BitbucketClientObject implements
             value = new BitbucketClientAccount(reporter, getBitbucketClient());
         }
         return value;
-    }
-
-    @Override
-    public final String getTitle()
-    {
-        JsonObject object = getJsonObject();
-        return object.getString(TITLE, null);
-    }
-
-    @Override
-    public final String getState()
-    {
-        JsonObject object = getJsonObject();
-        return object.getString(STATE, null);
     }
 
     @Override
@@ -220,6 +213,43 @@ public class BitbucketClientIssue extends BitbucketClientObject implements
     {
         JsonObject object = getJsonObject();
         return object.getString(PRIORITY, null);
+    }
+
+    @Override
+    public final String getState()
+    {
+        JsonObject object = getJsonObject();
+        return object.getString(STATE, null);
+    }
+
+    @Override
+    public Component getComponent()
+    {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Milestone getMilestone()
+    {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Version getVersion()
+    {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public int getVotes()
+    {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public int getWatches()
+    {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
