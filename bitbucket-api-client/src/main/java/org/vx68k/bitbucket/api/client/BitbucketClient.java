@@ -22,6 +22,7 @@ package org.vx68k.bitbucket.api.client;
 
 import java.io.Serializable;
 import java.net.URI;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -346,5 +347,12 @@ public class BitbucketClient implements Bitbucket, Serializable
             value = new BitbucketClientRepository(object, this);
         }
         return value;
+    }
+
+    @Override
+    public final Collection<BitbucketRepository> repositories(
+        final String ownerName)
+    {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

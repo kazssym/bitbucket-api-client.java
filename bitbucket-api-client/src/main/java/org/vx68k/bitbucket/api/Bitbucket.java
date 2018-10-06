@@ -20,6 +20,8 @@
 
 package org.vx68k.bitbucket.api;
 
+import java.util.Collection;
+
 /**
  * Abstraction of the Bitbucket API.
  *
@@ -54,4 +56,12 @@ public interface Bitbucket
      * @return a repository resource for a repository
      */
     BitbucketRepository getRepository(String ownerName, String name);
+
+    /**
+     * Returns a {@link Collection} view of the repositories of an account.
+     *
+     * @param ownerName the name of an account
+     * @return a {@link Collection} view of the repositories of an account
+     */
+    Collection<BitbucketRepository> repositories(String ownerName);
 }
