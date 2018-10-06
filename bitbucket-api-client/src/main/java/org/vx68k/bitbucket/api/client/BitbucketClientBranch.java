@@ -26,6 +26,7 @@ import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonValue;
 import org.vx68k.bitbucket.api.BitbucketBranch;
+import org.vx68k.bitbucket.api.BitbucketCommit;
 
 /**
  * Branch or bookmark represented by a JSON object.
@@ -94,6 +95,18 @@ public class BitbucketClientBranch extends BitbucketClientObject
     {
         JsonObject branchObject = getJsonObject();
         return branchObject.getString("name", null);
+    }
+
+    @Override
+    public BitbucketCommit getTarget()
+    {
+        JsonObject target = getJsonObject().getJsonObject("target");
+
+        BitbucketCommit value = null;
+        if (target != null) {
+            value = new BitbucketClientCommit(target/*, getBitbucketClient()*/);
+        }
+        return value;
     }
 
     /**

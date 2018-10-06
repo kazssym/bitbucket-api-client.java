@@ -1,5 +1,5 @@
 /*
- * BitbucketBranch.java - interface BitbucketBranch
+ * BitbucketRef.java
  * Copyright (C) 2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -18,14 +18,28 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
+
 package org.vx68k.bitbucket.api;
 
 /**
- * Branch or bookmark in a Bitbucket repository.
+ * Commit reference resource on Bitbucket Cloud.
  *
  * @author Kaz Nishimura
  * @since 5.0
  */
-public interface BitbucketBranch extends BitbucketRef
+public interface BitbucketRef
 {
+    /**
+     * Returns the name of the commit reference.
+     *
+     * @return the name of the commit reference
+     */
+    String getName();
+
+    /**
+     * Returns the target of the commit reference.
+     *
+     * @return the target of the commit reference
+     */
+    BitbucketCommit getTarget();
 }
