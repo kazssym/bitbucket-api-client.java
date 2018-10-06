@@ -1,8 +1,8 @@
-This file documents the Java Client Library for Bitbucket Cloud project.
+This file documents the Java Client Library for the Bitbucket API project.
 
 # Introduction
 
-This project builds the Java Client Library for Bitbucket Cloud.
+This project builds the Java Client Library for the Bitbucket API.
 It provides a client library for the Bitbucket API and a webhook library for
 [Bitbucket Cloud].
 

@@ -6,7 +6,7 @@
 <artifactId>bitbucket-api-client-parent</artifactId>
 <version>5.0-SNAPSHOT</version>
 <packaging>pom</packaging>
-<name>Client Library for Bitbucket Cloud</name>
+<name>Client Library for the Bitbucket API</name>
 <description>This project builds a client library for the Bitbucket API and a
 webhook library for Bitbucket Cloud.</description>
 <url>https://vx68k.bitbucket.io/bitbucket-api-client-java/5/</url>
@@ -156,6 +156,7 @@ webhook library for Bitbucket Cloud.</description>
 <links>
 <link>https://docs.oracle.com/javase/8/docs/api</link>
 <link>https://docs.oracle.com/javaee/7/api</link>
+<link>https://vx68k.bitbucket.io/bitbucket-api-client-java/5/apidocs</link>
 </links>
 </configuration>
 </plugin>
