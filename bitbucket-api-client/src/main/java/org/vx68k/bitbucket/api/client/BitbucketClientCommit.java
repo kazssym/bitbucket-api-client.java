@@ -24,13 +24,13 @@ import javax.json.JsonObject;
 import org.vx68k.bitbucket.api.BitbucketCommit;
 
 /**
- * Commit represented by a JSON object.
+ * Commit resource on Bitbucket Cloud represented by a JSON object.
  *
  * @author Kaz Nishimura
  * @since 5.0
  */
-public class BitbucketClientCommit extends BitbucketClientObject
-    implements BitbucketCommit
+public class BitbucketClientCommit extends BitbucketClientObject implements
+    BitbucketCommit
 {
     /**
      * Type name for JSON commit objects.
@@ -38,19 +38,31 @@ public class BitbucketClientCommit extends BitbucketClientObject
     private static final String COMMIT = "commit";
 
     /**
-     * Constructs this object with a JSON commit object.
+     * Initializes the object without a Bitbucket API client.
      *
-     * @param commitObject JSON commit object
-     * @exception IllegalArgumentException if the given JSON object was {@code
-     * null} or did not represent a user
+     * @param jsonObject a JSON object for a commit resource
+     * @see #BitbucketClientCommit(JsonObject, BitbucketClient)
      */
-    public BitbucketClientCommit(final JsonObject commitObject)
+    public BitbucketClientCommit(final JsonObject jsonObject)
     {
-        super(commitObject);
+        this(jsonObject, null);
+    }
+
+    /**
+     * Initializes the object with a Bitbucket API client.
+     *
+     * @param jsonObject a JSON object for a commit resource
+     * @param bitbucketClient a Bitbucket API client
+     */
+    public BitbucketClientCommit(
+        final JsonObject jsonObject, final BitbucketClient bitbucketClient)
+    {
+        super(jsonObject, bitbucketClient);
 
         String type = getType();
-        if (type == null || !type.equals(COMMIT)) {
-            throw new IllegalArgumentException("JSON object is not commit");
+        if (!COMMIT.equals(type)) {
+            throw new IllegalArgumentException(
+                "JSON object type is not commit");
         }
     }
 }
