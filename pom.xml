@@ -212,7 +212,6 @@ webhook library for Bitbucket Cloud.</description>
 
 <reportSet>
 <reports>
-<report>javadoc-no-fork</report>
 </reports>
 </reportSet>
 
