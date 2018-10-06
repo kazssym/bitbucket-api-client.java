@@ -223,31 +223,31 @@ public class BitbucketClientIssue extends BitbucketClientObject implements
     }
 
     @Override
-    public Component getComponent()
+    public final Component getComponent()
     {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public Milestone getMilestone()
+    public final Milestone getMilestone()
     {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public Version getVersion()
+    public final Version getVersion()
     {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public int getVotes()
+    public final int getVotes()
     {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public int getWatches()
+    public final int getWatches()
     {
         throw new UnsupportedOperationException("Not supported yet.");
     }

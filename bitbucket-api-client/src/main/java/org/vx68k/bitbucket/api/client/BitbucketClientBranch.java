@@ -98,7 +98,7 @@ public class BitbucketClientBranch extends BitbucketClientObject
     }
 
     @Override
-    public BitbucketCommit getTarget()
+    public final BitbucketCommit getTarget()
     {
         JsonObject target = getJsonObject().getJsonObject("target");
 
