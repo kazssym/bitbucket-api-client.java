@@ -29,6 +29,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.function.Function;
 import javax.json.JsonObject;
 import javax.ws.rs.core.Link;
 import org.vx68k.bitbucket.api.BitbucketAccount;
@@ -130,6 +131,29 @@ public class BitbucketClientRepository extends
         if (type == null || !type.equals(REPOSITORY)) {
             throw new IllegalArgumentException("Not repository");
         }
+    }
+
+    /**
+     * Returns a function to create a repository from a JSON object.
+     *
+     * @return a function to create a repository from a JSON object
+     */
+    public static Function<JsonObject, BitbucketClientRepository> create()
+    {
+        return create(null);
+    }
+
+    /**
+     * Returns a function to create a repository from a JSON object.
+     *
+     * @param bitbucketClient a Bitbucket API client
+     * @return a function to create a repository from a JSON object
+     */
+    public static Function<JsonObject, BitbucketClientRepository> create(
+        final BitbucketClient bitbucketClient)
+    {
+        return (object) ->
+            new BitbucketClientRepository(object, bitbucketClient);
     }
 
     /**
