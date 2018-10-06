@@ -1,11 +1,12 @@
-This file documents the project in this directory.
+This file documents the Java Client Library for Bitbucket Cloud project.
 
-# Description
+# Introduction
 
-This Maven project builds the Bitbucket API Client Library for Java, which
-provides Java classes to use the [Bitbucket][] REST API.
+This project builds the Java Client Library for Bitbucket Cloud.
+It provides a client library for the Bitbucket API and a webhook library for
+[Bitbucket Cloud].
 
-[Bitbucket]: https://bitbucket.org/
+[Bitbucket Cloud]: https://bitbucket.org/
 
 [![(License)](https://img.shields.io/badge/license-AGPL--3.0--or--later-blue.svg)][AGPL-3.0]
 [![(Open issues)](https://img.shields.io/bitbucket/issues/vx68k/bitbucket-api-client-java.svg)][open issues]

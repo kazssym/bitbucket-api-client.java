@@ -6,8 +6,9 @@
 <artifactId>bitbucket-api-client-parent</artifactId>
 <version>5.0-SNAPSHOT</version>
 <packaging>pom</packaging>
-<name>Bitbucket API Client Library for Java</name>
-<description>Parent project of the Bitbucket API Client Library.</description>
+<name>Client Library for Bitbucket Cloud</name>
+<description>This project builds a client library for the Bitbucket API and a
+webhook library for Bitbucket Cloud.</description>
 <url>https://vx68k.bitbucket.io/bitbucket-api-client-java/5/</url>
 <inceptionYear>2015</inceptionYear>
 
