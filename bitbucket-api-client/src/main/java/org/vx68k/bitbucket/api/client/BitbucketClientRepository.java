@@ -141,11 +141,11 @@ public class BitbucketClientRepository extends
      *
      * @return a function to create a repository from a JSON object
      * @see PaginatedList
-     * @see #create(BitbucketClient)
+     * @see #creator(BitbucketClient)
      */
-    public static Function<JsonObject, BitbucketClientRepository> create()
+    public static Function<JsonObject, BitbucketClientRepository> creator()
     {
-        return create(null);
+        return creator(null);
     }
 
     /**
@@ -156,7 +156,7 @@ public class BitbucketClientRepository extends
      * @return a function to create a repository from a JSON object
      * @see PaginatedList
      */
-    public static Function<JsonObject, BitbucketClientRepository> create(
+    public static Function<JsonObject, BitbucketClientRepository> creator(
         final BitbucketClient bitbucketClient)
     {
         return (object) ->

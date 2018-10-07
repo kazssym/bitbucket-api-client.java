@@ -149,8 +149,8 @@ public class BitbucketClientIssue extends BitbucketClientObject implements
     public static Function<JsonObject, BitbucketClientIssue> creator(
         final BitbucketClient bitbucketClient)
     {
-        return (jsonObject) ->
-            new BitbucketClientIssue(jsonObject, bitbucketClient);
+        return (object) ->
+            new BitbucketClientIssue(object, bitbucketClient);
     }
 
     @Override
