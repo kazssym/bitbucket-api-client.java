@@ -135,9 +135,9 @@ public class BitbucketClientIssue extends BitbucketClientObject implements
      *
      * @return a function to create an issue from a JSON object
      */
-    public static Function<JsonObject, BitbucketClientIssue> creator()
+    public static Function<JsonObject, BitbucketClientIssue> create()
     {
-        return creator(null);
+        return create(null);
     }
 
     /**
@@ -146,11 +146,11 @@ public class BitbucketClientIssue extends BitbucketClientObject implements
      * @param bitbucketClient a Bitbucket API client
      * @return a function to create an issue from a JSON object
      */
-    public static Function<JsonObject, BitbucketClientIssue> creator(
+    public static Function<JsonObject, BitbucketClientIssue> create(
         final BitbucketClient bitbucketClient)
     {
-        return (jsonObject) ->
-            new BitbucketClientIssue(jsonObject, bitbucketClient);
+        return (object) ->
+            new BitbucketClientIssue(object, bitbucketClient);
     }
 
     @Override
