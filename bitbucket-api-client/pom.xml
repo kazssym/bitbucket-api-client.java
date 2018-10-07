@@ -10,8 +10,9 @@
 
 <artifactId>bitbucket-api-client</artifactId>
 <packaging>bundle</packaging>
-<name>Bitbucket API Client</name>
-<description>Client implementation for the Bitbucket API.</description>
+<name>Client API Implementation</name>
+<description>This project builds a client API implementation for Bitbucket
+Cloud.</description>
 
 <licenses>
 
