@@ -45,17 +45,6 @@ public final class BitbucketClientAccountTest
         UUID.fromString("01234567-89ab-cdef-0123-456789abcdef");
 
     /**
-     * Adds the {@code "user"} type to a JSON object builder.
-     *
-     * @param builder a JSON object builder
-     * @return the same JSON object builder
-     */
-    static JsonObjectBuilder addUserType(final JsonObjectBuilder builder)
-    {
-        return builder.add("type", "user");
-    }
-
-    /**
      * Adds the {@code "team"} type to a JSON object builder.
      *
      * @param builder a JSON object builder
