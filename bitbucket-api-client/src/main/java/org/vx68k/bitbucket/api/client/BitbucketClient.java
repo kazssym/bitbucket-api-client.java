@@ -34,10 +34,7 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import org.vx68k.bitbucket.api.Bitbucket;
 import org.vx68k.bitbucket.api.BitbucketAccount;
-import org.vx68k.bitbucket.api.BitbucketBranch;
-import org.vx68k.bitbucket.api.BitbucketCommit;
 import org.vx68k.bitbucket.api.BitbucketRepository;
-import org.vx68k.bitbucket.api.BitbucketUser;
 import org.vx68k.bitbucket.api.client.internal.JsonMessageBodyReader;
 
 /**
@@ -93,138 +90,6 @@ public class BitbucketClient implements Bitbucket, Serializable
     public static void setDefaultInstance(final BitbucketClient value)
     {
         defaultInstance = value;
-    }
-
-    /**
-     * Creates a {@link BitbucketUser} object from a JSON object of a user or a
-     * team associating the default {@link BitbucketClient} object.
-     *
-     * @param object JSON object, or {@code null}
-     * @return new {@link BitbucketUser} object unless the value of {@code
-     * object} is {@code null}; {@code null} otherwise
-     * @exception IllegalArgumentException if {@code object} is not of a user
-     */
-    public static BitbucketUser createUser(final JsonObject object)
-    {
-        return createUser(object, getDefaultInstance());
-    }
-
-    /**
-     * Creates a {@link BitbucketUser} object from a JSON object of a user or a
-     * team.
-     *
-     * @param object JSON object, or {@code null}
-     * @param client Bitbucket API client, or {@code null}
-     * @return new {@link BitbucketUser} object unless the value of {@code
-     * object} is {@code null}; {@code null} otherwise
-     * @exception IllegalArgumentException if {@code object} is not of a user
-     */
-    public static BitbucketUser createUser(final JsonObject object,
-        final BitbucketClient client)
-    {
-        BitbucketUser value = null;
-        if (object != null) {
-            value = new BitbucketClientUser(object, client);
-        }
-        return value;
-    }
-
-    /**
-     * Creates a {@link BitbucketAccount} instance from a JSON object with the
-     * default Bitbucket client.
-     *
-     * @param object JSON object of a team, or {@code null}
-     * @return {@link BitbucketAccount} instance
-     * @exception IllegalArgumentException if {@code object} is not of a team
-     */
-    public static BitbucketAccount createTeam(final JsonObject object)
-    {
-        return createTeam(object, getDefaultInstance());
-    }
-
-    /**
-     * Creates a {@link BitbucketAccount} instance from a JSON object.
-     *
-     * @param object JSON object of a team, or {@code null}
-     * @param client Bitbucket API client, or {@code null}
-     * @return {@link BitbucketAccount} instance
-     * @exception IllegalArgumentException if {@code object} is not of a team
-     */
-    public static BitbucketAccount createTeam(
-        final JsonObject object, final BitbucketClient client)
-    {
-        BitbucketAccount value = null;
-        if (object != null) {
-            value = new BitbucketClientAccount(object, client);
-        }
-        return value;
-    }
-
-    /**
-     * Creates a {@link BitbucketRepository} object from a JSON object.
-     *
-     * @param object JSON object, or {@code null}
-     * @return new {@link BitbucketRepository} object
-     * @exception IllegalArgumentException if {@code object} is not of a
-     * repository
-     */
-    public static BitbucketRepository createRepository(final JsonObject object)
-    {
-        return createRepository(object, getDefaultInstance());
-    }
-
-    /**
-     * Creates a {@link BitbucketRepository} object from a JSON object and a
-     * Bitbucket API client.
-     *
-     * @param object JSON object, or {@code null}
-     * @param client Bitbucket API client, or {@code null}
-     * @return new {@link BitbucketRepository} object
-     * @exception IllegalArgumentException if {@code object} is not of a
-     * repository
-     */
-    public static BitbucketRepository createRepository(
-        final JsonObject object, final BitbucketClient client)
-    {
-        BitbucketRepository value = null;
-        if (object != null) {
-            value = new BitbucketClientRepository(object, client);
-        }
-        return value;
-    }
-
-    /**
-     * Creates a {@link BitbucketBranch} object from a JSON object that
-     * represents a branch or bookmark.
-     *
-     * @param object JSON object, or {@code null}
-     * @return new {@link BitbucketBranch} object, or {@code null} if the given
-     * JSON object is {@code null}
-     */
-    public static BitbucketBranch createBranch(final JsonObject object)
-    {
-        BitbucketBranch value = null;
-        if (object != null) {
-            value = new BitbucketClientBranch(object);
-        }
-        return value;
-    }
-
-    /**
-     * Creates a {@link BitbucketCommit} object from a JSON object that
-     * represents a commit.
-     *
-     * @param object JSON object, or {@code null}
-     * @return new {@link BitbucketCommit} object, or {@code null} if the given
-     * JSON object is {@code null}
-     */
-    public static BitbucketCommit createCommit(final JsonObject object)
-    {
-        BitbucketCommit value = null;
-        if (object != null) {
-            value = new BitbucketClientCommit(object);
-        }
-        return value;
     }
 
     /**

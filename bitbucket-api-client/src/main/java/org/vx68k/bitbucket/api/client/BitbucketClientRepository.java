@@ -186,10 +186,10 @@ public class BitbucketClientRepository extends
             BitbucketClient client = getBitbucketClient();
             String type = owner.getString(TYPE);
             if (type.equals(BitbucketAccount.TEAM)) {
-                value = BitbucketClient.createTeam(owner, client);
+                value = new BitbucketClientAccount(owner, client);
             }
             else {
-                value = BitbucketClient.createUser(owner, client);
+                value = new BitbucketClientUser(owner, client);
             }
         }
         return value;
@@ -255,9 +255,14 @@ public class BitbucketClientRepository extends
     @Override
     public final BitbucketBranch getMainBranch()
     {
-        JsonObject object = getJsonObject();
-        // @todo Pass the Bitbucket client.
-        return BitbucketClient.createBranch(object.getJsonObject(MAINBRANCH));
+        JsonObject branch = getJsonObject().getJsonObject(MAINBRANCH);
+
+        BitbucketBranch value = null;
+        if (branch != null) {
+            // @todo Pass the Bitbucket client.
+            value = new BitbucketClientBranch(branch);
+        }
+        return value;
     }
 
     /**

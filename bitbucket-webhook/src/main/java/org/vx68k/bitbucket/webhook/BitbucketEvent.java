@@ -21,10 +21,11 @@
 package org.vx68k.bitbucket.webhook;
 
 import javax.json.JsonObject;
+import org.vx68k.bitbucket.api.BitbucketAccount;
 import org.vx68k.bitbucket.api.BitbucketRepository;
-import org.vx68k.bitbucket.api.BitbucketUser;
-import org.vx68k.bitbucket.api.client.BitbucketClient;
+import org.vx68k.bitbucket.api.client.BitbucketClientAccount;
 import org.vx68k.bitbucket.api.client.BitbucketClientObject;
+import org.vx68k.bitbucket.api.client.BitbucketClientRepository;
 
 /**
  * Event on a Bitbucket repository.
@@ -66,10 +67,15 @@ public class BitbucketEvent extends BitbucketClientObject
      *
      * @return the actor
      */
-    public final BitbucketUser getActor()
+    public final BitbucketAccount getActor()
     {
-        JsonObject eventObject = getJsonObject();
-        return BitbucketClient.createUser(eventObject.getJsonObject(ACTOR));
+        JsonObject actor = getJsonObject().getJsonObject(ACTOR);
+
+        BitbucketAccount value = null;
+        if (actor != null) {
+            value = new BitbucketClientAccount(actor, getBitbucketClient());
+        }
+        return value;
     }
 
     /**
@@ -79,9 +85,14 @@ public class BitbucketEvent extends BitbucketClientObject
      */
     public final BitbucketRepository getRepository()
     {
-        JsonObject eventObject = getJsonObject();
-        return BitbucketClient.createRepository(
-            eventObject.getJsonObject(REPOSITORY));
+        JsonObject repository = getJsonObject().getJsonObject(REPOSITORY);
+
+        BitbucketRepository value = null;
+        if (repository != null) {
+            value = new BitbucketClientRepository(
+                repository, getBitbucketClient());
+        }
+        return value;
     }
 
     /**
