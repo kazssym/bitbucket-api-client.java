@@ -67,33 +67,29 @@ public final class BitbucketClientAccountTest
     }
 
     /**
-     * Returns a JSON object builder which is typed for a team.
-     *
-     * @return a JSON object builder
-     */
-    protected static JsonObjectBuilder createTeamObjectBuilder()
-    {
-        JsonObjectBuilder value = Json.createObjectBuilder();
-        value.add("type", "team");
-        return value;
-    }
-
-    /**
-     * Tests the constructor.
+     * Tests the constructors.
      */
     @Test
-    public void testConstructor()
+    public void testConstructors()
     {
-        // Case with a null pointer.
+        // NOTE: A builder can be reused.
+        JsonObjectBuilder builder = Json.createObjectBuilder();
+
+        BitbucketClientAccount user1 =
+            new BitbucketClientAccount(builder.add("type", "user").build());
+        assertNull(user1.getBitbucketClient());
+
+        BitbucketClientAccount team1 =
+            new BitbucketClientAccount(builder.add("type", "team").build());
+        assertNull(team1.getBitbucketClient());
+
+        // Case with a JSON object of a wrong type.
         try {
-            new BitbucketClientAccount(null);
+            new BitbucketClientAccount(builder.add("type", "other").build());
             fail();
         }
         catch (final IllegalArgumentException exception) {
-            System.out.format("OK, caught %s\n", exception);
         }
-
-        JsonObjectBuilder builder = Json.createObjectBuilder();
 
         // Case with an empty JSON object.
         try {
@@ -101,31 +97,14 @@ public final class BitbucketClientAccountTest
             fail();
         }
         catch (final IllegalArgumentException exception) {
-            System.out.format("OK, caught %s\n", exception);
         }
 
-        // NOTE: A builder can be reused.
-
-        addUserType(builder);
-
-        BitbucketClientAccount user1 =
-            new BitbucketClientAccount(builder.build());
-        assertNull(user1.getBitbucketClient());
-
-        addTeamType(builder);
-
-        BitbucketClientAccount team1 =
-            new BitbucketClientAccount(builder.build());
-        assertNull(team1.getBitbucketClient());
-
-        // Case with a JSON object of a wrong type.
-        builder.add("type", "other");
+        // Case with a null pointer.
         try {
-            new BitbucketClientAccount(builder.build());
+            new BitbucketClientAccount(null);
             fail();
         }
         catch (final IllegalArgumentException exception) {
-            System.out.format("OK, caught %s\n", exception);
         }
     }
 
