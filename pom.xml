@@ -222,6 +222,9 @@ servlet for Bitbucket Cloud.</description>
 <report>test-aggregate</report>
 </reports>
 <inherited>false</inherited>
+<configuration>
+<doctitle>${project.name} ${project.version}</doctitle>
+</configuration>
 </reportSet>
 </reportSets>
 </plugin>
