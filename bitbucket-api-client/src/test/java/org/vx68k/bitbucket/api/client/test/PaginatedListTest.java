@@ -52,7 +52,7 @@ public class PaginatedListTest
     {
         BitbucketClient client = BitbucketClient.getDefaultInstance();
         List<BitbucketIssue> issues = new PaginatedList<>(
-            TEST_RESOURCE, client, BitbucketClientIssue.create(client));
+            TEST_RESOURCE, client, BitbucketClientIssue.creator(client));
 
         BitbucketIssue issue = issues.get(0);
         assertTrue(issue instanceof BitbucketClientIssue);
@@ -66,7 +66,7 @@ public class PaginatedListTest
     {
         BitbucketClient client = BitbucketClient.getDefaultInstance();
         List<BitbucketIssue> issues = new PaginatedList<>(
-            TEST_RESOURCE, client, BitbucketClientIssue.create(client));
+            TEST_RESOURCE, client, BitbucketClientIssue.creator(client));
 
         assertTrue(issues.size() >= 0);
     }

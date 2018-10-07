@@ -340,6 +340,6 @@ public class BitbucketClientRepository extends
 
         BitbucketClient client = getBitbucketClient();
         return new PaginatedList<>(
-            uri, client, BitbucketClientIssue.create(client));
+            uri, client, BitbucketClientIssue.creator(client));
     }
 }
