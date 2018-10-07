@@ -27,6 +27,7 @@ import java.util.function.Function;
 import javax.json.JsonObject;
 import org.vx68k.bitbucket.api.BitbucketAccount;
 import org.vx68k.bitbucket.api.BitbucketIssue;
+import org.vx68k.bitbucket.api.BitbucketRendered;
 import org.vx68k.bitbucket.api.BitbucketRepository;
 
 /**
@@ -55,6 +56,11 @@ public class BitbucketClientIssue extends BitbucketClientObject implements
      * Name for the {@code title} value in a JSON object.
      */
     private static final String TITLE = "title";
+
+    /**
+     * Name for the {@code content} value in a JSON object.
+     */
+    private static final String CONTENT = "content";
 
     /**
      * Name for the {@code reporter} value in a JSON object.
@@ -173,6 +179,13 @@ public class BitbucketClientIssue extends BitbucketClientObject implements
     {
         JsonObject object = getJsonObject();
         return object.getString(TITLE, null);
+    }
+
+    @Override
+    public final BitbucketRendered getContent()
+    {
+        // @todoo Implement this method.
+        return null;
     }
 
     @Override

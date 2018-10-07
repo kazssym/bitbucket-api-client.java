@@ -52,6 +52,13 @@ public interface BitbucketIssue
     String getTitle();
 
     /**
+     * Returns the content of the issue.
+     *
+     * @return the content of the issue
+     */
+    BitbucketRendered getContent();
+
+    /**
      * Returns the reporter of the issue.
      *
      * @return the reporter of the issue
