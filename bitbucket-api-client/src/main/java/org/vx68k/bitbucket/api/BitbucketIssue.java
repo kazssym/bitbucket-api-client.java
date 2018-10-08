@@ -154,7 +154,7 @@ public interface BitbucketIssue
      *
      * @author Kaz Nishimura
      */
-    public interface Component
+    interface Component
     {
     }
 
@@ -163,7 +163,7 @@ public interface BitbucketIssue
      *
      * @author Kaz Nishimura
      */
-    public interface Milestone
+    interface Milestone
     {
     }
 
@@ -172,7 +172,7 @@ public interface BitbucketIssue
      *
      * @author Kaz Nishimura
      */
-    public interface Version
+    interface Version
     {
     }
 }
