@@ -140,8 +140,8 @@ public class BitbucketClientRepository extends
      * <p>This method can be used to create a {@link PaginatedList} object.</p>
      *
      * @return a function to create a repository from a JSON object
-     * @see PaginatedList
      * @see #creator(BitbucketClient)
+     * @see PaginatedList
      */
     public static Function<JsonObject, BitbucketClientRepository> creator()
     {

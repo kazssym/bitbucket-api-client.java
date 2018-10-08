@@ -32,6 +32,9 @@ import javax.json.JsonObject;
  *
  * @author Kaz Nishimura
  * @param <E> type of the elements
+ * @see <a href=
+ * "https://developer.atlassian.com/bitbucket/api/2/reference/meta/pagination"
+ * >Pagination</a>
  * @since 5.0
  */
 public class PaginatedList<E> extends AbstractList<E>
