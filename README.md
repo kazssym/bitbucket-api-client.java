@@ -2,7 +2,7 @@ This file documents the Java Client API for Bitbucket Cloud project.
 
 # Introduction
 
-The [Java Client API for Bitbucket® Cloud] provides a client API and a webhook
+The *[Java Client API for Bitbucket® Cloud]* provides a client API and a webhook
 servlet for [Bitbucket® Cloud].
 
 [Java Client API for Bitbucket® Cloud]: https://vx68k.bitbucket.io/bitbucket-api-client-java/
