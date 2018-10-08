@@ -10,7 +10,12 @@ servlet for [Bitbucket® Cloud].
 
 [![(GNU Affero General Public License v3.0 or later)
 ](https://img.shields.io/badge/license-AGPL--3.0--or--later-blue.svg)][AGPL-3.0-or-later]
-[![(Open issues)](https://img.shields.io/bitbucket/issues/vx68k/bitbucket-api-client-java.svg)][open issues]
+[![(Open issues)
+](https://img.shields.io/bitbucket/issues/vx68k/bitbucket-api-client-java.svg)][open issues]
+![(Latest release version)
+](https://img.shields.io/maven-central/v/org.vx68k.bitbucket/bitbucket-api-client-parent.svg)
+![(Latest snapshot version)
+](https://img.shields.io/nexus/s/https/oss.sonatype.org/org.vx68k.bitbucket/bitbucket-api-client-parent.svg)
 
 [AGPL-3.0-or-later]: https://spdx.org/licenses/AGPL-3.0-or-later.html
                      "GNU Affero General Public License v3.0 or later"
