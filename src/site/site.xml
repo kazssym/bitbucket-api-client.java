@@ -10,7 +10,7 @@
 <body>
 
 <links>
-<item name="Project Home" href="https://www.vx68k.org/bitbucket-api-client-java"/>
+<item name="Project Home" href="https://vx68k.bitbucket.io/bitbucket-api-client-java/"/>
 </links>
 
 <menu ref="parent" inherit="top"/>
