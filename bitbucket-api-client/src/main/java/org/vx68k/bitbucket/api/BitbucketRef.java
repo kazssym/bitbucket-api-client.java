@@ -30,6 +30,28 @@ package org.vx68k.bitbucket.api;
 public interface BitbucketRef
 {
     /**
+     * Type value for Git branches.
+     */
+    String BRANCH = "branch";
+
+    /**
+     * Type value for Mercurial branches.
+     */
+    String NAMED_BRANCH = "named_branch";
+
+    /**
+     * Type value for Mercurial bookmarks.
+     */
+    String BOOKMARK = "bookmark";
+
+    /**
+     * Returns the type of the commit reference.
+     *
+     * @return the type of the commit reference
+     */
+    String getType();
+
+    /**
      * Returns the name of the commit reference.
      *
      * @return the name of the commit reference

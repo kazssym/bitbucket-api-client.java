@@ -39,21 +39,6 @@ public class BitbucketClientBranch extends BitbucketClientObject
     implements BitbucketBranch
 {
     /**
-     * Type name for JSON branch objects for Git.
-     */
-    private static final String BRANCH = "branch";
-
-    /**
-     * Type name for JSON branch objects for Mercurial.
-     */
-    private static final String NAMED_BRANCH = "named_branch";
-
-    /**
-     * Type name for JSON bookmark objects for Mercurial.
-     */
-    private static final String BOOKMARK = "bookmark";
-
-    /**
      * Parses a JSON array for commits.
      *
      * @param commitsArray JSON array of commits
