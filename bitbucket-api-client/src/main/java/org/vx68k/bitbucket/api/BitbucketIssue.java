@@ -204,6 +204,12 @@ public interface BitbucketIssue
      */
     interface Component
     {
+        /**
+         * Returns the name of the component.
+         *
+         * @return the name of the component
+         */
+        String getName();
     }
 
     /**
@@ -213,6 +219,12 @@ public interface BitbucketIssue
      */
     interface Milestone
     {
+        /**
+         * Returns the name of the milestone.
+         *
+         * @return the name of the milestone
+         */
+        String getName();
     }
 
     /**
@@ -222,5 +234,11 @@ public interface BitbucketIssue
      */
     interface Version
     {
+        /**
+         * Returns the name of the version.
+         *
+         * @return the name of the version
+         */
+        String getName();
     }
 }
