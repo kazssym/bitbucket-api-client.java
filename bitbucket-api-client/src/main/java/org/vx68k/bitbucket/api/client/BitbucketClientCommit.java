@@ -1,5 +1,5 @@
 /*
- * BitbucketClientCommit.java - class BitbucketClientCommit
+ * BitbucketClientCommit.java
  * Copyright (C) 2015-2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -24,7 +24,8 @@ import javax.json.JsonObject;
 import org.vx68k.bitbucket.api.BitbucketCommit;
 
 /**
- * Commit resource on Bitbucket Cloud represented by a JSON object.
+ * Client implementation of {@link BitbucketCommit}.
+ * This class represents a Bitbucket Cloud commit by a JSON object.
  *
  * @author Kaz Nishimura
  * @since 5.0

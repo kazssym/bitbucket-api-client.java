@@ -1,5 +1,5 @@
 /*
- * BitbucketIssue.java - interface BitbucketIssue
+ * BitbucketIssue.java
  * Copyright (C) 2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -23,9 +23,11 @@ package org.vx68k.bitbucket.api;
 import java.time.Instant;
 
 /**
- * Issue in a Bitbucket issue tracker.
+ * Issue on Bitbucket Cloud.
+ * A Bitbucket Cloud issue belongs to a repository.
  *
  * @author Kaz Nishimura
+ * @see BitbucketRepository
  * @since 5.0
  */
 public interface BitbucketIssue
@@ -150,7 +152,7 @@ public interface BitbucketIssue
     Instant getEdited();
 
     /**
-     * Issue comment resource on BitbucketCloud.
+     * Issue comment on Bitbucket Cloud.
      */
     interface Comment
     {

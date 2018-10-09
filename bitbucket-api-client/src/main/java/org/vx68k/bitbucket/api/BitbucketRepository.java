@@ -25,6 +25,7 @@ import java.util.UUID;
 
 /**
  * Repository on Bitbucket Cloud.
+ * A Bitbucket Cloud repository is owned by an account.
  *
  * @author Kaz Nishimura
  * @since 5.0

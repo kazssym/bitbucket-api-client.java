@@ -25,8 +25,8 @@ import java.util.Collection;
 import java.util.UUID;
 
 /**
- * Account resource on Bitbucket Cloud.
- * A Bitbucket Cloud account is either a user or a team.
+ * Account on Bitbucket Cloud.
+ * A Bitbucket Cloud account is either of a user or of a team.
  * This interface can represent both types of accounts, but the attributes
  * specific to user accounts are not accessible with this interface but with
  * {@link BitbucketUser}.
@@ -39,12 +39,12 @@ import java.util.UUID;
 public interface BitbucketAccount
 {
     /**
-     * Type of user accounts.
+     * Type value for user accounts.
      */
     String USER = "user";
 
     /**
-     * Type of team accounts.
+     * Type value for team accounts.
      */
     String TEAM = "team";
 

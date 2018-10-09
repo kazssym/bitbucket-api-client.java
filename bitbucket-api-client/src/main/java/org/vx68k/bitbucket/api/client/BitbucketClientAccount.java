@@ -1,5 +1,5 @@
 /*
- * BitbucketClientAccount.java - class BitbucketClientAccount
+ * BitbucketClientAccount.java
  * Copyright (C) 2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -36,6 +36,7 @@ import org.vx68k.bitbucket.api.BitbucketRepository;
  * This class represents a Bitbucket Cloud account by a JSON object.
  *
  * @author Kaz Nishimura
+ * @see BitbucketClientUser
  * @since 5.0
  */
 public class BitbucketClientAccount extends BitbucketClientObject implements

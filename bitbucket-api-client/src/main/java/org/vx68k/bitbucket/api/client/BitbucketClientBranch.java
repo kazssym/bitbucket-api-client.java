@@ -29,7 +29,8 @@ import org.vx68k.bitbucket.api.BitbucketBranch;
 import org.vx68k.bitbucket.api.BitbucketCommit;
 
 /**
- * Branch or bookmark represented by a JSON object.
+ * Client implementation of {@link BitbucketBranch}.
+ * This class represents a Bitbucket Cloud branch by a JSON object.
  *
  * @author Kaz Nishimura
  * @since 5.0

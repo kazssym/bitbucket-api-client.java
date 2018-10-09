@@ -39,7 +39,8 @@ import org.vx68k.bitbucket.api.BitbucketIssueTracker;
 import org.vx68k.bitbucket.api.BitbucketRepository;
 
 /**
- * Bitbucket Cloud repository represented by a JSON object.
+ * Client implementation of {@link BitbucketRepository}.
+ * This class represents a Bitbucket Cloud repository by a JSON object.
  *
  * @author Kaz Nishimura
  * @since 5.0
@@ -48,7 +49,7 @@ public class BitbucketClientRepository extends
     BitbucketClientObject implements BitbucketRepository, BitbucketIssueTracker
 {
     /**
-     * Type name for repositories.
+     * Type value for repositories.
      */
     private static final String REPOSITORY = "repository";
 
