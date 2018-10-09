@@ -260,8 +260,7 @@ public class BitbucketClientRepository extends
 
         BitbucketBranch value = null;
         if (branch != null) {
-            // @todo Pass the Bitbucket client.
-            value = new BitbucketClientBranch(branch);
+            value = new BitbucketClientBranch(branch, getBitbucketClient());
         }
         return value;
     }

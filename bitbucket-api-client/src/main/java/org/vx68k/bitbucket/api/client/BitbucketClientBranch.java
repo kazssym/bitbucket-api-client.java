@@ -58,18 +58,31 @@ public class BitbucketClientBranch extends BitbucketClientObject
     }
 
     /**
-     * Constructs this branch with a JSON branch object.
+     * Initializes the object.
      *
-     * @param branchObject JSON branch object
+     * @param jsonObject a JSON object
      */
-    public BitbucketClientBranch(final JsonObject branchObject)
+    public BitbucketClientBranch(final JsonObject jsonObject)
     {
-        super(branchObject);
+        this(jsonObject, null);
+    }
+
+    /**
+     * Initializes the object with a Bitbucket API client.
+     *
+     * @param jsonObject a JSON object
+     * @param bitbucketClient a Bitbucket API client
+     */
+    public BitbucketClientBranch(
+        final JsonObject jsonObject, final BitbucketClient bitbucketClient)
+    {
+        super(jsonObject, bitbucketClient);
 
         String type = getType();
-        if (type == null || !(type.equals(BRANCH) || type.equals(NAMED_BRANCH)
-                              || type.equals(BOOKMARK))) {
-            throw new IllegalArgumentException("JSON object is not branch");
+        if (!(BRANCH.equals(type) || NAMED_BRANCH.equals(type)
+            || BOOKMARK.equals(type))) {
+            throw new IllegalArgumentException(
+                "JSON object is not branch, named_branch or bookmark");
         }
     }
 
