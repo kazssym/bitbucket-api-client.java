@@ -15,7 +15,7 @@ pipelines:
         caches:
           - maven
         script:
-          - export MAVEN_OPTS="-Xquickstart"
+          - export MAVEN_OPTS="-Xshareclasses -Xscmx64m -Xquickstart"
           - mvn -B -s etc/settings.xml test
   branches:
     production:
@@ -26,7 +26,7 @@ pipelines:
           script:
             - export GNUPGHOME=`mktemp -d`
             - sh etc/gpginit.sh
-            - export MAVEN_OPTS="-Xquickstart"
+            - export MAVEN_OPTS="-Xshareclasses -Xscmx64m -Xquickstart"
             - mvn -B -s etc/settings.xml ${OSSRHUSERNAME+-P ossrh} -Dmaven.deploy.skip deploy
   bookmarks:
     staging:
@@ -37,7 +37,7 @@ pipelines:
           script:
             - export GNUPGHOME=`mktemp -d`
             - sh etc/gpginit.sh
-            - export MAVEN_OPTS="-Xquickstart"
+            - export MAVEN_OPTS="-Xshareclasses -Xscmx64m -Xquickstart"
             - mvn -B -s etc/settings.xml ${OSSRHUSERNAME+-P ossrh} -Dmaven.deploy.skip deploy
   custom:
     snapshot:
