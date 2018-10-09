@@ -25,14 +25,15 @@ import static org.vx68k.bitbucket.api.client.JsonUtilities.toUUID;
 
 import java.time.Instant;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.UUID;
 import javax.json.JsonObject;
+import javax.ws.rs.core.Link;
 import org.vx68k.bitbucket.api.BitbucketAccount;
 import org.vx68k.bitbucket.api.BitbucketRepository;
 
 /**
- * Bitbucket Cloud account represented by a JSON object.
+ * Client implementation of {@link BitbucketAccount}.
+ * This class represents a Bitbucket Cloud account by a JSON object.
  *
  * @author Kaz Nishimura
  * @since 5.0
@@ -69,6 +70,11 @@ public class BitbucketClientAccount extends BitbucketClientObject implements
      * Name for the {@code created_on} value in a JSON account object.
      */
     private static final String CREATED_ON = "created_on";
+
+    /**
+     * Name of the {@code repositories} link in a JSON object.
+     */
+    private static final String REPOSITORIES = "repositories";
 
     /**
      * Constructs this object with no Bitbucket client.
@@ -177,11 +183,22 @@ public class BitbucketClientAccount extends BitbucketClientObject implements
 
     /**
      * {@inheritDoc}
+     * <p>This implementation returns a {@link PaginatedList} object.</p>
+     *
+     * @see BitbucketClientRepository#creator(BitbucketClient)
      */
     @Override
     public final Collection<BitbucketRepository> repositories()
     {
-        // @todo Implement this method.
-        return Collections.emptySet();
+        Link repositories = getLink(REPOSITORIES);
+
+        Collection<BitbucketRepository> value = null;
+        if (repositories != null) {
+            BitbucketClient client = getBitbucketClient();
+            value = new PaginatedList<>(
+                repositories.getUri(), client,
+                BitbucketClientRepository.creator(client));
+        }
+        return value;
     }
 }
