@@ -150,6 +150,54 @@ public interface BitbucketIssue
     Instant getEdited();
 
     /**
+     * Issue comment resource on BitbucketCloud.
+     */
+    interface Comment
+    {
+        /**
+         * Returns the issue to which the comment belongs.
+         *
+         * @return the issue to which the comment belongs
+         */
+        BitbucketIssue getIssue();
+
+        /**
+         * Returns the identifier of the comment.
+         *
+         * @return the identifier of the comment
+         */
+        int getId();
+
+        /**
+         * Returns the user who made the comment.
+         *
+         * @return the user who made the comment
+         */
+        BitbucketUser getUser();
+
+        /**
+         * Returns the content of the comment.
+         *
+         * @return the content of the comment
+         */
+        BitbucketRendered getContent();
+
+        /**
+         * Returns the time when the comment was created.
+         *
+         * @return the time when the comment was created
+         */
+        Instant getCreated();
+
+        /**
+         * Returns the time when the comment was last updated.
+         *
+         * @return the time when the comment was last updated
+         */
+        Instant getUpdated();
+    }
+
+    /**
      * Issue component resource on Bitbucket Cloud.
      *
      * @author Kaz Nishimura
