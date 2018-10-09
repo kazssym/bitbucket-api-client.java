@@ -34,11 +34,6 @@ public class BitbucketClientUser extends BitbucketClientAccount implements
     BitbucketUser
 {
     /**
-     * Type value for users.
-     */
-    public static final String USER_TYPE = "user";
-
-    /**
      * Name for the {@code is_staff} value in a JSON user object.
      */
     private static final String IS_STAFF = "is_staff";
@@ -74,8 +69,8 @@ public class BitbucketClientUser extends BitbucketClientAccount implements
         super(object, client);
 
         String type = getType();
-        if (type == null || !type.equals(USER_TYPE)) {
-            throw new IllegalArgumentException("Not user");
+        if (!USER.equals(type)) {
+            throw new IllegalArgumentException("JSON object is not user");
         }
     }
 
