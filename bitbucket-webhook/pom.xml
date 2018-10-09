@@ -10,8 +10,9 @@
 
 <artifactId>bitbucket-webhook</artifactId>
 <packaging>bundle</packaging>
-<name>Bitbucket Webhook</name>
-<description>Webhook implementation for Bitbucket Cloud.</description>
+<name>Webhook Implementation</name>
+<description>This project builds a webhook implementation for Bitbucket Cloud.
+</description>
 
 <dependencies>
 
