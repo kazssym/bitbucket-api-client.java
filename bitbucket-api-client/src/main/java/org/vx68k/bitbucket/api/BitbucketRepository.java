@@ -1,5 +1,5 @@
 /*
- * BitbucketRepository.java - interface BitbucketRepository
+ * BitbucketRepository.java
  * Copyright (C) 2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -29,7 +29,7 @@ import java.util.UUID;
  * @author Kaz Nishimura
  * @since 5.0
  */
-public interface BitbucketRepository extends BitbucketIssueTracker
+public interface BitbucketRepository
 {
     /**
      * SCM type value for Git repositories.
