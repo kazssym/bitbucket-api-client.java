@@ -30,6 +30,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import java.util.function.Function;
+import javax.json.JsonNumber;
 import javax.json.JsonObject;
 import javax.ws.rs.core.Link;
 import org.vx68k.bitbucket.api.BitbucketAccount;
@@ -300,6 +301,30 @@ public class BitbucketClientRepository extends BitbucketClientObject implements
         return value;
     }
 
+    @Override
+    public boolean hasIssueTracker()
+    {
+        return getJsonObject().getBoolean(HAS_ISSUES, false);
+    }
+
+    @Override
+    public boolean hasWiki()
+    {
+        return getJsonObject().getBoolean(HAS_WIKI, false);
+    }
+
+    @Override
+    public long getSize()
+    {
+        JsonNumber size = getJsonObject().getJsonNumber(SIZE);
+
+        long value = 0;
+        if (size != null) {
+            value = size.longValue();
+        }
+        return value;
+    }
+
     /**
      * {@inheritDoc}
      * <p>This implementation takes the date-time value of {@code "created_on"}
@@ -319,7 +344,7 @@ public class BitbucketClientRepository extends BitbucketClientObject implements
 
     /**
      * {@inheritDoc}
-     * <p>This implementation gets the date-time value of {@code "updated_on"}
+     * <p>This implementation takes the date-time value of {@code "updated_on"}
      * in the underlying JSON object.</p>
      */
     @Override

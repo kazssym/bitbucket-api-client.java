@@ -86,13 +86,6 @@ public interface BitbucketRepository
     String getDescription();
 
     /**
-     * Returns the main branch of the repository.
-     *
-     * @return the main branch of the repository
-     */
-    BitbucketBranch getMainBranch();
-
-    /**
      * Returns {@code true} if and only if the repository is private.
      *
      * @return {@code true} if and only if the repository is private
@@ -100,16 +93,44 @@ public interface BitbucketRepository
     boolean isPrivate();
 
     /**
-     * Returns the instant when the repository was created.
+     * Returns the main branch of the repository.
      *
-     * @return the instant when the repository was created
+     * @return the main branch of the repository
+     */
+    BitbucketBranch getMainBranch();
+
+    /**
+     * Returns {@code true} if and only if the repository has a issue tracker.
+     *
+     * @return {@code true} if and only if the repository has a issue tracker
+     */
+    boolean hasIssueTracker();
+
+    /**
+     * Returns {@code true} if and only if the repository has a wiki.
+     *
+     * @return {@code true} if and only if the repository has a wiki
+     */
+    boolean hasWiki();
+
+    /**
+     * Returns the size of the repository.
+     *
+     * @return the size of the repository
+     */
+    long getSize();
+
+    /**
+     * Returns the time when the repository was created.
+     *
+     * @return the time when the repository was created
      */
     Instant getCreated();
 
     /**
-     * Returns the instant when the repository was last updated.
+     * Returns the time when the repository was last updated.
      *
-     * @return the instant when the repository was last updated
+     * @return the time when the repository was last updated
      */
     Instant getUpdated();
 }
