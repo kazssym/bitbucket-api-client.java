@@ -45,8 +45,8 @@ import org.vx68k.bitbucket.api.BitbucketRepository;
  * @author Kaz Nishimura
  * @since 5.0
  */
-public class BitbucketClientRepository extends
-    BitbucketClientObject implements BitbucketRepository, BitbucketIssueTracker
+public class BitbucketClientRepository extends BitbucketClientObject implements
+    BitbucketRepository, BitbucketIssueTracker
 {
     /**
      * Type value for repositories.
