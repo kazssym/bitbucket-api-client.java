@@ -22,7 +22,7 @@
 package org.vx68k.bitbucket.api;
 
 /**
- * Commit reference resource on Bitbucket Cloud.
+ * Commit ref on Bitbucket Cloud.
  *
  * @author Kaz Nishimura
  * @since 5.0

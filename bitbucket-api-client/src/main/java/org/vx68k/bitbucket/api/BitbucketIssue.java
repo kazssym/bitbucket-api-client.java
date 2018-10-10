@@ -24,7 +24,7 @@ import java.time.Instant;
 
 /**
  * Issue on Bitbucket Cloud.
- * A Bitbucket Cloud issue belongs to a repository.
+ * An issue belongs to a repository.
  *
  * @author Kaz Nishimura
  * @see BitbucketRepository
