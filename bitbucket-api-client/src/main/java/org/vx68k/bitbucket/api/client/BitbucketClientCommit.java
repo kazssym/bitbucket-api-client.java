@@ -25,7 +25,7 @@ import org.vx68k.bitbucket.api.BitbucketCommit;
 
 /**
  * Client implementation of {@link BitbucketCommit}.
- * This class represents a Bitbucket Cloud commit by a JSON object.
+ * This class represents a commit by a JSON object.
  *
  * @author Kaz Nishimura
  * @since 5.0

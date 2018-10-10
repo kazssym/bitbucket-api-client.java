@@ -32,7 +32,7 @@ import org.vx68k.bitbucket.api.BitbucketRepository;
 
 /**
  * Client implementation of {@link BitbucketIssue}.
- * This class represents a Bitbucket Cloud issue by a JSON object.
+ * This class represents a issue by a JSON object.
  *
  * @author Kaz Nishimura
  * @since 5.0

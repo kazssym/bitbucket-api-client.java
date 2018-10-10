@@ -41,7 +41,7 @@ import org.vx68k.bitbucket.api.BitbucketRepository;
 
 /**
  * Client implementation of {@link BitbucketRepository}.
- * This class represents a Bitbucket Cloud repository by a JSON object.
+ * This class represents a repository by a JSON object.
  *
  * @author Kaz Nishimura
  * @since 5.0

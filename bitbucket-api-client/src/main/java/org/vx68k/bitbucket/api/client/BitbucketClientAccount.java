@@ -33,7 +33,7 @@ import org.vx68k.bitbucket.api.BitbucketRepository;
 
 /**
  * Client implementation of {@link BitbucketAccount}.
- * This class represents a Bitbucket Cloud account by a JSON object.
+ * This class represents an account by a JSON object.
  *
  * @author Kaz Nishimura
  * @see BitbucketClientUser

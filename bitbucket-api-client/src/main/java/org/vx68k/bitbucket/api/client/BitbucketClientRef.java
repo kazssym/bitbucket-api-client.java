@@ -26,7 +26,7 @@ import org.vx68k.bitbucket.api.BitbucketRef;
 
 /**
  * Client implementation of {@link BitbucketRef}.
- * This class represents a commit reference by a JSON object.
+ * This class represents a commit ref by a JSON object.
  *
  * @author Kaz Nishimura
  * @since 5.0
