@@ -302,19 +302,19 @@ public class BitbucketClientRepository extends BitbucketClientObject implements
     }
 
     @Override
-    public boolean hasIssueTracker()
+    public final boolean hasIssueTracker()
     {
         return getJsonObject().getBoolean(HAS_ISSUES, false);
     }
 
     @Override
-    public boolean hasWiki()
+    public final boolean hasWiki()
     {
         return getJsonObject().getBoolean(HAS_WIKI, false);
     }
 
     @Override
-    public long getSize()
+    public final long getSize()
     {
         JsonNumber size = getJsonObject().getJsonNumber(SIZE);
 
