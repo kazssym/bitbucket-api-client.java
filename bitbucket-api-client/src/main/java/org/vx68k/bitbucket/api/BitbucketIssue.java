@@ -47,6 +47,20 @@ public interface BitbucketIssue
     int getId();
 
     /**
+     * Returns the reporter of the issue.
+     *
+     * @return the reporter of the issue
+     */
+    BitbucketUser getReporter();
+
+    /**
+     * Returns the state of the issue.
+     *
+     * @return the state of the issue
+     */
+    String getState();
+
+    /**
      * Returns the title of the issue.
      *
      * @return the title of the issue
@@ -61,18 +75,11 @@ public interface BitbucketIssue
     BitbucketRendered getContent();
 
     /**
-     * Returns the reporter of the issue.
-     *
-     * @return the reporter of the issue
-     */
-    BitbucketAccount getReporter();
-
-    /**
      * Returns the assignee of the issue.
      *
      * @return the assignee of the issue
      */
-    BitbucketAccount getAssignee();
+    BitbucketUser getAssignee();
 
     /**
      * Returns the kind of the issue.
@@ -87,13 +94,6 @@ public interface BitbucketIssue
      * @return the priority of the issue
      */
     String getPriority();
-
-    /**
-     * Returns the state of the issue.
-     *
-     * @return the state of the issue
-     */
-    String getState();
 
     /**
      * Returns the component of the issue.

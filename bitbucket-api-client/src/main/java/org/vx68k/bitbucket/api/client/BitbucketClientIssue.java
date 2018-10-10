@@ -25,10 +25,10 @@ import static org.vx68k.bitbucket.api.client.JsonUtilities.toInstant;
 import java.time.Instant;
 import java.util.function.Function;
 import javax.json.JsonObject;
-import org.vx68k.bitbucket.api.BitbucketAccount;
 import org.vx68k.bitbucket.api.BitbucketIssue;
 import org.vx68k.bitbucket.api.BitbucketRendered;
 import org.vx68k.bitbucket.api.BitbucketRepository;
+import org.vx68k.bitbucket.api.BitbucketUser;
 
 /**
  * Client implementation of {@link BitbucketIssue}.
@@ -203,6 +203,24 @@ public class BitbucketClientIssue extends BitbucketClientObject implements
     }
 
     @Override
+    public final BitbucketUser getReporter()
+    {
+        JsonObject reporter = getJsonObject().getJsonObject(REPORTER);
+
+        BitbucketUser value = null;
+        if (reporter != null) {
+            value = new BitbucketClientUser(reporter, getBitbucketClient());
+        }
+        return value;
+    }
+
+    @Override
+    public final String getState()
+    {
+        return getJsonObject().getString(STATE, null);
+    }
+
+    @Override
     public final String getTitle()
     {
         JsonObject object = getJsonObject();
@@ -217,27 +235,13 @@ public class BitbucketClientIssue extends BitbucketClientObject implements
     }
 
     @Override
-    public final BitbucketAccount getReporter()
+    public final BitbucketUser getAssignee()
     {
-        JsonObject object = getJsonObject();
-        JsonObject reporter = object.getJsonObject(REPORTER);
+        JsonObject assignee = getJsonObject().getJsonObject(ASSIGNEE);
 
-        BitbucketAccount value = null;
-        if (reporter != null) {
-            value = new BitbucketClientAccount(reporter, getBitbucketClient());
-        }
-        return value;
-    }
-
-    @Override
-    public final BitbucketAccount getAssignee()
-    {
-        JsonObject object = getJsonObject();
-        JsonObject assignee = object.getJsonObject(ASSIGNEE);
-
-        BitbucketAccount value = null;
+        BitbucketUser value = null;
         if (assignee != null) {
-            value = new BitbucketClientAccount(assignee, getBitbucketClient());
+            value = new BitbucketClientUser(assignee, getBitbucketClient());
         }
         return value;
     }
@@ -254,13 +258,6 @@ public class BitbucketClientIssue extends BitbucketClientObject implements
     {
         JsonObject object = getJsonObject();
         return object.getString(PRIORITY, null);
-    }
-
-    @Override
-    public final String getState()
-    {
-        JsonObject object = getJsonObject();
-        return object.getString(STATE, null);
     }
 
     @Override
@@ -299,7 +296,7 @@ public class BitbucketClientIssue extends BitbucketClientObject implements
         JsonObject object = getJsonObject();
         // This may be a JSON null.
         Instant value = null;
-        if (object.containsKey(CREATED_ON) && !object.isNull(CREATED_ON)) {
+        if (!object.isNull(CREATED_ON)) {
             value = toInstant(object.getJsonString(CREATED_ON));
         }
         return value;
@@ -311,7 +308,7 @@ public class BitbucketClientIssue extends BitbucketClientObject implements
         JsonObject object = getJsonObject();
         // This may be a JSON null.
         Instant value = null;
-        if (object.containsKey(UPDATED_ON) && !object.isNull(UPDATED_ON)) {
+        if (!object.isNull(UPDATED_ON)) {
             value = toInstant(object.getJsonString(UPDATED_ON));
         }
         return value;
@@ -323,7 +320,7 @@ public class BitbucketClientIssue extends BitbucketClientObject implements
         JsonObject object = getJsonObject();
         // This may be a JSON null.
         Instant value = null;
-        if (object.containsKey(EDITED_ON) && !object.isNull(EDITED_ON)) {
+        if (!object.isNull(EDITED_ON)) {
             value = toInstant(object.getJsonString(EDITED_ON));
         }
         return value;
