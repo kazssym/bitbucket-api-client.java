@@ -43,37 +43,37 @@ public class BitbucketClientAccount extends BitbucketClientObject implements
     BitbucketAccount
 {
     /**
-     * Name for the {@code username} value in a JSON account object.
-     */
-    private static final String USERNAME = "username";
-
-    /**
-     * Name for the {@code uuid} value in a JSON account object.
-     */
-    private static final String UUID = "uuid";
-
-    /**
-     * Name for the {@code display_name} value in a JSON account object.
-     */
-    private static final String DISPLAY_NAME = "display_name";
-
-    /**
-     * Name for the {@code website} value in a JSON account object.
-     */
-    private static final String WEBSITE = "website";
-
-    /**
-     * Name for the {@code location} value in a JSON account object.
-     */
-    private static final String LOCATION = "location";
-
-    /**
-     * Name for the {@code created_on} value in a JSON account object.
+     * Name of the {@code created_on} value in a JSON account object.
      */
     private static final String CREATED_ON = "created_on";
 
     /**
-     * Name of the {@code repositories} link in a JSON object.
+     * Name of the {@code display_name} value in a JSON account object.
+     */
+    private static final String DISPLAY_NAME = "display_name";
+
+    /**
+     * Name of the {@code location} value in a JSON account object.
+     */
+    private static final String LOCATION = "location";
+
+    /**
+     * Name of the {@code username} value in a JSON account object.
+     */
+    private static final String USERNAME = "username";
+
+    /**
+     * Name of the {@code uuid} value in a JSON account object.
+     */
+    private static final String UUID = "uuid";
+
+    /**
+     * Name of the {@code website} value in a JSON account object.
+     */
+    private static final String WEBSITE = "website";
+
+    /**
+     * Name of the {@code repositories} link in a JSON {@link links} object.
      */
     private static final String REPOSITORIES = "repositories";
 

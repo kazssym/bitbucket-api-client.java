@@ -54,54 +54,89 @@ public class BitbucketClientRepository extends
     private static final String REPOSITORY = "repository";
 
     /**
-     * Name for the {@code scm} value in a JSON object.
-     */
-    private static final String SCM = "scm";
-
-    /**
-     * Name for the {@code owner} object in a JSON object.
-     */
-    private static final String OWNER = "owner";
-
-    /**
-     * Name for the {@code uuid} value in a JSON object.
-     */
-    private static final String UUID = "uuid";
-
-    /**
-     * Name for the {@code name} value in a JSON object.
-     */
-    private static final String NAME = "name";
-
-    /**
-     * Name for the {@code full_name} value in a JSON object.
-     */
-    private static final String FULL_NAME = "full_name";
-
-    /**
-     * Name for the {@code description} value in a JSON object.
-     */
-    private static final String DESCRIPTION = "description";
-
-    /**
-     * Name for the {@code is_private} value in a JSON object.
-     */
-    private static final String IS_PRIVATE = "is_private";
-
-    /**
-     * Name for the {@code mainbranch} value in a JSON object.
-     */
-    private static final String MAINBRANCH = "mainbranch";
-
-    /**
-     * Name for the {@code created_on} value in a JSON object.
+     * Name of the {@code created_on} value in a JSON repository object.
      */
     private static final String CREATED_ON = "created_on";
 
     /**
-     * Name for the {@code updated_on} value in a JSON object.
+     * Name of the {@code description} value in a JSON repository object.
+     */
+    private static final String DESCRIPTION = "description";
+
+    /**
+     * Name of the {@code fork_policy} value in a JSON repository object.
+     */
+    private static final String FORK_POLICY = "fork_policy";
+
+    /**
+     * Name of the {@code full_name} value in a JSON repository object.
+     */
+    private static final String FULL_NAME = "full_name";
+
+    /**
+     * Name of the {@code has_issues} value in a JSON repository object.
+     */
+    private static final String HAS_ISSUES = "has_issues";
+
+    /**
+     * Name of the {@code has_wiki} value in a JSON repository object.
+     */
+    private static final String HAS_WIKI = "has_wiki";
+
+    /**
+     * Name of the {@code is_private} value in a JSON repository object.
+     */
+    private static final String IS_PRIVATE = "is_private";
+
+    /**
+     * Name of the {@code language} value in a JSON repository object.
+     */
+    private static final String LANGUAGE = "language";
+
+    /**
+     * Name of the {@code mainbranch} value in a JSON repository object.
+     */
+    private static final String MAINBRANCH = "mainbranch";
+
+    /**
+     * Name of the {@code name} value in a JSON repository object.
+     */
+    private static final String NAME = "name";
+
+    /**
+     * Name of the {@code owner} value in a JSON repository object.
+     */
+    private static final String OWNER = "owner";
+
+    /**
+     * Name of the {@code project} value in a JSON repository object.
+     */
+    private static final String PROJECT = "project";
+
+    /**
+     * Name of the {@code scm} value in a JSON repository object.
+     */
+    private static final String SCM = "scm";
+
+    /**
+     * Name of the {@code size} value in a JSON repository object.
+     */
+    private static final String SIZE = "size";
+
+    /**
+     * Name of the {@code updated_on} value in a JSON repository object.
      */
     private static final String UPDATED_ON = "updated_on";
+
+    /**
+     * Name of the {@code uuid} value in a JSON repository object.
+     */
+    private static final String UUID = "uuid";
+
+    /**
+     * Name of the {@code website} value in a JSON repository object.
+     */
+    private static final String WEBSITE = "website";
 
     /**
      * Constructs this object.
