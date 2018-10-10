@@ -46,64 +46,89 @@ public class BitbucketClientIssue extends BitbucketClientObject implements
     private static final String ISSUE = "issue";
 
     /**
-     * Name for the {@code repository} value in a JSON object.
-     */
-    private static final String REPOSITORY = "repository";
-
-    /**
-     * Name for the {@code id} value in a JSON object.
-     */
-    private static final String ID = "id";
-
-    /**
-     * Name for the {@code title} value in a JSON object.
-     */
-    private static final String TITLE = "title";
-
-    /**
-     * Name for the {@code content} value in a JSON object.
-     */
-    private static final String CONTENT = "content";
-
-    /**
-     * Name for the {@code reporter} value in a JSON object.
-     */
-    private static final String REPORTER = "reporter";
-
-    /**
-     * Name for the {@code assignee} value in a JSON object.
+     * Name of the {@code assignee} value in a JSON issue object.
      */
     private static final String ASSIGNEE = "assignee";
 
     /**
-     * Name for the {@code kind} value in a JSON object.
+     * Name of the {@code component} value in a JSON issue object.
      */
-    private static final String KIND = "kind";
+    private static final String COMPONENT = "component";
 
     /**
-     * Name for the {@code priority} value in a JSON object.
+     * Name of the {@code content} value in a JSON issue object.
      */
-    private static final String PRIORITY = "priority";
+    private static final String CONTENT = "content";
 
     /**
-     * Name for the {@code state} value in a JSON object.
-     */
-    private static final String STATE = "state";
-
-    /**
-     * Name for the {@code created_on} value in a JSON object.
+     * Name of the {@code created_on} value in a JSON issue object.
      */
     private static final String CREATED_ON = "created_on";
 
     /**
-     * Name for the {@code updated_on} value in a JSON object.
+     * Name of the {@code edited_on} value in a JSON issue object.
+     */
+    private static final String EDITED_ON = "edited_on";
+
+    /**
+     * Name of the {@code id} value in a JSON issue object.
+     */
+    private static final String ID = "id";
+
+    /**
+     * Name of the {@code kind} value in a JSON issue object.
+     */
+    private static final String KIND = "kind";
+
+    /**
+     * Name of the {@code milestone} value in a JSON issue object.
+     */
+    private static final String MILESTONE = "milestone";
+
+    /**
+     * Name of the {@code priority} value in a JSON issue object.
+     */
+    private static final String PRIORITY = "priority";
+
+    /**
+     * Name of the {@code reporter} value in a JSON issue object.
+     */
+    private static final String REPORTER = "reporter";
+
+    /**
+     * Name of the {@code repository} value in a JSON issue object.
+     */
+    private static final String REPOSITORY = "repository";
+
+    /**
+     * Name of the {@code state} value in a JSON issue object.
+     */
+    private static final String STATE = "state";
+
+    /**
+     * Name of the {@code title} value in a JSON issue object.
+     */
+    private static final String TITLE = "title";
+
+    /**
+     * Name of the {@code updated_on} value in a JSON issue object.
      */
     private static final String UPDATED_ON = "updated_on";
 
     /**
-     * Name for the {@code edited_on} value in a JSON object.
+     * Name of the {@code version} value in a JSON issue object.
      */
-    private static final String EDITED_ON = "edited_on";
+    private static final String VERSION = "version";
+
+    /**
+     * Name of the {@code votes} value in a JSON issue object.
+     */
+    private static final String VOTES = "votes";
+
+    /**
+     * Name of the {@code watches} value in a JSON issue object.
+     */
+    private static final String WATCHES = "watches";
 
     /**
      * Initializes the object from a JSON object.
