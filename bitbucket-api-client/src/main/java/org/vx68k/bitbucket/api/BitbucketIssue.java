@@ -61,6 +61,20 @@ public interface BitbucketIssue
     String getState();
 
     /**
+     * Returns the kind of the issue.
+     *
+     * @return the kind of the issue
+     */
+    String getKind();
+
+    /**
+     * Returns the priority of the issue.
+     *
+     * @return the priority of the issue
+     */
+    String getPriority();
+
+    /**
      * Returns the title of the issue.
      *
      * @return the title of the issue
@@ -80,20 +94,6 @@ public interface BitbucketIssue
      * @return the assignee of the issue
      */
     BitbucketUser getAssignee();
-
-    /**
-     * Returns the kind of the issue.
-     *
-     * @return the kind of the issue
-     */
-    String getKind();
-
-    /**
-     * Returns the priority of the issue.
-     *
-     * @return the priority of the issue
-     */
-    String getPriority();
 
     /**
      * Returns the component of the issue.
