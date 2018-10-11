@@ -286,7 +286,7 @@ public class BitbucketClientIssue extends BitbucketClientObject implements
     {
         JsonNumber votes = getJsonObject().getJsonNumber(VOTES);
 
-        int value = 0;
+        int value = -1;
         if (votes != null) {
             value = votes.intValue();
         }
@@ -298,7 +298,7 @@ public class BitbucketClientIssue extends BitbucketClientObject implements
     {
         JsonNumber watches = getJsonObject().getJsonNumber(WATCHES);
 
-        int value = 0;
+        int value = -1;
         if (watches != null) {
             value = watches.intValue();
         }

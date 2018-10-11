@@ -318,7 +318,7 @@ public class BitbucketClientRepository extends BitbucketClientObject implements
     {
         JsonNumber size = getJsonObject().getJsonNumber(SIZE);
 
-        long value = 0;
+        long value = -1L;
         if (size != null) {
             value = size.longValue();
         }

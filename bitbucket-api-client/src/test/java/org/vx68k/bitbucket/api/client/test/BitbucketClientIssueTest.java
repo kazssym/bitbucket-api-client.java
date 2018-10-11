@@ -212,7 +212,7 @@ public final class BitbucketClientIssueTest
     public void testGetVotes()
     {
         BitbucketIssue issue0 = new BitbucketClientIssue(blankIssue);
-        assertEquals(0, issue0.getVotes());
+        assertEquals(-1, issue0.getVotes());
 
         BitbucketIssue issue1 = new BitbucketClientIssue(sampleIssue1);
         assertEquals(0, issue1.getVotes());
@@ -225,7 +225,7 @@ public final class BitbucketClientIssueTest
     public void testGetWatches()
     {
         BitbucketIssue issue0 = new BitbucketClientIssue(blankIssue);
-        assertEquals(0, issue0.getWatches());
+        assertEquals(-1, issue0.getWatches());
 
         BitbucketIssue issue1 = new BitbucketClientIssue(sampleIssue1);
         assertEquals(1, issue1.getWatches());
