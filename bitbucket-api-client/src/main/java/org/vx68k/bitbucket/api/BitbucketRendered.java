@@ -28,4 +28,24 @@ package org.vx68k.bitbucket.api;
  */
 public interface BitbucketRendered
 {
+    /**
+     * Returns the markup type of the rendered text.
+     *
+     * @return the markup type of the rendered text
+     */
+    String getMarkup();
+
+    /**
+     * Returns the raw data of the rendered text.
+     *
+     * @return the raw data of the rendered text
+     */
+    String getRaw();
+
+    /**
+     * Returns the HTML rendering of the rendered text.
+     *
+     * @return the HTML rendering of the rendered text
+     */
+    String getHtml();
 }
