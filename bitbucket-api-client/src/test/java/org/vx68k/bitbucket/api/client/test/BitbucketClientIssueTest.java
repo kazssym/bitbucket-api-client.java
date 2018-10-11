@@ -41,6 +41,9 @@ import org.vx68k.bitbucket.api.client.BitbucketClientIssue;
  */
 public final class BitbucketClientIssueTest
 {
+    /**
+     * Blank JSON object only with a type for issues.
+     */
     private final JsonObject blankIssue;
 
     /**

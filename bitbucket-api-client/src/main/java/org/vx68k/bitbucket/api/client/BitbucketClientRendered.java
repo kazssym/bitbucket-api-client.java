@@ -33,12 +33,26 @@ import org.vx68k.bitbucket.api.BitbucketRendered;
 public class BitbucketClientRendered extends BitbucketClientObject implements
     BitbucketRendered
 {
+    /**
+     * Name of the {@code html} value in a JSON rendered text object.
+     */
     private static final String HTML = "html";
 
+    /**
+     * Name of the {@code markup} value in a JSON rendered text object.
+     */
     private static final String MARKUP = "markup";
 
+    /**
+     * Name of the {@code raw} value in a JSON rendered text object.
+     */
     private static final String RAW = "raw";
 
+    /**
+     * Initializes the object.
+     *
+     * @param jsonObject a JSON object
+     */
     public BitbucketClientRendered(final JsonObject jsonObject)
     {
         super(jsonObject);
