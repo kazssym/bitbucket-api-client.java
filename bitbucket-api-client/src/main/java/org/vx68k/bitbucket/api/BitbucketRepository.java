@@ -133,4 +133,11 @@ public interface BitbucketRepository
      * @return the time when the repository was last updated
      */
     Instant getUpdated();
+
+    /**
+     * Returns the issue tracker of the repository.
+     *
+     * @return the issue tracker of the repository
+     */
+    BitbucketIssueTracker getIssueTracker();
 }

@@ -31,6 +31,13 @@ import java.util.Collection;
 public interface BitbucketIssueTracker
 {
     /**
+     * Returns the repository of the issue tracker.
+     *
+     * @return the repository of the issue tracker
+     */
+    BitbucketRepository getRepository();
+
+    /**
      * Returns the issue specified by an identifier.
      *
      * @param id identifier of the issue

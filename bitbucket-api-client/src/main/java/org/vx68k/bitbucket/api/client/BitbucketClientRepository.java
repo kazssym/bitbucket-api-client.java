@@ -359,6 +359,22 @@ public class BitbucketClientRepository extends BitbucketClientObject implements
         return value;
     }
 
+    @Override
+    public final BitbucketIssueTracker getIssueTracker()
+    {
+        BitbucketIssueTracker value = null;
+        if (hasIssueTracker()) {
+            value = this;
+        }
+        return value;
+    }
+
+    @Override
+    public final BitbucketRepository getRepository()
+    {
+        return this;
+    }
+
     /**
      * {@inheritDoc}
      */
