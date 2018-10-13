@@ -34,7 +34,21 @@ The parent Maven project contains the following modules:
 
 # See also
 
+## Normative references
+
+  - The [Bitbucket API version 2.0].
+
+[Bitbucket API version 2.0]: https://developer.atlassian.com/bitbucket/api/2/reference/
+
+  - [RFC 6749].
+
+[RFC 6749]: https://tools.ietf.org/html/rfc6749 "The OAuth 2.0 Authorization Framework"
+
 ## Related projects
+
+  - The [Plugin for Bitbucket Cloud for NetBeans IDE] project.
+
+[Plugin for Bitbucket Cloud for NetBeans IDE]: https://vx68k.bitbucket.io/netbeans-bitbucket-plugin/
 
   - The [Eclipse Project for JAX-RS].
   - The [Eclipse Project for JSON Processing].
