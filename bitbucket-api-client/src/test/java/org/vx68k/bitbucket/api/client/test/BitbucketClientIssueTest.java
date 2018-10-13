@@ -25,11 +25,11 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
+import java.time.Instant;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import javax.json.JsonReader;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.vx68k.bitbucket.api.BitbucketIssue;
 import org.vx68k.bitbucket.api.client.BitbucketClientIssue;
@@ -41,6 +41,23 @@ import org.vx68k.bitbucket.api.client.BitbucketClientIssue;
  */
 public final class BitbucketClientIssueTest
 {
+    /**
+     * Time when the sample issue 1 was created.
+     */
+    private static final Instant SAMPLE_ISSUE1_CREATED =
+        Instant.parse("2015-01-25T00:50:30.346399Z");
+
+    /**
+     * Time when the sample issue 1 was last updated.
+     */
+    private static final Instant SAMPLE_ISSUE1_UPDATED =
+        Instant.parse("2015-08-27T01:00:22.817449Z");
+
+    /**
+     * Time when the sample issue 1 was last edited.
+     */
+    private static final Instant SAMPLE_ISSUE1_EDITED = null;
+
     /**
      * Blank JSON object only with a type for issues.
      */
@@ -154,7 +171,6 @@ public final class BitbucketClientIssueTest
     /**
      * Tests {@link BitbucketClientIssue#getContent()}.
      */
-    @Ignore("Not implemented")
     @Test
     public void testGetContent()
     {
@@ -163,6 +179,8 @@ public final class BitbucketClientIssueTest
 
         BitbucketIssue issue1 = new BitbucketClientIssue(sampleIssue1);
         assertNotNull(issue1.getContent());
+        assertEquals("markdown", issue1.getContent().getMarkup());
+        assertEquals("", issue1.getContent().getRaw());
     }
 
     /**
@@ -229,5 +247,59 @@ public final class BitbucketClientIssueTest
 
         BitbucketIssue issue1 = new BitbucketClientIssue(sampleIssue1);
         assertEquals(1, issue1.getWatches());
+    }
+
+    /**
+     * Tests {@link BitbucketClientIssue#getCreated()}.
+     */
+    @Test
+    public void testGetCreated()
+    {
+        BitbucketIssue issue0 = new BitbucketClientIssue(blankIssue);
+        assertNull(issue0.getCreated());
+
+        JsonObject nulledIssue = Json.createObjectBuilder()
+            .add("type", "issue").addNull("created_on").build();
+        BitbucketIssue issue0a = new BitbucketClientIssue(nulledIssue);
+        assertNull(issue0a.getCreated());
+
+        BitbucketIssue issue1 = new BitbucketClientIssue(sampleIssue1);
+        assertEquals(SAMPLE_ISSUE1_CREATED, issue1.getCreated());
+    }
+
+    /**
+     * Tests {@link BitbucketClientIssue#getUpdated()}.
+     */
+    @Test
+    public void testGetUpdated()
+    {
+        BitbucketIssue issue0 = new BitbucketClientIssue(blankIssue);
+        assertNull(issue0.getUpdated());
+
+        JsonObject nulledIssue = Json.createObjectBuilder()
+            .add("type", "issue").addNull("updated_on").build();
+        BitbucketIssue issue0a = new BitbucketClientIssue(nulledIssue);
+        assertNull(issue0a.getUpdated());
+
+        BitbucketIssue issue1 = new BitbucketClientIssue(sampleIssue1);
+        assertEquals(SAMPLE_ISSUE1_UPDATED, issue1.getUpdated());
+    }
+
+    /**
+     * Tests {@link BitbucketClientIssue#getEdited()}.
+     */
+    @Test
+    public void testGetEdited()
+    {
+        BitbucketIssue issue0 = new BitbucketClientIssue(blankIssue);
+        assertNull(issue0.getEdited());
+
+        JsonObject nulledIssue = Json.createObjectBuilder()
+            .add("type", "issue").addNull("edited_on").build();
+        BitbucketIssue issue0a = new BitbucketClientIssue(nulledIssue);
+        assertNull(issue0a.getEdited());
+
+        BitbucketIssue issue1 = new BitbucketClientIssue(sampleIssue1);
+        assertEquals(SAMPLE_ISSUE1_EDITED, issue1.getEdited());
     }
 }
