@@ -245,8 +245,13 @@ public class BitbucketClientIssue extends BitbucketClientObject implements
     @Override
     public final BitbucketRendered getContent()
     {
-        // @todoo Implement this method.
-        return null;
+        JsonObject content = getJsonObject().getJsonObject(CONTENT);
+
+        BitbucketRendered value = null;
+        if (content != null) {
+            value = new BitbucketClientRendered(content);
+        }
+        return value;
     }
 
     @Override
