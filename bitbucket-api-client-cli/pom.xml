@@ -13,6 +13,11 @@
 <name>Bitbucket API Client CLI</name>
 <description>This project builds an experimental CLI for the Bitbucket API.</description>
 
+<properties>
+<cli.oauth.clientId></cli.oauth.clientId>
+<cli.oauth.clientSecret></cli.oauth.clientSecret>
+</properties>
+
 <dependencies>
 
 <dependency>
@@ -47,6 +52,15 @@
 </dependencies>
 
 <build>
+
+<resources>
+
+<resource>
+<directory>src/main/resources-filtered</directory>
+<filtering>true</filtering>
+</resource>
+</resources>
+
 <plugins>
 
 <plugin>
