@@ -24,7 +24,6 @@ import java.io.IOException;
 import java.util.Base64;
 import javax.ws.rs.client.ClientRequestContext;
 import javax.ws.rs.client.ClientRequestFilter;
-import javax.ws.rs.core.Configuration;
 import javax.ws.rs.core.MultivaluedMap;
 
 /**
@@ -34,19 +33,83 @@ import javax.ws.rs.core.MultivaluedMap;
  */
 public final class ClientAuthenticator implements ClientRequestFilter
 {
+    /**
+     * Client identifier for OAuth.
+     */
+    private String clientId = null;
+
+    /**
+     * Client secret for OAuth.
+     */
+    private String clientSecret = null;
+
+    /**
+     * Access token.
+     */
+    private String accessToken = null;
+
+    /**
+     * Flag to indicate whether the client is to be authenticated or not.
+     */
+    private boolean toAuthenticateClient = false;
+
+    /**
+     * Sets the client identifier for OAuth.
+     *
+     * @param newValue a new value of the client identifier
+     */
+    public final void setClientId(final String newValue)
+    {
+        clientId = newValue;
+    }
+
+    /**
+     * Sets the client secret for OAuth.
+     *
+     * @param newValue a new value of the client secret.
+     */
+    public final void setClientSecret(final String newValue)
+    {
+        clientSecret = newValue;
+    }
+
+    /**
+     * Sets the access token.
+     *
+     * @param newValue a new value of the access token
+     */
+    public void setAccessToken(final String newValue)
+    {
+        accessToken = newValue;
+        authenticateClient(false);
+    }
+
+    /**
+     * Uses client authentication for requests.
+     *
+     * @param toAuthenticate {@code true} if client authentication is to be
+     * used
+     */
+    public void authenticateClient(final boolean toAuthenticate)
+    {
+        toAuthenticateClient = toAuthenticate;
+    }
+
     @Override
     public void filter(final ClientRequestContext requestContext)
         throws IOException
     {
         MultivaluedMap<String, Object> headers = requestContext.getHeaders();
 
-        Configuration config = requestContext.getConfiguration();
-        Object clientId = config.getProperty("clientId");
-        Object clientSecret = config.getProperty("clientSecret");
         if (clientId != null && clientSecret != null) {
-            String credentials = Base64.getEncoder().encodeToString(
-                String.format("%s:%s", clientId, clientSecret).getBytes());
-            headers.add("Authorization", "Basic " + credentials);
+            if (toAuthenticateClient) {
+                String credentials = Base64.getEncoder().encodeToString(
+                    String.format("%s:%s", clientId, clientSecret).getBytes());
+                headers.add("Authorization", "Basic " + credentials);
+            }
+            else if (accessToken != null) {
+                headers.add("Authorization", "Bearer " + accessToken);
+            }
         }
     }
 }

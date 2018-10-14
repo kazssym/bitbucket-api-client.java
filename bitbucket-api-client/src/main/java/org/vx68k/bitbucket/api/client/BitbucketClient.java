@@ -74,23 +74,35 @@ public class BitbucketClient implements Bitbucket, Serializable
     private final ClientBuilder clientBuilder;
 
     /**
-     * Client identifier for OAuth.
+     * Authenticator.
      */
-    private String clientId = null;
+    private final ClientAuthenticator authenticator;
 
     /**
-     * Client secret for OAuth.
+     * Access token.
      */
-    private String clientSecret = null;
+    private String accessToken = null;
+
+    /**
+     * Time when the access token expires.
+     */
+    private Instant accessTokenExpires = null;
+
+    /**
+     * Refresh token.
+     */
+    private String refreshToken = null;
 
     /**
      * Constructs this object with a new {@link ClientBuilder} object.
      */
     public BitbucketClient()
     {
-        clientBuilder = ClientBuilder.newBuilder();
-        clientBuilder.register(JsonMessageBodyReader.class);
-        clientBuilder.register(ClientAuthenticator.class);
+        this.clientBuilder = ClientBuilder.newBuilder();
+        this.authenticator = new ClientAuthenticator();
+
+        this.clientBuilder.register(JsonMessageBodyReader.class);
+        this.clientBuilder.register(authenticator);
     }
 
     /**
@@ -120,7 +132,7 @@ public class BitbucketClient implements Bitbucket, Serializable
      */
     public final void setClientId(final String newValue)
     {
-        clientId = newValue;
+        authenticator.setClientId(newValue);
     }
 
     /**
@@ -130,7 +142,37 @@ public class BitbucketClient implements Bitbucket, Serializable
      */
     public final void setClientSecret(final String newValue)
     {
-        clientSecret = newValue;
+        authenticator.setClientSecret(newValue);
+    }
+
+    /**
+     * Returns the access token.
+     *
+     * @return the access token
+     */
+    public final String getAccessToken()
+    {
+        return accessToken;
+    }
+
+    /**
+     * Returns the time when the access token expires.
+     *
+     * @return the time when the access token expires
+     */
+    public final Instant getAccessTokenExpires()
+    {
+        return accessTokenExpires;
+    }
+
+    /**
+     * Returns the refresh token.
+     *
+     * @return the refresh token
+     */
+    public final String getRefreshToken()
+    {
+        return refreshToken;
     }
 
     /**
@@ -141,26 +183,25 @@ public class BitbucketClient implements Bitbucket, Serializable
      */
     public final void login(final String username, final String password)
     {
-        if (clientId == null || clientSecret == null) {
-            throw new IllegalStateException("Missing client credentials");
-        }
-        clientBuilder.property("clientId", clientId);
-        clientBuilder.property("clientSecret", clientSecret);
-
         Form form = new Form();
         form.param("grant_type", "password");
         form.param("username", username);
         form.param("password", password);
 
-        JsonObject result = post(TOKEN_ENDPOINT_URI, Entity.form(form));
-        String accessToken = result.getString("access_token");
-        Instant expiration = Instant.now()
-            .plusSeconds(result.getJsonNumber("expires_in").longValue());
-        String refreshToken = result.getString("refresh_token", null);
+        authenticator.authenticateClient(true);
+        try {
+            JsonObject result = post(TOKEN_ENDPOINT_URI, Entity.form(form));
 
-        clientBuilder.property("accessToken", accessToken);
-        clientBuilder.property("expiration", expiration);
-        clientBuilder.property("refreshToken", refreshToken);
+            accessToken = result.getString("access_token");
+            accessTokenExpires = Instant.now()
+                .plusSeconds(result.getJsonNumber("expires_in").longValue());
+            refreshToken = result.getString("refresh_token", null);
+
+            authenticator.setAccessToken(accessToken);
+        }
+        finally {
+            authenticator.authenticateClient(false);
+        }
     }
 
     /**
