@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.util.Base64;
 import javax.ws.rs.client.ClientRequestContext;
 import javax.ws.rs.client.ClientRequestFilter;
+import javax.ws.rs.core.Configuration;
 import javax.ws.rs.core.MultivaluedMap;
 
 /**
@@ -39,8 +40,9 @@ public final class ClientAuthenticator implements ClientRequestFilter
     {
         MultivaluedMap<String, Object> headers = requestContext.getHeaders();
 
-        Object clientId = requestContext.getProperty("clientId");
-        Object clientSecret = requestContext.getProperty("clientSecret");
+        Configuration config = requestContext.getConfiguration();
+        Object clientId = config.getProperty("clientId");
+        Object clientSecret = config.getProperty("clientSecret");
         if (clientId != null && clientSecret != null) {
             String credentials = Base64.getEncoder().encodeToString(
                 String.format("%s:%s", clientId, clientSecret).getBytes());
