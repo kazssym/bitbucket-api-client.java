@@ -35,6 +35,7 @@ import javax.ws.rs.core.MediaType;
 import org.vx68k.bitbucket.api.Bitbucket;
 import org.vx68k.bitbucket.api.BitbucketAccount;
 import org.vx68k.bitbucket.api.BitbucketRepository;
+import org.vx68k.bitbucket.api.client.internal.ClientAuthenticator;
 import org.vx68k.bitbucket.api.client.internal.JsonMessageBodyReader;
 
 /**
@@ -70,6 +71,7 @@ public class BitbucketClient implements Bitbucket, Serializable
     {
         clientBuilder = ClientBuilder.newBuilder();
         clientBuilder.register(JsonMessageBodyReader.class);
+        clientBuilder.register(ClientAuthenticator.class);
     }
 
     /**
