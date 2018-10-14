@@ -38,14 +38,14 @@ import javax.ws.rs.ext.MessageBodyReader;
  * @since 5.0
  */
 @Consumes({MediaType.APPLICATION_JSON})
-public class JsonMessageBodyReader
+public final class JsonMessageBodyReader
     implements MessageBodyReader<JsonStructure>
 {
     /**
      * {@inheritDoc}
      */
     @Override
-    public final boolean isReadable(final Class<?> type,
+    public boolean isReadable(final Class<?> type,
         final Type genericType, final Annotation[] annotations,
         final MediaType mediaType)
     {
@@ -57,7 +57,7 @@ public class JsonMessageBodyReader
      * {@inheritDoc}
      */
     @Override
-    public final JsonStructure readFrom(final Class<JsonStructure> type,
+    public JsonStructure readFrom(final Class<JsonStructure> type,
         final Type genericType, final Annotation[] annotations,
         final MediaType mediaType,
         final MultivaluedMap<String, String> httpHeaders,
