@@ -152,6 +152,13 @@ public class BitbucketClient implements Bitbucket, Serializable
         }
     }
 
+    /**
+     * Makes a (@code POST} request to a URI.
+     *
+     * @param uri a URI
+     * @param entity an entity to post
+     * @return a JSON object
+     */
     public final JsonObject post(final URI uri, final Entity<?> entity)
     {
         Client client = clientBuilder.build();
