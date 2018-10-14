@@ -24,6 +24,8 @@ import java.io.Console;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+import java.util.prefs.BackingStoreException;
+import java.util.prefs.Preferences;
 import org.vx68k.bitbucket.api.client.BitbucketClient;
 
 /**
@@ -73,6 +75,26 @@ public final class LoginCommand implements Command
         clientSecret = properties.getProperty("oauth.clientSecret");
     }
 
+    /**
+     * Saves tokens for later invocations.
+     */
+    protected void saveTokens()
+    {
+        Preferences prefs = Preferences.userNodeForPackage(getClass());
+        prefs.put("refreshToken", bitbucketClient.getRefreshToken());
+        prefs.put("accessToken", bitbucketClient.getAccessToken());
+        prefs.put(
+            "accessTokenExpires",
+            bitbucketClient.getAccessTokenExpires().toString());
+        try {
+            prefs.flush();
+        }
+        catch (final BackingStoreException exception) {
+            // @todo What else can we do?
+            System.err.format("Failed to save tokens: %s\n", exception);
+        }
+    }
+
     @Override
     public void run(final String commandName, final String[] args)
     {
@@ -87,5 +109,7 @@ public final class LoginCommand implements Command
         bitbucketClient.setClientId(clientId);
         bitbucketClient.setClientSecret(clientSecret);
         bitbucketClient.login(username, password);
+
+        saveTokens();
     }
 }
