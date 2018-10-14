@@ -95,6 +95,26 @@ public class BitbucketClient implements Bitbucket, Serializable
     }
 
     /**
+     * Sets the client identifier for authentication.
+     *
+     * @param newValue a new value of the client identifier
+     */
+    public final void setClientId(final String newValue)
+    {
+        clientBuilder.property("clientId", newValue);
+    }
+
+    /**
+     * Sets the client secret for authentication.
+     *
+     * @param newValue a new value of the client secret.
+     */
+    public final void setClientSecret(final String newValue)
+    {
+        clientBuilder.property("clientSecret", newValue);
+    }
+
+    /**
      * Gets a JSON object by a link.
      *
      * @param link the URI for a link
