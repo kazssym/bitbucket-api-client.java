@@ -30,6 +30,7 @@ import javax.json.JsonObject;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import org.vx68k.bitbucket.api.Bitbucket;
@@ -145,6 +146,19 @@ public class BitbucketClient implements Bitbucket, Serializable
         }
         catch (NotFoundException exception) {
             return null;
+        }
+        finally {
+            client.close();
+        }
+    }
+
+    public final JsonObject post(final URI uri, final Entity<?> entity)
+    {
+        Client client = clientBuilder.build();
+        try {
+            return client.target(uri).request()
+                .accept(MediaType.APPLICATION_JSON)
+                .post(entity, JsonObject.class);
         }
         finally {
             client.close();
