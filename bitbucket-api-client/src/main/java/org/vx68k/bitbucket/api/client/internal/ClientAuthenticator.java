@@ -31,10 +31,11 @@ import javax.ws.rs.core.MultivaluedMap;
  *
  * @author Kaz Nishimura
  */
-public class ClientAuthenticator implements ClientRequestFilter
+public final class ClientAuthenticator implements ClientRequestFilter
 {
     @Override
-    public void filter(ClientRequestContext requestContext) throws IOException
+    public void filter(final ClientRequestContext requestContext)
+        throws IOException
     {
         MultivaluedMap<String, Object> headers = requestContext.getHeaders();
 
