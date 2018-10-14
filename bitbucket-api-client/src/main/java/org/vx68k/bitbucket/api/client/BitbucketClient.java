@@ -22,6 +22,7 @@ package org.vx68k.bitbucket.api.client;
 
 import java.io.Serializable;
 import java.net.URI;
+import java.time.Instant;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -32,6 +33,7 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.Form;
 import javax.ws.rs.core.MediaType;
 import org.vx68k.bitbucket.api.Bitbucket;
 import org.vx68k.bitbucket.api.BitbucketAccount;
@@ -55,6 +57,12 @@ public class BitbucketClient implements Bitbucket, Serializable
     public static final String API_BASE = "https://api.bitbucket.org/2.0/";
 
     /**
+     * URI of the token endpoint.
+     */
+    private static final URI TOKEN_ENDPOINT_URI =
+        URI.create("https://bitbucket.org/site/oauth2/access_token");
+
+    /**
      * Default {@link BitbucketClient} object.
      */
     private static BitbucketClient defaultInstance = new BitbucketClient();
@@ -64,6 +72,16 @@ public class BitbucketClient implements Bitbucket, Serializable
      * This object is used to build JAX-RS {@link Client} objects.
      */
     private final ClientBuilder clientBuilder;
+
+    /**
+     * Client identifier for OAuth.
+     */
+    private String clientId = null;
+
+    /**
+     * Client secret for OAuth.
+     */
+    private String clientSecret = null;
 
     /**
      * Constructs this object with a new {@link ClientBuilder} object.
@@ -88,31 +106,61 @@ public class BitbucketClient implements Bitbucket, Serializable
     /**
      * Sets the default {@link BitbucketClient} object.
      *
-     * @param value {@link BitbucketClient} object
+     * @param newValue {@link BitbucketClient} object
      */
-    public static void setDefaultInstance(final BitbucketClient value)
+    public static void setDefaultInstance(final BitbucketClient newValue)
     {
-        defaultInstance = value;
+        defaultInstance = newValue;
     }
 
     /**
-     * Sets the client identifier for authentication.
+     * Sets the client identifier for OAuth.
      *
      * @param newValue a new value of the client identifier
      */
     public final void setClientId(final String newValue)
     {
-        clientBuilder.property("clientId", newValue);
+        clientId = newValue;
     }
 
     /**
-     * Sets the client secret for authentication.
+     * Sets the client secret for OAuth.
      *
      * @param newValue a new value of the client secret.
      */
     public final void setClientSecret(final String newValue)
     {
-        clientBuilder.property("clientSecret", newValue);
+        clientSecret = newValue;
+    }
+
+    /**
+     * Logs in with resource owner password credentials.
+     *
+     * @param username a username
+     * @param password a password
+     */
+    public final void login(final String username, final String password)
+    {
+        if (clientId == null || clientSecret == null) {
+            throw new IllegalStateException("Missing client credentials");
+        }
+        clientBuilder.property("clientId", clientId);
+        clientBuilder.property("clientSecret", clientSecret);
+
+        Form form = new Form();
+        form.param("grant_type", "password");
+        form.param("username", username);
+        form.param("password", password);
+
+        JsonObject result = post(TOKEN_ENDPOINT_URI, Entity.form(form));
+        String accessToken = result.getString("access_token");
+        Instant expiration = Instant.now()
+            .plusSeconds(result.getJsonNumber("expires_in").longValue());
+        String refreshToken = result.getString("refresh_token", null);
+
+        clientBuilder.property("accessToken", accessToken);
+        clientBuilder.property("expiration", expiration);
+        clientBuilder.property("refreshToken", refreshToken);
     }
 
     /**
