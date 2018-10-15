@@ -47,16 +47,6 @@ public final class LoginCommand implements Command
     private final BitbucketClient bitbucketClient;
 
     /**
-     * Client identifier for OAuth.
-     */
-    private String clientId = null;
-
-    /**
-     * Client secret for OAuth.
-     */
-    private String clientSecret = null;
-
-    /**
      * Initializes the object.
      *
      * @param bitbucketClient a Bitbucket API client
@@ -70,10 +60,30 @@ public final class LoginCommand implements Command
             properties.load(s);
         }
         catch (final IOException exception) {
-            // @todo What can we do?
+            // @todo What else can we do?
+            System.err.format("Failed to load properties: %s\n", exception);
         }
-        clientId = properties.getProperty("oauth.clientId");
-        clientSecret = properties.getProperty("oauth.clientSecret");
+
+        String clientId = properties.getProperty("oauth.clientId");
+        String clientSecret = properties.getProperty("oauth.clientSecret");
+        bitbucketClient.setClientId(clientId);
+        bitbucketClient.setClientSecret(clientSecret);
+
+        restoreTokens();
+    }
+
+    /**
+     * Restores tokens.
+     */
+    protected void restoreTokens()
+    {
+        Preferences prefs = Preferences.userNodeForPackage(getClass());
+        bitbucketClient.setRefreshToken(prefs.get("refreshToken", null));
+        bitbucketClient.setAccessToken(prefs.get("accessToken", null));
+
+        Instant expiry = Instant.parse(
+            prefs.get("accessTokenExpiry", Instant.now().toString()));
+        bitbucketClient.setAccessTokenExpiry(expiry);
     }
 
     /**
@@ -108,10 +118,7 @@ public final class LoginCommand implements Command
         String username = console.readLine("Username: ");
         String password = String.valueOf(console.readPassword("Password: "));
 
-        bitbucketClient.setClientId(clientId);
-        bitbucketClient.setClientSecret(clientSecret);
         bitbucketClient.login(username, password);
-
         saveTokens();
     }
 }
