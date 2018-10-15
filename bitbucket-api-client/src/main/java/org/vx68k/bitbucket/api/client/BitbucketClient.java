@@ -79,6 +79,11 @@ public class BitbucketClient implements Bitbucket, Serializable
     private final ClientAuthenticator authenticator;
 
     /**
+     * Refresh token.
+     */
+    private String refreshToken = null;
+
+    /**
      * Access token.
      */
     private String accessToken = null;
@@ -86,12 +91,7 @@ public class BitbucketClient implements Bitbucket, Serializable
     /**
      * Time when the access token expires.
      */
-    private Instant accessTokenExpires = null;
-
-    /**
-     * Refresh token.
-     */
-    private String refreshToken = null;
+    private Instant accessTokenExpiry = Instant.now();
 
     /**
      * Constructs this object with a new {@link ClientBuilder} object.
@@ -146,6 +146,26 @@ public class BitbucketClient implements Bitbucket, Serializable
     }
 
     /**
+     * Returns the refresh token.
+     *
+     * @return the refresh token
+     */
+    public final String getRefreshToken()
+    {
+        return refreshToken;
+    }
+
+    /**
+     * Sets the refresh token.
+     *
+     * @param newValue a new value of the refresh token
+     */
+    public final void setRefreshToken(final String newValue)
+    {
+        refreshToken = newValue;
+    }
+
+    /**
      * Returns the access token.
      *
      * @return the access token
@@ -156,23 +176,34 @@ public class BitbucketClient implements Bitbucket, Serializable
     }
 
     /**
+     * Sets the access token.
+     *
+     * @param newValue
+     */
+    public final void setAccessToken(final String newValue)
+    {
+        accessToken = newValue;
+        authenticator.setAccessToken(accessToken);
+    }
+
+    /**
      * Returns the time when the access token expires.
      *
      * @return the time when the access token expires
      */
-    public final Instant getAccessTokenExpires()
+    public final Instant getAccessTokenExpiry()
     {
-        return accessTokenExpires;
+        return accessTokenExpiry;
     }
 
     /**
-     * Returns the refresh token.
+     * Sets the time when the access token expires.
      *
-     * @return the refresh token
+     * @param newValue new value of the time when the access token expires
      */
-    public final String getRefreshToken()
+    public final void setAccessTokenExpiry(final Instant newValue)
     {
-        return refreshToken;
+        accessTokenExpiry = newValue;
     }
 
     /**
@@ -188,20 +219,15 @@ public class BitbucketClient implements Bitbucket, Serializable
         form.param("username", username);
         form.param("password", password);
 
-        authenticator.authenticateClient(true);
-        try {
-            JsonObject result = post(TOKEN_ENDPOINT_URI, Entity.form(form));
+        authenticator.authenticateAsClient(true);
 
-            accessToken = result.getString("access_token");
-            accessTokenExpires = Instant.now()
-                .plusSeconds(result.getJsonNumber("expires_in").longValue());
-            refreshToken = result.getString("refresh_token", null);
+        JsonObject result = post(TOKEN_ENDPOINT_URI, Entity.form(form));
+        refreshToken = result.getString("refresh_token", null);
+        accessToken = result.getString("access_token");
+        accessTokenExpiry = Instant.now()
+            .plusSeconds(result.getJsonNumber("expires_in").longValue());
 
-            authenticator.setAccessToken(accessToken);
-        }
-        finally {
-            authenticator.authenticateClient(false);
-        }
+        authenticator.setAccessToken(accessToken);
     }
 
     /**

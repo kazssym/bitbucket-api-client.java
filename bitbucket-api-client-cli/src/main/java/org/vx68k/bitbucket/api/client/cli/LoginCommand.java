@@ -23,6 +23,7 @@ package org.vx68k.bitbucket.api.client.cli;
 import java.io.Console;
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.Instant;
 import java.util.Properties;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
@@ -83,9 +84,10 @@ public final class LoginCommand implements Command
         Preferences prefs = Preferences.userNodeForPackage(getClass());
         prefs.put("refreshToken", bitbucketClient.getRefreshToken());
         prefs.put("accessToken", bitbucketClient.getAccessToken());
-        prefs.put(
-            "accessTokenExpires",
-            bitbucketClient.getAccessTokenExpires().toString());
+
+        Instant expiry = bitbucketClient.getAccessTokenExpiry();
+        prefs.put("accessTokenExpiry", expiry.toString());
+
         try {
             prefs.flush();
         }

@@ -51,7 +51,7 @@ public final class ClientAuthenticator implements ClientRequestFilter
     /**
      * Flag to indicate whether the client is to be authenticated or not.
      */
-    private boolean toAuthenticateClient = false;
+    private boolean oAuth = false;
 
     /**
      * Sets the client identifier for OAuth.
@@ -81,18 +81,16 @@ public final class ClientAuthenticator implements ClientRequestFilter
     public void setAccessToken(final String newValue)
     {
         accessToken = newValue;
-        authenticateClient(false);
     }
 
     /**
-     * Uses client authentication for requests.
+     * Uses client authentication for the next request.
      *
-     * @param toAuthenticate {@code true} if client authentication is to be
-     * used
+     * @param asClient {@code true} if client authentication is to be used
      */
-    public void authenticateClient(final boolean toAuthenticate)
+    public void authenticateAsClient(final boolean asClient)
     {
-        toAuthenticateClient = toAuthenticate;
+        oAuth = asClient;
     }
 
     @Override
@@ -101,15 +99,16 @@ public final class ClientAuthenticator implements ClientRequestFilter
     {
         MultivaluedMap<String, Object> headers = requestContext.getHeaders();
 
-        if (clientId != null && clientSecret != null) {
-            if (toAuthenticateClient) {
+        if (oAuth) {
+            oAuth = false;
+            if (clientId != null && clientSecret != null) {
                 String credentials = Base64.getEncoder().encodeToString(
                     String.format("%s:%s", clientId, clientSecret).getBytes());
                 headers.add("Authorization", "Basic " + credentials);
             }
-            else if (accessToken != null) {
-                headers.add("Authorization", "Bearer " + accessToken);
-            }
+        }
+        else if (accessToken != null) {
+            headers.add("Authorization", "Bearer " + accessToken);
         }
     }
 }
