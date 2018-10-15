@@ -178,7 +178,7 @@ public class BitbucketClient implements Bitbucket, Serializable
     /**
      * Sets the access token.
      *
-     * @param newValue
+     * @param newValue new value of the access token
      */
     public final void setAccessToken(final String newValue)
     {
