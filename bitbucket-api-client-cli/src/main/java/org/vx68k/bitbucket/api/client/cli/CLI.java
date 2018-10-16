@@ -65,5 +65,8 @@ public class CLI extends CommandGroup
         catch (final CLIException exception) {
             System.err.format("%s: %s\n", commandName, exception.getMessage());
         }
+        catch (final Exception exception) {
+            System.err.println(exception);
+        }
     }
 }
