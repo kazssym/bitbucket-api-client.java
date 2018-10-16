@@ -114,7 +114,7 @@ public final class OAuth2Authenticator implements ClientRequestFilter
      *
      * @param newValue a new value of the client identifier
      */
-    public final void setClientId(final String newValue)
+    public void setClientId(final String newValue)
     {
         clientAuthenticator.setUsername(newValue);
     }
@@ -124,7 +124,7 @@ public final class OAuth2Authenticator implements ClientRequestFilter
      *
      * @param newValue a new value of the client secret.
      */
-    public final void setClientSecret(final String newValue)
+    public void setClientSecret(final String newValue)
     {
         clientAuthenticator.setPassword(newValue);
     }
