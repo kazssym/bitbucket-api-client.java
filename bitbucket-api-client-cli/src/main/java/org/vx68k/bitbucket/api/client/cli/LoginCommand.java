@@ -29,13 +29,15 @@ import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 import javax.ws.rs.ClientErrorException;
 import org.vx68k.bitbucket.api.client.BitbucketClient;
+import org.vx68k.bitbucket.api.client.TokenRefreshEvent;
+import org.vx68k.bitbucket.api.client.TokenRefreshListener;
 
 /**
  * CLI {@code login} command.
  *
  * @author Kaz Nishimura
  */
-public final class LoginCommand implements Command
+public final class LoginCommand implements Command, TokenRefreshListener
 {
     /**
      * Relative path to the properties file.
@@ -71,6 +73,7 @@ public final class LoginCommand implements Command
         bitbucketClient.setClientSecret(clientSecret);
 
         restoreTokens();
+        bitbucketClient.addTokenRefreshListener(this);
     }
 
     /**
@@ -125,6 +128,12 @@ public final class LoginCommand implements Command
         catch (final ClientErrorException exception) {
             throw new CLIException("Login failed", exception);
         }
+        saveTokens();
+    }
+
+    @Override
+    public void tokenRefreshed(final TokenRefreshEvent event)
+    {
         saveTokens();
     }
 }
