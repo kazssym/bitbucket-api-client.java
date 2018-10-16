@@ -1,5 +1,5 @@
 /*
- * ClientAuthenticator.java
+ * OAuth2Authenticator.java
  * Copyright (C) 2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -21,27 +21,23 @@
 package org.vx68k.bitbucket.api.client.internal;
 
 import java.io.IOException;
-import java.util.Base64;
+import java.net.URI;
 import javax.ws.rs.client.ClientRequestContext;
 import javax.ws.rs.client.ClientRequestFilter;
 import javax.ws.rs.core.MultivaluedMap;
 
 /**
- * Authentication filter.
+ * OAuth 2.0 authenticator.
  *
  * @author Kaz Nishimura
+ * @since 5.0
  */
-public final class ClientAuthenticator implements ClientRequestFilter
+public final class OAuth2Authenticator implements ClientRequestFilter
 {
     /**
-     * Client identifier for OAuth.
+     * URI prefix to which authenticated requests shall be sent.
      */
-    private String clientId = null;
-
-    /**
-     * Client secret for OAuth.
-     */
-    private String clientSecret = null;
+    private final String uriPrefix;
 
     /**
      * Access token.
@@ -49,28 +45,27 @@ public final class ClientAuthenticator implements ClientRequestFilter
     private String accessToken = null;
 
     /**
-     * Flag to indicate whether the client is to be authenticated or not.
-     */
-    private boolean oAuth = false;
-
-    /**
-     * Sets the client identifier for OAuth.
+     * Initializes the object.
      *
-     * @param newValue a new value of the client identifier
+     * @param uriPrefix a value of the URI prefix (case-sensitive)
      */
-    public void setClientId(final String newValue)
+    public OAuth2Authenticator(final String uriPrefix)
     {
-        clientId = newValue;
+        this.uriPrefix = uriPrefix;
+
+        if (this.uriPrefix == null) {
+            throw new IllegalArgumentException("URI prefix is null");
+        }
     }
 
     /**
-     * Sets the client secret for OAuth.
+     * Returns the access token.
      *
-     * @param newValue a new value of the client secret.
+     * @return the access token
      */
-    public void setClientSecret(final String newValue)
+    public String getAccessToken()
     {
-        clientSecret = newValue;
+        return accessToken;
     }
 
     /**
@@ -83,31 +78,14 @@ public final class ClientAuthenticator implements ClientRequestFilter
         accessToken = newValue;
     }
 
-    /**
-     * Uses client authentication for the next request.
-     *
-     * @param asClient {@code true} if client authentication is to be used
-     */
-    public void authenticateAsClient(final boolean asClient)
-    {
-        oAuth = asClient;
-    }
-
     @Override
     public void filter(final ClientRequestContext requestContext)
         throws IOException
     {
         MultivaluedMap<String, Object> headers = requestContext.getHeaders();
+        URI uri = requestContext.getUri();
 
-        if (oAuth) {
-            oAuth = false;
-            if (clientId != null && clientSecret != null) {
-                String credentials = Base64.getEncoder().encodeToString(
-                    String.format("%s:%s", clientId, clientSecret).getBytes());
-                headers.add("Authorization", "Basic " + credentials);
-            }
-        }
-        else if (accessToken != null) {
+        if (accessToken != null && uri.toString().startsWith(uriPrefix)) {
             headers.add("Authorization", "Bearer " + accessToken);
         }
     }

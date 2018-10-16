@@ -38,8 +38,9 @@ import javax.ws.rs.core.MediaType;
 import org.vx68k.bitbucket.api.Bitbucket;
 import org.vx68k.bitbucket.api.BitbucketAccount;
 import org.vx68k.bitbucket.api.BitbucketRepository;
-import org.vx68k.bitbucket.api.client.internal.ClientAuthenticator;
+import org.vx68k.bitbucket.api.client.internal.BasicAuthenticator;
 import org.vx68k.bitbucket.api.client.internal.JsonMessageBodyReader;
+import org.vx68k.bitbucket.api.client.internal.OAuth2Authenticator;
 
 /**
  * Bitbucket API client.
@@ -74,19 +75,19 @@ public class BitbucketClient implements Bitbucket, Serializable
     private final ClientBuilder clientBuilder;
 
     /**
-     * Authenticator.
+     * OAuth 2.0 authenticator.
      */
-    private final ClientAuthenticator authenticator;
+    private final OAuth2Authenticator authenticator;
+
+    /**
+     * Client authenticator for token requests.
+     */
+    private final BasicAuthenticator clientAuthenticator;
 
     /**
      * Refresh token.
      */
     private String refreshToken = null;
-
-    /**
-     * Access token.
-     */
-    private String accessToken = null;
 
     /**
      * Time when the access token expires.
@@ -99,7 +100,8 @@ public class BitbucketClient implements Bitbucket, Serializable
     public BitbucketClient()
     {
         this.clientBuilder = ClientBuilder.newBuilder();
-        this.authenticator = new ClientAuthenticator();
+        this.authenticator = new OAuth2Authenticator(API_BASE);
+        this.clientAuthenticator = new BasicAuthenticator();
 
         this.clientBuilder.register(JsonMessageBodyReader.class);
         this.clientBuilder.register(authenticator);
@@ -132,7 +134,7 @@ public class BitbucketClient implements Bitbucket, Serializable
      */
     public final void setClientId(final String newValue)
     {
-        authenticator.setClientId(newValue);
+        clientAuthenticator.setUsername(newValue);
     }
 
     /**
@@ -142,7 +144,27 @@ public class BitbucketClient implements Bitbucket, Serializable
      */
     public final void setClientSecret(final String newValue)
     {
-        authenticator.setClientSecret(newValue);
+        clientAuthenticator.setPassword(newValue);
+    }
+
+    /**
+     * Returns the access token.
+     *
+     * @return the access token
+     */
+    public final String getAccessToken()
+    {
+        return authenticator.getAccessToken();
+    }
+
+    /**
+     * Sets the access token.
+     *
+     * @param newValue new value of the access token
+     */
+    public final void setAccessToken(final String newValue)
+    {
+        authenticator.setAccessToken(newValue);
     }
 
     /**
@@ -163,27 +185,6 @@ public class BitbucketClient implements Bitbucket, Serializable
     public final void setRefreshToken(final String newValue)
     {
         refreshToken = newValue;
-    }
-
-    /**
-     * Returns the access token.
-     *
-     * @return the access token
-     */
-    public final String getAccessToken()
-    {
-        return accessToken;
-    }
-
-    /**
-     * Sets the access token.
-     *
-     * @param newValue new value of the access token
-     */
-    public final void setAccessToken(final String newValue)
-    {
-        accessToken = newValue;
-        authenticator.setAccessToken(accessToken);
     }
 
     /**
@@ -219,15 +220,22 @@ public class BitbucketClient implements Bitbucket, Serializable
         form.param("username", username);
         form.param("password", password);
 
-        authenticator.authenticateAsClient(true);
+        Client client = ClientBuilder.newClient()
+            .register(JsonMessageBodyReader.class)
+            .register(clientAuthenticator);
+        try {
+            JsonObject tokens = client.target(TOKEN_ENDPOINT_URI)
+                .request(MediaType.APPLICATION_JSON)
+                .post(Entity.form(form), JsonObject.class);
+            refreshToken = tokens.getString("refresh_token", null);
+            accessTokenExpiry = Instant.now()
+                .plusSeconds(tokens.getJsonNumber("expires_in").longValue());
 
-        JsonObject result = post(TOKEN_ENDPOINT_URI, Entity.form(form));
-        refreshToken = result.getString("refresh_token", null);
-        accessToken = result.getString("access_token");
-        accessTokenExpiry = Instant.now()
-            .plusSeconds(result.getJsonNumber("expires_in").longValue());
-
-        authenticator.setAccessToken(accessToken);
+            authenticator.setAccessToken(tokens.getString("access_token"));
+        }
+        finally {
+            client.close();
+        }
     }
 
     /**
