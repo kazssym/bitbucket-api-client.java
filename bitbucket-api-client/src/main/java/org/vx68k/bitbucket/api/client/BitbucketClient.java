@@ -229,6 +229,15 @@ public class BitbucketClient implements Bitbucket, Serializable
     }
 
     /**
+     * Logs out.
+     */
+    public final void logout()
+    {
+        setRefreshToken(null);
+        setAccessToken(null);
+    }
+
+    /**
      * Gets a JSON object by a link.
      *
      * @param link the URI for a link
