@@ -57,7 +57,7 @@ public final class OAuth2Authenticator implements ClientRequestFilter
     private final String uriPrefix;
 
     /**
-     * URI of the token endpoint.
+     * Token endpoint URI.
      */
     private final URI tokenEndpointUri;
 
@@ -95,6 +95,7 @@ public final class OAuth2Authenticator implements ClientRequestFilter
      * Initializes the object.
      *
      * @param uriPrefix a value of the URI prefix (case-sensitive)
+     * @param tokenEndpointUri a value of the token endpoint URI
      */
     public OAuth2Authenticator(
         final String uriPrefix, final URI tokenEndpointUri)
