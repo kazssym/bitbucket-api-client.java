@@ -27,6 +27,7 @@ import java.time.Instant;
 import java.util.Properties;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
+import javax.ws.rs.ClientErrorException;
 import org.vx68k.bitbucket.api.client.BitbucketClient;
 
 /**
@@ -118,7 +119,12 @@ public final class LoginCommand implements Command
         String username = console.readLine("Username: ");
         String password = String.valueOf(console.readPassword("Password: "));
 
-        bitbucketClient.login(username, password);
+        try {
+            bitbucketClient.login(username, password);
+        }
+        catch (final ClientErrorException exception) {
+            throw new CLIException("Login failed", exception);
+        }
         saveTokens();
     }
 }
