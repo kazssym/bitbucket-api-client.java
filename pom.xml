@@ -208,14 +208,12 @@ implementation for Bitbucket Cloud.</description>
 <plugin>
 <groupId>org.apache.maven.plugins</groupId>
 <artifactId>maven-javadoc-plugin</artifactId>
-
 <reportSets>
-
 <reportSet>
 <reports>
+<!-- No default reports -->
 </reports>
 </reportSet>
-
 <reportSet>
 <id>aggregate</id>
 <reports>
@@ -228,6 +226,9 @@ implementation for Bitbucket Cloud.</description>
 </configuration>
 </reportSet>
 </reportSets>
+<configuration>
+<notimestamp>true</notimestamp>
+</configuration>
 </plugin>
 
 <plugin>
