@@ -265,12 +265,12 @@ public final class OAuth2Authenticator implements ClientRequestFilter
     }
 
     /**
-     * Manages the access token by refreshing when necessary.
+     * Refreshes the access token.
      */
-    private void manageAccessToken()
+    protected void refreshAccessToken()
     {
-        if (refreshToken != null
-            && accessTokenExpiryForTest.isBefore(Instant.now())) {
+        // Do it only if we have a refresh token.
+        if (refreshToken != null) {
             Form form = new Form("grant_type", "refresh_token");
             form.param("refresh_token", refreshToken);
 
@@ -288,7 +288,11 @@ public final class OAuth2Authenticator implements ClientRequestFilter
         URI uri = requestContext.getUri();
 
         if (accessToken != null && uri.toString().startsWith(uriPrefix)) {
-            manageAccessToken();
+            // Refresh the access token if necessary.
+            if (accessTokenExpiryForTest.isBefore(Instant.now())) {
+                refreshAccessToken();
+            }
+
             headers.add("Authorization", "Bearer " + accessToken);
         }
     }
