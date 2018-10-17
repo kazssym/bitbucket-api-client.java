@@ -284,12 +284,11 @@ public final class OAuth2Authenticator implements ClientRequestFilter
     public void filter(final ClientRequestContext requestContext)
         throws IOException
     {
-        manageAccessToken();
-
         MultivaluedMap<String, Object> headers = requestContext.getHeaders();
         URI uri = requestContext.getUri();
 
         if (accessToken != null && uri.toString().startsWith(uriPrefix)) {
+            manageAccessToken();
             headers.add("Authorization", "Bearer " + accessToken);
         }
     }
