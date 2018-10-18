@@ -293,6 +293,13 @@ public final class OAuth2Authenticator implements ClientRequestFilter
         }
     }
 
+    /**
+     * Adds an {@code Authorization} HTTP header to a request when
+     * authentication is required.
+     * The header shall be added only if the request URI is below the base URI.
+     *
+     * @param requestContext a request context
+     */
     @Override
     public void filter(final ClientRequestContext requestContext)
         throws IOException
