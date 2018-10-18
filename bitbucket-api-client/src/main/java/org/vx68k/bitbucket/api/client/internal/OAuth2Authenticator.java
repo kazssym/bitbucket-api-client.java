@@ -39,9 +39,12 @@ import org.vx68k.bitbucket.api.client.TokenRefreshEvent;
 import org.vx68k.bitbucket.api.client.TokenRefreshListener;
 
 /**
- * OAuth 2.0 authenticator.
+ * OAuth 2.0 authentication filter for the JAX-RS Client API.
+ * This class supports Authorization Code Grants and Resource Owner Password
+ * Credentials Grants.
  *
  * @author Kaz Nishimura
+ * @see <a href="https://tools.ietf.org/html/rfc6749">RFC 6749</a>
  * @since 5.0
  */
 public final class OAuth2Authenticator implements ClientRequestFilter
