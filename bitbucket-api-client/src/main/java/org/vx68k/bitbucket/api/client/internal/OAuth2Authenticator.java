@@ -238,7 +238,7 @@ public final class OAuth2Authenticator implements ClientRequestFilter
      *
      * @param formEntity a form entity
      */
-    public void requestToken(final Entity formEntity)
+    public void requestAccessToken(final Entity formEntity)
     {
         Client client = ClientBuilder.newClient();
         try {
@@ -274,7 +274,7 @@ public final class OAuth2Authenticator implements ClientRequestFilter
             Form form = new Form("grant_type", "refresh_token");
             form.param("refresh_token", refreshToken);
 
-            requestToken(Entity.form(form));
+            requestAccessToken(Entity.form(form));
 
             fireTokenRefreshed();
         }

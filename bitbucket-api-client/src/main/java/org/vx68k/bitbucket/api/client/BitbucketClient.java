@@ -57,9 +57,15 @@ public class BitbucketClient implements Bitbucket, Serializable
     public static final String API_BASE = "https://api.bitbucket.org/2.0/";
 
     /**
-     * URI of the token endpoint.
+     * Authorization endpoint URI.
      */
-    private static final URI TOKEN_ENDPOINT_URI =
+    public static final URI AUTHORIZATION_ENDPOINT_URI =
+        URI.create("https://bitbucket.org/site/oauth2/authorize");
+
+    /**
+     * Token endpoint URI.
+     */
+    public static final URI TOKEN_ENDPOINT_URI =
         URI.create("https://bitbucket.org/site/oauth2/access_token");
 
     /**
@@ -214,6 +220,24 @@ public class BitbucketClient implements Bitbucket, Serializable
     }
 
     /**
+     * Logs in with an authorization code.
+     *
+     * @param code an authorization code
+     * @param redirectionUri a redirection URI
+     */
+    public final void loginWithAuthorizationCode(
+        final String code, final URI redirectionUri)
+    {
+        Form form = new Form("grant_type", "authorization_code");
+        form.param("code", code);
+        if (redirectionUri != null) {
+            form.param("redirect_uri", redirectionUri.toString());
+        }
+
+        authenticator.requestAccessToken(Entity.form(form));
+    }
+
+    /**
      * Logs in with resource owner password credentials.
      *
      * @param username a username
@@ -225,7 +249,7 @@ public class BitbucketClient implements Bitbucket, Serializable
         form.param("username", username);
         form.param("password", password);
 
-        authenticator.requestToken(Entity.form(form));
+        authenticator.requestAccessToken(Entity.form(form));
     }
 
     /**
@@ -233,8 +257,9 @@ public class BitbucketClient implements Bitbucket, Serializable
      */
     public final void logout()
     {
-        setRefreshToken(null);
-        setAccessToken(null);
+        authenticator.setRefreshToken(null);
+        authenticator.setAccessToken(null);
+        authenticator.setAccessTokenExpiry(null);
     }
 
     /**
