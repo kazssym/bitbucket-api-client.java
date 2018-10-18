@@ -54,7 +54,8 @@ public class BitbucketClient implements Bitbucket, Serializable
     /**
      * Base URI of the Bitbucket API.
      */
-    public static final String API_BASE = "https://api.bitbucket.org/2.0/";
+    protected static final URI API_BASE_URI =
+        URI.create("https://api.bitbucket.org/2.0/");
 
     /**
      * Authorization endpoint URI.
@@ -91,7 +92,7 @@ public class BitbucketClient implements Bitbucket, Serializable
     {
         this.clientBuilder = ClientBuilder.newBuilder();
         this.authenticator =
-            new OAuth2Authenticator(API_BASE, TOKEN_ENDPOINT_URI);
+            new OAuth2Authenticator(API_BASE_URI.toString(), TOKEN_ENDPOINT_URI);
 
         this.clientBuilder.register(JsonMessageBodyReader.class);
         this.clientBuilder.register(authenticator);
@@ -331,7 +332,7 @@ public class BitbucketClient implements Bitbucket, Serializable
     {
         Client client = clientBuilder.build();
         try {
-            WebTarget target = client.target(API_BASE).path(path);
+            WebTarget target = client.target(API_BASE_URI).path(path);
             if (values != null) {
                 target = target.resolveTemplates(values);
             }

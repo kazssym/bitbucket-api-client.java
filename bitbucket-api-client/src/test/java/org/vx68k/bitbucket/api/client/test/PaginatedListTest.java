@@ -40,33 +40,33 @@ public class PaginatedListTest
     /**
      * Test resource.
      */
-    private static final URI TEST_RESOURCE  = URI.create(
-        BitbucketClient.API_BASE
-        + "repositories/vx68k/bitbucket-api-client-java/issues");
+    private static final URI TEST_URI =
+        URI.create("https://api.bitbucket.org/2.0/"
+            + "repositories/vx68k/bitbucket-api-client-java/issues");
 
     /**
-     * Tests {@link PaginatedList#get(int) get}.
+     * Tests {@link PaginatedList#get(int)}.
      */
     @Test
     public void testGet()
     {
         BitbucketClient client = BitbucketClient.getDefaultInstance();
         List<BitbucketIssue> issues = new PaginatedList<>(
-            TEST_RESOURCE, client, BitbucketClientIssue.creator(client));
+            TEST_URI, client, BitbucketClientIssue.creator(client));
 
         BitbucketIssue issue = issues.get(0);
         assertTrue(issue instanceof BitbucketClientIssue);
     }
 
     /**
-     * Tests {@link PaginatedList#size() size}.
+     * Tests {@link PaginatedList#size()}.
      */
     @Test
     public void testSize()
     {
         BitbucketClient client = BitbucketClient.getDefaultInstance();
         List<BitbucketIssue> issues = new PaginatedList<>(
-            TEST_RESOURCE, client, BitbucketClientIssue.creator(client));
+            TEST_URI, client, BitbucketClientIssue.creator(client));
 
         assertTrue(issues.size() >= 0);
     }
