@@ -52,9 +52,9 @@ public final class OAuth2Authenticator implements ClientRequestFilter
     private static final Duration EXPIRY_MARGIN = Duration.ofSeconds(60);
 
     /**
-     * URI prefix to which authenticated requests shall be sent.
+     * Base URI to which authenticated requests shall be sent.
      */
-    private final String uriPrefix;
+    private final URI baseUri;
 
     /**
      * Token endpoint URI.
@@ -94,19 +94,29 @@ public final class OAuth2Authenticator implements ClientRequestFilter
     /**
      * Initializes the object.
      *
-     * @param uriPrefix a value of the URI prefix (case-sensitive)
-     * @param tokenEndpointUri a value of the token endpoint URI
+     * @param baseUri a base URI
+     * @param tokenEndpointUri a token endpoint URI
      */
-    public OAuth2Authenticator(
-        final String uriPrefix, final URI tokenEndpointUri)
+    public OAuth2Authenticator(final URI baseUri, final URI tokenEndpointUri)
     {
-        this.uriPrefix = uriPrefix;
+        this.baseUri = baseUri;
         this.tokenEndpointUri = tokenEndpointUri;
         this.clientAuthenticator = new BasicAuthenticator();
         this.tokenRefreshListeners = new LinkedHashSet<>();
 
-        if (uriPrefix == null) {
-            throw new IllegalArgumentException("URI prefix must not be null");
+        if (baseUri == null) {
+            throw new IllegalArgumentException("Base URI must not be null");
+        }
+        else if (!baseUri.isAbsolute()) {
+            throw new IllegalArgumentException("Base URI must be absolute");
+        }
+        if (tokenEndpointUri == null) {
+            throw new IllegalArgumentException(
+                "Token endpoint URI must not be null");
+        }
+        else if (!tokenEndpointUri.isAbsolute()) {
+            throw new IllegalArgumentException(
+                "Token endpoint URI must be absolute");
         }
     }
 
@@ -287,7 +297,7 @@ public final class OAuth2Authenticator implements ClientRequestFilter
         MultivaluedMap<String, Object> headers = requestContext.getHeaders();
         URI uri = requestContext.getUri();
 
-        if (accessToken != null && uri.toString().startsWith(uriPrefix)) {
+        if (accessToken != null && !uri.equals(baseUri.relativize(uri))) {
             // Refresh the access token if necessary.
             if (accessTokenExpiryForTest.isBefore(Instant.now())) {
                 refreshAccessToken();

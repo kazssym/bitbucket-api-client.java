@@ -92,7 +92,7 @@ public class BitbucketClient implements Bitbucket, Serializable
     {
         this.clientBuilder = ClientBuilder.newBuilder();
         this.authenticator =
-            new OAuth2Authenticator(API_BASE_URI.toString(), TOKEN_ENDPOINT_URI);
+            new OAuth2Authenticator(API_BASE_URI, TOKEN_ENDPOINT_URI);
 
         this.clientBuilder.register(JsonMessageBodyReader.class);
         this.clientBuilder.register(authenticator);
