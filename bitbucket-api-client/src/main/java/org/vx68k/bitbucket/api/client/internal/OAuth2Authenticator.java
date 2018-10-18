@@ -20,7 +20,6 @@
 
 package org.vx68k.bitbucket.api.client.internal;
 
-import java.io.IOException;
 import java.net.URI;
 import java.time.Duration;
 import java.time.Instant;
@@ -302,7 +301,6 @@ public final class OAuth2Authenticator implements ClientRequestFilter
      */
     @Override
     public void filter(final ClientRequestContext requestContext)
-        throws IOException
     {
         MultivaluedMap<String, Object> headers = requestContext.getHeaders();
         URI uri = requestContext.getUri();
