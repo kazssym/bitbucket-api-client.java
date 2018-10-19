@@ -306,8 +306,10 @@ public final class OAuth2Authenticator implements ClientRequestFilter
 
         if (accessToken != null && !uri.equals(baseUri.relativize(uri))) {
             // Refresh the access token if necessary.
-            if (accessTokenExpiryForTest.isBefore(Instant.now())) {
-                refreshAccessToken();
+            synchronized (this) {
+                if (accessTokenExpiryForTest.isBefore(Instant.now())) {
+                    refreshAccessToken();
+                }
             }
 
             headers.add("Authorization", "Bearer " + accessToken);
