@@ -41,7 +41,7 @@ public final class LogoutCommand extends AbstractCommand
     }
 
     @Override
-    public void run(String name, String[] args)
+    public void run(final String commandName, final String[] args)
     {
         BitbucketClient bitbucketClient = getBitbucketClient();
         bitbucketClient.logout();
