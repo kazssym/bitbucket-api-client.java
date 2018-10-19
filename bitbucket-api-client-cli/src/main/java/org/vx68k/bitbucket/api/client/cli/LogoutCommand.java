@@ -30,6 +30,11 @@ import org.vx68k.bitbucket.api.client.BitbucketClient;
  */
 public final class LogoutCommand extends AbstractCommand
 {
+    /**
+     * Initializes the object.
+     *
+     * @param bitbucketClient a Bitbucket API client
+     */
     public LogoutCommand(final BitbucketClient bitbucketClient)
     {
         super(bitbucketClient);
