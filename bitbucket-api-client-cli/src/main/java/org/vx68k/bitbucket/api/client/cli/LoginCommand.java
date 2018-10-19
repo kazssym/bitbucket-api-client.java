@@ -23,10 +23,7 @@ package org.vx68k.bitbucket.api.client.cli;
 import java.io.Console;
 import java.io.IOException;
 import java.io.InputStream;
-import java.time.Instant;
 import java.util.Properties;
-import java.util.prefs.BackingStoreException;
-import java.util.prefs.Preferences;
 import javax.ws.rs.ClientErrorException;
 import org.vx68k.bitbucket.api.client.BitbucketClient;
 import org.vx68k.bitbucket.api.client.TokenRefreshEvent;
@@ -55,7 +52,7 @@ public final class LoginCommand extends AbstractCommand
         super(bitbucketClient);
 
         loadClientCredentials();
-        restoreTokens();
+        CLIUtilities.restoreTokens(bitbucketClient);
         bitbucketClient.addTokenRefreshListener(this);
     }
 
@@ -81,45 +78,6 @@ public final class LoginCommand extends AbstractCommand
         bitbucketClient.setClientSecret(clientSecret);
     }
 
-    /**
-     * Restores tokens.
-     */
-    protected void restoreTokens()
-    {
-        BitbucketClient bitbucketClient = getBitbucketClient();
-
-        Preferences prefs = Preferences.userNodeForPackage(getClass());
-        bitbucketClient.setRefreshToken(prefs.get("refreshToken", null));
-        bitbucketClient.setAccessToken(prefs.get("accessToken", null));
-
-        Instant expiry = Instant.parse(
-            prefs.get("accessTokenExpiry", Instant.now().toString()));
-        bitbucketClient.setAccessTokenExpiry(expiry);
-    }
-
-    /**
-     * Saves tokens for later invocations.
-     */
-    protected void saveTokens()
-    {
-        BitbucketClient bitbucketClient = getBitbucketClient();
-
-        Preferences prefs = Preferences.userNodeForPackage(getClass());
-        prefs.put("refreshToken", bitbucketClient.getRefreshToken());
-        prefs.put("accessToken", bitbucketClient.getAccessToken());
-
-        Instant expiry = bitbucketClient.getAccessTokenExpiry();
-        prefs.put("accessTokenExpiry", expiry.toString());
-
-        try {
-            prefs.flush();
-        }
-        catch (final BackingStoreException exception) {
-            // @todo What else can we do?
-            System.err.format("Failed to save tokens: %s\n", exception);
-        }
-    }
-
     @Override
     public void run(final String commandName, final String[] args)
     {
@@ -131,18 +89,19 @@ public final class LoginCommand extends AbstractCommand
         String username = console.readLine("Username: ");
         String password = String.valueOf(console.readPassword("Password: "));
 
+        BitbucketClient bitbucketClient = getBitbucketClient();
         try {
-            getBitbucketClient().login(username, password);
+            bitbucketClient.login(username, password);
         }
         catch (final ClientErrorException exception) {
             throw new CLIException("Login failed", exception);
         }
-        saveTokens();
+        CLIUtilities.saveTokens(bitbucketClient);
     }
 
     @Override
     public void tokenRefreshed(final TokenRefreshEvent event)
     {
-        saveTokens();
+        CLIUtilities.saveTokens(getBitbucketClient());
     }
 }
