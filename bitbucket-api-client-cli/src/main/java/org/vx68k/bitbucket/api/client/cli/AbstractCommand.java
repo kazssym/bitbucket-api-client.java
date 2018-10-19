@@ -1,5 +1,5 @@
 /*
- * CommandGroup.java
+ * AbstractCommand.java
  * Copyright (C) 2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -20,60 +20,38 @@
 
 package org.vx68k.bitbucket.api.client.cli;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 import org.vx68k.bitbucket.api.client.BitbucketClient;
 
 /**
- * Group of commands.
+ * Abstract super-object for commands.
  *
  * @author Kaz Nishimura
  * @since 5.0
  */
-public class CommandGroup extends AbstractCommand
+public abstract class AbstractCommand implements Command
 {
     /**
-     * Name-to-command map.
+     * Bitbucket API client.
      */
-    private final Map<String, Command> commandMap;
+    private final BitbucketClient bitbucketClient;
 
     /**
      * Constructs the object.
      *
      * @param bitbucketClient a Bitbucket API client
      */
-    public CommandGroup(final BitbucketClient bitbucketClient)
+    protected AbstractCommand(final BitbucketClient bitbucketClient)
     {
-        super(bitbucketClient);
-        commandMap = new HashMap<>();
+        this.bitbucketClient = bitbucketClient;
     }
 
     /**
-     * Add a command.
+     * Returns the Bitbucket API client.
      *
-     * @param name command name
-     * @param command command
-     * @return the modified object
+     * @return the Bitbucket API client
      */
-    public final CommandGroup add(final String name, final Command command)
+    public final BitbucketClient getBitbucketClient()
     {
-        commandMap.put(name, command);
-        return this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final void run(final String commandName, final String[] args)
-    {
-        if (args.length == 0) {
-            System.err.printf("%s: Missing subcommand\n", commandName);
-        }
-        else if (commandMap.containsKey(args[0])) {
-            Command command = commandMap.get(args[0]);
-            command.run(args[0], Arrays.copyOfRange(args, 1, args.length));
-        }
+        return bitbucketClient;
     }
 }

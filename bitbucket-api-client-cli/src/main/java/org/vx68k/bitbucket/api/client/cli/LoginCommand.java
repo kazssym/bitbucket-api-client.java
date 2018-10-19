@@ -37,17 +37,13 @@ import org.vx68k.bitbucket.api.client.TokenRefreshListener;
  *
  * @author Kaz Nishimura
  */
-public final class LoginCommand implements Command, TokenRefreshListener
+public final class LoginCommand extends AbstractCommand
+    implements TokenRefreshListener
 {
     /**
      * Relative path to the properties file.
      */
     private static final String PROPERTIES = "resources/client.properties";
-
-    /**
-     * Bitbucket API client.
-     */
-    private final BitbucketClient bitbucketClient;
 
     /**
      * Initializes the object.
@@ -56,7 +52,7 @@ public final class LoginCommand implements Command, TokenRefreshListener
      */
     public LoginCommand(final BitbucketClient bitbucketClient)
     {
-        this.bitbucketClient = bitbucketClient;
+        super(bitbucketClient);
 
         Properties properties = new Properties();
         try (InputStream s = getClass().getResourceAsStream(PROPERTIES)) {
@@ -81,6 +77,8 @@ public final class LoginCommand implements Command, TokenRefreshListener
      */
     protected void restoreTokens()
     {
+        BitbucketClient bitbucketClient = getBitbucketClient();
+
         Preferences prefs = Preferences.userNodeForPackage(getClass());
         bitbucketClient.setRefreshToken(prefs.get("refreshToken", null));
         bitbucketClient.setAccessToken(prefs.get("accessToken", null));
@@ -95,6 +93,8 @@ public final class LoginCommand implements Command, TokenRefreshListener
      */
     protected void saveTokens()
     {
+        BitbucketClient bitbucketClient = getBitbucketClient();
+
         Preferences prefs = Preferences.userNodeForPackage(getClass());
         prefs.put("refreshToken", bitbucketClient.getRefreshToken());
         prefs.put("accessToken", bitbucketClient.getAccessToken());
@@ -123,7 +123,7 @@ public final class LoginCommand implements Command, TokenRefreshListener
         String password = String.valueOf(console.readPassword("Password: "));
 
         try {
-            bitbucketClient.login(username, password);
+            getBitbucketClient().login(username, password);
         }
         catch (final ClientErrorException exception) {
             throw new CLIException("Login failed", exception);
