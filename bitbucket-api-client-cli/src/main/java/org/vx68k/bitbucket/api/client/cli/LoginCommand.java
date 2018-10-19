@@ -54,6 +54,18 @@ public final class LoginCommand extends AbstractCommand
     {
         super(bitbucketClient);
 
+        loadClientCredentials();
+        restoreTokens();
+        bitbucketClient.addTokenRefreshListener(this);
+    }
+
+    /**
+     * Loads the client credentials from a properties file.
+     */
+    private void loadClientCredentials()
+    {
+        BitbucketClient bitbucketClient = getBitbucketClient();
+
         Properties properties = new Properties();
         try (InputStream s = getClass().getResourceAsStream(PROPERTIES)) {
             properties.load(s);
@@ -67,9 +79,6 @@ public final class LoginCommand extends AbstractCommand
         String clientSecret = properties.getProperty("oauth.clientSecret");
         bitbucketClient.setClientId(clientId);
         bitbucketClient.setClientSecret(clientSecret);
-
-        restoreTokens();
-        bitbucketClient.addTokenRefreshListener(this);
     }
 
     /**
