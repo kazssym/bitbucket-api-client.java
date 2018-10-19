@@ -42,6 +42,7 @@ public class CLI extends CommandGroup
         add("user", new UserCommandGroup(getBitbucketClient()));
         add("team", new TeamCommandGroup(getBitbucketClient()));
         add("login", new LoginCommand(getBitbucketClient()));
+        add("logout", new LogoutCommand(getBitbucketClient()));
         // @todo Add more commands.
     }
 
