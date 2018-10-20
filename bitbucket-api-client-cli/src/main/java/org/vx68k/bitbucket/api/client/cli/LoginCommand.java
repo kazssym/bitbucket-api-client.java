@@ -35,7 +35,6 @@ import org.vx68k.bitbucket.api.client.TokenRefreshListener;
  * @author Kaz Nishimura
  */
 public final class LoginCommand extends AbstractCommand
-    implements TokenRefreshListener
 {
     /**
      * Relative path to the properties file.
@@ -53,7 +52,14 @@ public final class LoginCommand extends AbstractCommand
 
         loadClientCredentials();
         CLIUtilities.restoreTokens(bitbucketClient);
-        bitbucketClient.addTokenRefreshListener(this);
+        bitbucketClient.addTokenRefreshListener(new TokenRefreshListener()
+        {
+            @Override
+            public void tokenRefreshed(final TokenRefreshEvent event)
+            {
+                CLIUtilities.saveTokens(bitbucketClient);
+            }
+        });
     }
 
     /**
@@ -97,11 +103,5 @@ public final class LoginCommand extends AbstractCommand
             throw new CLIException("Login failed", exception);
         }
         CLIUtilities.saveTokens(bitbucketClient);
-    }
-
-    @Override
-    public void tokenRefreshed(final TokenRefreshEvent event)
-    {
-        CLIUtilities.saveTokens(getBitbucketClient());
     }
 }
