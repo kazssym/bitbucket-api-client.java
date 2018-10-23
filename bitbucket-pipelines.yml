@@ -40,8 +40,7 @@ pipelines:
             - sh etc/gpginit.sh
             - export MAVEN_OPTS="-Xquickstart"
             - mvn -B -s etc/settings.xml ${OSSRHUSERNAME+-P ossrh} -Dmaven.deploy.skip deploy
-  custom:
-    snapshot:
+    master:
       - step:
           deployment: test
           caches:
@@ -50,7 +49,9 @@ pipelines:
             - export GNUPGHOME=`mktemp -d`
             - sh etc/gpginit.sh
             - export MAVEN_OPTS="-Xquickstart"
-            - mvn -B -s etc/settings.xml ${OSSRHUSERNAME+-P ossrh} -Dmaven.deploy.skip deploy
+            - mvn -B -s etc/settings.xml ${OSSRHUSERNAME+-P ossrh} install
+          artifacts:
+            - target/*
 definitions:
   caches:
     java: /tmp/javasharedresources
