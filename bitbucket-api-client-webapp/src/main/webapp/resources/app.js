@@ -5,7 +5,7 @@
 // permitted in any medium without royalty provided the copyright notice and
 // this notice are preserved.  This file is offered as-is, without any warranty.
 
-"use strict";
+// This file is a module script.
 
 (() => {
     const MENU_CLASS_NAME = "pure-menu-allow-hover";
