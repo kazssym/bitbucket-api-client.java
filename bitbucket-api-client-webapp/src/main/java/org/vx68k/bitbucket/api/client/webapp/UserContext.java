@@ -86,13 +86,6 @@ public class UserContext implements Serializable
         "https://bitbucket.org/site/oauth2/authorize";
 
     /**
-     * OAuth token endpoint URI for the Bitbucket API.
-     * This constant would be in {@link BitbucketClient}.
-     */
-    private static final String BITBUCKET_TOKEN_ENDPOINT =
-        "https://bitbucket.org/site/oauth2/access_token";
-
-    /**
      * Prefix for property keys.
      */
     private static final String PROPERTY_PREFIX = "org.vx68k.bitbucket.";
