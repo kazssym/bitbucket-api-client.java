@@ -122,6 +122,16 @@ public final class OAuth2Authenticator implements ClientRequestFilter
     }
 
     /**
+     * Returns the client identifier.
+     *
+     * @return the client identifier
+     */
+    public String getClientId()
+    {
+        return clientAuthenticator.getUsername();
+    }
+
+    /**
      * Sets the client identifier.
      *
      * @param newValue a new value of the client identifier
