@@ -115,7 +115,7 @@ public class OAuthFilter implements Filter, Serializable
         String code = request.getParameter("code");
         if (code != null) {
             servletContext.log("code = " + code);
-            userContext.continueLogin(code, state);
+            userContext.login(code, state);
         }
         else {
             String error = request.getParameter("error");
@@ -123,7 +123,7 @@ public class OAuthFilter implements Filter, Serializable
                 String errorDescription =
                     request.getParameter("error_description");
                 servletContext.log("error = " + error);
-                userContext.abortLogin(errorDescription, state);
+                userContext.abort(errorDescription, state);
             }
         }
         chain.doFilter(request, response);

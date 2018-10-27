@@ -290,14 +290,15 @@ public class UserContext implements Serializable
     }
 
     /**
-     * Continues the current authorization flow to complete.
+     * Continues the current authorization flow to login.
      *
-     * @param code the authorization code
-     * @param state the state of the client
+     * @param code an authorization code
+     * @param state an opaque state string
      */
-    public void continueLogin(final String code, final String state)
+    public void login(final String code, final String state)
     {
         if (redirectionURI != null) {
+            // @todo Check {@code state}.
             bitbucketClient.loginWithAuthorizationCode(
                 code, URI.create(redirectionURI));
             redirectionURI = null;
@@ -307,12 +308,15 @@ public class UserContext implements Serializable
     /**
      * Aborts the current authorization flow.
      *
-     * @param errorDescription the error description
-     * @param state the state of the client
+     * @param errorDescription an error description
+     * @param state an opaque state string
      */
-    public void abortLogin(final String errorDescription, final String state)
+    public void abort(final String errorDescription, final String state)
     {
-        redirectionURI = null;
+        if (redirectionURI != null) {
+            // @todo Check {@code state}.
+            redirectionURI = null;
+        }
     }
 
     /**
