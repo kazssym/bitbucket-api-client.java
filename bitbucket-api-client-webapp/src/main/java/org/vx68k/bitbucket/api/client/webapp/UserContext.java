@@ -312,7 +312,7 @@ public class UserContext implements Serializable
      */
     public void abortLogin(final String errorDescription, final String state)
     {
-        // @todo Reset the authorization flow.
+        redirectionURI = null;
     }
 
     /**
