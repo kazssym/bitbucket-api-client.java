@@ -119,6 +119,16 @@ public class BitbucketClient implements Bitbucket, Serializable
     }
 
     /**
+     * Returns the client identifier for OAuth.
+     *
+     * @return the client identifier
+     */
+    public final String getClientId()
+    {
+        return authenticator.getClientId();
+    }
+
+    /**
      * Sets the client identifier for OAuth.
      *
      * @param newValue a new value of the client identifier
