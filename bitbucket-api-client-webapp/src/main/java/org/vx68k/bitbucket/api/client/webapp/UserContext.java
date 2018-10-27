@@ -79,13 +79,6 @@ public class UserContext implements Serializable
     private static final int HTTPS_PORT = 443;
 
     /**
-     * OAuth authorization endpoint URI for the Bitbucket API.
-     * This constant would be in {@link BitbucketClient}.
-     */
-    private static final String BITBUCKET_AUTHORIZATION_ENDPOINT =
-        "https://bitbucket.org/site/oauth2/authorize";
-
-    /**
      * Prefix for property keys.
      */
     private static final String PROPERTY_PREFIX = "org.vx68k.bitbucket.";
@@ -258,7 +251,7 @@ public class UserContext implements Serializable
         parameters.put("redirect_uri", singletonList(redirectionURI));
 
         String authorizationURI = externalContext.encodeRedirectURL(
-            BITBUCKET_AUTHORIZATION_ENDPOINT, parameters);
+            BitbucketClient.AUTHORIZATION_ENDPOINT_URI.toString(), parameters);
         externalContext.log("Redirecting to " + authorizationURI);
         try {
             externalContext.redirect(authorizationURI);
