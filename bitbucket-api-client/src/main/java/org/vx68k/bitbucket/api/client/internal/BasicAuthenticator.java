@@ -52,6 +52,16 @@ public final class BasicAuthenticator implements ClientRequestFilter
     }
 
     /**
+     * Returns the username.
+     *
+     * @return the username
+     */
+    public String getUsername()
+    {
+        return username;
+    }
+
+    /**
      * Sets the username.
      *
      * @param newValue a new value of the username
