@@ -115,17 +115,6 @@ public class UserContext implements Serializable
     private final BitbucketClient bitbucketClient;
 
     /**
-     * OAuth client identifier for the Bitbucket API.
-     */
-    private String bitbucketClientId = System.getProperty(BITBUCKET_CLIENT_ID);
-
-    /**
-     * OAuth client secret for the Bitbucket API.
-     */
-    private String bitbucketClientSecret = System.getProperty(
-        BITBUCKET_CLIENT_SECRET);
-
-    /**
      * {@link BitbucketUser} object for the current user, or {@code null} if
      * not logged in.
      */
@@ -141,7 +130,12 @@ public class UserContext implements Serializable
      */
     public UserContext()
     {
-        bitbucketClient = new BitbucketClient();
+        this.bitbucketClient = new BitbucketClient();
+
+        bitbucketClient.setClientId(
+            System.getProperty(BITBUCKET_CLIENT_ID));
+        bitbucketClient.setClientSecret(
+            System.getProperty(BITBUCKET_CLIENT_SECRET));
     }
 
     /**
@@ -163,7 +157,7 @@ public class UserContext implements Serializable
      */
     public String getBitbucketClientId()
     {
-        return bitbucketClientId;
+        return bitbucketClient.getClientId();
     }
 
     /**
@@ -176,18 +170,7 @@ public class UserContext implements Serializable
         description = "OAuth client identifier for the Bitbucket API.")
     public void setBitbucketClientId(final String value)
     {
-        bitbucketClientId = value;
-    }
-
-    /**
-     * Returns the OAuth client secret for the Bitbucket API.
-     * The return value may be {@code null} if not configured.
-     *
-     * @return the OAuth client secret for the Bitbucket API, or {@code null}
-     */
-    public String getBitbucketClientSecret()
-    {
-        return bitbucketClientSecret;
+        bitbucketClient.setClientId(value);
     }
 
     /**
@@ -200,7 +183,7 @@ public class UserContext implements Serializable
         description = "OAuth client secret for the Bitbucket API.")
     public void setBitbucketClientSecret(final String value)
     {
-        bitbucketClientSecret = value;
+        bitbucketClient.setClientSecret(value);
     }
 
     /**
@@ -220,7 +203,7 @@ public class UserContext implements Serializable
      */
     public boolean isLoggedIn()
     {
-        return loggedInUser != null;
+        return bitbucketClient.getAccessToken() != null;
     }
 
     /**
@@ -314,7 +297,11 @@ public class UserContext implements Serializable
      */
     public void continueLogin(final String code, final String state)
     {
-        // @todo Request the token.
+        if (redirectionURI != null) {
+            bitbucketClient.loginWithAuthorizationCode(
+                code, URI.create(redirectionURI));
+            redirectionURI = null;
+        }
     }
 
     /**
@@ -336,8 +323,6 @@ public class UserContext implements Serializable
     {
         int value = getClass().hashCode();
         value ^= Objects.hashCode(bitbucketClient);
-        value ^= Objects.hashCode(bitbucketClientId);
-        value ^= Objects.hashCode(bitbucketClientSecret);
         value ^= Objects.hashCode(loggedInUser);
         return value;
     }
@@ -355,13 +340,6 @@ public class UserContext implements Serializable
 
             UserContext other = (UserContext) object;
             if (!Objects.equals(bitbucketClient, other.bitbucketClient)) {
-                return false;
-            }
-            if (!Objects.equals(bitbucketClientId, other.bitbucketClientId)) {
-                return false;
-            }
-            if (!Objects.equals(
-                bitbucketClientSecret, other.bitbucketClientSecret)) {
                 return false;
             }
             if (!Objects.equals(loggedInUser, other.loggedInUser)) {
