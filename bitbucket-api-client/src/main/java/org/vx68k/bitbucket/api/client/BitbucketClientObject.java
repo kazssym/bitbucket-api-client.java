@@ -146,11 +146,11 @@ public class BitbucketClientObject
      * {@inheritDoc}
      */
     @Override
-    public int hashCode()
+    public final int hashCode()
     {
+        final int k = 257;
         int value = getClass().hashCode();
-        value ^= Objects.hashCode(jsonObject);
-        value ^= Objects.hashCode(bitbucketClient);
+        value = k * value + Objects.hashCode(jsonObject);
         return value;
     }
 
