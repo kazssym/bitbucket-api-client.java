@@ -38,11 +38,9 @@
     }
 })();
 
-(() => {
-    window.doAjaxError = function (error) {
-        window.console.info(error.description);
-        window.alert(
-            "An unexpected error occurred and this page must be reloaded.");
-        window.location.reload();
-    };
-})();
+window.doAjaxError = function (error) {
+    window.console.info(error.description);
+    window.alert(
+        "An unexpected error occurred and this page must be reloaded.");
+    window.location.reload();
+};
