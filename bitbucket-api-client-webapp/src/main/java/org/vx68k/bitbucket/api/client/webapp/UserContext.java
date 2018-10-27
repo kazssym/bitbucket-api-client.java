@@ -321,9 +321,9 @@ public class UserContext implements Serializable
     @Override
     public int hashCode()
     {
+        final int k = 257;
         int value = getClass().hashCode();
-        value ^= Objects.hashCode(bitbucketClient);
-        value ^= Objects.hashCode(loggedInUser);
+        value = k * value + Objects.hashCode(bitbucketClient);
         return value;
     }
 
