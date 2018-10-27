@@ -15,34 +15,6 @@ html
 body
 {
     height: 100%;
-    color: #333333;
-    background: #FFFFFF;
-}
-
-.pure-menu-children
-{
-    background-color: #F7F7F7;
-}
-
-.app-header
-{
-    background: #EEEEEE;
-}
-
-.app-message-fatal,
-.app-message-error
-{
-    color: #FF3300;
-}
-
-.app-message-warn
-{
-    color: #FF6600;
-}
-
-.app-message-info
-{
-    color: inherit;
 }
 
 .app-align-right
@@ -83,4 +55,5 @@ body
 .app-content
 {
     margin: 8px 8px;
+    overflow: auto;
 }
