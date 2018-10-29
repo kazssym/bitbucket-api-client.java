@@ -39,7 +39,7 @@ import javax.servlet.annotation.WebFilter;
  * @since 5.0
  */
 @WebFilter(urlPatterns = {"/*"})
-public class OAuthLoginFilter implements Filter, Serializable
+public final class OAuthLoginFilter implements Filter, Serializable
 {
     private static final long serialVersionUID = 1L;
 
@@ -69,7 +69,7 @@ public class OAuthLoginFilter implements Filter, Serializable
      *
      * @return the {@link FilterConfig} object given to {@link #init init}
      */
-    public final FilterConfig getFilterConfig()
+    public FilterConfig getFilterConfig()
     {
         return filterConfig;
     }
@@ -79,7 +79,7 @@ public class OAuthLoginFilter implements Filter, Serializable
      *
      * @return the servlet context
      */
-    public final ServletContext getServletContext()
+    public ServletContext getServletContext()
     {
         return filterConfig.getServletContext();
     }
@@ -88,7 +88,7 @@ public class OAuthLoginFilter implements Filter, Serializable
      * {@inheritDoc}
      */
     @Override
-    public void init(final FilterConfig config) throws ServletException
+    public void init(final FilterConfig config)
     {
         filterConfig = config;
     }
