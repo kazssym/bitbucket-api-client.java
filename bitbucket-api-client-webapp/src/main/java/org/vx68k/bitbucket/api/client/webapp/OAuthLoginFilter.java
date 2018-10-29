@@ -1,5 +1,5 @@
 /*
- * OAuthFilter.java - class OAuthFilter
+ * OAuthLoginFilter.java
  * Copyright (C) 2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -39,7 +39,7 @@ import javax.servlet.annotation.WebFilter;
  * @since 5.0
  */
 @WebFilter(urlPatterns = {"/*"})
-public class OAuthFilter implements Filter, Serializable
+public class OAuthLoginFilter implements Filter, Serializable
 {
     private static final long serialVersionUID = 1L;
 
@@ -59,7 +59,7 @@ public class OAuthFilter implements Filter, Serializable
      * @param context user context
      */
     @Inject
-    public OAuthFilter(final UserContext context)
+    public OAuthLoginFilter(final UserContext context)
     {
         userContext = context;
     }
