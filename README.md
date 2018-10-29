@@ -1,4 +1,4 @@
-This file documents the Java Client API for Bitbucket Cloud project.
+This file documents the *Java Client API for Bitbucket Cloud* project.
 
 # Introduction
 
@@ -30,11 +30,9 @@ The parent Maven project contains the following modules:
   * bitbucket-api-client-webapp – example web application that uses the libraries.
   * bitbucket-stubs – stub library for tests,
 
----
-
 # See also
 
-## Normative references
+## References
 
   - The [Bitbucket API version 2.0].
 
@@ -46,12 +44,20 @@ The parent Maven project contains the following modules:
 
 ## Related projects
 
-  - The [Plugin for Bitbucket Cloud for NetBeans IDE] project.
+  - The [Plugin for Bitbucket Cloud for NetBeans] project.
 
-[Plugin for Bitbucket Cloud for NetBeans IDE]: https://vx68k.bitbucket.io/netbeans-bitbucket-plugin/
+[Plugin for Bitbucket Cloud for NetBeans]: https://vx68k.bitbucket.io/netbeans-bitbucket-plugin/
 
   - The [Eclipse Project for JAX-RS].
   - The [Eclipse Project for JSON Processing].
 
 [Eclipse Project for JAX-RS]: https://projects.eclipse.org/projects/ee4j.jaxrs
 [Eclipse Project for JSON Processing]: https://projects.eclipse.org/projects/ee4j.jsonp
+
+## Other resources
+
+  - The [repository wiki](https://bitbucket.org/vx68k/bitbucket-api-client-java/wiki/).
+
+  - The [Bitbucket API Clients](https://trello.com/b/IqXdEIN5) board at [Trello].
+
+[Trello]: https://trello.com/
