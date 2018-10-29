@@ -51,7 +51,7 @@ pipelines:
             - export MAVEN_OPTS="-Xquickstart"
             - mvn -B -s etc/settings.xml ${OSSRHUSERNAME+-P ossrh} install
           artifacts:
-            - target/*
+            - "**/target/*"
 definitions:
   caches:
     java: /tmp/javasharedresources
