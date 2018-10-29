@@ -22,10 +22,16 @@ body
     text-align: right;
 }
 
+.app-icon
+{
+    line-height: 0;
+    vertical-align: middle;
+}
+
 .app-icon > svg
 {
-    width: 1.25em;
-    height: 1.25em;
+    width: 1.5em;
+    height: 1.5em;
 }
 
 .app-hbox
