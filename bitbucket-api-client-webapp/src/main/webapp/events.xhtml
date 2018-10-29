@@ -26,14 +26,19 @@
 </h:column>
 <h:column>
 <f:facet name="header">Repository</f:facet>
-<a jsf:value="#{record.event.repository.getLink('html').uri}" jsf:rel="external">
+<a jsf:outcome="/repository.xhtml">
+<f:param name="owner" value="#{record.event.repository.owner.name}"/>
+<f:param name="name" value="#{record.event.repository.name}"/>
 #{record.event.repository.fullName}</a>
 </h:column>
 <h:column>
 <f:facet name="header">Actor</f:facet>
-<a jsf:value="#{record.event.actor.getLink('html').uri}" jsf:rel="external">
+<a jsf:outcome="/user.xhtml">
+<f:param name="name" value="#{record.event.actor.name}"/>
 <span title="#{record.event.actor.displayName}">
-@#{record.event.actor.name}</span></a>
+@#{record.event.actor.name}
+</span>
+</a>
 </h:column>
 <h:column>
 <f:facet name="header">Activity</f:facet>
