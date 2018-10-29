@@ -2,6 +2,7 @@
 <!DOCTYPE module SYSTEM "https://checkstyle.org/dtds/configuration_1_3.dtd">
 <module name="Checker">
 <property name="fileExtensions" value="java, properties, xml"/>
+<module name="SuppressWarningsFilter"/>
 <module name="JavadocPackage"/>
 <module name="NewlineAtEndOfFile"/>
 <module name="Translation"/>
@@ -16,6 +17,7 @@
 </module>
 
 <module name="TreeWalker">
+<module name="SuppressWarningsHolder"/>
 <module name="JavadocMethod"/>
 <module name="JavadocType"/>
 <module name="JavadocVariable"/>
