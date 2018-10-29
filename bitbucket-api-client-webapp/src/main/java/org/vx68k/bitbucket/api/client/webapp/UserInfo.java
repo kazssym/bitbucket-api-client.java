@@ -38,6 +38,7 @@ import org.vx68k.bitbucket.api.client.BitbucketClient;
  * @author Kaz Nishimura
  * @since 5.0
  */
+@SuppressWarnings({"designForExtension"})
 @Named
 @RequestScoped
 public class UserInfo implements Serializable

@@ -62,6 +62,7 @@ import org.vx68k.bitbucket.api.client.BitbucketClient;
  * @author Kaz Nishimura
  * @since 5.0
  */
+@SuppressWarnings({"designForExtension"})
 @Named
 @SessionScoped
 public class UserContext implements Serializable

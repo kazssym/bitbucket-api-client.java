@@ -58,6 +58,7 @@ import org.vx68k.bitbucket.webhook.BitbucketEvent;
  * @author Kaz Nishimura
  * @since 5.0
  */
+@SuppressWarnings({"designForExtension"})
 @Path("events")
 @Produces({MediaType.APPLICATION_JSON})
 @Named
