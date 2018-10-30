@@ -21,4 +21,4 @@
 /**
  * Unit test classes.
  */
-package org.vx68k.bitbucket.api.client.test;
+package org.vx68k.bitbucket.api.client;

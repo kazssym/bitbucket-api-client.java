@@ -18,14 +18,13 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-package org.vx68k.bitbucket.api.client.test;
+package org.vx68k.bitbucket.api.client;
 
 import static org.junit.Assert.assertEquals;
 
 import javax.json.Json;
 import javax.json.JsonObjectBuilder;
 import org.junit.Test;
-import org.vx68k.bitbucket.api.client.BitbucketClientBranch;
 
 /**
  * Unit tests for {@link BitbucketClientBranch}.

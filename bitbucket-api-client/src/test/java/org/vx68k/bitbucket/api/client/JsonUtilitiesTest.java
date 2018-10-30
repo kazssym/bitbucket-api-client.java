@@ -18,7 +18,7 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-package org.vx68k.bitbucket.api.client.test;
+package org.vx68k.bitbucket.api.client;
 
 import org.junit.Ignore;
 import org.junit.Test;

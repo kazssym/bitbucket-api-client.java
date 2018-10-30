@@ -18,7 +18,7 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-package org.vx68k.bitbucket.api.client.test;
+package org.vx68k.bitbucket.api.client;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -37,8 +37,6 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.vx68k.bitbucket.api.BitbucketAccount;
 import org.vx68k.bitbucket.api.BitbucketRepository;
-import org.vx68k.bitbucket.api.client.BitbucketClient;
-import org.vx68k.bitbucket.api.client.BitbucketClientAccount;
 
 /**
  * Unit tests for {@link BitbucketClientAccount}.
