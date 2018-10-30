@@ -16,10 +16,14 @@ Client API Example for Bitbucket Cloud
 <f:view>
 <ui:insert name="metadata" />
 
-<form class="pure-menu pure-menu-horizontal app-hbox app-header" jsf:id="header">
-<span class="pure-menu-heading app-hbox-grow">
-Client API Example for Bitbucket Cloud</span>
+<header class="app-header">
+<div class="app-hbox">
+<div class="app-hbox-grow app-content">
+Client API Example for Bitbucket Cloud
+</div>
 
+<div>
+<form class="pure-menu pure-menu-horizontal" jsf:id="header-menu">
 <ul class="pure-menu-list">
 
 <ui:fragment rendered="#{not userContext.loggedIn}">
@@ -46,12 +50,15 @@ Client API Example for Bitbucket Cloud</span>
 </li>
 </ui:fragment>
 <li class="pure-menu-item">
-<a class="pure-menu-link" jsf:value="#{request.contextPath}/help.jsf">
-<span class="app-icon"><ui:include src="/icons/ic_help_24px.svg" /></span>
+<a class="pure-menu-link app-icon" jsf:value="#{request.contextPath}/help.jsf">
+<ui:include src="/icons/ic_help_24px.svg"/>
 </a>
 </li>
 </ul>
 </form>
+</div>
+</div>
+</header>
 
 <div class="app-vbox-grow app-hbox">
 <nav id="nav-menu" class="pure-menu">
