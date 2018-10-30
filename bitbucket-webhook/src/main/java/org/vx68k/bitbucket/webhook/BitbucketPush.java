@@ -26,7 +26,8 @@ import javax.json.JsonArray;
 import javax.json.JsonObject;
 import org.vx68k.bitbucket.api.BitbucketBranch;
 import org.vx68k.bitbucket.api.BitbucketCommit;
-import org.vx68k.bitbucket.api.client.BitbucketClient;
+import org.vx68k.bitbucket.api.client.BitbucketClientBranch;
+import org.vx68k.bitbucket.api.client.BitbucketClientCommit;
 import org.vx68k.bitbucket.api.client.BitbucketClientObject;
 
 /**
@@ -174,7 +175,7 @@ public class BitbucketPush extends BitbucketClientObject
             JsonObject object = getJsonObject();
             BitbucketBranch value = null;
             if (object.containsKey(OLD) && !object.isNull(OLD)) {
-                value = BitbucketClient.createBranch(
+                value = new BitbucketClientBranch(
                     object.getJsonObject(OLD));
             }
             return value;
@@ -190,7 +191,7 @@ public class BitbucketPush extends BitbucketClientObject
             JsonObject object = getJsonObject();
             BitbucketBranch value = null;
             if (object.containsKey(NEW) && !object.isNull(NEW)) {
-                value = BitbucketClient.createBranch(
+                value = new BitbucketClientBranch(
                     object.getJsonObject(NEW));
             }
             return value;
@@ -208,7 +209,7 @@ public class BitbucketPush extends BitbucketClientObject
             List<BitbucketCommit> commits = null;
             if (array != null) {
                 commits = array.stream()
-                    .map((x) -> BitbucketClient.createCommit((JsonObject) x))
+                    .map((x) -> new BitbucketClientCommit((JsonObject) x))
                     .collect(Collectors.toList());
             }
             return commits;

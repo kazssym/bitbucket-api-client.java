@@ -79,20 +79,6 @@ public class UserContext implements Serializable
     private static final int HTTPS_PORT = 443;
 
     /**
-     * OAuth authorization endpoint URI for the Bitbucket API.
-     * This constant would be in {@link BitbucketClient}.
-     */
-    private static final String BITBUCKET_AUTHORIZATION_ENDPOINT =
-        "https://bitbucket.org/site/oauth2/authorize";
-
-    /**
-     * OAuth token endpoint URI for the Bitbucket API.
-     * This constant would be in {@link BitbucketClient}.
-     */
-    private static final String BITBUCKET_TOKEN_ENDPOINT =
-        "https://bitbucket.org/site/oauth2/access_token";
-
-    /**
      * Prefix for property keys.
      */
     private static final String PROPERTY_PREFIX = "org.vx68k.bitbucket.";
@@ -115,17 +101,6 @@ public class UserContext implements Serializable
     private final BitbucketClient bitbucketClient;
 
     /**
-     * OAuth client identifier for the Bitbucket API.
-     */
-    private String bitbucketClientId = System.getProperty(BITBUCKET_CLIENT_ID);
-
-    /**
-     * OAuth client secret for the Bitbucket API.
-     */
-    private String bitbucketClientSecret = System.getProperty(
-        BITBUCKET_CLIENT_SECRET);
-
-    /**
      * {@link BitbucketUser} object for the current user, or {@code null} if
      * not logged in.
      */
@@ -141,7 +116,12 @@ public class UserContext implements Serializable
      */
     public UserContext()
     {
-        bitbucketClient = new BitbucketClient();
+        this.bitbucketClient = new BitbucketClient();
+
+        bitbucketClient.setClientId(
+            System.getProperty(BITBUCKET_CLIENT_ID));
+        bitbucketClient.setClientSecret(
+            System.getProperty(BITBUCKET_CLIENT_SECRET));
     }
 
     /**
@@ -163,7 +143,7 @@ public class UserContext implements Serializable
      */
     public String getBitbucketClientId()
     {
-        return bitbucketClientId;
+        return bitbucketClient.getClientId();
     }
 
     /**
@@ -176,18 +156,7 @@ public class UserContext implements Serializable
         description = "OAuth client identifier for the Bitbucket API.")
     public void setBitbucketClientId(final String value)
     {
-        bitbucketClientId = value;
-    }
-
-    /**
-     * Returns the OAuth client secret for the Bitbucket API.
-     * The return value may be {@code null} if not configured.
-     *
-     * @return the OAuth client secret for the Bitbucket API, or {@code null}
-     */
-    public String getBitbucketClientSecret()
-    {
-        return bitbucketClientSecret;
+        bitbucketClient.setClientId(value);
     }
 
     /**
@@ -200,7 +169,7 @@ public class UserContext implements Serializable
         description = "OAuth client secret for the Bitbucket API.")
     public void setBitbucketClientSecret(final String value)
     {
-        bitbucketClientSecret = value;
+        bitbucketClient.setClientSecret(value);
     }
 
     /**
@@ -220,7 +189,7 @@ public class UserContext implements Serializable
      */
     public boolean isLoggedIn()
     {
-        return loggedInUser != null;
+        return bitbucketClient.getAccessToken() != null;
     }
 
     /**
@@ -282,7 +251,7 @@ public class UserContext implements Serializable
         parameters.put("redirect_uri", singletonList(redirectionURI));
 
         String authorizationURI = externalContext.encodeRedirectURL(
-            BITBUCKET_AUTHORIZATION_ENDPOINT, parameters);
+            BitbucketClient.AUTHORIZATION_ENDPOINT_URI.toString(), parameters);
         externalContext.log("Redirecting to " + authorizationURI);
         try {
             externalContext.redirect(authorizationURI);
@@ -307,25 +276,33 @@ public class UserContext implements Serializable
     }
 
     /**
-     * Continues the current authorization flow to complete.
+     * Continues the current authorization flow to login.
      *
-     * @param code the authorization code
-     * @param state the state of the client
+     * @param code an authorization code
+     * @param state an opaque state string
      */
-    public void continueLogin(final String code, final String state)
+    public void login(final String code, final String state)
     {
-        // @todo Request the token.
+        if (redirectionURI != null) {
+            // @todo Check {@code state}.
+            bitbucketClient.loginWithAuthorizationCode(
+                code, URI.create(redirectionURI));
+            redirectionURI = null;
+        }
     }
 
     /**
      * Aborts the current authorization flow.
      *
-     * @param errorDescription the error description
-     * @param state the state of the client
+     * @param errorDescription an error description
+     * @param state an opaque state string
      */
-    public void abortLogin(final String errorDescription, final String state)
+    public void abort(final String errorDescription, final String state)
     {
-        // @todo Reset the authorization flow.
+        if (redirectionURI != null) {
+            // @todo Check {@code state}.
+            redirectionURI = null;
+        }
     }
 
     /**
@@ -334,11 +311,9 @@ public class UserContext implements Serializable
     @Override
     public int hashCode()
     {
+        final int k = 257;
         int value = getClass().hashCode();
-        value ^= Objects.hashCode(bitbucketClient);
-        value ^= Objects.hashCode(bitbucketClientId);
-        value ^= Objects.hashCode(bitbucketClientSecret);
-        value ^= Objects.hashCode(loggedInUser);
+        value = k * value + Objects.hashCode(bitbucketClient);
         return value;
     }
 
@@ -355,13 +330,6 @@ public class UserContext implements Serializable
 
             UserContext other = (UserContext) object;
             if (!Objects.equals(bitbucketClient, other.bitbucketClient)) {
-                return false;
-            }
-            if (!Objects.equals(bitbucketClientId, other.bitbucketClientId)) {
-                return false;
-            }
-            if (!Objects.equals(
-                bitbucketClientSecret, other.bitbucketClientSecret)) {
                 return false;
             }
             if (!Objects.equals(loggedInUser, other.loggedInUser)) {

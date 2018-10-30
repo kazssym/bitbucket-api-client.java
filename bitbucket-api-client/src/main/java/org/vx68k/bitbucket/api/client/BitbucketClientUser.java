@@ -1,21 +1,21 @@
 /*
- * BitbucketClientUser.java - class BitbucketClientUser
+ * BitbucketClientUser.java
  * Copyright (C) 2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or (at your
- * option) any later version.
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option)
+ * any later version.
  *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public License
- * for more details.
+ * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+ * more details.
  *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with
+ * this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * SPDX-License-Identifier: AGPL-3.0-or-later
+ * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
 package org.vx68k.bitbucket.api.client;
@@ -24,19 +24,15 @@ import javax.json.JsonObject;
 import org.vx68k.bitbucket.api.BitbucketUser;
 
 /**
- * User represented by a JSON object.
+ * Client implementation of {@link BitbucketUser}.
+ * This class represents a user account by a JSON object.
  *
  * @author Kaz Nishimura
  * @since 5.0
  */
-public class BitbucketClientUser extends BitbucketClientAccount
-    implements BitbucketUser
+public class BitbucketClientUser extends BitbucketClientAccount implements
+    BitbucketUser
 {
-    /**
-     * Type value for users.
-     */
-    public static final String USER_TYPE = "user";
-
     /**
      * Name for the {@code is_staff} value in a JSON user object.
      */
@@ -73,8 +69,8 @@ public class BitbucketClientUser extends BitbucketClientAccount
         super(object, client);
 
         String type = getType();
-        if (type == null || !type.equals(USER_TYPE)) {
-            throw new IllegalArgumentException("Not user");
+        if (!USER.equals(type)) {
+            throw new IllegalArgumentException("JSON object is not user");
         }
     }
 
@@ -82,7 +78,7 @@ public class BitbucketClientUser extends BitbucketClientAccount
      * {@inheritDoc}
      */
     @Override
-    public boolean isStaff()
+    public final boolean isStaff()
     {
         JsonObject object = getJsonObject();
         return object.getBoolean(IS_STAFF, false);
@@ -92,7 +88,7 @@ public class BitbucketClientUser extends BitbucketClientAccount
      * {@inheritDoc}
      */
     @Override
-    public String getAccountId()
+    public final String getAccountId()
     {
         JsonObject object = getJsonObject();
         return object.getString(ACCOUNT_ID, null);

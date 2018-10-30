@@ -3,28 +3,31 @@
  * Copyright (C) 2015-2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or (at your
- * option) any later version.
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option)
+ * any later version.
  *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public License
- * for more details.
+ * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+ * more details.
  *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with
+ * this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * SPDX-License-Identifier: AGPL-3.0-or-later
+ * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
 package org.vx68k.bitbucket.api.client;
 
+import static org.vx68k.bitbucket.api.client.JsonUtilities.toLink;
+
 import java.util.Objects;
 import javax.json.JsonObject;
+import javax.ws.rs.core.Link;
 
 /**
- * Superclass of objects represented by a JSON object.
+ * Common super object represented by a JSON object.
  *
  * @author Kaz Nishimura
  * @since 5.0
@@ -34,17 +37,12 @@ public class BitbucketClientObject
     /**
      * Name for the {@code type} value in a JSON object.
      */
-    public static final String TYPE = "type";
+    static final String TYPE = "type";
 
     /**
      * Name for the {@code links} object in a JSON object.
      */
     private static final String LINKS = "links";
-
-    /**
-     * Name for the {@code href} object in a JSON {@code links} object.
-     */
-    private static final String HREF = "href";
 
     /**
      * JSON object given to the constructor.
@@ -57,31 +55,30 @@ public class BitbucketClientObject
     private BitbucketClient bitbucketClient;
 
     /**
-     * Constructs this object with a JSON object.
+     * Initializes the object with a JSON object.
      *
-     * @param object JSON object
+     * @param jsonObject a JSON object
      * @exception IllegalArgumentException if {@code object} is {@code null}
      */
-    public BitbucketClientObject(final JsonObject object)
+    public BitbucketClientObject(final JsonObject jsonObject)
     {
-        this(object, null);
+        this(jsonObject, null);
     }
 
     /**
-     * Constructs this object with a JSON object and a {@link BitbucketClient}
-     * object.
+     * Initializes the object with a JSON object and a Bitbucket API client.
      *
-     * @param object JSON object
-     * @param client {@link BitbucketClient} object
+     * @param jsonObject a JSON object
+     * @param bitbucketClient a Bitbucket API client
      * @exception IllegalArgumentException if {@code object} is {@code null}
      */
-    public BitbucketClientObject(final JsonObject object,
-        final BitbucketClient client)
+    public BitbucketClientObject(
+        final JsonObject jsonObject, final BitbucketClient bitbucketClient)
     {
-        jsonObject = object;
-        bitbucketClient = client;
+        this.jsonObject = jsonObject;
+        this.bitbucketClient = bitbucketClient;
 
-        if (jsonObject == null) {
+        if (this.jsonObject == null) {
             throw new IllegalArgumentException("JSON object is null");
         }
     }
@@ -135,15 +132,12 @@ public class BitbucketClientObject
      * @return the link if it was specified in the JSON object; {@code null}
      * otherwise
      */
-    public final String getLink(final String name)
+    public final Link getLink(final String name)
     {
-        String value = null;
+        Link value = null;
         JsonObject links = getJsonObject().getJsonObject(LINKS);
         if (links != null) {
-            JsonObject link = links.getJsonObject(name);
-            if (link != null) {
-                value = link.getString(HREF, null);
-            }
+            value = toLink(links.getJsonObject(name));
         }
         return value;
     }
@@ -152,11 +146,11 @@ public class BitbucketClientObject
      * {@inheritDoc}
      */
     @Override
-    public int hashCode()
+    public final int hashCode()
     {
+        final int k = 257;
         int value = getClass().hashCode();
-        value ^= Objects.hashCode(jsonObject);
-        value ^= Objects.hashCode(bitbucketClient);
+        value = k * value + Objects.hashCode(jsonObject);
         return value;
     }
 
@@ -183,7 +177,12 @@ public class BitbucketClientObject
     }
 
     /**
-     * {@inheritDoc}
+     * Returns a string representation of the object.
+     * <p>This implementation just returns a string representation of the
+     * underlying JSON object.  Subclasses may override this method to return
+     * other values.</p>
+     *
+     * @return a string representation of the object
      */
     @Override
     public String toString()

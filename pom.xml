@@ -6,16 +6,19 @@
 <artifactId>bitbucket-api-client-parent</artifactId>
 <version>5.0-SNAPSHOT</version>
 <packaging>pom</packaging>
-<name>Bitbucket API Client Library for Java</name>
-<description>Parent project of the Bitbucket API Client Library.</description>
+<name>Java Client API for Bitbucket Cloud</name>
+<description>This project builds a client API implementation and a webhook
+implementation for Bitbucket Cloud.</description>
 <url>https://vx68k.bitbucket.io/bitbucket-api-client-java/5/</url>
 <inceptionYear>2015</inceptionYear>
 
 <licenses>
 
 <license>
-<name>GNU Affero General Public License v3.0 or later</name>
+<name>GNU Affero General Public License</name>
+<url>https://www.gnu.org/licenses/agpl.txt</url>
 <distribution>repo</distribution>
+<comments>Version 3 or any later version.</comments>
 </license>
 </licenses>
 
@@ -56,7 +59,6 @@
 
 <properties>
 <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-<maven.compiler.release>9</maven.compiler.release>
 </properties>
 
 <dependencyManagement>
@@ -129,6 +131,9 @@
 <groupId>org.apache.maven.plugins</groupId>
 <artifactId>maven-compiler-plugin</artifactId>
 <version>3.7.0</version>
+<configuration>
+<release>9</release>
+</configuration>
 </plugin>
 
 <plugin>
@@ -149,9 +154,9 @@
 <version>3.0.1</version>
 <configuration>
 <locale>en_US</locale>
-<apiLink>https://docs.oracle.com/javase/8/docs/api</apiLink>
 <links>
 <link>https://docs.oracle.com/javaee/7/api</link>
+<link>https://vx68k.bitbucket.io/bitbucket-api-client-java/5/apidocs</link>
 </links>
 </configuration>
 </plugin>
@@ -166,6 +171,12 @@
 <groupId>org.apache.maven.plugins</groupId>
 <artifactId>maven-project-info-reports-plugin</artifactId>
 <version>3.0.0</version>
+</plugin>
+
+<plugin>
+<groupId>org.apache.maven.plugins</groupId>
+<artifactId>maven-pmd-plugin</artifactId>
+<version>3.10.0</version>
 </plugin>
 
 <plugin>
@@ -197,19 +208,38 @@
 <groupId>org.apache.maven.plugins</groupId>
 <artifactId>maven-javadoc-plugin</artifactId>
 <reportSets>
-
 <reportSet>
 <reports>
-<report>javadoc-no-fork</report>
+<!-- No default reports -->
 </reports>
 </reportSet>
-
 <reportSet>
 <id>aggregate</id>
 <reports>
 <report>aggregate</report>
+<report>test-aggregate</report>
 </reports>
 <inherited>false</inherited>
+<configuration>
+<doctitle>${project.name} ${project.version}</doctitle>
+</configuration>
+</reportSet>
+</reportSets>
+<configuration>
+<notimestamp>true</notimestamp>
+</configuration>
+</plugin>
+
+<plugin>
+<groupId>org.apache.maven.plugins</groupId>
+<artifactId>maven-pmd-plugin</artifactId>
+
+<reportSets>
+
+<reportSet>
+<reports>
+<report>pmd</report>
+</reports>
 </reportSet>
 </reportSets>
 </plugin>

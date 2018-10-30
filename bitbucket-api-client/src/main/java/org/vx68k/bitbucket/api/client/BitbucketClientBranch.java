@@ -3,19 +3,19 @@
  * Copyright (C) 2015-2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or (at your
- * option) any later version.
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option)
+ * any later version.
  *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public License
- * for more details.
+ * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+ * more details.
  *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with
+ * this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * SPDX-License-Identifier: AGPL-3.0-or-later
+ * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
 package org.vx68k.bitbucket.api.client;
@@ -28,29 +28,15 @@ import javax.json.JsonValue;
 import org.vx68k.bitbucket.api.BitbucketBranch;
 
 /**
- * Branch or bookmark represented by a JSON object.
+ * Client implementation of {@link BitbucketBranch}.
+ * This class represents a branch or bookmark by a JSON object.
  *
  * @author Kaz Nishimura
  * @since 5.0
  */
-public class BitbucketClientBranch extends BitbucketClientObject
-    implements BitbucketBranch
+public class BitbucketClientBranch extends BitbucketClientRef implements
+    BitbucketBranch
 {
-    /**
-     * Type name for JSON branch objects for Git.
-     */
-    private static final String BRANCH = "branch";
-
-    /**
-     * Type name for JSON branch objects for Mercurial.
-     */
-    private static final String NAMED_BRANCH = "named_branch";
-
-    /**
-     * Type name for JSON bookmark objects for Mercurial.
-     */
-    private static final String BOOKMARK = "bookmark";
-
     /**
      * Parses a JSON array for commits.
      *
@@ -71,29 +57,32 @@ public class BitbucketClientBranch extends BitbucketClientObject
     }
 
     /**
-     * Constructs this branch with a JSON branch object.
+     * Initializes the object.
      *
-     * @param branchObject JSON branch object
+     * @param jsonObject a JSON object
      */
-    public BitbucketClientBranch(final JsonObject branchObject)
+    public BitbucketClientBranch(final JsonObject jsonObject)
     {
-        super(branchObject);
-
-        String type = getType();
-        if (type == null || !(type.equals(BRANCH) || type.equals(NAMED_BRANCH)
-                              || type.equals(BOOKMARK))) {
-            throw new IllegalArgumentException("JSON object is not branch");
-        }
+        this(jsonObject, null);
     }
 
     /**
-     * {@inheritDoc}
+     * Initializes the object with a Bitbucket API client.
+     *
+     * @param jsonObject a JSON object
+     * @param bitbucketClient a Bitbucket API client
      */
-    @Override
-    public final String getName()
+    public BitbucketClientBranch(
+        final JsonObject jsonObject, final BitbucketClient bitbucketClient)
     {
-        JsonObject branchObject = getJsonObject();
-        return branchObject.getString("name", null);
+        super(jsonObject, bitbucketClient);
+
+        String type = getType();
+        if (!(BRANCH.equals(type) || NAMED_BRANCH.equals(type)
+            || BOOKMARK.equals(type))) {
+            throw new IllegalArgumentException(
+                "JSON object is not branch, named_branch or bookmark");
+        }
     }
 
     /**

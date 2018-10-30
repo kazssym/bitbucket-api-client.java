@@ -15,39 +15,6 @@ html
 body
 {
     height: 100%;
-    color: #333333;
-    background: #FFFFFF;
-}
-
-main
-{
-    margin: 8px 8px;
-}
-
-.pure-menu-children
-{
-    background-color: #F7F7F7;
-}
-
-.app-top
-{
-    background: #EEEEEE;
-}
-
-.app-message-fatal,
-.app-message-error
-{
-    color: #FF3300;
-}
-
-.app-message-warn
-{
-    color: #FF6600;
-}
-
-.app-message-info
-{
-    color: inherit;
 }
 
 .app-align-right
@@ -64,24 +31,29 @@ main
 .app-hbox
 {
     display: flex;
-    flex-direction: row;
+    flex-flow: row;
 }
 
 .app-vbox
 {
     display: flex;
-    flex-direction: column;
+    flex-flow: column;
 }
 
 .app-hbox > *,
 .app-vbox > *
 {
     flex: 0 0 auto;
-    overflow: auto;
 }
 
 .app-hbox > .app-hbox-grow,
 .app-vbox > .app-vbox-grow
 {
     flex: 1 1 auto;
+}
+
+.app-content
+{
+    margin: 8px 8px;
+    overflow: auto;
 }

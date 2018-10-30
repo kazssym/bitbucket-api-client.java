@@ -1,29 +1,25 @@
-This file documents the project in this directory.
+This file documents the Java Client API for Bitbucket Cloud project.
 
-# Description
+# Introduction
 
-This Maven project builds the Bitbucket API Client Library for Java, which
-provides Java classes to use the [Bitbucket][] REST API.
+The *[Java Client API for Bitbucket® Cloud]* provides a client API and a
+webhook for [Bitbucket® Cloud].
 
-[Bitbucket]: https://bitbucket.org/
+[Java Client API for Bitbucket® Cloud]: https://vx68k.bitbucket.io/bitbucket-api-client-java/
+[Bitbucket® Cloud]: https://bitbucket.org/
 
-[![(License)](https://img.shields.io/badge/license-AGPL--3.0--or--later-blue.svg)][AGPL-3.0]
-[![(Open issues)](https://img.shields.io/bitbucket/issues/vx68k/bitbucket-api-client-java.svg)][open issues]
-[![(Build Status)](https://linuxfront-functions.azurewebsites.net/api/bitbucket/build/vx68k/bitbucket-api-client-java?branch=master)][pipelines]
+[![(GNU Affero General Public License v3.0 or later)
+](https://img.shields.io/badge/license-AGPL--3.0--or--later-blue.svg)][AGPL-3.0-or-later]
+[![(Open issues)
+](https://img.shields.io/bitbucket/issues/vx68k/bitbucket-api-client-java.svg)][open issues]
+![(Latest release version)
+](https://img.shields.io/maven-central/v/org.vx68k.bitbucket/bitbucket-api-client-parent.svg)
+![(Latest snapshot version)
+](https://img.shields.io/nexus/s/https/oss.sonatype.org/org.vx68k.bitbucket/bitbucket-api-client-parent.svg)
 
-[AGPL-3.0]: https://opensource.org/licenses/AGPL-3.0 "GNU Affero General Public License v3.0"
+[AGPL-3.0-or-later]: https://spdx.org/licenses/AGPL-3.0-or-later.html
+                     "GNU Affero General Public License v3.0 or later"
 [Open issues]: https://bitbucket.org/vx68k/bitbucket-api-client-java/issues?status=new&status=open
-[Pipelines]: https://bitbucket.org/vx68k/bitbucket-api-client-java/addon/pipelines/home
-
-## License
-
-This program is *[free software][]*: you can redistribute it and/or modify it
-under the terms of the *[GNU Affero General Public License][AGPL-3.0]* as published by
-the [Free Software Foundation][], either version 3 of the License, or (at your
-option) any later version.
-
-[Free software]: <http://www.gnu.org/philosophy/free-sw.html> "What is free software?"
-[Free Software Foundation]: <http://www.fsf.org/>
 
 # Modules
 
@@ -33,3 +29,29 @@ The parent Maven project contains the following modules:
   * bitbucket-webhook – webhook library.
   * bitbucket-api-client-webapp – example web application that uses the libraries.
   * bitbucket-stubs – stub library for tests,
+
+---
+
+# See also
+
+## Normative references
+
+  - The [Bitbucket API version 2.0].
+
+[Bitbucket API version 2.0]: https://developer.atlassian.com/bitbucket/api/2/reference/
+
+  - [RFC 6749].
+
+[RFC 6749]: https://tools.ietf.org/html/rfc6749 "The OAuth 2.0 Authorization Framework"
+
+## Related projects
+
+  - The [Plugin for Bitbucket Cloud for NetBeans IDE] project.
+
+[Plugin for Bitbucket Cloud for NetBeans IDE]: https://vx68k.bitbucket.io/netbeans-bitbucket-plugin/
+
+  - The [Eclipse Project for JAX-RS].
+  - The [Eclipse Project for JSON Processing].
+
+[Eclipse Project for JAX-RS]: https://projects.eclipse.org/projects/ee4j.jaxrs
+[Eclipse Project for JSON Processing]: https://projects.eclipse.org/projects/ee4j.jsonp

@@ -1,21 +1,21 @@
 /*
- * BitbucketRepository.java - interface BitbucketRepository
+ * BitbucketRepository.java
  * Copyright (C) 2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or (at your
- * option) any later version.
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option)
+ * any later version.
  *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public License
- * for more details.
+ * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+ * more details.
  *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with
+ * this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * SPDX-License-Identifier: AGPL-3.0-or-later
+ * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
 package org.vx68k.bitbucket.api;
@@ -25,80 +25,119 @@ import java.util.UUID;
 
 /**
  * Repository on Bitbucket Cloud.
+ * A Bitbucket Cloud repository is owned by an account.
  *
  * @author Kaz Nishimura
  * @since 5.0
  */
-public interface BitbucketRepository extends BitbucketIssueTracker
+public interface BitbucketRepository
 {
     /**
+     * SCM type value for Git repositories.
+     */
+    String GIT = "git";
+
+    /**
+     * SCM type value for Mercurial repositories.
+     */
+    String HG = "hg";
+
+    /**
      * Returns the SCM type of the repository.
-     * The return value shall be either {@code "git"} or {@code "hg"}.
+     * The return value shall be either {@code #GIT} or {@code #HG}.
      *
-     * @return the SCM type
+     * @return the SCM type of the repository
      */
     String getSCM();
 
     /**
-     * Return the owner of this repository.
+     * Returns the owner of the repository.
      *
-     * @return the owner
+     * @return the owner of the repository
      */
     BitbucketAccount getOwner();
 
     /**
-     * Returns the name of this repository.
+     * Returns the name of the repository.
      *
-     * @return the name
+     * @return the name of the repository
      */
     String getName();
 
     /**
-     * Returns the UUID of this repository.
+     * Returns the full name of the repository.
      *
-     * @return the UUID
-     */
-    UUID getUUID();
-
-    /**
-     * Returns the full name of this repository.
-     *
-     * @return the full name
+     * @return the full name of the repository
      */
     String getFullName();
 
     /**
+     * Returns the UUID of the repository.
+     *
+     * @return the UUID of the repository
+     */
+    UUID getUUID();
+
+    /**
      * Returns the description of the repository.
      *
-     * @return the description
+     * @return the description of the repository
      */
     String getDescription();
 
     /**
-     * Returns the main branch of this repository.
+     * Returns {@code true} if and only if the repository is private.
      *
-     * @return the main branch
-     */
-    BitbucketBranch getMainBranch();
-
-    /**
-     * Returns {@code true} if this repository is private.
-     *
-     * @return {@code true} if private
+     * @return {@code true} if and only if the repository is private
      */
     boolean isPrivate();
 
     /**
-     * Returns the creation time of this repository.
+     * Returns the main branch of the repository.
      *
-     * @return the creation time
+     * @return the main branch of the repository
+     */
+    BitbucketBranch getMainBranch();
+
+    /**
+     * Returns {@code true} if and only if the repository has a issue tracker.
+     *
+     * @return {@code true} if and only if the repository has a issue tracker
+     */
+    boolean hasIssueTracker();
+
+    /**
+     * Returns {@code true} if and only if the repository has a wiki.
+     *
+     * @return {@code true} if and only if the repository has a wiki
+     */
+    boolean hasWiki();
+
+    /**
+     * Returns the size of the repository.
+     *
+     * @return the size of the repository
+     */
+    long getSize();
+
+    /**
+     * Returns the time when the repository was created.
+     *
+     * @return the time when the repository was created
      */
     Instant getCreated();
 
     /**
-     * Returns the last update time of this repository.
+     * Returns the time when the repository was last updated.
      *
-     * @return the last update time
+     * @return the time when the repository was last updated
      */
     Instant getUpdated();
+
+    /**
+     * Returns the issue tracker of the repository.
+     *
+     * @return the issue tracker of the repository
+     */
+    BitbucketIssueTracker getIssueTracker();
 }

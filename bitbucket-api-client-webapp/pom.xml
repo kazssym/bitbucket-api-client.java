@@ -10,9 +10,8 @@
 
 <artifactId>bitbucket-api-client-webapp</artifactId>
 <packaging>war</packaging>
-<name>Bitbucket API Client Example Web App</name>
-<description>Example web application using the Bitbucket API Client Library.
-</description>
+<name>Example Web App for the Client API</name>
+<description>This project builds a web application using the Client API.</description>
 
 <dependencies>
 

@@ -1,5 +1,5 @@
 /*
- * CommandGroup.java - class CommandGroup
+ * CommandGroup.java
  * Copyright (C) 2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -31,37 +31,22 @@ import org.vx68k.bitbucket.api.client.BitbucketClient;
  * @author Kaz Nishimura
  * @since 5.0
  */
-public class CommandGroup implements Command
+public class CommandGroup extends AbstractCommand
 {
-    /**
-     * Bitbucket API client.
-     */
-    private final BitbucketClient bitbucketClient;
-
     /**
      * Name-to-command map.
      */
     private final Map<String, Command> commandMap;
 
     /**
-     * Constructs this object.
+     * Constructs the object.
      *
-     * @param bitbucketClientValue value for the Bitbucket API client
+     * @param bitbucketClient a Bitbucket API client
      */
-    public CommandGroup(final BitbucketClient bitbucketClientValue)
+    public CommandGroup(final BitbucketClient bitbucketClient)
     {
-        bitbucketClient = bitbucketClientValue;
+        super(bitbucketClient);
         commandMap = new HashMap<>();
-    }
-
-    /**
-     * Returns the Bitbucket API client.
-     *
-     * @return the Bitbucket API client
-     */
-    public final BitbucketClient getBitbucketClient()
-    {
-        return bitbucketClient;
     }
 
     /**
@@ -81,10 +66,10 @@ public class CommandGroup implements Command
      * {@inheritDoc}
      */
     @Override
-    public final void run(final String name, final String[] args)
+    public final void run(final String commandName, final String[] args)
     {
         if (args.length == 0) {
-            System.err.printf("%s: Missing subcommand\n", name);
+            System.err.printf("%s: Missing subcommand\n", commandName);
         }
         else if (commandMap.containsKey(args[0])) {
             Command command = commandMap.get(args[0]);

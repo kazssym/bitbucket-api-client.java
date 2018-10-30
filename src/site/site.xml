@@ -4,13 +4,13 @@
 <skin>
 <groupId>org.vx68k.maven.skins</groupId>
 <artifactId>modernized-maven-skin</artifactId>
-<version>1.0-alpha.2</version>
+<version>1.0</version>
 </skin>
 
 <body>
 
 <links>
-<item name="Project Home" href="https://www.vx68k.org/bitbucket-api-client-java"/>
+<item name="Project Home" href="https://vx68k.bitbucket.io/bitbucket-api-client-java/"/>
 </links>
 
 <menu ref="parent" inherit="top"/>

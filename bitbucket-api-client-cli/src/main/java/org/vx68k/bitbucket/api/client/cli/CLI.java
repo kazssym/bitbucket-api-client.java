@@ -40,6 +40,9 @@ public class CLI extends CommandGroup
         super(bitbucketClientValue);
 
         add("user", new UserCommandGroup(getBitbucketClient()));
+        add("team", new TeamCommandGroup(getBitbucketClient()));
+        add("login", new LoginCommand(getBitbucketClient()));
+        add("logout", new LogoutCommand(getBitbucketClient()));
         // @todo Add more commands.
     }
 
@@ -57,6 +60,14 @@ public class CLI extends CommandGroup
         }
 
         CLI cli = new CLI(new BitbucketClient());
-        cli.run(commandName, args);
+        try {
+            cli.run(commandName, args);
+        }
+        catch (final CLIException exception) {
+            System.err.format("%s: %s\n", commandName, exception.getMessage());
+        }
+        catch (final Exception exception) {
+            System.err.println(exception);
+        }
     }
 }

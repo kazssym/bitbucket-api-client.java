@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
-<html lang="#{view.locale}"
-    xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:jsf="http://xmlns.jcp.org/jsf"
-    xmlns:f="http://xmlns.jcp.org/jsf/core"
-    xmlns:h="http://xmlns.jcp.org/jsf/html"
-    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<html lang="#{view.locale}" xmlns="http://www.w3.org/1999/xhtml" xmlns:jsf="http://xmlns.jcp.org/jsf" xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <head jsf:id="head">
 <meta content="text/html;charset=UTF-8" http-equiv="Content-Type" />
 <meta content="width=device-width, initial-scale=1" name="viewport" />
 <title>
 <ui:insert name="title">
-Bitbucket API Client Example
+Client API Example for Bitbucket Cloud
 </ui:insert>
 </title>
 <ui:insert name="head-additions" />
@@ -21,10 +16,9 @@ Bitbucket API Client Example
 <f:view>
 <ui:insert name="metadata" />
 
-<form class="pure-menu pure-menu-horizontal app-hbox app-top"
-    jsf:id="header">
+<form class="pure-menu pure-menu-horizontal app-hbox app-header" jsf:id="header">
 <span class="pure-menu-heading app-hbox-grow">
-Bitbucket API Client Example</span>
+Client API Example for Bitbucket Cloud</span>
 
 <ul class="pure-menu-list">
 
@@ -79,8 +73,7 @@ Repository information</a>
 </div>
 </f:view>
 
-<script async="async" defer="defer" jsf:name="app.js">
-</script>
+<script type="module" async="async" jsf:name="app.js"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css"
     crossorigin="anonymous" rel="stylesheet"
     integrity="sha256-Q0zCrUs2IfXWYx0uMKJfG93CvF6oVII21waYsAV4/8Q=" />
@@ -90,7 +83,8 @@ Repository information</a>
 <ui:remove>
 <!-- Note the 'resource[]' URL will be encoded in JSF 2.3. -->
 </ui:remove>
-<link href="#{resource['app.css']}" rel="stylesheet" />
+<link href="#{resource['app.css']}" rel="stylesheet"/>
+<link title="Default Theme" href="#{resource['app-default.css']}" rel="stylesheet"/>
 <ui:debug />
 </body>
 </html>

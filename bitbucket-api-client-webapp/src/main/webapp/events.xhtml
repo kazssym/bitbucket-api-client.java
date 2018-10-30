@@ -7,7 +7,7 @@
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
 <ui:define name="main">
-<main>
+<main class="app-content">
 <h1>Events</h1>
 
 <form class="pure-form pure-form-stacked" jsf:id="events">
@@ -26,12 +26,12 @@
 </h:column>
 <h:column>
 <f:facet name="header">Repository</f:facet>
-<a jsf:value="#{record.event.repository.getLink('html')}" jsf:rel="external">
+<a jsf:value="#{record.event.repository.getLink('html').uri}" jsf:rel="external">
 #{record.event.repository.fullName}</a>
 </h:column>
 <h:column>
 <f:facet name="header">Actor</f:facet>
-<a jsf:value="#{record.event.actor.getLink('html')}" jsf:rel="external">
+<a jsf:value="#{record.event.actor.getLink('html').uri}" jsf:rel="external">
 <span title="#{record.event.actor.displayName}">
 @#{record.event.actor.name}</span></a>
 </h:column>
