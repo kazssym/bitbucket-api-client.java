@@ -145,8 +145,9 @@ public class BitbucketClientObject
     /**
      * {@inheritDoc}
      */
+    @SuppressWarnings({"designForExtension"})
     @Override
-    public final int hashCode()
+    public int hashCode()
     {
         final int k = 257;
         int value = getClass().hashCode();
@@ -157,6 +158,7 @@ public class BitbucketClientObject
     /**
      * {@inheritDoc}
      */
+    @SuppressWarnings({"designForExtension"})
     @Override
     public boolean equals(final Object object)
     {
@@ -184,6 +186,7 @@ public class BitbucketClientObject
      *
      * @return a string representation of the object
      */
+    @SuppressWarnings({"designForExtension"})
     @Override
     public String toString()
     {
