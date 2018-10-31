@@ -1,5 +1,5 @@
 /*
- * package-info.java - package org.vx68k.bitbucket.api.client.test
+ * package-info.java - package org.vx68k.bitbucket.api.client
  * Copyright (C) 2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
