@@ -9,7 +9,7 @@
 </locale-config>
 
 <resource-bundle>
-<base-name>org.vx68k.bitbucket.api.client.webapp.resources.Messages</base-name>
+<base-name>org.vx68k.bitbucket.api.client.webapp.Messages</base-name>
 <var>messages</var>
 </resource-bundle>
 </application>
