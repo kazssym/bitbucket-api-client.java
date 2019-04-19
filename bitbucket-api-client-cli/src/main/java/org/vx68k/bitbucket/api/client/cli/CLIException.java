@@ -28,6 +28,8 @@ package org.vx68k.bitbucket.api.client.cli;
  */
 public class CLIException extends RuntimeException
 {
+    private static final long serialVersionUID = 1L;
+
     /**
      * Initializes this exception with default properties.
      */
