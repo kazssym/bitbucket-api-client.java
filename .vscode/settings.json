@@ -1,8 +1,5 @@
 {
     "files.exclude": {
-        "**/.project": true,
-        "**/.classpath": true,
-        "**/.settings": true,
         "**/*.rej": true,
         "**/*.orig": true,
         "**/*~": true
