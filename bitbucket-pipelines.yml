@@ -25,8 +25,8 @@ pipelines:
           caches:
             - maven
           script:
-            - apt-get update --quiet
-            - apt-get install --quiet --assume-yes gpg
+            - apt-get update --quiet=2
+            - apt-get install --quiet=2 gpg
             - export GNUPGHOME=`mktemp -d`
             - sh etc/gpginit.sh
             - export MAVEN_OPTS="-Xquickstart"
@@ -38,8 +38,8 @@ pipelines:
           caches:
             - maven
           script:
-            - apt-get update --quiet
-            - apt-get install --quiet --assume-yes gpg
+            - apt-get update --quiet=2
+            - apt-get install --quiet=2 gpg
             - export GNUPGHOME=`mktemp -d`
             - sh etc/gpginit.sh
             - export MAVEN_OPTS="-Xquickstart"
@@ -50,8 +50,8 @@ pipelines:
           caches:
             - maven
           script:
-            - apt-get update --quiet
-            - apt-get install --quiet --assume-yes gpg
+            - apt-get update --quiet=2
+            - apt-get install --quiet=2 gpg
             - export GNUPGHOME=`mktemp -d`
             - sh etc/gpginit.sh
             - export MAVEN_OPTS="-Xquickstart"
