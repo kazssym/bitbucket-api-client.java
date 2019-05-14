@@ -160,7 +160,7 @@ public final class BitbucketClientAccountTest
         assertNull(user1.getDisplayName());
 
         BitbucketAccount team1 = new BitbucketClientAccount(sampleTeam1);
-        assertEquals("VX68K.org", team1.getDisplayName());
+        assertEquals("VX68k.org", team1.getDisplayName());
     }
 
     /**
