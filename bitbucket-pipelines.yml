@@ -25,6 +25,8 @@ pipelines:
           caches:
             - maven
           script:
+            - apt-get update
+            - apt-get install --assume-yes gpg
             - export GNUPGHOME=`mktemp -d`
             - sh etc/gpginit.sh
             - export MAVEN_OPTS="-Xquickstart"
@@ -36,6 +38,8 @@ pipelines:
           caches:
             - maven
           script:
+            - apt-get update
+            - apt-get install --assume-yes gpg
             - export GNUPGHOME=`mktemp -d`
             - sh etc/gpginit.sh
             - export MAVEN_OPTS="-Xquickstart"
@@ -46,6 +50,8 @@ pipelines:
           caches:
             - maven
           script:
+            - apt-get update
+            - apt-get install --assume-yes gpg
             - export GNUPGHOME=`mktemp -d`
             - sh etc/gpginit.sh
             - export MAVEN_OPTS="-Xquickstart"
