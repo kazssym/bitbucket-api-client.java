@@ -26,7 +26,7 @@ pipelines:
             - maven
           script:
             - apt-get update --quiet=2
-            - apt-get install --quiet=2 --no-install-recommends gpg
+            - apt-get install --quiet=2 --no-install-recommends gpg gpg-agent
             - export GNUPGHOME=`mktemp -d`
             - sh etc/gpginit.sh
             - export MAVEN_OPTS="-Xquickstart"
@@ -39,7 +39,7 @@ pipelines:
             - maven
           script:
             - apt-get update --quiet=2
-            - apt-get install --quiet=2 --no-install-recommends gpg
+            - apt-get install --quiet=2 --no-install-recommends gpg gpg-agent
             - export GNUPGHOME=`mktemp -d`
             - sh etc/gpginit.sh
             - export MAVEN_OPTS="-Xquickstart"
@@ -51,7 +51,7 @@ pipelines:
             - maven
           script:
             - apt-get update --quiet=2
-            - apt-get install --quiet=2 --no-install-recommends gpg
+            - apt-get install --quiet=2 --no-install-recommends gpg gpg-agent
             - export GNUPGHOME=`mktemp -d`
             - sh etc/gpginit.sh
             - export MAVEN_OPTS="-Xquickstart"
