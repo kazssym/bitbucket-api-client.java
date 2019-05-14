@@ -8,13 +8,16 @@
 # See <https://confluence.atlassian.com/bitbucket/configure-bitbucket-pipelines-yml-792298910.html>
 # for details.
 ---
+definitions:
+  caches:
+    openj9: /root/javasharedresources
 image: adoptopenjdk/maven-openjdk8-openj9
 pipelines:
   default:
     - step:
         caches:
           - maven
-          - java
+          - openj9
         script:
           - export MAVEN_OPTS="-Xshareclasses -Xquickstart"
           - mvn -B -s etc/settings.xml test
@@ -58,6 +61,3 @@ pipelines:
             - mvn -B -s etc/settings.xml ${OSSRHUSERNAME+-P ossrh} install
           artifacts:
             - "**/target/*"
-definitions:
-  caches:
-    java: /tmp/javasharedresources
