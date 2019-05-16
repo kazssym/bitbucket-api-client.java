@@ -38,15 +38,9 @@ definitions:
           - target/*
 image: adoptopenjdk/maven-openjdk8-openj9
 pipelines:
-  default:
-    - step:
-        caches:
-          - maven
-          - openj9
-        script:
-          - export MAVEN_OPTS="-Xshareclasses -Xquickstart"
-          - mvn -B -s etc/settings.xml test
   branches:
+    default:
+      - step: *test
     production:
       - step:
           deployment: production
