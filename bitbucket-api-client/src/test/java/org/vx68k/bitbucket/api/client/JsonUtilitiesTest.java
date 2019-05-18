@@ -24,14 +24,14 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 /**
- * Unit tests for {@link BitbucketClientUtilities}.
+ * Unit tests for {@link JsonUtilities}.
  *
  * @author Kaz Nishimura
  */
 public final class JsonUtilitiesTest
 {
     /**
-     * Tests {@link BitbucketClientUtilities#parseUUID parseUUID}.
+     * Tests {@link JsonUtilities#toUUID toUUID}.
      */
     @Test @Ignore
     public void testParseUUID()
