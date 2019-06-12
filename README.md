@@ -1,4 +1,4 @@
-This file documents the *Java Client API for Bitbucket Cloud* project.
+This file documents the *Java Client API for Bitbucket® Cloud* project.
 
 # Introduction
 
