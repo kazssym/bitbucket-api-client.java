@@ -15,10 +15,9 @@ implementation for Bitbucket Cloud.</description>
 <licenses>
 
 <license>
-<name>GNU Affero General Public License</name>
+<name>GNU Affero General Public License v3.0 or later</name>
 <url>https://www.gnu.org/licenses/agpl.txt</url>
 <distribution>repo</distribution>
-<comments>Version 3 or any later version.</comments>
 </license>
 </licenses>
 
