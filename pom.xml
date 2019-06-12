@@ -9,7 +9,7 @@
 <name>Java Client API for Bitbucket Cloud</name>
 <description>This project builds a client API implementation and a webhook
 implementation for Bitbucket Cloud.</description>
-<url>https://vx68k.bitbucket.io/bitbucket-api-client-java/5/</url>
+<url>https://vx68k.bitbucket.io/bitbucket-api-client.java/5/</url>
 <inceptionYear>2015</inceptionYear>
 
 <licenses>
