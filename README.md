@@ -5,13 +5,11 @@ This file documents the *Java Client API for Bitbucket® Cloud* project.
 The *[Java Client API for Bitbucket® Cloud]* provides a client API and a
 webhook for [Bitbucket® Cloud].
 
-[Java Client API for Bitbucket® Cloud]: https://vx68k.bitbucket.io/bitbucket-api-client-java/
+[Java Client API for Bitbucket® Cloud]: https://vx68k.bitbucket.io/bitbucket-api-client.java/
 [Bitbucket® Cloud]: https://bitbucket.org/
 
-[![(GNU Affero General Public License v3.0 or later)
-](https://img.shields.io/badge/license-AGPL--3.0--or--later-blue.svg)][AGPL-3.0-or-later]
-[![(Open issues)
-](https://img.shields.io/bitbucket/issues/vx68k/bitbucket-api-client-java.svg)][open issues]
+[![(License)](https://img.shields.io/badge/license-AGPL--3.0--or--later-blue.svg)][AGPL-3.0-or-later]
+[![(Issues)](https://img.shields.io/bitbucket/issues/vx68k/bitbucket-api-client.java.svg)][open issues]
 ![(Latest release version)
 ](https://img.shields.io/maven-central/v/org.vx68k.bitbucket/bitbucket-api-client-parent.svg)
 ![(Latest snapshot version)
@@ -19,7 +17,7 @@ webhook for [Bitbucket® Cloud].
 
 [AGPL-3.0-or-later]: https://spdx.org/licenses/AGPL-3.0-or-later.html
                      "GNU Affero General Public License v3.0 or later"
-[Open issues]: https://bitbucket.org/vx68k/bitbucket-api-client-java/issues?status=new&status=open
+[Open issues]: https://bitbucket.org/vx68k/bitbucket-api-client.java/issues?status=new&status=open
 
 # Modules
 
