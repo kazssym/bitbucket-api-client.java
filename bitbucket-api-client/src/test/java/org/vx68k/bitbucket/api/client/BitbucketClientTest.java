@@ -1,6 +1,6 @@
 /*
  * BitbucketClientTest.java - class BitbucketClientTest
- * Copyright (C) 2018 Kaz Nishimura
+ * Copyright (C) 2018-2019 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -50,7 +50,7 @@ public class BitbucketClientTest
     /**
      * Repository name for tests.
      */
-    private static final String REPOSITORY_NAME = "bitbucket-api-client-java";
+    private static final String REPOSITORY_NAME = "bitbucket-api-client.java";
 
     /**
      * Tests the default constructor.
