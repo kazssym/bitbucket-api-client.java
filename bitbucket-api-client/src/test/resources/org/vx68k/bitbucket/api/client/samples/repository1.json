@@ -1,0 +1,107 @@
+{
+    "scm": "hg",
+    "website": "https://vx68k.bitbucket.io/bitbucket-api-client.java/",
+    "has_wiki": true,
+    "uuid": "{194ecdd7-acd2-4366-a1f4-e9bf28807cdc}",
+    "links": {
+        "watchers": {
+            "href": "https://api.bitbucket.org/2.0/repositories/vx68k/bitbucket-api-client.java/watchers"
+        },
+        "branches": {
+            "href": "https://api.bitbucket.org/2.0/repositories/vx68k/bitbucket-api-client.java/refs/branches"
+        },
+        "tags": {
+            "href": "https://api.bitbucket.org/2.0/repositories/vx68k/bitbucket-api-client.java/refs/tags"
+        },
+        "commits": {
+            "href": "https://api.bitbucket.org/2.0/repositories/vx68k/bitbucket-api-client.java/commits"
+        },
+        "clone": [
+            {
+                "href": "https://bitbucket.org/vx68k/bitbucket-api-client.java",
+                "name": "https"
+            },
+            {
+                "href": "ssh://hg@bitbucket.org/vx68k/bitbucket-api-client.java",
+                "name": "ssh"
+            }
+        ],
+        "self": {
+            "href": "https://api.bitbucket.org/2.0/repositories/vx68k/bitbucket-api-client.java"
+        },
+        "source": {
+            "href": "https://api.bitbucket.org/2.0/repositories/vx68k/bitbucket-api-client.java/src"
+        },
+        "html": {
+            "href": "https://bitbucket.org/vx68k/bitbucket-api-client.java"
+        },
+        "avatar": {
+            "href": "https://bytebucket.org/ravatar/%7B194ecdd7-acd2-4366-a1f4-e9bf28807cdc%7D?ts=java"
+        },
+        "hooks": {
+            "href": "https://api.bitbucket.org/2.0/repositories/vx68k/bitbucket-api-client.java/hooks"
+        },
+        "forks": {
+            "href": "https://api.bitbucket.org/2.0/repositories/vx68k/bitbucket-api-client.java/forks"
+        },
+        "downloads": {
+            "href": "https://api.bitbucket.org/2.0/repositories/vx68k/bitbucket-api-client.java/downloads"
+        },
+        "issues": {
+            "href": "https://api.bitbucket.org/2.0/repositories/vx68k/bitbucket-api-client.java/issues"
+        },
+        "pullrequests": {
+            "href": "https://api.bitbucket.org/2.0/repositories/vx68k/bitbucket-api-client.java/pullrequests"
+        }
+    },
+    "fork_policy": "allow_forks",
+    "name": "bitbucket-api-client.java",
+    "project": {
+        "key": "BA",
+        "type": "project",
+        "uuid": "{6bdcb67a-baeb-43c9-b24c-c5a886229868}",
+        "links": {
+            "self": {
+                "href": "https://api.bitbucket.org/2.0/teams/vx68k/projects/BA"
+            },
+            "html": {
+                "href": "https://bitbucket.org/account/user/7590db3d-195a-40a0-aeab-1d8601a6298f/projects/BA"
+            },
+            "avatar": {
+                "href": "https://bitbucket.org/account/user/vx68k/projects/BA/avatar/32"
+            }
+        },
+        "name": "Bitbucket API"
+    },
+    "language": "java",
+    "created_on": "2015-01-25T00:46:01.974786+00:00",
+    "mainbranch": {
+        "type": "named_branch",
+        "name": "default"
+    },
+    "full_name": "vx68k/bitbucket-api-client.java",
+    "has_issues": true,
+    "owner": {
+        "username": "vx68k",
+        "display_name": "VX68k.org",
+        "type": "team",
+        "uuid": "{7590db3d-195a-40a0-aeab-1d8601a6298f}",
+        "links": {
+            "self": {
+                "href": "https://api.bitbucket.org/2.0/teams/%7B7590db3d-195a-40a0-aeab-1d8601a6298f%7D"
+            },
+            "html": {
+                "href": "https://bitbucket.org/%7B7590db3d-195a-40a0-aeab-1d8601a6298f%7D/"
+            },
+            "avatar": {
+                "href": "https://bitbucket.org/account/vx68k/avatar/"
+            }
+        }
+    },
+    "updated_on": "2019-06-17T06:03:36.156617+00:00",
+    "size": 2902120,
+    "type": "repository",
+    "slug": "bitbucket-api-client.java",
+    "is_private": false,
+    "description": "Source code repository for a Client API for Bitbucket® Cloud for the Java™ language."
+}
