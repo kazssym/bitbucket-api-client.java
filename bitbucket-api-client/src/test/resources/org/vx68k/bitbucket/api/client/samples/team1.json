@@ -1,6 +1,5 @@
 {
     "username": "vx68k",
-    "website": "https://www.vx68k.org/",
     "display_name": "VX68k.org",
     "uuid": "{7590db3d-195a-40a0-aeab-1d8601a6298f}",
     "links": {
@@ -16,17 +15,11 @@
         "html": {
             "href": "https://bitbucket.org/%7B7590db3d-195a-40a0-aeab-1d8601a6298f%7D/"
         },
-        "followers": {
-            "href": "https://api.bitbucket.org/2.0/teams/%7B7590db3d-195a-40a0-aeab-1d8601a6298f%7D/followers"
-        },
         "avatar": {
             "href": "https://bitbucket.org/account/vx68k/avatar/"
         },
         "members": {
             "href": "https://api.bitbucket.org/2.0/teams/%7B7590db3d-195a-40a0-aeab-1d8601a6298f%7D/members"
-        },
-        "following": {
-            "href": "https://api.bitbucket.org/2.0/teams/%7B7590db3d-195a-40a0-aeab-1d8601a6298f%7D/following"
         },
         "projects": {
             "href": "https://api.bitbucket.org/2.0/teams/%7B7590db3d-195a-40a0-aeab-1d8601a6298f%7D/projects/"
@@ -36,6 +29,5 @@
         }
     },
     "created_on": "2016-10-20T21:55:54.661382+00:00",
-    "location": null,
     "type": "team"
 }
