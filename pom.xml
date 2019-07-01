@@ -51,8 +51,8 @@ implementation for Bitbucket Cloud.</description>
 
 <distributionManagement>
 <site>
-<id>localhost</id>
-<url>file:site/</url>
+<id>project</id>
+<url>${project.url}</url>
 </site>
 </distributionManagement>
 
