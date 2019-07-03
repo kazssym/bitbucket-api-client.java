@@ -1,33 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  settings.xml - Maven settings
-  Copyright (C) 2017 Kaz Nishimura
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+    http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
 
-  Copying and distribution of this file, with or without modification, are
-  permitted in any medium without royalty provided the copyright notice and
-  this notice are preserved.  This file is offered as-is, without any warranty.
--->
-<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
-    <servers>
-        <server>
-            <username>${env.OSSRHUSERNAME}</username>
-            <password>${env.OSSRHPASSWORD}</password>
-            <id>ossrh</id>
-        </server>
-        <server>
-            <passphrase>${env.GPGPASSPHRASE}</passphrase>
-            <id>gpg.passphrase</id>
-        </server>
-    </servers>
-    <profiles>
-        <profile>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <properties>
-                <gpg.keyname>${env.GPGKEYNAME}</gpg.keyname>
-            </properties>
-            <id>pipelines</id>
-        </profile>
-    </profiles>
+<servers>
+
+<server>
+<username>${env.OSSRH_USERNAME}</username>
+<password>${env.OSSRH_PASSWORD}</password>
+<id>ossrh</id>
+</server>
+
+<server>
+<passphrase>${env.GPG_PASSPHRASE}</passphrase>
+<id>gpg.passphrase</id>
+</server>
+</servers>
+
+<profiles>
+
+<profile>
+<activation>
+<activeByDefault>true</activeByDefault>
+</activation>
+<properties>
+<gpg.keyname>${env.GPG_KEYNAME}</gpg.keyname>
+</properties>
+<id>pipelines</id>
+</profile>
+</profiles>
 </settings>
