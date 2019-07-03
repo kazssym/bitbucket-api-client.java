@@ -52,7 +52,7 @@ pipelines:
             - export GNUPGHOME=`mktemp -d`
             - sh etc/gpginit.sh
             - export MAVEN_OPTS="-Xquickstart"
-            - mvn -B -s etc/settings.xml ${OSSRHUSERNAME+-P ossrh} -Dmaven.deploy.skip deploy
+            - mvn -B -s etc/settings.xml ${OSSRH_USERNAME+-P ossrh} -Dmaven.deploy.skip deploy
   bookmarks:
     staging:
       - step:
@@ -65,7 +65,7 @@ pipelines:
             - export GNUPGHOME=`mktemp -d`
             - sh etc/gpginit.sh
             - export MAVEN_OPTS="-Xquickstart"
-            - mvn -B -s etc/settings.xml ${OSSRHUSERNAME+-P ossrh} -Dmaven.deploy.skip deploy
+            - mvn -B -s etc/settings.xml ${OSSRH_USERNAME+-P ossrh} -Dmaven.deploy.skip deploy
     deployment/test:
       - step:
           <<: *deploy
