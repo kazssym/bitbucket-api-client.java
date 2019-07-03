@@ -52,7 +52,7 @@ implementation for Bitbucket Cloud.</description>
 <distributionManagement>
 <site>
 <id>project</id>
-<url>${project.url}</url>
+<url>https://vx68k.bitbucket.io/bitbucket-api-client.java/5/</url>
 </site>
 </distributionManagement>
 
