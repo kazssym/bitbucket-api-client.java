@@ -111,7 +111,7 @@ public final class BitbucketClientIssueTest
         BitbucketIssue issue1 = new BitbucketClientIssue(sampleIssue1);
         assertNotNull(issue1.getRepository());
         assertEquals(
-            "bitbucket-api-client-java", issue1.getRepository().getName());
+            "bitbucket-api-client.java", issue1.getRepository().getName());
     }
 
     /**
