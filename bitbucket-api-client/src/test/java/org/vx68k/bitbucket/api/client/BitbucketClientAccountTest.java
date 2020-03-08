@@ -176,7 +176,7 @@ public final class BitbucketClientAccountTest
         assertNull(user1.getWebsite());
 
         BitbucketAccount team1 = new BitbucketClientAccount(sampleTeam1);
-        assertEquals("https://www.vx68k.org/", team1.getWebsite());
+        assertNull(team1.getWebsite());
     }
 
     /**
