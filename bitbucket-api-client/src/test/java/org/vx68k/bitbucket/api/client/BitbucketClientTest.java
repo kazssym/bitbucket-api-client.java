@@ -71,7 +71,7 @@ public class BitbucketClientTest
         BitbucketUser user = (BitbucketUser) client.getUser("kazssym");
         System.out.println("Got " + user);
         assertNotNull(user.getUUID());
-        assertEquals("kazssym", user.getName());
+        assertNull(user.getName());
         assertNotNull(user.getDisplayName());
         assertNotNull(user.getCreated());
         // Other properties are unknown at test time.
@@ -133,7 +133,7 @@ public class BitbucketClientTest
         assertNotNull(repository.getUUID());
         assertEquals(
             TEAM_NAME + "/" + REPOSITORY_NAME, repository.getFullName());
-        assertEquals("hg", repository.getSCM());
+        assertEquals("git", repository.getSCM());
         assertFalse(repository.isPrivate());
 
         // Case not to be found.
