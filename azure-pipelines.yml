@@ -1,0 +1,22 @@
+# azure-pipelines.yml - configuration for Azure Pipelines
+# Copyright (C) 2020 Kaz Nishimura
+#
+# Copying and distribution of this file, with or without modification, are
+# permitted in any medium without royalty provided the copyright notice and
+# this notice are preserved.  This file is offered as-is, without any warranty.
+---
+trigger:
+  - master
+  - release/**
+  - feature/**
+stages:
+  - stage: Default
+    jobs:
+      - job: Build
+        pool:
+          vmImage: ubuntu-latest
+        steps:
+          - task: Maven@3
+            inputs:
+              options: -B -P ossrh
+              jdkVersion: "1.8"
