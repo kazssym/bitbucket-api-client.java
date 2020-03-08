@@ -138,7 +138,7 @@ public final class BitbucketClientIssueTest
 
         BitbucketIssue issue1 = new BitbucketClientIssue(sampleIssue1);
         assertNotNull(issue1.getReporter());
-        assertEquals("kazssym", issue1.getReporter().getName());
+        assertNull(issue1.getReporter().getName());
     }
 
     /**
@@ -219,7 +219,7 @@ public final class BitbucketClientIssueTest
 
         BitbucketIssue issue1 = new BitbucketClientIssue(sampleIssue1);
         assertNotNull(issue1.getAssignee());
-        assertEquals("kazssym", issue1.getAssignee().getName());
+        assertNull(issue1.getAssignee().getName());
     }
 
     /**
