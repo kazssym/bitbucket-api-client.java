@@ -15,8 +15,26 @@ stages:
       - job: Build
         pool:
           vmImage: ubuntu-latest
+        variables:
+          - group: gpg
         steps:
+          - task: DownloadSecureFile@1
+            name: gpgKeys
+            inputs:
+              secureFile: keys.asc
+          - bash: |
+              echo '$(gpg.passphrase)' | \
+              sh ./setupkeys.sh '$(gpgKeys.secureFilePath)'
+            displayName: Set up signing keys
+          - task: Cache@2
+            inputs:
+              key: maven | $(Agent.OS) | **/pom.xml
+              path: $(Agent.BuildDirectory)/.m2/repository
+              restoreKeys: |
+                maven | $(Agent.OS)
+                maven
           - task: Maven@3
             inputs:
-              options: -B -P ossrh
+              goals: package gpg:sign
+              options: -B -P ossrh -Duser.home=$(Agent.BuildDirectory)
               jdkVersion: "1.8"
