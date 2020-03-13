@@ -57,9 +57,6 @@ stages:
                 maven | $(Agent.OS)
                 maven
           - task: MavenAuthenticate@0
-            condition: >-
-              and(succeeded(),
-                startsWith(variables['Build.SourceBranch'], 'refs/heads/release/'))
             inputs:
               mavenServiceConnections: ossrh
           - task: Maven@3
