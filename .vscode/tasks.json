@@ -8,10 +8,7 @@
             "args": [
                 "package"
             ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
+            "group": "build",
             "problemMatcher": []
         },
         {
@@ -30,7 +27,7 @@
             "type": "process",
             "command": "${config:maven.executable.path}",
             "args": [
-                "install",
+                "install"
             ],
             "group": "build",
             "problemMatcher": []
