@@ -31,6 +31,7 @@ stages:
                 -Dmaven.repo.local=$(Agent.BuildDirectory)/.m2/repository
               jdkVersion: "1.8"
   - stage: Release
+    dependsOn: []
     condition: >-
       startsWith(variables['Build.SourceBranch'], 'refs/heads/release/')
     jobs:
