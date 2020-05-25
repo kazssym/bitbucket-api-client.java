@@ -30,6 +30,7 @@ implementation for Bitbucket Cloud.</description>
 </developers>
 
 <modules>
+<module>bitbucket-api</module>
 <module>bitbucket-api-client</module>
 <module>bitbucket-api-client-cli</module>
 <module>bitbucket-webhook</module>
