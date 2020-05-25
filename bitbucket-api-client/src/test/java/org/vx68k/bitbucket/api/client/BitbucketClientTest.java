@@ -1,6 +1,6 @@
 /*
  * BitbucketClientTest.java - class BitbucketClientTest
- * Copyright (C) 2018-2019 Kaz Nishimura
+ * Copyright (C) 2018-2020 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -38,14 +38,16 @@ import org.vx68k.bitbucket.api.BitbucketUser;
 public class BitbucketClientTest
 {
     /**
-     * User name for tests.
+     * User UUID for tests.
      */
-    private static final String USER_NAME = "kazssym";
+    private static final String USER_UUID =
+        "{cebb58cd-f699-4393-8762-e0f743ccf770}";
 
     /**
-     * Team name for tests.
+     * Team UUID for tests.
      */
-    private static final String TEAM_NAME = "vx68k";
+    private static final String TEAM_UUID =
+        "{7590db3d-195a-40a0-aeab-1d8601a6298f}";
 
     /**
      * Repository name for tests.
@@ -68,7 +70,7 @@ public class BitbucketClientTest
     public void testGetUser()
     {
         BitbucketClient client = new BitbucketClient();
-        BitbucketUser user = (BitbucketUser) client.getUser("kazssym");
+        BitbucketUser user = (BitbucketUser) client.getUser(USER_UUID);
         System.out.println("Got " + user);
         assertNotNull(user.getUUID());
         assertNull(user.getName());
@@ -84,7 +86,7 @@ public class BitbucketClientTest
     public void testGetUserNotFound()
     {
         BitbucketClient client = new BitbucketClient();
-        BitbucketAccount user = client.getUser("vx68k"); // "vx68k" is a team.
+        BitbucketAccount user = client.getUser(TEAM_UUID);
         assertNull(user);
     }
 
@@ -95,7 +97,7 @@ public class BitbucketClientTest
     public void testGetTeam()
     {
         BitbucketClient client = new BitbucketClient();
-        BitbucketAccount team = client.getTeam("vx68k");
+        BitbucketAccount team = client.getTeam(TEAM_UUID);
         System.out.println("Got " + team);
         assertNotNull(team.getUUID());
         assertEquals("vx68k", team.getName());
@@ -111,7 +113,7 @@ public class BitbucketClientTest
     public void testGetTeamNotFound()
     {
         BitbucketClient client = new BitbucketClient();
-        BitbucketAccount team = client.getTeam("kazssym");
+        BitbucketAccount team = client.getTeam(USER_UUID);
         assertNull(team);
     }
 
@@ -125,18 +127,18 @@ public class BitbucketClientTest
 
         // Case to be found.
         BitbucketRepository repository =
-            client.getRepository(TEAM_NAME, REPOSITORY_NAME);
+            client.getRepository(TEAM_UUID, REPOSITORY_NAME);
         System.out.println("Got " + repository);
         assertNotNull(repository.getOwner());
-        assertEquals(TEAM_NAME, repository.getOwner().getName());
+        assertEquals("vx68k", repository.getOwner().getName());
         assertEquals(REPOSITORY_NAME, repository.getName());
         assertNotNull(repository.getUUID());
         assertEquals(
-            TEAM_NAME + "/" + REPOSITORY_NAME, repository.getFullName());
+            "vx68k" + "/" + REPOSITORY_NAME, repository.getFullName());
         assertEquals("git", repository.getSCM());
         assertFalse(repository.isPrivate());
 
         // Case not to be found.
-        assertNull(client.getRepository(TEAM_NAME, "non-existent"));
+        assertNull(client.getRepository(TEAM_UUID, "non-existent"));
     }
 }
