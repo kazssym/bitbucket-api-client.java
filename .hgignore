@@ -1,10 +1,9 @@
 syntax: regexp
 (^|/)target$
-(^|/)configuration$
-(^|/)\.env$
 (^|/)faces-config\.NavData$
 (^|/)\.project$
 (^|/)\.classpath$
+(^|/)\.factorypath$
 (^|/)\.settings$
 \.log$
 \.rej$
