@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<!--
+  myself.xhtml - current user description page for bitbucket-api-client-example
+  Copyright (C) 2015 Nishimura Software Studio
+
+  This program is free software: you can redistribute it and/or modify it
+  under the terms of the GNU Affero General Public License as published by the
+  Free Software Foundation, either version 3 of the License, or (at your
+  option) any later version.
+
+  This program is distributed in the hope that it will be useful, but WITHOUT
+  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+  FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public License
+  for more details.
+
+  You should have received a copy of the GNU Affero General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets">
+  <ui:composition template="templates/example.xhtml">
+    <ui:define name="title-prefix">
+      My profile &#x2013;
+    </ui:define>
+    <ui:define name="head-additions">
+      <style>
+        /* <![CDATA[ */
+        .local-overflow-auto {
+          overflow: auto;
+        }
+        /* ]]> */
+      </style>
+    </ui:define>
+    <ui:define name="main">
+      <h1>My profile</h1>
+      <ui:fragment rendered="#{currentUser.bitbucketService.authenticated}">
+        <div class="local-overflow-auto">
+          <table class="pure-table">
+            <tbody>
+              <tr>
+                <th>UUID</th>
+                <td>
+                  <h:outputText value="{#{currentUser.bitbucketService.currentUser.uuid}}"/>
+                </td>
+              </tr>
+              <tr>
+                <th>Name</th>
+                <td>
+                  <h:outputLink value="#{currentUser.bitbucketService.currentUser.links['html']}">
+                    <h:outputText value="#{currentUser.bitbucketService.currentUser.name}"/>
+                  </h:outputLink>
+                </td>
+              </tr>
+              <tr>
+                <th>Display name</th>
+                <td>
+                  <h:outputText value="#{currentUser.bitbucketService.currentUser.displayName}"/>
+                </td>
+              </tr>
+              <tr>
+                <th>Avatar</th>
+                <td>
+                  <h:graphicImage url="#{currentUser.bitbucketService.currentUser.links['avatar']}" alt="Avatar"/>
+                </td>
+              </tr>
+              <tr>
+                <th>Website</th>
+                <td>
+                  <h:outputLink rendered="#{currentUser.bitbucketService.currentUser.website != null}" value="#{currentUser.bitbucketService.currentUser.website}">
+                    <h:outputText value="#{currentUser.bitbucketService.currentUser.website}"/>
+                  </h:outputLink>
+                  <ui:fragment rendered="#{currentUser.bitbucketService.currentUser.website == null}">Unspecified</ui:fragment>
+                </td>
+              </tr>
+              <tr>
+                <th>Location</th>
+                <td>
+                  <h:outputLink rendered="#{currentUser.bitbucketService.currentUser.location != null}" value="https://www.google.com/maps" title="Search this location using Google Maps" target="_blank">
+                    <f:param name="q" value="#{currentUser.bitbucketService.currentUser.location}"/>
+                    <h:outputText value="#{currentUser.bitbucketService.currentUser.location}"/>
+                  </h:outputLink>
+                  <ui:fragment rendered="#{currentUser.bitbucketService.currentUser.location == null}">Unspecified</ui:fragment>
+                </td>
+              </tr>
+              <tr>
+                <th>Since</th>
+                <td>
+                  <h:outputFormat rendered="#{currentUser.bitbucketService.currentUser.created != null}" value="{0, date, long}">
+                    <f:param value="#{currentUser.bitbucketService.currentUser.created}"/>
+                  </h:outputFormat>
+                  <ui:fragment rendered="#{currentUser.bitbucketService.currentUser.created == null}">Unspecified</ui:fragment>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </ui:fragment>
+      <ui:fragment rendered="#{not user.bitbucketService.authenticated}">
+        <p>
+          You must login first!
+        </p>
+      </ui:fragment>
+    </ui:define>
+  </ui:composition>
+</html>

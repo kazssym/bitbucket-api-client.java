@@ -1,0 +1,7 @@
+{
+    "files.exclude": {
+        "**/*.rej": true,
+        "**/*.orig": true,
+        "**/*~": true
+    }
+}

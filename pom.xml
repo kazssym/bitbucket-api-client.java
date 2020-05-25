@@ -1,185 +1,318 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  pom.xml - project object model for bitbucket-api-client-parent
-  Copyright (C) 2015 Nishimura Software Studio
-
-  This program is free software: you can redistribute it and/or modify it
-  under the terms of the GNU Affero General Public License as published by the
-  Free Software Foundation, either version 3 of the License, or (at your
-  option) any later version.
-
-  This program is distributed in the hope that it will be useful, but WITHOUT
-  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-  FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public License
-  for more details.
-
-  You should have received a copy of the GNU Affero General Public License
-  along with this program.  If not, see <http://www.gnu.org/licenses/>.
--->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>org.vx68k.bitbucket</groupId>
-  <artifactId>bitbucket-api-client-parent</artifactId>
-  <packaging>pom</packaging>
-  <name>Bitbucket API Client for Java (Parent)</name>
-  <version>4.0</version>
-  <description>Parent project for the Bitbucket API Client Library</description>
-  <url>http://kazssym.bitbucket.org/bitbucket-api-client-java/</url>
-  <issueManagement>
-    <system>Bitbucket</system>
-    <url>https://bitbucket.org/kazssym/bitbucket-api-client-java/issues</url>
-  </issueManagement>
-  <inceptionYear>2015</inceptionYear>
-  <developers>
-    <developer>
-      <name>Kaz Nishimura</name>
-      <email>kazssym@vx68k.org</email>
-    </developer>
-  </developers>
-  <licenses>
-    <license>
-      <name>GNU Affero General Public License v3.0 or later</name>
-      <url>http://www.gnu.org/licenses/agpl.html</url>
-      <distribution>repo</distribution>
-    </license>
-  </licenses>
-  <scm>
-    <connection>scm:hg:https://bitbucket.org/kazssym/bitbucket-api-client-java</connection>
-    <developerConnection>scm:hg:https://bitbucket.org/kazssym/bitbucket-api-client-java</developerConnection>
-    <tag>default</tag>
-    <url>https://bitbucket.org/kazssym/bitbucket-api-client-java/src</url>
-  </scm>
-  <organization>
-    <name>Nishimura Software Studio</name>
-  </organization>
-  <build>
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-resources-plugin</artifactId>
-          <version>2.7</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.3</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-javadoc-plugin</artifactId>
-          <version>2.10.3</version>
-          <configuration>
-            <links>
-              <link>https://json-processing-spec.java.net/nonav/releases/1.0/fcs/javadocs</link>
-              <link>https://developers.google.com/api-client-library/java/google-oauth-java-client/reference/1.20.0</link>
-              <link>https://developers.google.com/api-client-library/java/google-http-java-client/reference/1.20.0</link>
-            </links>
-            <detectLinks>true</detectLinks>
-            <locale>en_US</locale>
-          </configuration>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-dependency-plugin</artifactId>
-          <version>2.10</version>
-        </plugin>
-        <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>findbugs-maven-plugin</artifactId>
-          <version>3.0.0</version>
-          <configuration>
-            <xmlOutput>true</xmlOutput>
-          </configuration>
-        </plugin>
-      </plugins>
-    </pluginManagement>
-  </build>
-  <profiles>
-    <profile>
-      <id>ossrh</id>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-javadoc-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>attach-javadocs</id>
-                <goals>
-                  <goal>jar</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-source-plugin</artifactId>
-            <version>2.4</version>
-            <executions>
-              <execution>
-                <id>attach-sources</id>
-                <goals>
-                  <goal>jar-no-fork</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-gpg-plugin</artifactId>
-            <version>1.5</version>
-            <executions>
-              <execution>
-                <id>sign-artifacts</id>
-                <goals>
-                  <goal>sign</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <groupId>org.sonatype.plugins</groupId>
-            <artifactId>nexus-staging-maven-plugin</artifactId>
-            <version>1.6.5</version>
-            <extensions>true</extensions>
-            <configuration>
-              <serverId>ossrh</serverId>
-              <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
-      <distributionManagement>
-        <snapshotRepository>
-          <id>ossrh</id>
-          <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-        </snapshotRepository>
-      </distributionManagement>
-    </profile>
-  </profiles>
-  <modules>
-    <module>client</module>
-    <module>client-oauth</module>
-    <module>example</module>
-  </modules>
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>org.glassfish</groupId>
-        <artifactId>javax.json</artifactId>
-        <version>1.0.4</version>
-      </dependency>
-      <dependency>
-        <groupId>junit</groupId>
-        <artifactId>junit</artifactId>
-        <version>4.12</version>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.6</maven.compiler.source>
-    <maven.compiler.target>1.6</maven.compiler.target>
-  </properties>
+<modelVersion>4.0.0</modelVersion>
+
+<groupId>org.vx68k.bitbucket</groupId>
+<artifactId>bitbucket-api-client-parent</artifactId>
+<version>5.0-SNAPSHOT</version>
+<packaging>pom</packaging>
+<name>Java Client API for Bitbucket Cloud</name>
+<description>This project builds a client API implementation and a webhook
+implementation for Bitbucket Cloud.</description>
+<url>https://vx68k.bitbucket.io/bitbucket-api-client-java/5/</url>
+<inceptionYear>2015</inceptionYear>
+
+<licenses>
+
+<license>
+<name>GNU Affero General Public License</name>
+<url>https://www.gnu.org/licenses/agpl.txt</url>
+<distribution>repo</distribution>
+<comments>Version 3 or any later version.</comments>
+</license>
+</licenses>
+
+<developers>
+
+<developer>
+<name>Kaz Nishimura</name>
+<email>kazssym@vx68k.org</email>
+</developer>
+</developers>
+
+<modules>
+<module>bitbucket-api-client</module>
+<module>bitbucket-api-client-cli</module>
+<module>bitbucket-webhook</module>
+<module>bitbucket-stubs</module>
+<module>bitbucket-api-client-webapp</module>
+</modules>
+
+<scm>
+<connection>scm:hg:https://bitbucket.org/vx68k/bitbucket-api-client-java</connection>
+<developerConnection>scm:hg:ssh://hg@bitbucket.org/vx68k/bitbucket-api-client-java</developerConnection>
+<tag>master</tag>
+<url>https://bitbucket.org/vx68k/bitbucket-api-client-java/src/${project.scm.tag}/</url>
+</scm>
+
+<issueManagement>
+<system>Bitbucket</system>
+<url>https://bitbucket.org/vx68k/bitbucket-api-client-java/issues</url>
+</issueManagement>
+
+<distributionManagement>
+<site>
+<id>localhost</id>
+<url>file:site/</url>
+</site>
+</distributionManagement>
+
+<properties>
+<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+</properties>
+
+<dependencyManagement>
+
+<dependencies>
+
+<dependency>
+<groupId>javax</groupId>
+<artifactId>javaee-web-api</artifactId>
+<version>7.0</version>
+</dependency>
+
+<dependency>
+<groupId>javax.ws.rs</groupId>
+<artifactId>javax.ws.rs-api</artifactId>
+<version>2.0.1</version>
+</dependency>
+
+<dependency>
+<groupId>javax.json</groupId>
+<artifactId>javax.json-api</artifactId>
+<version>1.0</version>
+</dependency>
+
+<dependency>
+<groupId>javax.activation</groupId>
+<artifactId>javax.activation-api</artifactId>
+<version>1.2.0</version>
+</dependency>
+
+<dependency>
+<groupId>org.glassfish</groupId>
+<artifactId>javax.servlet</artifactId>
+<version>3.1.1</version>
+</dependency>
+
+<dependency>
+<groupId>org.glassfish</groupId>
+<artifactId>javax.json</artifactId>
+<version>1.0.4</version>
+</dependency>
+
+<dependency>
+<groupId>org.glassfish.jersey.core</groupId>
+<artifactId>jersey-client</artifactId>
+<version>2.25.1</version>
+</dependency>
+
+<dependency>
+<groupId>org.apache.derby</groupId>
+<artifactId>derbyclient</artifactId>
+<version>10.14.2.0</version>
+</dependency>
+
+<dependency>
+<groupId>junit</groupId>
+<artifactId>junit</artifactId>
+<version>4.12</version>
+</dependency>
+</dependencies>
+</dependencyManagement>
+
+<build>
+
+<pluginManagement>
+
+<plugins>
+
+<plugin>
+<groupId>org.apache.maven.plugins</groupId>
+<artifactId>maven-compiler-plugin</artifactId>
+<version>3.7.0</version>
+<configuration>
+<source>1.8</source>
+<target>1.8</target>
+</configuration>
+</plugin>
+
+<plugin>
+<groupId>org.apache.maven.plugins</groupId>
+<artifactId>maven-jar-plugin</artifactId>
+<version>3.1.0</version>
+</plugin>
+
+<plugin>
+<groupId>org.apache.maven.plugins</groupId>
+<artifactId>maven-source-plugin</artifactId>
+<version>3.0.1</version>
+</plugin>
+
+<plugin>
+<groupId>org.apache.maven.plugins</groupId>
+<artifactId>maven-javadoc-plugin</artifactId>
+<version>3.0.1</version>
+<configuration>
+<locale>en_US</locale>
+<links>
+<link>https://docs.oracle.com/javaee/7/api</link>
+<link>https://vx68k.bitbucket.io/bitbucket-api-client-java/5/apidocs</link>
+</links>
+</configuration>
+</plugin>
+
+<plugin>
+<groupId>org.apache.maven.plugins</groupId>
+<artifactId>maven-site-plugin</artifactId>
+<version>3.7.1</version>
+</plugin>
+
+<plugin>
+<groupId>org.apache.maven.plugins</groupId>
+<artifactId>maven-project-info-reports-plugin</artifactId>
+<version>3.0.0</version>
+</plugin>
+
+<plugin>
+<groupId>org.apache.maven.plugins</groupId>
+<artifactId>maven-pmd-plugin</artifactId>
+<version>3.10.0</version>
+</plugin>
+
+<plugin>
+<groupId>org.apache.maven.plugins</groupId>
+<artifactId>maven-gpg-plugin</artifactId>
+<version>1.6</version>
+</plugin>
+
+<plugin>
+<groupId>org.apache.felix</groupId>
+<artifactId>maven-bundle-plugin</artifactId>
+<version>4.0.0</version>
+</plugin>
+
+<plugin>
+<groupId>org.sonatype.plugins</groupId>
+<artifactId>nexus-staging-maven-plugin</artifactId>
+<version>1.6.8</version>
+</plugin>
+</plugins>
+</pluginManagement>
+</build>
+
+<reporting>
+
+<plugins>
+
+<plugin>
+<groupId>org.apache.maven.plugins</groupId>
+<artifactId>maven-javadoc-plugin</artifactId>
+<reportSets>
+<reportSet>
+<reports>
+<!-- No default reports -->
+</reports>
+</reportSet>
+<reportSet>
+<id>aggregate</id>
+<reports>
+<report>aggregate</report>
+<report>test-aggregate</report>
+</reports>
+<inherited>false</inherited>
+<configuration>
+<doctitle>${project.name} ${project.version}</doctitle>
+</configuration>
+</reportSet>
+</reportSets>
+<configuration>
+<notimestamp>true</notimestamp>
+</configuration>
+</plugin>
+
+<plugin>
+<groupId>org.apache.maven.plugins</groupId>
+<artifactId>maven-pmd-plugin</artifactId>
+
+<reportSets>
+
+<reportSet>
+<reports>
+<report>pmd</report>
+</reports>
+</reportSet>
+</reportSets>
+</plugin>
+</plugins>
+</reporting>
+
+<profiles>
+
+<profile>
+<id>ossrh</id>
+
+<distributionManagement>
+<snapshotRepository>
+<id>ossrh</id>
+<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+</snapshotRepository>
+</distributionManagement>
+
+<build>
+
+<plugins>
+
+<plugin>
+<groupId>org.apache.maven.plugins</groupId>
+<artifactId>maven-source-plugin</artifactId>
+<executions>
+<execution>
+<id>attach-sources</id>
+<goals>
+<goal>jar</goal>
+</goals>
+</execution>
+</executions>
+</plugin>
+
+<plugin>
+<groupId>org.apache.maven.plugins</groupId>
+<artifactId>maven-javadoc-plugin</artifactId>
+<executions>
+<execution>
+<id>attach-javadoc</id>
+<goals>
+<goal>jar</goal>
+</goals>
+</execution>
+</executions>
+</plugin>
+
+<plugin>
+<groupId>org.apache.maven.plugins</groupId>
+<artifactId>maven-gpg-plugin</artifactId>
+<executions>
+<execution>
+<id>sign-artifacts</id>
+<goals>
+<goal>sign</goal>
+</goals>
+</execution>
+</executions>
+</plugin>
+
+<plugin>
+<groupId>org.sonatype.plugins</groupId>
+<artifactId>nexus-staging-maven-plugin</artifactId>
+<extensions>true</extensions>
+<configuration>
+<serverId>ossrh</serverId>
+<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+</configuration>
+</plugin>
+</plugins>
+</build>
+</profile>
+</profiles>
 </project>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html lang="#{view.locale}" xmlns="http://www.w3.org/1999/xhtml" xmlns:jsf="http://xmlns.jcp.org/jsf" xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<head jsf:id="head">
+<meta content="text/html;charset=UTF-8" http-equiv="Content-Type" />
+<meta content="width=device-width, initial-scale=1" name="viewport" />
+<title>
+<ui:insert name="title">
+Client API Example for Bitbucket Cloud
+</ui:insert>
+</title>
+
+<link href="#{facesContext.application.viewHandler.getActionURL(facesContext, view.viewId)}" rel="canonical"/>
+<ui:insert name="head-additions" />
+</head>
+
+<body class="app-vbox" jsf:id="body">
+<f:view>
+<ui:insert name="metadata" />
+
+<header class="app-header">
+<div class="app-hbox">
+<div class="app-hbox-grow app-content">
+Client API Example for Bitbucket Cloud
+</div>
+
+<div>
+<form class="pure-menu pure-menu-horizontal" jsf:id="header-menu">
+<ul class="pure-menu-list">
+
+<ui:fragment rendered="#{not userContext.loggedIn}">
+<li class="pure-menu-item">
+<f:ajax render="@form" onerror="doAjaxError">
+<a class="pure-menu-link" jsf:id="login" jsf:action="#{userContext.login}">
+#{messages.login}</a>
+</f:ajax>
+</li>
+</ui:fragment>
+
+<ui:fragment rendered="#{userContext.loggedIn}">
+<li id="account-menu"
+    class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+<a class="pure-menu-link" href="#">Account</a>
+<ul class="pure-menu-children">
+<li class="pure-menu-item">
+<h:outputLink styleClass="pure-menu-link" value="#{request.contextPath}/myself.jsf">Profile</h:outputLink>
+</li>
+<li class="pure-menu-item">
+<h:commandLink styleClass="pure-menu-link" action="#{userContext.logout}">#{messages.logout}</h:commandLink>
+</li>
+</ul>
+</li>
+</ui:fragment>
+<li class="pure-menu-item">
+<a class="pure-menu-link app-icon" jsf:value="#{request.contextPath}/help.jsf">
+<ui:include src="/icons/ic_help_24px.svg"/>
+</a>
+</li>
+</ul>
+</form>
+</div>
+</div>
+</header>
+
+<div class="app-vbox-grow app-hbox">
+<nav id="nav-menu" class="pure-menu">
+<div class="pure-menu-heading">View</div>
+<ul class="pure-menu-list">
+<li class="pure-menu-item">
+<a class="pure-menu-link" jsf:outcome="/user.xhtml">User information</a>
+<a class="pure-menu-link" jsf:outcome="/team.xhtml">Team information</a>
+<a class="pure-menu-link" jsf:outcome="/repository.xhtml">
+Repository information</a>
+<a class="pure-menu-link" jsf:outcome="/events.xhtml">Events</a>
+</li>
+</ul>
+</nav>
+
+<div class="app-hbox-grow">
+<ui:insert name="main" />
+</div>
+</div>
+</f:view>
+
+<script type="module" async="async" jsf:name="app.js"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css"
+    crossorigin="anonymous" rel="stylesheet"
+    integrity="sha256-Q0zCrUs2IfXWYx0uMKJfG93CvF6oVII21waYsAV4/8Q=" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css"
+    crossorigin="anonymous" rel="stylesheet" media="screen"
+    integrity="sha256-YqnnS/cQ7vE7gfVjdfx+JMi5EFD6m6Zqdemj81rs6PU=" />
+<ui:remove>
+<!-- Note the 'resource[]' URL will be encoded in JSF 2.3. -->
+</ui:remove>
+<link href="#{resource['app.css']}" rel="stylesheet"/>
+<link title="Default Theme" href="#{resource['app-default.css']}" rel="stylesheet"/>
+<ui:debug />
+</body>
+</html>

@@ -1,0 +1,39 @@
+{
+    "username": "kazssym",
+    "website": "https://plus.google.com/+KazNishimura",
+    "display_name": "Kaz",
+    "uuid": "{cebb58cd-f699-4393-8762-e0f743ccf770}",
+    "links": {
+        "hooks": {
+            "href": "https://api.bitbucket.org/2.0/users/%7Bcebb58cd-f699-4393-8762-e0f743ccf770%7D/hooks"
+        },
+        "self": {
+            "href": "https://api.bitbucket.org/2.0/users/%7Bcebb58cd-f699-4393-8762-e0f743ccf770%7D"
+        },
+        "repositories": {
+            "href": "https://api.bitbucket.org/2.0/repositories/%7Bcebb58cd-f699-4393-8762-e0f743ccf770%7D"
+        },
+        "html": {
+            "href": "https://bitbucket.org/%7Bcebb58cd-f699-4393-8762-e0f743ccf770%7D/"
+        },
+        "followers": {
+            "href": "https://api.bitbucket.org/2.0/users/%7Bcebb58cd-f699-4393-8762-e0f743ccf770%7D/followers"
+        },
+        "avatar": {
+            "href": "https://avatar-cdn.atlassian.com/initials/K?ordinal=-2"
+        },
+        "following": {
+            "href": "https://api.bitbucket.org/2.0/users/%7Bcebb58cd-f699-4393-8762-e0f743ccf770%7D/following"
+        },
+        "snippets": {
+            "href": "https://api.bitbucket.org/2.0/snippets/%7Bcebb58cd-f699-4393-8762-e0f743ccf770%7D"
+        }
+    },
+    "nickname": "Kaz",
+    "created_on": "2010-02-25T11:30:06.496110+00:00",
+    "is_staff": false,
+    "location": null,
+    "account_status": "active",
+    "type": "user",
+    "account_id": "557058:1b90a375-618c-4baa-9894-2f8e99761991"
+}

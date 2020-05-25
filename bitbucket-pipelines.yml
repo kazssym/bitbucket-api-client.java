@@ -1,0 +1,72 @@
+# bitbucket-pipelines.yml - Bitbucket Pipelines configuration
+# Copyright (C) 2016-2018 Kaz Nishimura
+#
+# Copying and distribution of this file, with or without modification, are
+# permitted in any medium without royalty provided the copyright notice and
+# this notice are preserved.  This file is offered as-is, without any warranty.
+
+# See <https://confluence.atlassian.com/bitbucket/configure-bitbucket-pipelines-yml-792298910.html>
+# for details.
+---
+definitions:
+  caches:
+    openj9: /root/javasharedresources
+  steps:
+    - step: &test
+        name: Test
+        caches:
+          - maven
+          - openj9
+        script:
+          - export OPENJ9_JAVA_OPTIONS="-Xtune:virtualized"
+          - export MAVEN_OPTS="-Xgcpolicy:optthruput -Xshareclasses"
+          - mvn -B -s etc/settings.xml ${OSSRH_USERNAME+-P ossrh} test
+    - step: &deploy
+        name: Deploy
+        caches:
+          - maven
+          - openj9
+        script:
+          - apt-get update --quiet=2
+          - apt-get install --quiet=2 --no-install-recommends gpg gpg-agent
+          - export GNUPGHOME=`mktemp -d`
+          - sh etc/gpginit.sh
+          - export OPENJ9_JAVA_OPTIONS="-Xtune:virtualized"
+          - export MAVEN_OPTS="-Xgcpolicy:optthruput -Xshareclasses"
+          - mvn -B -s etc/settings.xml ${OSSRH_USERNAME+-P ossrh} -Dmaven.deploy.skip deploy
+        artifacts:
+          - target/*
+image: adoptopenjdk/maven-openjdk8-openj9
+pipelines:
+  branches:
+    default:
+      - step: *test
+    production:
+      - step:
+          deployment: production
+          caches:
+            - maven
+          script:
+            - apt-get update --quiet=2
+            - apt-get install --quiet=2 --no-install-recommends gpg gpg-agent
+            - export GNUPGHOME=`mktemp -d`
+            - sh etc/gpginit.sh
+            - export MAVEN_OPTS="-Xquickstart"
+            - mvn -B -s etc/settings.xml ${OSSRHUSERNAME+-P ossrh} -Dmaven.deploy.skip deploy
+  bookmarks:
+    staging:
+      - step:
+          deployment: staging
+          caches:
+            - maven
+          script:
+            - apt-get update --quiet=2
+            - apt-get install --quiet=2 --no-install-recommends gpg gpg-agent
+            - export GNUPGHOME=`mktemp -d`
+            - sh etc/gpginit.sh
+            - export MAVEN_OPTS="-Xquickstart"
+            - mvn -B -s etc/settings.xml ${OSSRHUSERNAME+-P ossrh} -Dmaven.deploy.skip deploy
+    deployment/test:
+      - step:
+          <<: *deploy
+          deployment: test

@@ -1,0 +1,23 @@
+<#if licenseFirst??>
+${licenseFirst}
+</#if>
+${licensePrefix}${nameAndExt}
+${licensePrefix}Copyright (C) ${date?date?string("yyyy")} ${project.organization!user}
+${licensePrefix?replace(" +$", "", "r")}
+${licensePrefix}This program is free software: you can redistribute it and/or modify it
+${licensePrefix}under the terms of the GNU General Public License as published by the Free
+${licensePrefix}Software Foundation, either version 3 of the License, or (at your option)
+${licensePrefix}any later version.
+${licensePrefix?replace(" +$", "", "r")}
+${licensePrefix}This program is distributed in the hope that it will be useful, but WITHOUT
+${licensePrefix}ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+${licensePrefix}FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+${licensePrefix}more details.
+${licensePrefix?replace(" +$", "", "r")}
+${licensePrefix}You should have received a copy of the GNU General Public License along with
+${licensePrefix}this program.  If not, see <http://www.gnu.org/licenses/>.
+${licensePrefix?replace(" +$", "", "r")}
+${licensePrefix}SPDX-License-Identifier: GPL-3.0-or-later
+<#if licenseLast??>
+${licenseLast}
+</#if>

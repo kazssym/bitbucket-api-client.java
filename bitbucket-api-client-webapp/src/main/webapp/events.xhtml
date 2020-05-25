@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/templates/default.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:jsf="http://xmlns.jcp.org/jsf"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<ui:define name="main">
+<main class="app-content">
+<h1>Events</h1>
+
+<form class="pure-form pure-form-stacked" jsf:id="events">
+<div>
+<input class="pure-button" type="button"
+    jsf:id="refresh" jsf:value="Refresh" />
+</div>
+
+<h:dataTable styleClass="pure-table"
+    var="record" value="#{eventRecorder.records}">
+<h:column>
+<f:facet name="header">Recorded</f:facet>
+<h:outputText value="#{record.recorded}">
+<f:convertDateTime type="both" timeStyle="long" timeZone="UTC" />
+</h:outputText>
+</h:column>
+<h:column>
+<f:facet name="header">Repository</f:facet>
+<a jsf:outcome="/repository.xhtml">
+<f:param name="owner" value="#{record.event.repository.owner.name}"/>
+<f:param name="name" value="#{record.event.repository.name}"/>
+#{record.event.repository.fullName}</a>
+</h:column>
+<h:column>
+<f:facet name="header">Actor</f:facet>
+<a jsf:outcome="/user.xhtml">
+<f:param name="name" value="#{record.event.actor.name}"/>
+<span title="#{record.event.actor.displayName}">
+@#{record.event.actor.name}
+</span>
+</a>
+</h:column>
+<h:column>
+<f:facet name="header">Activity</f:facet>
+<ui:fragment rendered="#{record.event.push != null}">
+Push #{record.event.push.changes[0].new.type}
+#{record.event.push.changes[0].new.name}</ui:fragment>
+</h:column>
+</h:dataTable>
+</form>
+</main>
+</ui:define>
+</ui:composition>
