@@ -1,0 +1,68 @@
+# azure-pipelines.yml - configuration for Azure Pipelines
+# Copyright (C) 2020 Kaz Nishimura
+#
+# Copying and distribution of this file, with or without modification, are
+# permitted in any medium without royalty provided the copyright notice and
+# this notice are preserved.  This file is offered as-is, without any warranty.
+---
+trigger:
+  - master
+  - release/**
+  - feature/**
+stages:
+  - stage: Default
+    condition: >-
+      not(startsWith(variables['Build.SourceBranch'], 'refs/heads/release/'))
+    jobs:
+      - job: Build
+        pool:
+          vmImage: ubuntu-latest
+        steps:
+          - task: Cache@2
+            inputs:
+              key: maven | $(Agent.OS) | **/pom.xml
+              path: $(Agent.BuildDirectory)/.m2/repository
+              restoreKeys: |
+                maven | $(Agent.OS)
+                maven
+          - task: Maven@3
+            inputs:
+              options: -B -Possrh
+                -Dmaven.repo.local=$(Agent.BuildDirectory)/.m2/repository
+              jdkVersion: "1.8"
+  - stage: Release
+    dependsOn: []
+    condition: >-
+      startsWith(variables['Build.SourceBranch'], 'refs/heads/release/')
+    jobs:
+      - job: BuildAndDeploy
+        displayName: Build and deploy
+        pool:
+          vmImage: ubuntu-latest
+        variables:
+          - group: gpg
+        steps:
+          - task: DownloadSecureFile@1
+            name: Keys
+            inputs:
+              secureFile: keys.asc
+          - bash: |
+              echo '$(gpg.passphrase)' | \
+              sh ./setupkeys.sh '$(Keys.secureFilePath)'
+            displayName: Set up signing keys
+          - task: Cache@2
+            inputs:
+              key: maven | $(Agent.OS) | **/pom.xml
+              path: $(Agent.BuildDirectory)/.m2/repository
+              restoreKeys: |
+                maven | $(Agent.OS)
+                maven
+          - task: MavenAuthenticate@0
+            inputs:
+              mavenServiceConnections: ossrh
+          - task: Maven@3
+            inputs:
+              goals: package gpg:sign nexus-staging:deploy
+              options: -B -Possrh
+                -Dmaven.repo.local=$(Agent.BuildDirectory)/.m2/repository
+              jdkVersion: "1.8"

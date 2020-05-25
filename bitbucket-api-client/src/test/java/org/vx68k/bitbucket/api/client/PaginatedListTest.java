@@ -39,7 +39,7 @@ public class PaginatedListTest
      */
     private static final URI TEST_URI =
         URI.create("https://api.bitbucket.org/2.0/"
-            + "repositories/vx68k/bitbucket-api-client-java/issues");
+            + "repositories/vx68k/bitbucket-api-client.java/issues");
 
     /**
      * Tests {@link PaginatedList#get(int)}.

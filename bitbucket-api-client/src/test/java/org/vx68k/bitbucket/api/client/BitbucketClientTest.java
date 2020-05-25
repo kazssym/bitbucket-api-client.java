@@ -1,6 +1,6 @@
 /*
  * BitbucketClientTest.java - class BitbucketClientTest
- * Copyright (C) 2018 Kaz Nishimura
+ * Copyright (C) 2018-2019 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -50,7 +50,7 @@ public class BitbucketClientTest
     /**
      * Repository name for tests.
      */
-    private static final String REPOSITORY_NAME = "bitbucket-api-client-java";
+    private static final String REPOSITORY_NAME = "bitbucket-api-client.java";
 
     /**
      * Tests the default constructor.
@@ -71,7 +71,7 @@ public class BitbucketClientTest
         BitbucketUser user = (BitbucketUser) client.getUser("kazssym");
         System.out.println("Got " + user);
         assertNotNull(user.getUUID());
-        assertEquals("kazssym", user.getName());
+        assertNull(user.getName());
         assertNotNull(user.getDisplayName());
         assertNotNull(user.getCreated());
         // Other properties are unknown at test time.
@@ -133,7 +133,7 @@ public class BitbucketClientTest
         assertNotNull(repository.getUUID());
         assertEquals(
             TEAM_NAME + "/" + REPOSITORY_NAME, repository.getFullName());
-        assertEquals("hg", repository.getSCM());
+        assertEquals("git", repository.getSCM());
         assertFalse(repository.isPrivate());
 
         // Case not to be found.

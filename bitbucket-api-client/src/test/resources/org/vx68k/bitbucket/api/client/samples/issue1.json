@@ -1,1 +1,102 @@
-{"priority": "minor", "kind": "task", "repository": {"links": {"self": {"href": "https://api.bitbucket.org/2.0/repositories/vx68k/bitbucket-api-client-java"}, "html": {"href": "https://bitbucket.org/vx68k/bitbucket-api-client-java"}, "avatar": {"href": "https://bytebucket.org/ravatar/%7B194ecdd7-acd2-4366-a1f4-e9bf28807cdc%7D?ts=java"}}, "type": "repository", "name": "bitbucket-api-client-java", "full_name": "vx68k/bitbucket-api-client-java", "uuid": "{194ecdd7-acd2-4366-a1f4-e9bf28807cdc}"}, "links": {"attachments": {"href": "https://api.bitbucket.org/2.0/repositories/vx68k/bitbucket-api-client-java/issues/1/attachments"}, "self": {"href": "https://api.bitbucket.org/2.0/repositories/vx68k/bitbucket-api-client-java/issues/1"}, "watch": {"href": "https://api.bitbucket.org/2.0/repositories/vx68k/bitbucket-api-client-java/issues/1/watch"}, "comments": {"href": "https://api.bitbucket.org/2.0/repositories/vx68k/bitbucket-api-client-java/issues/1/comments"}, "html": {"href": "https://bitbucket.org/vx68k/bitbucket-api-client-java/issues/1/need-a-readme-file"}, "vote": {"href": "https://api.bitbucket.org/2.0/repositories/vx68k/bitbucket-api-client-java/issues/1/vote"}}, "reporter": {"username": "kazssym", "display_name": "Kaz Nishimura", "account_id": "557058:1b90a375-618c-4baa-9894-2f8e99761991", "links": {"self": {"href": "https://api.bitbucket.org/2.0/users/kazssym"}, "html": {"href": "https://bitbucket.org/kazssym/"}, "avatar": {"href": "https://bitbucket.org/account/kazssym/avatar/"}}, "type": "user", "uuid": "{cebb58cd-f699-4393-8762-e0f743ccf770}"}, "title": "Need a README file", "component": null, "votes": 0, "watches": 1, "content": {"raw": "", "markup": "markdown", "html": "", "type": "rendered"}, "assignee": {"username": "kazssym", "display_name": "Kaz Nishimura", "account_id": "557058:1b90a375-618c-4baa-9894-2f8e99761991", "links": {"self": {"href": "https://api.bitbucket.org/2.0/users/kazssym"}, "html": {"href": "https://bitbucket.org/kazssym/"}, "avatar": {"href": "https://bitbucket.org/account/kazssym/avatar/"}}, "type": "user", "uuid": "{cebb58cd-f699-4393-8762-e0f743ccf770}"}, "state": "resolved", "version": {"name": "1.0", "links": {"self": {"href": "https://api.bitbucket.org/2.0/repositories/vx68k/bitbucket-api-client-java/versions/143742"}}}, "edited_on": null, "created_on": "2015-01-25T00:50:30.346399+00:00", "milestone": null, "updated_on": "2015-08-27T01:00:22.817449+00:00", "type": "issue", "id": 1}
+{
+    "priority": "minor",
+    "kind": "task",
+    "repository": {
+        "links": {
+            "self": {
+                "href": "https://api.bitbucket.org/2.0/repositories/vx68k/bitbucket-api-client.java"
+            },
+            "html": {
+                "href": "https://bitbucket.org/vx68k/bitbucket-api-client.java"
+            },
+            "avatar": {
+                "href": "https://bytebucket.org/ravatar/%7B194ecdd7-acd2-4366-a1f4-e9bf28807cdc%7D?ts=java"
+            }
+        },
+        "type": "repository",
+        "name": "bitbucket-api-client.java",
+        "full_name": "vx68k/bitbucket-api-client.java",
+        "uuid": "{194ecdd7-acd2-4366-a1f4-e9bf28807cdc}"
+    },
+    "links": {
+        "attachments": {
+            "href": "https://api.bitbucket.org/2.0/repositories/vx68k/bitbucket-api-client.java/issues/1/attachments"
+        },
+        "self": {
+            "href": "https://api.bitbucket.org/2.0/repositories/vx68k/bitbucket-api-client.java/issues/1"
+        },
+        "watch": {
+            "href": "https://api.bitbucket.org/2.0/repositories/vx68k/bitbucket-api-client.java/issues/1/watch"
+        },
+        "comments": {
+            "href": "https://api.bitbucket.org/2.0/repositories/vx68k/bitbucket-api-client.java/issues/1/comments"
+        },
+        "html": {
+            "href": "https://bitbucket.org/vx68k/bitbucket-api-client.java/issues/1/need-a-readme-file"
+        },
+        "vote": {
+            "href": "https://api.bitbucket.org/2.0/repositories/vx68k/bitbucket-api-client.java/issues/1/vote"
+        }
+    },
+    "reporter": {
+        "display_name": "Kaz Nishimura",
+        "uuid": "{cebb58cd-f699-4393-8762-e0f743ccf770}",
+        "links": {
+            "self": {
+                "href": "https://api.bitbucket.org/2.0/users/%7Bcebb58cd-f699-4393-8762-e0f743ccf770%7D"
+            },
+            "html": {
+                "href": "https://bitbucket.org/%7Bcebb58cd-f699-4393-8762-e0f743ccf770%7D/"
+            },
+            "avatar": {
+                "href": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/KN-4.png"
+            }
+        },
+        "nickname": "Kaz",
+        "type": "user",
+        "account_id": "557058:1b90a375-618c-4baa-9894-2f8e99761991"
+    },
+    "title": "Need a README file",
+    "component": null,
+    "votes": 0,
+    "watches": 1,
+    "content": {
+        "raw": "",
+        "markup": "markdown",
+        "html": "",
+        "type": "rendered"
+    },
+    "assignee": {
+        "display_name": "Kaz Nishimura",
+        "uuid": "{cebb58cd-f699-4393-8762-e0f743ccf770}",
+        "links": {
+            "self": {
+                "href": "https://api.bitbucket.org/2.0/users/%7Bcebb58cd-f699-4393-8762-e0f743ccf770%7D"
+            },
+            "html": {
+                "href": "https://bitbucket.org/%7Bcebb58cd-f699-4393-8762-e0f743ccf770%7D/"
+            },
+            "avatar": {
+                "href": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/KN-4.png"
+            }
+        },
+        "nickname": "Kaz",
+        "type": "user",
+        "account_id": "557058:1b90a375-618c-4baa-9894-2f8e99761991"
+    },
+    "state": "resolved",
+    "version": {
+        "name": "1.0",
+        "links": {
+            "self": {
+                "href": "https://api.bitbucket.org/2.0/repositories/vx68k/bitbucket-api-client.java/versions/143742"
+            }
+        }
+    },
+    "edited_on": null,
+    "created_on": "2015-01-25T00:50:30.346399+00:00",
+    "milestone": null,
+    "updated_on": "2015-08-27T01:00:22.817449+00:00",
+    "type": "issue",
+    "id": 1
+}

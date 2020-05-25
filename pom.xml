@@ -6,19 +6,18 @@
 <artifactId>bitbucket-api-client-parent</artifactId>
 <version>5.0-SNAPSHOT</version>
 <packaging>pom</packaging>
-<name>Java Client API for Bitbucket Cloud</name>
+<name>Client API for Bitbucket Cloud</name>
 <description>This project builds a client API implementation and a webhook
 implementation for Bitbucket Cloud.</description>
-<url>https://vx68k.bitbucket.io/bitbucket-api-client-java/5/</url>
+<url>https://vx68k.bitbucket.io/bitbucket-api-client.java/5/</url>
 <inceptionYear>2015</inceptionYear>
 
 <licenses>
 
 <license>
-<name>GNU Affero General Public License</name>
+<name>GNU Affero General Public License v3.0 or later</name>
 <url>https://www.gnu.org/licenses/agpl.txt</url>
 <distribution>repo</distribution>
-<comments>Version 3 or any later version.</comments>
 </license>
 </licenses>
 
@@ -52,8 +51,8 @@ implementation for Bitbucket Cloud.</description>
 
 <distributionManagement>
 <site>
-<id>localhost</id>
-<url>file:site/</url>
+<id>project</id>
+<url>https://vx68k.bitbucket.io/bitbucket-api-client.java/5/</url>
 </site>
 </distributionManagement>
 
@@ -154,10 +153,11 @@ implementation for Bitbucket Cloud.</description>
 <artifactId>maven-javadoc-plugin</artifactId>
 <version>3.0.1</version>
 <configuration>
+<source>1.8</source>
 <locale>en_US</locale>
 <links>
 <link>https://docs.oracle.com/javaee/7/api</link>
-<link>https://vx68k.bitbucket.io/bitbucket-api-client-java/5/apidocs</link>
+<link>https://vx68k.bitbucket.io/bitbucket-api-client.java/5/apidocs</link>
 </links>
 </configuration>
 </plugin>

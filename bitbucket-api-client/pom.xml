@@ -17,10 +17,9 @@ Cloud.</description>
 <licenses>
 
 <license>
-<name>GNU General Public License</name>
+<name>GNU General Public License v3.0 or later</name>
 <url>https://www.gnu.org/licenses/gpl.txt</url>
 <distribution>repo</distribution>
-<comments>Version 3 or any later version.</comments>
 </license>
 </licenses>
 
