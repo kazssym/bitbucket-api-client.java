@@ -1,0 +1,10 @@
+target
+faces-config.NavData
+.project
+.classpath
+.factorypath
+.settings
+*.log
+*.rej
+*.orig
+*~
