@@ -41,15 +41,15 @@ implementation for Bitbucket Cloud.</description>
 </modules>
 
 <scm>
-<connection>scm:hg:https://bitbucket.org/vx68k/bitbucket-api-client-java</connection>
-<developerConnection>scm:hg:ssh://hg@bitbucket.org/vx68k/bitbucket-api-client-java</developerConnection>
+<connection>scm:git:https://bitbucket.org/vx68k/bitbucket-api-client.java.git</connection>
+<developerConnection>scm:git:ssh://git@bitbucket.org/vx68k/bitbucket-api-client.java.git</developerConnection>
 <tag>master</tag>
-<url>https://bitbucket.org/vx68k/bitbucket-api-client-java/src/${project.scm.tag}/</url>
+<url>https://bitbucket.org/vx68k/bitbucket-api-client.java/src/${project.scm.tag}/</url>
 </scm>
 
 <issueManagement>
 <system>Bitbucket</system>
-<url>https://bitbucket.org/vx68k/bitbucket-api-client-java/issues</url>
+<url>https://bitbucket.org/vx68k/bitbucket-api-client.java/issues</url>
 </issueManagement>
 
 <distributionManagement>
