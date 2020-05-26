@@ -1,5 +1,5 @@
 /*
- * BitbucketCommit.java - interface BitbucketCommit
+ * BitbucketBranch.java - interface BitbucketBranch
  * Copyright (C) 2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -18,14 +18,14 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-package org.vx68k.bitbucket.api;
+package org.vx68k.bitbucket;
 
 /**
- * Commit in a Bitbucket repository.
+ * Branch or bookmark in a Bitbucket repository.
  *
  * @author Kaz Nishimura
  * @since 5.0
  */
-public interface BitbucketCommit
+public interface BitbucketBranch extends BitbucketRef
 {
 }

@@ -1,5 +1,5 @@
 /*
- * BitbucketBranch.java - interface BitbucketBranch
+ * BitbucketRendered.java
  * Copyright (C) 2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -18,14 +18,34 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-package org.vx68k.bitbucket.api;
+package org.vx68k.bitbucket;
 
 /**
- * Branch or bookmark in a Bitbucket repository.
+ * Rendered text resource on Bitbucket Cloud.
  *
  * @author Kaz Nishimura
  * @since 5.0
  */
-public interface BitbucketBranch extends BitbucketRef
+public interface BitbucketRendered
 {
+    /**
+     * Returns the markup type of the rendered text.
+     *
+     * @return the markup type of the rendered text
+     */
+    String getMarkup();
+
+    /**
+     * Returns the raw data of the rendered text.
+     *
+     * @return the raw data of the rendered text
+     */
+    String getRaw();
+
+    /**
+     * Returns the HTML rendering of the rendered text.
+     *
+     * @return the HTML rendering of the rendered text
+     */
+    String getHtml();
 }

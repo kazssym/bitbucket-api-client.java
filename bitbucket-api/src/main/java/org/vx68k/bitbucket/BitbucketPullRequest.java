@@ -1,5 +1,5 @@
 /*
- * BitbucketUser.java - interface BitbucketUser
+ * BitbucketPullRequest.java - interface BitbucketPullRequest
  * Copyright (C) 2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -18,27 +18,20 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-package org.vx68k.bitbucket.api;
+package org.vx68k.bitbucket;
 
 /**
- * User on Bitbucket Cloud.
+ * Pull request in a Bitbucket repository.
  *
  * @author Kaz Nishimura
  * @since 5.0
  */
-public interface BitbucketUser extends BitbucketAccount
+public interface BitbucketPullRequest
 {
     /**
-     * Returns {@code true} if the user is staff.
+     * Returns the identifier of the pull request.
      *
-     * @return {@code true} if staff; {@code false} otherwise
+     * @return the identifier
      */
-    boolean isStaff();
-
-    /**
-     * Returns the Atlassian account identifier.
-     *
-     * @return the Atlassian account identifier
-     */
-    String getAccountId();
+    int getId();
 }

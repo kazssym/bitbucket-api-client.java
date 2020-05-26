@@ -25,7 +25,7 @@ import static org.junit.Assert.assertTrue;
 import java.net.URI;
 import java.util.List;
 import org.junit.Test;
-import org.vx68k.bitbucket.api.BitbucketIssue;
+import org.vx68k.bitbucket.BitbucketIssue;
 
 /**
  * Unit tests for {@link PaginatedList}.

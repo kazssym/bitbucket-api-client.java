@@ -39,7 +39,7 @@ import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
-import org.vx68k.bitbucket.api.BitbucketUser;
+import org.vx68k.bitbucket.BitbucketUser;
 import org.vx68k.bitbucket.api.client.BitbucketClient;
 
 /**

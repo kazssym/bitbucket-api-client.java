@@ -33,11 +33,11 @@ import java.util.function.Function;
 import javax.json.JsonNumber;
 import javax.json.JsonObject;
 import javax.ws.rs.core.Link;
-import org.vx68k.bitbucket.api.BitbucketAccount;
-import org.vx68k.bitbucket.api.BitbucketBranch;
-import org.vx68k.bitbucket.api.BitbucketIssue;
-import org.vx68k.bitbucket.api.BitbucketIssueTracker;
-import org.vx68k.bitbucket.api.BitbucketRepository;
+import org.vx68k.bitbucket.BitbucketAccount;
+import org.vx68k.bitbucket.BitbucketBranch;
+import org.vx68k.bitbucket.BitbucketIssue;
+import org.vx68k.bitbucket.BitbucketIssueTracker;
+import org.vx68k.bitbucket.BitbucketRepository;
 
 /**
  * Client implementation of {@link BitbucketRepository}.

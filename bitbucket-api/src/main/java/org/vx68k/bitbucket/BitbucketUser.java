@@ -1,5 +1,5 @@
 /*
- * package-info.java - package org.vx68k.bitbucket.api
+ * BitbucketUser.java - interface BitbucketUser
  * Copyright (C) 2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -18,7 +18,27 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
+package org.vx68k.bitbucket;
+
 /**
- * Interfaces and common classes for the Bitbucket API.
+ * User on Bitbucket Cloud.
+ *
+ * @author Kaz Nishimura
+ * @since 5.0
  */
-package org.vx68k.bitbucket.api;
+public interface BitbucketUser extends BitbucketAccount
+{
+    /**
+     * Returns {@code true} if the user is staff.
+     *
+     * @return {@code true} if staff; {@code false} otherwise
+     */
+    boolean isStaff();
+
+    /**
+     * Returns the Atlassian account identifier.
+     *
+     * @return the Atlassian account identifier
+     */
+    String getAccountId();
+}

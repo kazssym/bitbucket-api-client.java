@@ -18,7 +18,7 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-package org.vx68k.bitbucket.api;
+package org.vx68k.bitbucket;
 
 import java.time.Instant;
 import java.util.UUID;

@@ -35,9 +35,9 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Form;
 import javax.ws.rs.core.MediaType;
-import org.vx68k.bitbucket.api.Bitbucket;
-import org.vx68k.bitbucket.api.BitbucketAccount;
-import org.vx68k.bitbucket.api.BitbucketRepository;
+import org.vx68k.bitbucket.Bitbucket;
+import org.vx68k.bitbucket.BitbucketAccount;
+import org.vx68k.bitbucket.BitbucketRepository;
 import org.vx68k.bitbucket.api.client.internal.JsonMessageBodyReader;
 import org.vx68k.bitbucket.api.client.internal.OAuth2Authenticator;
 

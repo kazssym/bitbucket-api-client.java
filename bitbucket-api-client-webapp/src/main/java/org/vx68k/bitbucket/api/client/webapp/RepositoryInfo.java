@@ -29,7 +29,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import org.vx68k.bitbucket.api.BitbucketRepository;
+import org.vx68k.bitbucket.BitbucketRepository;
 import org.vx68k.bitbucket.api.client.BitbucketClient;
 
 /**

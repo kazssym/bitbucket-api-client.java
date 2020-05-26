@@ -28,8 +28,8 @@ import java.util.Collection;
 import java.util.UUID;
 import javax.json.JsonObject;
 import javax.ws.rs.core.Link;
-import org.vx68k.bitbucket.api.BitbucketAccount;
-import org.vx68k.bitbucket.api.BitbucketRepository;
+import org.vx68k.bitbucket.BitbucketAccount;
+import org.vx68k.bitbucket.BitbucketRepository;
 
 /**
  * Client implementation of {@link BitbucketAccount}.

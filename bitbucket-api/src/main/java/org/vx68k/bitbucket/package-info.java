@@ -1,5 +1,5 @@
 /*
- * BitbucketPullRequest.java - interface BitbucketPullRequest
+ * package-info.java - package org.vx68k.bitbucket.api
  * Copyright (C) 2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -18,20 +18,7 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-package org.vx68k.bitbucket.api;
-
 /**
- * Pull request in a Bitbucket repository.
- *
- * @author Kaz Nishimura
- * @since 5.0
+ * Interfaces and common classes for the Bitbucket API.
  */
-public interface BitbucketPullRequest
-{
-    /**
-     * Returns the identifier of the pull request.
-     *
-     * @return the identifier
-     */
-    int getId();
-}
+package org.vx68k.bitbucket;

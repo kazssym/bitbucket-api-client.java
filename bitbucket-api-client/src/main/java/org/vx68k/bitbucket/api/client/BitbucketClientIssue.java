@@ -28,10 +28,10 @@ import javax.json.JsonNumber;
 import javax.json.JsonObject;
 import javax.json.JsonString;
 import javax.json.JsonValue;
-import org.vx68k.bitbucket.api.BitbucketIssue;
-import org.vx68k.bitbucket.api.BitbucketRendered;
-import org.vx68k.bitbucket.api.BitbucketRepository;
-import org.vx68k.bitbucket.api.BitbucketUser;
+import org.vx68k.bitbucket.BitbucketIssue;
+import org.vx68k.bitbucket.BitbucketRendered;
+import org.vx68k.bitbucket.BitbucketRepository;
+import org.vx68k.bitbucket.BitbucketUser;
 
 /**
  * Client implementation of {@link BitbucketIssue}.

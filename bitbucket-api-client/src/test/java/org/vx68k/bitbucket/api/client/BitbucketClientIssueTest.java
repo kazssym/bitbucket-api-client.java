@@ -31,7 +31,7 @@ import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import javax.json.JsonReader;
 import org.junit.Test;
-import org.vx68k.bitbucket.api.BitbucketIssue;
+import org.vx68k.bitbucket.BitbucketIssue;
 
 /**
  * Unit tests for {@link BitbucketClientIssue}.

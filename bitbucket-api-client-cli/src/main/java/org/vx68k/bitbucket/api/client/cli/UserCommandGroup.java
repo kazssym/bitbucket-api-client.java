@@ -21,7 +21,7 @@
 package org.vx68k.bitbucket.api.client.cli;
 
 import java.io.PrintWriter;
-import org.vx68k.bitbucket.api.BitbucketUser;
+import org.vx68k.bitbucket.BitbucketUser;
 import org.vx68k.bitbucket.api.client.BitbucketClient;
 
 /**

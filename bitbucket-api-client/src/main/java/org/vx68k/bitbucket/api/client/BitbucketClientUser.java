@@ -21,7 +21,7 @@
 package org.vx68k.bitbucket.api.client;
 
 import javax.json.JsonObject;
-import org.vx68k.bitbucket.api.BitbucketUser;
+import org.vx68k.bitbucket.BitbucketUser;
 
 /**
  * Client implementation of {@link BitbucketUser}.

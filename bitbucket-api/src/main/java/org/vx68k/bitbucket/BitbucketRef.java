@@ -19,7 +19,7 @@
  */
 
 
-package org.vx68k.bitbucket.api;
+package org.vx68k.bitbucket;
 
 /**
  * Commit ref on Bitbucket Cloud.

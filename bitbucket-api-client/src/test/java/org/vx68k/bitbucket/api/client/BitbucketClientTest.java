@@ -26,9 +26,9 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
-import org.vx68k.bitbucket.api.BitbucketAccount;
-import org.vx68k.bitbucket.api.BitbucketRepository;
-import org.vx68k.bitbucket.api.BitbucketUser;
+import org.vx68k.bitbucket.BitbucketAccount;
+import org.vx68k.bitbucket.BitbucketRepository;
+import org.vx68k.bitbucket.BitbucketUser;
 
 /**
  * Unit tests for {@link BitbucketClient}.
