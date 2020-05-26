@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
 <modelVersion>4.0.0</modelVersion>
 
 <parent>
@@ -24,6 +25,12 @@ Cloud.</description>
 </licenses>
 
 <dependencies>
+
+<dependency>
+<groupId>${project.groupId}</groupId>
+<artifactId>bitbucket-api</artifactId>
+<version>6-SNAPSHOT</version>
+</dependency>
 
 <dependency>
 <groupId>javax.ws.rs</groupId>
@@ -83,7 +90,7 @@ Cloud.</description>
 <configuration>
 <instructions>
 <Bundle-SymbolicName>org.vx68k.bitbucket.api.client</Bundle-SymbolicName>
-<Export-Package>org.vx68k.bitbucket.api, org.vx68k.bitbucket.api.client</Export-Package>
+<Export-Package>org.vx68k.bitbucket.api.client</Export-Package>
 <Private-Package>org.vx68k.bitbucket.api.client.*</Private-Package>
 </instructions>
 </configuration>
