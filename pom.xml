@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+    http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
 <modelVersion>4.0.0</modelVersion>
 
 <groupId>org.vx68k.bitbucket</groupId>
@@ -25,8 +27,9 @@ implementation for Bitbucket Cloud.</description>
 
 <developer>
 <name>Kaz Nishimura</name>
-<email>kazssym@vx68k.org</email>
+<email>kazssym@linuxfront.com</email>
 </developer>
+
 </developers>
 
 <modules>
@@ -39,15 +42,15 @@ implementation for Bitbucket Cloud.</description>
 </modules>
 
 <scm>
-<connection>scm:hg:https://bitbucket.org/vx68k/bitbucket-api-client-java</connection>
-<developerConnection>scm:hg:ssh://hg@bitbucket.org/vx68k/bitbucket-api-client-java</developerConnection>
+<connection>scm:git:https://bitbucket.org/vx68k/bitbucket-api-client.java.git</connection>
+<developerConnection>scm:git:ssh://git@bitbucket.org/vx68k/bitbucket-api-client.java.git</developerConnection>
 <tag>master</tag>
-<url>https://bitbucket.org/vx68k/bitbucket-api-client-java/src/${project.scm.tag}/</url>
+<url>https://bitbucket.org/vx68k/bitbucket-api-client.java/src/${project.scm.tag}/</url>
 </scm>
 
 <issueManagement>
 <system>Bitbucket</system>
-<url>https://bitbucket.org/vx68k/bitbucket-api-client-java/issues</url>
+<url>https://bitbucket.org/vx68k/bitbucket-api-client.java/issues</url>
 </issueManagement>
 
 <distributionManagement>
