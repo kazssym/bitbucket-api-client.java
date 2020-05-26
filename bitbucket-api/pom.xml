@@ -71,7 +71,7 @@
 <configuration>
 <archive>
 <manifestEntries>
-<Automatic-Module-Name>org.vx68k.bitbucket.api</Automatic-Module-Name>
+<Automatic-Module-Name>org.vx68k.bitbucket</Automatic-Module-Name>
 </manifestEntries>
 </archive>
 </configuration>
@@ -83,8 +83,8 @@
 <extensions>true</extensions>
 <configuration>
 <instructions>
-<Bundle-SymbolicName>org.vx68k.bitbucket.api</Bundle-SymbolicName>
-<Export-Package>org.vx68k.bitbucket.api</Export-Package>
+<Bundle-SymbolicName>org.vx68k.bitbucket</Bundle-SymbolicName>
+<Export-Package>org.vx68k.bitbucket</Export-Package>
 </instructions>
 </configuration>
 </plugin>
