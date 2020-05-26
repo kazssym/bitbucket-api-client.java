@@ -5,7 +5,7 @@
 <parent>
 <artifactId>bitbucket-api-client-parent</artifactId>
 <groupId>org.vx68k.bitbucket</groupId>
-<version>5.0.0</version>
+<version>6-SNAPSHOT</version>
 </parent>
 
 <artifactId>bitbucket-api-client-webapp</artifactId>
@@ -36,13 +36,13 @@
 <dependency>
 <groupId>${project.groupId}</groupId>
 <artifactId>bitbucket-api-client</artifactId>
-<version>5.0.0</version>
+<version>6-SNAPSHOT</version>
 </dependency>
 
 <dependency>
 <groupId>${project.groupId}</groupId>
 <artifactId>bitbucket-webhook</artifactId>
-<version>5.0.0</version>
+<version>6-SNAPSHOT</version>
 </dependency>
 
 <dependency>
