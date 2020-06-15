@@ -18,7 +18,7 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-package org.vx68k.bitbucket.api.client.internal;
+package org.vx68k.bitbucket.client.internal;
 
 import java.io.InputStream;
 import java.lang.annotation.Annotation;

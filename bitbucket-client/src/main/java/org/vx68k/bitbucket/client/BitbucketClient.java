@@ -38,8 +38,8 @@ import javax.ws.rs.core.MediaType;
 import org.vx68k.bitbucket.Bitbucket;
 import org.vx68k.bitbucket.BitbucketAccount;
 import org.vx68k.bitbucket.BitbucketRepository;
-import org.vx68k.bitbucket.api.client.internal.JsonMessageBodyReader;
-import org.vx68k.bitbucket.api.client.internal.OAuth2Authenticator;
+import org.vx68k.bitbucket.client.internal.JsonMessageBodyReader;
+import org.vx68k.bitbucket.client.internal.OAuth2Authenticator;
 
 /**
  * Bitbucket API client.

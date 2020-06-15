@@ -21,4 +21,4 @@
 /**
  * Internal classes.
  */
-package org.vx68k.bitbucket.api.client.internal;
+package org.vx68k.bitbucket.client.internal;
