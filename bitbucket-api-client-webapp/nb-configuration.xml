@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-shared-configuration>
     <properties xmlns="http://www.netbeans.org/ns/maven-properties-data/1">
-        <netbeans.hint.licensePath>${project.parent.basedir}/etc/nb-license.txt</netbeans.hint.licensePath>
+        <netbeans.hint.licensePath>${project.parent.basedir}/nb-license.txt</netbeans.hint.licensePath>
         <org-netbeans-modules-projectapi.jsf_2e_language>Facelets</org-netbeans-modules-projectapi.jsf_2e_language>
         <org-netbeans-modules-maven-jaxws.rest_2e_config_2e_type>ide</org-netbeans-modules-maven-jaxws.rest_2e_config_2e_type>
         <netbeans.hint.jdkPlatform>JDK_1.8</netbeans.hint.jdkPlatform>
