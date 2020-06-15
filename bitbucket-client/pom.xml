@@ -9,7 +9,7 @@
 <version>6-SNAPSHOT</version>
 </parent>
 
-<artifactId>bitbucket-api-client</artifactId>
+<artifactId>bitbucket-client</artifactId>
 <packaging>bundle</packaging>
 <name>Client API Implementation</name>
 <description>This project builds a client API implementation for Bitbucket
