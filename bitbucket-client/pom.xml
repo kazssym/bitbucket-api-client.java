@@ -68,7 +68,7 @@ Cloud.</description>
 <configuration>
 <archive>
 <manifestEntries>
-<Automatic-Module-Name>org.vx68k.bitbucket.api.client</Automatic-Module-Name>
+<Automatic-Module-Name>org.vx68k.bitbucket.client</Automatic-Module-Name>
 </manifestEntries>
 </archive>
 </configuration>
@@ -80,9 +80,8 @@ Cloud.</description>
 <extensions>true</extensions>
 <configuration>
 <instructions>
-<Bundle-SymbolicName>org.vx68k.bitbucket.api.client</Bundle-SymbolicName>
-<Export-Package>org.vx68k.bitbucket.api.client</Export-Package>
-<Private-Package>org.vx68k.bitbucket.api.client.*</Private-Package>
+<Bundle-SymbolicName>org.vx68k.bitbucket.client</Bundle-SymbolicName>
+<Export-Package>org.vx68k.bitbucket.client</Export-Package>
 </instructions>
 </configuration>
 </plugin>
