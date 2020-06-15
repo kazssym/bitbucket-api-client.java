@@ -24,4 +24,4 @@
  * will be exported by module {@code org.vx68k.bitbucket.api.client} on Java SE
  * 9 and later.</p>
  */
-package org.vx68k.bitbucket.api.client;
+package org.vx68k.bitbucket.client;

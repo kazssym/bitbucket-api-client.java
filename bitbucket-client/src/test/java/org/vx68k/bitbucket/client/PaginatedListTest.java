@@ -18,8 +18,11 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-package org.vx68k.bitbucket.api.client;
+package org.vx68k.bitbucket.client;
 
+import org.vx68k.bitbucket.client.BitbucketClient;
+import org.vx68k.bitbucket.client.PaginatedList;
+import org.vx68k.bitbucket.client.BitbucketClientIssue;
 import static org.junit.Assert.assertTrue;
 
 import java.net.URI;

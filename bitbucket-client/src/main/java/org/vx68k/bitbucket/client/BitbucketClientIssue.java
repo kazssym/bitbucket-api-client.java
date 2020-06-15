@@ -18,9 +18,9 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-package org.vx68k.bitbucket.api.client;
+package org.vx68k.bitbucket.client;
 
-import static org.vx68k.bitbucket.api.client.JsonUtilities.toInstant;
+import static org.vx68k.bitbucket.client.JsonUtilities.toInstant;
 
 import java.time.Instant;
 import java.util.function.Function;

@@ -1,6 +1,6 @@
 /*
- * JsonUtilitiesTest.java
- * Copyright (C) 2015-2018 Kaz Nishimura
+ * TokenRefreshEvent.java
+ * Copyright (C) 2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -18,24 +18,25 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-package org.vx68k.bitbucket.api.client;
+package org.vx68k.bitbucket.client;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import java.util.EventObject;
 
 /**
- * Unit tests for {@link JsonUtilities}.
+ * Event which is fired when tokens are refreshed.
  *
  * @author Kaz Nishimura
+ * @since 5.0
  */
-public final class JsonUtilitiesTest
+public class TokenRefreshEvent extends EventObject
 {
     /**
-     * Tests {@link JsonUtilities#toUUID toUUID}.
+     * Initializes the event.
+     *
+     * @param source an event source
      */
-    @Test @Ignore
-    public void testParseUUID()
+    public TokenRefreshEvent(final Object source)
     {
-        // @todo Write tests.
+        super(source);
     }
 }

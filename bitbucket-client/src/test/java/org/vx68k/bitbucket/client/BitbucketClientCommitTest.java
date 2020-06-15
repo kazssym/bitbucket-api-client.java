@@ -1,5 +1,5 @@
 /*
- * TokenRefreshEvent.java
+ * BitbucketClientCommitTest.java - class BitbucketClientCommitTest
  * Copyright (C) 2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -18,25 +18,28 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-package org.vx68k.bitbucket.api.client;
+package org.vx68k.bitbucket.client;
 
-import java.util.EventObject;
+import static org.junit.Assert.fail;
+
+import org.junit.Ignore;
+import org.junit.Test;
 
 /**
- * Event which is fired when tokens are refreshed.
+ * Unit tests for {@link BitbucketClientCommit}.
  *
  * @author Kaz Nishimura
- * @since 5.0
  */
-public class TokenRefreshEvent extends EventObject
+public class BitbucketClientCommitTest
 {
+    // @todo Add test methods.
+
     /**
-     * Initializes the event.
-     *
-     * @param source an event source
+     * Tests nothing. This method is a placeholder.
      */
-    public TokenRefreshEvent(final Object source)
+    @Test @Ignore
+    public void testNothing()
     {
-        super(source);
+        fail();
     }
 }

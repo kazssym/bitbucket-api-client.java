@@ -1,6 +1,6 @@
 /*
- * BitbucketClientCommitTest.java - class BitbucketClientCommitTest
- * Copyright (C) 2018 Kaz Nishimura
+ * JsonUtilitiesTest.java
+ * Copyright (C) 2015-2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -18,28 +18,24 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-package org.vx68k.bitbucket.api.client;
-
-import static org.junit.Assert.fail;
+package org.vx68k.bitbucket.client;
 
 import org.junit.Ignore;
 import org.junit.Test;
 
 /**
- * Unit tests for {@link BitbucketClientCommit}.
+ * Unit tests for {@link JsonUtilities}.
  *
  * @author Kaz Nishimura
  */
-public class BitbucketClientCommitTest
+public final class JsonUtilitiesTest
 {
-    // @todo Add test methods.
-
     /**
-     * Tests nothing. This method is a placeholder.
+     * Tests {@link JsonUtilities#toUUID toUUID}.
      */
     @Test @Ignore
-    public void testNothing()
+    public void testParseUUID()
     {
-        fail();
+        // @todo Write tests.
     }
 }
