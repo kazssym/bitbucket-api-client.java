@@ -1,5 +1,5 @@
 /*
- * package-info.java - package org.vx68k.bitbucket.api.client.cli
+ * LogoutCommand.java
  * Copyright (C) 2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -18,7 +18,33 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
+package org.vx68k.bitbucket.cli;
+
+import org.vx68k.bitbucket.client.BitbucketClient;
+
 /**
- * CLI command implementation for the Bitbucket API Client Library.
+ * {@code logout} command.
+ *
+ * @author Kaz Nishimura
+ * @since 5.0
  */
-package org.vx68k.bitbucket.api.client.cli;
+public final class LogoutCommand extends AbstractCommand
+{
+    /**
+     * Initializes the object.
+     *
+     * @param bitbucketClient a Bitbucket API client
+     */
+    public LogoutCommand(final BitbucketClient bitbucketClient)
+    {
+        super(bitbucketClient);
+    }
+
+    @Override
+    public void run(final String commandName, final String[] args)
+    {
+        BitbucketClient bitbucketClient = getBitbucketClient();
+        bitbucketClient.logout();
+        CLIUtilities.saveTokens(bitbucketClient);
+    }
+}

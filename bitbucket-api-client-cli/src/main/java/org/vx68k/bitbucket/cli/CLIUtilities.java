@@ -18,7 +18,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-package org.vx68k.bitbucket.api.client.cli;
+package org.vx68k.bitbucket.cli;
 
 import java.time.Instant;
 import java.util.prefs.BackingStoreException;

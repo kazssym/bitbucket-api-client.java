@@ -1,5 +1,5 @@
 /*
- * Command.java - interface Command
+ * package-info.java - package org.vx68k.bitbucket.api.client.cli
  * Copyright (C) 2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -18,33 +18,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-package org.vx68k.bitbucket.api.client.cli;
-
 /**
- * Interface for commands.
- *
- * @author Kaz Nishimura
- * @since 5.0
+ * CLI command implementation for the Bitbucket API Client Library.
  */
-public interface Command
-{
-    /**
-     * Runs the command.
-     *
-     * @param name invocation name of the command
-     * @param args command arguments
-     */
-    void run(String name, String[] args);
-
-    /**
-     * Returns the description of the command.
-     * This method is used to make a list of commands.
-     * <p>The default implementation returns {@code "(undocumented)"}.</p>
-     *
-     * @return description of the command
-     */
-    default String getDescription()
-    {
-        return "(undocumented)";
-    }
-}
+package org.vx68k.bitbucket.cli;

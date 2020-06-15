@@ -1,5 +1,5 @@
 /*
- * UserCommandGroup.java - class UserCommandGroup
+ * TeamCommandGroup.java - class TeamCommandGroup
  * Copyright (C) 2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -18,25 +18,25 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-package org.vx68k.bitbucket.api.client.cli;
+package org.vx68k.bitbucket.cli;
 
 import java.io.PrintWriter;
-import org.vx68k.bitbucket.BitbucketUser;
+import org.vx68k.bitbucket.BitbucketAccount;
 import org.vx68k.bitbucket.client.BitbucketClient;
 
 /**
- * {@code user} command group.
+ * {@code team} command group.
  *
  * @author Kaz Nishimura
  */
-public class UserCommandGroup extends CommandGroup
+public class TeamCommandGroup extends CommandGroup
 {
     /**
      * Constructs this object.
      *
      * @param bitbucketClient value for the Bitbucket API client
      */
-    public UserCommandGroup(final BitbucketClient bitbucketClient)
+    public TeamCommandGroup(final BitbucketClient bitbucketClient)
     {
         super(bitbucketClient);
 
@@ -55,19 +55,19 @@ public class UserCommandGroup extends CommandGroup
         private static final String FORMAT = "%-12s  %s\n";
 
         /**
-         * Prints a user information.
+         * Prints a team information.
          *
-         * @param user user to print
+         * @param team team to print
          */
-        void print(final BitbucketUser user)
+        void print(final BitbucketAccount team)
         {
             PrintWriter out = new PrintWriter(System.out);
-            out.format(FORMAT, "Name", user.getName());
-            out.format(FORMAT, "UUID", user.getUUID());
-            out.format(FORMAT, "Display Name", user.getDisplayName());
-            out.format(FORMAT, "Website", user.getWebsite());
-            out.format(FORMAT, "Location", user.getLocation());
-            out.format(FORMAT, "Created", user.getCreated());
+            out.format(FORMAT, "Name", team.getName());
+            out.format(FORMAT, "UUID", team.getUUID());
+            out.format(FORMAT, "Display Name", team.getDisplayName());
+            out.format(FORMAT, "Website", team.getWebsite());
+            out.format(FORMAT, "Location", team.getLocation());
+            out.format(FORMAT, "Created", team.getCreated());
             out.flush();
         }
 
@@ -84,13 +84,12 @@ public class UserCommandGroup extends CommandGroup
                 throw new CLIException("Missing arguments");
             }
 
-            BitbucketUser user = (BitbucketUser)
-                getBitbucketClient().getUser(args[0]);
-            if (user != null) {
-                print(user);
+            BitbucketAccount team = getBitbucketClient().getTeam(args[0]);
+            if (team != null) {
+                print(team);
             }
             else {
-                System.err.format("%s: %s\n", args[0], "User not found");
+                System.err.println(commandName + ": Team not found");
             }
         }
     }
