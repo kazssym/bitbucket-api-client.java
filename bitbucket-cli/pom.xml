@@ -10,7 +10,7 @@
 
 <artifactId>bitbucket-cli</artifactId>
 <packaging>jar</packaging>
-<name>CLI for the Client API</name>
+<name>CLI Example for Bitbucket Cloud</name>
 <description>This project builds an experimental CLI for the Client API.</description>
 
 <properties>
