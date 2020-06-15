@@ -4,7 +4,7 @@
 <modelVersion>4.0.0</modelVersion>
 
 <parent>
-<artifactId>bitbucket-api-client-parent</artifactId>
+<artifactId>bitbucket-client-parent</artifactId>
 <groupId>org.vx68k.bitbucket</groupId>
 <version>6-SNAPSHOT</version>
 </parent>

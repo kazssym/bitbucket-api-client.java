@@ -5,7 +5,7 @@
 <modelVersion>4.0.0</modelVersion>
 
 <groupId>org.vx68k.bitbucket</groupId>
-<artifactId>bitbucket-api-client-parent</artifactId>
+<artifactId>bitbucket-client-parent</artifactId>
 <version>6-SNAPSHOT</version>
 <packaging>pom</packaging>
 <name>Client API for Bitbucket Cloud</name>
