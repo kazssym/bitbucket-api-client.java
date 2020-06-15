@@ -11,7 +11,7 @@
 
 <artifactId>bitbucket-client</artifactId>
 <packaging>bundle</packaging>
-<name>Client API Implementation</name>
+<name>Client Implementation for Bitbucket Cloud</name>
 <description>This project builds a client API implementation for Bitbucket
 Cloud.</description>
 
