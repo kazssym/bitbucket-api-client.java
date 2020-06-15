@@ -15,15 +15,6 @@
 <description>This project builds an API for Bitbucket Cloud.
 </description>
 
-<licenses>
-
-<license>
-<name>GNU General Public License v3.0 or later</name>
-<url>https://www.gnu.org/licenses/gpl.txt</url>
-<distribution>repo</distribution>
-</license>
-</licenses>
-
 <dependencies>
 
 <dependency>
