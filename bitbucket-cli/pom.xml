@@ -8,7 +8,7 @@
 <version>6-SNAPSHOT</version>
 </parent>
 
-<artifactId>bitbucket-api-client-cli</artifactId>
+<artifactId>bitbucket-cli</artifactId>
 <packaging>jar</packaging>
 <name>CLI for the Client API</name>
 <description>This project builds an experimental CLI for the Client API.</description>
