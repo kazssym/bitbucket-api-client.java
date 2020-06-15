@@ -20,7 +20,7 @@
 
 package org.vx68k.bitbucket.api.client.cli;
 
-import org.vx68k.bitbucket.api.client.BitbucketClient;
+import org.vx68k.bitbucket.client.BitbucketClient;
 
 /**
  * {@code logout} command.

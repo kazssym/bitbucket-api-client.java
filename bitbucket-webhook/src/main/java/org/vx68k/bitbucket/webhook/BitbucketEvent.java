@@ -23,9 +23,9 @@ package org.vx68k.bitbucket.webhook;
 import javax.json.JsonObject;
 import org.vx68k.bitbucket.BitbucketAccount;
 import org.vx68k.bitbucket.BitbucketRepository;
-import org.vx68k.bitbucket.api.client.BitbucketClientAccount;
-import org.vx68k.bitbucket.api.client.BitbucketClientObject;
-import org.vx68k.bitbucket.api.client.BitbucketClientRepository;
+import org.vx68k.bitbucket.client.BitbucketClientAccount;
+import org.vx68k.bitbucket.client.BitbucketClientObject;
+import org.vx68k.bitbucket.client.BitbucketClientRepository;
 
 /**
  * Event on a Bitbucket repository.

@@ -23,7 +23,7 @@ package org.vx68k.bitbucket.api.client.cli;
 import java.time.Instant;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
-import org.vx68k.bitbucket.api.client.BitbucketClient;
+import org.vx68k.bitbucket.client.BitbucketClient;
 
 /**
  * Utilities for the CLI.

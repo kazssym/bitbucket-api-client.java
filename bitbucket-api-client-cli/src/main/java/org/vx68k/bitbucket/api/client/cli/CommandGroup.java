@@ -23,7 +23,7 @@ package org.vx68k.bitbucket.api.client.cli;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import org.vx68k.bitbucket.api.client.BitbucketClient;
+import org.vx68k.bitbucket.client.BitbucketClient;
 
 /**
  * Group of commands.

@@ -30,7 +30,7 @@ import javax.inject.Named;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import org.vx68k.bitbucket.BitbucketAccount;
-import org.vx68k.bitbucket.api.client.BitbucketClient;
+import org.vx68k.bitbucket.client.BitbucketClient;
 
 /**
  * Request-scoped bean to look up a team name on Bitbucket Cloud.

@@ -40,7 +40,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import org.vx68k.bitbucket.BitbucketUser;
-import org.vx68k.bitbucket.api.client.BitbucketClient;
+import org.vx68k.bitbucket.client.BitbucketClient;
 
 /**
  * Session-scoped bean for the current user of the session.
