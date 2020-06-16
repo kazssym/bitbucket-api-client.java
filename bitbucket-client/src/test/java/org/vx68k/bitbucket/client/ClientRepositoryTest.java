@@ -1,6 +1,6 @@
 /*
- * BitbucketClientRepositoryTest.java - class BitbucketClientRepositoryTest
- * Copyright (C) 2015-2018 Kaz Nishimura
+ * ClientRepositoryTest.java
+ * Copyright (C) 2015-2020 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -20,20 +20,19 @@
 
 package org.vx68k.bitbucket.client;
 
-import org.vx68k.bitbucket.client.BitbucketClientRepository;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
-
 import javax.json.Json;
 import javax.json.JsonObject;
 import org.junit.Test;
 
 /**
- * Unit tests for {@link BitbucketClientRepository}.
+ * Unit tests for {@link ClientRepository}.
  *
  * @author Kaz Nishimura
+ * @since 6.0.0
  */
-public class BitbucketClientRepositoryTest
+public final class ClientRepositoryTest
 {
     /**
      * Tests the constructor.
@@ -43,10 +42,10 @@ public class BitbucketClientRepositoryTest
     {
         JsonObject repositoryObject = Json.createObjectBuilder()
             .add("type", "repository").build();
-        new BitbucketClientRepository(repositoryObject);
+        new ClientRepository(repositoryObject);
 
         try {
-            new BitbucketClientRepository(null);
+            new ClientRepository(null);
             fail();
         }
         catch (final IllegalArgumentException exception) {
@@ -55,21 +54,21 @@ public class BitbucketClientRepositoryTest
     }
 
     /**
-     * Tests {@link BitbucketClientRepository#getSCM}.
+     * Tests {@link ClientRepository#getSCM}.
      */
     @Test
     public void testGetSCM()
     {
         JsonObject repositoryObject1 = Json.createObjectBuilder()
             .add("type", "repository").add("scm", "git").build();
-        BitbucketClientRepository repository1 =
-            new BitbucketClientRepository(repositoryObject1);
+        ClientRepository repository1 =
+            new ClientRepository(repositoryObject1);
         assertEquals("git", repository1.getSCM());
 
         JsonObject repositoryObject2 = Json.createObjectBuilder()
             .add("type", "repository").add("scm", "hg").build();
-        BitbucketClientRepository repository2 =
-            new BitbucketClientRepository(repositoryObject2);
+        ClientRepository repository2 =
+            new ClientRepository(repositoryObject2);
         assertEquals("hg", repository2.getSCM());
     }
 }

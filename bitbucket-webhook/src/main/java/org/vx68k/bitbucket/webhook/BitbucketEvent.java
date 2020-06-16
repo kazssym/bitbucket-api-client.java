@@ -24,7 +24,7 @@ import javax.json.JsonObject;
 import org.vx68k.bitbucket.BitbucketAccount;
 import org.vx68k.bitbucket.BitbucketRepository;
 import org.vx68k.bitbucket.client.BitbucketClientObject;
-import org.vx68k.bitbucket.client.BitbucketClientRepository;
+import org.vx68k.bitbucket.client.ClientRepository;
 import org.vx68k.bitbucket.client.ClientUserAccount;
 
 /**
@@ -89,7 +89,7 @@ public class BitbucketEvent extends BitbucketClientObject
 
         BitbucketRepository value = null;
         if (repository != null) {
-            value = new BitbucketClientRepository(
+            value = new ClientRepository(
                 repository, getBitbucketClient());
         }
         return value;

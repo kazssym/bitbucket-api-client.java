@@ -1,6 +1,6 @@
 /*
- * BitbucketClientRepository.java
- * Copyright (C) 2015-2018 Kaz Nishimura
+ * ClientRepository.java
+ * Copyright (C) 2015-2020 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -22,7 +22,6 @@ package org.vx68k.bitbucket.client;
 
 import static org.vx68k.bitbucket.client.JsonUtilities.toInstant;
 import static org.vx68k.bitbucket.client.JsonUtilities.toUUID;
-
 import java.net.URI;
 import java.time.Instant;
 import java.util.Collection;
@@ -41,12 +40,11 @@ import org.vx68k.bitbucket.BitbucketRepository;
 
 /**
  * Client implementation of {@link BitbucketRepository}.
- * This class represents a repository by a JSON object.
  *
  * @author Kaz Nishimura
- * @since 5.0
+ * @since 6.0.0
  */
-public class BitbucketClientRepository extends BitbucketClientObject implements
+public class ClientRepository extends BitbucketClientObject implements
     BitbucketRepository, BitbucketIssueTracker
 {
     /**
@@ -146,7 +144,7 @@ public class BitbucketClientRepository extends BitbucketClientObject implements
      * @exception IllegalArgumentException if {@code object} is {@code null} or
      * is not for a repository
      */
-    public BitbucketClientRepository(final JsonObject object)
+    public ClientRepository(final JsonObject object)
     {
         this(object, null);
     }
@@ -159,7 +157,7 @@ public class BitbucketClientRepository extends BitbucketClientObject implements
      * @exception IllegalArgumentException if {@code object} is {@code null} or
      * is not for a repository
      */
-    public BitbucketClientRepository(
+    public ClientRepository(
         final JsonObject object, final BitbucketClient client)
     {
         super(object, client);
@@ -180,7 +178,7 @@ public class BitbucketClientRepository extends BitbucketClientObject implements
      * @see #creator(BitbucketClient)
      * @see PaginatedList
      */
-    public static Function<JsonObject, BitbucketClientRepository> creator()
+    public static Function<JsonObject, ClientRepository> creator()
     {
         return creator(null);
     }
@@ -193,11 +191,11 @@ public class BitbucketClientRepository extends BitbucketClientObject implements
      * @return a function to create a repository from a JSON object
      * @see PaginatedList
      */
-    public static Function<JsonObject, BitbucketClientRepository> creator(
+    public static Function<JsonObject, ClientRepository> creator(
         final BitbucketClient bitbucketClient)
     {
         return (object) ->
-            new BitbucketClientRepository(object, bitbucketClient);
+            new ClientRepository(object, bitbucketClient);
     }
 
     /**
