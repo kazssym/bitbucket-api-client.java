@@ -371,7 +371,6 @@ public class BitbucketClient implements Bitbucket, Serializable
         ClientAccount value = null;
         if (object != null) {
             value = new ClientUserAccount(object);
-            value.setBitbucketClient(this);
         }
         return value;
     }
@@ -390,7 +389,6 @@ public class BitbucketClient implements Bitbucket, Serializable
         ClientAccount value = null;
         if (object != null) {
             value = new ClientTeamAccount(object);
-            value.setBitbucketClient(this);
         }
         return value;
     }

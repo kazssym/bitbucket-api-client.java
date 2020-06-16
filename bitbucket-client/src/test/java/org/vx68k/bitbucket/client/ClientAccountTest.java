@@ -84,14 +84,6 @@ public final class ClientAccountTest
         // NOTE: A builder can be reused.
         JsonObjectBuilder builder = Json.createObjectBuilder();
 
-        ClientAccount user1 = new ClientUserAccount(
-            builder.add("type", "user").build());
-        assertNull(user1.getBitbucketClient());
-
-        ClientAccount team1 = new ClientTeamAccount(
-            builder.add("type", "team").build());
-        assertNull(team1.getBitbucketClient());
-
         // Case with a JSON object of a wrong type.
         try {
             new ClientTeamAccount(builder.add("type", "other").build());
@@ -211,37 +203,5 @@ public final class ClientAccountTest
 
         BitbucketAccount team1 = new ClientTeamAccount(sampleTeam1);
         assertEquals(SAMPLE_TEAM1_CREATED, team1.getCreated());
-    }
-
-    /**
-     * Tests {@link ClientAccount#getRepository(String)}.
-     */
-    @Ignore("Not implemented")
-    @Test
-    public void testGetRepository()
-    {
-        // @todo Implement this method.
-        fail("Test not implemented");
-    }
-
-    /**
-     * Tests {@link ClientAccount#repositories()}.
-     */
-    @Ignore
-    @Test
-    public void testRepositories()
-    {
-        JsonObjectBuilder builder = Json.createObjectBuilder();
-
-        ClientAccount user1 = new ClientUserAccount(
-            builder.add("type", "user").addNull("created_on").build());
-        user1.setBitbucketClient(BitbucketClient.getDefaultInstance());
-        assertNull(user1.repositories());
-
-        ClientAccount team1 = new ClientTeamAccount(sampleTeam1);
-        team1.setBitbucketClient(BitbucketClient.getDefaultInstance());
-        Collection<BitbucketRepository> repositories = team1.repositories();
-        assertNotNull(repositories);
-        assertTrue(repositories.size() > 0);
     }
 }

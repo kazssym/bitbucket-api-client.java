@@ -1,6 +1,6 @@
 /*
  * BitbucketAccount.java
- * Copyright (C) 2018 Kaz Nishimura
+ * Copyright (C) 2018-2020 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -21,7 +21,6 @@
 package org.vx68k.bitbucket;
 
 import java.time.Instant;
-import java.util.Collection;
 import java.util.UUID;
 
 /**
@@ -33,8 +32,7 @@ import java.util.UUID;
  *
  * @author Kaz Nishimura
  * @see BitbucketUser
- * @see BitbucketRepository
- * @since 5.0
+ * @since 6.0.0
  */
 public interface BitbucketAccount
 {
@@ -56,19 +54,19 @@ public interface BitbucketAccount
     String getType();
 
     /**
+     * Returns the UUID of the account.
+     *
+     * @return the UUID of the account
+     */
+    UUID getUUID();
+
+    /**
      * Returns the name of the account.
      * This property identifies the account.
      *
      * @return the name of the account
      */
     String getName();
-
-    /**
-     * Returns the UUID of the account.
-     *
-     * @return the UUID of the account
-     */
-    UUID getUUID();
 
     /**
      * Returns the display name of the account.
@@ -97,22 +95,4 @@ public interface BitbucketAccount
      * @return the date and time when the account was created
      */
     Instant getCreated();
-
-    /**
-     * Returns a repository owned by the account.
-     *
-     * @param name the name of a repository
-     * @return a repository owned by the account if one was found; {@code null}
-     * otherwise
-     */
-    BitbucketRepository getRepository(String name);
-
-    /**
-     * Returns a {@link Collection} view of the repositories owned by the
-     * account.
-     *
-     * @return a {@link Collection} view of the repositories owned by the
-     * account
-     */
-    Collection<BitbucketRepository> repositories();
 }

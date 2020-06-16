@@ -74,7 +74,6 @@ public class BitbucketEvent extends BitbucketClientObject
         ClientUserAccount value = null;
         if (actor != null) {
             value = new ClientUserAccount(actor);
-            value.setBitbucketClient(getBitbucketClient());
         }
         return value;
     }

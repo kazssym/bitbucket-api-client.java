@@ -213,7 +213,6 @@ public class BitbucketClientIssue extends BitbucketClientObject implements
         ClientUserAccount value = null;
         if (reporter != null && reporter != JsonValue.NULL) {
             value = new ClientUserAccount((JsonObject) reporter);
-            value.setBitbucketClient(getBitbucketClient());
         }
         return value;
     }
@@ -263,7 +262,6 @@ public class BitbucketClientIssue extends BitbucketClientObject implements
         ClientUserAccount value = null;
         if (assignee != null && assignee != JsonValue.NULL) {
             value = new ClientUserAccount((JsonObject) assignee);
-            value.setBitbucketClient(getBitbucketClient());
         }
         return value;
     }

@@ -21,14 +21,12 @@
 package org.vx68k.bitbucket.client;
 
 import java.time.Instant;
-import java.util.Collection;
 import java.util.Map;
 import java.util.UUID;
 import javax.json.JsonObject;
 import javax.json.bind.annotation.JsonbProperty;
 import javax.ws.rs.core.Link;
 import org.vx68k.bitbucket.BitbucketAccount;
-import org.vx68k.bitbucket.BitbucketRepository;
 
 /**
  * Client implementation of {@link BitbucketAccount}.
@@ -70,8 +68,6 @@ abstract class ClientAccount implements BitbucketAccount
     private static final String JSON_CREATED = "created_on";
 
     private static final String JSON_LINKS = "links";
-
-    private BitbucketClient bitbucketClient;
 
     @JsonbProperty(JSON_UUID)
     private UUID uuid;
@@ -135,26 +131,6 @@ abstract class ClientAccount implements BitbucketAccount
         this.website = json.getString(JSON_WEBSITE, null);
         this.location = json.getString(JSON_LOCATION, null);
         this.created = JsonUtilities.toInstant(json.get(JSON_CREATED));
-    }
-
-    /**
-     * Returns the Bitbucket API client associated to the account object.
-     *
-     * @return the Bitbucket API client associated to the account object
-     */
-    public final BitbucketClient getBitbucketClient()
-    {
-        return bitbucketClient;
-    }
-
-    /**
-     * Sets the Bitbucket API client associated to the account object.
-     *
-     * @param client a {@link BitbucketClient} object
-     */
-    public final void setBitbucketClient(final BitbucketClient client)
-    {
-        this.bitbucketClient = client;
     }
 
     /**
@@ -269,36 +245,5 @@ abstract class ClientAccount implements BitbucketAccount
     public final void setCreated(final Instant created)
     {
         this.created = created;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final BitbucketRepository getRepository(final String repositoryName)
-    {
-        BitbucketClient client = getBitbucketClient();
-        return client.getRepository(getName(), repositoryName);
-    }
-
-    /**
-     * {@inheritDoc}
-     * <p>This implementation returns a {@link PaginatedList} object.</p>
-     *
-     * @see BitbucketClientRepository#creator(BitbucketClient)
-     */
-    @Override
-    public final Collection<BitbucketRepository> repositories()
-    {
-        Link repositories = links.get("repositories");
-
-        Collection<BitbucketRepository> value = null;
-        if (repositories != null) {
-            BitbucketClient client = getBitbucketClient();
-            value = new PaginatedList<>(
-                repositories.getUri(), client,
-                BitbucketClientRepository.creator(client));
-        }
-        return value;
     }
 }
