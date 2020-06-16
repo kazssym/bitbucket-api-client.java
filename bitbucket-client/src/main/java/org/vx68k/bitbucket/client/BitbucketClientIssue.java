@@ -192,8 +192,7 @@ public class BitbucketClientIssue extends BitbucketClientObject implements
 
         BitbucketRepository value = null;
         if (repository != null) {
-            value = new ClientRepository(
-                repository, getBitbucketClient());
+            value = new ClientRepository(repository);
         }
         return value;
     }

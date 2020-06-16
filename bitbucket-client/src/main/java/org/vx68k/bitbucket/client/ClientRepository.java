@@ -27,10 +27,12 @@ import java.time.Instant;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.function.Function;
 import javax.json.JsonNumber;
 import javax.json.JsonObject;
+import javax.json.bind.annotation.JsonbProperty;
 import javax.ws.rs.core.Link;
 import org.vx68k.bitbucket.BitbucketAccount;
 import org.vx68k.bitbucket.BitbucketBranch;
@@ -44,48 +46,80 @@ import org.vx68k.bitbucket.BitbucketRepository;
  * @author Kaz Nishimura
  * @since 6.0.0
  */
-public class ClientRepository extends BitbucketClientObject implements
-    BitbucketRepository, BitbucketIssueTracker
+public class ClientRepository implements BitbucketRepository,
+    BitbucketIssueTracker // TODO: Change this class to package scope.
 {
     /**
      * Type value for repositories.
      */
     private static final String REPOSITORY = "repository";
 
+    private static final String JSON_TYPE = "type";
+
     /**
-     * Name of the {@code created_on} value in a JSON repository object.
+     * Name of the {@code owner} value in a JSON repository object.
      */
-    private static final String CREATED_ON = "created_on";
+    private static final String JSON_OWNER = "owner";
+
+    /**
+     * Name of the {@code uuid} value in a JSON repository object.
+     */
+    private static final String JSON_UUID = "uuid";
+
+    /**
+     * Name of the {@code name} value in a JSON repository object.
+     */
+    private static final String JSON_NAME = "name";
+
+    /**
+     * Name of the {@code full_name} value in a JSON repository object.
+     */
+    private static final String JSON_FULL_NAME = "full_name";
 
     /**
      * Name of the {@code description} value in a JSON repository object.
      */
-    private static final String DESCRIPTION = "description";
+    private static final String JSON_DESCRIPTION = "description";
+
+    /**
+     * Name of the {@code is_private} value in a JSON repository object.
+     */
+    private static final String JSON_PRIVATE = "is_private";
+
+    /**
+     * Name of the {@code scm} value in a JSON repository object.
+     */
+    private static final String JSON_SCM = "scm";
+
+    /**
+     * Name of the {@code created_on} value in a JSON repository object.
+     */
+    private static final String JSON_CREATED = "created_on";
+
+    /**
+     * Name of the {@code updated_on} value in a JSON repository object.
+     */
+    private static final String JSON_UPDATED = "updated_on";
+
+    /**
+     * Name of the {@code size} value in a JSON repository object.
+     */
+    private static final String JSON_SIZE = "size";
+
+    /**
+     * Name of the {@code has_issues} value in a JSON repository object.
+     */
+    private static final String JSON_ISSUES_ENABLED = "has_issues";
+
+    /**
+     * Name of the {@code has_wiki} value in a JSON repository object.
+     */
+    private static final String JSON_WIKI_ENABLED = "has_wiki";
 
     /**
      * Name of the {@code fork_policy} value in a JSON repository object.
      */
     private static final String FORK_POLICY = "fork_policy";
-
-    /**
-     * Name of the {@code full_name} value in a JSON repository object.
-     */
-    private static final String FULL_NAME = "full_name";
-
-    /**
-     * Name of the {@code has_issues} value in a JSON repository object.
-     */
-    private static final String HAS_ISSUES = "has_issues";
-
-    /**
-     * Name of the {@code has_wiki} value in a JSON repository object.
-     */
-    private static final String HAS_WIKI = "has_wiki";
-
-    /**
-     * Name of the {@code is_private} value in a JSON repository object.
-     */
-    private static final String IS_PRIVATE = "is_private";
 
     /**
      * Name of the {@code language} value in a JSON repository object.
@@ -98,114 +132,130 @@ public class ClientRepository extends BitbucketClientObject implements
     private static final String MAINBRANCH = "mainbranch";
 
     /**
-     * Name of the {@code name} value in a JSON repository object.
-     */
-    private static final String NAME = "name";
-
-    /**
-     * Name of the {@code owner} value in a JSON repository object.
-     */
-    private static final String OWNER = "owner";
-
-    /**
      * Name of the {@code project} value in a JSON repository object.
      */
     private static final String PROJECT = "project";
-
-    /**
-     * Name of the {@code scm} value in a JSON repository object.
-     */
-    private static final String SCM = "scm";
-
-    /**
-     * Name of the {@code size} value in a JSON repository object.
-     */
-    private static final String SIZE = "size";
-
-    /**
-     * Name of the {@code updated_on} value in a JSON repository object.
-     */
-    private static final String UPDATED_ON = "updated_on";
-
-    /**
-     * Name of the {@code uuid} value in a JSON repository object.
-     */
-    private static final String UUID = "uuid";
 
     /**
      * Name of the {@code website} value in a JSON repository object.
      */
     private static final String WEBSITE = "website";
 
-    /**
-     * Constructs this object.
-     *
-     * @param object JSON object for a repository
-     * @exception IllegalArgumentException if {@code object} is {@code null} or
-     * is not for a repository
-     */
-    public ClientRepository(final JsonObject object)
-    {
-        this(object, null);
-    }
+    @JsonbProperty(JSON_OWNER)
+    private BitbucketAccount owner;
 
-    /**
-     * Constructs this object with a Bitbucket client.
-     *
-     * @param object JSON object for a repository
-     * @param client Bitbucket client
-     * @exception IllegalArgumentException if {@code object} is {@code null} or
-     * is not for a repository
-     */
-    public ClientRepository(
-        final JsonObject object, final BitbucketClient client)
-    {
-        super(object, client);
+    @JsonbProperty(JSON_UUID)
+    private UUID uuid;
 
-        String type = getType();
-        if (type == null || !type.equals(REPOSITORY)) {
-            throw new IllegalArgumentException("Not repository");
-        }
-    }
+    @JsonbProperty(JSON_NAME)
+    private String name;
+
+    @JsonbProperty(JSON_FULL_NAME)
+    private String fullName;
+
+    @JsonbProperty(JSON_DESCRIPTION)
+    private String description;
+
+    @JsonbProperty(JSON_PRIVATE)
+    private boolean restricted;
+
+
+    @JsonbProperty(JSON_SCM)
+    private String scm;
+
+    @JsonbProperty(JSON_CREATED)
+    private Instant created;
+
+    @JsonbProperty(JSON_UPDATED)
+    private Instant updated;
+
+    @JsonbProperty(JSON_SIZE)
+    private long size;
+
+    @JsonbProperty(JSON_ISSUES_ENABLED)
+    private boolean issuesEnabled;
+
+    @JsonbProperty(JSON_WIKI_ENABLED)
+    private boolean wikiEnabled;
 
     /**
      * Returns a function to create a repository from a JSON object.
-     * The returned function initializes the Bitbucket API client of the
-     * created repository to {@code null}.
      * <p>This method can be used to create a {@link PaginatedList} object.</p>
      *
      * @return a function to create a repository from a JSON object
-     * @see #creator(BitbucketClient)
      * @see PaginatedList
      */
     public static Function<JsonObject, ClientRepository> creator()
     {
-        return creator(null);
+        return ClientRepository::new;
     }
 
     /**
-     * Returns a function to create a repository from a JSON object.
-     * <p>This method can be used to create a {@link PaginatedList} object.</p>
+     * Constructs a repository.
+     */
+    public ClientRepository()
+    {
+        // Nothing to do.
+    }
+
+    public ClientRepository(final ClientRepository other)
+    {
+        this.owner = other.owner;
+        this.uuid = other.uuid;
+        this.name = other.name;
+        this.fullName = other.fullName;
+        this.description = other.description;
+        this.restricted = other.restricted;
+
+        this.scm = other.scm;
+        this.created = other.created;
+        this.updated = other.updated;
+        this.size = other.size;
+        this.issuesEnabled = other.issuesEnabled;
+        this.wikiEnabled = other.wikiEnabled;
+    }
+
+    /**
+     * Constructs a repository from a JSON object.
      *
-     * @param bitbucketClient a Bitbucket API client
-     * @return a function to create a repository from a JSON object
-     * @see PaginatedList
+     * @param json a JSON object
+     * @exception IllegalArgumentException if {@code object} is {@code null} or
+     * is not of a repository
      */
-    public static Function<JsonObject, ClientRepository> creator(
-        final BitbucketClient bitbucketClient)
+    public ClientRepository(final JsonObject json)
     {
-        return (object) ->
-            new ClientRepository(object, bitbucketClient);
-    }
+        if (json == null) {
+            throw new IllegalArgumentException("JSON object is null");
+        }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final String getSCM()
-    {
-        JsonObject object = getJsonObject();
-        return object.getString(SCM, null);
+        String type = json.getString(JSON_TYPE, null);
+        if (!Objects.equals(type, "repository")) {
+            throw new IllegalArgumentException("JSON object is not of a repository");
+        }
+
+        JsonObject jsonOwner = json.getJsonObject(JSON_OWNER);
+        if (jsonOwner == null) {
+            this.owner = null;
+        }
+        else if (Objects.equals(jsonOwner.getString(JSON_TYPE, null),
+            BitbucketAccount.AccountType.TEAM.toString())) {
+            this.owner = new ClientTeamAccount(jsonOwner);
+        }
+        else {
+            this.owner = new ClientUserAccount(jsonOwner);
+        }
+        this.uuid = JsonUtilities.toUUID(json.get(JSON_UUID));
+        this.name = json.getString(JSON_NAME, null);
+        this.fullName = json.getString(JSON_FULL_NAME, null);
+        this.description = json.getString(JSON_DESCRIPTION, null);
+        this.restricted = json.getBoolean(JSON_PRIVATE, false);
+
+        this.scm = json.getString(JSON_SCM, null);
+        this.created = JsonUtilities.toInstant(json.get(JSON_CREATED));
+        this.updated = JsonUtilities.toInstant(json.get(JSON_UPDATED));
+        this.size = json.getJsonNumber(JSON_SIZE).longValue();
+        this.issuesEnabled = json.getBoolean(JSON_ISSUES_ENABLED, false);
+        this.wikiEnabled = json.getBoolean(JSON_WIKI_ENABLED, false);
     }
 
     /**
@@ -214,29 +264,17 @@ public class ClientRepository extends BitbucketClientObject implements
     @Override
     public final BitbucketAccount getOwner()
     {
-        JsonObject object = getJsonObject();
-        ClientAccount value = null;
-        JsonObject owner = object.getJsonObject(OWNER);
-        if (owner != null) {
-            String type = owner.getString(TYPE);
-            if (type.equals(BitbucketAccount.AccountType.TEAM.toString())) {
-                value = new ClientTeamAccount(owner);
-            }
-            else {
-                value = new ClientUserAccount(owner);
-            }
-        }
-        return value;
+        return owner;
     }
 
     /**
-     * {@inheritDoc}
+     * Sets the owner of the repository.
+     *
+     * @param owner a {@link BitbucketAccount} object for the owner
      */
-    @Override
-    public final String getName()
+    public final void setOwner(final BitbucketAccount owner)
     {
-        JsonObject object = getJsonObject();
-        return object.getString(NAME, null);
+        this.owner = owner;
     }
 
     /**
@@ -245,8 +283,36 @@ public class ClientRepository extends BitbucketClientObject implements
     @Override
     public final UUID getUUID()
     {
-        JsonObject object = getJsonObject();
-        return toUUID(object.getJsonString(UUID));
+        return uuid;
+    }
+
+    /**
+     * Sets the UUID of the repository.
+     *
+     * @param uuid a {@link UUID} object
+     */
+    public final void setUUID(final UUID uuid)
+    {
+        this.uuid = uuid;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final String getName()
+    {
+        return name;
+    }
+
+    /**
+     * Sets the name of the repository.
+     *
+     * @param name a string object for the name
+     */
+    public final void setName(final String name)
+    {
+        this.name = name;
     }
 
     /**
@@ -255,8 +321,17 @@ public class ClientRepository extends BitbucketClientObject implements
     @Override
     public final String getFullName()
     {
-        JsonObject object = getJsonObject();
-        return object.getString(FULL_NAME, null);
+        return fullName;
+    }
+
+    /**
+     * Sets the full name of the repository.
+     *
+     * @param fullName a string object for the full name
+     */
+    public final void setFullName(final String fullName)
+    {
+        this.fullName = fullName;
     }
 
     /**
@@ -267,8 +342,17 @@ public class ClientRepository extends BitbucketClientObject implements
     @Override
     public final String getDescription()
     {
-        JsonObject object = getJsonObject();
-        return object.getString(DESCRIPTION, null);
+        return description;
+    }
+
+    /**
+     * Sets the description of the repository.
+     *
+     * @param description a string object for the description
+     */
+    public final void setDescription(final String description)
+    {
+        this.description = description;
     }
 
     /**
@@ -277,8 +361,16 @@ public class ClientRepository extends BitbucketClientObject implements
     @Override
     public final boolean isPrivate()
     {
-        JsonObject object = getJsonObject();
-        return object.getBoolean(IS_PRIVATE, false);
+        return restricted;
+    }
+
+    /**
+     * Sets the private flag of the repository.
+     *
+     * @param restricted a Boolean value for the private flag
+     */
+    public final void setPrivate(boolean restricted) {
+        this.restricted = restricted;
     }
 
     /**
@@ -289,37 +381,26 @@ public class ClientRepository extends BitbucketClientObject implements
     @Override
     public final BitbucketBranch getMainBranch()
     {
-        JsonObject branch = getJsonObject().getJsonObject(MAINBRANCH);
-
-        BitbucketBranch value = null;
-        if (branch != null) {
-            value = new BitbucketClientBranch(branch, getBitbucketClient());
-        }
-        return value;
+        throw new UnsupportedOperationException("Not implemented yet");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public final boolean hasIssueTracker()
+    public final String getSCM()
     {
-        return getJsonObject().getBoolean(HAS_ISSUES, false);
+        return scm;
     }
 
-    @Override
-    public final boolean hasWiki()
+    /**
+     * Sets the SCM of the repository.
+     *
+     * @param scm a string object for the SCM
+     */
+    public final void setSCM(final String scm)
     {
-        return getJsonObject().getBoolean(HAS_WIKI, false);
-    }
-
-    @Override
-    public final long getSize()
-    {
-        JsonNumber size = getJsonObject().getJsonNumber(SIZE);
-
-        long value = -1L;
-        if (size != null) {
-            value = size.longValue();
-        }
-        return value;
+        this.scm = scm;
     }
 
     /**
@@ -330,13 +411,17 @@ public class ClientRepository extends BitbucketClientObject implements
     @Override
     public final Instant getCreated()
     {
-        JsonObject object = getJsonObject();
-        // This may be a JSON null.
-        Instant value = null;
-        if (object.containsKey(CREATED_ON) && !object.isNull(CREATED_ON)) {
-            value = toInstant(object.getJsonString(CREATED_ON));
-        }
-        return value;
+        return created;
+    }
+
+    /**
+     * Sets the create time of the repository.
+     *
+     * @param created a {@link Instant} object for the create time
+     */
+    public final void setCreated(final Instant created)
+    {
+        this.created = created;
     }
 
     /**
@@ -347,77 +432,80 @@ public class ClientRepository extends BitbucketClientObject implements
     @Override
     public final Instant getUpdated()
     {
-        JsonObject object = getJsonObject();
-        // This may be a JSON null.
-        Instant value = null;
-        if (object.containsKey(UPDATED_ON) && !object.isNull(UPDATED_ON)) {
-            value = toInstant(object.getJsonString(UPDATED_ON));
-        }
-        return value;
+        return updated;
     }
 
+    /**
+     * Sets the update time of the repository.
+     *
+     * @param updated a {@link Instant} object for the update time
+     */
+    public final void setUpdated(final Instant updated)
+    {
+        this.updated = updated;
+    }
+
+    @Override
+    public final long getSize()
+    {
+        return size;
+    }
+
+    public final void setSize(final long size)
+    {
+        this.size = size;
+    }
+
+    @Override
+    public final boolean hasIssueTracker()
+    {
+        return issuesEnabled;
+    }
+
+    @Override
+    public final boolean hasWiki()
+    {
+        return wikiEnabled;
+    }
+
+    @Deprecated
     @Override
     public final BitbucketIssueTracker getIssueTracker()
     {
-        BitbucketIssueTracker value = null;
-        if (hasIssueTracker()) {
-            value = this;
-        }
-        return value;
+        throw new UnsupportedOperationException("Unimplemented");
     }
 
+    @Deprecated
     @Override
     public final BitbucketRepository getRepository()
     {
-        return this;
+        throw new UnsupportedOperationException("Unimplemented");
     }
 
     /**
      * {@inheritDoc}
      */
+    @Deprecated
     @Override
     public final BitbucketIssue getIssue(final int id)
     {
-        Map<String, Object> parameters = new HashMap<>();
-        parameters.put("owner", getOwner().getName());
-        parameters.put("name", getName());
-        parameters.put("id", id);
-
-        BitbucketClient client = getBitbucketClient();
-        JsonObject object = client.getResource(
-            "/repositories/{owner}/{name}/issues/{id}", parameters);
-
-        BitbucketIssue value = null;
-        if (object != null) {
-            value = new BitbucketClientIssue(object, client);
-        }
-        return value;
+        throw new UnsupportedOperationException("Unimplemented");
     }
 
     /**
      * {@inheritDoc}
      */
+    @Deprecated
     @Override
     public final Collection<BitbucketIssue> issues()
     {
-        return issues(null);
+        throw new UnsupportedOperationException("Unimplemented");
     }
 
+    @Deprecated
     @Override
     public final Collection<BitbucketIssue> issues(final String filter)
     {
-
-        Link issues = getLink("issues");
-        URI uri;
-        if (filter != null) {
-            uri = issues.getUriBuilder().queryParam("q", filter).build();
-        }
-        else {
-            uri = issues.getUri();
-        }
-
-        BitbucketClient client = getBitbucketClient();
-        return new PaginatedList<>(
-            uri, client, BitbucketClientIssue.creator(client));
+        throw new UnsupportedOperationException("Unimplemented");
     }
 }

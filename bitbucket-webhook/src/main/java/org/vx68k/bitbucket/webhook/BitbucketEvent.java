@@ -89,8 +89,7 @@ public class BitbucketEvent extends BitbucketClientObject
 
         BitbucketRepository value = null;
         if (repository != null) {
-            value = new ClientRepository(
-                repository, getBitbucketClient());
+            value = new ClientRepository(repository);
         }
         return value;
     }

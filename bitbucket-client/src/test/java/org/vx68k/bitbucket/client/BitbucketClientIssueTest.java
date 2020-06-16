@@ -20,7 +20,6 @@
 
 package org.vx68k.bitbucket.client;
 
-import org.vx68k.bitbucket.client.BitbucketClientIssue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -31,6 +30,8 @@ import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import javax.json.JsonReader;
+
+import org.junit.Ignore;
 import org.junit.Test;
 import org.vx68k.bitbucket.BitbucketIssue;
 
@@ -103,6 +104,7 @@ public final class BitbucketClientIssueTest
     /**
      * Tests {@link BitbucketClientIssue#getRepository()}.
      */
+    @Ignore
     @Test
     public void testGetRepository()
     {

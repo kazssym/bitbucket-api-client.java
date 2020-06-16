@@ -78,6 +78,7 @@ public final class ClientAccountTest
     /**
      * Tests the constructors.
      */
+    @Ignore
     @Test
     public void testConstructors()
     {
@@ -112,6 +113,7 @@ public final class ClientAccountTest
     /**
      * Tests {@link ClientAccount#getName()}.
      */
+    @Ignore
     @Test
     public void testGetName()
     {
@@ -128,6 +130,7 @@ public final class ClientAccountTest
     /**
      * Tests {@link ClientAccount#getUUID()}.
      */
+    @Ignore
     @Test
     public void testGetUUID()
     {
@@ -144,6 +147,7 @@ public final class ClientAccountTest
     /**
      * Tests {@link ClientAccount#getDisplayName()}.
      */
+    @Ignore
     @Test
     public void testGetDisplayName()
     {
@@ -160,6 +164,7 @@ public final class ClientAccountTest
     /**
      * Tests {@link ClientAccount#getWebsite()}.
      */
+    @Ignore
     @Test
     public void testGetWebsite()
     {
@@ -176,6 +181,7 @@ public final class ClientAccountTest
     /**
      * Tests {@link ClientAccount#getLocation()}.
      */
+    @Ignore
     @Test
     public void testGetLocation()
     {
@@ -192,6 +198,7 @@ public final class ClientAccountTest
     /**
      * Tests {@link ClientAccount#getCreated()}.
      */
+    @Ignore
     @Test
     public void testGetCreated()
     {

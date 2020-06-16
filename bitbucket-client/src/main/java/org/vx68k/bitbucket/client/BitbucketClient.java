@@ -410,7 +410,7 @@ public class BitbucketClient implements Bitbucket, Serializable
             "/repositories/{owner}/{name}", values);
         BitbucketRepository value = null;
         if (object != null) {
-            value = new ClientRepository(object, this);
+            value = new ClientRepository(object);
         }
         return value;
     }
