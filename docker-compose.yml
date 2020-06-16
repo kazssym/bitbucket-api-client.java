@@ -7,31 +7,27 @@
 ---
 version: "2.1"
 services:
-  webapp:
+  wildfly:
     image: kazssym/wildfly:latest
     depends_on:
       - derby
     ports:
-      - "${EXAMPLE_HTTP_PORT:-8080}:8080"
-      - "${EXAMPLE_MANAGEMENT_PORT:-9990}:9990"
-      - "${EXAMPLE_DEBUG_PORT:-8787}:8787"
+      - "${WILDFLY_HTTP_PORT:-8080}:8080"
+      - "${WILDFLY_MANAGEMENT_PORT:-9990}:9990"
+      - "${WILDFLY_DEBUG_PORT:-8787}:8787"
     environment:
-      JAVA_OPTS:
-      GC_LOG:
-      DEBUG:
+      DEBUG: "true"
       DEBUG_PORT: 0.0.0.0:8787
     volumes:
-      - ./configuration:/opt/jboss/wildfly/standalone/configuration:rw
-      - ./bitbucket-api-client-webapp/target/bitbucket-api-client-webapp-${VERSION:-5.0-SNAPSHOT}.war:/opt/jboss/wildfly/standalone/deployments/ROOT.war:ro
+      - wildfly_standalone:/opt/jboss/wildfly/standalone:rw
+      - ./bitbucket-webapp/target/bitbucket-webapp-${VERSION:-6-SNAPSHOT}.war:/opt/jboss/wildfly/standalone/deployments/webapp.war:ro
     working_dir: /opt/jboss/wildfly/standalone
     command: /opt/jboss/wildfly/bin/standalone.sh -b=0.0.0.0 -bmanagement=0.0.0.0
-    cap_drop:
-      - ALL
   derby:
     image: kazssym/derby:latest
     ports:
       - "${DERBY_PORT:-1527}:1527"
-    working_dir: /opt/apache/derby/databases
+    working_dir: /var/tmp
     command: java -jar /opt/apache/derby/lib/derbynet.jar -h 0.0.0.0 start
-    cap_drop:
-      - ALL
+volumes:
+  wildfly_standalone: {}
