@@ -21,4 +21,4 @@
 /**
  * Unit tests for {@code org.vx68k.bitbucket.api.client.webapp}.
  */
-package org.vx68k.bitbucket.api.client.webapp.test;
+package org.vx68k.bitbucket.webapp;

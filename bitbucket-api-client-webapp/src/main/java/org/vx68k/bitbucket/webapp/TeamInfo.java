@@ -1,5 +1,5 @@
 /*
- * UserInfo.java - class UserInfo
+ * TeamInfo.java - class TeamInfo
  * Copyright (C) 2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -18,7 +18,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-package org.vx68k.bitbucket.api.client.webapp;
+package org.vx68k.bitbucket.webapp;
 
 import java.io.Serializable;
 import javax.enterprise.context.RequestScoped;
@@ -33,7 +33,7 @@ import org.vx68k.bitbucket.BitbucketAccount;
 import org.vx68k.bitbucket.client.BitbucketClient;
 
 /**
- * Request-scoped bean to look up a user name on Bitbucket Cloud.
+ * Request-scoped bean to look up a team name on Bitbucket Cloud.
  *
  * @author Kaz Nishimura
  * @since 5.0
@@ -41,7 +41,7 @@ import org.vx68k.bitbucket.client.BitbucketClient;
 @SuppressWarnings({"designForExtension"})
 @Named
 @RequestScoped
-public class UserInfo implements Serializable
+public class TeamInfo implements Serializable
 {
     private static final long serialVersionUID = 1L;
 
@@ -51,17 +51,17 @@ public class UserInfo implements Serializable
     private final UserContext userContext;
 
     /**
-     * User name to look up.
+     * Team name to look up.
      */
     @NotNull
     @Pattern(regexp = "[^/]*",
-        message = "User name must not contain slashes.")
+        message = "Team name must not contain slashes.")
     private String name = "";
 
     /**
-     * User found by the last lookup, or {@code null} if no user was found.
+     * Team found by the last lookup, or {@code null} if no team was found.
      */
-    private transient BitbucketAccount user = null;
+    private transient BitbucketAccount team = null;
 
     /**
      * Constructs this object.
@@ -69,7 +69,7 @@ public class UserInfo implements Serializable
      * @param context user context
      */
     @Inject
-    public UserInfo(final UserContext context)
+    public TeamInfo(final UserContext context)
     {
         userContext = context;
     }
@@ -95,9 +95,9 @@ public class UserInfo implements Serializable
     }
 
     /**
-     * Returns the user name to look up.
+     * Returns the team name to look up.
      *
-     * @return the user name
+     * @return the team name
      */
     public String getName()
     {
@@ -105,9 +105,9 @@ public class UserInfo implements Serializable
     }
 
     /**
-     * Sets the user name to look up.
+     * Sets the team name to look up.
      *
-     * @param value new value of the user name
+     * @param value new value of the team name
      */
     public void setName(final String value)
     {
@@ -115,24 +115,24 @@ public class UserInfo implements Serializable
     }
 
     /**
-     * Returns the user found by the last lookup.
+     * Returns the team found by the last lookup.
      *
-     * @return the user if one was found; {@code null} otherwise
+     * @return the team if one was found; {@code null} otherwise
      * @see #isFound
      */
-    public BitbucketAccount getUser()
+    public BitbucketAccount getTeam()
     {
-        return user;
+        return team;
     }
 
     /**
-     * Returns {@code true} if a user was found by the last lookup.
+     * Returns {@code true} if a team was found by the last lookup.
      *
      * @return {@code true} if found; {@code false} otherwise
      */
     public boolean isFound()
     {
-        return user != null;
+        return team != null;
     }
 
     /**
@@ -145,16 +145,16 @@ public class UserInfo implements Serializable
     {
         if (!name.isEmpty()) {
             BitbucketClient bitbucketClient = getBitbucketClient();
-            user = bitbucketClient.getUser(name);
+            team = bitbucketClient.getTeam(name);
             if (!isFound()) {
                 FacesContext facesContext = FacesContext.getCurrentInstance();
                 UIComponent c = UIComponent.getCurrentComponent(facesContext);
                 facesContext.addMessage(c.getClientId(facesContext),
-                    new FacesMessage("User not found."));
+                    new FacesMessage("Team not found."));
             }
         }
         else {
-            user = null;
+            team = null;
         }
         return null;
     }

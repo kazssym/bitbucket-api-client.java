@@ -1,6 +1,6 @@
 /*
- * package-info.java - package org.vx68k.bitbucket.api.client.example
- * Copyright (C) 2018 Kaz Nishimura
+ * UserContextTest.java - class UserContextTest
+ * Copyright (C) 2015-2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Affero General Public License as published by
@@ -18,7 +18,27 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
+package org.vx68k.bitbucket.webapp;
+
+import static org.junit.Assert.assertFalse;
+
+import org.junit.Test;
+import org.vx68k.bitbucket.webapp.UserContext;
+
 /**
- * Classes for the Example App.
+ * Unit tests for {@link UserContext}.
+ *
+ * @author Kaz Nishimura
  */
-package org.vx68k.bitbucket.api.client.webapp;
+public final class UserContextTest
+{
+    /**
+     * Tests the default constructor.
+     */
+    @Test
+    public void testDefault()
+    {
+        UserContext userContext = new UserContext();
+        assertFalse(userContext.isLoggedIn());
+    }
+}
