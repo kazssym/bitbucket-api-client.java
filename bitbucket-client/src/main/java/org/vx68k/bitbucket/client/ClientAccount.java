@@ -34,7 +34,7 @@ import org.vx68k.bitbucket.BitbucketRepository;
  * Client implementation of {@link BitbucketAccount}.
  *
  * @author Kaz Nishimura
- * @see BitbucketClientUser
+ * @see ClientUserAccount
  * @since 6.0.0
  */
 abstract class ClientAccount implements BitbucketAccount

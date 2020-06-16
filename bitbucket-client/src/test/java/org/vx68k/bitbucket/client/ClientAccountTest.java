@@ -84,7 +84,7 @@ public final class ClientAccountTest
         // NOTE: A builder can be reused.
         JsonObjectBuilder builder = Json.createObjectBuilder();
 
-        ClientAccount user1 = new BitbucketClientUser(
+        ClientAccount user1 = new ClientUserAccount(
             builder.add("type", "user").build());
         assertNull(user1.getBitbucketClient());
 
@@ -125,7 +125,7 @@ public final class ClientAccountTest
     {
         JsonObjectBuilder builder = Json.createObjectBuilder();
 
-        BitbucketAccount user1 = new BitbucketClientUser(
+        BitbucketAccount user1 = new ClientUserAccount(
             builder.add("type", "user").build());
         assertNull(user1.getName());
 
@@ -141,7 +141,7 @@ public final class ClientAccountTest
     {
         JsonObjectBuilder builder = Json.createObjectBuilder();
 
-        BitbucketAccount user1 = new BitbucketClientUser(
+        BitbucketAccount user1 = new ClientUserAccount(
             builder.add("type", "user").build());
         assertNull(user1.getUUID());
 
@@ -157,7 +157,7 @@ public final class ClientAccountTest
     {
         JsonObjectBuilder builder = Json.createObjectBuilder();
 
-        BitbucketAccount user1 = new BitbucketClientUser(
+        BitbucketAccount user1 = new ClientUserAccount(
             builder.add("type", "user").build());
         assertNull(user1.getDisplayName());
 
@@ -173,7 +173,7 @@ public final class ClientAccountTest
     {
         JsonObjectBuilder builder = Json.createObjectBuilder();
 
-        BitbucketAccount user1 = new BitbucketClientUser(
+        BitbucketAccount user1 = new ClientUserAccount(
             builder.add("type", "user").build());
         assertNull(user1.getWebsite());
 
@@ -189,7 +189,7 @@ public final class ClientAccountTest
     {
         JsonObjectBuilder builder = Json.createObjectBuilder();
 
-        BitbucketAccount user1 = new BitbucketClientUser(
+        BitbucketAccount user1 = new ClientUserAccount(
             builder.add("type", "user").build());
         assertNull(user1.getLocation());
 
@@ -205,7 +205,7 @@ public final class ClientAccountTest
     {
         JsonObjectBuilder builder = Json.createObjectBuilder();
 
-        BitbucketAccount user1 = new BitbucketClientUser(
+        BitbucketAccount user1 = new ClientUserAccount(
             builder.add("type", "user").addNull("created_on").build());
         assertNull(user1.getCreated());
 
@@ -233,7 +233,7 @@ public final class ClientAccountTest
     {
         JsonObjectBuilder builder = Json.createObjectBuilder();
 
-        ClientAccount user1 = new BitbucketClientUser(
+        ClientAccount user1 = new ClientUserAccount(
             builder.add("type", "user").addNull("created_on").build());
         user1.setBitbucketClient(BitbucketClient.getDefaultInstance());
         assertNull(user1.repositories());

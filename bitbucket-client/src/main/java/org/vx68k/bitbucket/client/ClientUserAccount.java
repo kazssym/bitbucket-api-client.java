@@ -31,7 +31,7 @@ import org.vx68k.bitbucket.BitbucketUser;
  * @author Kaz Nishimura
  * @since 6.0.0
  */
-public class BitbucketClientUser extends ClientAccount
+public class ClientUserAccount extends ClientAccount
     implements BitbucketUser // TODO: Make this class package-scoped.
 {
     /**
@@ -53,7 +53,7 @@ public class BitbucketClientUser extends ClientAccount
     /**
      * Constructs a user account.
      */
-    public BitbucketClientUser()
+    public ClientUserAccount()
     {
         // Nothing to do.
     }
@@ -63,7 +63,7 @@ public class BitbucketClientUser extends ClientAccount
      *
      * @param other another user account
      */
-    public BitbucketClientUser(final BitbucketClientUser other)
+    public ClientUserAccount(final ClientUserAccount other)
     {
         super(other);
 
@@ -78,7 +78,7 @@ public class BitbucketClientUser extends ClientAccount
      * @exception IllegalArgumentException if {@code object} is {@code null} or
      * is not of a user account
      */
-    public BitbucketClientUser(final JsonObject json)
+    public ClientUserAccount(final JsonObject json)
     {
         super(json);
 

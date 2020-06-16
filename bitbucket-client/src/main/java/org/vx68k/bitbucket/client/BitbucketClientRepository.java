@@ -226,7 +226,7 @@ public class BitbucketClientRepository extends BitbucketClientObject implements
                 value = new ClientTeamAccount(owner);
             }
             else {
-                value = new BitbucketClientUser(owner);
+                value = new ClientUserAccount(owner);
             }
             value.setBitbucketClient(client);
         }
