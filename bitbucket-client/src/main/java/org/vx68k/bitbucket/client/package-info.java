@@ -1,5 +1,5 @@
 /*
- * package-info.java - package org.vx68k.bitbucket.api.client
+ * package-info.java - package org.vx68k.bitbucket.client
  * Copyright (C) 2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -21,7 +21,7 @@
 /**
  * Client implementation for the Bitbucket API.
  * <p>This package is contained in artifact {@code bitbucket-api-client} and
- * will be exported by module {@code org.vx68k.bitbucket.api.client} on Java SE
+ * will be exported by module {@code org.vx68k.bitbucket.client} on Java SE
  * 9 and later.</p>
  */
 package org.vx68k.bitbucket.client;
