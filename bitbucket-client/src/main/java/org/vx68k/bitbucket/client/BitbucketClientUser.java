@@ -31,7 +31,7 @@ import org.vx68k.bitbucket.BitbucketUser;
  * @author Kaz Nishimura
  * @since 6.0.0
  */
-public class BitbucketClientUser extends BitbucketClientAccount
+public class BitbucketClientUser extends ClientAccount
     implements BitbucketUser // TODO: Make this class package-scoped.
 {
     /**

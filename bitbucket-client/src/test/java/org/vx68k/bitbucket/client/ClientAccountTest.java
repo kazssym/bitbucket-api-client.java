@@ -21,7 +21,7 @@
 package org.vx68k.bitbucket.client;
 
 import org.vx68k.bitbucket.client.BitbucketClient;
-import org.vx68k.bitbucket.client.BitbucketClientAccount;
+import org.vx68k.bitbucket.client.ClientAccount;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -41,11 +41,11 @@ import org.vx68k.bitbucket.BitbucketAccount;
 import org.vx68k.bitbucket.BitbucketRepository;
 
 /**
- * Unit tests for {@link BitbucketClientAccount}.
+ * Unit tests for {@link ClientAccount}.
  *
  * @author Kaz Nishimura
  */
-public final class BitbucketClientAccountTest
+public final class ClientAccountTest
 {
     /**
      * UUID of the sample team 1.
@@ -67,7 +67,7 @@ public final class BitbucketClientAccountTest
     /**
      * Initializes the object.
      */
-    public BitbucketClientAccountTest()
+    public ClientAccountTest()
     {
         try (JsonReader reader = Json.createReader(
             getClass().getResourceAsStream("samples/team1.json"))) {
@@ -84,11 +84,11 @@ public final class BitbucketClientAccountTest
         // NOTE: A builder can be reused.
         JsonObjectBuilder builder = Json.createObjectBuilder();
 
-        BitbucketClientAccount user1 = new BitbucketClientUser(
+        ClientAccount user1 = new BitbucketClientUser(
             builder.add("type", "user").build());
         assertNull(user1.getBitbucketClient());
 
-        BitbucketClientAccount team1 = new BitbucketClientTeam(
+        ClientAccount team1 = new BitbucketClientTeam(
             builder.add("type", "team").build());
         assertNull(team1.getBitbucketClient());
 
@@ -118,7 +118,7 @@ public final class BitbucketClientAccountTest
     }
 
     /**
-     * Tests {@link BitbucketClientAccount#getName()}.
+     * Tests {@link ClientAccount#getName()}.
      */
     @Test
     public void testGetName()
@@ -134,7 +134,7 @@ public final class BitbucketClientAccountTest
     }
 
     /**
-     * Tests {@link BitbucketClientAccount#getUUID()}.
+     * Tests {@link ClientAccount#getUUID()}.
      */
     @Test
     public void testGetUUID()
@@ -150,7 +150,7 @@ public final class BitbucketClientAccountTest
     }
 
     /**
-     * Tests {@link BitbucketClientAccount#getDisplayName()}.
+     * Tests {@link ClientAccount#getDisplayName()}.
      */
     @Test
     public void testGetDisplayName()
@@ -166,7 +166,7 @@ public final class BitbucketClientAccountTest
     }
 
     /**
-     * Tests {@link BitbucketClientAccount#getWebsite()}.
+     * Tests {@link ClientAccount#getWebsite()}.
      */
     @Test
     public void testGetWebsite()
@@ -182,7 +182,7 @@ public final class BitbucketClientAccountTest
     }
 
     /**
-     * Tests {@link BitbucketClientAccount#getLocation()}.
+     * Tests {@link ClientAccount#getLocation()}.
      */
     @Test
     public void testGetLocation()
@@ -198,7 +198,7 @@ public final class BitbucketClientAccountTest
     }
 
     /**
-     * Tests {@link BitbucketClientAccount#getCreated()}.
+     * Tests {@link ClientAccount#getCreated()}.
      */
     @Test
     public void testGetCreated()
@@ -214,7 +214,7 @@ public final class BitbucketClientAccountTest
     }
 
     /**
-     * Tests {@link BitbucketClientAccount#getRepository(String)}.
+     * Tests {@link ClientAccount#getRepository(String)}.
      */
     @Ignore("Not implemented")
     @Test
@@ -225,7 +225,7 @@ public final class BitbucketClientAccountTest
     }
 
     /**
-     * Tests {@link BitbucketClientAccount#repositories()}.
+     * Tests {@link ClientAccount#repositories()}.
      */
     @Ignore
     @Test
@@ -233,12 +233,12 @@ public final class BitbucketClientAccountTest
     {
         JsonObjectBuilder builder = Json.createObjectBuilder();
 
-        BitbucketClientAccount user1 = new BitbucketClientUser(
+        ClientAccount user1 = new BitbucketClientUser(
             builder.add("type", "user").addNull("created_on").build());
         user1.setBitbucketClient(BitbucketClient.getDefaultInstance());
         assertNull(user1.repositories());
 
-        BitbucketClientAccount team1 = new BitbucketClientTeam(sampleTeam1);
+        ClientAccount team1 = new BitbucketClientTeam(sampleTeam1);
         team1.setBitbucketClient(BitbucketClient.getDefaultInstance());
         Collection<BitbucketRepository> repositories = team1.repositories();
         assertNotNull(repositories);

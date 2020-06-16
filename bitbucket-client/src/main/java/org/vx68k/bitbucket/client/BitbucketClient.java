@@ -368,7 +368,7 @@ public class BitbucketClient implements Bitbucket, Serializable
         Map<String, Object> values = Collections.singletonMap("name", name);
 
         JsonObject object = getResource("/users/{name}", values);
-        BitbucketClientAccount value = null;
+        ClientAccount value = null;
         if (object != null) {
             value = new BitbucketClientUser(object);
             value.setBitbucketClient(this);
@@ -387,7 +387,7 @@ public class BitbucketClient implements Bitbucket, Serializable
         Map<String, Object> values = Collections.singletonMap("name", name);
 
         JsonObject object = getResource("/teams/{name}", values);
-        BitbucketClientAccount value = null;
+        ClientAccount value = null;
         if (object != null) {
             value = new BitbucketClientTeam(object);
             value.setBitbucketClient(this);

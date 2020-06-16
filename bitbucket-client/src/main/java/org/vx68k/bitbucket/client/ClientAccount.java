@@ -37,7 +37,7 @@ import org.vx68k.bitbucket.BitbucketRepository;
  * @see BitbucketClientUser
  * @since 6.0.0
  */
-abstract class BitbucketClientAccount implements BitbucketAccount
+abstract class ClientAccount implements BitbucketAccount
 {
     /**
      * Name of the {@code uuid} value in a JSON account object.
@@ -97,7 +97,7 @@ abstract class BitbucketClientAccount implements BitbucketAccount
     /**
      * Constructs an account object.
      */
-    protected BitbucketClientAccount()
+    protected ClientAccount()
     {
         // Nothing to do.
     }
@@ -107,7 +107,7 @@ abstract class BitbucketClientAccount implements BitbucketAccount
      *
      * @param other another account object
      */
-    protected BitbucketClientAccount(final BitbucketClientAccount other)
+    protected ClientAccount(final ClientAccount other)
     {
         this.uuid = other.uuid;
         this.name = other.name;
@@ -123,7 +123,7 @@ abstract class BitbucketClientAccount implements BitbucketAccount
      * @param json a JSON object
      * @exception IllegalArgumentException if {@code object} is {@code null}
      */
-    protected BitbucketClientAccount(final JsonObject json)
+    protected ClientAccount(final JsonObject json)
     {
         if (json == null) {
             throw new IllegalArgumentException("JsonObject is null");
