@@ -28,12 +28,12 @@ import javax.json.JsonObject;
  * @author Kaz Nishimura
  * @since 6.0.0
  */
-class BitbucketClientTeam extends ClientAccount
+class ClientTeamAccount extends ClientAccount
 {
     /**
      * Constructs a team account.
      */
-    public BitbucketClientTeam()
+    public ClientTeamAccount()
     {
         // Nothing to do.
     }
@@ -43,7 +43,7 @@ class BitbucketClientTeam extends ClientAccount
      *
      * @param other another team account
      */
-    public BitbucketClientTeam(final BitbucketClientTeam other)
+    public ClientTeamAccount(final ClientTeamAccount other)
     {
         super(other);
     }
@@ -55,7 +55,7 @@ class BitbucketClientTeam extends ClientAccount
      * @exception IllegalArgumentException if {@code object} is {@code null} or
      * is not of a team account
      */
-    public BitbucketClientTeam(final JsonObject json)
+    public ClientTeamAccount(final JsonObject json)
     {
         super(json);
 

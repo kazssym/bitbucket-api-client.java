@@ -88,13 +88,13 @@ public final class ClientAccountTest
             builder.add("type", "user").build());
         assertNull(user1.getBitbucketClient());
 
-        ClientAccount team1 = new BitbucketClientTeam(
+        ClientAccount team1 = new ClientTeamAccount(
             builder.add("type", "team").build());
         assertNull(team1.getBitbucketClient());
 
         // Case with a JSON object of a wrong type.
         try {
-            new BitbucketClientTeam(builder.add("type", "other").build());
+            new ClientTeamAccount(builder.add("type", "other").build());
             fail();
         }
         catch (final IllegalArgumentException exception) {
@@ -102,7 +102,7 @@ public final class ClientAccountTest
 
         // Case with an empty JSON object.
         try {
-            new BitbucketClientTeam(builder.build());
+            new ClientTeamAccount(builder.build());
             fail();
         }
         catch (final IllegalArgumentException exception) {
@@ -110,7 +110,7 @@ public final class ClientAccountTest
 
         // Case with a null pointer.
         try {
-            new BitbucketClientTeam((JsonObject) null);
+            new ClientTeamAccount((JsonObject) null);
             fail();
         }
         catch (final IllegalArgumentException exception) {
@@ -129,7 +129,7 @@ public final class ClientAccountTest
             builder.add("type", "user").build());
         assertNull(user1.getName());
 
-        BitbucketAccount team1 = new BitbucketClientTeam(sampleTeam1);
+        BitbucketAccount team1 = new ClientTeamAccount(sampleTeam1);
         assertEquals("vx68k", team1.getName());
     }
 
@@ -145,7 +145,7 @@ public final class ClientAccountTest
             builder.add("type", "user").build());
         assertNull(user1.getUUID());
 
-        BitbucketAccount team1 = new BitbucketClientTeam(sampleTeam1);
+        BitbucketAccount team1 = new ClientTeamAccount(sampleTeam1);
         assertEquals(SAMPLE_TEAM1_UUID, team1.getUUID());
     }
 
@@ -161,7 +161,7 @@ public final class ClientAccountTest
             builder.add("type", "user").build());
         assertNull(user1.getDisplayName());
 
-        BitbucketAccount team1 = new BitbucketClientTeam(sampleTeam1);
+        BitbucketAccount team1 = new ClientTeamAccount(sampleTeam1);
         assertEquals("VX68k.org", team1.getDisplayName());
     }
 
@@ -177,7 +177,7 @@ public final class ClientAccountTest
             builder.add("type", "user").build());
         assertNull(user1.getWebsite());
 
-        BitbucketAccount team1 = new BitbucketClientTeam(sampleTeam1);
+        BitbucketAccount team1 = new ClientTeamAccount(sampleTeam1);
         assertNull(team1.getWebsite());
     }
 
@@ -193,7 +193,7 @@ public final class ClientAccountTest
             builder.add("type", "user").build());
         assertNull(user1.getLocation());
 
-        BitbucketAccount team1 = new BitbucketClientTeam(sampleTeam1);
+        BitbucketAccount team1 = new ClientTeamAccount(sampleTeam1);
         assertEquals(null, team1.getLocation());
     }
 
@@ -209,7 +209,7 @@ public final class ClientAccountTest
             builder.add("type", "user").addNull("created_on").build());
         assertNull(user1.getCreated());
 
-        BitbucketAccount team1 = new BitbucketClientTeam(sampleTeam1);
+        BitbucketAccount team1 = new ClientTeamAccount(sampleTeam1);
         assertEquals(SAMPLE_TEAM1_CREATED, team1.getCreated());
     }
 
@@ -238,7 +238,7 @@ public final class ClientAccountTest
         user1.setBitbucketClient(BitbucketClient.getDefaultInstance());
         assertNull(user1.repositories());
 
-        ClientAccount team1 = new BitbucketClientTeam(sampleTeam1);
+        ClientAccount team1 = new ClientTeamAccount(sampleTeam1);
         team1.setBitbucketClient(BitbucketClient.getDefaultInstance());
         Collection<BitbucketRepository> repositories = team1.repositories();
         assertNotNull(repositories);

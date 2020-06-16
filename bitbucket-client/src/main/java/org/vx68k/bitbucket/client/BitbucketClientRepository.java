@@ -223,7 +223,7 @@ public class BitbucketClientRepository extends BitbucketClientObject implements
             BitbucketClient client = getBitbucketClient();
             String type = owner.getString(TYPE);
             if (type.equals(BitbucketAccount.TEAM)) {
-                value = new BitbucketClientTeam(owner);
+                value = new ClientTeamAccount(owner);
             }
             else {
                 value = new BitbucketClientUser(owner);

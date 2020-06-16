@@ -389,7 +389,7 @@ public class BitbucketClient implements Bitbucket, Serializable
         JsonObject object = getResource("/teams/{name}", values);
         ClientAccount value = null;
         if (object != null) {
-            value = new BitbucketClientTeam(object);
+            value = new ClientTeamAccount(object);
             value.setBitbucketClient(this);
         }
         return value;
