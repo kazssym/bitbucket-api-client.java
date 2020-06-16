@@ -72,11 +72,14 @@
 <archive>
 <manifest>
 <addClasspath>true</addClasspath>
-<mainClass>org.vx68k.bitbucket.api.client.cli.CLI</mainClass>
+<mainClass>org.vx68k.bitbucket.cli.CLI</mainClass>
 </manifest>
 </archive>
 </configuration>
 </plugin>
+
 </plugins>
+
 </build>
+
 </project>
