@@ -65,7 +65,6 @@ implementation for Bitbucket Cloud.</description>
 </properties>
 
 <dependencyManagement>
-
 <dependencies>
 
 <dependency>
@@ -90,6 +89,12 @@ implementation for Bitbucket Cloud.</description>
 <groupId>javax.activation</groupId>
 <artifactId>javax.activation-api</artifactId>
 <version>1.2.0</version>
+</dependency>
+
+<dependency>
+<groupId>jakarta.json.bind</groupId>
+<artifactId>jakarta.json.bind-api</artifactId>
+<version>1.0.2</version>
 </dependency>
 
 <dependency>
@@ -121,6 +126,7 @@ implementation for Bitbucket Cloud.</description>
 <artifactId>junit</artifactId>
 <version>4.12</version>
 </dependency>
+
 </dependencies>
 </dependencyManagement>
 

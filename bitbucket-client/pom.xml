@@ -35,6 +35,11 @@ Cloud.</description>
 </dependency>
 
 <dependency>
+<groupId>jakarta.json.bind</groupId>
+<artifactId>jakarta.json.bind-api</artifactId>
+</dependency>
+
+<dependency>
 <groupId>junit</groupId>
 <artifactId>junit</artifactId>
 <scope>test</scope>
