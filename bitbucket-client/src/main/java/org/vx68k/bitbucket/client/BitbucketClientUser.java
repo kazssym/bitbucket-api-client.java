@@ -31,8 +31,8 @@ import org.vx68k.bitbucket.BitbucketUser;
  * @author Kaz Nishimura
  * @since 6.0.0
  */
-public class BitbucketClientUser extends BitbucketClientAccount implements
-    BitbucketUser
+public class BitbucketClientUser extends BitbucketClientAccount
+    implements BitbucketUser // TODO: Make this class package-scoped.
 {
     /**
      * Name for the {@code is_staff} value in a JSON user object.

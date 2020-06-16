@@ -23,7 +23,6 @@ package org.vx68k.bitbucket.webhook;
 import javax.json.JsonObject;
 import org.vx68k.bitbucket.BitbucketAccount;
 import org.vx68k.bitbucket.BitbucketRepository;
-import org.vx68k.bitbucket.client.BitbucketClientAccount;
 import org.vx68k.bitbucket.client.BitbucketClientObject;
 import org.vx68k.bitbucket.client.BitbucketClientRepository;
 import org.vx68k.bitbucket.client.BitbucketClientUser;
@@ -72,7 +71,7 @@ public class BitbucketEvent extends BitbucketClientObject
     {
         JsonObject actor = getJsonObject().getJsonObject(ACTOR);
 
-        BitbucketClientAccount value = null;
+        BitbucketClientUser value = null;
         if (actor != null) {
             value = new BitbucketClientUser(actor);
             value.setBitbucketClient(getBitbucketClient());
