@@ -8,7 +8,7 @@
 <version>6-SNAPSHOT</version>
 </parent>
 
-<artifactId>bitbucket-api-client-webapp</artifactId>
+<artifactId>bitbucket-webapp</artifactId>
 <packaging>war</packaging>
 <name>Example Web App for the Client API</name>
 <description>This project builds a web application using the Client API.</description>
