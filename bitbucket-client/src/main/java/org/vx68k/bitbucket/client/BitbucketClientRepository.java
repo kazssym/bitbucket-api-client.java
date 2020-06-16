@@ -217,17 +217,18 @@ public class BitbucketClientRepository extends BitbucketClientObject implements
     public final BitbucketAccount getOwner()
     {
         JsonObject object = getJsonObject();
-        BitbucketAccount value = null;
+        BitbucketClientAccount value = null;
         JsonObject owner = object.getJsonObject(OWNER);
         if (owner != null) {
             BitbucketClient client = getBitbucketClient();
             String type = owner.getString(TYPE);
             if (type.equals(BitbucketAccount.TEAM)) {
-                value = new BitbucketClientAccount(owner, client);
+                value = new BitbucketClientTeam(owner);
             }
             else {
-                value = new BitbucketClientUser(owner, client);
+                value = new BitbucketClientUser(owner);
             }
+            value.setBitbucketClient(client);
         }
         return value;
     }

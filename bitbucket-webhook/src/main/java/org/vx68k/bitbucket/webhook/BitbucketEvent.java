@@ -26,6 +26,7 @@ import org.vx68k.bitbucket.BitbucketRepository;
 import org.vx68k.bitbucket.client.BitbucketClientAccount;
 import org.vx68k.bitbucket.client.BitbucketClientObject;
 import org.vx68k.bitbucket.client.BitbucketClientRepository;
+import org.vx68k.bitbucket.client.BitbucketClientUser;
 
 /**
  * Event on a Bitbucket repository.
@@ -71,9 +72,10 @@ public class BitbucketEvent extends BitbucketClientObject
     {
         JsonObject actor = getJsonObject().getJsonObject(ACTOR);
 
-        BitbucketAccount value = null;
+        BitbucketClientAccount value = null;
         if (actor != null) {
-            value = new BitbucketClientAccount(actor, getBitbucketClient());
+            value = new BitbucketClientUser(actor);
+            value.setBitbucketClient(getBitbucketClient());
         }
         return value;
     }

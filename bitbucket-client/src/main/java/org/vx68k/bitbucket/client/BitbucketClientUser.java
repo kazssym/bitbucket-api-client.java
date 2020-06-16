@@ -21,14 +21,15 @@
 package org.vx68k.bitbucket.client;
 
 import javax.json.JsonObject;
+import javax.json.bind.annotation.JsonbProperty;
+
 import org.vx68k.bitbucket.BitbucketUser;
 
 /**
  * Client implementation of {@link BitbucketUser}.
- * This class represents a user account by a JSON object.
  *
  * @author Kaz Nishimura
- * @since 5.0
+ * @since 6.0.0
  */
 public class BitbucketClientUser extends BitbucketClientAccount implements
     BitbucketUser
@@ -36,42 +37,63 @@ public class BitbucketClientUser extends BitbucketClientAccount implements
     /**
      * Name for the {@code is_staff} value in a JSON user object.
      */
-    private static final String IS_STAFF = "is_staff";
+    private static final String JSON_STAFF = "is_staff";
 
     /**
      * Name for the {@code account_id} value in a JSON user object.
      */
-    private static final String ACCOUNT_ID = "account_id";
+    private static final String JSON_ACCOUNT_ID = "account_id";
+
+    @JsonbProperty(JSON_STAFF)
+    private boolean staff = false;
+
+    @JsonbProperty(JSON_ACCOUNT_ID)
+    private String accountId;
 
     /**
-     * Constructs this object with no Bitbucket client.
-     *
-     * @param object JSON object for a user
-     * @exception IllegalArgumentException if {@code object} is {@code null} or
-     * is not for a user
+     * Constructs a user account.
      */
-    public BitbucketClientUser(final JsonObject object)
+    public BitbucketClientUser()
     {
-        this(object, null);
+        // Nothing to do.
     }
 
     /**
-     * Constructs this object.
+     * Constructs a user account copying another.
      *
-     * @param object JSON object for a user
-     * @param client Bitbucket client, or {@code null}
-     * @exception IllegalArgumentException if {@code object} is {@code null} or
-     * is not for a user
+     * @param other another user account
      */
-    public BitbucketClientUser(final JsonObject object,
-        final BitbucketClient client)
+    public BitbucketClientUser(final BitbucketClientUser other)
     {
-        super(object, client);
+        super(other);
 
-        String type = getType();
+        this.staff = other.staff;
+        this.accountId = other.accountId;
+    }
+
+    /**
+     * Constructs a user account from a JSON object.
+     *
+     * @param json a JSON object
+     * @exception IllegalArgumentException if {@code object} is {@code null} or
+     * is not of a user account
+     */
+    public BitbucketClientUser(final JsonObject json)
+    {
+        super(json);
+
+        String type = json.getString("type", null);
         if (!USER.equals(type)) {
-            throw new IllegalArgumentException("JSON object is not user");
+            throw new IllegalArgumentException("JSON object is not of a user account");
         }
+
+        this.staff = json.getBoolean(JSON_STAFF, false);
+        this.accountId = json.getString(JSON_ACCOUNT_ID, null);
+    }
+
+    public final String getType()
+    {
+        return USER;
     }
 
     /**
@@ -80,8 +102,17 @@ public class BitbucketClientUser extends BitbucketClientAccount implements
     @Override
     public final boolean isStaff()
     {
-        JsonObject object = getJsonObject();
-        return object.getBoolean(IS_STAFF, false);
+        return staff;
+    }
+
+    /**
+     * Set the staff flag of the user account.
+     *
+     * @param staff a Boolean value for the staff flag
+     */
+    public final void setStaff(final boolean staff)
+    {
+        this.staff = staff;
     }
 
     /**
@@ -90,7 +121,11 @@ public class BitbucketClientUser extends BitbucketClientAccount implements
     @Override
     public final String getAccountId()
     {
-        JsonObject object = getJsonObject();
-        return object.getString(ACCOUNT_ID, null);
+        return accountId;
+    }
+
+    public final void setAccountId(final String accountId)
+    {
+        this.accountId = accountId;
     }
 }

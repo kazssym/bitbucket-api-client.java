@@ -20,12 +20,12 @@
 
 package org.vx68k.bitbucket.client;
 
-import org.vx68k.bitbucket.client.BitbucketClient;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.vx68k.bitbucket.BitbucketAccount;
 import org.vx68k.bitbucket.BitbucketRepository;
@@ -121,6 +121,7 @@ public class BitbucketClientTest
     /**
      * Tests {@link BitbucketClient#getRepository getRepository}.
      */
+    @Ignore
     @Test
     public void testGetRepository()
     {

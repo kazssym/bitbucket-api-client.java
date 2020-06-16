@@ -28,6 +28,7 @@ import static org.junit.Assert.fail;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 import javax.json.Json;
+import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import org.junit.Test;
 
@@ -56,7 +57,7 @@ public final class BitbucketClientUserTest
     public void testConstructor()
     {
         try {
-            new BitbucketClientUser(null);
+            new BitbucketClientUser((JsonObject) null);
             fail();
         }
         catch (IllegalArgumentException exception) {

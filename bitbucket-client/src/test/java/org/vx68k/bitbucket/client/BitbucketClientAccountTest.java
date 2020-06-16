@@ -84,17 +84,17 @@ public final class BitbucketClientAccountTest
         // NOTE: A builder can be reused.
         JsonObjectBuilder builder = Json.createObjectBuilder();
 
-        BitbucketClientAccount user1 = new BitbucketClientAccount(
+        BitbucketClientAccount user1 = new BitbucketClientUser(
             builder.add("type", "user").build());
         assertNull(user1.getBitbucketClient());
 
-        BitbucketClientAccount team1 = new BitbucketClientAccount(
+        BitbucketClientAccount team1 = new BitbucketClientTeam(
             builder.add("type", "team").build());
         assertNull(team1.getBitbucketClient());
 
         // Case with a JSON object of a wrong type.
         try {
-            new BitbucketClientAccount(builder.add("type", "other").build());
+            new BitbucketClientTeam(builder.add("type", "other").build());
             fail();
         }
         catch (final IllegalArgumentException exception) {
@@ -102,7 +102,7 @@ public final class BitbucketClientAccountTest
 
         // Case with an empty JSON object.
         try {
-            new BitbucketClientAccount(builder.build());
+            new BitbucketClientTeam(builder.build());
             fail();
         }
         catch (final IllegalArgumentException exception) {
@@ -110,7 +110,7 @@ public final class BitbucketClientAccountTest
 
         // Case with a null pointer.
         try {
-            new BitbucketClientAccount(null);
+            new BitbucketClientTeam((JsonObject) null);
             fail();
         }
         catch (final IllegalArgumentException exception) {
@@ -125,11 +125,11 @@ public final class BitbucketClientAccountTest
     {
         JsonObjectBuilder builder = Json.createObjectBuilder();
 
-        BitbucketAccount user1 = new BitbucketClientAccount(
+        BitbucketAccount user1 = new BitbucketClientUser(
             builder.add("type", "user").build());
         assertNull(user1.getName());
 
-        BitbucketAccount team1 = new BitbucketClientAccount(sampleTeam1);
+        BitbucketAccount team1 = new BitbucketClientTeam(sampleTeam1);
         assertEquals("vx68k", team1.getName());
     }
 
@@ -141,11 +141,11 @@ public final class BitbucketClientAccountTest
     {
         JsonObjectBuilder builder = Json.createObjectBuilder();
 
-        BitbucketAccount user1 = new BitbucketClientAccount(
+        BitbucketAccount user1 = new BitbucketClientUser(
             builder.add("type", "user").build());
         assertNull(user1.getUUID());
 
-        BitbucketAccount team1 = new BitbucketClientAccount(sampleTeam1);
+        BitbucketAccount team1 = new BitbucketClientTeam(sampleTeam1);
         assertEquals(SAMPLE_TEAM1_UUID, team1.getUUID());
     }
 
@@ -157,11 +157,11 @@ public final class BitbucketClientAccountTest
     {
         JsonObjectBuilder builder = Json.createObjectBuilder();
 
-        BitbucketAccount user1 = new BitbucketClientAccount(
+        BitbucketAccount user1 = new BitbucketClientUser(
             builder.add("type", "user").build());
         assertNull(user1.getDisplayName());
 
-        BitbucketAccount team1 = new BitbucketClientAccount(sampleTeam1);
+        BitbucketAccount team1 = new BitbucketClientTeam(sampleTeam1);
         assertEquals("VX68k.org", team1.getDisplayName());
     }
 
@@ -173,11 +173,11 @@ public final class BitbucketClientAccountTest
     {
         JsonObjectBuilder builder = Json.createObjectBuilder();
 
-        BitbucketAccount user1 = new BitbucketClientAccount(
+        BitbucketAccount user1 = new BitbucketClientUser(
             builder.add("type", "user").build());
         assertNull(user1.getWebsite());
 
-        BitbucketAccount team1 = new BitbucketClientAccount(sampleTeam1);
+        BitbucketAccount team1 = new BitbucketClientTeam(sampleTeam1);
         assertNull(team1.getWebsite());
     }
 
@@ -189,11 +189,11 @@ public final class BitbucketClientAccountTest
     {
         JsonObjectBuilder builder = Json.createObjectBuilder();
 
-        BitbucketAccount user1 = new BitbucketClientAccount(
+        BitbucketAccount user1 = new BitbucketClientUser(
             builder.add("type", "user").build());
         assertNull(user1.getLocation());
 
-        BitbucketAccount team1 = new BitbucketClientAccount(sampleTeam1);
+        BitbucketAccount team1 = new BitbucketClientTeam(sampleTeam1);
         assertEquals(null, team1.getLocation());
     }
 
@@ -205,11 +205,11 @@ public final class BitbucketClientAccountTest
     {
         JsonObjectBuilder builder = Json.createObjectBuilder();
 
-        BitbucketAccount user1 = new BitbucketClientAccount(
+        BitbucketAccount user1 = new BitbucketClientUser(
             builder.add("type", "user").addNull("created_on").build());
         assertNull(user1.getCreated());
 
-        BitbucketAccount team1 = new BitbucketClientAccount(sampleTeam1);
+        BitbucketAccount team1 = new BitbucketClientTeam(sampleTeam1);
         assertEquals(SAMPLE_TEAM1_CREATED, team1.getCreated());
     }
 
@@ -227,18 +227,19 @@ public final class BitbucketClientAccountTest
     /**
      * Tests {@link BitbucketClientAccount#repositories()}.
      */
+    @Ignore
     @Test
     public void testRepositories()
     {
         JsonObjectBuilder builder = Json.createObjectBuilder();
 
-        BitbucketAccount user1 = new BitbucketClientAccount(
-            builder.add("type", "user").addNull("created_on").build(),
-            BitbucketClient.getDefaultInstance());
+        BitbucketClientAccount user1 = new BitbucketClientUser(
+            builder.add("type", "user").addNull("created_on").build());
+        user1.setBitbucketClient(BitbucketClient.getDefaultInstance());
         assertNull(user1.repositories());
 
-        BitbucketAccount team1 = new BitbucketClientAccount(
-            sampleTeam1, BitbucketClient.getDefaultInstance());
+        BitbucketClientAccount team1 = new BitbucketClientTeam(sampleTeam1);
+        team1.setBitbucketClient(BitbucketClient.getDefaultInstance());
         Collection<BitbucketRepository> repositories = team1.repositories();
         assertNotNull(repositories);
         assertTrue(repositories.size() > 0);

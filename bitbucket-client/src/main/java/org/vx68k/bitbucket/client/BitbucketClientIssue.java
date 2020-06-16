@@ -210,10 +210,10 @@ public class BitbucketClientIssue extends BitbucketClientObject implements
         // This may be a JSON null.
         JsonValue reporter = getJsonObject().get(REPORTER);
 
-        BitbucketUser value = null;
+        BitbucketClientUser value = null;
         if (reporter != null && reporter != JsonValue.NULL) {
-            value = new BitbucketClientUser(
-                (JsonObject) reporter, getBitbucketClient());
+            value = new BitbucketClientUser((JsonObject) reporter);
+            value.setBitbucketClient(getBitbucketClient());
         }
         return value;
     }
@@ -260,10 +260,10 @@ public class BitbucketClientIssue extends BitbucketClientObject implements
         // This may be a JSON null.
         JsonValue assignee = getJsonObject().get(ASSIGNEE);
 
-        BitbucketUser value = null;
+        BitbucketClientUser value = null;
         if (assignee != null && assignee != JsonValue.NULL) {
-            value = new BitbucketClientUser(
-                (JsonObject) assignee, getBitbucketClient());
+            value = new BitbucketClientUser((JsonObject) assignee);
+            value.setBitbucketClient(getBitbucketClient());
         }
         return value;
     }
