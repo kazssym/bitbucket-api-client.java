@@ -25,6 +25,7 @@ import java.time.OffsetDateTime;
 import java.util.UUID;
 import javax.json.JsonObject;
 import javax.json.JsonString;
+import javax.json.JsonValue;
 import javax.ws.rs.core.Link;
 
 /**
@@ -51,38 +52,41 @@ public class JsonUtilities
      * Converts a JSON date-time string to an instant.
      * The date-time string may have a time offset.
      *
-     * @param string JSON date-time string, or {@code null}
-     * @return {@link Instant} object if {@code string} is not {@code null},
+     * @param json a JSON value, or {@code null}
+     * @return {@link Instant} object if {@code string} is not null,
      * {@code null} otherwise
+     * @exception ClassCastException if {@code json} is not a JSON string or a
+     * JSON null.
      */
-    public static Instant toInstant(final JsonString string)
+    public static Instant toInstant(final JsonValue json)
     {
-        Instant value = null;
-        if (string != null) {
-            value = OffsetDateTime.parse(string.getString()).toInstant();
+        if (json != null && json.getValueType() != JsonValue.ValueType.NULL) {
+            String string = ((JsonString) json).getString();
+            return OffsetDateTime.parse(string).toInstant();
         }
-        return value;
+        return null;
     }
 
     /**
      * Converts a JSON string to a UUID.
      * The string may enclose a UUID in a pair of braces.
      *
-     * @param string JSON string, or {@code null}
-     * @return {@link UUID} object if {@code string} is not {@code null},
+     * @param json a JSON value, or {@code null}
+     * @return {@link UUID} object if {@code json} is not null,
      * {@code null} otherwise
+     * @exception ClassCastException if {@code json} is not a JSON string or a
+     * JSON null.
      */
-    public static UUID toUUID(final JsonString string)
+    public static UUID toUUID(final JsonValue json)
     {
-        UUID value = null;
-        if (string != null) {
-            String uuidString = string.getString();
-            if (uuidString.startsWith("{") && uuidString.endsWith("}")) {
-                uuidString = uuidString.substring(1, uuidString.length() - 1);
+        if (json != null && json.getValueType() != JsonValue.ValueType.NULL) {
+            String string = ((JsonString) json).getString();
+            if (string.startsWith("{") && string.endsWith("}")) {
+                string = string.substring(1, string.length() - 1);
             }
-            value = UUID.fromString(uuidString);
+            return UUID.fromString(string);
         }
-        return value;
+        return null;
     }
 
     /**
