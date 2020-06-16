@@ -36,22 +36,30 @@ import java.util.UUID;
  */
 public interface BitbucketAccount
 {
-    /**
-     * Type value for user accounts.
-     */
-    String USER = "user";
+    enum AccountType
+    {
+        USER("user"), TEAM("team");
 
-    /**
-     * Type value for team accounts.
-     */
-    String TEAM = "team";
+        private final String label;
+
+        private AccountType(final String label)
+        {
+            this.label = label;
+        }
+
+        @Override
+        public final String toString()
+        {
+            return label;
+        }
+    }
 
     /**
      * Return the type of the account.
      *
      * @return the type of the account
      */
-    String getType();
+    AccountType getType();
 
     /**
      * Returns the UUID of the account.

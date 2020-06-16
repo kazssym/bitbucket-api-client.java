@@ -20,6 +20,7 @@
 
 package org.vx68k.bitbucket.client;
 
+import java.util.Objects;
 import javax.json.JsonObject;
 import javax.json.bind.annotation.JsonbProperty;
 
@@ -83,7 +84,7 @@ public class ClientUserAccount extends ClientAccount
         super(json);
 
         String type = json.getString("type", null);
-        if (!USER.equals(type)) {
+        if (!Objects.equals(type, AccountType.USER.toString())) {
             throw new IllegalArgumentException("JSON object is not of a user account");
         }
 
@@ -91,9 +92,10 @@ public class ClientUserAccount extends ClientAccount
         this.accountId = json.getString(JSON_ACCOUNT_ID, null);
     }
 
-    public final String getType()
+    @Override
+    public final AccountType getType()
     {
-        return USER;
+        return AccountType.USER;
     }
 
     /**

@@ -220,9 +220,8 @@ public class BitbucketClientRepository extends BitbucketClientObject implements
         ClientAccount value = null;
         JsonObject owner = object.getJsonObject(OWNER);
         if (owner != null) {
-            BitbucketClient client = getBitbucketClient();
             String type = owner.getString(TYPE);
-            if (type.equals(BitbucketAccount.TEAM)) {
+            if (type.equals(BitbucketAccount.AccountType.TEAM.toString())) {
                 value = new ClientTeamAccount(owner);
             }
             else {

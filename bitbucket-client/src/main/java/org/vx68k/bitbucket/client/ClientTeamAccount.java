@@ -20,6 +20,7 @@
 
 package org.vx68k.bitbucket.client;
 
+import java.util.Objects;
 import javax.json.JsonObject;
 
 /**
@@ -60,13 +61,14 @@ class ClientTeamAccount extends ClientAccount
         super(json);
 
         String type = json.getString("type", null);
-        if (!TEAM.equals(type)) {
+        if (!Objects.equals(type, AccountType.TEAM.toString())) {
             throw new IllegalArgumentException("JSON object is not of a team account");
         }
     }
 
-    public final String getType()
+    @Override
+    public final AccountType getType()
     {
-        return TEAM;
+        return AccountType.TEAM;
     }
 }
