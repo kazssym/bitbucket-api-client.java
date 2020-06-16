@@ -25,6 +25,18 @@
 <welcome-file>index.jsf</welcome-file>
 </welcome-file-list>
 
+<env-entry>
+<env-entry-name>bitbucketClientId</env-entry-name>
+<env-entry-type>java.lang.String</env-entry-type>
+<lookup-name>java:global/env/bitbucketClientId</lookup-name>
+</env-entry>
+
+<env-entry>
+<env-entry-name>bitbucketClientSecret</env-entry-name>
+<env-entry-type>java.lang.String</env-entry-type>
+<lookup-name>java:global/env/bitbucketClientSecret</lookup-name>
+</env-entry>
+
 <data-source>
 <name>jdbc/Bitbucket</name>
 <class-name>org.apache.derby.jdbc.ClientConnectionPoolDataSource</class-name>
