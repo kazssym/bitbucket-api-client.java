@@ -20,16 +20,11 @@
 
 package org.vx68k.bitbucket.client;
 
-import org.vx68k.bitbucket.client.BitbucketClient;
-import org.vx68k.bitbucket.client.ClientAccount;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.time.Instant;
-import java.util.Collection;
 import java.util.UUID;
 import javax.json.Json;
 import javax.json.JsonObject;
@@ -38,7 +33,6 @@ import javax.json.JsonReader;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.vx68k.bitbucket.BitbucketAccount;
-import org.vx68k.bitbucket.BitbucketRepository;
 
 /**
  * Unit tests for {@link ClientAccount}.
