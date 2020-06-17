@@ -25,6 +25,7 @@ import java.util.List;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonValue;
+import javax.json.bind.annotation.JsonbProperty;
 import org.vx68k.bitbucket.BitbucketBranch;
 
 /**
@@ -35,6 +36,18 @@ import org.vx68k.bitbucket.BitbucketBranch;
  */
 public class ClientBranch extends ClientRef implements BitbucketBranch
 {
+    /**
+     * Type of the branch object.
+     */
+    @JsonbProperty("type")
+    private String type;
+
+    /**
+     * List of the head commits of the branch object.
+     */
+    @JsonbProperty("heads")
+    private List<BitbucketClientCommit> heads;
+
     /**
      * Parses a JSON array for commits.
      *
@@ -55,32 +68,40 @@ public class ClientBranch extends ClientRef implements BitbucketBranch
     }
 
     /**
-     * Initializes the object.
-     *
-     * @param jsonObject a JSON object
+     * Constructs a branch object.
      */
-    public ClientBranch(final JsonObject jsonObject)
+    public ClientBranch()
     {
-        this(jsonObject, null);
+        // Nothing to do.
     }
 
     /**
-     * Initializes the object with a Bitbucket API client.
-     *
-     * @param jsonObject a JSON object
-     * @param bitbucketClient a Bitbucket API client
+     * Constructs a branch copyting another
+     * @param other another branch
      */
-    public ClientBranch(
-        final JsonObject jsonObject, final BitbucketClient bitbucketClient)
+    public ClientBranch(final ClientBranch other)
     {
-        super(jsonObject, bitbucketClient);
+        this.type = other.type;
+        this.heads = other.heads; // TODO: Make a copy.
+    }
 
-        String type = getType();
-        if (!(BRANCH.equals(type) || NAMED_BRANCH.equals(type)
-            || BOOKMARK.equals(type))) {
-            throw new IllegalArgumentException(
-                "JSON object is not branch, named_branch or bookmark");
-        }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final String getType()
+    {
+        return type;
+    }
+
+    /**
+     * Sets the type of the branch object.
+     *
+     * @param type a string object for the type
+     */
+    public final void setType(final String type)
+    {
+        this.type = type;
     }
 
     /**
@@ -90,11 +111,11 @@ public class ClientBranch extends ClientRef implements BitbucketBranch
      */
     public final List<BitbucketClientCommit> getHeads()
     {
-        JsonObject branchObject = getJsonObject();
-        List<BitbucketClientCommit> heads = null;
-        if (branchObject.containsKey("heads")) {
-            heads = parseCommits(branchObject.getJsonArray("heads"));
-        }
         return heads;
+    }
+
+    public final void setHeads(final List<BitbucketClientCommit> heads)
+    {
+        this.heads = heads; // TODO: Make a copy.
     }
 }

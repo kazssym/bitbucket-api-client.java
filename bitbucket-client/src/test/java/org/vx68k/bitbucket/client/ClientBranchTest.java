@@ -22,8 +22,8 @@ package org.vx68k.bitbucket.client;
 
 import static org.junit.Assert.assertEquals;
 
-import javax.json.Json;
-import javax.json.JsonObjectBuilder;
+import javax.json.bind.Jsonb;
+import javax.json.bind.JsonbBuilder;
 import org.junit.Test;
 
 /**
@@ -31,7 +31,7 @@ import org.junit.Test;
  *
  * @author Kaz Nishimura
  */
-public class ClientBranchTest
+public final class ClientBranchTest
 {
     /**
      * Tests with {@code null}.
@@ -39,48 +39,48 @@ public class ClientBranchTest
     @Test(expected = IllegalArgumentException.class)
     public void testNull()
     {
-        new ClientBranch(null);
+        ClientBranch branch = new ClientBranch();
     }
 
     /**
      * Tests with a {@code "branch"} object.
      */
     @Test
-    public void testBranch()
+    public void testBranch() throws Exception
     {
-        JsonObjectBuilder objectBuilder = Json.createObjectBuilder()
-            .add("type", "branch").add("name", "master");
-        ClientBranch branch =
-            new ClientBranch(objectBuilder.build());
-        assertEquals("branch", branch.getType());
-        assertEquals("master", branch.getName());
+        String string = "{\"type\":\"branch\",\"name\":\"master\"}";
+        try (Jsonb jsonb = JsonbBuilder.create()) {
+            ClientBranch branch = jsonb.fromJson(string, ClientBranch.class);
+            assertEquals("branch", branch.getType());
+            assertEquals("master", branch.getName());
+        }
     }
 
     /**
      * Tests with a {@code "named_branch"} object.
      */
     @Test
-    public void testNamedBranch()
+    public void testNamedBranch() throws Exception
     {
-        JsonObjectBuilder objectBuilder = Json.createObjectBuilder()
-            .add("type", "named_branch").add("name", "default");
-        ClientBranch branch =
-            new ClientBranch(objectBuilder.build());
-        assertEquals("named_branch", branch.getType());
-        assertEquals("default", branch.getName());
+        String string = "{\"type\":\"named_branch\",\"name\":\"master\"}";
+        try (Jsonb jsonb = JsonbBuilder.create()) {
+            ClientBranch branch = jsonb.fromJson(string, ClientBranch.class);
+            assertEquals("named_branch", branch.getType());
+            assertEquals("master", branch.getName());
+        }
     }
 
     /**
      * Tests with a {@code "bookmark"} object.
      */
     @Test
-    public void testBookmark()
+    public void testBookmark() throws Exception
     {
-        JsonObjectBuilder objectBuilder = Json.createObjectBuilder()
-            .add("type", "bookmark").add("name", "staging");
-        ClientBranch branch =
-            new ClientBranch(objectBuilder.build());
-        assertEquals("bookmark", branch.getType());
-        assertEquals("staging", branch.getName());
+        String string = "{\"type\":\"bookmark\",\"name\":\"master\"}";
+        try (Jsonb jsonb = JsonbBuilder.create()) {
+            ClientBranch branch = jsonb.fromJson(string, ClientBranch.class);
+            assertEquals("bookmark", branch.getType());
+            assertEquals("master", branch.getName());
+        }
     }
 }

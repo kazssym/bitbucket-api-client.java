@@ -20,7 +20,7 @@
 
 package org.vx68k.bitbucket.client;
 
-import javax.json.JsonObject;
+import javax.json.bind.annotation.JsonbProperty;
 import org.vx68k.bitbucket.BitbucketCommit;
 import org.vx68k.bitbucket.BitbucketRef;
 
@@ -30,45 +30,27 @@ import org.vx68k.bitbucket.BitbucketRef;
  * @author Kaz Nishimura
  * @since 6.0
  */
-public abstract class ClientRef extends BitbucketClientObject implements BitbucketRef
+public abstract class ClientRef implements BitbucketRef
 {
-    /**
-     * Name of the {@code name} value in a JSON object.
-     */
-    private static final String NAME = "name";
+    @JsonbProperty("name")
+    private String name;
 
     /**
-     * Name of the {@code target} value in a JSON object.
+     * Constructs a ref.
      */
-    private static final String TARGET = "target";
-
-    /**
-     * Initializes the object.
-     *
-     * @param jsonObject a JSON object
-     */
-    public ClientRef(final JsonObject jsonObject)
+    protected ClientRef()
     {
-        this(jsonObject, null);
+        // Nothing to do.
     }
 
     /**
-     * Initializes the object with a Bitbucket API client.
+     * Constructs a ref copying another.
      *
-     * @param jsonObject a JSON object
-     * @param bitbucketClient a Bitbucket API client
+     * @param other another ref
      */
-    public ClientRef(
-        final JsonObject jsonObject, final BitbucketClient bitbucketClient)
+    protected ClientRef(final ClientRef other)
     {
-        super(jsonObject, bitbucketClient);
-
-        String type = getType();
-        if (!(BRANCH.equals(type) || NAMED_BRANCH.equals(type)
-            || BOOKMARK.equals(type) || "tag".equals(type))) {
-            throw new IllegalArgumentException(
-                "JSON object is not branch, named_branch, bookmark or tag");
-        }
+        this.name = other.name;
     }
 
     /**
@@ -77,18 +59,22 @@ public abstract class ClientRef extends BitbucketClientObject implements Bitbuck
     @Override
     public final String getName()
     {
-        return getJsonObject().getString(NAME, null);
+        return name;
+    }
+
+    /**
+     * Sets the name of the ref.
+     *
+     * @param name a string object for the name
+     */
+    public void setName(final String name)
+    {
+        this.name = name;
     }
 
     @Override
     public final BitbucketCommit getTarget()
     {
-        JsonObject target = getJsonObject().getJsonObject(TARGET);
-
-        BitbucketCommit value = null;
-        if (target != null) {
-            value = new BitbucketClientCommit(target, getBitbucketClient());
-        }
-        return value;
+        throw new UnsupportedOperationException("Not implemented yet");
     }
 }
