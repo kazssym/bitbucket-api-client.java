@@ -116,6 +116,13 @@ implementation for Bitbucket Cloud.</description>
 </dependency>
 
 <dependency>
+<groupId>org.eclipse</groupId>
+<artifactId>yasson</artifactId>
+<version>1.0.7</version>
+<scope>runtime</scope>
+</dependency>
+
+<dependency>
 <groupId>org.apache.derby</groupId>
 <artifactId>derbyclient</artifactId>
 <version>10.14.2.0</version>

@@ -62,6 +62,13 @@ Cloud.</description>
 <artifactId>jersey-client</artifactId>
 <scope>test</scope>
 </dependency>
+
+<dependency>
+<groupId>org.eclipse</groupId>
+<artifactId>yasson</artifactId>
+<scope>test</scope>
+</dependency>
+
 </dependencies>
 
 <build>
