@@ -21,10 +21,11 @@
 package org.vx68k.bitbucket.client;
 
 import static org.junit.Assert.assertEquals;
-
+import static org.junit.Assert.assertNull;
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
 import org.junit.Test;
+import org.vx68k.bitbucket.BitbucketBranch;
 
 /**
  * Unit tests for {@link BitbucketClientBranch}.
@@ -34,12 +35,28 @@ import org.junit.Test;
 public final class ClientBranchTest
 {
     /**
-     * Tests with {@code null}.
+     * Tests the default constructor.
      */
-    @Test(expected = IllegalArgumentException.class)
-    public void testNull()
+    @Test
+    public void testDefaultConstructor()
     {
         ClientBranch branch = new ClientBranch();
+        assertNull(branch.getType());
+        assertNull(branch.getName());
+    }
+
+    /**
+     * Tests the copy constructor.
+     */
+    public void testCopyConstructor()
+    {
+        ClientBranch branch1 = new ClientBranch();
+        branch1.setType(BitbucketBranch.BRANCH);
+        branch1.setName("branchName");
+
+        ClientBranch branch2 = new ClientBranch(branch1);
+        assertEquals(BitbucketBranch.BRANCH, branch2.getType());
+        assertEquals("branchName", branch2.getName());
     }
 
     /**
