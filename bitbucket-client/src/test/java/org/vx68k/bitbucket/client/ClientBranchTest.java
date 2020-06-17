@@ -1,6 +1,6 @@
 /*
- * BitbucketClientBranchTest.java - class BitbucketClientBranchTest
- * Copyright (C) 2018 Kaz Nishimura
+ * ClientBranchTest.java
+ * Copyright (C) 2018-2020 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -20,7 +20,6 @@
 
 package org.vx68k.bitbucket.client;
 
-import org.vx68k.bitbucket.client.BitbucketClientBranch;
 import static org.junit.Assert.assertEquals;
 
 import javax.json.Json;
@@ -32,7 +31,7 @@ import org.junit.Test;
  *
  * @author Kaz Nishimura
  */
-public class BitbucketClientBranchTest
+public class ClientBranchTest
 {
     /**
      * Tests with {@code null}.
@@ -40,7 +39,7 @@ public class BitbucketClientBranchTest
     @Test(expected = IllegalArgumentException.class)
     public void testNull()
     {
-        new BitbucketClientBranch(null);
+        new ClientBranch(null);
     }
 
     /**
@@ -51,8 +50,8 @@ public class BitbucketClientBranchTest
     {
         JsonObjectBuilder objectBuilder = Json.createObjectBuilder()
             .add("type", "branch").add("name", "master");
-        BitbucketClientBranch branch =
-            new BitbucketClientBranch(objectBuilder.build());
+        ClientBranch branch =
+            new ClientBranch(objectBuilder.build());
         assertEquals("branch", branch.getType());
         assertEquals("master", branch.getName());
     }
@@ -65,8 +64,8 @@ public class BitbucketClientBranchTest
     {
         JsonObjectBuilder objectBuilder = Json.createObjectBuilder()
             .add("type", "named_branch").add("name", "default");
-        BitbucketClientBranch branch =
-            new BitbucketClientBranch(objectBuilder.build());
+        ClientBranch branch =
+            new ClientBranch(objectBuilder.build());
         assertEquals("named_branch", branch.getType());
         assertEquals("default", branch.getName());
     }
@@ -79,8 +78,8 @@ public class BitbucketClientBranchTest
     {
         JsonObjectBuilder objectBuilder = Json.createObjectBuilder()
             .add("type", "bookmark").add("name", "staging");
-        BitbucketClientBranch branch =
-            new BitbucketClientBranch(objectBuilder.build());
+        ClientBranch branch =
+            new ClientBranch(objectBuilder.build());
         assertEquals("bookmark", branch.getType());
         assertEquals("staging", branch.getName());
     }

@@ -1,6 +1,6 @@
 /*
- * BitbucketClientBranch.java - class BitbucketClientBranch
- * Copyright (C) 2015-2018 Kaz Nishimura
+ * ClientBranch.java
+ * Copyright (C) 2015-2020 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -28,14 +28,12 @@ import javax.json.JsonValue;
 import org.vx68k.bitbucket.BitbucketBranch;
 
 /**
- * Client implementation of {@link BitbucketBranch}.
- * This class represents a branch or bookmark by a JSON object.
+ * Client implementation class of {@link BitbucketBranch}.
  *
  * @author Kaz Nishimura
- * @since 5.0
+ * @since 6.0
  */
-public class BitbucketClientBranch extends ClientRef implements
-    BitbucketBranch
+public class ClientBranch extends ClientRef implements BitbucketBranch
 {
     /**
      * Parses a JSON array for commits.
@@ -61,7 +59,7 @@ public class BitbucketClientBranch extends ClientRef implements
      *
      * @param jsonObject a JSON object
      */
-    public BitbucketClientBranch(final JsonObject jsonObject)
+    public ClientBranch(final JsonObject jsonObject)
     {
         this(jsonObject, null);
     }
@@ -72,7 +70,7 @@ public class BitbucketClientBranch extends ClientRef implements
      * @param jsonObject a JSON object
      * @param bitbucketClient a Bitbucket API client
      */
-    public BitbucketClientBranch(
+    public ClientBranch(
         final JsonObject jsonObject, final BitbucketClient bitbucketClient)
     {
         super(jsonObject, bitbucketClient);
