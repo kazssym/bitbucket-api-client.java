@@ -20,14 +20,11 @@
 
 package org.vx68k.bitbucket.client;
 
-import java.util.Objects;
-import javax.json.JsonObject;
-
 /**
- * Client implementation of {@link BitbucketAccount} for a team account.
+ * Client implementation class of {@link BitbucketAccount} for a team account.
  *
  * @author Kaz Nishimura
- * @since 6.0.0
+ * @since 6.0
  */
 class ClientTeamAccount extends ClientAccount
 {
@@ -47,23 +44,6 @@ class ClientTeamAccount extends ClientAccount
     public ClientTeamAccount(final ClientTeamAccount other)
     {
         super(other);
-    }
-
-    /**
-     * Constructs a user account from a JSON object.
-     *
-     * @param json a JSON object
-     * @exception IllegalArgumentException if {@code object} is {@code null} or
-     * is not of a team account
-     */
-    public ClientTeamAccount(final JsonObject json)
-    {
-        super(json);
-
-        String type = json.getString("type", null);
-        if (!Objects.equals(type, AccountType.TEAM.toString())) {
-            throw new IllegalArgumentException("JSON object is not of a team account");
-        }
     }
 
     @Override

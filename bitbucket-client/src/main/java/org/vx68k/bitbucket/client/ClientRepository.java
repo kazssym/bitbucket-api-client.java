@@ -20,20 +20,10 @@
 
 package org.vx68k.bitbucket.client;
 
-import static org.vx68k.bitbucket.client.JsonUtilities.toInstant;
-import static org.vx68k.bitbucket.client.JsonUtilities.toUUID;
-import java.net.URI;
 import java.time.Instant;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
 import java.util.UUID;
-import java.util.function.Function;
-import javax.json.JsonNumber;
-import javax.json.JsonObject;
 import javax.json.bind.annotation.JsonbProperty;
-import javax.ws.rs.core.Link;
 import org.vx68k.bitbucket.BitbucketAccount;
 import org.vx68k.bitbucket.BitbucketBranch;
 import org.vx68k.bitbucket.BitbucketIssue;
@@ -49,73 +39,6 @@ import org.vx68k.bitbucket.BitbucketRepository;
 public class ClientRepository implements BitbucketRepository,
     BitbucketIssueTracker // TODO: Change this class to package scope.
 {
-    /**
-     * Type value for repositories.
-     */
-    private static final String REPOSITORY = "repository";
-
-    private static final String JSON_TYPE = "type";
-
-    /**
-     * Name of the {@code owner} value in a JSON repository object.
-     */
-    private static final String JSON_OWNER = "owner";
-
-    /**
-     * Name of the {@code uuid} value in a JSON repository object.
-     */
-    private static final String JSON_UUID = "uuid";
-
-    /**
-     * Name of the {@code name} value in a JSON repository object.
-     */
-    private static final String JSON_NAME = "name";
-
-    /**
-     * Name of the {@code full_name} value in a JSON repository object.
-     */
-    private static final String JSON_FULL_NAME = "full_name";
-
-    /**
-     * Name of the {@code description} value in a JSON repository object.
-     */
-    private static final String JSON_DESCRIPTION = "description";
-
-    /**
-     * Name of the {@code is_private} value in a JSON repository object.
-     */
-    private static final String JSON_PRIVATE = "is_private";
-
-    /**
-     * Name of the {@code scm} value in a JSON repository object.
-     */
-    private static final String JSON_SCM = "scm";
-
-    /**
-     * Name of the {@code created_on} value in a JSON repository object.
-     */
-    private static final String JSON_CREATED = "created_on";
-
-    /**
-     * Name of the {@code updated_on} value in a JSON repository object.
-     */
-    private static final String JSON_UPDATED = "updated_on";
-
-    /**
-     * Name of the {@code size} value in a JSON repository object.
-     */
-    private static final String JSON_SIZE = "size";
-
-    /**
-     * Name of the {@code has_issues} value in a JSON repository object.
-     */
-    private static final String JSON_ISSUES_ENABLED = "has_issues";
-
-    /**
-     * Name of the {@code has_wiki} value in a JSON repository object.
-     */
-    private static final String JSON_WIKI_ENABLED = "has_wiki";
-
     /**
      * Name of the {@code fork_policy} value in a JSON repository object.
      */
@@ -141,54 +64,42 @@ public class ClientRepository implements BitbucketRepository,
      */
     private static final String WEBSITE = "website";
 
-    @JsonbProperty(JSON_OWNER)
+    @JsonbProperty("owner")
     private BitbucketAccount owner;
 
-    @JsonbProperty(JSON_UUID)
+    @JsonbProperty("uuid")
     private UUID uuid;
 
-    @JsonbProperty(JSON_NAME)
+    @JsonbProperty("name")
     private String name;
 
-    @JsonbProperty(JSON_FULL_NAME)
+    @JsonbProperty("full_name")
     private String fullName;
 
-    @JsonbProperty(JSON_DESCRIPTION)
+    @JsonbProperty("description")
     private String description;
 
-    @JsonbProperty(JSON_PRIVATE)
+    @JsonbProperty("is_private")
     private boolean restricted;
 
 
-    @JsonbProperty(JSON_SCM)
+    @JsonbProperty("scm")
     private String scm;
 
-    @JsonbProperty(JSON_CREATED)
+    @JsonbProperty("created_on")
     private Instant created;
 
-    @JsonbProperty(JSON_UPDATED)
+    @JsonbProperty("updated_on")
     private Instant updated;
 
-    @JsonbProperty(JSON_SIZE)
+    @JsonbProperty("size")
     private long size;
 
-    @JsonbProperty(JSON_ISSUES_ENABLED)
+    @JsonbProperty("has_issues")
     private boolean issuesEnabled;
 
-    @JsonbProperty(JSON_WIKI_ENABLED)
+    @JsonbProperty("has_wiki")
     private boolean wikiEnabled;
-
-    /**
-     * Returns a function to create a repository from a JSON object.
-     * <p>This method can be used to create a {@link PaginatedList} object.</p>
-     *
-     * @return a function to create a repository from a JSON object
-     * @see PaginatedList
-     */
-    public static Function<JsonObject, ClientRepository> creator()
-    {
-        return ClientRepository::new;
-    }
 
     /**
      * Constructs a repository.
@@ -213,49 +124,6 @@ public class ClientRepository implements BitbucketRepository,
         this.size = other.size;
         this.issuesEnabled = other.issuesEnabled;
         this.wikiEnabled = other.wikiEnabled;
-    }
-
-    /**
-     * Constructs a repository from a JSON object.
-     *
-     * @param json a JSON object
-     * @exception IllegalArgumentException if {@code object} is {@code null} or
-     * is not of a repository
-     */
-    public ClientRepository(final JsonObject json)
-    {
-        if (json == null) {
-            throw new IllegalArgumentException("JSON object is null");
-        }
-
-        String type = json.getString(JSON_TYPE, null);
-        if (!Objects.equals(type, "repository")) {
-            throw new IllegalArgumentException("JSON object is not of a repository");
-        }
-
-        JsonObject jsonOwner = json.getJsonObject(JSON_OWNER);
-        if (jsonOwner == null) {
-            this.owner = null;
-        }
-        else if (Objects.equals(jsonOwner.getString(JSON_TYPE, null),
-            BitbucketAccount.AccountType.TEAM.toString())) {
-            this.owner = new ClientTeamAccount(jsonOwner);
-        }
-        else {
-            this.owner = new ClientUserAccount(jsonOwner);
-        }
-        this.uuid = JsonUtilities.toUUID(json.get(JSON_UUID));
-        this.name = json.getString(JSON_NAME, null);
-        this.fullName = json.getString(JSON_FULL_NAME, null);
-        this.description = json.getString(JSON_DESCRIPTION, null);
-        this.restricted = json.getBoolean(JSON_PRIVATE, false);
-
-        this.scm = json.getString(JSON_SCM, null);
-        this.created = JsonUtilities.toInstant(json.get(JSON_CREATED));
-        this.updated = JsonUtilities.toInstant(json.get(JSON_UPDATED));
-        this.size = json.getJsonNumber(JSON_SIZE).longValue();
-        this.issuesEnabled = json.getBoolean(JSON_ISSUES_ENABLED, false);
-        this.wikiEnabled = json.getBoolean(JSON_WIKI_ENABLED, false);
     }
 
     /**

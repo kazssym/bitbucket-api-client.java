@@ -20,8 +20,6 @@
 
 package org.vx68k.bitbucket.client;
 
-import java.util.Objects;
-import javax.json.JsonObject;
 import javax.json.bind.annotation.JsonbProperty;
 
 import org.vx68k.bitbucket.BitbucketUser;
@@ -30,25 +28,15 @@ import org.vx68k.bitbucket.BitbucketUser;
  * Client implementation of {@link BitbucketUser}.
  *
  * @author Kaz Nishimura
- * @since 6.0.0
+ * @since 6.0
  */
 public class ClientUserAccount extends ClientAccount
     implements BitbucketUser // TODO: Make this class package-scoped.
 {
-    /**
-     * Name for the {@code is_staff} value in a JSON user object.
-     */
-    private static final String JSON_STAFF = "is_staff";
-
-    /**
-     * Name for the {@code account_id} value in a JSON user object.
-     */
-    private static final String JSON_ACCOUNT_ID = "account_id";
-
-    @JsonbProperty(JSON_STAFF)
+    @JsonbProperty("is_staff")
     private boolean staff = false;
 
-    @JsonbProperty(JSON_ACCOUNT_ID)
+    @JsonbProperty("account_id")
     private String accountId;
 
     /**
@@ -70,26 +58,6 @@ public class ClientUserAccount extends ClientAccount
 
         this.staff = other.staff;
         this.accountId = other.accountId;
-    }
-
-    /**
-     * Constructs a user account from a JSON object.
-     *
-     * @param json a JSON object
-     * @exception IllegalArgumentException if {@code object} is {@code null} or
-     * is not of a user account
-     */
-    public ClientUserAccount(final JsonObject json)
-    {
-        super(json);
-
-        String type = json.getString("type", null);
-        if (!Objects.equals(type, AccountType.USER.toString())) {
-            throw new IllegalArgumentException("JSON object is not of a user account");
-        }
-
-        this.staff = json.getBoolean(JSON_STAFF, false);
-        this.accountId = json.getString(JSON_ACCOUNT_ID, null);
     }
 
     @Override

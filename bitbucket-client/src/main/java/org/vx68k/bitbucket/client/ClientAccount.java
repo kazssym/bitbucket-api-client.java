@@ -23,71 +23,38 @@ package org.vx68k.bitbucket.client;
 import java.time.Instant;
 import java.util.Map;
 import java.util.UUID;
-import javax.json.JsonObject;
 import javax.json.bind.annotation.JsonbProperty;
 import javax.ws.rs.core.Link;
 import org.vx68k.bitbucket.BitbucketAccount;
 
 /**
- * Client implementation of {@link BitbucketAccount}.
+ * Abstract client implementation class of {@link BitbucketAccount}.
  *
  * @author Kaz Nishimura
  * @see ClientUserAccount
- * @since 6.0.0
+ * @since 6.0
  */
 abstract class ClientAccount implements BitbucketAccount
 {
-    /**
-     * Name of the {@code uuid} value in a JSON account object.
-     */
-    private static final String JSON_UUID = "uuid";
-
-    /**
-     * Name of the {@code username} value in a JSON account object.
-     */
-    private static final String JSON_NAME = "username";
-
-    /**
-     * Name of the {@code display_name} value in a JSON account object.
-     */
-     private static final String JSON_DISPLAY_NAME = "display_name";
-
-    /**
-     * Name of the {@code website} value in a JSON account object.
-     */
-    private static final String JSON_WEBSITE = "website";
-
-    /**
-     * Name of the {@code location} value in a JSON account object.
-     */
-    private static final String JSON_LOCATION = "location";
-
-    /**
-     * Name of the {@code created_on} value in a JSON account object.
-     */
-    private static final String JSON_CREATED = "created_on";
-
-    private static final String JSON_LINKS = "links";
-
-    @JsonbProperty(JSON_UUID)
+    @JsonbProperty("uuid")
     private UUID uuid;
 
-    @JsonbProperty(JSON_NAME)
+    @JsonbProperty("username")
     private String name;
 
-    @JsonbProperty(JSON_DISPLAY_NAME)
+    @JsonbProperty("display_name")
     private String displayName;
 
-    @JsonbProperty(JSON_WEBSITE)
+    @JsonbProperty("website")
     private String website;
 
-    @JsonbProperty(JSON_LOCATION)
+    @JsonbProperty("location")
     private String location;
 
-    @JsonbProperty(JSON_CREATED)
+    @JsonbProperty("created_on")
     private Instant created;
 
-    @JsonbProperty(JSON_LINKS)
+    @JsonbProperty("links")
     private Map<String, Link> links;
 
     /**
@@ -111,26 +78,6 @@ abstract class ClientAccount implements BitbucketAccount
         this.website = other.website;
         this.location = other.location;
         this.created = other.created;
-    }
-
-    /**
-     * Constructs an account object from a JSON object.
-     *
-     * @param json a JSON object
-     * @exception IllegalArgumentException if {@code object} is {@code null}
-     */
-    protected ClientAccount(final JsonObject json)
-    {
-        if (json == null) {
-            throw new IllegalArgumentException("JsonObject is null");
-        }
-
-        this.uuid = JsonUtilities.toUUID(json.get(JSON_UUID));
-        this.name = json.getString(JSON_NAME, null);
-        this.displayName = json.getString(JSON_DISPLAY_NAME, null);
-        this.website = json.getString(JSON_WEBSITE, null);
-        this.location = json.getString(JSON_LOCATION, null);
-        this.created = JsonUtilities.toInstant(json.get(JSON_CREATED));
     }
 
     /**

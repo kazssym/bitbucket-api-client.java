@@ -192,7 +192,7 @@ public class BitbucketClientIssue extends BitbucketClientObject implements
 
         BitbucketRepository value = null;
         if (repository != null) {
-            value = new ClientRepository(repository);
+            // value = new ClientRepository(repository);
         }
         return value;
     }
@@ -211,7 +211,7 @@ public class BitbucketClientIssue extends BitbucketClientObject implements
 
         ClientUserAccount value = null;
         if (reporter != null && reporter != JsonValue.NULL) {
-            value = new ClientUserAccount((JsonObject) reporter);
+            // value = new ClientUserAccount((JsonObject) reporter);
         }
         return value;
     }
@@ -260,7 +260,7 @@ public class BitbucketClientIssue extends BitbucketClientObject implements
 
         ClientUserAccount value = null;
         if (assignee != null && assignee != JsonValue.NULL) {
-            value = new ClientUserAccount((JsonObject) assignee);
+            // value = new ClientUserAccount((JsonObject) assignee);
         }
         return value;
     }
