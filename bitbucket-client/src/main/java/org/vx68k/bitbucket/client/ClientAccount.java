@@ -246,4 +246,14 @@ abstract class ClientAccount implements BitbucketAccount
     {
         this.created = created;
     }
+
+    @Override
+    public final String toString()
+    {
+        if (uuid != null) {
+            return "{" + uuid.toString() + "}";
+        }
+
+        return "-";
+    }
 }
