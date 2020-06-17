@@ -34,7 +34,7 @@ import org.vx68k.bitbucket.BitbucketBranch;
  * @author Kaz Nishimura
  * @since 5.0
  */
-public class BitbucketClientBranch extends BitbucketClientRef implements
+public class BitbucketClientBranch extends ClientRef implements
     BitbucketBranch
 {
     /**

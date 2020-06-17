@@ -1,6 +1,6 @@
 /*
- * BitbucketClientRef.java
- * Copyright (C) 2015-2018 Kaz Nishimura
+ * ClientRef.java
+ * Copyright (C) 2015-2020 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -25,14 +25,12 @@ import org.vx68k.bitbucket.BitbucketCommit;
 import org.vx68k.bitbucket.BitbucketRef;
 
 /**
- * Client implementation of {@link BitbucketRef}.
- * This class represents a commit ref by a JSON object.
+ * Abstract client implementation class of {@link BitbucketRef}.
  *
  * @author Kaz Nishimura
- * @since 5.0
+ * @since 6.0
  */
-public class BitbucketClientRef extends BitbucketClientObject implements
-    BitbucketRef
+public abstract class ClientRef extends BitbucketClientObject implements BitbucketRef
 {
     /**
      * Name of the {@code name} value in a JSON object.
@@ -49,7 +47,7 @@ public class BitbucketClientRef extends BitbucketClientObject implements
      *
      * @param jsonObject a JSON object
      */
-    public BitbucketClientRef(final JsonObject jsonObject)
+    public ClientRef(final JsonObject jsonObject)
     {
         this(jsonObject, null);
     }
@@ -60,7 +58,7 @@ public class BitbucketClientRef extends BitbucketClientObject implements
      * @param jsonObject a JSON object
      * @param bitbucketClient a Bitbucket API client
      */
-    public BitbucketClientRef(
+    public ClientRef(
         final JsonObject jsonObject, final BitbucketClient bitbucketClient)
     {
         super(jsonObject, bitbucketClient);
