@@ -18,11 +18,10 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-package org.vx68k.bitbucket.client;
+package org.vx68k.bitbucket.client.internal;
 
 import javax.json.bind.annotation.JsonbProperty;
 import org.vx68k.bitbucket.BitbucketUser;
-import org.vx68k.bitbucket.client.internal.ClientAccount;
 
 /**
  * Client implementation of {@link BitbucketUser}.
