@@ -20,13 +20,15 @@
 
 package org.vx68k.bitbucket.client;
 
+import org.vx68k.bitbucket.client.internal.ClientAccount;
+
 /**
  * Client implementation class of {@link BitbucketAccount} for a team account.
  *
  * @author Kaz Nishimura
  * @since 6.0
  */
-class ClientTeamAccount extends ClientAccount
+public class ClientTeamAccount extends ClientAccount
 {
     /**
      * Constructs a team account.
