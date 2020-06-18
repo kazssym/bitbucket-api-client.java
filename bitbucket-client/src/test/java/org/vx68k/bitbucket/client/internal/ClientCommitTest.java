@@ -18,7 +18,7 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-package org.vx68k.bitbucket.client;
+package org.vx68k.bitbucket.client.internal;
 
 import static org.junit.Assert.fail;
 
@@ -26,11 +26,11 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 /**
- * Unit tests for {@link BitbucketClientCommit}.
+ * Unit tests for {@link ClientCommit}.
  *
  * @author Kaz Nishimura
  */
-public class BitbucketClientCommitTest
+public final class ClientCommitTest
 {
     // @todo Add test methods.
 

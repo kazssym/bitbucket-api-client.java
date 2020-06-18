@@ -27,6 +27,7 @@ import javax.json.JsonObject;
 import javax.json.JsonValue;
 import javax.json.bind.annotation.JsonbProperty;
 import org.vx68k.bitbucket.BitbucketBranch;
+import org.vx68k.bitbucket.client.internal.ClientCommit;
 
 /**
  * Client implementation class of {@link BitbucketBranch}.
@@ -46,7 +47,7 @@ public class ClientBranch extends ClientRef implements BitbucketBranch
      * List of the head commits of the branch object.
      */
     @JsonbProperty("heads")
-    private List<BitbucketClientCommit> heads;
+    private List<ClientCommit> heads;
 
     /**
      * Parses a JSON array for commits.
@@ -54,14 +55,14 @@ public class ClientBranch extends ClientRef implements BitbucketBranch
      * @param commitsArray JSON array of commits
      * @return list of commits
      */
-    protected static List<BitbucketClientCommit> parseCommits(
+    protected static List<ClientCommit> parseCommits(
         final JsonArray commitsArray)
     {
-        List<BitbucketClientCommit> commits = null;
+        List<ClientCommit> commits = null;
         if (commitsArray != null) {
             commits = new ArrayList<>();
             for (JsonValue value : commitsArray) {
-                commits.add(new BitbucketClientCommit((JsonObject) value));
+                commits.add(new ClientCommit((JsonObject) value));
             }
         }
         return commits;
@@ -109,12 +110,12 @@ public class ClientBranch extends ClientRef implements BitbucketBranch
      *
      * @return the heads
      */
-    public final List<BitbucketClientCommit> getHeads()
+    public final List<ClientCommit> getHeads()
     {
         return heads;
     }
 
-    public final void setHeads(final List<BitbucketClientCommit> heads)
+    public final void setHeads(final List<ClientCommit> heads)
     {
         this.heads = heads; // TODO: Make a copy.
     }

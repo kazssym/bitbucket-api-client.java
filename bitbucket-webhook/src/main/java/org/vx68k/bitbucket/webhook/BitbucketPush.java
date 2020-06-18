@@ -27,7 +27,7 @@ import javax.json.JsonObject;
 import org.vx68k.bitbucket.BitbucketBranch;
 import org.vx68k.bitbucket.BitbucketCommit;
 import org.vx68k.bitbucket.client.ClientBranch;
-import org.vx68k.bitbucket.client.BitbucketClientCommit;
+import org.vx68k.bitbucket.client.internal.ClientCommit;
 import org.vx68k.bitbucket.client.BitbucketClientObject;
 
 /**
@@ -209,7 +209,7 @@ public class BitbucketPush extends BitbucketClientObject
             List<BitbucketCommit> commits = null;
             if (array != null) {
                 commits = array.stream()
-                    .map((x) -> new BitbucketClientCommit((JsonObject) x))
+                    .map((x) -> new ClientCommit((JsonObject) x))
                     .collect(Collectors.toList());
             }
             return commits;
