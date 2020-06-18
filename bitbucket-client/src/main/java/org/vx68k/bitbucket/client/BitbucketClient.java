@@ -28,6 +28,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import javax.json.JsonObject;
+import javax.json.bind.JsonbBuilder;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -41,6 +42,7 @@ import org.vx68k.bitbucket.BitbucketRepository;
 import org.vx68k.bitbucket.client.internal.ClientTeamAccount;
 import org.vx68k.bitbucket.client.internal.ClientUserAccount;
 import org.vx68k.bitbucket.client.internal.JsonMessageBodyReader;
+import org.vx68k.bitbucket.client.internal.JsonbMessageBodyReader;
 import org.vx68k.bitbucket.client.internal.OAuth2Authenticator;
 
 /**
@@ -96,7 +98,11 @@ public class BitbucketClient implements Bitbucket, Serializable
         this.authenticator =
             new OAuth2Authenticator(API_BASE_URI, TOKEN_ENDPOINT_URI);
 
+        JsonbBuilder jsonbBuilder = JsonbBuilder.newBuilder();
+
         this.clientBuilder.register(JsonMessageBodyReader.class);
+        this.clientBuilder.register(new JsonbMessageBodyReader<ClientUserAccount>(jsonbBuilder));
+        this.clientBuilder.register(new JsonbMessageBodyReader<ClientTeamAccount>(jsonbBuilder));
         this.clientBuilder.register(authenticator);
     }
 
