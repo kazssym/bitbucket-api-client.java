@@ -31,6 +31,9 @@ import org.vx68k.bitbucket.BitbucketCommit;
  */
 public class ClientCommit implements BitbucketCommit
 {
+    @JsonbProperty("hash")
+    private String hash;
+
     /**
      * Constructs a commit.
      */
@@ -46,11 +49,22 @@ public class ClientCommit implements BitbucketCommit
      */
     public ClientCommit(final ClientCommit other)
     {
+        this.hash = other.hash;
     }
 
     @JsonbProperty("type")
     private final String getType()
     {
         return "type";
+    }
+
+    public final String getHash()
+    {
+        return hash;
+    }
+
+    public final void setHash(final String hash)
+    {
+        this.hash = hash;
     }
 }
