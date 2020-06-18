@@ -20,7 +20,7 @@
 
 package org.vx68k.bitbucket;
 
-import java.time.Instant;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 /**
@@ -102,5 +102,5 @@ public interface BitbucketAccount
      *
      * @return the date and time when the account was created
      */
-    Instant getCreated();
+    OffsetDateTime getCreated();
 }
