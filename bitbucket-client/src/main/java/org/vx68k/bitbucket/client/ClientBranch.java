@@ -62,7 +62,7 @@ public class ClientBranch extends ClientRef implements BitbucketBranch
         if (commitsArray != null) {
             commits = new ArrayList<>();
             for (JsonValue value : commitsArray) {
-                commits.add(new ClientCommit((JsonObject) value));
+                // commits.add(new ClientCommit((JsonObject) value));
             }
         }
         return commits;

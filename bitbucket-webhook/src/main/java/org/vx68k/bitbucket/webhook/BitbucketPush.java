@@ -208,9 +208,9 @@ public class BitbucketPush extends BitbucketClientObject
             JsonArray array = object.getJsonArray(COMMITS);
             List<BitbucketCommit> commits = null;
             if (array != null) {
-                commits = array.stream()
-                    .map((x) -> new ClientCommit((JsonObject) x))
-                    .collect(Collectors.toList());
+                // commits = array.stream()
+                //     .map((x) -> new ClientCommit((JsonObject) x))
+                //     .collect(Collectors.toList());
             }
             return commits;
         }
