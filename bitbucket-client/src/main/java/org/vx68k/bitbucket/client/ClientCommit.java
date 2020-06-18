@@ -1,6 +1,6 @@
 /*
- * BitbucketClientCommit.java
- * Copyright (C) 2015-2018 Kaz Nishimura
+ * ClientCommit.java
+ * Copyright (C) 2015-2020 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -24,13 +24,12 @@ import javax.json.JsonObject;
 import org.vx68k.bitbucket.BitbucketCommit;
 
 /**
- * Client implementation of {@link BitbucketCommit}.
- * This class represents a commit by a JSON object.
+ * Client implementation class of {@link BitbucketCommit}.
  *
  * @author Kaz Nishimura
- * @since 5.0
+ * @since 6.0
  */
-public class BitbucketClientCommit extends BitbucketClientObject implements
+public class ClientCommit extends BitbucketClientObject implements
     BitbucketCommit
 {
     /**
@@ -44,7 +43,7 @@ public class BitbucketClientCommit extends BitbucketClientObject implements
      * @param jsonObject a JSON object for a commit resource
      * @see #BitbucketClientCommit(JsonObject, BitbucketClient)
      */
-    public BitbucketClientCommit(final JsonObject jsonObject)
+    public ClientCommit(final JsonObject jsonObject)
     {
         this(jsonObject, null);
     }
@@ -55,7 +54,7 @@ public class BitbucketClientCommit extends BitbucketClientObject implements
      * @param jsonObject a JSON object for a commit resource
      * @param bitbucketClient a Bitbucket API client
      */
-    public BitbucketClientCommit(
+    public ClientCommit(
         final JsonObject jsonObject, final BitbucketClient bitbucketClient)
     {
         super(jsonObject, bitbucketClient);
