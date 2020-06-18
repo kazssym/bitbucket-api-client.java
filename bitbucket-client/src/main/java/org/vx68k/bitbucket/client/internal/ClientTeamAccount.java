@@ -18,9 +18,12 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-package org.vx68k.bitbucket.client;
+package org.vx68k.bitbucket.client.internal;
 
-import org.vx68k.bitbucket.client.internal.ClientAccount;
+import java.util.Objects;
+
+import javax.json.bind.annotation.JsonbAnnotation;
+import javax.json.bind.annotation.JsonbProperty;
 
 /**
  * Client implementation class of {@link BitbucketAccount} for a team account.
@@ -48,9 +51,28 @@ public class ClientTeamAccount extends ClientAccount
         super(other);
     }
 
+    @JsonbProperty("type")
     @Override
     public final AccountType getType()
     {
         return AccountType.TEAM;
+    }
+
+    @JsonbProperty("type")
+    public final void setType(final AccountType type)
+    {
+        if (!(Objects.equals(type, AccountType.TEAM)))
+        {
+            throw new IllegalArgumentException("AccountType is not TEAM");
+        }
+    }
+
+    @JsonbProperty("type")
+    public final void setType(final String type)
+    {
+        if (!(Objects.equals(type, AccountType.TEAM.toString())))
+        {
+            throw new IllegalArgumentException("AccountType is not TEAM");
+        }
     }
 }
