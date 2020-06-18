@@ -20,9 +20,10 @@
 
 package org.vx68k.bitbucket.client;
 
-import java.time.Instant;
+import java.time.OffsetDateTime;
 import java.util.Map;
 import java.util.UUID;
+import javax.json.bind.annotation.JsonbDateFormat;
 import javax.json.bind.annotation.JsonbProperty;
 import javax.ws.rs.core.Link;
 import org.vx68k.bitbucket.BitbucketAccount;
@@ -34,7 +35,7 @@ import org.vx68k.bitbucket.BitbucketAccount;
  * @see ClientUserAccount
  * @since 6.0
  */
-abstract class ClientAccount implements BitbucketAccount
+public abstract class ClientAccount implements BitbucketAccount
 {
     @JsonbProperty("uuid")
     private UUID uuid;
@@ -52,9 +53,10 @@ abstract class ClientAccount implements BitbucketAccount
     private String location;
 
     @JsonbProperty("created_on")
-    private Instant created;
+    @JsonbDateFormat("uuuu-MM-dd'T'HH:mm:ss[.SSSSSS]XXXXX")
+    private OffsetDateTime created;
 
-    @JsonbProperty("links")
+    // @JsonbProperty("links")
     private Map<String, Link> links;
 
     /**
@@ -159,6 +161,7 @@ abstract class ClientAccount implements BitbucketAccount
     /**
      * {@inheritDoc}
      */
+    // @JsonbProperty("location")
     @Override
     public final String getLocation()
     {
@@ -179,7 +182,7 @@ abstract class ClientAccount implements BitbucketAccount
      * {@inheritDoc}
      */
     @Override
-    public final Instant getCreated()
+    public final OffsetDateTime getCreated()
     {
         return created;
     }
@@ -187,9 +190,9 @@ abstract class ClientAccount implements BitbucketAccount
     /**
      * Sets the creation time of the account.
      *
-     * @param created a {@link Instant} object for the create time
+     * @param created a {@link OffsetDateTime} object for the create time
      */
-    public final void setCreated(final Instant created)
+    public final void setCreated(final OffsetDateTime created)
     {
         this.created = created;
     }
@@ -201,6 +204,6 @@ abstract class ClientAccount implements BitbucketAccount
             return "{" + uuid.toString() + "}";
         }
 
-        return "-";
+        return super.toString();
     }
 }
