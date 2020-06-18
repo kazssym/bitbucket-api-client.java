@@ -21,10 +21,12 @@
 package org.vx68k.bitbucket.client.internal;
 
 import java.time.OffsetDateTime;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import javax.json.bind.annotation.JsonbDateFormat;
 import javax.json.bind.annotation.JsonbProperty;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.json.bind.annotation.JsonbTypeAdapter;
 import javax.ws.rs.core.Link;
 import org.vx68k.bitbucket.BitbucketAccount;
@@ -59,6 +61,7 @@ public abstract class ClientAccount implements BitbucketAccount
     private OffsetDateTime created;
 
     // @JsonbProperty("links")
+    @JsonbTransient
     private Map<String, Link> links;
 
     /**
@@ -82,6 +85,13 @@ public abstract class ClientAccount implements BitbucketAccount
         this.website = other.website;
         this.location = other.location;
         this.created = other.created;
+
+        if (other.links != null) {
+            this.links = new HashMap<>(other.links);
+        }
+        else {
+            this.links = null;
+        }
     }
 
     /**
@@ -207,5 +217,18 @@ public abstract class ClientAccount implements BitbucketAccount
         }
 
         return super.toString();
+    }
+
+    public final Map<String, Link> getLinks()
+    {
+        return links;
+    }
+
+    public final void setLinks(Map<String, Link> links)
+    {
+        if (links != null) {
+            links = new HashMap<>(links);
+        }
+        this.links = links;
     }
 }
