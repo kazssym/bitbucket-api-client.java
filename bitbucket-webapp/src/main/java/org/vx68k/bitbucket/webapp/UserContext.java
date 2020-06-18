@@ -39,7 +39,7 @@ import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
-import org.vx68k.bitbucket.BitbucketUser;
+import org.vx68k.bitbucket.BitbucketUserAccount;
 import org.vx68k.bitbucket.client.BitbucketClient;
 
 /**
@@ -102,10 +102,10 @@ public class UserContext implements Serializable
     private final BitbucketClient bitbucketClient;
 
     /**
-     * {@link BitbucketUser} object for the current user, or {@code null} if
+     * {@link BitbucketUserAccount} object for the current user, or {@code null} if
      * not logged in.
      */
-    private BitbucketUser loggedInUser = null;
+    private BitbucketUserAccount loggedInUser = null;
 
     /**
      * Redirection endpoint URI.
@@ -178,7 +178,7 @@ public class UserContext implements Serializable
      *
      * @return the logged-in user
      */
-    public BitbucketUser getLoggedInUser()
+    public BitbucketUserAccount getLoggedInUser()
     {
         return loggedInUser;
     }

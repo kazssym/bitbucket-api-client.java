@@ -51,7 +51,7 @@ public interface BitbucketIssue
      *
      * @return the reporter of the issue
      */
-    BitbucketUser getReporter();
+    BitbucketUserAccount getReporter();
 
     /**
      * Returns the state of the issue.
@@ -93,7 +93,7 @@ public interface BitbucketIssue
      *
      * @return the assignee of the issue
      */
-    BitbucketUser getAssignee();
+    BitbucketUserAccount getAssignee();
 
     /**
      * Returns the component of the issue.
@@ -175,7 +175,7 @@ public interface BitbucketIssue
          *
          * @return the user who made the comment
          */
-        BitbucketUser getUser();
+        BitbucketUserAccount getUser();
 
         /**
          * Returns the content of the comment.

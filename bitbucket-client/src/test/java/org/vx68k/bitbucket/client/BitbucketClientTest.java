@@ -29,7 +29,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.vx68k.bitbucket.BitbucketAccount;
 import org.vx68k.bitbucket.BitbucketRepository;
-import org.vx68k.bitbucket.BitbucketUser;
+import org.vx68k.bitbucket.BitbucketUserAccount;
 
 /**
  * Unit tests for {@link BitbucketClient}.
@@ -71,7 +71,7 @@ public class BitbucketClientTest
     public void testGetUser()
     {
         BitbucketClient client = new BitbucketClient();
-        BitbucketUser user = (BitbucketUser) client.getUser(USER_UUID);
+        BitbucketUserAccount user = (BitbucketUserAccount) client.getUser(USER_UUID);
         System.out.println("Got " + user);
         assertNotNull(user.getUuid());
         assertNull(user.getName());

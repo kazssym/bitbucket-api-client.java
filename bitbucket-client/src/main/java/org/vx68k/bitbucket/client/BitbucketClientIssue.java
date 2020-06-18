@@ -30,7 +30,7 @@ import javax.json.JsonValue;
 import org.vx68k.bitbucket.BitbucketIssue;
 import org.vx68k.bitbucket.BitbucketRendered;
 import org.vx68k.bitbucket.BitbucketRepository;
-import org.vx68k.bitbucket.BitbucketUser;
+import org.vx68k.bitbucket.BitbucketUserAccount;
 import org.vx68k.bitbucket.client.internal.ClientUserAccount;
 
 /**
@@ -204,7 +204,7 @@ public class BitbucketClientIssue extends BitbucketClientObject implements
     }
 
     @Override
-    public final BitbucketUser getReporter()
+    public final BitbucketUserAccount getReporter()
     {
         // This may be a JSON null.
         JsonValue reporter = getJsonObject().get(REPORTER);
@@ -253,7 +253,7 @@ public class BitbucketClientIssue extends BitbucketClientObject implements
     }
 
     @Override
-    public final BitbucketUser getAssignee()
+    public final BitbucketUserAccount getAssignee()
     {
         // This may be a JSON null.
         JsonValue assignee = getJsonObject().get(ASSIGNEE);

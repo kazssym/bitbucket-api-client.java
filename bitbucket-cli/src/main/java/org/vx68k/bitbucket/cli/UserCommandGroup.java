@@ -21,7 +21,7 @@
 package org.vx68k.bitbucket.cli;
 
 import java.io.PrintWriter;
-import org.vx68k.bitbucket.BitbucketUser;
+import org.vx68k.bitbucket.BitbucketUserAccount;
 import org.vx68k.bitbucket.client.BitbucketClient;
 
 /**
@@ -59,7 +59,7 @@ public class UserCommandGroup extends CommandGroup
          *
          * @param user user to print
          */
-        void print(final BitbucketUser user)
+        void print(final BitbucketUserAccount user)
         {
             PrintWriter out = new PrintWriter(System.out);
             out.format(FORMAT, "Name", user.getName());
@@ -84,7 +84,7 @@ public class UserCommandGroup extends CommandGroup
                 throw new CLIException("Missing arguments");
             }
 
-            BitbucketUser user = (BitbucketUser)
+            BitbucketUserAccount user = (BitbucketUserAccount)
                 getBitbucketClient().getUser(args[0]);
             if (user != null) {
                 print(user);

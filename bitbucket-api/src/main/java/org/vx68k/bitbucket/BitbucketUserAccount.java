@@ -1,6 +1,6 @@
 /*
- * BitbucketUser.java - interface BitbucketUser
- * Copyright (C) 2018 Kaz Nishimura
+ * BitbucketUserAccount.java
+ * Copyright (C) 2018-2020 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -21,12 +21,12 @@
 package org.vx68k.bitbucket;
 
 /**
- * User on Bitbucket Cloud.
+ * User account on Bitbucket Cloud.
  *
  * @author Kaz Nishimura
- * @since 5.0
+ * @since 6.0
  */
-public interface BitbucketUser extends BitbucketAccount
+public interface BitbucketUserAccount extends BitbucketAccount
 {
     /**
      * Returns {@code true} if the user is staff.

@@ -28,11 +28,11 @@ import java.util.UUID;
  * A Bitbucket Cloud account is either of a user or of a team.
  * This interface can represent both types of accounts, but the attributes
  * specific to user accounts are not accessible with this interface but with
- * {@link BitbucketUser}.
+ * {@link BitbucketUserAccount}.
  *
  * @author Kaz Nishimura
- * @see BitbucketUser
- * @since 6.0.0
+ * @see BitbucketUserAccount
+ * @since 6.0
  */
 public interface BitbucketAccount
 {

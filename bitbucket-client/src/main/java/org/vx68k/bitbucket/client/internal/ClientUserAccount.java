@@ -21,15 +21,16 @@
 package org.vx68k.bitbucket.client.internal;
 
 import javax.json.bind.annotation.JsonbProperty;
-import org.vx68k.bitbucket.BitbucketUser;
+import org.vx68k.bitbucket.BitbucketUserAccount;
 
 /**
- * Client implementation of {@link BitbucketUser}.
+ * Client implementation of {@link BitbucketUserAccount}.
  *
  * @author Kaz Nishimura
  * @since 6.0
  */
-public class ClientUserAccount extends ClientAccount implements BitbucketUser
+public class ClientUserAccount extends ClientAccount
+    implements BitbucketUserAccount
 {
     @JsonbProperty("is_staff")
     private boolean staff = false;
