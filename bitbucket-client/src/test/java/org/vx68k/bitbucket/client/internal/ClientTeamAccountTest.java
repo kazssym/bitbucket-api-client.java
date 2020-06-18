@@ -101,7 +101,7 @@ public final class ClientTeamAccountTest
      * Tests {@link ClientTeamAccount#getUUID()}.
      */
     @Test
-    public void testGetUUID()
+    public void testUUID()
     {
         String string1 = "{\"type\":\"team\"}";
         ClientTeamAccount team1 = jsonb.fromJson(string1, ClientTeamAccount.class);
@@ -119,7 +119,7 @@ public final class ClientTeamAccountTest
      * Tests {@link ClientTeamAccount#getName()}.
      */
     @Test
-    public void testGetName()
+    public void testName()
     {
         String string1 = "{\"type\":\"team\"}";
         ClientTeamAccount team1 = jsonb.fromJson(string1, ClientTeamAccount.class);
@@ -137,7 +137,7 @@ public final class ClientTeamAccountTest
      * Tests {@link ClientTeamAccount#getDisplayName()}.
      */
     @Test
-    public void testGetDisplayName()
+    public void testDisplayName()
     {
         String string1 = "{\"type\":\"team\"}";
         ClientTeamAccount team1 = jsonb.fromJson(string1, ClientTeamAccount.class);
@@ -155,7 +155,7 @@ public final class ClientTeamAccountTest
      * Tests {@link ClientTeamAccount#getWebsite()}.
      */
     @Test
-    public void testGetWebsite()
+    public void testWebsite()
     {
         String string1 = "{\"type\":\"team\"}";
         ClientTeamAccount team1 = jsonb.fromJson(string1, ClientTeamAccount.class);
@@ -173,7 +173,7 @@ public final class ClientTeamAccountTest
      * Tests {@link ClientTeamAccount#getLocation()}.
      */
     @Test
-    public void testGetLocation()
+    public void testLocation()
     {
         String string1 = "{\"type\":\"team\"}";
         ClientTeamAccount team1 = jsonb.fromJson(string1, ClientTeamAccount.class);
@@ -191,7 +191,7 @@ public final class ClientTeamAccountTest
      * Tests {@link ClientTeamAccount#getCreated()}.
      */
     @Test
-    public void testGetCreated()
+    public void testCreated()
     {
         String string1 = "{\"type\":\"team\"}";
         ClientTeamAccount team1 = jsonb.fromJson(string1, ClientTeamAccount.class);
