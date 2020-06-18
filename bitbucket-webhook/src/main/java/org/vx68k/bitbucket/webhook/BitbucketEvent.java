@@ -89,7 +89,7 @@ public class BitbucketEvent extends BitbucketClientObject
 
         BitbucketRepository value = null;
         if (repository != null) {
-            value = new ClientRepository(repository);
+            // value = new ClientRepository(repository);
         }
         return value;
     }
@@ -104,7 +104,7 @@ public class BitbucketEvent extends BitbucketClientObject
         JsonObject eventObject = getJsonObject();
         BitbucketPush push = null;
         if (eventObject.containsKey(PUSH)) {
-            push = new BitbucketPush(eventObject.getJsonObject(PUSH));
+            // push = new BitbucketPush(eventObject.getJsonObject(PUSH));
         }
         return push;
     }
