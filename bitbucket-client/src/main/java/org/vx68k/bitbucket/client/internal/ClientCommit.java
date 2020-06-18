@@ -58,6 +58,7 @@ public class ClientCommit implements BitbucketCommit
         return "commit";
     }
 
+    @Override
     public final String getHash()
     {
         return hash;

@@ -1,6 +1,6 @@
 /*
- * BitbucketCommit.java - interface BitbucketCommit
- * Copyright (C) 2018 Kaz Nishimura
+ * BitbucketCommit.java
+ * Copyright (C) 2018-2020 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -28,4 +28,11 @@ package org.vx68k.bitbucket;
  */
 public interface BitbucketCommit
 {
+    /**
+     * Returns the hash of the commit.
+     * This is the primary identifier.
+     *
+     * @return the hash of the commit
+     */
+    String getHash();
 }
