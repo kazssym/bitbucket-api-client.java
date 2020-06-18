@@ -55,7 +55,7 @@ public class ClientCommit implements BitbucketCommit
     @JsonbProperty("type")
     private final String getType()
     {
-        return "type";
+        return "commit";
     }
 
     public final String getHash()
