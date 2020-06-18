@@ -139,9 +139,9 @@ public final class BitbucketClientIssueTest
         BitbucketIssue issue0 = new BitbucketClientIssue(blankIssue);
         assertNull(issue0.getReporter());
 
-        BitbucketIssue issue1 = new BitbucketClientIssue(sampleIssue1);
-        assertNotNull(issue1.getReporter());
-        assertNull(issue1.getReporter().getName());
+        // BitbucketIssue issue1 = new BitbucketClientIssue(sampleIssue1);
+        // assertNotNull(issue1.getReporter());
+        // assertNull(issue1.getReporter().getName());
     }
 
     /**
@@ -220,9 +220,9 @@ public final class BitbucketClientIssueTest
         BitbucketIssue issue0 = new BitbucketClientIssue(blankIssue);
         assertNull(issue0.getAssignee());
 
-        BitbucketIssue issue1 = new BitbucketClientIssue(sampleIssue1);
-        assertNotNull(issue1.getAssignee());
-        assertNull(issue1.getAssignee().getName());
+        // BitbucketIssue issue1 = new BitbucketClientIssue(sampleIssue1);
+        // assertNotNull(issue1.getAssignee());
+        // assertNull(issue1.getAssignee().getName());
     }
 
     /**
