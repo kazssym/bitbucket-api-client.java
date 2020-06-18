@@ -20,26 +20,59 @@
 
 package org.vx68k.bitbucket.client.internal;
 
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.fail;
+import javax.json.bind.Jsonb;
+import javax.json.bind.JsonbBuilder;
+import javax.json.bind.JsonbException;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import org.junit.Ignore;
-import org.junit.Test;
 
 /**
  * Unit tests for {@link ClientCommit}.
  *
  * @author Kaz Nishimura
+ * @since 6.0
  */
 public final class ClientCommitTest
 {
-    // @todo Add test methods.
+    private Jsonb jsonb;
+
+    @BeforeEach
+    public void setUp()
+    {
+        jsonb = JsonbBuilder.create();
+    }
+
+    @AfterEach
+    public void tearDown() throws Exception
+    {
+        jsonb.close();
+        jsonb = null;
+    }
 
     /**
-     * Tests nothing. This method is a placeholder.
+     * Tests {@link ClientCommit#ClientCommit}.
      */
-    @Test @Ignore
-    public void testNothing()
+    @Test
+    public void testConstructor()
     {
-        fail();
+        String string1 = "{}";
+        ClientCommit commit1 = jsonb.fromJson(string1, ClientCommit.class);
+        assertNull(commit1.getHash());
+
+        String string2 = "{\"type\":\"none\"}";
+        ClientCommit commit2 = null;
+        try {
+            commit2 = jsonb.fromJson(string2, ClientCommit.class);
+            fail();
+        }
+        catch (final JsonbException e) {
+            // Expected.
+            System.out.println("Caught " + e.toString());
+        }
+        assertNull(commit2);
     }
 }
