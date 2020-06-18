@@ -21,8 +21,6 @@
 package org.vx68k.bitbucket.client.internal;
 
 import java.util.Objects;
-
-import javax.json.bind.annotation.JsonbAnnotation;
 import javax.json.bind.annotation.JsonbProperty;
 
 /**
