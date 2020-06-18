@@ -55,7 +55,7 @@ public abstract class ClientAccount implements BitbucketAccount
     private String location;
 
     @JsonbProperty("created_on")
-    @JsonbDateFormat("uuuu-MM-dd'T'HH:mm:ss[.SSSSSS]XXXXX")
+    @JsonbDateFormat("uuuu-MM-dd'T'HH:mm:ss[.SSSSSS]xxxxx")
     private OffsetDateTime created;
 
     // @JsonbProperty("links")
