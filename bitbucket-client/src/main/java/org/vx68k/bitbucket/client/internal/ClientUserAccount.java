@@ -63,20 +63,6 @@ public class ClientUserAccount extends ClientAccount
         return AccountType.USER;
     }
 
-    public final void setType(final AccountType type)
-    {
-        if (type != null && !(type.equals(AccountType.USER))) {
-            throw new IllegalArgumentException("AccountType is not USER");
-        }
-    }
-
-    public final void setType(final String type)
-    {
-        if (type != null && !(type.equals(AccountType.USER.toString()))) {
-            throw new IllegalArgumentException("AccountType is not USER");
-        }
-    }
-
     /**
      * {@inheritDoc}
      */

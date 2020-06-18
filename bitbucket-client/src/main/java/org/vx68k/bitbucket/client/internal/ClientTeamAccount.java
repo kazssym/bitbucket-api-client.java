@@ -55,22 +55,4 @@ public class ClientTeamAccount extends ClientAccount
     {
         return AccountType.TEAM;
     }
-
-    @JsonbProperty("type")
-    public final void setType(final AccountType type)
-    {
-        if (!(Objects.equals(type, AccountType.TEAM)))
-        {
-            throw new IllegalArgumentException("AccountType is not TEAM");
-        }
-    }
-
-    @JsonbProperty("type")
-    public final void setType(final String type)
-    {
-        if (!(Objects.equals(type, AccountType.TEAM.toString())))
-        {
-            throw new IllegalArgumentException("AccountType is not TEAM");
-        }
-    }
 }

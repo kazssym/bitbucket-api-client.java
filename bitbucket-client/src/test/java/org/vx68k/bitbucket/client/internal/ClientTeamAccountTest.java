@@ -22,13 +22,11 @@ package org.vx68k.bitbucket.client.internal;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.fail;
 import java.io.InputStream;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
-import javax.json.bind.JsonbException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -85,16 +83,8 @@ public final class ClientTeamAccountTest
         assertEquals(ClientAccount.AccountType.TEAM, team1.getType());
 
         String string2 = "{\"type\":\"user\"}";
-        ClientTeamAccount team2 = null;
-        try {
-            team2 = jsonb.fromJson(string2, ClientTeamAccount.class);
-            fail();
-        }
-        catch (final JsonbException e) {
-            // Expected.
-            System.out.println("Caught " + e.toString());
-        }
-        assertNull(team2);
+        ClientTeamAccount team2 = jsonb.fromJson(string2, ClientTeamAccount.class);
+        assertEquals(ClientAccount.AccountType.TEAM, team2.getType());
     }
 
     /**
