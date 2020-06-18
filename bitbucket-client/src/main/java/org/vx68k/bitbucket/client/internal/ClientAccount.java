@@ -25,6 +25,7 @@ import java.util.Map;
 import java.util.UUID;
 import javax.json.bind.annotation.JsonbDateFormat;
 import javax.json.bind.annotation.JsonbProperty;
+import javax.json.bind.annotation.JsonbTypeAdapter;
 import javax.ws.rs.core.Link;
 import org.vx68k.bitbucket.BitbucketAccount;
 
@@ -38,6 +39,7 @@ import org.vx68k.bitbucket.BitbucketAccount;
 public abstract class ClientAccount implements BitbucketAccount
 {
     @JsonbProperty("uuid")
+    @JsonbTypeAdapter(UUIDAdapter.class)
     private UUID uuid;
 
     @JsonbProperty("username")
