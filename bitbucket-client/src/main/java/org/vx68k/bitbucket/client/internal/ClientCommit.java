@@ -34,6 +34,9 @@ public class ClientCommit implements BitbucketCommit
     @JsonbProperty("hash")
     private String hash;
 
+    @JsonbProperty("message")
+    private String message;
+
     /**
      * Constructs a commit.
      */
@@ -67,5 +70,15 @@ public class ClientCommit implements BitbucketCommit
     public final void setHash(final String hash)
     {
         this.hash = hash;
+    }
+
+    public final String getMessage()
+    {
+        return message;
+    }
+
+    public final void setMessage(final String message)
+    {
+        this.message = message;
     }
 }
