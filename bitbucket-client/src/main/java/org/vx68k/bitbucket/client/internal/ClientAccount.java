@@ -20,15 +20,14 @@
 
 package org.vx68k.bitbucket.client.internal;
 
+import java.net.URI;
 import java.time.OffsetDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import javax.json.bind.annotation.JsonbDateFormat;
 import javax.json.bind.annotation.JsonbProperty;
-import javax.json.bind.annotation.JsonbTransient;
 import javax.json.bind.annotation.JsonbTypeAdapter;
-import javax.ws.rs.core.Link;
 import org.vx68k.bitbucket.BitbucketAccount;
 
 /**
@@ -60,9 +59,9 @@ public abstract class ClientAccount implements BitbucketAccount
     @JsonbDateFormat("uuuu-MM-dd'T'HH:mm:ss[.SSSSSS]xxxxx")
     private OffsetDateTime created;
 
-    // @JsonbProperty("links")
-    @JsonbTransient
-    private Map<String, Link> links;
+    @JsonbProperty("links")
+    @JsonbTypeAdapter(LinkMapAdapter.class)
+    private Map<String, URI> links;
 
     /**
      * Constructs an account object.
@@ -173,7 +172,6 @@ public abstract class ClientAccount implements BitbucketAccount
     /**
      * {@inheritDoc}
      */
-    // @JsonbProperty("location")
     @Override
     public final String getLocation()
     {
@@ -219,12 +217,12 @@ public abstract class ClientAccount implements BitbucketAccount
         return super.toString();
     }
 
-    public final Map<String, Link> getLinks()
+    public final Map<String, URI> getLinks()
     {
         return links;
     }
 
-    public final void setLinks(Map<String, Link> links)
+    public final void setLinks(Map<String, URI> links)
     {
         if (links != null) {
             links = new HashMap<>(links);
