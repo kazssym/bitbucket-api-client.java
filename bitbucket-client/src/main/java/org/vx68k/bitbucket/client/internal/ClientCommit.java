@@ -20,10 +20,8 @@
 
 package org.vx68k.bitbucket.client.internal;
 
-import javax.json.JsonObject;
+import javax.json.bind.annotation.JsonbProperty;
 import org.vx68k.bitbucket.BitbucketCommit;
-import org.vx68k.bitbucket.client.BitbucketClient;
-import org.vx68k.bitbucket.client.BitbucketClientObject;
 
 /**
  * Client implementation class of {@link BitbucketCommit}.
@@ -31,40 +29,28 @@ import org.vx68k.bitbucket.client.BitbucketClientObject;
  * @author Kaz Nishimura
  * @since 6.0
  */
-public class ClientCommit extends BitbucketClientObject implements
-    BitbucketCommit
+public class ClientCommit implements BitbucketCommit
 {
     /**
-     * Type name for JSON commit objects.
+     * Constructs a commit.
      */
-    private static final String COMMIT = "commit";
-
-    /**
-     * Initializes the object without a Bitbucket API client.
-     *
-     * @param jsonObject a JSON object for a commit resource
-     * @see #BitbucketClientCommit(JsonObject, BitbucketClient)
-     */
-    public ClientCommit(final JsonObject jsonObject)
+    public ClientCommit()
     {
-        this(jsonObject, null);
+        // Nothing to do.
     }
 
     /**
-     * Initializes the object with a Bitbucket API client.
+     * Construct a commit copying another.
      *
-     * @param jsonObject a JSON object for a commit resource
-     * @param bitbucketClient a Bitbucket API client
+     * @param other another commit
      */
-    public ClientCommit(
-        final JsonObject jsonObject, final BitbucketClient bitbucketClient)
+    public ClientCommit(final ClientCommit other)
     {
-        super(jsonObject, bitbucketClient);
+    }
 
-        String type = getType();
-        if (!COMMIT.equals(type)) {
-            throw new IllegalArgumentException(
-                "JSON object type is not commit");
-        }
+    @JsonbProperty("type")
+    private final String getType()
+    {
+        return "type";
     }
 }
