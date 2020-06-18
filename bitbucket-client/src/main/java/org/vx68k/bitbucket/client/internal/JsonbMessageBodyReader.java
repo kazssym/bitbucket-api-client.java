@@ -53,7 +53,6 @@ public class JsonbMessageBodyReader<T>
         if (mediaType.isCompatible(MediaType.APPLICATION_JSON_TYPE)) {
             return true;
         }
-
         return false;
     }
 
