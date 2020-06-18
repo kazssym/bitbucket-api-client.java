@@ -21,7 +21,6 @@
 package org.vx68k.bitbucket.client;
 
 import static org.vx68k.bitbucket.client.JsonUtilities.toInstant;
-
 import java.time.Instant;
 import java.util.function.Function;
 import javax.json.JsonNumber;
@@ -32,6 +31,7 @@ import org.vx68k.bitbucket.BitbucketIssue;
 import org.vx68k.bitbucket.BitbucketRendered;
 import org.vx68k.bitbucket.BitbucketRepository;
 import org.vx68k.bitbucket.BitbucketUser;
+import org.vx68k.bitbucket.client.internal.ClientUserAccount;
 
 /**
  * Client implementation of {@link BitbucketIssue}.
