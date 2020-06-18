@@ -38,6 +38,8 @@ import javax.ws.rs.core.MediaType;
 import org.vx68k.bitbucket.Bitbucket;
 import org.vx68k.bitbucket.BitbucketAccount;
 import org.vx68k.bitbucket.BitbucketRepository;
+import org.vx68k.bitbucket.client.internal.ClientTeamAccount;
+import org.vx68k.bitbucket.client.internal.ClientUserAccount;
 import org.vx68k.bitbucket.client.internal.JsonMessageBodyReader;
 import org.vx68k.bitbucket.client.internal.OAuth2Authenticator;
 
@@ -337,8 +339,8 @@ public class BitbucketClient implements Bitbucket, Serializable
      * @param values template values, or {@code null}
      * @return JSON object if found, {@code null} otherwise
      */
-    public final JsonObject getResource(
-        final String path, final Map<String, Object> values)
+    public final <T> T getResource(
+        final String path, final Map<String, Object> values, Class<T> klass)
     {
         Client client = clientBuilder.build();
         try {
@@ -347,7 +349,7 @@ public class BitbucketClient implements Bitbucket, Serializable
                 target = target.resolveTemplates(values);
             }
             return target.request()
-                .accept(MediaType.APPLICATION_JSON).get(JsonObject.class);
+                .accept(MediaType.APPLICATION_JSON).get(klass);
         }
         catch (NotFoundException exception) {
             return null;
@@ -367,12 +369,7 @@ public class BitbucketClient implements Bitbucket, Serializable
     {
         Map<String, Object> values = Collections.singletonMap("name", name);
 
-        JsonObject object = getResource("/users/{name}", values);
-        ClientAccount value = null;
-        if (object != null) {
-            value = new ClientUserAccount(object);
-        }
-        return value;
+        return getResource("/users/{name}", values, ClientUserAccount.class);
     }
 
     /**
@@ -385,12 +382,7 @@ public class BitbucketClient implements Bitbucket, Serializable
     {
         Map<String, Object> values = Collections.singletonMap("name", name);
 
-        JsonObject object = getResource("/teams/{name}", values);
-        ClientAccount value = null;
-        if (object != null) {
-            value = new ClientTeamAccount(object);
-        }
-        return value;
+        return getResource("/teams/{name}", values, ClientTeamAccount.class);
     }
 
     /**
@@ -406,13 +398,8 @@ public class BitbucketClient implements Bitbucket, Serializable
         values.put("owner", ownerName);
         values.put("name", name);
 
-        JsonObject object = getResource(
-            "/repositories/{owner}/{name}", values);
-        BitbucketRepository value = null;
-        if (object != null) {
-            value = new ClientRepository(object);
-        }
-        return value;
+        return getResource("/repositories/{owner}/{name}", values,
+            ClientRepository.class);
     }
 
     @Override
