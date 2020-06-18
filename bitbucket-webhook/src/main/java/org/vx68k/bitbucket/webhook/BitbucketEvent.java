@@ -25,7 +25,7 @@ import org.vx68k.bitbucket.BitbucketAccount;
 import org.vx68k.bitbucket.BitbucketRepository;
 import org.vx68k.bitbucket.client.BitbucketClientObject;
 import org.vx68k.bitbucket.client.ClientRepository;
-import org.vx68k.bitbucket.client.ClientUserAccount;
+import org.vx68k.bitbucket.client.internal.ClientUserAccount;
 
 /**
  * Event on a Bitbucket repository.
@@ -73,7 +73,7 @@ public class BitbucketEvent extends BitbucketClientObject
 
         ClientUserAccount value = null;
         if (actor != null) {
-            value = new ClientUserAccount(actor);
+            // value = new ClientUserAccount(actor);
         }
         return value;
     }
