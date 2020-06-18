@@ -32,10 +32,8 @@ import org.vx68k.bitbucket.BitbucketUserAccount;
 public class ClientUserAccount extends ClientAccount
     implements BitbucketUserAccount
 {
-    @JsonbProperty("is_staff")
     private boolean staff = false;
 
-    @JsonbProperty("account_id")
     private String accountId;
 
     /**
@@ -59,14 +57,12 @@ public class ClientUserAccount extends ClientAccount
         this.accountId = other.accountId;
     }
 
-    @JsonbProperty("type")
     @Override
     public final AccountType getType()
     {
         return AccountType.USER;
     }
 
-    @JsonbProperty("type")
     public final void setType(final AccountType type)
     {
         if (type != null && !(type.equals(AccountType.USER))) {
@@ -74,7 +70,6 @@ public class ClientUserAccount extends ClientAccount
         }
     }
 
-    @JsonbProperty("type")
     public final void setType(final String type)
     {
         if (type != null && !(type.equals(AccountType.USER.toString()))) {
@@ -85,6 +80,7 @@ public class ClientUserAccount extends ClientAccount
     /**
      * {@inheritDoc}
      */
+    @JsonbProperty("is_staff")
     @Override
     public final boolean isStaff()
     {
@@ -96,6 +92,7 @@ public class ClientUserAccount extends ClientAccount
      *
      * @param staff a Boolean value for the staff flag
      */
+    @JsonbProperty("is_staff")
     public final void setStaff(final boolean staff)
     {
         this.staff = staff;
@@ -104,12 +101,14 @@ public class ClientUserAccount extends ClientAccount
     /**
      * {@inheritDoc}
      */
+    @JsonbProperty("account_id")
     @Override
     public final String getAccountId()
     {
         return accountId;
     }
 
+    @JsonbProperty("account_id")
     public final void setAccountId(final String accountId)
     {
         this.accountId = accountId;

@@ -39,27 +39,19 @@ import org.vx68k.bitbucket.BitbucketAccount;
  */
 public abstract class ClientAccount implements BitbucketAccount
 {
-    @JsonbProperty("uuid")
     @JsonbTypeAdapter(UUIDAdapter.class)
     private UUID uuid;
 
-    @JsonbProperty("username")
     private String name;
 
-    @JsonbProperty("display_name")
     private String displayName;
 
-    @JsonbProperty("website")
     private String website;
 
-    @JsonbProperty("location")
     private String location;
 
-    @JsonbProperty("created_on")
-    @JsonbDateFormat("uuuu-MM-dd'T'HH:mm:ss[.SSSSSS]xxxxx")
     private OffsetDateTime created;
 
-    @JsonbProperty("links")
     @JsonbTypeAdapter(LinkMapAdapter.class)
     private Map<String, URI> links;
 
@@ -115,6 +107,7 @@ public abstract class ClientAccount implements BitbucketAccount
     /**
      * {@inheritDoc}
      */
+    @JsonbProperty("username")
     @Override
     public final String getName()
     {
@@ -126,6 +119,7 @@ public abstract class ClientAccount implements BitbucketAccount
      *
      * @param name a string object for the name
      */
+    @JsonbProperty("username")
     public final void setName(final String name)
     {
         this.name = name;
@@ -134,6 +128,7 @@ public abstract class ClientAccount implements BitbucketAccount
     /**
      * {@inheritDoc}
      */
+    @JsonbProperty("display_name")
     @Override
     public final String getDisplayName()
     {
@@ -145,6 +140,7 @@ public abstract class ClientAccount implements BitbucketAccount
      *
      * @param displayName a string object for the name
      */
+    @JsonbProperty("display_name")
     public final void setDisplayName(final String displayName)
     {
         this.displayName = displayName;
@@ -191,6 +187,8 @@ public abstract class ClientAccount implements BitbucketAccount
     /**
      * {@inheritDoc}
      */
+    @JsonbProperty("created_on")
+    @JsonbDateFormat("uuuu-MM-dd'T'HH:mm:ss[.SSSSSS]xxxxx")
     @Override
     public final OffsetDateTime getCreated()
     {
@@ -202,19 +200,11 @@ public abstract class ClientAccount implements BitbucketAccount
      *
      * @param created a {@link OffsetDateTime} object for the create time
      */
+    @JsonbProperty("created_on")
+    @JsonbDateFormat("uuuu-MM-dd'T'HH:mm:ss[.SSSSSS]xxxxx")
     public final void setCreated(final OffsetDateTime created)
     {
         this.created = created;
-    }
-
-    @Override
-    public final String toString()
-    {
-        if (uuid != null) {
-            return "{" + uuid.toString() + "}";
-        }
-
-        return super.toString();
     }
 
     public final Map<String, URI> getLinks()
@@ -228,5 +218,15 @@ public abstract class ClientAccount implements BitbucketAccount
             links = new HashMap<>(links);
         }
         this.links = links;
+    }
+
+    @Override
+    public final String toString()
+    {
+        if (uuid != null) {
+            return "{" + uuid.toString() + "}";
+        }
+
+        return super.toString();
     }
 }
