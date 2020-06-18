@@ -63,7 +63,7 @@ public class UserCommandGroup extends CommandGroup
         {
             PrintWriter out = new PrintWriter(System.out);
             out.format(FORMAT, "Name", user.getName());
-            out.format(FORMAT, "UUID", user.getUUID());
+            out.format(FORMAT, "UUID", user.getUuid());
             out.format(FORMAT, "Display Name", user.getDisplayName());
             out.format(FORMAT, "Website", user.getWebsite());
             out.format(FORMAT, "Location", user.getLocation());

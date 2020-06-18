@@ -106,14 +106,14 @@ public final class ClientUserAccountTest
     {
         String string1 = "{\"type\":\"user\"}";
         ClientUserAccount user1 = jsonb.fromJson(string1, ClientUserAccount.class);
-        assertNull(user1.getUUID());
+        assertNull(user1.getUuid());
 
         String string2 = "{\"type\":\"user\",\"uuid\":\"{01234567-89ab-cdef-0123-456789abcdef}\"}";
         ClientUserAccount user2 = jsonb.fromJson(string2, ClientUserAccount.class);
-        assertEquals(UUID.fromString("01234567-89ab-cdef-0123-456789abcdef"), user2.getUUID());
+        assertEquals(UUID.fromString("01234567-89ab-cdef-0123-456789abcdef"), user2.getUuid());
 
         ClientUserAccount user3 = jsonb.fromJson(sample1, ClientUserAccount.class);
-        assertEquals(SAMPLE1_UUID, user3.getUUID());
+        assertEquals(SAMPLE1_UUID, user3.getUuid());
     }
 
     /**

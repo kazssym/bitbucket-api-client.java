@@ -73,7 +73,7 @@ public class BitbucketClientTest
         BitbucketClient client = new BitbucketClient();
         BitbucketUser user = (BitbucketUser) client.getUser(USER_UUID);
         System.out.println("Got " + user);
-        assertNotNull(user.getUUID());
+        assertNotNull(user.getUuid());
         assertNull(user.getName());
         assertNotNull(user.getDisplayName());
         assertNotNull(user.getCreated());
@@ -100,7 +100,7 @@ public class BitbucketClientTest
         BitbucketClient client = new BitbucketClient();
         BitbucketAccount team = client.getTeam(TEAM_UUID);
         System.out.println("Got " + team);
-        assertNotNull(team.getUUID());
+        assertNotNull(team.getUuid());
         assertEquals("vx68k", team.getName());
         assertNotNull(team.getDisplayName());
         assertNotNull(team.getCreated());

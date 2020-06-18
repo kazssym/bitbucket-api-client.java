@@ -98,21 +98,21 @@ public final class ClientTeamAccountTest
     }
 
     /**
-     * Tests {@link ClientTeamAccount#getUUID()}.
+     * Tests {@link ClientTeamAccount#getUuid()}.
      */
     @Test
     public void testUUID()
     {
         String string1 = "{\"type\":\"team\"}";
         ClientTeamAccount team1 = jsonb.fromJson(string1, ClientTeamAccount.class);
-        assertNull(team1.getUUID());
+        assertNull(team1.getUuid());
 
         String string2 = "{\"type\":\"team\",\"uuid\":\"{01234567-89ab-cdef-0123-456789abcdef}\"}";
         ClientTeamAccount team2 = jsonb.fromJson(string2, ClientTeamAccount.class);
-        assertEquals(UUID.fromString("01234567-89ab-cdef-0123-456789abcdef"), team2.getUUID());
+        assertEquals(UUID.fromString("01234567-89ab-cdef-0123-456789abcdef"), team2.getUuid());
 
         ClientTeamAccount team3 = jsonb.fromJson(sample1, ClientTeamAccount.class);
-        assertEquals(SAMPLE1_UUID, team3.getUUID());
+        assertEquals(SAMPLE1_UUID, team3.getUuid());
     }
 
     /**

@@ -98,7 +98,7 @@ public abstract class ClientAccount implements BitbucketAccount
      * {@inheritDoc}
      */
     @Override
-    public final UUID getUUID()
+    public final UUID getUuid()
     {
         return uuid;
     }
@@ -108,7 +108,7 @@ public abstract class ClientAccount implements BitbucketAccount
      *
      * @param uuid a {@link UUID} object
      */
-    public final void setUUID(final UUID uuid)
+    public final void setUuid(final UUID uuid)
     {
         this.uuid = uuid;
     }

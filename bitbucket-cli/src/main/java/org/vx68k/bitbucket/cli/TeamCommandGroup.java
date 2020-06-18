@@ -63,7 +63,7 @@ public class TeamCommandGroup extends CommandGroup
         {
             PrintWriter out = new PrintWriter(System.out);
             out.format(FORMAT, "Name", team.getName());
-            out.format(FORMAT, "UUID", team.getUUID());
+            out.format(FORMAT, "UUID", team.getUuid());
             out.format(FORMAT, "Display Name", team.getDisplayName());
             out.format(FORMAT, "Website", team.getWebsite());
             out.format(FORMAT, "Location", team.getLocation());

@@ -55,18 +55,18 @@ public interface BitbucketAccount
     }
 
     /**
+     * Returns the UUID of the account.
+     *
+     * @return the UUID of the account
+     */
+    UUID getUuid();
+
+    /**
      * Return the type of the account.
      *
      * @return the type of the account
      */
     AccountType getType();
-
-    /**
-     * Returns the UUID of the account.
-     *
-     * @return the UUID of the account
-     */
-    UUID getUUID();
 
     /**
      * Returns the name of the account.
