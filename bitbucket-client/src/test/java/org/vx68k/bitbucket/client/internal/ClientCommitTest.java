@@ -20,15 +20,13 @@
 
 package org.vx68k.bitbucket.client.internal;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.fail;
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
-import javax.json.bind.JsonbException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 
 /**
  * Unit tests for {@link ClientCommit}.
@@ -59,20 +57,26 @@ public final class ClientCommitTest
     @Test
     public void testConstructor()
     {
+        // The type is always "commit".
+
         String string1 = "{}";
+        ClientCommit commit1 = jsonb.fromJson(string1, ClientCommit.class);
+        assertEquals("commit", commit1.getType());
+
+        String string2 = "{\"type\":\"none\"}";
+        ClientCommit commit2 = jsonb.fromJson(string2, ClientCommit.class);
+        assertEquals("commit", commit2.getType());
+    }
+
+    @Test
+    public void testHash()
+    {
+        String string1 = "{\"type\":\"commit\"}";
         ClientCommit commit1 = jsonb.fromJson(string1, ClientCommit.class);
         assertNull(commit1.getHash());
 
-        String string2 = "{\"type\":\"none\"}";
-        ClientCommit commit2 = null;
-        try {
-            commit2 = jsonb.fromJson(string2, ClientCommit.class);
-            fail();
-        }
-        catch (final JsonbException e) {
-            // Expected.
-            System.out.println("Caught " + e.toString());
-        }
-        assertNull(commit2);
+        String string2 = "{\"type\":\"commit\",\"hash\":\".hash\"}";
+        ClientCommit commit2 = jsonb.fromJson(string2, ClientCommit.class);
+        assertEquals(".hash", commit2.getHash());
     }
 }
