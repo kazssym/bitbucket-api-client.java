@@ -102,7 +102,7 @@ public final class ClientUserAccountTest
      * Tests {@link ClientUserAccount#getUUID}.
      */
     @Test
-    public void testUUID()
+    public void testUuid()
     {
         String string1 = "{\"type\":\"user\"}";
         ClientUserAccount user1 = jsonb.fromJson(string1, ClientUserAccount.class);
