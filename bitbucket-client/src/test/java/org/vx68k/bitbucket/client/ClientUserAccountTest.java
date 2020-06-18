@@ -1,6 +1,6 @@
 /*
- * BitbucketClientUserTest.java - class BitbucketClientUserTest
- * Copyright (C) 2018 Kaz Nishimura
+ * ClientUserAccountTest.java
+ * Copyright (C) 2018-2020 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -20,15 +20,20 @@
 
 package org.vx68k.bitbucket.client;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.fail;
+import java.io.InputStream;
 import java.time.OffsetDateTime;
 import java.util.UUID;
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
-import org.junit.Test;
+import javax.json.bind.Jsonb;
+import javax.json.bind.JsonbBuilder;
+import javax.json.bind.JsonbException;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.vx68k.bitbucket.client.internal.ClientAccount;
 
 /**
  * Unit tests for {@link ClientUserAccount}.
@@ -38,14 +43,37 @@ import org.junit.Test;
 public final class ClientUserAccountTest
 {
     /**
-     * Adds a {@code "user"} type to a JSON object builder.
-     *
-     * @param builder JSON object builder
-     * @return JSON object builder which has a {@code "user"} type.
+     * UUID of the sample user 1.
      */
-    static JsonObjectBuilder addUserType(final JsonObjectBuilder builder)
+    private static final UUID SAMPLE1_UUID =
+        UUID.fromString("cebb58cd-f699-4393-8762-e0f743ccf770");
+
+    /**
+     * Time when the sample team 1 created.
+     */
+    private static final OffsetDateTime SAMPLE1_CREATED =
+        OffsetDateTime.parse("2010-02-25T11:30:06.496110Z");
+
+    private Jsonb jsonb;
+
+    private InputStream sample1;
+
+    @BeforeEach
+    public void setUp()
     {
-        return builder.add("type", "user");
+        jsonb = JsonbBuilder.create();
+
+        sample1 = getClass().getResourceAsStream("samples/user1.json");
+    }
+
+    @AfterEach
+    public void tearDown() throws Exception
+    {
+        sample1.close();
+        sample1 = null;
+
+        jsonb.close();
+        jsonb = null;
     }
 
     /**
@@ -54,180 +82,164 @@ public final class ClientUserAccountTest
     @Test
     public void testConstructor()
     {
+        String string1 = "{}";
+        ClientUserAccount user1 = jsonb.fromJson(string1, ClientUserAccount.class);
+        assertEquals(ClientAccount.AccountType.USER, user1.getType());
+
+        String string2 = "{\"type\":\"team\"}";
+        ClientUserAccount user2 = null;
         try {
-            new ClientUserAccount((JsonObject) null);
+            user2 = jsonb.fromJson(string2, ClientUserAccount.class);
             fail();
         }
-        catch (IllegalArgumentException exception) {
-            System.out.println("Caught " + exception.toString());
+        catch (final JsonbException e) {
+            // Expected.
+            System.out.println("Caught " + e.toString());
         }
-
-        JsonObjectBuilder builder = Json.createObjectBuilder();
-
-        try {
-            new ClientUserAccount(builder.build());
-            fail();
-        }
-        catch (IllegalArgumentException exception) {
-            System.out.println("Caught " + exception.toString());
-        }
-
-        builder.add("type", "not_user");
-
-        try {
-            new ClientUserAccount(builder.build());
-            fail();
-        }
-        catch (IllegalArgumentException exception) {
-            System.out.println("Caught " + exception.toString());
-        }
-    }
-
-    /**
-     * Tests {@link ClientUserAccount#getName}.
-     */
-    @Test
-    public void testGetName()
-    {
-        JsonObjectBuilder builder = Json.createObjectBuilder();
-        addUserType(builder);
-
-        ClientUserAccount user1 = new ClientUserAccount(builder.build());
-        assertNull(user1.getName());
-
-        addUserType(builder).add("username", "mary");
-
-        ClientUserAccount user2 = new ClientUserAccount(builder.build());
-        assertEquals("mary", user2.getName());
+        assertNull(user2);
     }
 
     /**
      * Tests {@link ClientUserAccount#getUUID}.
      */
     @Test
-    public void testGetUUID()
+    public void testUUID()
     {
-        JsonObjectBuilder builder = Json.createObjectBuilder();
-        addUserType(builder);
-
-        ClientUserAccount user1 = new ClientUserAccount(builder.build());
+        String string1 = "{\"type\":\"user\"}";
+        ClientUserAccount user1 = jsonb.fromJson(string1, ClientUserAccount.class);
         assertNull(user1.getUUID());
 
-        UUID uuid = UUID.fromString("01234567-89ab-cdef-0123-456789abcdef");
-        addUserType(builder).add("uuid", "{" + uuid.toString() + "}");
+        String string2 = "{\"type\":\"user\",\"uuid\":\"{01234567-89ab-cdef-0123-456789abcdef}\"}";
+        ClientUserAccount user2 = jsonb.fromJson(string2, ClientUserAccount.class);
+        assertEquals(UUID.fromString("01234567-89ab-cdef-0123-456789abcdef"), user2.getUUID());
 
-        ClientUserAccount user2 = new ClientUserAccount(builder.build());
-        assertEquals(uuid, user2.getUUID());
+        ClientUserAccount user3 = jsonb.fromJson(sample1, ClientUserAccount.class);
+        assertEquals(SAMPLE1_UUID, user3.getUUID());
+    }
+
+    /**
+     * Tests {@link ClientUserAccount#getName}.
+     */
+    @Test
+    public void testName()
+    {
+        String string1 = "{\"type\":\"user\"}";
+        ClientUserAccount user1 = jsonb.fromJson(string1, ClientUserAccount.class);
+        assertNull(user1.getName());
+
+        String string2 = "{\"type\":\"user\",\"username\":\".name\"}";
+        ClientUserAccount user2 = jsonb.fromJson(string2, ClientUserAccount.class);
+        assertEquals(".name", user2.getName());
+
+        ClientUserAccount user3 = jsonb.fromJson(sample1, ClientUserAccount.class);
+        assertNull(user3.getName());
     }
 
     /**
      * Tests {@link ClientUserAccount#getDisplayName}.
      */
     @Test
-    public void testGetDisplayName()
+    public void testDisplayName()
     {
-        JsonObjectBuilder builder = Json.createObjectBuilder();
-        addUserType(builder);
-
-        ClientUserAccount user1 = new ClientUserAccount(builder.build());
+        String string1 = "{\"type\":\"user\"}";
+        ClientUserAccount user1 = jsonb.fromJson(string1, ClientUserAccount.class);
         assertNull(user1.getDisplayName());
 
-        addUserType(builder).add("display_name", "Mary Somebody");
+        String string2 = "{\"type\":\"user\",\"display_name\":\".displayName\"}";
+        ClientUserAccount user2 = jsonb.fromJson(string2, ClientUserAccount.class);
+        assertEquals(".displayName", user2.getDisplayName());
 
-        ClientUserAccount user2 = new ClientUserAccount(builder.build());
-        assertEquals("Mary Somebody", user2.getDisplayName());
+        ClientUserAccount user3 = jsonb.fromJson(sample1, ClientUserAccount.class);
+        assertEquals("Kaz Nishimura", user3.getDisplayName());
     }
 
     /**
      * Tests {@link ClientUserAccount#getWebsite}.
      */
     @Test
-    public void testGetWebsite()
+    public void testWebsite()
     {
-        JsonObjectBuilder builder = Json.createObjectBuilder();
-        addUserType(builder);
-
-        ClientUserAccount user1 = new ClientUserAccount(builder.build());
+        String string1 = "{\"type\":\"user\"}";
+        ClientUserAccount user1 = jsonb.fromJson(string1, ClientUserAccount.class);
         assertNull(user1.getWebsite());
 
-        addUserType(builder).add("website", "http://example.com/");
+        String string2 = "{\"type\":\"user\",\"website\":\".website\"}";
+        ClientUserAccount user2 = jsonb.fromJson(string2, ClientUserAccount.class);
+        assertEquals(".website", user2.getWebsite());
 
-        ClientUserAccount user2 = new ClientUserAccount(builder.build());
-        assertEquals("http://example.com/", user2.getWebsite());
+        ClientUserAccount user3 = jsonb.fromJson(sample1, ClientUserAccount.class);
+        assertNull(user3.getWebsite());
     }
 
     /**
      * Tests {@link ClientUserAccount#getLocation}.
      */
     @Test
-    public void testGetLocation()
+    public void testLocation()
     {
-        JsonObjectBuilder builder = Json.createObjectBuilder();
-        addUserType(builder);
-
-        ClientUserAccount user1 = new ClientUserAccount(builder.build());
+        String string1 = "{\"type\":\"user\"}";
+        ClientUserAccount user1 = jsonb.fromJson(string1, ClientUserAccount.class);
         assertNull(user1.getLocation());
 
-        addUserType(builder).add("location", "Behind You");
+        String string2 = "{\"type\":\"user\",\"location\":\".location\"}";
+        ClientUserAccount user2 = jsonb.fromJson(string2, ClientUserAccount.class);
+        assertEquals(".location", user2.getLocation());
 
-        ClientUserAccount user2 = new ClientUserAccount(builder.build());
-        assertEquals("Behind You", user2.getLocation());
+        ClientUserAccount user3 = jsonb.fromJson(sample1, ClientUserAccount.class);
+        assertNull(user3.getLocation());
     }
 
     /**
      * Tests {@link ClientUserAccount#getCreated}.
      */
     @Test
-    public void testGetCreated()
+    public void testCreated()
     {
-        JsonObjectBuilder builder = Json.createObjectBuilder();
-        addUserType(builder);
-
-        ClientUserAccount user1 = new ClientUserAccount(builder.build());
+        String string1 = "{\"type\":\"user\"}";
+        ClientUserAccount user1 = jsonb.fromJson(string1, ClientUserAccount.class);
         assertNull(user1.getCreated());
 
-        OffsetDateTime dateTime = OffsetDateTime.parse(
-            "2001-01-01T01:23:45.678901+09:00");
-        addUserType(builder).add("created_on", dateTime.toString());
+        String string2 = "{\"type\":\"user\",\"created_on\":\"2001-01-01T01:23:45.678901+09:00\"}";
+        ClientUserAccount user2 = jsonb.fromJson(string2, ClientUserAccount.class);
+        assertEquals(OffsetDateTime.parse("2001-01-01T01:23:45.678901+09:00"), user2.getCreated());
 
-        ClientUserAccount user2 = new ClientUserAccount(builder.build());
-        assertEquals(dateTime.toInstant(), user2.getCreated());
+        ClientUserAccount user3 = jsonb.fromJson(sample1, ClientUserAccount.class);
+        assertEquals(SAMPLE1_CREATED, user3.getCreated());
     }
 
     /**
      * Tests {@link ClientUserAccount#isStaff}.
      */
     @Test
-    public void testIsStaff()
+    public void testStaff()
     {
-        JsonObjectBuilder builder = Json.createObjectBuilder();
-        addUserType(builder);
-
-        ClientUserAccount user1 = new ClientUserAccount(builder.build());
+        String string1 = "{\"type\":\"user\"}";
+        ClientUserAccount user1 = jsonb.fromJson(string1, ClientUserAccount.class);
         assertEquals(false, user1.isStaff());
 
-        addUserType(builder).add("is_staff", true);
-
-        ClientUserAccount user2 = new ClientUserAccount(builder.build());
+        String string2 = "{\"type\":\"user\",\"is_staff\":true}";
+        ClientUserAccount user2 = jsonb.fromJson(string2, ClientUserAccount.class);
         assertEquals(true, user2.isStaff());
+
+        ClientUserAccount user3 = jsonb.fromJson(sample1, ClientUserAccount.class);
+        assertEquals(false, user3.isStaff());
     }
 
     /**
      * Tests {@link ClientUserAccount#getAccountId}.
      */
     @Test
-    public void testGetAccountId()
+    public void testAccountId()
     {
-        JsonObjectBuilder builder = Json.createObjectBuilder();
-        addUserType(builder);
-
-        ClientUserAccount user1 = new ClientUserAccount(builder.build());
+        String string1 = "{\"type\":\"user\"}";
+        ClientUserAccount user1 = jsonb.fromJson(string1, ClientUserAccount.class);
         assertNull(user1.getAccountId());
 
-        // We do not care about the official format.
-        addUserType(builder).add("account_id", "012345");
+        String string2 = "{\"type\":\"user\",\"account_id\":\".accountId\"}";
+        ClientUserAccount user2 = jsonb.fromJson(string2, ClientUserAccount.class);
+        assertEquals(".accountId", user2.getAccountId());
 
-        ClientUserAccount user2 = new ClientUserAccount(builder.build());
-        assertEquals("012345", user2.getAccountId());
+        ClientUserAccount user3 = jsonb.fromJson(sample1, ClientUserAccount.class);
+        assertNotNull(user3.getAccountId());
     }
 }

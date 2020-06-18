@@ -21,8 +21,8 @@
 package org.vx68k.bitbucket.client;
 
 import javax.json.bind.annotation.JsonbProperty;
-
 import org.vx68k.bitbucket.BitbucketUser;
+import org.vx68k.bitbucket.client.internal.ClientAccount;
 
 /**
  * Client implementation of {@link BitbucketUser}.
@@ -30,8 +30,7 @@ import org.vx68k.bitbucket.BitbucketUser;
  * @author Kaz Nishimura
  * @since 6.0
  */
-public class ClientUserAccount extends ClientAccount
-    implements BitbucketUser // TODO: Make this class package-scoped.
+public class ClientUserAccount extends ClientAccount implements BitbucketUser
 {
     @JsonbProperty("is_staff")
     private boolean staff = false;
@@ -60,10 +59,27 @@ public class ClientUserAccount extends ClientAccount
         this.accountId = other.accountId;
     }
 
+    @JsonbProperty("type")
     @Override
     public final AccountType getType()
     {
         return AccountType.USER;
+    }
+
+    @JsonbProperty("type")
+    public final void setType(final AccountType type)
+    {
+        if (type != null && !(type.equals(AccountType.USER))) {
+            throw new IllegalArgumentException("AccountType is not USER");
+        }
+    }
+
+    @JsonbProperty("type")
+    public final void setType(final String type)
+    {
+        if (type != null && !(type.equals(AccountType.USER.toString()))) {
+            throw new IllegalArgumentException("AccountType is not USER");
+        }
     }
 
     /**
