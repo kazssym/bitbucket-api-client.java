@@ -75,9 +75,11 @@ public class BearerAuthenticator extends AbstractAuthenticator
     @Override
     protected final void authenticate(final ClientRequestContext context)
     {
-        validateAccessToken();
+        if (accessToken != null) {
+            validateAccessToken();
 
-        MultivaluedMap<String, Object> headers = context.getHeaders();
-        headers.add("Authorization", "Bearer " + accessToken);
+            MultivaluedMap<String, Object> headers = context.getHeaders();
+            headers.add("Authorization", "Bearer " + accessToken);
+        }
     }
 }
