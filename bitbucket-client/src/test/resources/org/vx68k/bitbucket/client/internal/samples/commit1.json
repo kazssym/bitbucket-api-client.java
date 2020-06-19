@@ -1,0 +1,83 @@
+{
+    "rendered": {
+        "message": {
+            "raw": "Created a project.\n",
+            "markup": "markdown",
+            "html": "<p>Created a project.</p>",
+            "type": "rendered"
+        }
+    },
+    "hash": "6799fb47ceaa832d85dadb23f7ec87d62603ce27",
+    "repository": {
+        "links": {
+            "self": {
+                "href": "https://api.bitbucket.org/2.0/repositories/vx68k/bitbucket-api-client.java"
+            },
+            "html": {
+                "href": "https://bitbucket.org/vx68k/bitbucket-api-client.java"
+            },
+            "avatar": {
+                "href": "https://bytebucket.org/ravatar/%7Bda0453e5-4546-445a-adde-95e3a505e875%7D?ts=java"
+            }
+        },
+        "type": "repository",
+        "name": "bitbucket-api-client.java",
+        "full_name": "vx68k/bitbucket-api-client.java",
+        "uuid": "{da0453e5-4546-445a-adde-95e3a505e875}"
+    },
+    "links": {
+        "self": {
+            "href": "https://api.bitbucket.org/2.0/repositories/vx68k/bitbucket-api-client.java/commit/6799fb47ceaa832d85dadb23f7ec87d62603ce27"
+        },
+        "comments": {
+            "href": "https://api.bitbucket.org/2.0/repositories/vx68k/bitbucket-api-client.java/commit/6799fb47ceaa832d85dadb23f7ec87d62603ce27/comments"
+        },
+        "patch": {
+            "href": "https://api.bitbucket.org/2.0/repositories/vx68k/bitbucket-api-client.java/patch/6799fb47ceaa832d85dadb23f7ec87d62603ce27"
+        },
+        "html": {
+            "href": "https://bitbucket.org/vx68k/bitbucket-api-client.java/commits/6799fb47ceaa832d85dadb23f7ec87d62603ce27"
+        },
+        "diff": {
+            "href": "https://api.bitbucket.org/2.0/repositories/vx68k/bitbucket-api-client.java/diff/6799fb47ceaa832d85dadb23f7ec87d62603ce27"
+        },
+        "approve": {
+            "href": "https://api.bitbucket.org/2.0/repositories/vx68k/bitbucket-api-client.java/commit/6799fb47ceaa832d85dadb23f7ec87d62603ce27/approve"
+        },
+        "statuses": {
+            "href": "https://api.bitbucket.org/2.0/repositories/vx68k/bitbucket-api-client.java/commit/6799fb47ceaa832d85dadb23f7ec87d62603ce27/statuses"
+        }
+    },
+    "author": {
+        "raw": "Kaz Nishimura <kazssym@vx68k.org>",
+        "type": "author",
+        "user": {
+            "display_name": "Kaz Nishimura",
+            "uuid": "{cebb58cd-f699-4393-8762-e0f743ccf770}",
+            "links": {
+                "self": {
+                    "href": "https://api.bitbucket.org/2.0/users/%7Bcebb58cd-f699-4393-8762-e0f743ccf770%7D"
+                },
+                "html": {
+                    "href": "https://bitbucket.org/%7Bcebb58cd-f699-4393-8762-e0f743ccf770%7D/"
+                },
+                "avatar": {
+                    "href": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/KN-4.png"
+                }
+            },
+            "nickname": "Kaz",
+            "type": "user",
+            "account_id": "557058:1b90a375-618c-4baa-9894-2f8e99761991"
+        }
+    },
+    "summary": {
+        "raw": "Created a project.\n",
+        "markup": "markdown",
+        "html": "<p>Created a project.</p>",
+        "type": "rendered"
+    },
+    "parents": [],
+    "date": "2015-01-25T00:31:07+00:00",
+    "message": "Created a project.\n",
+    "type": "commit"
+}
