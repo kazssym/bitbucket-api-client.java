@@ -48,6 +48,14 @@ import org.vx68k.bitbucket.client.util.BasicAuthenticator;
  */
 public final class OAuth2Authenticator implements ClientRequestFilter
 {
+    private static final String ACCESS_TOKEN = "access_token";
+
+    private static final String EXPIRES_IN = "expires_in";
+
+    private static final String REFRESH_TOKEN = "refresh_token";
+
+    private static final String REFRESH_TOKEN_GRANT_TYPE = "refresh_token";
+
     /**
      * Expiry margin.
      */
@@ -271,13 +279,13 @@ public final class OAuth2Authenticator implements ClientRequestFilter
                 .request(MediaType.APPLICATION_JSON)
                 .post(formEntity, JsonObject.class);
 
-            setAccessToken(object.getString("access_token"));
-            setRefreshToken(object.getString("refresh_token", null));
+            setAccessToken(object.getString(ACCESS_TOKEN));
+            setRefreshToken(object.getString(REFRESH_TOKEN, null));
 
             Instant expiry = null;
-            if (object.containsKey("expires_in")) {
+            if (object.containsKey(EXPIRES_IN)) {
                 expiry = Instant.now()
-                    .plusSeconds(object.getInt("expires_in"));
+                    .plusSeconds(object.getInt(EXPIRES_IN));
             }
             setAccessTokenExpiry(expiry);
         }
@@ -293,8 +301,8 @@ public final class OAuth2Authenticator implements ClientRequestFilter
     {
         // Do it only if we have a refresh token.
         if (refreshToken != null) {
-            Form form = new Form("grant_type", "refresh_token");
-            form.param("refresh_token", refreshToken);
+            Form form = new Form("grant_type", REFRESH_TOKEN_GRANT_TYPE);
+            form.param(REFRESH_TOKEN, refreshToken);
 
             requestAccessToken(Entity.form(form));
 
