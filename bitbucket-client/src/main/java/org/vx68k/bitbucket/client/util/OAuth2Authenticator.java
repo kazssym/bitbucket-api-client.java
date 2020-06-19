@@ -28,12 +28,9 @@ import java.util.Set;
 import javax.json.JsonObject;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.ClientRequestContext;
-import javax.ws.rs.client.ClientRequestFilter;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Form;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.MultivaluedMap;
 import org.vx68k.bitbucket.client.TokenRefreshEvent;
 import org.vx68k.bitbucket.client.TokenRefreshListener;
 import org.vx68k.bitbucket.client.internal.JsonMessageBodyReader;
@@ -46,7 +43,7 @@ import org.vx68k.bitbucket.client.internal.JsonMessageBodyReader;
  * @see <a href="https://tools.ietf.org/html/rfc6749">RFC 6749</a>
  * @since 6.0
  */
-public final class OAuth2Authenticator implements ClientRequestFilter
+public final class OAuth2Authenticator extends BearerAuthenticator
 {
     private static final String ACCESS_TOKEN = "access_token";
 
@@ -54,17 +51,14 @@ public final class OAuth2Authenticator implements ClientRequestFilter
 
     private static final String REFRESH_TOKEN = "refresh_token";
 
-    private static final String REFRESH_TOKEN_GRANT_TYPE = "refresh_token";
+    private static final String GRANT_TYPE = "grant_type";
+
+    private static final String REFRESH_TOKEN_GRANT = "refresh_token";
 
     /**
      * Expiry margin.
      */
     private static final Duration EXPIRY_MARGIN = Duration.ofSeconds(60);
-
-    /**
-     * Base URI to which authenticated requests shall be sent.
-     */
-    private final URI baseUri;
 
     /**
      * Token endpoint URI.
@@ -77,14 +71,14 @@ public final class OAuth2Authenticator implements ClientRequestFilter
     private final BasicAuthenticator clientAuthenticator;
 
     /**
-     * Token refresh listeners.
+     * Time when the access token expires.
      */
-    private final Set<TokenRefreshListener> tokenRefreshListeners;
+    private Instant expiration = null;
 
     /**
-     * Access token.
+     * Time when the access token expires.
      */
-    private String accessToken = null;
+    private Instant accessTokenRefresh = Instant.MAX;
 
     /**
      * Refresh token.
@@ -92,14 +86,10 @@ public final class OAuth2Authenticator implements ClientRequestFilter
     private String refreshToken = null;
 
     /**
-     * Time when the access token expires.
+     * Token refresh listeners.
      */
-    private Instant accessTokenExpiry = null;
-
-    /**
-     * Time when the access token expires.
-     */
-    private Instant accessTokenExpiryForTest = Instant.MAX;
+    private final Set<TokenRefreshListener> tokenRefreshListeners =
+        new LinkedHashSet<>();
 
     /**
      * Initializes the object.
@@ -109,25 +99,18 @@ public final class OAuth2Authenticator implements ClientRequestFilter
      */
     public OAuth2Authenticator(final URI baseUri, final URI tokenEndpointUri)
     {
-        this.baseUri = baseUri;
-        this.tokenEndpointUri = tokenEndpointUri;
-        this.clientAuthenticator = new BasicAuthenticator(tokenEndpointUri);
-        this.tokenRefreshListeners = new LinkedHashSet<>();
+        super(baseUri);
 
-        if (baseUri == null) {
-            throw new IllegalArgumentException("Base URI must not be null");
-        }
-        else if (!baseUri.isAbsolute()) {
-            throw new IllegalArgumentException("Base URI must be absolute");
-        }
         if (tokenEndpointUri == null) {
-            throw new IllegalArgumentException(
-                "Token endpoint URI must not be null");
+            throw new IllegalArgumentException("Token endpoint URI is null");
         }
         else if (!tokenEndpointUri.isAbsolute()) {
-            throw new IllegalArgumentException(
-                "Token endpoint URI must be absolute");
+            throw new IllegalArgumentException("Token endpoint URI is not absolute");
         }
+
+        this.tokenEndpointUri = tokenEndpointUri;
+        this.clientAuthenticator =
+            new BasicAuthenticator(tokenEndpointUri.resolve("/"));
     }
 
     /**
@@ -161,23 +144,28 @@ public final class OAuth2Authenticator implements ClientRequestFilter
     }
 
     /**
-     * Returns the access token.
+     * Returns the time when the access token expires.
      *
-     * @return the access token
+     * @return the time when the access token expires
      */
-    public String getAccessToken()
+    public Instant getAccessTokenExpiration()
     {
-        return accessToken;
+        return expiration;
     }
 
     /**
-     * Sets the access token.
+     * Sets the time when the access token expires.
      *
-     * @param newValue a new value of the access token
+     * @param expiration new value of the time when the access token expires
      */
-    public void setAccessToken(final String newValue)
+    public void setExpiration(final Instant expiration)
     {
-        accessToken = newValue;
+        this.expiration = expiration;
+
+        accessTokenRefresh = Instant.MAX;
+        if (expiration != null) {
+            accessTokenRefresh = expiration.minus(EXPIRY_MARGIN);
+        }
     }
 
     /**
@@ -193,36 +181,11 @@ public final class OAuth2Authenticator implements ClientRequestFilter
     /**
      * Sets the refresh token.
      *
-     * @param newValue a new value of the refresh token
+     * @param refreshToken a new value of the refresh token
      */
-    public void setRefreshToken(final String newValue)
+    public void setRefreshToken(final String refreshToken)
     {
-        refreshToken = newValue;
-    }
-
-    /**
-     * Returns the time when the access token expires.
-     *
-     * @return the time when the access token expires
-     */
-    public Instant getAccessTokenExpiry()
-    {
-        return accessTokenExpiry;
-    }
-
-    /**
-     * Sets the time when the access token expires.
-     *
-     * @param newValue new value of the time when the access token expires
-     */
-    public void setAccessTokenExpiry(final Instant newValue)
-    {
-        accessTokenExpiry = newValue;
-
-        accessTokenExpiryForTest = Instant.MAX;
-        if (accessTokenExpiry != null) {
-            accessTokenExpiryForTest = accessTokenExpiry.minus(EXPIRY_MARGIN);
-        }
+        this.refreshToken = refreshToken;
     }
 
     /**
@@ -266,28 +229,29 @@ public final class OAuth2Authenticator implements ClientRequestFilter
     /**
      * Requests an access token by posting a form entity.
      *
-     * @param formEntity a form entity
+     * @param entity a form entity
      */
-    public void requestAccessToken(final Entity<Form> formEntity)
+    public void requestAccessToken(final Entity<Form> entity)
     {
-        Client client = ClientBuilder.newClient();
+        // Client is not {@link AutoCloseable}.
+        Client client = ClientBuilder.newClient()
+            .register(new JsonMessageBodyReader())
+            .register(clientAuthenticator);
         try {
-            client.register(JsonMessageBodyReader.class);
-            client.register(clientAuthenticator);
-
             JsonObject object = client.target(tokenEndpointUri)
                 .request(MediaType.APPLICATION_JSON)
-                .post(formEntity, JsonObject.class);
+                .post(entity, JsonObject.class);
 
             setAccessToken(object.getString(ACCESS_TOKEN));
             setRefreshToken(object.getString(REFRESH_TOKEN, null));
 
-            Instant expiry = null;
             if (object.containsKey(EXPIRES_IN)) {
-                expiry = Instant.now()
-                    .plusSeconds(object.getInt(EXPIRES_IN));
+                setExpiration(Instant.now()
+                    .plusSeconds(object.getInt(EXPIRES_IN)));
             }
-            setAccessTokenExpiry(expiry);
+            else {
+                setExpiration(null);
+            }
         }
         finally {
             client.close();
@@ -300,38 +264,25 @@ public final class OAuth2Authenticator implements ClientRequestFilter
     protected void refreshAccessToken()
     {
         // Do it only if we have a refresh token.
-        if (refreshToken != null) {
-            Form form = new Form("grant_type", REFRESH_TOKEN_GRANT_TYPE);
-            form.param(REFRESH_TOKEN, refreshToken);
-
-            requestAccessToken(Entity.form(form));
-
-            fireTokenRefreshed();
-        }
     }
 
     /**
-     * Adds an {@code Authorization} HTTP header to a request when
-     * authentication is required.
-     * The header shall be added only if the request URI is below the base URI.
-     *
-     * @param requestContext a request context
+     * Refreshes the access token if necessary.
      */
     @Override
-    public void filter(final ClientRequestContext requestContext)
+    protected final void validateAccessToken()
     {
-        MultivaluedMap<String, Object> headers = requestContext.getHeaders();
-        URI uri = requestContext.getUri();
+        super.validateAccessToken();
 
-        if (accessToken != null && !uri.equals(baseUri.relativize(uri))) {
-            // Refresh the access token if necessary.
-            synchronized (this) {
-                if (accessTokenExpiryForTest.isBefore(Instant.now())) {
-                    refreshAccessToken();
-                }
+        synchronized (this) {
+            if (accessTokenRefresh.isBefore(Instant.now()) && refreshToken != null) {
+                Form form = (new Form())
+                    .param(GRANT_TYPE, REFRESH_TOKEN_GRANT)
+                    .param(REFRESH_TOKEN, refreshToken);
+                requestAccessToken(Entity.form(form));
+
+                fireTokenRefreshed();
             }
-
-            headers.add("Authorization", "Bearer " + accessToken);
         }
     }
 }
