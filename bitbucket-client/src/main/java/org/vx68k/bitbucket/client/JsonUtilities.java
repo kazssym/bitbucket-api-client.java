@@ -89,11 +89,11 @@ public class JsonUtilities
         return null;
     }
     /**
-     * Converts a JSON string to a UUID.
+     * Converts a string to a UUID.
      * The string may enclose a UUID in a pair of braces.
      *
-     * @param json a JSON value, or {@code null}
-     * @return {@link UUID} object if {@code json} is not null,
+     * @param string a Java string, or {@code null}
+     * @return a {@link UUID} object if {@code json} is not null,
      * {@code null} otherwise
      * @exception ClassCastException if {@code json} is not a JSON string or a
      * JSON null.

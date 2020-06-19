@@ -341,12 +341,14 @@ public class BitbucketClient implements Bitbucket, Serializable
     /**
      * Gets a JSON object from a resource.
      *
+     * @param <T> the type of the return value
      * @param path path of the resource with templates
      * @param values template values, or {@code null}
-     * @return JSON object if found, {@code null} otherwise
+     * @param type the type of the return value
+     * @return got resource if found, {@code null} otherwise
      */
     public final <T> T getResource(
-        final String path, final Map<String, Object> values, Class<T> klass)
+        final String path, final Map<String, Object> values, Class<T> type)
     {
         Client client = clientBuilder.build();
         try {
@@ -355,7 +357,7 @@ public class BitbucketClient implements Bitbucket, Serializable
                 target = target.resolveTemplates(values);
             }
             return target.request()
-                .accept(MediaType.APPLICATION_JSON).get(klass);
+                .accept(MediaType.APPLICATION_JSON).get(type);
         }
         catch (NotFoundException exception) {
             return null;
