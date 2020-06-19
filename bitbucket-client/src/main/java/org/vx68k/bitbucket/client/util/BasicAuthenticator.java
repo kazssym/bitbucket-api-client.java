@@ -31,7 +31,7 @@ import javax.ws.rs.core.MultivaluedMap;
  * @author Kaz Nishimura
  * @since 6.0
  */
-public final class BasicAuthenticator extends AbstractAuthenticator
+public class BasicAuthenticator extends AbstractAuthenticator
 {
     /**
      * Username.
@@ -56,7 +56,7 @@ public final class BasicAuthenticator extends AbstractAuthenticator
      *
      * @return the username
      */
-    public String getUsername()
+    public final String getUsername()
     {
         return username;
     }
@@ -66,7 +66,7 @@ public final class BasicAuthenticator extends AbstractAuthenticator
      *
      * @param newValue a new value of the username
      */
-    public void setUsername(final String newValue)
+    public final void setUsername(final String newValue)
     {
         username = newValue;
     }
@@ -76,7 +76,7 @@ public final class BasicAuthenticator extends AbstractAuthenticator
      *
      * @param newValue a new value of the password
      */
-    public void setPassword(final String newValue)
+    public final void setPassword(final String newValue)
     {
         password = newValue;
     }
