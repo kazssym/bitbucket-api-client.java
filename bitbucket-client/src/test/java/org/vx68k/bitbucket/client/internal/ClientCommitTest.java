@@ -23,6 +23,7 @@ package org.vx68k.bitbucket.client.internal;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import java.io.InputStream;
+import java.time.OffsetDateTime;
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
 import org.junit.jupiter.api.AfterEach;
@@ -39,6 +40,9 @@ public final class ClientCommitTest
 {
     private static final String SAMPLE1_HASH =
         "6799fb47ceaa832d85dadb23f7ec87d62603ce27";
+
+    private static final OffsetDateTime SAMPLE1_DATE =
+        OffsetDateTime.parse("2015-01-25T00:31:07+00:00");
 
     private Jsonb jsonb;
 
@@ -92,6 +96,21 @@ public final class ClientCommitTest
 
         ClientCommit commit3 = jsonb.fromJson(sample1, ClientCommit.class);
         assertEquals(SAMPLE1_HASH, commit3.getHash());
+    }
+
+    @Test
+    public void testDate()
+    {
+        String string1 = "{\"type\":\"commit\"}";
+        ClientCommit commit1 = jsonb.fromJson(string1, ClientCommit.class);
+        assertNull(commit1.getDate());
+
+        String string2 = "{\"type\":\"commit\",\"date\":\"2001-01-01T01:23:45+09:00\"}";
+        ClientCommit commit2 = jsonb.fromJson(string2, ClientCommit.class);
+        assertEquals(OffsetDateTime.parse("2001-01-01T01:23:45+09:00"), commit2.getDate());
+
+        ClientCommit commit3 = jsonb.fromJson(sample1, ClientCommit.class);
+        assertEquals(SAMPLE1_DATE, commit3.getDate());
     }
 
     @Test

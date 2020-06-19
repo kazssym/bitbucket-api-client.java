@@ -20,7 +20,8 @@
 
 package org.vx68k.bitbucket.client.internal;
 
-import javax.json.bind.annotation.JsonbProperty;
+import java.time.OffsetDateTime;
+import javax.json.bind.annotation.JsonbDateFormat;
 import org.vx68k.bitbucket.BitbucketCommit;
 
 /**
@@ -31,10 +32,10 @@ import org.vx68k.bitbucket.BitbucketCommit;
  */
 public class ClientCommit implements BitbucketCommit
 {
-    @JsonbProperty("hash")
     private String hash;
 
-    @JsonbProperty("message")
+    private OffsetDateTime date;
+
     private String message;
 
     /**
@@ -69,6 +70,16 @@ public class ClientCommit implements BitbucketCommit
     public final void setHash(final String hash)
     {
         this.hash = hash;
+    }
+
+    @JsonbDateFormat("uuuu-MM-dd'T'HH:mm:ss[.SSSSSS]xxxxx")
+    public final OffsetDateTime getDate() {
+        return date;
+    }
+
+    @JsonbDateFormat("uuuu-MM-dd'T'HH:mm:ss[.SSSSSS]xxxxx")
+    public final void setDate(final OffsetDateTime date) {
+        this.date = date;
     }
 
     public final String getMessage()
