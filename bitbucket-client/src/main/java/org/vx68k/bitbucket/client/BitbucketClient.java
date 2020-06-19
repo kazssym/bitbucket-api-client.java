@@ -43,7 +43,7 @@ import org.vx68k.bitbucket.client.internal.ClientTeamAccount;
 import org.vx68k.bitbucket.client.internal.ClientUserAccount;
 import org.vx68k.bitbucket.client.internal.JsonMessageBodyReader;
 import org.vx68k.bitbucket.client.internal.JsonbMessageBodyReader;
-import org.vx68k.bitbucket.client.internal.OAuth2Authenticator;
+import org.vx68k.bitbucket.client.util.OAuth2Authenticator;
 
 /**
  * Bitbucket API client.
@@ -203,7 +203,7 @@ public class BitbucketClient implements Bitbucket, Serializable
      */
     public final Instant getAccessTokenExpiry()
     {
-        return authenticator.getAccessTokenExpiry();
+        return authenticator.getAccessTokenExpiration();
     }
 
     /**
@@ -213,7 +213,7 @@ public class BitbucketClient implements Bitbucket, Serializable
      */
     public final void setAccessTokenExpiry(final Instant newValue)
     {
-        authenticator.setAccessTokenExpiry(newValue);
+        authenticator.setExpiration(newValue);
     }
 
     /**
@@ -278,7 +278,7 @@ public class BitbucketClient implements Bitbucket, Serializable
     {
         authenticator.setRefreshToken(null);
         authenticator.setAccessToken(null);
-        authenticator.setAccessTokenExpiry(null);
+        authenticator.setExpiration(null);
     }
 
     /**
