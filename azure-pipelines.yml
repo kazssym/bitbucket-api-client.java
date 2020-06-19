@@ -11,58 +11,48 @@ trigger:
   - feature/**
 stages:
   - stage: Default
-    condition: >-
-      not(startsWith(variables['Build.SourceBranch'], 'refs/heads/release/'))
     jobs:
       - job: Build
         pool:
           vmImage: ubuntu-latest
-        steps:
-          - task: Cache@2
-            inputs:
-              key: maven | $(Agent.OS) | **/pom.xml
-              path: $(Agent.BuildDirectory)/.m2/repository
-              restoreKeys: |
-                maven | $(Agent.OS)
-                maven
-          - task: Maven@3
-            inputs:
-              options: -B -Possrh
-                -Dmaven.repo.local=$(Agent.BuildDirectory)/.m2/repository
-              jdkVersion: "1.8"
-  - stage: Release
-    dependsOn: []
-    condition: >-
-      startsWith(variables['Build.SourceBranch'], 'refs/heads/release/')
-    jobs:
-      - job: BuildAndDeploy
-        displayName: Build and deploy
-        pool:
-          vmImage: ubuntu-latest
         variables:
+          - name: maven.localRepository
+            value: $(Agent.BuildDirectory)/.m2/repository
           - group: gpg
         steps:
           - task: DownloadSecureFile@1
             name: Keys
+            condition: >-
+              startsWith(variables['Build.SourceBranch'], 'refs/heads/release/')
             inputs:
               secureFile: keys.asc
+          - task: Cache@2
+            inputs:
+              key: maven | $(Agent.OS) | **/pom.xml
+              path: $(maven.localRepository)
+              restoreKeys: |
+                maven | $(Agent.OS)
+                maven
+          - task: Maven@3
+            inputs:
+              options: -B -Dmaven.repo.local=$(maven.localRepository)
+              jdkVersion: "1.8"
           - bash: |
               echo '$(gpg.passphrase)' | \
               sh ./setupkeys.sh '$(Keys.secureFilePath)'
             displayName: Set up signing keys
-          - task: Cache@2
-            inputs:
-              key: maven | $(Agent.OS) | **/pom.xml
-              path: $(Agent.BuildDirectory)/.m2/repository
-              restoreKeys: |
-                maven | $(Agent.OS)
-                maven
+            condition: >-
+              startsWith(variables['Build.SourceBranch'], 'refs/heads/release/')
           - task: MavenAuthenticate@0
+            condition: >-
+              startsWith(variables['Build.SourceBranch'], 'refs/heads/release/')
             inputs:
               mavenServiceConnections: ossrh
           - task: Maven@3
+            displayName: "Maven: deploy"
+            condition: >-
+              startsWith(variables['Build.SourceBranch'], 'refs/heads/release/')
             inputs:
               goals: package gpg:sign nexus-staging:deploy
-              options: -B -Possrh
-                -Dmaven.repo.local=$(Agent.BuildDirectory)/.m2/repository
+              options: -B -Possrh -Dmaven.repo.local=$(maven.localRepository)
               jdkVersion: "1.8"
