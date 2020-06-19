@@ -20,8 +20,8 @@
 
 package org.vx68k.bitbucket.client.internal;
 
-import java.util.Objects;
 import javax.json.bind.annotation.JsonbProperty;
+import org.vx68k.bitbucket.BitbucketAccount;
 
 /**
  * Client implementation class of {@link BitbucketAccount} for a team account.
