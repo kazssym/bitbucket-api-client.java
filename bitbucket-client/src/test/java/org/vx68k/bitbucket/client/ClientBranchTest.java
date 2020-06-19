@@ -28,7 +28,7 @@ import org.junit.Test;
 import org.vx68k.bitbucket.BitbucketBranch;
 
 /**
- * Unit tests for {@link BitbucketClientBranch}.
+ * Unit tests for {@link ClientBranch}.
  *
  * @author Kaz Nishimura
  */
