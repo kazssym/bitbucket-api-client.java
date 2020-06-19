@@ -22,6 +22,7 @@ package org.vx68k.bitbucket.client.internal;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import java.io.InputStream;
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
 import org.junit.jupiter.api.AfterEach;
@@ -36,17 +37,27 @@ import org.junit.jupiter.api.Test;
  */
 public final class ClientCommitTest
 {
+    private static final String SAMPLE1_HASH =
+        "6799fb47ceaa832d85dadb23f7ec87d62603ce27";
+
     private Jsonb jsonb;
+
+    private InputStream sample1;
 
     @BeforeEach
     public void setUp()
     {
         jsonb = JsonbBuilder.create();
+
+        sample1 = getClass().getResourceAsStream("samples/commit1.json");
     }
 
     @AfterEach
     public void tearDown() throws Exception
     {
+        sample1.close();
+        sample1 = null;
+
         jsonb.close();
         jsonb = null;
     }
@@ -78,6 +89,9 @@ public final class ClientCommitTest
         String string2 = "{\"type\":\"commit\",\"hash\":\".hash\"}";
         ClientCommit commit2 = jsonb.fromJson(string2, ClientCommit.class);
         assertEquals(".hash", commit2.getHash());
+
+        ClientCommit commit3 = jsonb.fromJson(sample1, ClientCommit.class);
+        assertEquals(SAMPLE1_HASH, commit3.getHash());
     }
 
     @Test
@@ -90,5 +104,8 @@ public final class ClientCommitTest
         String string2 = "{\"type\":\"commit\",\"message\":\".message\"}";
         ClientCommit commit2 = jsonb.fromJson(string2, ClientCommit.class);
         assertEquals(".message", commit2.getMessage());
+
+        ClientCommit commit3 = jsonb.fromJson(sample1, ClientCommit.class);
+        assertEquals("Created a project.\n", commit3.getMessage());
     }
 }
