@@ -26,8 +26,6 @@ import javax.json.JsonArray;
 import javax.json.JsonObject;
 import org.vx68k.bitbucket.BitbucketBranch;
 import org.vx68k.bitbucket.BitbucketCommit;
-import org.vx68k.bitbucket.client.ClientBranch;
-import org.vx68k.bitbucket.client.internal.ClientCommit;
 import org.vx68k.bitbucket.client.BitbucketClientObject;
 
 /**
