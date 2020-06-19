@@ -18,17 +18,11 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-package org.vx68k.bitbucket.client;
+package org.vx68k.bitbucket.client.internal;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.json.JsonArray;
-import javax.json.JsonObject;
-import javax.json.JsonValue;
-import javax.json.bind.annotation.JsonbProperty;
 import org.vx68k.bitbucket.BitbucketBranch;
-import org.vx68k.bitbucket.client.internal.ClientCommit;
-import org.vx68k.bitbucket.client.internal.ClientRef;
 
 /**
  * Client implementation class of {@link BitbucketBranch}.
@@ -41,33 +35,12 @@ public class ClientBranch extends ClientRef implements BitbucketBranch
     /**
      * Type of the branch object.
      */
-    @JsonbProperty("type")
     private String type;
 
     /**
      * List of the head commits of the branch object.
      */
-    @JsonbProperty("heads")
     private List<ClientCommit> heads;
-
-    /**
-     * Parses a JSON array for commits.
-     *
-     * @param commitsArray JSON array of commits
-     * @return list of commits
-     */
-    protected static List<ClientCommit> parseCommits(
-        final JsonArray commitsArray)
-    {
-        List<ClientCommit> commits = null;
-        if (commitsArray != null) {
-            commits = new ArrayList<>();
-            for (JsonValue value : commitsArray) {
-                // commits.add(new ClientCommit((JsonObject) value));
-            }
-        }
-        return commits;
-    }
 
     /**
      * Constructs a branch object.
@@ -84,7 +57,7 @@ public class ClientBranch extends ClientRef implements BitbucketBranch
     public ClientBranch(final ClientBranch other)
     {
         this.type = other.type;
-        this.heads = other.heads; // TODO: Make a copy.
+        this.heads = new ArrayList<>(other.heads);
     }
 
     /**
@@ -118,6 +91,6 @@ public class ClientBranch extends ClientRef implements BitbucketBranch
 
     public final void setHeads(final List<ClientCommit> heads)
     {
-        this.heads = heads; // TODO: Make a copy.
+        this.heads = new ArrayList<>(heads);
     }
 }
