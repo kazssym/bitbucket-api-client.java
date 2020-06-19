@@ -260,7 +260,7 @@ public final class OAuth2Authenticator implements ClientRequestFilter
      *
      * @param formEntity a form entity
      */
-    public void requestAccessToken(final Entity formEntity)
+    public void requestAccessToken(final Entity<Form> formEntity)
     {
         Client client = ClientBuilder.newClient();
         try {
