@@ -61,6 +61,8 @@ public final class ClientBranchTest
 
     /**
      * Tests with a {@code "branch"} object.
+     *
+     * @exception Exception if any error is detected
      */
     @Test
     public void testBranch() throws Exception
@@ -75,6 +77,8 @@ public final class ClientBranchTest
 
     /**
      * Tests with a {@code "named_branch"} object.
+     *
+     * @exception Exception if any error is detected
      */
     @Test
     public void testNamedBranch() throws Exception
@@ -89,6 +93,8 @@ public final class ClientBranchTest
 
     /**
      * Tests with a {@code "bookmark"} object.
+     *
+     * @exception Exception if any error is detected
      */
     @Test
     public void testBookmark() throws Exception

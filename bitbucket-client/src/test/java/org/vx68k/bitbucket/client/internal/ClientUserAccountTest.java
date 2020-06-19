@@ -89,7 +89,7 @@ public final class ClientUserAccountTest
     }
 
     /**
-     * Tests {@link ClientUserAccount#getUUID}.
+     * Tests {@link ClientUserAccount#getUuid}.
      */
     @Test
     public void testUuid()
