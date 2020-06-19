@@ -18,7 +18,7 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-package org.vx68k.bitbucket.client.internal;
+package org.vx68k.bitbucket.client.util;
 
 import java.io.IOException;
 import java.util.Base64;
@@ -49,6 +49,7 @@ public final class BasicAuthenticator implements ClientRequestFilter
      */
     public BasicAuthenticator()
     {
+        // Nothing to do.
     }
 
     /**

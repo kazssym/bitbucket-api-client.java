@@ -36,6 +36,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import org.vx68k.bitbucket.client.TokenRefreshEvent;
 import org.vx68k.bitbucket.client.TokenRefreshListener;
+import org.vx68k.bitbucket.client.util.BasicAuthenticator;
 
 /**
  * OAuth 2.0 authentication filter for the JAX-RS Client API.
