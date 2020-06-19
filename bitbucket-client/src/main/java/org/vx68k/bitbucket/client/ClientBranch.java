@@ -28,6 +28,7 @@ import javax.json.JsonValue;
 import javax.json.bind.annotation.JsonbProperty;
 import org.vx68k.bitbucket.BitbucketBranch;
 import org.vx68k.bitbucket.client.internal.ClientCommit;
+import org.vx68k.bitbucket.client.internal.ClientRef;
 
 /**
  * Client implementation class of {@link BitbucketBranch}.
