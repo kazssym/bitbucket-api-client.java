@@ -109,7 +109,7 @@ Cloud.</description>
 <configuration>
 <instructions>
 <Bundle-SymbolicName>org.vx68k.bitbucket.client</Bundle-SymbolicName>
-<Export-Package>org.vx68k.bitbucket.client</Export-Package>
+<Export-Package>org.vx68k.bitbucket.client, org.vx68k.bitbucket.client.util</Export-Package>
 </instructions>
 </configuration>
 </plugin>
