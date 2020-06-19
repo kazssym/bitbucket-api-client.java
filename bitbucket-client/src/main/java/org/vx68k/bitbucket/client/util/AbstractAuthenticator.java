@@ -45,6 +45,13 @@ public abstract class AbstractAuthenticator implements ClientRequestFilter
      */
     protected AbstractAuthenticator(final URI baseUri)
     {
+        if (baseUri == null) {
+            throw new IllegalArgumentException("Base URI is null");
+        }
+        else if (!(baseUri.isAbsolute())) {
+            throw new IllegalArgumentException("Base URI is not absolute");
+        }
+
         this.baseUri = baseUri;
     }
 
