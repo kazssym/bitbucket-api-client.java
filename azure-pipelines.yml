@@ -81,4 +81,3 @@ stages:
               jdkVersion: "1.11"
           - publish: target/site
             artifact: site
-            condition: succeeded()
