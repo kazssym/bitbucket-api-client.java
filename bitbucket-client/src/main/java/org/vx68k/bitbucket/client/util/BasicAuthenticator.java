@@ -1,38 +1,37 @@
 /*
  * BasicAuthenticator.java
- * Copyright (C) 2018 Kaz Nishimura
+ * Copyright (C) 2018-2020 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
- * under the terms of the GNU General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option)
- * any later version.
+ * under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or (at your
+ * option) any later version.
  *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
- * more details.
+ * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public License
+ * for more details.
  *
- * You should have received a copy of the GNU General Public License along with
- * this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * SPDX-License-Identifier: GPL-3.0-or-later
+ * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
 package org.vx68k.bitbucket.client.util;
 
-import java.io.IOException;
+import java.net.URI;
 import java.util.Base64;
 import javax.ws.rs.client.ClientRequestContext;
-import javax.ws.rs.client.ClientRequestFilter;
 import javax.ws.rs.core.MultivaluedMap;
 
 /**
- * Basic authenticator.
+ * Basic authenticator for the JAX-RS Client API.
  *
  * @author Kaz Nishimura
- * @since 5.0
+ * @since 6.0
  */
-public final class BasicAuthenticator implements ClientRequestFilter
+public final class BasicAuthenticator extends AbstractAuthenticator
 {
     /**
      * Username.
@@ -47,9 +46,9 @@ public final class BasicAuthenticator implements ClientRequestFilter
     /**
      * Initializes the object.
      */
-    public BasicAuthenticator()
+    public BasicAuthenticator(final URI baseUri)
     {
-        // Nothing to do.
+        super(baseUri);
     }
 
     /**
@@ -83,14 +82,12 @@ public final class BasicAuthenticator implements ClientRequestFilter
     }
 
     @Override
-    public void filter(final ClientRequestContext requestContext)
-        throws IOException
+    protected final void authenticate(final ClientRequestContext context)
     {
-        MultivaluedMap<String, Object> headers = requestContext.getHeaders();
-
+        MultivaluedMap<String, Object> headers = context.getHeaders();
         if (username != null && password != null) {
-            String credentials = Base64.getEncoder().encodeToString(
-                String.format("%s:%s", username, password).getBytes());
+            String credentials = Base64.getEncoder()
+                .encodeToString((username + ":" + password).getBytes());
             headers.add("Authorization", "Basic " + credentials);
         }
     }

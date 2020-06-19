@@ -103,7 +103,7 @@ public final class OAuth2Authenticator implements ClientRequestFilter
     {
         this.baseUri = baseUri;
         this.tokenEndpointUri = tokenEndpointUri;
-        this.clientAuthenticator = new BasicAuthenticator();
+        this.clientAuthenticator = new BasicAuthenticator(tokenEndpointUri);
         this.tokenRefreshListeners = new LinkedHashSet<>();
 
         if (baseUri == null) {
