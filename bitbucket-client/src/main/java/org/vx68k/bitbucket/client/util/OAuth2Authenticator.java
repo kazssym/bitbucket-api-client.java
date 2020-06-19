@@ -1,6 +1,6 @@
 /*
  * OAuth2Authenticator.java
- * Copyright (C) 2018 Kaz Nishimura
+ * Copyright (C) 2018-2020 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -18,7 +18,7 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-package org.vx68k.bitbucket.client.internal;
+package org.vx68k.bitbucket.client.util;
 
 import java.net.URI;
 import java.time.Duration;
@@ -36,7 +36,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import org.vx68k.bitbucket.client.TokenRefreshEvent;
 import org.vx68k.bitbucket.client.TokenRefreshListener;
-import org.vx68k.bitbucket.client.util.BasicAuthenticator;
+import org.vx68k.bitbucket.client.internal.JsonMessageBodyReader;
 
 /**
  * OAuth 2.0 authentication filter for the JAX-RS Client API.
@@ -44,7 +44,7 @@ import org.vx68k.bitbucket.client.util.BasicAuthenticator;
  *
  * @author Kaz Nishimura
  * @see <a href="https://tools.ietf.org/html/rfc6749">RFC 6749</a>
- * @since 5.0
+ * @since 6.0
  */
 public final class OAuth2Authenticator implements ClientRequestFilter
 {
