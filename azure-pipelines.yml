@@ -37,6 +37,15 @@ stages:
             inputs:
               options: -B -Dmaven.repo.local=$(maven.localRepository)
               jdkVersion: "1.8"
+          - task: Maven@3
+            displayName: "Maven: site"
+            continueOnError: true
+            inputs:
+              goals: site
+              options: -B -Dmaven.repo.local=$(maven.localRepository)
+              jdkVersion: "1.8"
+          - publish: target/site
+            artifact: site
           - bash: |
               echo '$(gpg.passphrase)' | \
               sh ./setupkeys.sh '$(Keys.secureFilePath)'
