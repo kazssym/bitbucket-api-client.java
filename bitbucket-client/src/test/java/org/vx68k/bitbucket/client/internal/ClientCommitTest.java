@@ -79,4 +79,16 @@ public final class ClientCommitTest
         ClientCommit commit2 = jsonb.fromJson(string2, ClientCommit.class);
         assertEquals(".hash", commit2.getHash());
     }
+
+    @Test
+    public void testMessage()
+    {
+        String string1 = "{\"type\":\"commit\"}";
+        ClientCommit commit1 = jsonb.fromJson(string1, ClientCommit.class);
+        assertNull(commit1.getMessage());
+
+        String string2 = "{\"type\":\"commit\",\"message\":\".message\"}";
+        ClientCommit commit2 = jsonb.fromJson(string2, ClientCommit.class);
+        assertEquals(".message", commit2.getMessage());
+    }
 }
