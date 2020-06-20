@@ -24,6 +24,7 @@ import java.time.OffsetDateTime;
 import java.util.UUID;
 import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbTypeAdapter;
+import org.vx68k.bitbucket.BitbucketAccount;
 import org.vx68k.bitbucket.BitbucketRepository;
 
 /**
@@ -64,7 +65,7 @@ public class ClientRepository implements BitbucketRepository
 
     private boolean wikiEnabled;
 
-    private ClientAccount owner;
+    private BitbucketAccount owner;
 
     // workspace
 
@@ -80,25 +81,25 @@ public class ClientRepository implements BitbucketRepository
         // Nothing to do.
     }
 
-    public ClientRepository(final ClientRepository other)
+    public ClientRepository(final BitbucketRepository other)
     {
-        this.uuid = other.uuid;
-        this.name = other.name;
-        this.fullName = other.fullName;
-        this.description = other.description;
-        this.restricted = other.restricted;
-        this.website = other.website;
-        this.language = other.language;
+        this.uuid = other.getUuid();
+        this.name = other.getName();
+        this.fullName = other.getFullName();
+        this.description = other.getDescription();
+        this.restricted = other.isPrivate();
+        this.forkPolicy = other.getForkPolicy();
+        this.website = other.getWebsite();
+        this.language = other.getLanguage();
+        this.scm = other.getScm();
+        this.created = other.getCreated();
+        this.updated = other.getUpdated();
+        this.size = other.getSize();
+        this.issuesEnabled = other.hasIssueTracker();
+        this.wikiEnabled = other.hasWiki();
 
-        this.scm = other.scm;
-        this.created = other.created;
-        this.updated = other.updated;
-        this.size = other.size;
-        this.issuesEnabled = other.issuesEnabled;
-        this.wikiEnabled = other.wikiEnabled;
-
-        this.owner = other.owner; // TODO: Make a copy.
-        this.mainBranch = new ClientBranch(other.mainBranch);
+        this.owner = other.getOwner(); // TODO: Make a copy.
+        this.mainBranch = new ClientBranch(other.getMainBranch());
     }
 
     public final String getType()
@@ -347,7 +348,7 @@ public class ClientRepository implements BitbucketRepository
      * {@inheritDoc}
      */
     @Override
-    public final ClientAccount getOwner()
+    public final BitbucketAccount getOwner()
     {
         return owner;
     }
@@ -357,7 +358,7 @@ public class ClientRepository implements BitbucketRepository
      *
      * @param owner a {@link ClientAccount} object for the owner
      */
-    public final void setOwner(final ClientAccount owner)
+    public final void setOwner(final BitbucketAccount owner)
     {
         this.owner = owner; // TODO: Make a copy.
     }
