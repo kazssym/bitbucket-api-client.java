@@ -39,11 +39,6 @@ import org.vx68k.bitbucket.BitbucketRepository;
  */
 public class ClientRepository implements BitbucketRepository, BitbucketIssueTracker
 {
-    /**
-     * Name of the {@code fork_policy} value in a JSON repository object.
-     */
-    private static final String FORK_POLICY = "fork_policy";
-
     private UUID uuid;
 
     private String name;
