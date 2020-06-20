@@ -1,6 +1,6 @@
 /*
- * BitbucketEvent.java - class BitbucketEvent
- * Copyright (C) 2015-2018 Kaz Nishimura
+ * WebhookEvent.java
+ * Copyright (C) 2015-2020 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Affero General Public License as published by
@@ -27,12 +27,12 @@ import org.vx68k.bitbucket.client.BitbucketClientObject;
 import org.vx68k.bitbucket.client.internal.ClientUserAccount;
 
 /**
- * Event on a Bitbucket repository.
+ * Class of webhook event on a Bitbucket repository.
  *
  * @author Kaz Nishimura
- * @since 5.0
+ * @since 6.0
  */
-public class BitbucketEvent extends BitbucketClientObject
+public class WebhookEvent extends BitbucketClientObject
 {
     /**
      * Name for the {@code actor} object in a JSON event object.
@@ -56,7 +56,7 @@ public class BitbucketEvent extends BitbucketClientObject
      * @exception IllegalArgumentException if the given JSON object is {@code
      * null}
      */
-    public BitbucketEvent(final JsonObject eventObject)
+    public WebhookEvent(final JsonObject eventObject)
     {
         super(eventObject);
     }

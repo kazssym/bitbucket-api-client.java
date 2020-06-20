@@ -56,7 +56,7 @@ public class BitbucketWebhookServlet extends HttpServlet
     /**
      * Event to fire.
      */
-    private final Event<BitbucketEvent> bitbucketEvent;
+    private final Event<WebhookEvent> bitbucketEvent;
 
     /**
      * Constructs this object with an {@link Event} object.
@@ -64,7 +64,7 @@ public class BitbucketWebhookServlet extends HttpServlet
      * @param event {@link Event} object
      */
     @Inject
-    public BitbucketWebhookServlet(final Event<BitbucketEvent> event)
+    public BitbucketWebhookServlet(final Event<WebhookEvent> event)
     {
         bitbucketEvent = event;
     }
@@ -94,7 +94,7 @@ public class BitbucketWebhookServlet extends HttpServlet
         }
         try (JsonReader reader = Json.createReader(request.getReader())) {
             JsonObject object = reader.readObject();
-            bitbucketEvent.fire(new BitbucketEvent(object));
+            bitbucketEvent.fire(new WebhookEvent(object));
         }
         catch (JsonParsingException exception) {
             log("JSON parsing error", exception);

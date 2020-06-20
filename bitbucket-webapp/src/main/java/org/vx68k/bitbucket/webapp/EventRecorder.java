@@ -50,7 +50,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import org.vx68k.bitbucket.webhook.BitbucketEvent;
+import org.vx68k.bitbucket.webhook.WebhookEvent;
 
 /**
  * Application-scoped bean to record Bitbucket events.
@@ -121,7 +121,7 @@ public class EventRecorder implements Serializable
      * @param bitbucketEvent Bitbucket event to record
      */
     @Transactional
-    public void record(@Observes final BitbucketEvent bitbucketEvent)
+    public void record(@Observes final WebhookEvent bitbucketEvent)
     {
         if (entityManager != null) {
             EventRecord record = new EventRecord(bitbucketEvent);
@@ -192,11 +192,11 @@ public class EventRecorder implements Serializable
         }
 
         /**
-         * Constructs this object with a {@link BitbucketEvent} value.
+         * Constructs this object with a {@link WebhookEvent} value.
          *
-         * @param bitbucketEvent {@link BitbucketEvent} value
+         * @param bitbucketEvent {@link WebhookEvent} value
          */
-        public EventRecord(final BitbucketEvent bitbucketEvent)
+        public EventRecord(final WebhookEvent bitbucketEvent)
         {
             id = 0;
             recorded = new Date();
@@ -253,13 +253,13 @@ public class EventRecorder implements Serializable
          *
          * @return the Bitbucket event
          */
-        public final BitbucketEvent getEvent()
+        public final WebhookEvent getEvent()
         {
-            BitbucketEvent value = null;
+            WebhookEvent value = null;
             if (event != null) {
                 try (JsonReader reader =
                     Json.createReader(new StringReader(event))) {
-                    value = new BitbucketEvent(reader.readObject());
+                    value = new WebhookEvent(reader.readObject());
                 }
             }
             return value;
@@ -270,7 +270,7 @@ public class EventRecorder implements Serializable
          *
          * @param value Bitbucket event
          */
-        public final void setEvent(final BitbucketEvent value)
+        public final void setEvent(final WebhookEvent value)
         {
             event = value.getJsonObject().toString();
         }

@@ -1,6 +1,6 @@
 /*
- * BitbucketEventTest.java - class BitbucketEventTest
- * Copyright (C) 2018 Kaz Nishimura
+ * WebhookEventTest.java
+ * Copyright (C) 2018-2020 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Affero General Public License as published by
@@ -18,17 +18,16 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-package org.vx68k.bitbucket.webhook.test;
+package org.vx68k.bitbucket.webhook;
 
 import org.junit.Test;
-import org.vx68k.bitbucket.webhook.BitbucketEvent;
 
 /**
- * Unit tests for {@link BitbucketEvent}.
+ * Unit tests for {@link WebhookEvent}.
  *
  * @author Kaz Nishimura
  */
-public final class BitbucketEventTest
+public final class WebhookEventTest
 {
     /**
      * Tests a {@code null} object.
@@ -36,6 +35,6 @@ public final class BitbucketEventTest
     @Test(expected = IllegalArgumentException.class)
     public void testNullObject()
     {
-        new BitbucketEvent(null);
+        new WebhookEvent(null);
     }
 }
