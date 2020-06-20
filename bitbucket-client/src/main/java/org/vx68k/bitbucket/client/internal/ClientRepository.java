@@ -44,26 +44,6 @@ public class ClientRepository implements BitbucketRepository, BitbucketIssueTrac
      */
     private static final String FORK_POLICY = "fork_policy";
 
-    /**
-     * Name of the {@code language} value in a JSON repository object.
-     */
-    private static final String LANGUAGE = "language";
-
-    /**
-     * Name of the {@code mainbranch} value in a JSON repository object.
-     */
-    private static final String MAINBRANCH = "mainbranch";
-
-    /**
-     * Name of the {@code project} value in a JSON repository object.
-     */
-    private static final String PROJECT = "project";
-
-    /**
-     * Name of the {@code website} value in a JSON repository object.
-     */
-    private static final String WEBSITE = "website";
-
     private BitbucketAccount owner;
 
     private UUID uuid;
@@ -75,6 +55,12 @@ public class ClientRepository implements BitbucketRepository, BitbucketIssueTrac
     private String description;
 
     private boolean restricted;
+
+    private String forkPolicy;
+
+    private String website;
+
+    private String language;
 
 
     private String scm;
@@ -88,6 +74,10 @@ public class ClientRepository implements BitbucketRepository, BitbucketIssueTrac
     private boolean issuesEnabled;
 
     private boolean wikiEnabled;
+
+    // project
+
+    private ClientBranch mainBranch;
 
     /**
      * Constructs a repository.
@@ -105,6 +95,8 @@ public class ClientRepository implements BitbucketRepository, BitbucketIssueTrac
         this.fullName = other.fullName;
         this.description = other.description;
         this.restricted = other.restricted;
+        this.website = other.website;
+        this.language = other.language;
 
         this.scm = other.scm;
         this.created = other.created;
@@ -112,6 +104,8 @@ public class ClientRepository implements BitbucketRepository, BitbucketIssueTrac
         this.size = other.size;
         this.issuesEnabled = other.issuesEnabled;
         this.wikiEnabled = other.wikiEnabled;
+
+        this.mainBranch = new ClientBranch(other.mainBranch);
     }
 
     /**
@@ -233,15 +227,36 @@ public class ClientRepository implements BitbucketRepository, BitbucketIssueTrac
         this.restricted = restricted;
     }
 
-    /**
-     * {@inheritDoc}
-     * <p>This implementation takes the object of {@code "mainbranch"} in the
-     * underlying JSON object.</p>
-     */
-    @Override
-    public final BitbucketBranch getMainBranch()
+    @JsonbProperty("fork_policy")
+    public final String getForkPolicy()
     {
-        throw new UnsupportedOperationException("Not implemented yet");
+        return forkPolicy;
+    }
+
+    @JsonbProperty("fork_policy")
+    public final void setForkPolicy(final String forkPolicy)
+    {
+        this.forkPolicy = forkPolicy;
+    }
+
+    public final String getWebsite()
+    {
+        return website;
+    }
+
+    public final void setWebsite(final String website)
+    {
+        this.website = website;
+    }
+
+    public final String getLanguage()
+    {
+        return language;
+    }
+
+    public final void setLanguage(String language)
+    {
+        this.language = language;
     }
 
     /**
@@ -334,18 +349,36 @@ public class ClientRepository implements BitbucketRepository, BitbucketIssueTrac
         return wikiEnabled;
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>This implementation takes the object of {@code "mainbranch"} in the
+     * underlying JSON object.</p>
+     */
+    @JsonbProperty("mainbranch")
+    @Override
+    public final ClientBranch getMainBranch()
+    {
+        return mainBranch;
+    }
+
+    public final void setMainBranch(final ClientBranch mainBranch)
+    {
+        this.mainBranch = new ClientBranch(mainBranch);
+    }
+
+
     @Deprecated
     @Override
     public final BitbucketIssueTracker getIssueTracker()
     {
-        throw new UnsupportedOperationException("Unimplemented");
+        throw new UnsupportedOperationException("getIssueTracker is unimplemented");
     }
 
     @Deprecated
     @Override
     public final BitbucketRepository getRepository()
     {
-        throw new UnsupportedOperationException("Unimplemented");
+        throw new UnsupportedOperationException("getRepository is unimplemented");
     }
 
     /**
@@ -355,7 +388,7 @@ public class ClientRepository implements BitbucketRepository, BitbucketIssueTrac
     @Override
     public final BitbucketIssue getIssue(final int id)
     {
-        throw new UnsupportedOperationException("Unimplemented");
+        throw new UnsupportedOperationException("getIssue is unimplemented");
     }
 
     /**
@@ -365,13 +398,13 @@ public class ClientRepository implements BitbucketRepository, BitbucketIssueTrac
     @Override
     public final Collection<BitbucketIssue> issues()
     {
-        throw new UnsupportedOperationException("Unimplemented");
+        throw new UnsupportedOperationException("issues is unimplemented");
     }
 
     @Deprecated
     @Override
     public final Collection<BitbucketIssue> issues(final String filter)
     {
-        throw new UnsupportedOperationException("Unimplemented");
+        throw new UnsupportedOperationException("issues is unimplemented");
     }
 }
