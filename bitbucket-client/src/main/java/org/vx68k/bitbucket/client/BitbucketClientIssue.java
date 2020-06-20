@@ -247,7 +247,7 @@ public class BitbucketClientIssue extends BitbucketClientObject implements
 
         BitbucketRendered value = null;
         if (content != null) {
-            value = new BitbucketClientRendered(content);
+            value = new ClientRendered(content);
         }
         return value;
     }

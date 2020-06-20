@@ -30,7 +30,7 @@ import org.vx68k.bitbucket.BitbucketRendered;
  * @author Kaz Nishimura
  * @since 5.0
  */
-public class BitbucketClientRendered extends BitbucketClientObject implements
+public class ClientRendered extends BitbucketClientObject implements
     BitbucketRendered
 {
     /**
@@ -53,7 +53,7 @@ public class BitbucketClientRendered extends BitbucketClientObject implements
      *
      * @param jsonObject a JSON object
      */
-    public BitbucketClientRendered(final JsonObject jsonObject)
+    public ClientRendered(final JsonObject jsonObject)
     {
         super(jsonObject);
     }
