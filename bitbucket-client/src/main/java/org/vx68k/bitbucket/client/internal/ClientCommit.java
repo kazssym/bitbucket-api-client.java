@@ -87,6 +87,7 @@ public class ClientCommit implements BitbucketCommit
     }
 
     @JsonbDateFormat("uuuu-MM-dd'T'HH:mm:ss[.SSSSSS]xxxxx")
+    @Override
     public final OffsetDateTime getDate() {
         return date;
     }
@@ -96,6 +97,7 @@ public class ClientCommit implements BitbucketCommit
         this.date = date;
     }
 
+    @Override
     public final String getMessage()
     {
         return message;
@@ -106,6 +108,7 @@ public class ClientCommit implements BitbucketCommit
         this.message = message;
     }
 
+    @Override
     public final ClientRepository getRepository()
     {
         return repository;
@@ -116,6 +119,7 @@ public class ClientCommit implements BitbucketCommit
         this.repository = repository;
     }
 
+    @Override
     public final List<BitbucketCommit> getParents()
     {
         return parents;
@@ -126,6 +130,7 @@ public class ClientCommit implements BitbucketCommit
         this.parents = new ArrayList<>(parents);
     }
 
+    @Override
     public final ClientRendered getSummary()
     {
         return summary;
