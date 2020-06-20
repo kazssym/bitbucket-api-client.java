@@ -20,11 +20,9 @@
 
 package org.vx68k.bitbucket.webhook;
 
-import javax.json.JsonObject;
 import org.vx68k.bitbucket.BitbucketAccount;
 import org.vx68k.bitbucket.BitbucketRepository;
-import org.vx68k.bitbucket.client.BitbucketClientObject;
-import org.vx68k.bitbucket.client.internal.ClientUserAccount;
+import org.vx68k.bitbucket.BitbucketUserAccount;
 
 /**
  * Class of webhook event on a Bitbucket repository.
@@ -32,33 +30,45 @@ import org.vx68k.bitbucket.client.internal.ClientUserAccount;
  * @author Kaz Nishimura
  * @since 6.0
  */
-public class WebhookEvent extends BitbucketClientObject
+public class WebhookEvent
 {
-    /**
-     * Name for the {@code actor} object in a JSON event object.
-     */
-    private static final String ACTOR = "actor";
+    private BitbucketRepository repository;
+
+    private BitbucketUserAccount actor;
+
+    private BitbucketPush push;
 
     /**
-     * Name for the {@code repository} object in a JSON event object.
+     * Constructs a webhook event.
      */
-    private static final String REPOSITORY = "repository";
-
-    /**
-     * Name for the {@code push} object in a JSON event object.
-     */
-    private static final String PUSH = "push";
-
-    /**
-     * Constructs this event from a JSON event object.
-     *
-     * @param eventObject JSON event object
-     * @exception IllegalArgumentException if the given JSON object is {@code
-     * null}
-     */
-    public WebhookEvent(final JsonObject eventObject)
+    public WebhookEvent()
     {
-        super(eventObject);
+        // Nothing to do.
+    }
+
+    /**
+     * Constructs a webhook event copying another.
+     *
+     * @param other another webhook event
+     */
+    public WebhookEvent(final WebhookEvent other)
+    {
+        this.actor = other.actor; // TODO: Make a copy.
+    }
+
+    /**
+     * Returns the repository of the event.
+     *
+     * @return the repository of the event
+     */
+    public final BitbucketRepository getRepository()
+    {
+        return repository;
+    }
+
+    public final void setRepository(final BitbucketRepository repository)
+    {
+        this.repository = repository; // TODO: Make a copy.
     }
 
     /**
@@ -68,29 +78,12 @@ public class WebhookEvent extends BitbucketClientObject
      */
     public final BitbucketAccount getActor()
     {
-        JsonObject actor = getJsonObject().getJsonObject(ACTOR);
-
-        ClientUserAccount value = null;
-        if (actor != null) {
-            // value = new ClientUserAccount(actor);
-        }
-        return value;
+        return actor;
     }
 
-    /**
-     * Returns the repository of this event.
-     *
-     * @return the repository
-     */
-    public final BitbucketRepository getRepository()
+    public final void setActor(final BitbucketUserAccount actor)
     {
-        JsonObject repository = getJsonObject().getJsonObject(REPOSITORY);
-
-        BitbucketRepository value = null;
-        if (repository != null) {
-            // value = new ClientRepository(repository);
-        }
-        return value;
+        this.actor = actor;
     }
 
     /**
@@ -100,11 +93,11 @@ public class WebhookEvent extends BitbucketClientObject
      */
     public final BitbucketPush getPush()
     {
-        JsonObject eventObject = getJsonObject();
-        BitbucketPush push = null;
-        if (eventObject.containsKey(PUSH)) {
-            // push = new BitbucketPush(eventObject.getJsonObject(PUSH));
-        }
         return push;
+    }
+
+    public final void setPush(final BitbucketPush push)
+    {
+        this.push = push;
     }
 }
