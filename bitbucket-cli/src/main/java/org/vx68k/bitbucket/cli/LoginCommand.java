@@ -26,8 +26,8 @@ import java.io.InputStream;
 import java.util.Properties;
 import javax.ws.rs.ClientErrorException;
 import org.vx68k.bitbucket.client.BitbucketClient;
-import org.vx68k.bitbucket.client.TokenRefreshEvent;
-import org.vx68k.bitbucket.client.TokenRefreshListener;
+import org.vx68k.bitbucket.client.util.TokenRefreshEvent;
+import org.vx68k.bitbucket.client.util.TokenRefreshListener;
 
 /**
  * CLI {@code login} command.

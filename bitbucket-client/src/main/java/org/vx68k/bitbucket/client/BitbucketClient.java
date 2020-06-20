@@ -44,6 +44,7 @@ import org.vx68k.bitbucket.client.internal.ClientUserAccount;
 import org.vx68k.bitbucket.client.util.JsonStructureMessageBodyReader;
 import org.vx68k.bitbucket.client.util.JsonbMessageBodyReader;
 import org.vx68k.bitbucket.client.util.OAuth2Authenticator;
+import org.vx68k.bitbucket.client.util.TokenRefreshListener;
 
 /**
  * Bitbucket API client.

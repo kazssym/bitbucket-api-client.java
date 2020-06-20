@@ -31,8 +31,6 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Form;
 import javax.ws.rs.core.MediaType;
-import org.vx68k.bitbucket.client.TokenRefreshEvent;
-import org.vx68k.bitbucket.client.TokenRefreshListener;
 
 /**
  * OAuth 2.0 authentication filter for the JAX-RS Client API.

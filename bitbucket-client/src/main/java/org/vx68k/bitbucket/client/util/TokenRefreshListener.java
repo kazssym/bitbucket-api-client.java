@@ -1,5 +1,5 @@
 /*
- * TokenRefreshEvent.java
+ * TokenRefreshListener.java
  * Copyright (C) 2018 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -18,25 +18,20 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-package org.vx68k.bitbucket.client;
-
-import java.util.EventObject;
+package org.vx68k.bitbucket.client.util;
 
 /**
- * Event which is fired when tokens are refreshed.
+ * Listener for {@link TokenRefreshEvent}.
  *
  * @author Kaz Nishimura
  * @since 5.0
  */
-public class TokenRefreshEvent extends EventObject
+public interface TokenRefreshListener
 {
     /**
-     * Initializes the event.
+     * Notifies that tokens were refreshed.
      *
-     * @param source an event source
+     * @param event a fired event
      */
-    public TokenRefreshEvent(final Object source)
-    {
-        super(source);
-    }
+    void tokenRefreshed(TokenRefreshEvent event);
 }
