@@ -1,47 +1,37 @@
 /*
  * BitbucketRepository.java
- * Copyright (C) 2018 Kaz Nishimura
+ * Copyright (C) 2018-2020 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
- * under the terms of the GNU General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option)
- * any later version.
+ * under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or (at your
+ * option) any later version.
  *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
- * more details.
+ * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public License
+ * for more details.
  *
- * You should have received a copy of the GNU General Public License along with
- * this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * SPDX-License-Identifier: GPL-3.0-or-later
+ * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
 package org.vx68k.bitbucket;
 
 import java.time.OffsetDateTime;
+import java.util.List;
 import java.util.UUID;
 
 /**
  * Repository on Bitbucket Cloud.
- * A Bitbucket Cloud repository is owned by an account.
  *
  * @author Kaz Nishimura
- * @since 5.0
+ * @since 6.0
  */
 public interface BitbucketRepository
 {
-    /**
-     * SCM type value for Git repositories.
-     */
-    String GIT = "git";
-
-    /**
-     * SCM type value for Mercurial repositories.
-     */
-    String HG = "hg";
-
     /**
      * Returns the UUID of the repository.
      *
@@ -139,4 +129,51 @@ public interface BitbucketRepository
      * @return {@code true} if and only if the repository has a wiki
      */
     boolean hasWiki();
+
+    /**
+     * Class of commits in a repository.
+     *
+     * @author Kaz Nishimura
+     * @since 6.0
+     */
+    static interface Commit
+    {
+        /**
+         * Returns the hash of the commit.
+         * This is the primary identifier.
+         *
+         * @return the hash of the commit
+         */
+        String getHash();
+
+        /**
+         *
+         * @return the date
+         */
+        OffsetDateTime getDate();
+
+        /**
+         *
+         * @return the message
+         */
+        String getMessage();
+
+        /**
+         *
+         * @return the repository
+         */
+        BitbucketRepository getRepository();
+
+        /**
+         *
+         * @return the list of the parents
+         */
+        List<Commit> getParents();
+
+        /**
+         *
+         * @return the summary
+         */
+        BitbucketRendered getSummary();
+    }
 }
