@@ -59,15 +59,15 @@ public class ClientCommit implements BitbucketCommit
      *
      * @param other another commit
      */
-    public ClientCommit(final ClientCommit other)
+    public ClientCommit(final BitbucketCommit other)
     {
-        this.hash = other.hash;
-        this.date = other.date;
-        this.message = other.message;
+        this.hash = other.getHash();
+        this.date = other.getDate();
+        this.message = other.getMessage();
 
-        this.repository = new ClientRepository(other.repository);
-        this.parents = new ArrayList<>(other.parents);
-        this.summary = new ClientRendered(other.summary);
+        this.repository = new ClientRepository(other.getRepository());
+        this.parents = new ArrayList<>(other.getParents());
+        this.summary = new ClientRendered(other.getSummary());
     }
 
     public final String getType()
