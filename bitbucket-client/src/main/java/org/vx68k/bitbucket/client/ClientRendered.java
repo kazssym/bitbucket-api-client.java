@@ -20,59 +20,73 @@
 
 package org.vx68k.bitbucket.client;
 
-import javax.json.JsonObject;
 import org.vx68k.bitbucket.BitbucketRendered;
 
 /**
- * Client implementation of {@link BitbucketRendered}.
- * This class represents a rendered text by a JSON object.
+ * Client implementation class of {@link BitbucketRendered} for the
+ * {@code "rendered"} type.
  *
  * @author Kaz Nishimura
- * @since 5.0
+ * @since 6.0
  */
-public class ClientRendered extends BitbucketClientObject implements
-    BitbucketRendered
+public class ClientRendered implements BitbucketRendered
 {
-    /**
-     * Name of the {@code html} value in a JSON rendered text object.
-     */
-    private static final String HTML = "html";
+    private String markup;
+
+    private String raw;
+
+    private String html;
 
     /**
-     * Name of the {@code markup} value in a JSON rendered text object.
+     * Constructs a rendered text.
      */
-    private static final String MARKUP = "markup";
-
-    /**
-     * Name of the {@code raw} value in a JSON rendered text object.
-     */
-    private static final String RAW = "raw";
-
-    /**
-     * Initializes the object.
-     *
-     * @param jsonObject a JSON object
-     */
-    public ClientRendered(final JsonObject jsonObject)
+    public ClientRendered()
     {
-        super(jsonObject);
+        // Nothing to do.
+    }
+
+    public ClientRendered(final ClientRendered other)
+    {
+        this.markup = other.markup;
+        this.raw = other.raw;
+        this.html = other.html;
+    }
+
+    public final String getType()
+    {
+        return "rendered";
     }
 
     @Override
     public final String getMarkup()
     {
-        return getJsonObject().getString(MARKUP, null);
+        return markup;
+    }
+
+    public final void setMarkup(final String markup)
+    {
+        this.markup = markup;
     }
 
     @Override
     public final String getRaw()
     {
-        return getJsonObject().getString(RAW, null);
+        return raw;
+    }
+
+    public final void setRaw(final String raw)
+    {
+        this.raw = raw;
     }
 
     @Override
     public final String getHtml()
     {
-        return getJsonObject().getString(HTML, null);
+        return html;
+    }
+
+    public final void setHtml(final String html)
+    {
+        this.html = html;
     }
 }
