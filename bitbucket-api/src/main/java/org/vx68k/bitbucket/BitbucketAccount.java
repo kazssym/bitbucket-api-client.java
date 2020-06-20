@@ -20,7 +20,9 @@
 
 package org.vx68k.bitbucket;
 
+import java.net.URI;
 import java.time.OffsetDateTime;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -55,18 +57,18 @@ public interface BitbucketAccount
     }
 
     /**
-     * Returns the UUID of the account.
-     *
-     * @return the UUID of the account
-     */
-    UUID getUuid();
-
-    /**
      * Return the type of the account.
      *
      * @return the type of the account
      */
     AccountType getType();
+
+    /**
+     * Returns the UUID of the account.
+     *
+     * @return the UUID of the account
+     */
+    UUID getUuid();
 
     /**
      * Returns the name of the account.
@@ -103,4 +105,11 @@ public interface BitbucketAccount
      * @return the date and time when the account was created
      */
     OffsetDateTime getCreated();
+
+    /**
+     * Returns a map to the links of the account
+     *
+     * @return a map to the links of the account
+     */
+    Map<String, URI> getLinks();
 }
