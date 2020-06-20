@@ -20,35 +20,39 @@
 
 package org.vx68k.bitbucket.webhook;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import javax.json.JsonArray;
-import javax.json.JsonObject;
+import javax.json.bind.annotation.JsonbProperty;
 import org.vx68k.bitbucket.BitbucketBranch;
 import org.vx68k.bitbucket.BitbucketCommit;
-import org.vx68k.bitbucket.client.BitbucketClientObject;
 
 /**
- * Push description of a Bitbucket activity.
+ * Class of push activities.
  *
  * @author Kaz Nishimura
- * @since 5.0
+ * @since 6.0
  */
-public class WebhookPush extends BitbucketClientObject
+public class WebhookPush
 {
-    /**
-     * Name for the {@code changes} array in a JSON push object.
-     */
-    private static final String CHANGES = "changes";
+    List<Change> changes;
 
     /**
-     * Constructs this push description from a JSON push object.
-     *
-     * @param pushObject JSON push object
+     * Constructs a push activity.
      */
-    public WebhookPush(final JsonObject pushObject)
+    public WebhookPush()
     {
-        super(pushObject);
+        // Nothing to do.
+    }
+
+    public WebhookPush(final WebhookPush other)
+    {
+        List<Change> otherChanges = other.getChanges();
+        if (otherChanges != null) {
+            otherChanges = otherChanges.stream().map(Change::new)
+                .collect(Collectors.toCollection(ArrayList::new));
+        }
+        this.changes = otherChanges;
     }
 
     /**
@@ -58,65 +62,65 @@ public class WebhookPush extends BitbucketClientObject
      */
     public final List<Change> getChanges()
     {
-        JsonObject object = getJsonObject();
-        JsonArray array = object.getJsonArray(CHANGES);
-        List<Change> changes = null;
-        if (array != null) {
-            changes = array.stream()
-                .map((x) -> new Change((JsonObject) x))
-                .collect(Collectors.toList());
-        }
         return changes;
     }
 
-    /**
-     * Change in a push description.
-     */
-    public static class Change extends BitbucketClientObject
+    public final void setChanges(List<Change> changes)
     {
-        /**
-         * Name for the {@code created} value in a JSON change object.
-         */
-        private static final String CREATED = "created";
+        if (changes != null) {
+            changes = changes.stream().map(Change::new)
+                .collect(Collectors.toCollection(ArrayList::new));
+        }
+        this.changes = changes;
+    }
 
-        /**
-         * Name for the {@code closed} value in a JSON change object.
-         */
-        private static final String CLOSED = "closed";
+    /**
+     * Class of repository changes in a push.
+     */
+    public static class Change
+    {
+        private boolean created;
 
-        /**
-         * Name for the {@code forced} value in a JSON change object.
-         */
-        private static final String FORCED = "forced";
+        private boolean closed;
 
-        /**
-         * Name for the {@code truncated} value in a JSON change object.
-         */
-        private static final String TRUNCATED = "truncated";
+        private boolean forced;
 
-        /**
-         * Name for the {@code old} object in a JSON change object.
-         */
-        private static final String OLD = "old";
+        private boolean truncated;
 
-        /**
-         * Name for the {@code new} object in a JSON change object.
-         */
-        private static final String NEW = "new";
+        private BitbucketBranch old;
 
-        /**
-         * Name for the {@code commits} array in a JSON change object.
-         */
-        private static final String COMMITS = "commits";
+        private BitbucketBranch new1;
+
+        private List<BitbucketCommit> commits;
 
         /**
          * Constructs this change with a JSON change object.
          *
          * @param object JSON change object
          */
-        public Change(final JsonObject object)
+        public Change()
         {
-            super(object);
+            // Nothing to do.
+        }
+
+        public Change(final Change other)
+        {
+            this.created = other.isCreated();
+            this.closed = other.isClosed();
+            this.forced = other.isForced();
+            this.truncated = other.isTruncated();
+
+            BitbucketBranch otherOld = other.getOld();
+            if (otherOld != null) {
+                otherOld = otherOld; // TODO: Make a copy.
+            }
+            this.old = otherOld;
+
+            BitbucketBranch otherNew = other.getNew();
+            if (otherNew != null) {
+                otherNew = otherNew; // TODO: Make a copy.
+            }
+            this.new1 = otherNew;
         }
 
         /**
@@ -126,8 +130,12 @@ public class WebhookPush extends BitbucketClientObject
          */
         public final boolean isCreated()
         {
-            JsonObject object = getJsonObject();
-            return object.getBoolean(CREATED, false);
+            return created;
+        }
+
+        public final void setCreated(final boolean created)
+        {
+            this.created = created;
         }
 
         /**
@@ -137,8 +145,12 @@ public class WebhookPush extends BitbucketClientObject
          */
         public final boolean isClosed()
         {
-            JsonObject object = getJsonObject();
-            return object.getBoolean(CLOSED, false);
+            return closed;
+        }
+
+        public final void setClosed(final boolean closed)
+        {
+            this.closed = closed;
         }
 
         /**
@@ -148,8 +160,12 @@ public class WebhookPush extends BitbucketClientObject
          */
         public final boolean isForced()
         {
-            JsonObject object = getJsonObject();
-            return object.getBoolean(FORCED, false);
+            return forced;
+        }
+
+        public final void setForced(final boolean forced)
+        {
+            this.forced = forced;
         }
 
         /**
@@ -159,8 +175,12 @@ public class WebhookPush extends BitbucketClientObject
          */
         public final boolean isTruncated()
         {
-            JsonObject object = getJsonObject();
-            return object.getBoolean(TRUNCATED, false);
+            return truncated;
+        }
+
+        public final void setTruncated(final boolean truncated)
+        {
+            this.truncated = truncated;
         }
 
         /**
@@ -170,13 +190,15 @@ public class WebhookPush extends BitbucketClientObject
          */
         public final BitbucketBranch getOld()
         {
-            JsonObject object = getJsonObject();
-            BitbucketBranch value = null;
-            if (object.containsKey(OLD) && !object.isNull(OLD)) {
-                // value = new ClientBranch(
-                //     object.getJsonObject(OLD));
+            return old;
+        }
+
+        public final void setOld(BitbucketBranch old)
+        {
+            if (old != null) {
+                old = old; // TODO: Make a copy.
             }
-            return value;
+            this.old = old;
         }
 
         /**
@@ -184,15 +206,19 @@ public class WebhookPush extends BitbucketClientObject
          *
          * @return the new branch
          */
+        @JsonbProperty("new")
         public final BitbucketBranch getNew()
         {
-            JsonObject object = getJsonObject();
-            BitbucketBranch value = null;
-            if (object.containsKey(NEW) && !object.isNull(NEW)) {
-                // value = new ClientBranch(
-                //     object.getJsonObject(NEW));
+            return new1;
+        }
+
+        @JsonbProperty("new")
+        public final void setNew(BitbucketBranch new1)
+        {
+            if (new1 != null) {
+                new1 = new1; // TODO: Make a copy.
             }
-            return value;
+            this.new1 = new1;
         }
 
         /**
@@ -202,15 +228,16 @@ public class WebhookPush extends BitbucketClientObject
          */
         public final List<BitbucketCommit> getCommits()
         {
-            JsonObject object = getJsonObject();
-            JsonArray array = object.getJsonArray(COMMITS);
-            List<BitbucketCommit> commits = null;
-            if (array != null) {
-                // commits = array.stream()
-                //     .map((x) -> new ClientCommit((JsonObject) x))
-                //     .collect(Collectors.toList());
-            }
             return commits;
+        }
+
+        public final void setCommits(List<BitbucketCommit> commits)
+        {
+            if (commits != null) {
+                commits = commits.stream() // .map(BitbucketClient::copyCommit)
+                    .collect(Collectors.toCollection(ArrayList::new)); // TODO: Deep copy?
+            }
+            this.commits = commits;
         }
     }
 }
