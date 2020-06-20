@@ -39,6 +39,7 @@ import javax.ws.rs.core.MediaType;
 import org.vx68k.bitbucket.Bitbucket;
 import org.vx68k.bitbucket.BitbucketAccount;
 import org.vx68k.bitbucket.BitbucketRepository;
+import org.vx68k.bitbucket.client.internal.ClientRepository;
 import org.vx68k.bitbucket.client.internal.ClientTeamAccount;
 import org.vx68k.bitbucket.client.internal.ClientUserAccount;
 import org.vx68k.bitbucket.client.util.JsonStructureMessageBodyReader;

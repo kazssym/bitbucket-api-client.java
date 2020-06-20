@@ -18,15 +18,9 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-package org.vx68k.bitbucket.client;
+package org.vx68k.bitbucket.client.internal;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-import javax.json.Json;
-import javax.json.JsonObject;
-
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests for {@link ClientRepository}.
@@ -39,7 +33,6 @@ public final class ClientRepositoryTest
     /**
      * Tests the constructor.
      */
-    @Ignore
     @Test
     public void testConstructor()
     {
@@ -59,7 +52,6 @@ public final class ClientRepositoryTest
     /**
      * Tests {@link ClientRepository#getSCM}.
      */
-    @Ignore
     @Test
     public void testGetSCM()
     {

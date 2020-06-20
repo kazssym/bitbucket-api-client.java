@@ -24,7 +24,6 @@ import javax.json.JsonObject;
 import org.vx68k.bitbucket.BitbucketAccount;
 import org.vx68k.bitbucket.BitbucketRepository;
 import org.vx68k.bitbucket.client.BitbucketClientObject;
-import org.vx68k.bitbucket.client.ClientRepository;
 import org.vx68k.bitbucket.client.internal.ClientUserAccount;
 
 /**

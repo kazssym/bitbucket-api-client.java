@@ -18,7 +18,7 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-package org.vx68k.bitbucket.client;
+package org.vx68k.bitbucket.client.internal;
 
 import java.time.Instant;
 import java.util.Collection;
@@ -31,10 +31,11 @@ import org.vx68k.bitbucket.BitbucketIssueTracker;
 import org.vx68k.bitbucket.BitbucketRepository;
 
 /**
- * Client implementation of {@link BitbucketRepository}.
+ * Client implementation class of {@link BitbucketRepository} for the
+ * {@code repository} type.
  *
  * @author Kaz Nishimura
- * @since 6.0.0
+ * @since 6.0
  */
 public class ClientRepository implements BitbucketRepository,
     BitbucketIssueTracker // TODO: Change this class to package scope.
