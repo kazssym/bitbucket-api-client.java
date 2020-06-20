@@ -20,9 +20,6 @@
 
 package org.vx68k.bitbucket.client;
 
-import org.vx68k.bitbucket.client.BitbucketClient;
-import org.vx68k.bitbucket.client.PaginatedList;
-import org.vx68k.bitbucket.client.BitbucketClientIssue;
 import static org.junit.Assert.assertTrue;
 
 import java.net.URI;
@@ -52,10 +49,10 @@ public class PaginatedListTest
     {
         BitbucketClient client = BitbucketClient.getDefaultInstance();
         List<BitbucketIssue> issues = new PaginatedList<>(
-            TEST_URI, client, BitbucketClientIssue.creator(client));
+            TEST_URI, client, ClientIssue.creator(client));
 
         BitbucketIssue issue = issues.get(0);
-        assertTrue(issue instanceof BitbucketClientIssue);
+        assertTrue(issue instanceof ClientIssue);
     }
 
     /**
@@ -66,7 +63,7 @@ public class PaginatedListTest
     {
         BitbucketClient client = BitbucketClient.getDefaultInstance();
         List<BitbucketIssue> issues = new PaginatedList<>(
-            TEST_URI, client, BitbucketClientIssue.creator(client));
+            TEST_URI, client, ClientIssue.creator(client));
 
         assertTrue(issues.size() >= 0);
     }

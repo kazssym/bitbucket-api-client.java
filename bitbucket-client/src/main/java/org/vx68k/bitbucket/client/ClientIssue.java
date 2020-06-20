@@ -40,7 +40,7 @@ import org.vx68k.bitbucket.client.internal.ClientUserAccount;
  * @author Kaz Nishimura
  * @since 5.0
  */
-public class BitbucketClientIssue extends BitbucketClientObject implements
+public class ClientIssue extends BitbucketClientObject implements
     BitbucketIssue
 {
     /**
@@ -139,7 +139,7 @@ public class BitbucketClientIssue extends BitbucketClientObject implements
      *
      * @param jsonObject a JSON object
      */
-    public BitbucketClientIssue(final JsonObject jsonObject)
+    public ClientIssue(final JsonObject jsonObject)
     {
         this(jsonObject, null);
     }
@@ -150,7 +150,7 @@ public class BitbucketClientIssue extends BitbucketClientObject implements
      * @param jsonObject a JSON object
      * @param bitbucketClient a Bitbucket API client
      */
-    public BitbucketClientIssue(
+    public ClientIssue(
         final JsonObject jsonObject, final BitbucketClient bitbucketClient)
     {
         super(jsonObject, bitbucketClient);
@@ -166,7 +166,7 @@ public class BitbucketClientIssue extends BitbucketClientObject implements
      *
      * @return a function to create an issue from a JSON object
      */
-    public static Function<JsonObject, BitbucketClientIssue> creator()
+    public static Function<JsonObject, ClientIssue> creator()
     {
         return creator(null);
     }
@@ -177,11 +177,11 @@ public class BitbucketClientIssue extends BitbucketClientObject implements
      * @param bitbucketClient a Bitbucket API client
      * @return a function to create an issue from a JSON object
      */
-    public static Function<JsonObject, BitbucketClientIssue> creator(
+    public static Function<JsonObject, ClientIssue> creator(
         final BitbucketClient bitbucketClient)
     {
         return (object) ->
-            new BitbucketClientIssue(object, bitbucketClient);
+            new ClientIssue(object, bitbucketClient);
     }
 
     @Override
