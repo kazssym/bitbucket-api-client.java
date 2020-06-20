@@ -53,19 +53,23 @@ public class WebhookEvent
      */
     public WebhookEvent(final WebhookEvent other)
     {
-        BitbucketRepository repository = other.getRepository();
-        if (repository != null) {
-            repository = BitbucketClient.copyRepository(repository);
+        BitbucketRepository otherRepository = other.getRepository();
+        if (otherRepository != null) {
+            otherRepository = BitbucketClient.copyRepository(otherRepository);
         }
-        this.repository = repository;
+        this.repository = otherRepository;
 
-        BitbucketUserAccount actor = other.getActor();
-        if (actor != null) {
-            actor = BitbucketClient.copyUserAccount(actor);
+        BitbucketUserAccount otherActor = other.getActor();
+        if (otherActor != null) {
+            otherActor = BitbucketClient.copyUserAccount(otherActor);
         }
-        this.actor = actor;
+        this.actor = otherActor;
 
-        this.push = other.push; // TODO: Make a copy.
+        WebhookPush otherPush = other.getPush();
+        if (otherPush != null) {
+            otherPush = new WebhookPush(otherPush);
+        }
+        this.push = otherPush;
     }
 
     /**
@@ -116,6 +120,6 @@ public class WebhookEvent
 
     public final void setPush(final WebhookPush push)
     {
-        this.push = push; // TODO: Make a copy.
+        this.push = new WebhookPush(push);
     }
 }
