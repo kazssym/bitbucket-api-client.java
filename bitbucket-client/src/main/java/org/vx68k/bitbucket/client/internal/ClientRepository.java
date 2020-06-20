@@ -32,13 +32,12 @@ import org.vx68k.bitbucket.BitbucketRepository;
 
 /**
  * Client implementation class of {@link BitbucketRepository} for the
- * {@code repository} type.
+ * {@code "repository"} type.
  *
  * @author Kaz Nishimura
  * @since 6.0
  */
-public class ClientRepository implements BitbucketRepository,
-    BitbucketIssueTracker // TODO: Change this class to package scope.
+public class ClientRepository implements BitbucketRepository, BitbucketIssueTracker
 {
     /**
      * Name of the {@code fork_policy} value in a JSON repository object.
