@@ -1,6 +1,6 @@
 /*
- * BitbucketPush.java - class BitbucketPush
- * Copyright (C) 2015-2018 Kaz Nishimura
+ * WebhookPush.java
+ * Copyright (C) 2015-2020 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Affero General Public License as published by
@@ -34,7 +34,7 @@ import org.vx68k.bitbucket.client.BitbucketClientObject;
  * @author Kaz Nishimura
  * @since 5.0
  */
-public class BitbucketPush extends BitbucketClientObject
+public class WebhookPush extends BitbucketClientObject
 {
     /**
      * Name for the {@code changes} array in a JSON push object.
@@ -46,7 +46,7 @@ public class BitbucketPush extends BitbucketClientObject
      *
      * @param pushObject JSON push object
      */
-    public BitbucketPush(final JsonObject pushObject)
+    public WebhookPush(final JsonObject pushObject)
     {
         super(pushObject);
     }

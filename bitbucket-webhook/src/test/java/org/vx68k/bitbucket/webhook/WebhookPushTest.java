@@ -1,6 +1,6 @@
 /*
- * BitbucketPushTest.java - class BitbucketPushTest
- * Copyright (C) 2018 Kaz Nishimura
+ * WebhookPushTest.java
+ * Copyright (C) 2018-2020 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Affero General Public License as published by
@@ -18,17 +18,16 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-package org.vx68k.bitbucket.webhook.test;
+package org.vx68k.bitbucket.webhook;
 
 import org.junit.Test;
-import org.vx68k.bitbucket.webhook.BitbucketPush;
 
 /**
- * Unit tests for {@link BitbucketPush}.
+ * Unit tests for {@link WebhookPush}.
  *
  * @author Kaz Nishimura
  */
-public final class BitbucketPushTest
+public final class WebhookPushTest
 {
     /**
      * Tests a {@code null} object.
@@ -36,6 +35,6 @@ public final class BitbucketPushTest
     @Test(expected = IllegalArgumentException.class)
     public void testNullObject()
     {
-        new BitbucketPush(null);
+        new WebhookPush(null);
     }
 }

@@ -36,7 +36,7 @@ public class WebhookEvent
 
     private BitbucketUserAccount actor;
 
-    private BitbucketPush push;
+    private WebhookPush push;
 
     /**
      * Constructs a webhook event.
@@ -109,12 +109,12 @@ public class WebhookEvent
      *
      * @return the push description
      */
-    public final BitbucketPush getPush()
+    public final WebhookPush getPush()
     {
         return push;
     }
 
-    public final void setPush(final BitbucketPush push)
+    public final void setPush(final WebhookPush push)
     {
         this.push = push; // TODO: Make a copy.
     }
