@@ -45,11 +45,11 @@ public class ClientRendered implements BitbucketRendered
         // Nothing to do.
     }
 
-    public ClientRendered(final ClientRendered other)
+    public ClientRendered(final BitbucketRendered other)
     {
-        this.markup = other.markup;
-        this.raw = other.raw;
-        this.html = other.html;
+        this.markup = other.getMarkup();
+        this.raw = other.getRaw();
+        this.html = other.getHtml();
     }
 
     public final String getType()
