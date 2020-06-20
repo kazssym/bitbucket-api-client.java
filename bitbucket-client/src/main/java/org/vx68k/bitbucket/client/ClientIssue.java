@@ -20,249 +20,165 @@
 
 package org.vx68k.bitbucket.client;
 
-import static org.vx68k.bitbucket.client.JsonUtilities.toInstant;
-import java.time.Instant;
-import java.util.function.Function;
-import javax.json.JsonNumber;
-import javax.json.JsonObject;
-import javax.json.JsonString;
-import javax.json.JsonValue;
+import java.time.OffsetDateTime;
 import org.vx68k.bitbucket.BitbucketIssue;
-import org.vx68k.bitbucket.BitbucketRendered;
-import org.vx68k.bitbucket.BitbucketRepository;
-import org.vx68k.bitbucket.BitbucketUserAccount;
+import org.vx68k.bitbucket.client.internal.ClientRendered;
+import org.vx68k.bitbucket.client.internal.ClientRepository;
 import org.vx68k.bitbucket.client.internal.ClientUserAccount;
 
 /**
- * Client implementation of {@link BitbucketIssue}.
- * This class represents a issue by a JSON object.
+ * Client implementation class of {@link BitbucketIssue} for the
+ * {@code "issue"} objects.
  *
  * @author Kaz Nishimura
- * @since 5.0
+ * @since 6.0
  */
-public class ClientIssue extends BitbucketClientObject implements
-    BitbucketIssue
+public class ClientIssue implements BitbucketIssue
 {
-    /**
-     * Type value for issues.
-     */
-    private static final String ISSUE = "issue";
+    private int id;
+
+    private String state;
+
+    private String kind;
+
+    private String priority;
+
+    private String title;
+
+    private OffsetDateTime created;
+
+    private OffsetDateTime updated;
+
+    private OffsetDateTime edited;
+
+    private int votes;
+
+    private int watches;
+
+    private ClientRepository repository;
+
+    private ClientUserAccount reporter;
+
+    private ClientUserAccount assignee;
+
+    private ClientRendered content;
 
     /**
-     * Name of the {@code assignee} value in a JSON issue object.
+     * Constructs an issue.
      */
-    private static final String ASSIGNEE = "assignee";
-
-    /**
-     * Name of the {@code component} value in a JSON issue object.
-     */
-    private static final String COMPONENT = "component";
-
-    /**
-     * Name of the {@code content} value in a JSON issue object.
-     */
-    private static final String CONTENT = "content";
-
-    /**
-     * Name of the {@code created_on} value in a JSON issue object.
-     */
-    private static final String CREATED_ON = "created_on";
-
-    /**
-     * Name of the {@code edited_on} value in a JSON issue object.
-     */
-    private static final String EDITED_ON = "edited_on";
-
-    /**
-     * Name of the {@code id} value in a JSON issue object.
-     */
-    private static final String ID = "id";
-
-    /**
-     * Name of the {@code kind} value in a JSON issue object.
-     */
-    private static final String KIND = "kind";
-
-    /**
-     * Name of the {@code milestone} value in a JSON issue object.
-     */
-    private static final String MILESTONE = "milestone";
-
-    /**
-     * Name of the {@code priority} value in a JSON issue object.
-     */
-    private static final String PRIORITY = "priority";
-
-    /**
-     * Name of the {@code reporter} value in a JSON issue object.
-     */
-    private static final String REPORTER = "reporter";
-
-    /**
-     * Name of the {@code repository} value in a JSON issue object.
-     */
-    private static final String REPOSITORY = "repository";
-
-    /**
-     * Name of the {@code state} value in a JSON issue object.
-     */
-    private static final String STATE = "state";
-
-    /**
-     * Name of the {@code title} value in a JSON issue object.
-     */
-    private static final String TITLE = "title";
-
-    /**
-     * Name of the {@code updated_on} value in a JSON issue object.
-     */
-    private static final String UPDATED_ON = "updated_on";
-
-    /**
-     * Name of the {@code version} value in a JSON issue object.
-     */
-    private static final String VERSION = "version";
-
-    /**
-     * Name of the {@code votes} value in a JSON issue object.
-     */
-    private static final String VOTES = "votes";
-
-    /**
-     * Name of the {@code watches} value in a JSON issue object.
-     */
-    private static final String WATCHES = "watches";
-
-    /**
-     * Initializes the object from a JSON object.
-     * This constructor sets the Bitbucket API client to {@code null}.
-     *
-     * @param jsonObject a JSON object
-     */
-    public ClientIssue(final JsonObject jsonObject)
+    public ClientIssue()
     {
-        this(jsonObject, null);
+        // Nothing to do.
     }
 
     /**
-     * Initializes the object from a JSON object.
-     *
-     * @param jsonObject a JSON object
-     * @param bitbucketClient a Bitbucket API client
-     */
-    public ClientIssue(
-        final JsonObject jsonObject, final BitbucketClient bitbucketClient)
-    {
-        super(jsonObject, bitbucketClient);
+     * Constructs an issue copying another.
 
-        String type = getType();
-        if (!ISSUE.equals(type)) {
-            throw new IllegalArgumentException("Object is not of an issue");
-        }
+     * @param other another issue
+     */
+    public ClientIssue(final ClientIssue other)
+    {
+        this.id = other.id;
+        this.title = other.title;
+        this.state = other.state;
+        this.kind = other.kind;
+        this.priority = other.priority;
+        this.created = other.created;
+        this.votes = other.votes;
+        this.watches = other.watches;
+
+        this.repository = new ClientRepository(other.repository);
+        this.reporter = new ClientUserAccount(other.reporter);
+        this.assignee = new ClientUserAccount(other.assignee);
+        this.content = new ClientRendered(other.content);
     }
 
-    /**
-     * Returns a function to create an issue form a JSON object.
-     *
-     * @return a function to create an issue from a JSON object
-     */
-    public static Function<JsonObject, ClientIssue> creator()
+    public final String getType()
     {
-        return creator(null);
-    }
-
-    /**
-     * Returns a function to create an issue form a JSON object.
-     *
-     * @param bitbucketClient a Bitbucket API client
-     * @return a function to create an issue from a JSON object
-     */
-    public static Function<JsonObject, ClientIssue> creator(
-        final BitbucketClient bitbucketClient)
-    {
-        return (object) ->
-            new ClientIssue(object, bitbucketClient);
-    }
-
-    @Override
-    public final BitbucketRepository getRepository()
-    {
-        JsonObject object = getJsonObject();
-        JsonObject repository = object.getJsonObject(REPOSITORY);
-
-        BitbucketRepository value = null;
-        if (repository != null) {
-            // value = new ClientRepository(repository);
-        }
-        return value;
+        return "issue";
     }
 
     @Override
     public final int getId()
     {
-        return getJsonObject().getInt(ID, 0);
-    }
-
-    @Override
-    public final BitbucketUserAccount getReporter()
-    {
-        // This may be a JSON null.
-        JsonValue reporter = getJsonObject().get(REPORTER);
-
-        ClientUserAccount value = null;
-        if (reporter != null && reporter != JsonValue.NULL) {
-            // value = new ClientUserAccount((JsonObject) reporter);
-        }
-        return value;
-    }
-
-    @Override
-    public final String getState()
-    {
-        return getJsonObject().getString(STATE, null);
-    }
-
-    @Override
-    public final String getKind()
-    {
-        return getJsonObject().getString(KIND, null);
-    }
-
-    @Override
-    public final String getPriority()
-    {
-        return getJsonObject().getString(PRIORITY, null);
+        return id;
     }
 
     @Override
     public final String getTitle()
     {
-        return getJsonObject().getString(TITLE, null);
+        return title;
     }
 
     @Override
-    public final BitbucketRendered getContent()
+    public final String getState()
     {
-        JsonObject content = getJsonObject().getJsonObject(CONTENT);
-
-        BitbucketRendered value = null;
-        if (content != null) {
-            // value = new ClientRendered(content);
-        }
-        return value;
+        return state;
     }
 
     @Override
-    public final BitbucketUserAccount getAssignee()
+    public final String getKind()
     {
-        // This may be a JSON null.
-        JsonValue assignee = getJsonObject().get(ASSIGNEE);
+        return kind;
+    }
 
-        ClientUserAccount value = null;
-        if (assignee != null && assignee != JsonValue.NULL) {
-            // value = new ClientUserAccount((JsonObject) assignee);
-        }
-        return value;
+    @Override
+    public final String getPriority()
+    {
+        return priority;
+    }
+
+    @Override
+    public final OffsetDateTime getCreated()
+    {
+        return created;
+    }
+
+    @Override
+    public final OffsetDateTime getUpdated()
+    {
+        return updated;
+    }
+
+    @Override
+    public final OffsetDateTime getEdited()
+    {
+        return edited;
+    }
+
+    @Override
+    public final int getVotes()
+    {
+        return votes;
+    }
+
+    @Override
+    public final int getWatches()
+    {
+        return watches;
+    }
+
+    public final ClientRepository getRepository()
+    {
+        return repository;
+    }
+
+    @Override
+    public final ClientUserAccount getReporter()
+    {
+        return reporter;
+    }
+
+    @Override
+    public final ClientUserAccount getAssignee()
+    {
+        return assignee;
+    }
+
+    @Override
+    public final ClientRendered getContent()
+    {
+        return content;
     }
 
     @Override
@@ -281,68 +197,5 @@ public class ClientIssue extends BitbucketClientObject implements
     public final Version getVersion()
     {
         throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public final int getVotes()
-    {
-        JsonNumber votes = getJsonObject().getJsonNumber(VOTES);
-
-        int value = -1;
-        if (votes != null) {
-            value = votes.intValue();
-        }
-        return value;
-    }
-
-    @Override
-    public final int getWatches()
-    {
-        JsonNumber watches = getJsonObject().getJsonNumber(WATCHES);
-
-        int value = -1;
-        if (watches != null) {
-            value = watches.intValue();
-        }
-        return value;
-    }
-
-    @Override
-    public final Instant getCreated()
-    {
-        // This may be a JSON null.
-        JsonValue createdOn = getJsonObject().get(CREATED_ON);
-
-        Instant value = null;
-        if (createdOn != null && createdOn != JsonValue.NULL) {
-            value = toInstant((JsonString) createdOn);
-        }
-        return value;
-    }
-
-    @Override
-    public final Instant getUpdated()
-    {
-        // This may be a JSON null.
-        JsonValue updatedOn = getJsonObject().get(UPDATED_ON);
-
-        Instant value = null;
-        if (updatedOn != null && updatedOn != JsonValue.NULL) {
-            value = toInstant((JsonString) updatedOn);
-        }
-        return value;
-    }
-
-    @Override
-    public final Instant getEdited()
-    {
-        // This may be a JSON null.
-        JsonValue editedOn = getJsonObject().get(EDITED_ON);
-
-        Instant value = null;
-        if (editedOn != null && editedOn != JsonValue.NULL) {
-            value = toInstant((JsonString) editedOn);
-        }
-        return value;
     }
 }
