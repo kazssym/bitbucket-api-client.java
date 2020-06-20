@@ -20,33 +20,59 @@
 
 package org.vx68k.bitbucket.client.internal;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.io.InputStream;
+import javax.json.bind.Jsonb;
+import javax.json.bind.JsonbBuilder;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests for {@link ClientRepository}.
  *
  * @author Kaz Nishimura
- * @since 6.0.0
+ * @since 6.0
  */
-public final class ClientRepositoryTest
+final class ClientRepositoryTest
 {
+    private Jsonb jsonb;
+
+    private InputStream sample1;
+
+    @BeforeEach
+    void setUp()
+    {
+        jsonb = JsonbBuilder.create();
+
+        sample1 = getClass().getResourceAsStream("samples/repository1.json");
+    }
+
+    @AfterEach
+    void tearDown() throws Exception
+    {
+        sample1.close();
+        sample1 = null;
+
+        jsonb.close();
+        jsonb = null;
+    }
+
     /**
      * Tests the constructor.
      */
     @Test
-    public void testConstructor()
+    void testConstructor()
     {
-        // JsonObject repositoryObject = Json.createObjectBuilder()
-        //     .add("type", "repository").build();
-        // new ClientRepository(repositoryObject);
+        // The type is always "repository".
 
-        // try {
-        //     new ClientRepository((JsonObject) null);
-        //     fail();
-        // }
-        // catch (final IllegalArgumentException exception) {
-        //     // OK.
-        // }
+        String string1 = "{}";
+        ClientRepository repository1 = jsonb.fromJson(string1, ClientRepository.class);
+        assertEquals("repository", repository1.getType());
+
+        String string2 = "{\"type\":\"none\"}";
+        ClientRepository repository2 = jsonb.fromJson(string2, ClientRepository.class);
+        assertEquals("repository", repository2.getType());
     }
 
     /**
