@@ -18,13 +18,10 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-package org.vx68k.bitbucket.client;
+package org.vx68k.bitbucket.client.internal;
 
 import java.time.OffsetDateTime;
 import org.vx68k.bitbucket.BitbucketIssue;
-import org.vx68k.bitbucket.client.internal.ClientRendered;
-import org.vx68k.bitbucket.client.internal.ClientRepository;
-import org.vx68k.bitbucket.client.internal.ClientUserAccount;
 
 /**
  * Client implementation class of {@link BitbucketIssue} for the
