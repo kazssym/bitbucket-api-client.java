@@ -27,7 +27,8 @@ import javax.json.bind.annotation.JsonbDateFormat;
 import org.vx68k.bitbucket.BitbucketCommit;
 
 /**
- * Client implementation class of {@link BitbucketCommit}.
+ * Client implementation class of {@link BitbucketCommit} for the
+ * {@code "commit"} objects.
  *
  * @author Kaz Nishimura
  * @since 6.0

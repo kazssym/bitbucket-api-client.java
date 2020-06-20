@@ -24,7 +24,8 @@ import javax.json.bind.annotation.JsonbProperty;
 import org.vx68k.bitbucket.BitbucketUserAccount;
 
 /**
- * Client implementation of {@link BitbucketUserAccount}.
+ * Client implementation class of {@link BitbucketUserAccount} for the
+ * {@code "user"} objects.
  *
  * @author Kaz Nishimura
  * @since 6.0
