@@ -1,8 +1,8 @@
 {
-    "scm": "hg",
+    "scm": "git",
     "website": "https://vx68k.bitbucket.io/bitbucket-api-client.java/",
     "has_wiki": true,
-    "uuid": "{194ecdd7-acd2-4366-a1f4-e9bf28807cdc}",
+    "uuid": "{da0453e5-4546-445a-adde-95e3a505e875}",
     "links": {
         "watchers": {
             "href": "https://api.bitbucket.org/2.0/repositories/vx68k/bitbucket-api-client.java/watchers"
@@ -18,11 +18,11 @@
         },
         "clone": [
             {
-                "href": "https://bitbucket.org/vx68k/bitbucket-api-client.java",
+                "href": "https://bitbucket.org/vx68k/bitbucket-api-client.java.git",
                 "name": "https"
             },
             {
-                "href": "ssh://hg@bitbucket.org/vx68k/bitbucket-api-client.java",
+                "href": "git@bitbucket.org:vx68k/bitbucket-api-client.java.git",
                 "name": "ssh"
             }
         ],
@@ -36,7 +36,7 @@
             "href": "https://bitbucket.org/vx68k/bitbucket-api-client.java"
         },
         "avatar": {
-            "href": "https://bytebucket.org/ravatar/%7B194ecdd7-acd2-4366-a1f4-e9bf28807cdc%7D?ts=java"
+            "href": "https://bytebucket.org/ravatar/%7Bda0453e5-4546-445a-adde-95e3a505e875%7D?ts=java"
         },
         "hooks": {
             "href": "https://api.bitbucket.org/2.0/repositories/vx68k/bitbucket-api-client.java/hooks"
@@ -55,31 +55,48 @@
         }
     },
     "fork_policy": "allow_forks",
+    "full_name": "vx68k/bitbucket-api-client.java",
     "name": "bitbucket-api-client.java",
     "project": {
-        "key": "BA",
-        "type": "project",
-        "uuid": "{6bdcb67a-baeb-43c9-b24c-c5a886229868}",
         "links": {
             "self": {
-                "href": "https://api.bitbucket.org/2.0/teams/vx68k/projects/BA"
+                "href": "https://api.bitbucket.org/2.0/workspaces/vx68k/projects/BAC"
             },
             "html": {
-                "href": "https://bitbucket.org/account/user/7590db3d-195a-40a0-aeab-1d8601a6298f/projects/BA"
+                "href": "https://bitbucket.org/vx68k/workspace/projects/BAC"
             },
             "avatar": {
-                "href": "https://bitbucket.org/account/user/vx68k/projects/BA/avatar/32"
+                "href": "https://bitbucket.org/account/user/vx68k/projects/BAC/avatar/32?ts=1589802136"
             }
         },
-        "name": "Bitbucket API"
+        "type": "project",
+        "name": "Bitbucket API",
+        "key": "BA",
+        "uuid": "{6bdcb67a-baeb-43c9-b24c-c5a886229868}"
     },
     "language": "java",
-    "created_on": "2015-01-25T00:46:01.974786+00:00",
+    "created_on": "2019-11-19T15:09:52.350577+00:00",
     "mainbranch": {
-        "type": "named_branch",
-        "name": "default"
+        "type": "branch",
+        "name": "master"
     },
-    "full_name": "vx68k/bitbucket-api-client.java",
+    "workspace": {
+        "slug": "vx68k",
+        "type": "workspace",
+        "name": "VX68k.org",
+        "links": {
+            "self": {
+                "href": "https://api.bitbucket.org/2.0/workspaces/vx68k"
+            },
+            "html": {
+                "href": "https://bitbucket.org/vx68k/"
+            },
+            "avatar": {
+                "href": "https://bitbucket.org/workspaces/vx68k/avatar/?ts=1543687101"
+            }
+        },
+        "uuid": "{7590db3d-195a-40a0-aeab-1d8601a6298f}"
+    },
     "has_issues": true,
     "owner": {
         "username": "vx68k",
@@ -98,10 +115,10 @@
             }
         }
     },
-    "updated_on": "2019-06-17T06:03:36.156617+00:00",
-    "size": 2902120,
+    "updated_on": "2020-06-20T05:53:44.987071+00:00",
+    "size": 6464100,
     "type": "repository",
     "slug": "bitbucket-api-client.java",
     "is_private": false,
-    "description": "Source code repository for a Client API for Bitbucket® Cloud for the Java™ language."
+    "description": "Client API for Bitbucket® Cloud for the Java™ language."
 }
