@@ -20,7 +20,7 @@
 
 package org.vx68k.bitbucket;
 
-import java.time.Instant;
+import java.time.OffsetDateTime;
 
 /**
  * Issue on Bitbucket Cloud.
@@ -135,21 +135,21 @@ public interface BitbucketIssue
      *
      * @return the instant when the issue was created
      */
-    Instant getCreated();
+    OffsetDateTime getCreated();
 
     /**
      * Returns the instant when the issue was last updated.
      *
      * @return the instant when the issue was last updated
      */
-    Instant getUpdated();
+    OffsetDateTime getUpdated();
 
     /**
      * Returns the instant when the issue was last edited.
      *
      * @return the instant when the issue was last edited
      */
-    Instant getEdited();
+    OffsetDateTime getEdited();
 
     /**
      * Issue comment on Bitbucket Cloud.
@@ -189,14 +189,14 @@ public interface BitbucketIssue
          *
          * @return the time when the comment was created
          */
-        Instant getCreated();
+        OffsetDateTime getCreated();
 
         /**
          * Returns the time when the comment was last updated.
          *
          * @return the time when the comment was last updated
          */
-        Instant getUpdated();
+        OffsetDateTime getUpdated();
     }
 
     /**
