@@ -23,6 +23,7 @@ package org.vx68k.bitbucket.client.internal;
 import java.util.ArrayList;
 import java.util.List;
 import org.vx68k.bitbucket.BitbucketBranch;
+import org.vx68k.bitbucket.BitbucketCommit;
 
 /**
  * Client implementation class of {@link BitbucketBranch}.
@@ -40,7 +41,7 @@ public class ClientBranch extends ClientRef implements BitbucketBranch
     /**
      * List of the head commits of the branch object.
      */
-    private List<ClientCommit> heads;
+    private List<BitbucketCommit> heads;
 
     /**
      * Constructs a branch object.
@@ -54,10 +55,10 @@ public class ClientBranch extends ClientRef implements BitbucketBranch
      * Constructs a branch copyting another
      * @param other another branch
      */
-    public ClientBranch(final ClientBranch other)
+    public ClientBranch(final BitbucketBranch other)
     {
-        this.type = other.type;
-        this.heads = new ArrayList<>(other.heads);
+        this.type = other.getType();
+        this.heads = new ArrayList<>(other.getHeads());
     }
 
     /**
@@ -84,12 +85,12 @@ public class ClientBranch extends ClientRef implements BitbucketBranch
      *
      * @return the heads
      */
-    public final List<ClientCommit> getHeads()
+    public final List<BitbucketCommit> getHeads()
     {
         return heads;
     }
 
-    public final void setHeads(final List<ClientCommit> heads)
+    public final void setHeads(final List<? extends BitbucketCommit> heads)
     {
         this.heads = new ArrayList<>(heads);
     }
