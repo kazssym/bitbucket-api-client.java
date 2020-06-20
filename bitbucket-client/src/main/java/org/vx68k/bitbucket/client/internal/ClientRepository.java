@@ -23,6 +23,7 @@ package org.vx68k.bitbucket.client.internal;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 import javax.json.bind.annotation.JsonbProperty;
+import javax.json.bind.annotation.JsonbTypeAdapter;
 import org.vx68k.bitbucket.BitbucketRepository;
 
 /**
@@ -34,6 +35,7 @@ import org.vx68k.bitbucket.BitbucketRepository;
  */
 public class ClientRepository implements BitbucketRepository
 {
+    @JsonbTypeAdapter(UUIDAdapter.class)
     private UUID uuid;
 
     private String name;
