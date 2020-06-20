@@ -30,5 +30,15 @@ import java.util.List;
  */
 public interface BitbucketBranch extends BitbucketRef
 {
+    /**
+     *
+     * @return the type of the branch
+     */
+    String getType();
+
+    /**
+     *
+     * @return the list of the heads of the branch
+     */
     List<BitbucketCommit> getHeads();
 }
