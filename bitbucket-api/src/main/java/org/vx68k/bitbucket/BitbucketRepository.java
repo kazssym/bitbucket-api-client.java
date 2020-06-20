@@ -20,7 +20,7 @@
 
 package org.vx68k.bitbucket;
 
-import java.time.Instant;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 /**
@@ -43,19 +43,11 @@ public interface BitbucketRepository
     String HG = "hg";
 
     /**
-     * Returns the SCM type of the repository.
-     * The return value shall be either {@code #GIT} or {@code #HG}.
+     * Returns the UUID of the repository.
      *
-     * @return the SCM type of the repository
+     * @return the UUID of the repository
      */
-    String getScm();
-
-    /**
-     * Returns the owner of the repository.
-     *
-     * @return the owner of the repository
-     */
-    BitbucketAccount getOwner();
+    UUID getUuid();
 
     /**
      * Returns the name of the repository.
@@ -72,13 +64,6 @@ public interface BitbucketRepository
     String getFullName();
 
     /**
-     * Returns the UUID of the repository.
-     *
-     * @return the UUID of the repository
-     */
-    UUID getUuid();
-
-    /**
      * Returns the description of the repository.
      *
      * @return the description of the repository
@@ -91,6 +76,48 @@ public interface BitbucketRepository
      * @return {@code true} if and only if the repository is private
      */
     boolean isPrivate();
+
+    String getForkPolicy();
+
+    String getWebsite();
+
+    String getLanguage();
+
+    /**
+     * Returns the SCM type of the repository.
+     * The return value shall be either {@code #GIT} or {@code #HG}.
+     *
+     * @return the SCM type of the repository
+     */
+    String getScm();
+
+    /**
+     * Returns the time when the repository was created.
+     *
+     * @return the time when the repository was created
+     */
+    OffsetDateTime getCreated();
+
+    /**
+     * Returns the time when the repository was last updated.
+     *
+     * @return the time when the repository was last updated
+     */
+    OffsetDateTime getUpdated();
+
+    /**
+     * Returns the size of the repository.
+     *
+     * @return the size of the repository
+     */
+    long getSize();
+
+    /**
+     * Returns the owner of the repository.
+     *
+     * @return the owner of the repository
+     */
+    BitbucketAccount getOwner();
 
     /**
      * Returns the main branch of the repository.
@@ -112,32 +139,4 @@ public interface BitbucketRepository
      * @return {@code true} if and only if the repository has a wiki
      */
     boolean hasWiki();
-
-    /**
-     * Returns the size of the repository.
-     *
-     * @return the size of the repository
-     */
-    long getSize();
-
-    /**
-     * Returns the time when the repository was created.
-     *
-     * @return the time when the repository was created
-     */
-    Instant getCreated();
-
-    /**
-     * Returns the time when the repository was last updated.
-     *
-     * @return the time when the repository was last updated
-     */
-    Instant getUpdated();
-
-    /**
-     * Returns the issue tracker of the repository.
-     *
-     * @return the issue tracker of the repository
-     */
-    BitbucketIssueTracker getIssueTracker();
 }
