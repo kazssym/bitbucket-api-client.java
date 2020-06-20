@@ -141,7 +141,7 @@ public class ClientRepository implements BitbucketRepository, BitbucketIssueTrac
      *
      * @param uuid a {@link UUID} object
      */
-    public final void setUUID(final UUID uuid)
+    public final void setUuid(final UUID uuid)
     {
         this.uuid = uuid;
     }
