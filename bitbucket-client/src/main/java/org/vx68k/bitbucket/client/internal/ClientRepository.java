@@ -20,14 +20,9 @@
 
 package org.vx68k.bitbucket.client.internal;
 
-import java.time.Instant;
-import java.util.Collection;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 import javax.json.bind.annotation.JsonbProperty;
-import org.vx68k.bitbucket.BitbucketAccount;
-import org.vx68k.bitbucket.BitbucketBranch;
-import org.vx68k.bitbucket.BitbucketIssue;
-import org.vx68k.bitbucket.BitbucketIssueTracker;
 import org.vx68k.bitbucket.BitbucketRepository;
 
 /**
@@ -37,7 +32,7 @@ import org.vx68k.bitbucket.BitbucketRepository;
  * @author Kaz Nishimura
  * @since 6.0
  */
-public class ClientRepository implements BitbucketRepository, BitbucketIssueTracker
+public class ClientRepository implements BitbucketRepository
 {
     private UUID uuid;
 
@@ -55,12 +50,11 @@ public class ClientRepository implements BitbucketRepository, BitbucketIssueTrac
 
     private String language;
 
-
     private String scm;
 
-    private Instant created;
+    private OffsetDateTime created;
 
-    private Instant updated;
+    private OffsetDateTime updated;
 
     private long size;
 
@@ -68,7 +62,7 @@ public class ClientRepository implements BitbucketRepository, BitbucketIssueTrac
 
     private boolean wikiEnabled;
 
-    private BitbucketAccount owner;
+    private ClientAccount owner;
 
     // workspace
 
@@ -206,6 +200,7 @@ public class ClientRepository implements BitbucketRepository, BitbucketIssueTrac
     }
 
     @JsonbProperty("fork_policy")
+    @Override
     public final String getForkPolicy()
     {
         return forkPolicy;
@@ -217,6 +212,7 @@ public class ClientRepository implements BitbucketRepository, BitbucketIssueTrac
         this.forkPolicy = forkPolicy;
     }
 
+    @Override
     public final String getWebsite()
     {
         return website;
@@ -227,6 +223,7 @@ public class ClientRepository implements BitbucketRepository, BitbucketIssueTrac
         this.website = website;
     }
 
+    @Override
     public final String getLanguage()
     {
         return language;
@@ -263,7 +260,7 @@ public class ClientRepository implements BitbucketRepository, BitbucketIssueTrac
      */
     @JsonbProperty("created_on")
     @Override
-    public final Instant getCreated()
+    public final OffsetDateTime getCreated()
     {
         return created;
     }
@@ -271,10 +268,10 @@ public class ClientRepository implements BitbucketRepository, BitbucketIssueTrac
     /**
      * Sets the create time of the repository.
      *
-     * @param created a {@link Instant} object for the create time
+     * @param created a {@link OffsetDateTime} object for the create time
      */
     @JsonbProperty("created_on")
-    public final void setCreated(final Instant created)
+    public final void setCreated(final OffsetDateTime created)
     {
         this.created = created;
     }
@@ -286,7 +283,7 @@ public class ClientRepository implements BitbucketRepository, BitbucketIssueTrac
      */
     @JsonbProperty("updated_on")
     @Override
-    public final Instant getUpdated()
+    public final OffsetDateTime getUpdated()
     {
         return updated;
     }
@@ -294,10 +291,10 @@ public class ClientRepository implements BitbucketRepository, BitbucketIssueTrac
     /**
      * Sets the update time of the repository.
      *
-     * @param updated a {@link Instant} object for the update time
+     * @param updated a {@link OffsetDateTime} object for the update time
      */
     @JsonbProperty("updated_on")
-    public final void setUpdated(final Instant updated)
+    public final void setUpdated(final OffsetDateTime updated)
     {
         this.updated = updated;
     }
@@ -320,6 +317,12 @@ public class ClientRepository implements BitbucketRepository, BitbucketIssueTrac
         return issuesEnabled;
     }
 
+    @JsonbProperty("has_issues")
+    public final void setIssuesEnabled(boolean issuesEnabled)
+    {
+        this.issuesEnabled = issuesEnabled;
+    }
+
     @JsonbProperty("has_wiki")
     @Override
     public final boolean hasWiki()
@@ -327,11 +330,17 @@ public class ClientRepository implements BitbucketRepository, BitbucketIssueTrac
         return wikiEnabled;
     }
 
+    @JsonbProperty("has_wiki")
+    public final void setWikiEnabled(final boolean wikiEnabled)
+    {
+        this.wikiEnabled = wikiEnabled;
+    }
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public final BitbucketAccount getOwner()
+    public final ClientAccount getOwner()
     {
         return owner;
     }
@@ -339,9 +348,9 @@ public class ClientRepository implements BitbucketRepository, BitbucketIssueTrac
     /**
      * Sets the owner of the repository.
      *
-     * @param owner a {@link BitbucketAccount} object for the owner
+     * @param owner a {@link ClientAccount} object for the owner
      */
-    public final void setOwner(final BitbucketAccount owner)
+    public final void setOwner(final ClientAccount owner)
     {
         this.owner = owner; // TODO: Make a copy.
     }
@@ -358,50 +367,9 @@ public class ClientRepository implements BitbucketRepository, BitbucketIssueTrac
         return mainBranch;
     }
 
+    @JsonbProperty("mainbranch")
     public final void setMainBranch(final ClientBranch mainBranch)
     {
         this.mainBranch = new ClientBranch(mainBranch);
-    }
-
-
-    @Deprecated
-    @Override
-    public final BitbucketIssueTracker getIssueTracker()
-    {
-        throw new UnsupportedOperationException("getIssueTracker is unimplemented");
-    }
-
-    @Deprecated
-    @Override
-    public final BitbucketRepository getRepository()
-    {
-        throw new UnsupportedOperationException("getRepository is unimplemented");
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Deprecated
-    @Override
-    public final BitbucketIssue getIssue(final int id)
-    {
-        throw new UnsupportedOperationException("getIssue is unimplemented");
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Deprecated
-    @Override
-    public final Collection<BitbucketIssue> issues()
-    {
-        throw new UnsupportedOperationException("issues is unimplemented");
-    }
-
-    @Deprecated
-    @Override
-    public final Collection<BitbucketIssue> issues(final String filter)
-    {
-        throw new UnsupportedOperationException("issues is unimplemented");
     }
 }
