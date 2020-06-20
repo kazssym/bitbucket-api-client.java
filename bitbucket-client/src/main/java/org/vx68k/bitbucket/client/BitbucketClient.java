@@ -39,6 +39,7 @@ import javax.ws.rs.core.MediaType;
 import org.vx68k.bitbucket.Bitbucket;
 import org.vx68k.bitbucket.BitbucketAccount;
 import org.vx68k.bitbucket.BitbucketRepository;
+import org.vx68k.bitbucket.BitbucketUserAccount;
 import org.vx68k.bitbucket.client.internal.ClientRepository;
 import org.vx68k.bitbucket.client.internal.ClientTeamAccount;
 import org.vx68k.bitbucket.client.internal.ClientUserAccount;
@@ -90,6 +91,24 @@ public class BitbucketClient implements Bitbucket, Serializable
      * OAuth 2.0 authenticator.
      */
     private final transient OAuth2Authenticator authenticator;
+
+    public static BitbucketUserAccount copyUserAccount(
+        final BitbucketUserAccount userAccount)
+    {
+        if (userAccount != null) {
+            return new ClientUserAccount(userAccount);
+        }
+        return null;
+    }
+
+    public static BitbucketRepository copyRepository(
+        final BitbucketRepository repository)
+    {
+        if (repository != null) {
+            return new ClientRepository(repository);
+        }
+        return null;
+    }
 
     /**
      * Constructs this object with a new {@link ClientBuilder} object.
