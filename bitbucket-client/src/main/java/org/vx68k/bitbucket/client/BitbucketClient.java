@@ -42,7 +42,7 @@ import org.vx68k.bitbucket.BitbucketRepository;
 import org.vx68k.bitbucket.client.internal.ClientTeamAccount;
 import org.vx68k.bitbucket.client.internal.ClientUserAccount;
 import org.vx68k.bitbucket.client.internal.JsonMessageBodyReader;
-import org.vx68k.bitbucket.client.internal.JsonbMessageBodyReader;
+import org.vx68k.bitbucket.client.util.JsonbMessageBodyReader;
 import org.vx68k.bitbucket.client.util.OAuth2Authenticator;
 
 /**

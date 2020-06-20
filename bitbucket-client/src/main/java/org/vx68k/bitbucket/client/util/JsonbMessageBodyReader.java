@@ -18,7 +18,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-package org.vx68k.bitbucket.client.internal;
+package org.vx68k.bitbucket.client.util;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,8 +31,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.ext.MessageBodyReader;
 
-public class JsonbMessageBodyReader<T>
-    implements MessageBodyReader<T>
+public class JsonbMessageBodyReader<T> implements MessageBodyReader<T>
 {
     private JsonbBuilder jsonbBuilder;
 
