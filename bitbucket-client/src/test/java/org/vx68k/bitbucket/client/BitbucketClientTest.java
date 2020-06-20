@@ -134,10 +134,10 @@ public class BitbucketClientTest
         assertNotNull(repository.getOwner());
         assertEquals("vx68k", repository.getOwner().getName());
         assertEquals(REPOSITORY_NAME, repository.getName());
-        assertNotNull(repository.getUUID());
+        assertNotNull(repository.getUuid());
         assertEquals(
             "vx68k" + "/" + REPOSITORY_NAME, repository.getFullName());
-        assertEquals("git", repository.getSCM());
+        assertEquals("git", repository.getScm());
         assertFalse(repository.isPrivate());
 
         // Case not to be found.

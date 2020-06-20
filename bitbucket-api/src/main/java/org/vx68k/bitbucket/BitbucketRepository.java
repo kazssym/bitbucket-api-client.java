@@ -48,7 +48,7 @@ public interface BitbucketRepository
      *
      * @return the SCM type of the repository
      */
-    String getSCM();
+    String getScm();
 
     /**
      * Returns the owner of the repository.
@@ -76,7 +76,7 @@ public interface BitbucketRepository
      *
      * @return the UUID of the repository
      */
-    UUID getUUID();
+    UUID getUuid();
 
     /**
      * Returns the description of the repository.

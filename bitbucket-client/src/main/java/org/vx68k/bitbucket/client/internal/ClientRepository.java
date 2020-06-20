@@ -64,41 +64,29 @@ public class ClientRepository implements BitbucketRepository, BitbucketIssueTrac
      */
     private static final String WEBSITE = "website";
 
-    @JsonbProperty("owner")
     private BitbucketAccount owner;
 
-    @JsonbProperty("uuid")
     private UUID uuid;
 
-    @JsonbProperty("name")
     private String name;
 
-    @JsonbProperty("full_name")
     private String fullName;
 
-    @JsonbProperty("description")
     private String description;
 
-    @JsonbProperty("is_private")
     private boolean restricted;
 
 
-    @JsonbProperty("scm")
     private String scm;
 
-    @JsonbProperty("created_on")
     private Instant created;
 
-    @JsonbProperty("updated_on")
     private Instant updated;
 
-    @JsonbProperty("size")
     private long size;
 
-    @JsonbProperty("has_issues")
     private boolean issuesEnabled;
 
-    @JsonbProperty("has_wiki")
     private boolean wikiEnabled;
 
     /**
@@ -149,7 +137,7 @@ public class ClientRepository implements BitbucketRepository, BitbucketIssueTrac
      * {@inheritDoc}
      */
     @Override
-    public final UUID getUUID()
+    public final UUID getUuid()
     {
         return uuid;
     }
@@ -186,6 +174,7 @@ public class ClientRepository implements BitbucketRepository, BitbucketIssueTrac
     /**
      * {@inheritDoc}
      */
+    @JsonbProperty("full_name")
     @Override
     public final String getFullName()
     {
@@ -197,6 +186,7 @@ public class ClientRepository implements BitbucketRepository, BitbucketIssueTrac
      *
      * @param fullName a string object for the full name
      */
+    @JsonbProperty("full_name")
     public final void setFullName(final String fullName)
     {
         this.fullName = fullName;
@@ -226,6 +216,7 @@ public class ClientRepository implements BitbucketRepository, BitbucketIssueTrac
     /**
      * {@inheritDoc}
      */
+    @JsonbProperty("is_private")
     @Override
     public final boolean isPrivate()
     {
@@ -237,6 +228,7 @@ public class ClientRepository implements BitbucketRepository, BitbucketIssueTrac
      *
      * @param restricted a Boolean value for the private flag
      */
+    @JsonbProperty("is_private")
     public final void setPrivate(boolean restricted) {
         this.restricted = restricted;
     }
@@ -256,7 +248,7 @@ public class ClientRepository implements BitbucketRepository, BitbucketIssueTrac
      * {@inheritDoc}
      */
     @Override
-    public final String getSCM()
+    public final String getScm()
     {
         return scm;
     }
@@ -266,7 +258,7 @@ public class ClientRepository implements BitbucketRepository, BitbucketIssueTrac
      *
      * @param scm a string object for the SCM
      */
-    public final void setSCM(final String scm)
+    public final void setScm(final String scm)
     {
         this.scm = scm;
     }
@@ -276,6 +268,7 @@ public class ClientRepository implements BitbucketRepository, BitbucketIssueTrac
      * <p>This implementation takes the date-time value of {@code "created_on"}
      * in the underlying JSON object.</p>
      */
+    @JsonbProperty("created_on")
     @Override
     public final Instant getCreated()
     {
@@ -287,6 +280,7 @@ public class ClientRepository implements BitbucketRepository, BitbucketIssueTrac
      *
      * @param created a {@link Instant} object for the create time
      */
+    @JsonbProperty("created_on")
     public final void setCreated(final Instant created)
     {
         this.created = created;
@@ -297,6 +291,7 @@ public class ClientRepository implements BitbucketRepository, BitbucketIssueTrac
      * <p>This implementation takes the date-time value of {@code "updated_on"}
      * in the underlying JSON object.</p>
      */
+    @JsonbProperty("updated_on")
     @Override
     public final Instant getUpdated()
     {
@@ -308,6 +303,7 @@ public class ClientRepository implements BitbucketRepository, BitbucketIssueTrac
      *
      * @param updated a {@link Instant} object for the update time
      */
+    @JsonbProperty("updated_on")
     public final void setUpdated(final Instant updated)
     {
         this.updated = updated;
@@ -324,12 +320,14 @@ public class ClientRepository implements BitbucketRepository, BitbucketIssueTrac
         this.size = size;
     }
 
+    @JsonbProperty("has_issues")
     @Override
     public final boolean hasIssueTracker()
     {
         return issuesEnabled;
     }
 
+    @JsonbProperty("has_wiki")
     @Override
     public final boolean hasWiki()
     {
