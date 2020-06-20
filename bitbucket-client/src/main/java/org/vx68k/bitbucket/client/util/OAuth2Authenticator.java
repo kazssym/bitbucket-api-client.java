@@ -33,7 +33,6 @@ import javax.ws.rs.core.Form;
 import javax.ws.rs.core.MediaType;
 import org.vx68k.bitbucket.client.TokenRefreshEvent;
 import org.vx68k.bitbucket.client.TokenRefreshListener;
-import org.vx68k.bitbucket.client.internal.JsonMessageBodyReader;
 
 /**
  * OAuth 2.0 authentication filter for the JAX-RS Client API.
@@ -235,7 +234,7 @@ public final class OAuth2Authenticator extends BearerAuthenticator
     {
         // Client is not {@link AutoCloseable}.
         Client client = ClientBuilder.newClient()
-            .register(new JsonMessageBodyReader())
+            .register(new JsonStructureMessageBodyReader())
             .register(clientAuthenticator);
         try {
             JsonObject object = client.target(tokenEndpointUri)

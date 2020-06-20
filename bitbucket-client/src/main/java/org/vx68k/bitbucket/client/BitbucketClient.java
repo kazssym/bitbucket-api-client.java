@@ -41,7 +41,7 @@ import org.vx68k.bitbucket.BitbucketAccount;
 import org.vx68k.bitbucket.BitbucketRepository;
 import org.vx68k.bitbucket.client.internal.ClientTeamAccount;
 import org.vx68k.bitbucket.client.internal.ClientUserAccount;
-import org.vx68k.bitbucket.client.internal.JsonMessageBodyReader;
+import org.vx68k.bitbucket.client.util.JsonStructureMessageBodyReader;
 import org.vx68k.bitbucket.client.util.JsonbMessageBodyReader;
 import org.vx68k.bitbucket.client.util.OAuth2Authenticator;
 
@@ -100,7 +100,7 @@ public class BitbucketClient implements Bitbucket, Serializable
 
         JsonbBuilder jsonbBuilder = JsonbBuilder.newBuilder();
 
-        this.clientBuilder.register(JsonMessageBodyReader.class);
+        this.clientBuilder.register(JsonStructureMessageBodyReader.class);
         this.clientBuilder.register(new JsonbMessageBodyReader<ClientUserAccount>(jsonbBuilder));
         this.clientBuilder.register(new JsonbMessageBodyReader<ClientTeamAccount>(jsonbBuilder));
         this.clientBuilder.register(authenticator);

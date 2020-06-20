@@ -18,7 +18,7 @@
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-package org.vx68k.bitbucket.client.internal;
+package org.vx68k.bitbucket.client.util;
 
 import java.io.InputStream;
 import java.lang.annotation.Annotation;
@@ -38,7 +38,7 @@ import javax.ws.rs.ext.MessageBodyReader;
  * @since 5.0
  */
 @Consumes({MediaType.APPLICATION_JSON})
-public final class JsonMessageBodyReader
+public final class JsonStructureMessageBodyReader
     implements MessageBodyReader<JsonStructure>
 {
     /**
