@@ -68,17 +68,17 @@ public abstract class ClientAccount implements BitbucketAccount
      *
      * @param other another account object
      */
-    protected ClientAccount(final ClientAccount other)
+    protected ClientAccount(final BitbucketAccount other)
     {
-        this.uuid = other.uuid;
-        this.name = other.name;
-        this.displayName = other.displayName;
-        this.website = other.website;
-        this.location = other.location;
-        this.created = other.created;
+        this.uuid = other.getUuid();
+        this.name = other.getName();
+        this.displayName = other.getDisplayName();
+        this.website = other.getWebsite();
+        this.location = other.getLocation();
+        this.created = other.getCreated();
 
-        if (other.links != null) {
-            this.links = new HashMap<>(other.links);
+        if (other.getLinks() != null) {
+            this.links = new HashMap<>(other.getLinks());
         }
         else {
             this.links = null;
@@ -207,6 +207,7 @@ public abstract class ClientAccount implements BitbucketAccount
         this.created = created;
     }
 
+    @Override
     public final Map<String, URI> getLinks()
     {
         return links;
