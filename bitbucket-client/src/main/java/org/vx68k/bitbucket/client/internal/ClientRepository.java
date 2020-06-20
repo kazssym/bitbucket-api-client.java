@@ -99,6 +99,11 @@ public class ClientRepository implements BitbucketRepository
         this.mainBranch = new ClientBranch(other.mainBranch);
     }
 
+    public final String getType()
+    {
+        return "repository";
+    }
+
     /**
      * {@inheritDoc}
      */
