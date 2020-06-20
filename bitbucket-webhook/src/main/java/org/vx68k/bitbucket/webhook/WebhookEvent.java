@@ -20,9 +20,9 @@
 
 package org.vx68k.bitbucket.webhook;
 
-import org.vx68k.bitbucket.BitbucketAccount;
 import org.vx68k.bitbucket.BitbucketRepository;
 import org.vx68k.bitbucket.BitbucketUserAccount;
+import org.vx68k.bitbucket.client.BitbucketClient;
 
 /**
  * Class of webhook event on a Bitbucket repository.
@@ -53,7 +53,9 @@ public class WebhookEvent
      */
     public WebhookEvent(final WebhookEvent other)
     {
-        this.actor = other.actor; // TODO: Make a copy.
+        this.repository = BitbucketClient.newRepository(other.getRepository());
+        this.actor = BitbucketClient.newUserAccount(other.getActor());
+        this.push = push; // TODO: Make a copy.
     }
 
     /**
@@ -68,7 +70,7 @@ public class WebhookEvent
 
     public final void setRepository(final BitbucketRepository repository)
     {
-        this.repository = repository; // TODO: Make a copy.
+        this.repository = BitbucketClient.newRepository(repository);
     }
 
     /**
@@ -76,14 +78,14 @@ public class WebhookEvent
      *
      * @return the actor
      */
-    public final BitbucketAccount getActor()
+    public final BitbucketUserAccount getActor()
     {
         return actor;
     }
 
     public final void setActor(final BitbucketUserAccount actor)
     {
-        this.actor = actor;
+        this.actor = BitbucketClient.newUserAccount(actor);
     }
 
     /**
@@ -98,6 +100,6 @@ public class WebhookEvent
 
     public final void setPush(final BitbucketPush push)
     {
-        this.push = push;
+        this.push = push; // TODO: Make a copy.
     }
 }
