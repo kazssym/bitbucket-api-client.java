@@ -44,8 +44,6 @@ public class ClientRepository implements BitbucketRepository, BitbucketIssueTrac
      */
     private static final String FORK_POLICY = "fork_policy";
 
-    private BitbucketAccount owner;
-
     private UUID uuid;
 
     private String name;
@@ -75,6 +73,10 @@ public class ClientRepository implements BitbucketRepository, BitbucketIssueTrac
 
     private boolean wikiEnabled;
 
+    private BitbucketAccount owner;
+
+    // workspace
+
     // project
 
     private ClientBranch mainBranch;
@@ -89,7 +91,6 @@ public class ClientRepository implements BitbucketRepository, BitbucketIssueTrac
 
     public ClientRepository(final ClientRepository other)
     {
-        this.owner = other.owner;
         this.uuid = other.uuid;
         this.name = other.name;
         this.fullName = other.fullName;
@@ -105,26 +106,8 @@ public class ClientRepository implements BitbucketRepository, BitbucketIssueTrac
         this.issuesEnabled = other.issuesEnabled;
         this.wikiEnabled = other.wikiEnabled;
 
+        this.owner = other.owner; // TODO: Make a copy.
         this.mainBranch = new ClientBranch(other.mainBranch);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final BitbucketAccount getOwner()
-    {
-        return owner;
-    }
-
-    /**
-     * Sets the owner of the repository.
-     *
-     * @param owner a {@link BitbucketAccount} object for the owner
-     */
-    public final void setOwner(final BitbucketAccount owner)
-    {
-        this.owner = owner;
     }
 
     /**
@@ -347,6 +330,25 @@ public class ClientRepository implements BitbucketRepository, BitbucketIssueTrac
     public final boolean hasWiki()
     {
         return wikiEnabled;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final BitbucketAccount getOwner()
+    {
+        return owner;
+    }
+
+    /**
+     * Sets the owner of the repository.
+     *
+     * @param owner a {@link BitbucketAccount} object for the owner
+     */
+    public final void setOwner(final BitbucketAccount owner)
+    {
+        this.owner = owner; // TODO: Make a copy.
     }
 
     /**
