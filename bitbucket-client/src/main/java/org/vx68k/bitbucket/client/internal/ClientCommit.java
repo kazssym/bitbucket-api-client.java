@@ -38,6 +38,8 @@ public class ClientCommit implements BitbucketCommit
 
     private String message;
 
+    private ClientRendered summary;
+
     /**
      * Constructs a commit.
      */
@@ -90,5 +92,20 @@ public class ClientCommit implements BitbucketCommit
     public final void setMessage(final String message)
     {
         this.message = message;
+    }
+
+    public final ClientRendered getSummary()
+    {
+        return summary;
+    }
+
+    public final void setSummary(final ClientRendered summary)
+    {
+        this.summary = new ClientRendered(summary);
+    }
+
+    public final ClientRendered getRendered()
+    {
+        return summary;
     }
 }
