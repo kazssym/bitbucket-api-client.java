@@ -20,11 +20,14 @@
 
 package org.vx68k.bitbucket;
 
+import java.time.OffsetDateTime;
+import java.util.List;
+
 /**
  * Commit in a Bitbucket repository.
  *
  * @author Kaz Nishimura
- * @since 5.0
+ * @since 6.0
  */
 public interface BitbucketCommit
 {
@@ -35,4 +38,34 @@ public interface BitbucketCommit
      * @return the hash of the commit
      */
     String getHash();
+
+    /**
+     *
+     * @return the date
+     */
+    OffsetDateTime getDate();
+
+    /**
+     *
+     * @return the message
+     */
+    String getMessage();
+
+    /**
+     *
+     * @return the repository
+     */
+    BitbucketRepository getRepository();
+
+    /**
+     *
+     * @return the list of the parents
+     */
+    List<BitbucketCommit> getParents();
+
+    /**
+     *
+     * @return the summary
+     */
+    BitbucketRendered getSummary();
 }
