@@ -21,6 +21,8 @@
 package org.vx68k.bitbucket.client.internal;
 
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import javax.json.bind.annotation.JsonbDateFormat;
 import org.vx68k.bitbucket.BitbucketCommit;
 
@@ -37,6 +39,10 @@ public class ClientCommit implements BitbucketCommit
     private OffsetDateTime date;
 
     private String message;
+
+    private ClientRepository repository;
+
+    private List<BitbucketCommit> parents;
 
     private ClientRendered summary;
 
@@ -56,6 +62,12 @@ public class ClientCommit implements BitbucketCommit
     public ClientCommit(final ClientCommit other)
     {
         this.hash = other.hash;
+        this.date = other.date;
+        this.message = other.message;
+
+        this.repository = new ClientRepository(other.repository);
+        this.parents = new ArrayList<>(other.parents);
+        this.summary = new ClientRendered(other.summary);
     }
 
     public final String getType()
@@ -94,6 +106,26 @@ public class ClientCommit implements BitbucketCommit
         this.message = message;
     }
 
+    public final ClientRepository getRepository()
+    {
+        return repository;
+    }
+
+    public final void setRepository(ClientRepository repository)
+    {
+        this.repository = repository;
+    }
+
+    public final List<BitbucketCommit> getParents()
+    {
+        return parents;
+    }
+
+    public void setParents(List<BitbucketCommit> parents)
+    {
+        this.parents = new ArrayList<>(parents);
+    }
+
     public final ClientRendered getSummary()
     {
         return summary;
@@ -106,6 +138,6 @@ public class ClientCommit implements BitbucketCommit
 
     public final ClientRendered getRendered()
     {
-        return summary;
+        return getSummary();
     }
 }
