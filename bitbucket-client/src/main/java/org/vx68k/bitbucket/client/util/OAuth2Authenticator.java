@@ -42,7 +42,7 @@ import org.vx68k.bitbucket.client.TokenRefreshListener;
  * @see <a href="https://tools.ietf.org/html/rfc6749">RFC 6749</a>
  * @since 6.0
  */
-public final class OAuth2Authenticator extends BearerAuthenticator
+public class OAuth2Authenticator extends BearerAuthenticator
 {
     private static final String ACCESS_TOKEN = "access_token";
 
@@ -117,7 +117,7 @@ public final class OAuth2Authenticator extends BearerAuthenticator
      *
      * @return the client identifier
      */
-    public String getClientId()
+    public final String getClientId()
     {
         return clientAuthenticator.getUsername();
     }
@@ -127,7 +127,7 @@ public final class OAuth2Authenticator extends BearerAuthenticator
      *
      * @param newValue a new value of the client identifier
      */
-    public void setClientId(final String newValue)
+    public final void setClientId(final String newValue)
     {
         clientAuthenticator.setUsername(newValue);
     }
@@ -137,7 +137,7 @@ public final class OAuth2Authenticator extends BearerAuthenticator
      *
      * @param newValue a new value of the client secret.
      */
-    public void setClientSecret(final String newValue)
+    public final void setClientSecret(final String newValue)
     {
         clientAuthenticator.setPassword(newValue);
     }
@@ -147,7 +147,7 @@ public final class OAuth2Authenticator extends BearerAuthenticator
      *
      * @return the time when the access token expires
      */
-    public Instant getAccessTokenExpiration()
+    public final Instant getAccessTokenExpiration()
     {
         return expiration;
     }
@@ -157,7 +157,7 @@ public final class OAuth2Authenticator extends BearerAuthenticator
      *
      * @param expiration new value of the time when the access token expires
      */
-    public void setExpiration(final Instant expiration)
+    public final void setExpiration(final Instant expiration)
     {
         this.expiration = expiration;
 
@@ -172,7 +172,7 @@ public final class OAuth2Authenticator extends BearerAuthenticator
      *
      * @return the refresh token
      */
-    public String getRefreshToken()
+    public final String getRefreshToken()
     {
         return refreshToken;
     }
@@ -182,7 +182,7 @@ public final class OAuth2Authenticator extends BearerAuthenticator
      *
      * @param refreshToken a new value of the refresh token
      */
-    public void setRefreshToken(final String refreshToken)
+    public final void setRefreshToken(final String refreshToken)
     {
         this.refreshToken = refreshToken;
     }
@@ -190,7 +190,7 @@ public final class OAuth2Authenticator extends BearerAuthenticator
     /**
      * Fires a token refreshed event.
      */
-    protected void fireTokenRefreshed()
+    protected final void fireTokenRefreshed()
     {
         fireTokenRefreshed(new TokenRefreshEvent(this));
     }
@@ -200,7 +200,7 @@ public final class OAuth2Authenticator extends BearerAuthenticator
      *
      * @param event a token refreshed event.
      */
-    protected void fireTokenRefreshed(final TokenRefreshEvent event)
+    protected final void fireTokenRefreshed(final TokenRefreshEvent event)
     {
         tokenRefreshListeners.forEach((l) -> l.tokenRefreshed(event));
     }
@@ -210,7 +210,7 @@ public final class OAuth2Authenticator extends BearerAuthenticator
      *
      * @param listener a token refresh listener
      */
-    public void addTokenRefreshListener(final TokenRefreshListener listener)
+    public final void addTokenRefreshListener(final TokenRefreshListener listener)
     {
         tokenRefreshListeners.add(listener);
     }
@@ -220,7 +220,7 @@ public final class OAuth2Authenticator extends BearerAuthenticator
      *
      * @param listener a token refresh listener
      */
-    public void removeTokenRefreshListener(final TokenRefreshListener listener)
+    public final void removeTokenRefreshListener(final TokenRefreshListener listener)
     {
         tokenRefreshListeners.remove(listener);
     }
@@ -230,7 +230,7 @@ public final class OAuth2Authenticator extends BearerAuthenticator
      *
      * @param entity a form entity
      */
-    public void requestAccessToken(final Entity<Form> entity)
+    public final void requestAccessToken(final Entity<Form> entity)
     {
         // Client is not {@link AutoCloseable}.
         Client client = ClientBuilder.newClient()
