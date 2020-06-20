@@ -1,5 +1,5 @@
 /*
- * JsonStructureMessageBodyReader.java - class JsonMessageBodyReader
+ * JsonStructureMessageBodyReader.java
  * Copyright (C) 2018-2020 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -32,10 +32,11 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.ext.MessageBodyReader;
 
 /**
- * {@link MessageBodyReader} for {@link JsonStructure} objects.
+ * Implementation class of {@link MessageBodyReader} for {@link JsonStructure}
+ * objects.
  *
  * @author Kaz Nishimura
- * @since 5.0
+ * @since 6.0
  */
 @Consumes({MediaType.APPLICATION_JSON})
 public final class JsonStructureMessageBodyReader
