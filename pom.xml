@@ -340,7 +340,7 @@ implementation for Bitbucket Cloud.</description>
 <execution>
 <id>attach-sources</id>
 <goals>
-<goal>jar</goal>
+<goal>jar-no-fork</goal>
 </goals>
 </execution>
 </executions>
@@ -381,8 +381,11 @@ implementation for Bitbucket Cloud.</description>
 <nexusUrl>https://oss.sonatype.org/</nexusUrl>
 </configuration>
 </plugin>
+
 </plugins>
 </build>
 </profile>
+
 </profiles>
+
 </project>
