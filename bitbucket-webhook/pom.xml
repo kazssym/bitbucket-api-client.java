@@ -52,6 +52,12 @@
 </dependency>
 
 <dependency>
+<groupId>org.glassfish.jersey.core</groupId>
+<artifactId>jersey-client</artifactId>
+<scope>test</scope>
+</dependency>
+
+<dependency>
 <groupId>org.glassfish</groupId>
 <artifactId>javax.json</artifactId>
 <scope>test</scope>
