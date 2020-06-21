@@ -23,7 +23,6 @@ package org.vx68k.bitbucket.webhook;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.vx68k.bitbucket.BitbucketBranch;
 import org.vx68k.bitbucket.BitbucketRepository;
 import org.vx68k.bitbucket.client.internal.ClientBranch;
 
@@ -191,7 +190,7 @@ public class WebhookPush
             return old;
         }
 
-        public final void setOld(BitbucketBranch old)
+        public final void setOld(BitbucketRepository.Branch old)
         {
             if (old != null) {
                 old = new ClientBranch(old);
@@ -209,7 +208,7 @@ public class WebhookPush
             return new1;
         }
 
-        public final void setNew(BitbucketBranch new1)
+        public final void setNew(BitbucketRepository.Branch new1)
         {
             if (new1 != null) {
                 new1 = new ClientBranch(new1);

@@ -114,7 +114,7 @@ public interface BitbucketRepository
      *
      * @return the main branch of the repository
      */
-    BitbucketBranch getMainBranch();
+    Branch getMainBranch();
 
     /**
      * Returns {@code true} if and only if the repository has a issue tracker.

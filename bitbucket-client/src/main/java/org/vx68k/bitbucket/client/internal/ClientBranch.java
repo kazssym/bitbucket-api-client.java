@@ -22,7 +22,7 @@ package org.vx68k.bitbucket.client.internal;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.vx68k.bitbucket.BitbucketBranch;
+import javax.json.bind.annotation.JsonbProperty;
 import org.vx68k.bitbucket.BitbucketRepository;
 
 /**
@@ -32,12 +32,16 @@ import org.vx68k.bitbucket.BitbucketRepository;
  * @author Kaz Nishimura
  * @since 6.0
  */
-public class ClientBranch extends ClientRef implements BitbucketBranch
+public class ClientBranch extends ClientRef implements BitbucketRepository.Branch
 {
     /**
      * Type of the branch object.
      */
     private String type;
+
+    private String defaultMergeStrategy;
+
+    private List<String> mergeStrategies;
 
     /**
      * List of the head commits of the branch object.
@@ -56,7 +60,7 @@ public class ClientBranch extends ClientRef implements BitbucketBranch
      * Constructs a branch copyting another
      * @param other another branch
      */
-    public ClientBranch(final BitbucketBranch other)
+    public ClientBranch(final BitbucketRepository.Branch other)
     {
         this.type = other.getType();
 
@@ -90,6 +94,35 @@ public class ClientBranch extends ClientRef implements BitbucketBranch
             throw new IllegalArgumentException("Type is not of branch objects");
         }
         this.type = type;
+    }
+
+    @JsonbProperty("default_merge_strategy")
+    @Override
+    public final String getDefaultMergeStrategy()
+    {
+        return defaultMergeStrategy;
+    }
+
+    @JsonbProperty("default_merge_strategy")
+    public final void setDefaultMergeStrategy(final String defaultMergeStrategy)
+    {
+        this.defaultMergeStrategy = defaultMergeStrategy;
+    }
+
+    @JsonbProperty("merge_strategies")
+    @Override
+    public final List<String> getMergeStrategies()
+    {
+        return mergeStrategies;
+    }
+
+    @JsonbProperty("merge_strategies")
+    public final void setMergeStrategies(List<String> mergeStrategies)
+    {
+        if (mergeStrategies != null) {
+            mergeStrategies = new ArrayList<>(mergeStrategies);
+        }
+        this.mergeStrategies = mergeStrategies;
     }
 
     /**
