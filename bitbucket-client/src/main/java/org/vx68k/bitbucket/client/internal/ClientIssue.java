@@ -21,7 +21,12 @@
 package org.vx68k.bitbucket.client.internal;
 
 import java.time.OffsetDateTime;
+import javax.json.bind.annotation.JsonbDateFormat;
+import javax.json.bind.annotation.JsonbProperty;
 import org.vx68k.bitbucket.BitbucketIssue;
+import org.vx68k.bitbucket.BitbucketRendered;
+import org.vx68k.bitbucket.BitbucketRepository;
+import org.vx68k.bitbucket.BitbucketUserAccount;
 
 /**
  * Client implementation class of {@link BitbucketIssue} for the
@@ -32,7 +37,7 @@ import org.vx68k.bitbucket.BitbucketIssue;
  */
 public class ClientIssue implements BitbucketIssue
 {
-    private int id;
+    private int id = 0;
 
     private String state;
 
@@ -48,17 +53,17 @@ public class ClientIssue implements BitbucketIssue
 
     private OffsetDateTime edited;
 
-    private int votes;
+    private int votes = 0;
 
-    private int watches;
+    private int watches = 0;
 
-    private ClientRepository repository;
+    private BitbucketRepository repository;
 
-    private ClientUserAccount reporter;
+    private BitbucketRendered content;
 
-    private ClientUserAccount assignee;
+    private BitbucketUserAccount reporter;
 
-    private ClientRendered content;
+    private BitbucketUserAccount assignee;
 
     /**
      * Constructs an issue.
@@ -75,19 +80,21 @@ public class ClientIssue implements BitbucketIssue
      */
     public ClientIssue(final ClientIssue other)
     {
-        this.id = other.id;
-        this.title = other.title;
-        this.state = other.state;
-        this.kind = other.kind;
-        this.priority = other.priority;
-        this.created = other.created;
-        this.votes = other.votes;
-        this.watches = other.watches;
+        this.id = other.getId();
+        this.title = other.getTitle();
+        this.kind = other.getKind();
+        this.priority = other.getPriority();
+        this.state = other.getState();
+        this.created = other.getCreated();
+        this.updated = other.getUpdated();
+        this.edited = other.getEdited();
+        this.votes = other.getVotes();
+        this.watches = other.getWatches();
 
         this.repository = new ClientRepository(other.repository);
+        this.content = new ClientRendered(other.content);
         this.reporter = new ClientUserAccount(other.reporter);
         this.assignee = new ClientUserAccount(other.assignee);
-        this.content = new ClientRendered(other.content);
     }
 
     public final String getType()
@@ -101,16 +108,20 @@ public class ClientIssue implements BitbucketIssue
         return id;
     }
 
+    public final void setId(final int id)
+    {
+        this.id = id;
+    }
+
     @Override
     public final String getTitle()
     {
         return title;
     }
 
-    @Override
-    public final String getState()
+    public final void setTitle(final String title)
     {
-        return state;
+        this.title = title;
     }
 
     @Override
@@ -119,28 +130,73 @@ public class ClientIssue implements BitbucketIssue
         return kind;
     }
 
+    public final void setKind(final String kind)
+    {
+        this.kind = kind;
+    }
+
     @Override
     public final String getPriority()
     {
         return priority;
     }
 
+    public final void setPriority(final String priority)
+    {
+        this.priority = priority;
+    }
+
+    @Override
+    public final String getState()
+    {
+        return state;
+    }
+
+    public final void setState(final String state)
+    {
+        this.state = state;
+    }
+
+    @JsonbProperty("created_on")
+    @JsonbDateFormat("uuuu-MM-dd'T'HH:mm:ss[.SSSSSS]xxxxx")
     @Override
     public final OffsetDateTime getCreated()
     {
         return created;
     }
 
+    @JsonbProperty("created_on")
+    public final void setCreated(final OffsetDateTime created)
+    {
+        this.created = created;
+    }
+
+    @JsonbProperty("updated_on")
+    @JsonbDateFormat("uuuu-MM-dd'T'HH:mm:ss[.SSSSSS]xxxxx")
     @Override
     public final OffsetDateTime getUpdated()
     {
         return updated;
     }
 
+    @JsonbProperty("updated_on")
+    public final void setUpdated(final OffsetDateTime updated)
+    {
+        this.updated = updated;
+    }
+
+    @JsonbProperty("edited_on")
+    @JsonbDateFormat("uuuu-MM-dd'T'HH:mm:ss[.SSSSSS]xxxxx")
     @Override
     public final OffsetDateTime getEdited()
     {
         return edited;
+    }
+
+    @JsonbProperty("edited_on")
+    public final void setEdited(final OffsetDateTime edited)
+    {
+        this.edited = edited;
     }
 
     @Override
@@ -149,33 +205,75 @@ public class ClientIssue implements BitbucketIssue
         return votes;
     }
 
+    public final void setVotes(final int votes)
+    {
+        this.votes = votes;
+    }
+
     @Override
     public final int getWatches()
     {
         return watches;
     }
 
-    public final ClientRepository getRepository()
+    public final void setWatches(final int watches)
+    {
+        this.watches = watches;
+    }
+
+    public final BitbucketRepository getRepository()
     {
         return repository;
     }
 
+    public final void setRepository(ClientRepository repository)
+    {
+        if (repository != null) {
+            repository = new ClientRepository(repository);
+        }
+        this.repository = repository;
+    }
+
     @Override
-    public final ClientUserAccount getReporter()
+    public final BitbucketRendered getContent()
+    {
+        return content;
+    }
+
+    public final void setContent(ClientRendered content)
+    {
+        if (content != null) {
+            content = new ClientRendered(content);
+        }
+        this.content = content;
+    }
+
+    @Override
+    public final BitbucketUserAccount getReporter()
     {
         return reporter;
     }
 
+    public final void setReporter(ClientUserAccount reporter)
+    {
+        if (reporter != null) {
+            reporter = new ClientUserAccount(reporter);
+        }
+        this.reporter = reporter;
+    }
+
     @Override
-    public final ClientUserAccount getAssignee()
+    public final BitbucketUserAccount getAssignee()
     {
         return assignee;
     }
 
-    @Override
-    public final ClientRendered getContent()
+    public final void setAssignee(ClientUserAccount assignee)
     {
-        return content;
+        if (assignee != null) {
+            assignee = new ClientUserAccount(assignee);
+        }
+        this.assignee = assignee;
     }
 
     @Override
