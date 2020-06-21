@@ -60,56 +60,91 @@ final class ClientBranchTest
     }
 
     /**
-     * Tests {@link ClientBranch#ClientBranch}.
+     * Tests {@link ClientBranch#getType()}.
      */
     @Test
-    void testConstructor()
+    void testType1()
     {
         String string1 = "{}";
         ClientBranch branch1 = jsonb.fromJson(string1, ClientBranch.class);
         assertNull(branch1.getType());
-
-        String string2 = "{\"type\":\"branch\"}";
-        ClientBranch branch2 = jsonb.fromJson(string2, ClientBranch.class);
-        assertEquals("branch", branch2.getType());
-
-        String string3 = "{\"type\":\"named_branch\"}";
-        ClientBranch branch3 = jsonb.fromJson(string3, ClientBranch.class);
-        assertEquals("named_branch", branch3.getType());
-
-        String string4 = "{\"type\":\"bookmark\"}";
-        ClientBranch branch4 = jsonb.fromJson(string4, ClientBranch.class);
-        assertEquals("bookmark", branch4.getType());
     }
 
     /**
-     * Tests {@link ClientBranch#getName}.
+     * Tests {@link ClientBranch#getType()}.
      */
     @Test
-    void testName()
+    void testType2()
+    {
+        String string1 = "{\"type\":\"branch\"}";
+        ClientBranch branch1 = jsonb.fromJson(string1, ClientBranch.class);
+        assertEquals("branch", branch1.getType());
+    }
+
+    /**
+     * Tests {@link ClientBranch#getType()}.
+     */
+    @Test
+    void testType3()
+    {
+        String string1 = "{\"type\":\"named_branch\"}";
+        ClientBranch branch1 = jsonb.fromJson(string1, ClientBranch.class);
+        assertEquals("named_branch", branch1.getType());
+    }
+
+    /**
+     * Tests {@link ClientBranch#getType()}.
+     */
+    @Test
+    void testType4()
+    {
+        String string1 = "{\"type\":\"bookmark\"}";
+        ClientBranch branch1 = jsonb.fromJson(string1, ClientBranch.class);
+        assertEquals("bookmark", branch1.getType());
+    }
+
+    /**
+     * Tests {@link ClientBranch#getName()}.
+     */
+    @Test
+    void testName1()
     {
         String string1 = "{\"type\":\"branch\"}";
         ClientBranch branch1 = jsonb.fromJson(string1, ClientBranch.class);
         assertNull(branch1.getName());
+    }
 
-        String string2 = "{\"type\":\"branch\",\"name\":\"master\"}";
-        ClientBranch branch2 = jsonb.fromJson(string2, ClientBranch.class);
-        assertEquals("master", branch2.getName());
+    /**
+     * Tests {@link ClientBranch#getName()}.
+     */
+    @Test
+    void testName2()
+    {
+        String string1 = "{\"type\":\"branch\",\"name\":\"master\"}";
+        ClientBranch branch1 = jsonb.fromJson(string1, ClientBranch.class);
+        assertEquals("master", branch1.getName());
     }
 
     /**
      * Tests {@link ClientBranch#getHeads}.
      */
     @Test
-    void testHeads()
+    void testHeads1()
     {
         String string1 = "{\"type\":\"branch\"}";
         ClientBranch branch1 = jsonb.fromJson(string1, ClientBranch.class);
         assertNull(branch1.getHeads());
+    }
 
-        String string2 = "{\"type\":\"branch\",\"heads\":[]}";
-        ClientBranch branch2 = jsonb.fromJson(string2, ClientBranch.class);
-        assertNotNull(branch2.getHeads());
-        assertEquals(0, branch2.getHeads().size());
+    /**
+     * Tests {@link ClientBranch#getHeads}.
+     */
+    @Test
+    void testHeads2()
+    {
+        String string1 = "{\"type\":\"branch\",\"heads\":[]}";
+        ClientBranch branch1 = jsonb.fromJson(string1, ClientBranch.class);
+        assertNotNull(branch1.getHeads());
+        assertEquals(0, branch1.getHeads().size());
     }
 }
