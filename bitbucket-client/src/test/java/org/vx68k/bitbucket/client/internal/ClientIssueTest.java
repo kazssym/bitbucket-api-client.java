@@ -20,27 +20,23 @@
 
 package org.vx68k.bitbucket.client.internal;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import java.io.InputStream;
 import java.time.Instant;
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
-import javax.json.JsonReader;
-
-import org.junit.Ignore;
-import org.junit.Test;
-import org.vx68k.bitbucket.BitbucketIssue;
+import javax.json.bind.Jsonb;
+import javax.json.bind.JsonbBuilder;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests for {@link ClientIssue}.
  *
  * @author Kaz Nishimura
  */
-public final class ClientIssueTest
+final class ClientIssueTest
 {
     /**
      * Time when the sample issue 1 was created.
@@ -59,203 +55,143 @@ public final class ClientIssueTest
      */
     private static final Instant SAMPLE_ISSUE1_EDITED = null;
 
-    /**
-     * Blank JSON object only with a type for issues.
-     */
-    private final JsonObject blankIssue;
+    private Jsonb jsonb;
 
-    /**
-     * Sample JSON object for an issue.
-     */
-    private final JsonObject sampleIssue1;
+    private InputStream sample1;
 
-    /**
-     * Initializes the object.
-     */
-    public ClientIssueTest()
+    @BeforeEach
+    void setUp()
     {
-        this.blankIssue = Json.createObjectBuilder()
-            .add("type", "issue").build();
-        try (JsonReader reader = Json.createReader(
-            getClass().getResourceAsStream("samples/issue1.json"))) {
-            this.sampleIssue1 = reader.readObject();
-        }
+        jsonb = JsonbBuilder.create();
+
+        sample1 = getClass().getResourceAsStream("samples/issue1.json");
+    }
+
+    @AfterEach
+    void tearDown() throws Exception
+    {
+        sample1.close();
+        sample1 = null;
+
+        jsonb.close();
+        jsonb = null;
     }
 
     /**
-     * Tests the constructors.
+     * Tests {@link ClientIssue#getType}.
      */
     @Test
-    public void testConstructors()
+    void testType()
     {
-        // JsonObjectBuilder builder = Json.createObjectBuilder();
+        String string1 = "{}";
+        ClientIssue issue1 = jsonb.fromJson(string1, ClientIssue.class);
+        assertEquals("issue", issue1.getType());
 
-        // ClientIssue issue0 = new ClientIssue(blankIssue);
-        // assertNull(issue0.getBitbucketClient());
+        String string2 = "{\"type\":\"issue\"}";
+        ClientIssue issue2 = jsonb.fromJson(string2, ClientIssue.class);
+        assertEquals("issue", issue2.getType());
 
-        // try {
-        //     new ClientIssue(null);
-        //     fail();
-        // }
-        // catch (final IllegalArgumentException exception) {
-        // }
+        String string3 = "{\"type\":\"none\"}";
+        ClientIssue issue3 = jsonb.fromJson(string3, ClientIssue.class);
+        assertEquals("issue", issue3.getType());
     }
 
     /**
-     * Tests {@link ClientIssue#getRepository()}.
+     * Tests {@link ClientIssue#getId}.
      */
-    @Ignore
     @Test
-    public void testGetRepository()
+    void testId()
     {
-        // BitbucketIssue issue0 = new ClientIssue(blankIssue);
-        // assertNull(issue0.getRepository());
+        String string1 = "{\"type\":\"branch\"}";
+        ClientIssue issue1 = jsonb.fromJson(string1, ClientIssue.class);
+        assertEquals(0, issue1.getId());
 
-        // BitbucketIssue issue1 = new ClientIssue(sampleIssue1);
-        // assertNotNull(issue1.getRepository());
-        // assertEquals(
-        //     "bitbucket-api-client.java", issue1.getRepository().getName());
+        String string2 = "{\"type\":\"branch\",\"id\":1}";
+        ClientIssue issue2 = jsonb.fromJson(string2, ClientIssue.class);
+        assertEquals(1, issue2.getId());
+
+        ClientIssue issue3 = jsonb.fromJson(sample1, ClientIssue.class);
+        assertEquals(1, issue3.getId());
     }
 
     /**
-     * Tests {@link ClientIssue#getId()}.
+     * Tests {@link ClientIssue#getTitle}.
      */
     @Test
-    public void testGetId()
+    void testTitle()
     {
-        // BitbucketIssue issue0 = new ClientIssue(blankIssue);
-        // assertEquals(0, issue0.getId());
+        String string1 = "{\"type\":\"branch\"}";
+        ClientIssue issue1 = jsonb.fromJson(string1, ClientIssue.class);
+        assertNull(issue1.getTitle());
 
-        // BitbucketIssue issue1 = new ClientIssue(sampleIssue1);
-        // assertEquals(1, issue1.getId());
+        String string2 = "{\"type\":\"branch\",\"title\":\".title\"}";
+        ClientIssue issue2 = jsonb.fromJson(string2, ClientIssue.class);
+        assertEquals(".title", issue2.getTitle());
+
+        ClientIssue issue3 = jsonb.fromJson(sample1, ClientIssue.class);
+        assertEquals("Need a README file", issue3.getTitle());
     }
 
     /**
-     * Tests {@link ClientIssue#getReporter()}.
+     * Tests {@link ClientIssue#getKind}.
      */
     @Test
-    public void testGetReporter()
+    void testKind()
     {
-        // BitbucketIssue issue0 = new ClientIssue(blankIssue);
-        // assertNull(issue0.getReporter());
+        String string1 = "{\"type\":\"branch\"}";
+        ClientIssue issue1 = jsonb.fromJson(string1, ClientIssue.class);
+        assertNull(issue1.getKind());
 
-        // BitbucketIssue issue1 = new BitbucketClientIssue(sampleIssue1);
-        // assertNotNull(issue1.getReporter());
-        // assertNull(issue1.getReporter().getName());
+        String string2 = "{\"type\":\"branch\",\"kind\":\".kind\"}";
+        ClientIssue issue2 = jsonb.fromJson(string2, ClientIssue.class);
+        assertEquals(".kind", issue2.getKind());
+
+        ClientIssue issue3 = jsonb.fromJson(sample1, ClientIssue.class);
+        assertEquals("task", issue3.getKind());
     }
 
     /**
-     * Tests {@link ClientIssue#getState()}.
+     * Tests {@link ClientIssue#getPriority}.
      */
     @Test
-    public void testGetState()
+    void testPriority()
     {
-        // BitbucketIssue issue0 = new ClientIssue(blankIssue);
-        // assertNull(issue0.getState());
+        String string1 = "{\"type\":\"branch\"}";
+        ClientIssue issue1 = jsonb.fromJson(string1, ClientIssue.class);
+        assertNull(issue1.getPriority());
 
-        // BitbucketIssue issue1 = new ClientIssue(sampleIssue1);
-        // assertEquals("resolved", issue1.getState());
+        String string2 = "{\"type\":\"branch\",\"priority\":\".priority\"}";
+        ClientIssue issue2 = jsonb.fromJson(string2, ClientIssue.class);
+        assertEquals(".priority", issue2.getPriority());
+
+        ClientIssue issue3 = jsonb.fromJson(sample1, ClientIssue.class);
+        assertEquals("minor", issue3.getPriority());
     }
 
     /**
-     * Tests {@link ClientIssue#getTitle()}.
+     * Tests {@link ClientIssue#getState}.
      */
     @Test
-    public void testGetTitle()
+    void testState()
     {
-        // BitbucketIssue issue0 = new ClientIssue(blankIssue);
-        // assertNull(issue0.getTitle());
+        String string1 = "{\"type\":\"branch\"}";
+        ClientIssue issue1 = jsonb.fromJson(string1, ClientIssue.class);
+        assertNull(issue1.getState());
 
-        // BitbucketIssue issue1 = new ClientIssue(sampleIssue1);
-        // assertEquals("Need a README file", issue1.getTitle());
-    }
+        String string2 = "{\"type\":\"branch\",\"state\":\".state\"}";
+        ClientIssue issue2 = jsonb.fromJson(string2, ClientIssue.class);
+        assertEquals(".state", issue2.getState());
 
-    /**
-     * Tests {@link ClientIssue#getContent()}.
-     */
-    @Test
-    public void testGetContent()
-    {
-        // BitbucketIssue issue0 = new ClientIssue(blankIssue);
-        // assertNull(issue0.getContent());
-
-        // BitbucketIssue issue1 = new ClientIssue(sampleIssue1);
-        // assertNotNull(issue1.getContent());
-        // assertEquals("markdown", issue1.getContent().getMarkup());
-        // assertEquals("", issue1.getContent().getRaw());
-    }
-
-    /**
-     * Tests {@link ClientIssue#getKind()}.
-     */
-    @Test
-    public void testGetKind()
-    {
-        // BitbucketIssue issue0 = new ClientIssue(blankIssue);
-        // assertNull(issue0.getKind());
-
-        // BitbucketIssue issue1 = new ClientIssue(sampleIssue1);
-        // assertEquals("task", issue1.getKind());
-    }
-
-    /**
-     * Tests {@link ClientIssue#getPriority()}.
-     */
-    @Test
-    public void testGetPriority()
-    {
-        // BitbucketIssue issue0 = new ClientIssue(blankIssue);
-        // assertNull(issue0.getPriority());
-
-        // BitbucketIssue issue1 = new ClientIssue(sampleIssue1);
-        // assertEquals("minor", issue1.getPriority());
-    }
-
-    /**
-     * Tests {@link ClientIssue#getAssignee()}.
-     */
-    @Test
-    public void testGetAssignee()
-    {
-        // BitbucketIssue issue0 = new ClientIssue(blankIssue);
-        // assertNull(issue0.getAssignee());
-
-        // BitbucketIssue issue1 = new BitbucketClientIssue(sampleIssue1);
-        // assertNotNull(issue1.getAssignee());
-        // assertNull(issue1.getAssignee().getName());
-    }
-
-    /**
-     * Tests {@link ClientIssue#getVotes()}.
-     */
-    @Test
-    public void testGetVotes()
-    {
-        // BitbucketIssue issue0 = new ClientIssue(blankIssue);
-        // assertEquals(-1, issue0.getVotes());
-
-        // BitbucketIssue issue1 = new ClientIssue(sampleIssue1);
-        // assertEquals(0, issue1.getVotes());
-    }
-
-    /**
-     * Tests {@link ClientIssue#getWatches()}.
-     */
-    @Test
-    public void testGetWatches()
-    {
-        // BitbucketIssue issue0 = new ClientIssue(blankIssue);
-        // assertEquals(-1, issue0.getWatches());
-
-        // BitbucketIssue issue1 = new ClientIssue(sampleIssue1);
-        // assertEquals(1, issue1.getWatches());
+        ClientIssue issue3 = jsonb.fromJson(sample1, ClientIssue.class);
+        assertEquals("resolved", issue3.getState());
     }
 
     /**
      * Tests {@link ClientIssue#getCreated()}.
      */
+    @Disabled("Not implemented yet")
     @Test
-    public void testGetCreated()
+    void testGetCreated()
     {
         // BitbucketIssue issue0 = new ClientIssue(blankIssue);
         // assertNull(issue0.getCreated());
@@ -272,8 +208,9 @@ public final class ClientIssueTest
     /**
      * Tests {@link ClientIssue#getUpdated()}.
      */
+    @Disabled("Not implemented yet")
     @Test
-    public void testGetUpdated()
+    void testGetUpdated()
     {
         // BitbucketIssue issue0 = new ClientIssue(blankIssue);
         // assertNull(issue0.getUpdated());
@@ -290,8 +227,9 @@ public final class ClientIssueTest
     /**
      * Tests {@link ClientIssue#getEdited()}.
      */
+    @Disabled("Not implemented yet")
     @Test
-    public void testGetEdited()
+    void testGetEdited()
     {
         // BitbucketIssue issue0 = new ClientIssue(blankIssue);
         // assertNull(issue0.getEdited());
@@ -303,5 +241,95 @@ public final class ClientIssueTest
 
         // BitbucketIssue issue1 = new ClientIssue(sampleIssue1);
         // assertEquals(SAMPLE_ISSUE1_EDITED, issue1.getEdited());
+    }
+
+    /**
+     * Tests {@link ClientIssue#getVotes()}.
+     */
+    @Disabled("Not implemented yet")
+    @Test
+    void testGetVotes()
+    {
+        // BitbucketIssue issue0 = new ClientIssue(blankIssue);
+        // assertEquals(-1, issue0.getVotes());
+
+        // BitbucketIssue issue1 = new ClientIssue(sampleIssue1);
+        // assertEquals(0, issue1.getVotes());
+    }
+
+    /**
+     * Tests {@link ClientIssue#getWatches()}.
+     */
+    @Disabled("Not implemented yet")
+    @Test
+    void testGetWatches()
+    {
+        // BitbucketIssue issue0 = new ClientIssue(blankIssue);
+        // assertEquals(-1, issue0.getWatches());
+
+        // BitbucketIssue issue1 = new ClientIssue(sampleIssue1);
+        // assertEquals(1, issue1.getWatches());
+    }
+
+    /**
+     * Tests {@link ClientIssue#getRepository()}.
+     */
+    @Disabled("Not implemented yet")
+    @Test
+    void testGetRepository()
+    {
+        // BitbucketIssue issue0 = new ClientIssue(blankIssue);
+        // assertNull(issue0.getRepository());
+
+        // BitbucketIssue issue1 = new ClientIssue(sampleIssue1);
+        // assertNotNull(issue1.getRepository());
+        // assertEquals(
+        //     "bitbucket-api-client.java", issue1.getRepository().getName());
+    }
+
+    /**
+     * Tests {@link ClientIssue#getReporter()}.
+     */
+    @Disabled("Not implemented yet")
+    @Test
+    void testGetReporter()
+    {
+        // BitbucketIssue issue0 = new ClientIssue(blankIssue);
+        // assertNull(issue0.getReporter());
+
+        // BitbucketIssue issue1 = new BitbucketClientIssue(sampleIssue1);
+        // assertNotNull(issue1.getReporter());
+        // assertNull(issue1.getReporter().getName());
+    }
+
+    /**
+     * Tests {@link ClientIssue#getContent()}.
+     */
+    @Disabled("Not implemented yet")
+    @Test
+    void testGetContent()
+    {
+        // BitbucketIssue issue0 = new ClientIssue(blankIssue);
+        // assertNull(issue0.getContent());
+
+        // BitbucketIssue issue1 = new ClientIssue(sampleIssue1);
+        // assertNotNull(issue1.getContent());
+        // assertEquals("markdown", issue1.getContent().getMarkup());
+        // assertEquals("", issue1.getContent().getRaw());
+    }
+
+    /**
+     * Tests {@link ClientIssue#getAssignee()}.
+     */
+    @Disabled("Not implemented yet")
+    @Test
+    void testGetAssignee()
+    {
+        // BitbucketIssue issue0 = new ClientIssue(blankIssue);
+        // assertNull(issue0.getAssignee());
+
+        // BitbucketIssue issue1 = new BitbucketClientIssue(sampleIssue1);
+        // assertNotNull(issue1.getAssignee());
+        // assertNull(issue1.getAssignee().getName());
     }
 }
