@@ -279,18 +279,18 @@ public class ClientIssue implements BitbucketIssue
     @Override
     public final Component getComponent()
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        throw new UnsupportedOperationException("getComponent is not supported yet.");
     }
 
     @Override
     public final Milestone getMilestone()
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        throw new UnsupportedOperationException("getMilestone is not supported yet.");
     }
 
     @Override
     public final Version getVersion()
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        throw new UnsupportedOperationException("getVersion is not supported yet.");
     }
 }
