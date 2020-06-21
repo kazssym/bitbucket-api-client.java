@@ -12,9 +12,9 @@
 
 <artifactId>bitbucket-client</artifactId>
 <packaging>bundle</packaging>
-<name>Client Implementation for Bitbucket Cloud</name>
-<description>This project builds a client API implementation for Bitbucket
-Cloud.</description>
+<name>Implementation of a REST API Client Runtime for Bitbucket Cloud</name>
+<description>This provides a REST API client runtime using JAX-RS and JSON-B.
+</description>
 
 <dependencies>
 
