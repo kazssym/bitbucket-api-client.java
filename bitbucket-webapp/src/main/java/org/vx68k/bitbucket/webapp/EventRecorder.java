@@ -109,7 +109,7 @@ public class EventRecorder implements Serializable
             JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
             objectBuilder.add("recorded",
                 record.getRecorded().toInstant().toString());
-            objectBuilder.add("event", record.getEvent().getJsonObject());
+            // objectBuilder.add("event", record.getEvent().getJsonObject());
             builder.add(objectBuilder);
         });
         return builder.build();
@@ -203,7 +203,7 @@ public class EventRecorder implements Serializable
 
             String value = null;
             if (bitbucketEvent != null) {
-                value = bitbucketEvent.getJsonObject().toString();
+                // value = bitbucketEvent.getJsonObject().toString();
             }
             event = value;
         }
@@ -259,7 +259,7 @@ public class EventRecorder implements Serializable
             if (event != null) {
                 try (JsonReader reader =
                     Json.createReader(new StringReader(event))) {
-                    value = new WebhookEvent(reader.readObject());
+                    // value = new WebhookEvent(reader.readObject());
                 }
             }
             return value;
@@ -272,7 +272,7 @@ public class EventRecorder implements Serializable
          */
         public final void setEvent(final WebhookEvent value)
         {
-            event = value.getJsonObject().toString();
+            // event = value.getJsonObject().toString();
         }
     }
 }

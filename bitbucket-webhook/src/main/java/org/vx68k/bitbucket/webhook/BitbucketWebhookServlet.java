@@ -94,7 +94,7 @@ public class BitbucketWebhookServlet extends HttpServlet
         }
         try (JsonReader reader = Json.createReader(request.getReader())) {
             JsonObject object = reader.readObject();
-            bitbucketEvent.fire(new WebhookEvent(object));
+            // bitbucketEvent.fire(new WebhookEvent());
         }
         catch (JsonParsingException exception) {
             log("JSON parsing error", exception);
