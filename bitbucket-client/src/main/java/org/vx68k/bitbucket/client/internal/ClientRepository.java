@@ -25,6 +25,7 @@ import java.util.UUID;
 import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbTypeAdapter;
 import org.vx68k.bitbucket.BitbucketAccount;
+import org.vx68k.bitbucket.BitbucketBranch;
 import org.vx68k.bitbucket.BitbucketRepository;
 
 /**
@@ -71,7 +72,7 @@ public class ClientRepository implements BitbucketRepository
 
     // project
 
-    private ClientBranch mainBranch;
+    private BitbucketBranch mainBranch;
 
     /**
      * Constructs a repository.
@@ -99,7 +100,12 @@ public class ClientRepository implements BitbucketRepository
         this.wikiEnabled = other.isWikiEnabled();
 
         this.owner = other.getOwner(); // TODO: Make a copy.
-        this.mainBranch = new ClientBranch(other.getMainBranch());
+
+        BitbucketBranch otherMainBranch = other.getMainBranch();
+        if (otherMainBranch != null) {
+            otherMainBranch = new ClientBranch(otherMainBranch);
+        }
+        this.mainBranch = otherMainBranch;
     }
 
     public final String getType()
@@ -370,14 +376,17 @@ public class ClientRepository implements BitbucketRepository
      */
     @JsonbProperty("mainbranch")
     @Override
-    public final ClientBranch getMainBranch()
+    public final BitbucketBranch getMainBranch()
     {
         return mainBranch;
     }
 
     @JsonbProperty("mainbranch")
-    public final void setMainBranch(final ClientBranch mainBranch)
+    public final void setMainBranch(BitbucketBranch mainBranch)
     {
-        this.mainBranch = new ClientBranch(mainBranch);
+        if (mainBranch != null) {
+            mainBranch = new ClientBranch(mainBranch);
+        }
+        this.mainBranch = mainBranch;
     }
 }
