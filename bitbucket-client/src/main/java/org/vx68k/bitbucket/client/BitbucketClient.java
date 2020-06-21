@@ -92,7 +92,7 @@ public class BitbucketClient implements Bitbucket, Serializable
      */
     private final transient OAuth2Authenticator authenticator;
 
-    public static BitbucketUserAccount copyUserAccount(
+    public static ClientUserAccount copyUserAccount(
         final BitbucketUserAccount userAccount)
     {
         if (userAccount != null) {
@@ -101,7 +101,7 @@ public class BitbucketClient implements Bitbucket, Serializable
         return null;
     }
 
-    public static BitbucketRepository copyRepository(
+    public static ClientRepository copyRepository(
         final BitbucketRepository repository)
     {
         if (repository != null) {
