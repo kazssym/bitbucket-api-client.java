@@ -250,8 +250,8 @@ implementation for Bitbucket Cloud.</description>
 <source>1.8</source>
 <locale>en_US</locale>
 <links>
-<link>https://docs.oracle.com/javaee/7/api</link>
-<link>https://vx68k.bitbucket.io/bitbucket-api-client.java/5/apidocs</link>
+<link>https://javaee.github.io/javaee-spec/javadocs/</link>
+<link>https://vx68k.bitbucket.io/bitbucket-api-client.java/5/apidocs/</link>
 </links>
 </configuration>
 </plugin>
@@ -288,8 +288,8 @@ implementation for Bitbucket Cloud.</description>
 <source>1.8</source>
 <locale>en_US</locale>
 <links>
-<link>https://docs.oracle.com/javaee/7/api</link>
-<link>https://vx68k.bitbucket.io/bitbucket-api-client.java/5/apidocs</link>
+<link>https://javaee.github.io/javaee-spec/javadocs/</link>
+<link>https://vx68k.bitbucket.io/bitbucket-api-client.java/5/apidocs/</link>
 </links>
 <notimestamp>true</notimestamp>
 </configuration>
