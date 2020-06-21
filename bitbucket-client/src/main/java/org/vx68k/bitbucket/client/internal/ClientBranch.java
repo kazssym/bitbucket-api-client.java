@@ -59,7 +59,12 @@ public class ClientBranch extends ClientRef implements BitbucketBranch
     public ClientBranch(final BitbucketBranch other)
     {
         this.type = other.getType();
-        this.heads = new ArrayList<>(other.getHeads());
+
+        List<BitbucketCommit> otherHeads = other.getHeads();
+        if (otherHeads != null) {
+            otherHeads = new ArrayList<>(otherHeads);
+        }
+        this.heads = otherHeads;
     }
 
     /**
@@ -92,13 +97,17 @@ public class ClientBranch extends ClientRef implements BitbucketBranch
      *
      * @return the heads
      */
+    @Override
     public final List<BitbucketCommit> getHeads()
     {
         return heads;
     }
 
-    public final void setHeads(final List<? extends BitbucketCommit> heads)
+    public final void setHeads(List<BitbucketCommit> heads)
     {
-        this.heads = new ArrayList<>(heads);
+        if (heads != null) {
+            heads = new ArrayList<>(heads);
+        }
+        this.heads = heads;
     }
 }
