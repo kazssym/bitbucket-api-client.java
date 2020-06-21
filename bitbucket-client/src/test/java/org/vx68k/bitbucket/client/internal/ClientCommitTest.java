@@ -69,126 +69,209 @@ final class ClientCommitTest
     }
 
     /**
-     * Tests {@link ClientCommit#ClientCommit}.
+     * Tests {@link ClientCommit#getType()}.
      */
     @Test
-    void testConstructor()
+    void testType1()
     {
-        // The type is always "commit".
-
         String string1 = "{}";
         ClientCommit commit1 = jsonb.fromJson(string1, ClientCommit.class);
         assertEquals("commit", commit1.getType());
-
-        String string2 = "{\"type\":\"none\"}";
-        ClientCommit commit2 = jsonb.fromJson(string2, ClientCommit.class);
-        assertEquals("commit", commit2.getType());
     }
 
+    /**
+     * Tests {@link ClientCommit#getType()}.
+     */
     @Test
-    void testHash()
+    void testType2()
+    {
+        String string1 = "{\"type\":\"none\"}";
+        ClientCommit commit1 = jsonb.fromJson(string1, ClientCommit.class);
+        assertEquals("commit", commit1.getType());
+    }
+
+    /**
+     * Tests {@link ClientCommit#getType()}.
+     */
+    @Test
+    void testType3()
+    {
+        ClientCommit commit1 = jsonb.fromJson(sample1, ClientCommit.class);
+        assertEquals("commit", commit1.getType());
+    }
+
+    /**
+     * Tests {@link ClientCommit#getHash()}.
+     */
+    @Test
+    void testHash1()
     {
         String string1 = "{\"type\":\"commit\"}";
         ClientCommit commit1 = jsonb.fromJson(string1, ClientCommit.class);
         assertNull(commit1.getHash());
+    }
 
-        String string2 = "{\"type\":\"commit\",\"hash\":\".hash\"}";
-        ClientCommit commit2 = jsonb.fromJson(string2, ClientCommit.class);
-        assertEquals(".hash", commit2.getHash());
+    /**
+     * Tests {@link ClientCommit#getHash()}.
+     */
+    @Test
+    void testHash2()
+    {
+        String string1 = "{\"type\":\"commit\",\"hash\":\".hash\"}";
+        ClientCommit commit1 = jsonb.fromJson(string1, ClientCommit.class);
+        assertEquals(".hash", commit1.getHash());
+    }
 
-        ClientCommit commit3 = jsonb.fromJson(sample1, ClientCommit.class);
-        assertEquals(SAMPLE1_HASH, commit3.getHash());
+    /**
+     * Tests {@link ClientCommit#getHash()}.
+     */
+    @Test
+    void testHash3()
+    {
+        ClientCommit commit1 = jsonb.fromJson(sample1, ClientCommit.class);
+        assertEquals(SAMPLE1_HASH, commit1.getHash());
     }
 
     @Test
-    void testDate()
+    void testDate1()
     {
         String string1 = "{\"type\":\"commit\"}";
         ClientCommit commit1 = jsonb.fromJson(string1, ClientCommit.class);
         assertNull(commit1.getDate());
-
-        String string2 = "{\"type\":\"commit\",\"date\":\"2001-01-01T01:23:45+09:00\"}";
-        ClientCommit commit2 = jsonb.fromJson(string2, ClientCommit.class);
-        assertEquals(OffsetDateTime.parse("2001-01-01T01:23:45+09:00"), commit2.getDate());
-
-        ClientCommit commit3 = jsonb.fromJson(sample1, ClientCommit.class);
-        assertEquals(SAMPLE1_DATE, commit3.getDate());
     }
 
     @Test
-    void testMessage()
+    void testDate2()
+    {
+        String string1 = "{\"type\":\"commit\",\"date\":\"2001-01-01T01:23:45+09:00\"}";
+        ClientCommit commit1 = jsonb.fromJson(string1, ClientCommit.class);
+        assertEquals(OffsetDateTime.parse("2001-01-01T01:23:45+09:00"), commit1.getDate());
+    }
+
+    @Test
+    void testDate3()
+    {
+        ClientCommit commit1 = jsonb.fromJson(sample1, ClientCommit.class);
+        assertEquals(SAMPLE1_DATE, commit1.getDate());
+    }
+
+    @Test
+    void testMessage1()
     {
         String string1 = "{\"type\":\"commit\"}";
         ClientCommit commit1 = jsonb.fromJson(string1, ClientCommit.class);
         assertNull(commit1.getMessage());
-
-        String string2 = "{\"type\":\"commit\",\"message\":\".message\"}";
-        ClientCommit commit2 = jsonb.fromJson(string2, ClientCommit.class);
-        assertEquals(".message", commit2.getMessage());
-
-        ClientCommit commit3 = jsonb.fromJson(sample1, ClientCommit.class);
-        assertEquals("Created a project.\n", commit3.getMessage());
     }
 
-    void testRepository()
+    @Test
+    void testMessage2()
+    {
+        String string1 = "{\"type\":\"commit\",\"message\":\".message\"}";
+        ClientCommit commit1 = jsonb.fromJson(string1, ClientCommit.class);
+        assertEquals(".message", commit1.getMessage());
+    }
+
+    @Test
+    void testMessage3()
+    {
+        ClientCommit commit1 = jsonb.fromJson(sample1, ClientCommit.class);
+        assertEquals("Created a project.\n", commit1.getMessage());
+    }
+
+    @Test
+    void testRepository1()
     {
         String string1 = "{\"type\":\"commit\"}";
         ClientCommit commit1 = jsonb.fromJson(string1, ClientCommit.class);
         assertNull(commit1.getRepository());
-
-        String string2 = "{\"type\":\"commit\",\"repository\":{}}";
-        ClientCommit commit2 = jsonb.fromJson(string2, ClientCommit.class);
-        assertNotNull(commit2.getRepository());
-
-        ClientCommit commit3 = jsonb.fromJson(sample1, ClientCommit.class);
-        assertNotNull(commit3.getRepository());
     }
 
     @Test
-    void testParents()
+    void testRepository2()
+    {
+        String string1 = "{\"type\":\"commit\",\"repository\":{}}";
+        ClientCommit commit1 = jsonb.fromJson(string1, ClientCommit.class);
+        assertNotNull(commit1.getRepository());
+    }
+
+    @Test
+    void testRepository3()
+    {
+        ClientCommit commit1 = jsonb.fromJson(sample1, ClientCommit.class);
+        assertNotNull(commit1.getRepository());
+    }
+
+    @Test
+    void testParents1()
     {
         String string1 = "{\"type\":\"commit\"}";
         ClientCommit commit1 = jsonb.fromJson(string1, ClientCommit.class);
         assertNull(commit1.getParents());
+    }
 
-        String string2 = "{\"type\":\"commit\",\"parents\":[]}";
-        ClientCommit commit2 = jsonb.fromJson(string2, ClientCommit.class);
-        assertNotNull(commit2.getParents());
-        assertEquals(0, commit2.getParents().size());
+    @Test
+    void testParents2()
+    {
+        String string1 = "{\"type\":\"commit\",\"parents\":[]}";
+        ClientCommit commit1 = jsonb.fromJson(string1, ClientCommit.class);
+        assertNotNull(commit1.getParents());
+        assertEquals(0, commit1.getParents().size());
+    }
 
-        ClientCommit commit3 = jsonb.fromJson(sample1, ClientCommit.class);
-        assertNotNull(commit3.getParents());
-        assertEquals(0, commit3.getParents().size());
+    @Test
+    void testParents3()
+    {
+        ClientCommit commit1 = jsonb.fromJson(sample1, ClientCommit.class);
+        assertNotNull(commit1.getParents());
+        assertEquals(0, commit1.getParents().size());
     }
 
     @Disabled("Not implemented yet")
     @Test
-    void testAuthor()
+    void testAuthor1()
     {
         String string1 = "{\"type\":\"commit\"}";
         ClientCommit commit1 = jsonb.fromJson(string1, ClientCommit.class);
         assertNotNull(commit1);
+    }
 
-        String string2 = "{\"type\":\"commit\",\"author\":{}}";
-        ClientCommit commit2 = jsonb.fromJson(string2, ClientCommit.class);
-        assertNotNull(commit2);
+    @Disabled("Not implemented yet")
+    @Test
+    void testAuthor2()
+    {
+        String string1 = "{\"type\":\"commit\",\"author\":{}}";
+        ClientCommit commit1 = jsonb.fromJson(string1, ClientCommit.class);
+        assertNotNull(commit1);
+    }
 
-        ClientCommit commit3 = jsonb.fromJson(sample1, ClientCommit.class);
-        assertNotNull(commit3);
+    @Disabled("Not implemented yet")
+    @Test
+    void testAuthor3()
+    {
+        ClientCommit commit1 = jsonb.fromJson(sample1, ClientCommit.class);
+        assertNotNull(commit1);
     }
 
     @Test
-    void testSummary()
+    void testSummary1()
     {
         String string1 = "{\"type\":\"commit\"}";
         ClientCommit commit1 = jsonb.fromJson(string1, ClientCommit.class);
         assertNull(commit1.getSummary());
+    }
 
-        String string2 = "{\"type\":\"commit\",\"summary\":{}}";
-        ClientCommit commit2 = jsonb.fromJson(string2, ClientCommit.class);
-        assertNotNull(commit2.getSummary());
+    @Test
+    void testSummary2()
+    {
+        String string1 = "{\"type\":\"commit\",\"summary\":{}}";
+        ClientCommit commit1 = jsonb.fromJson(string1, ClientCommit.class);
+        assertNotNull(commit1.getSummary());
+    }
 
-        ClientCommit commit3 = jsonb.fromJson(sample1, ClientCommit.class);
-        assertNotNull(commit3.getSummary());
+    @Test
+    void testSummary3()
+    {
+        ClientCommit commit1 = jsonb.fromJson(sample1, ClientCommit.class);
+        assertNotNull(commit1.getSummary());
     }
 }
