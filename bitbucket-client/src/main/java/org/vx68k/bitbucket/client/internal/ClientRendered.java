@@ -31,6 +31,8 @@ import org.vx68k.bitbucket.BitbucketRendered;
  */
 public class ClientRendered implements BitbucketRendered
 {
+    private String type;
+
     private String markup;
 
     private String raw;
@@ -54,7 +56,15 @@ public class ClientRendered implements BitbucketRendered
 
     public final String getType()
     {
-        return "rendered";
+        return type;
+    }
+
+    public void setType(String type)
+    {
+        if (type != null && !(type.equals("rendered"))) {
+            throw new IllegalArgumentException("Type is not of rendered objects");
+        }
+        this.type = type;
     }
 
     @Override

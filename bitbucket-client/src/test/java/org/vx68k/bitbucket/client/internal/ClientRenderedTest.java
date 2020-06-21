@@ -50,9 +50,9 @@ final class ClientRenderedTest
     {
         String string1 = "{}";
         ClientRendered rendered1 = jsonb.fromJson(string1, ClientRendered.class);
-        assertEquals("rendered", rendered1.getType());
+        assertNull(rendered1.getType());
 
-        String string2 = "{\"type\":\"none\"}";
+        String string2 = "{\"type\":\"rendered\"}";
         ClientRendered rendered2 = jsonb.fromJson(string2, ClientRendered.class);
         assertEquals("rendered", rendered2.getType());
     }
