@@ -52,6 +52,21 @@ public final class WebhookEventTest
     }
 
     /**
+     * Tests {WebhookEvent#getRepository}.
+     */
+    @Test
+    public void testRepository()
+    {
+        String string1 = "{}";
+        WebhookEvent event1 = jsonb.fromJson(string1, WebhookEvent.class);
+        assertNull(event1.getRepository());
+
+        String string2 = "{\"repository\":{}}";
+        WebhookEvent event2 = jsonb.fromJson(string2, WebhookEvent.class);
+        assertNotNull(event2.getRepository());
+    }
+
+    /**
      * Tests {WebhookEvent#getPush}.
      */
     @Test
