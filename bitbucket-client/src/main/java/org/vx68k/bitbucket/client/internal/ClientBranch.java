@@ -26,7 +26,7 @@ import javax.json.bind.annotation.JsonbProperty;
 import org.vx68k.bitbucket.BitbucketRepository;
 
 /**
- * Client implementation class of {@link BitbucketBranch} for the
+ * Client implementation class of {@link BitbucketRepository.Branch} for the
  * {@code "branch"}, {@code "named_branch"} and {@code "bookmark"} objects.
  *
  * @author Kaz Nishimura
