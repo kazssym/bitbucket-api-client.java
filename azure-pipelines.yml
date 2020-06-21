@@ -76,8 +76,8 @@ stages:
             displayName: "Maven: site"
             continueOnError: true
             inputs:
-              goals: site
+              goals: site site:stage
               options: -B -Dmaven.repo.local=$(maven.localRepository)
               jdkVersion: "1.11"
-          - publish: target/site
+          - publish: target/staging
             artifact: site
