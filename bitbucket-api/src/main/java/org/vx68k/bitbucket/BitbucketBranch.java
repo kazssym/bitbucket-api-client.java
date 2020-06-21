@@ -28,7 +28,7 @@ import java.util.List;
  * @author Kaz Nishimura
  * @since 6.0
  */
-public interface BitbucketBranch extends BitbucketRef
+public interface BitbucketBranch extends BitbucketRepository.Ref
 {
     /**
      *

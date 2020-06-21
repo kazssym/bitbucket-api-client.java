@@ -20,16 +20,15 @@
 
 package org.vx68k.bitbucket.client.internal;
 
-import org.vx68k.bitbucket.BitbucketRef;
 import org.vx68k.bitbucket.BitbucketRepository;
 
 /**
- * Abstract client implementation class of {@link BitbucketRef}.
+ * Abstract client implementation class of {@link BitbucketRepository.Ref}.
  *
  * @author Kaz Nishimura
  * @since 6.0
  */
-public abstract class ClientRef implements BitbucketRef
+public abstract class ClientRef implements BitbucketRepository.Ref
 {
     private String name;
 
