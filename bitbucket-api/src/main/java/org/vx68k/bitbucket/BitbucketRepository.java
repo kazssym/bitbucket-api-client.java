@@ -176,4 +176,27 @@ public interface BitbucketRepository
          */
         BitbucketRendered getSummary();
     }
+
+    /**
+     * Class of commit refs in a repository.
+     *
+     * @author Kaz Nishimura
+     * @since 6.0
+     */
+    public static interface Ref
+    {
+        /**
+         * Returns the name of the commit ref.
+         *
+         * @return the name of the commit ref
+         */
+        String getName();
+
+        /**
+         * Returns the target of the commit ref.
+         *
+         * @return the target of the commit ref
+         */
+        Commit getTarget();
+    }
 }
