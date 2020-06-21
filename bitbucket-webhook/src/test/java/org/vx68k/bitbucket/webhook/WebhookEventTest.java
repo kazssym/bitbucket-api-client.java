@@ -20,21 +20,49 @@
 
 package org.vx68k.bitbucket.webhook;
 
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import javax.json.bind.Jsonb;
+import javax.json.bind.JsonbBuilder;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Unit tests for {@link WebhookEvent}.
  *
  * @author Kaz Nishimura
+ * @since 6.0
  */
 public final class WebhookEventTest
 {
-    /**
-     * Tests a {@code null} object.
-     */
-    @Test(expected = IllegalArgumentException.class)
-    public void testNullObject()
+    private Jsonb jsonb;
+
+    @BeforeEach
+    void setUp()
     {
-        new WebhookEvent(null);
+        jsonb = JsonbBuilder.create();
+    }
+
+    @AfterEach
+    void tearDown() throws Exception
+    {
+        jsonb.close();
+        jsonb = null;
+    }
+
+    /**
+     * Tests {WebhookEvent#getPush}.
+     */
+    @Test
+    public void testPush()
+    {
+        String string1 = "{}";
+        WebhookEvent event1 = jsonb.fromJson(string1, WebhookEvent.class);
+        assertNull(event1.getPush());
+
+        String string2 = "{\"push\":{}}";
+        WebhookEvent event2 = jsonb.fromJson(string2, WebhookEvent.class);
+        assertNotNull(event2.getPush());
     }
 }
