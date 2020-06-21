@@ -20,8 +20,9 @@
 
 package org.vx68k.bitbucket.webhook;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
-
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
 import org.junit.jupiter.api.AfterEach;
@@ -32,6 +33,7 @@ import org.junit.jupiter.api.Test;
  * Unit tests for {@link WebhookPush}.
  *
  * @author Kaz Nishimura
+ * @since 6.0
  */
 final class WebhookPushTest
 {
@@ -54,10 +56,15 @@ final class WebhookPushTest
      * Tests a {@code null} object.
      */
     @Test
-    void testConstructor()
+    void testChanges()
     {
         String string1 = "{}";
         WebhookPush push1 = jsonb.fromJson(string1, WebhookPush.class);
         assertNull(push1.getChanges());
+
+        String string2 = "{\"changes\":[]}";
+        WebhookPush push2 = jsonb.fromJson(string2, WebhookPush.class);
+        assertNotNull(push2.getChanges());
+        assertEquals(0, push2.getChanges().size());
     }
 }
