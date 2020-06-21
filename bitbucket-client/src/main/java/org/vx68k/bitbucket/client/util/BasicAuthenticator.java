@@ -44,7 +44,10 @@ public class BasicAuthenticator extends AbstractAuthenticator
     private String password = null;
 
     /**
-     * Initializes the object.
+     * Constructs a Basic authenticator.
+     *
+     * @param baseUri the base URI for which the authenticator attempt Basic
+     * authentication.
      */
     public BasicAuthenticator(final URI baseUri)
     {
