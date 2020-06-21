@@ -96,7 +96,7 @@ public class ClientRepository implements BitbucketRepository
         this.updated = other.getUpdated();
         this.size = other.getSize();
         this.issuesEnabled = other.isIssuesEnabled();
-        this.wikiEnabled = other.hasWiki();
+        this.wikiEnabled = other.isWikiEnabled();
 
         this.owner = other.getOwner(); // TODO: Make a copy.
         this.mainBranch = new ClientBranch(other.getMainBranch());
@@ -333,7 +333,7 @@ public class ClientRepository implements BitbucketRepository
 
     @JsonbProperty("has_wiki")
     @Override
-    public final boolean hasWiki()
+    public final boolean isWikiEnabled()
     {
         return wikiEnabled;
     }

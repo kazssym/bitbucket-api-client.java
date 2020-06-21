@@ -128,7 +128,7 @@ public interface BitbucketRepository
      *
      * @return {@code true} if and only if the repository has a wiki
      */
-    boolean hasWiki();
+    boolean isWikiEnabled();
 
     /**
      * Class of commits in a repository.
