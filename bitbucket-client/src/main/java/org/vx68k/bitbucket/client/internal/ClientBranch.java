@@ -78,6 +78,12 @@ public class ClientBranch extends ClientRef implements BitbucketBranch
      */
     public final void setType(final String type)
     {
+        if (type != null
+            && !(type.equals("branch")
+                || type.equals("named_branch")
+                || type.equals("bookmark"))) {
+            throw new IllegalArgumentException("Type is not of branch objects");
+        }
         this.type = type;
     }
 
