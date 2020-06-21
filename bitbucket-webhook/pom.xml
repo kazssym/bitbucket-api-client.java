@@ -12,8 +12,8 @@
 
 <artifactId>bitbucket-webhook</artifactId>
 <packaging>bundle</packaging>
-<name>Webhook Implementation</name>
-<description>This project builds a webhook implementation for Bitbucket Cloud.
+<name>Webhook Runtime for Bitbucket Cloud</name>
+<description>This provides a webhook runtime using CDI.
 </description>
 
 <dependencies>
