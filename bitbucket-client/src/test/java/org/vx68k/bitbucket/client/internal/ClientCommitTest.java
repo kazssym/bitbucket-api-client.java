@@ -23,6 +23,8 @@ package org.vx68k.bitbucket.client.internal;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.io.InputStream;
 import java.time.OffsetDateTime;
 import javax.json.bind.Jsonb;
@@ -76,7 +78,7 @@ final class ClientCommitTest
     {
         String string1 = "{}";
         ClientCommit commit1 = jsonb.fromJson(string1, ClientCommit.class);
-        assertEquals("commit", commit1.getType());
+        assertNull(commit1.getType());
     }
 
     /**
@@ -85,7 +87,7 @@ final class ClientCommitTest
     @Test
     void testType2()
     {
-        String string1 = "{\"type\":\"none\"}";
+        String string1 = "{\"type\":\"commit\"}";
         ClientCommit commit1 = jsonb.fromJson(string1, ClientCommit.class);
         assertEquals("commit", commit1.getType());
     }
@@ -98,6 +100,24 @@ final class ClientCommitTest
     {
         ClientCommit commit1 = jsonb.fromJson(sample1, ClientCommit.class);
         assertEquals("commit", commit1.getType());
+    }
+
+    /**
+     * Tests {@link ClientCommit#getType()}.
+     */
+    @Test
+    void testType4()
+    {
+        String string1 = "{\"type\":\"other\"}";
+        ClientCommit commit1 = null;
+        try {
+            commit1 = jsonb.fromJson(string1, ClientCommit.class);
+            fail();
+        }
+        catch (final RuntimeException e) {
+            System.err.println("Caught as expected: " + e.getMessage());
+        }
+        assertNull(commit1);
     }
 
     /**

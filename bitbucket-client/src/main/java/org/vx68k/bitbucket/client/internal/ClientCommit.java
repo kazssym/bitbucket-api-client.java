@@ -35,6 +35,8 @@ import org.vx68k.bitbucket.BitbucketRepository;
  */
 public class ClientCommit implements BitbucketRepository.Commit
 {
+    private String type;
+
     private String hash;
 
     private OffsetDateTime date;
@@ -62,6 +64,7 @@ public class ClientCommit implements BitbucketRepository.Commit
      */
     public ClientCommit(final BitbucketRepository.Commit other)
     {
+        this.type = "commit"; // TODO: Right?
         this.hash = other.getHash();
         this.date = other.getDate();
         this.message = other.getMessage();
@@ -73,7 +76,15 @@ public class ClientCommit implements BitbucketRepository.Commit
 
     public final String getType()
     {
-        return "commit";
+        return type;
+    }
+
+    public final void setType(final String type)
+    {
+        if (type != null && !(type.equals("commit"))) {
+            throw new IllegalArgumentException("Type is not of commit objects");
+        }
+        this.type = type;
     }
 
     @Override
