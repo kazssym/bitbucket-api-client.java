@@ -23,9 +23,9 @@ package org.vx68k.bitbucket.webhook;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import javax.json.bind.annotation.JsonbProperty;
 import org.vx68k.bitbucket.BitbucketBranch;
 import org.vx68k.bitbucket.BitbucketCommit;
+import org.vx68k.bitbucket.client.internal.ClientBranch;
 
 /**
  * Class of push activities.
@@ -87,16 +87,14 @@ public class WebhookPush
 
         private boolean truncated;
 
-        private BitbucketBranch old;
+        private ClientBranch old;
 
-        private BitbucketBranch new1;
+        private ClientBranch new1;
 
         private List<BitbucketCommit> commits;
 
         /**
-         * Constructs this change with a JSON change object.
-         *
-         * @param object JSON change object
+         * Constructs a change.
          */
         public Change()
         {
@@ -110,15 +108,15 @@ public class WebhookPush
             this.forced = other.isForced();
             this.truncated = other.isTruncated();
 
-            BitbucketBranch otherOld = other.getOld();
+            ClientBranch otherOld = other.getOld();
             if (otherOld != null) {
-                otherOld = otherOld; // TODO: Make a copy.
+                otherOld = new ClientBranch(otherOld);
             }
             this.old = otherOld;
 
-            BitbucketBranch otherNew = other.getNew();
+            ClientBranch otherNew = other.getNew();
             if (otherNew != null) {
-                otherNew = otherNew; // TODO: Make a copy.
+                otherNew = new ClientBranch(otherNew);
             }
             this.new1 = otherNew;
         }
@@ -188,7 +186,7 @@ public class WebhookPush
          *
          * @return the old branch
          */
-        public final BitbucketBranch getOld()
+        public final ClientBranch getOld()
         {
             return old;
         }
@@ -196,9 +194,9 @@ public class WebhookPush
         public final void setOld(BitbucketBranch old)
         {
             if (old != null) {
-                old = old; // TODO: Make a copy.
+                old = new ClientBranch(old);
             }
-            this.old = old;
+            this.old = (ClientBranch) old;
         }
 
         /**
@@ -206,19 +204,17 @@ public class WebhookPush
          *
          * @return the new branch
          */
-        @JsonbProperty("new")
-        public final BitbucketBranch getNew()
+        public final ClientBranch getNew()
         {
             return new1;
         }
 
-        @JsonbProperty("new")
         public final void setNew(BitbucketBranch new1)
         {
             if (new1 != null) {
-                new1 = new1; // TODO: Make a copy.
+                new1 = new ClientBranch(new1);
             }
-            this.new1 = new1;
+            this.new1 = (ClientBranch) new1;
         }
 
         /**
