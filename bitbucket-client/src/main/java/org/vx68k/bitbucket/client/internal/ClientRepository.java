@@ -95,7 +95,7 @@ public class ClientRepository implements BitbucketRepository
         this.created = other.getCreated();
         this.updated = other.getUpdated();
         this.size = other.getSize();
-        this.issuesEnabled = other.hasIssueTracker();
+        this.issuesEnabled = other.isIssuesEnabled();
         this.wikiEnabled = other.hasWiki();
 
         this.owner = other.getOwner(); // TODO: Make a copy.
@@ -320,7 +320,7 @@ public class ClientRepository implements BitbucketRepository
 
     @JsonbProperty("has_issues")
     @Override
-    public final boolean hasIssueTracker()
+    public final boolean isIssuesEnabled()
     {
         return issuesEnabled;
     }

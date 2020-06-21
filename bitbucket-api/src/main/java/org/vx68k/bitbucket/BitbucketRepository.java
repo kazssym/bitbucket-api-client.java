@@ -121,7 +121,7 @@ public interface BitbucketRepository
      *
      * @return {@code true} if and only if the repository has a issue tracker
      */
-    boolean hasIssueTracker();
+    boolean isIssuesEnabled();
 
     /**
      * Returns {@code true} if and only if the repository has a wiki.
