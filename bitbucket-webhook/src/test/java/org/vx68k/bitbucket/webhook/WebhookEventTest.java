@@ -52,32 +52,46 @@ public final class WebhookEventTest
     }
 
     /**
-     * Tests {WebhookEvent#getRepository}.
+     * Tests {@link WebhookEvent#getRepository()}.
      */
     @Test
-    public void testRepository()
+    public void testRepository1()
     {
         String string1 = "{}";
         WebhookEvent event1 = jsonb.fromJson(string1, WebhookEvent.class);
         assertNull(event1.getRepository());
-
-        String string2 = "{\"repository\":{}}";
-        WebhookEvent event2 = jsonb.fromJson(string2, WebhookEvent.class);
-        assertNotNull(event2.getRepository());
     }
 
     /**
-     * Tests {WebhookEvent#getPush}.
+     * Tests {@link WebhookEvent#getRepository()}.
      */
     @Test
-    public void testPush()
+    public void testRepository2()
+    {
+        String string1 = "{\"repository\":{}}";
+        WebhookEvent event1 = jsonb.fromJson(string1, WebhookEvent.class);
+        assertNotNull(event1.getRepository());
+    }
+
+    /**
+     * Tests {@link WebhookEvent#getPush()}.
+     */
+    @Test
+    public void testPush1()
     {
         String string1 = "{}";
         WebhookEvent event1 = jsonb.fromJson(string1, WebhookEvent.class);
         assertNull(event1.getPush());
+    }
 
-        String string2 = "{\"push\":{}}";
-        WebhookEvent event2 = jsonb.fromJson(string2, WebhookEvent.class);
-        assertNotNull(event2.getPush());
+    /**
+     * Tests {@link WebhookEvent#getPush()}.
+     */
+    @Test
+    public void testPush2()
+    {
+        String string1 = "{\"push\":{}}";
+        WebhookEvent event1 = jsonb.fromJson(string1, WebhookEvent.class);
+        assertNotNull(event1.getPush());
     }
 }
