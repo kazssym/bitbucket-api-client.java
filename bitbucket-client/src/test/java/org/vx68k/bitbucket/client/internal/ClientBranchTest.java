@@ -3,107 +3,113 @@
  * Copyright (C) 2018-2020 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
- * under the terms of the GNU General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option)
- * any later version.
+ * under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or (at your
+ * option) any later version.
  *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
- * more details.
+ * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public License
+ * for more details.
  *
- * You should have received a copy of the GNU General Public License along with
- * this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * SPDX-License-Identifier: GPL-3.0-or-later
+ * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
 package org.vx68k.bitbucket.client.internal;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+// import java.io.InputStream;
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.vx68k.bitbucket.BitbucketBranch;
 
 /**
  * Unit tests for {@link ClientBranch}.
  *
  * @author Kaz Nishimura
  */
-public final class ClientBranchTest
+final class ClientBranchTest
 {
-    /**
-     * Tests the default constructor.
-     */
-    @Test
-    public void testDefaultConstructor()
+    private Jsonb jsonb;
+
+    // private InputStream sample1;
+
+    @BeforeEach
+    void setUp()
     {
-        ClientBranch branch = new ClientBranch();
-        assertNull(branch.getType());
-        assertNull(branch.getName());
+        jsonb = JsonbBuilder.create();
+
+        // sample1 = getClass().getResourceAsStream("samples/branch1.json");
+    }
+
+    @AfterEach
+    void tearDown() throws Exception
+    {
+        // sample1.close();
+        // sample1 = null;
+
+        jsonb.close();
+        jsonb = null;
     }
 
     /**
-     * Tests the copy constructor.
+     * Tests {@link ClientBranch#ClientBranch}.
      */
-    public void testCopyConstructor()
+    @Test
+    void testConstructor()
     {
-        ClientBranch branch1 = new ClientBranch();
-        branch1.setType(BitbucketBranch.BRANCH);
-        branch1.setName("branchName");
+        String string1 = "{}";
+        ClientBranch branch1 = jsonb.fromJson(string1, ClientBranch.class);
+        assertNull(branch1.getType());
 
-        ClientBranch branch2 = new ClientBranch(branch1);
-        assertEquals(BitbucketBranch.BRANCH, branch2.getType());
-        assertEquals("branchName", branch2.getName());
+        String string2 = "{\"type\":\"branch\"}";
+        ClientBranch branch2 = jsonb.fromJson(string2, ClientBranch.class);
+        assertEquals("branch", branch2.getType());
+
+        String string3 = "{\"type\":\"named_branch\"}";
+        ClientBranch branch3 = jsonb.fromJson(string3, ClientBranch.class);
+        assertEquals("named_branch", branch3.getType());
+
+        String string4 = "{\"type\":\"bookmark\"}";
+        ClientBranch branch4 = jsonb.fromJson(string4, ClientBranch.class);
+        assertEquals("bookmark", branch4.getType());
     }
 
     /**
-     * Tests with a {@code "branch"} object.
-     *
-     * @exception Exception if any error is detected
+     * Tests {@link ClientBranch#getName}.
      */
     @Test
-    public void testBranch() throws Exception
+    void testName()
     {
-        String string = "{\"type\":\"branch\",\"name\":\"master\"}";
-        try (Jsonb jsonb = JsonbBuilder.create()) {
-            ClientBranch branch = jsonb.fromJson(string, ClientBranch.class);
-            assertEquals("branch", branch.getType());
-            assertEquals("master", branch.getName());
-        }
+        String string1 = "{\"type\":\"branch\"}";
+        ClientBranch branch1 = jsonb.fromJson(string1, ClientBranch.class);
+        assertNull(branch1.getName());
+
+        String string2 = "{\"type\":\"branch\",\"name\":\"master\"}";
+        ClientBranch branch2 = jsonb.fromJson(string2, ClientBranch.class);
+        assertEquals("master", branch2.getName());
     }
 
     /**
-     * Tests with a {@code "named_branch"} object.
-     *
-     * @exception Exception if any error is detected
+     * Tests {@link ClientBranch#getHeads}.
      */
     @Test
-    public void testNamedBranch() throws Exception
+    void testHeads()
     {
-        String string = "{\"type\":\"named_branch\",\"name\":\"master\"}";
-        try (Jsonb jsonb = JsonbBuilder.create()) {
-            ClientBranch branch = jsonb.fromJson(string, ClientBranch.class);
-            assertEquals("named_branch", branch.getType());
-            assertEquals("master", branch.getName());
-        }
-    }
+        String string1 = "{\"type\":\"branch\"}";
+        ClientBranch branch1 = jsonb.fromJson(string1, ClientBranch.class);
+        assertNull(branch1.getHeads());
 
-    /**
-     * Tests with a {@code "bookmark"} object.
-     *
-     * @exception Exception if any error is detected
-     */
-    @Test
-    public void testBookmark() throws Exception
-    {
-        String string = "{\"type\":\"bookmark\",\"name\":\"master\"}";
-        try (Jsonb jsonb = JsonbBuilder.create()) {
-            ClientBranch branch = jsonb.fromJson(string, ClientBranch.class);
-            assertEquals("bookmark", branch.getType());
-            assertEquals("master", branch.getName());
-        }
+        String string2 = "{\"type\":\"branch\",\"heads\":[]}";
+        ClientBranch branch2 = jsonb.fromJson(string2, ClientBranch.class);
+        assertNotNull(branch2.getHeads());
+        assertEquals(0, branch2.getHeads().size());
     }
 }
