@@ -29,12 +29,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit tests for {@link WebhookEvent}.
+ * Unit tests for {@link BitbucketWebhookEvent}.
  *
  * @author Kaz Nishimura
  * @since 6.0
  */
-public final class WebhookEventTest
+public final class BitbucketWebhookEventTest
 {
     private Jsonb jsonb;
 
@@ -52,68 +52,68 @@ public final class WebhookEventTest
     }
 
     /**
-     * Tests {@link WebhookEvent#getRepository()}.
+     * Tests {@link BitbucketWebhookEvent#getRepository()}.
      */
     @Test
     public void testRepository1()
     {
         String string1 = "{}";
-        WebhookEvent event1 = jsonb.fromJson(string1, WebhookEvent.class);
+        BitbucketWebhookEvent event1 = jsonb.fromJson(string1, BitbucketWebhookEvent.class);
         assertNull(event1.getRepository());
     }
 
     /**
-     * Tests {@link WebhookEvent#getRepository()}.
+     * Tests {@link BitbucketWebhookEvent#getRepository()}.
      */
     @Test
     public void testRepository2()
     {
         String string1 = "{\"repository\":{}}";
-        WebhookEvent event1 = jsonb.fromJson(string1, WebhookEvent.class);
+        BitbucketWebhookEvent event1 = jsonb.fromJson(string1, BitbucketWebhookEvent.class);
         assertNotNull(event1.getRepository());
     }
 
     /**
-     * Tests {@link WebhookEvent#getActor()}.
+     * Tests {@link BitbucketWebhookEvent#getActor()}.
      */
     @Test
     public void testActor1()
     {
         String string1 = "{}";
-        WebhookEvent event1 = jsonb.fromJson(string1, WebhookEvent.class);
+        BitbucketWebhookEvent event1 = jsonb.fromJson(string1, BitbucketWebhookEvent.class);
         assertNull(event1.getActor());
     }
 
     /**
-     * Tests {@link WebhookEvent#getActor()}.
+     * Tests {@link BitbucketWebhookEvent#getActor()}.
      */
     @Test
     public void testActor2()
     {
         String string1 = "{\"actor\":{}}";
-        WebhookEvent event1 = jsonb.fromJson(string1, WebhookEvent.class);
+        BitbucketWebhookEvent event1 = jsonb.fromJson(string1, BitbucketWebhookEvent.class);
         assertNotNull(event1.getActor());
     }
 
     /**
-     * Tests {@link WebhookEvent#getPush()}.
+     * Tests {@link BitbucketWebhookEvent#getPush()}.
      */
     @Test
     public void testPush1()
     {
         String string1 = "{}";
-        WebhookEvent event1 = jsonb.fromJson(string1, WebhookEvent.class);
+        BitbucketWebhookEvent event1 = jsonb.fromJson(string1, BitbucketWebhookEvent.class);
         assertNull(event1.getPush());
     }
 
     /**
-     * Tests {@link WebhookEvent#getPush()}.
+     * Tests {@link BitbucketWebhookEvent#getPush()}.
      */
     @Test
     public void testPush2()
     {
         String string1 = "{\"push\":{}}";
-        WebhookEvent event1 = jsonb.fromJson(string1, WebhookEvent.class);
+        BitbucketWebhookEvent event1 = jsonb.fromJson(string1, BitbucketWebhookEvent.class);
         assertNotNull(event1.getPush());
     }
 }

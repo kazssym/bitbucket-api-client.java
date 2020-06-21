@@ -30,7 +30,7 @@ import org.vx68k.bitbucket.client.internal.ClientUserAccount;
  * @author Kaz Nishimura
  * @since 6.0
  */
-public class WebhookEvent
+public class BitbucketWebhookEvent
 {
     private ClientRepository repository;
 
@@ -41,7 +41,7 @@ public class WebhookEvent
     /**
      * Constructs a webhook event.
      */
-    public WebhookEvent()
+    public BitbucketWebhookEvent()
     {
         // Nothing to do.
     }
@@ -51,7 +51,7 @@ public class WebhookEvent
      *
      * @param other another webhook event
      */
-    public WebhookEvent(final WebhookEvent other)
+    public BitbucketWebhookEvent(final BitbucketWebhookEvent other)
     {
         ClientRepository otherRepository = other.getRepository();
         if (otherRepository != null) {

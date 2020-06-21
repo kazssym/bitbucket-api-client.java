@@ -56,7 +56,7 @@ public class BitbucketWebhookServlet extends HttpServlet
     /**
      * Event to fire.
      */
-    private final Event<WebhookEvent> bitbucketEvent;
+    private final Event<BitbucketWebhookEvent> bitbucketEvent;
 
     /**
      * Constructs this object with an {@link Event} object.
@@ -64,7 +64,7 @@ public class BitbucketWebhookServlet extends HttpServlet
      * @param event {@link Event} object
      */
     @Inject
-    public BitbucketWebhookServlet(final Event<WebhookEvent> event)
+    public BitbucketWebhookServlet(final Event<BitbucketWebhookEvent> event)
     {
         bitbucketEvent = event;
     }
