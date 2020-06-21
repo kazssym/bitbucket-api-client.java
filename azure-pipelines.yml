@@ -56,9 +56,10 @@ stages:
               goals: package gpg:sign nexus-staging:deploy
               options: -B -Possrh -Dmaven.repo.local=$(maven.localRepository)
               jdkVersion: "1.8"
-      - job: GenSite
+  - stage: Reporting
+    jobs:
+      - job: GenerateSite
         displayName: Generate site
-        dependsOn: Build
         pool:
           vmImage: ubuntu-latest
         variables:
