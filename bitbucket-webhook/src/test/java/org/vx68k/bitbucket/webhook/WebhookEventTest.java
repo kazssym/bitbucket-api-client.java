@@ -74,6 +74,28 @@ public final class WebhookEventTest
     }
 
     /**
+     * Tests {@link WebhookEvent#getActor()}.
+     */
+    @Test
+    public void testActor1()
+    {
+        String string1 = "{}";
+        WebhookEvent event1 = jsonb.fromJson(string1, WebhookEvent.class);
+        assertNull(event1.getActor());
+    }
+
+    /**
+     * Tests {@link WebhookEvent#getActor()}.
+     */
+    @Test
+    public void testActor2()
+    {
+        String string1 = "{\"actor\":{}}";
+        WebhookEvent event1 = jsonb.fromJson(string1, WebhookEvent.class);
+        assertNotNull(event1.getActor());
+    }
+
+    /**
      * Tests {@link WebhookEvent#getPush()}.
      */
     @Test
