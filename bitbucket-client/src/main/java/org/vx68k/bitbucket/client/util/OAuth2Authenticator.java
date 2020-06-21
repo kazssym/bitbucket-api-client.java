@@ -273,7 +273,7 @@ public class OAuth2Authenticator extends BearerAuthenticator
 
         synchronized (this) {
             if (accessTokenRefresh.isBefore(Instant.now()) && refreshToken != null) {
-                Form form = (new Form())
+                Form form = new Form()
                     .param(GRANT_TYPE, REFRESH_TOKEN_GRANT)
                     .param(REFRESH_TOKEN, refreshToken);
                 requestAccessToken(Entity.form(form));
