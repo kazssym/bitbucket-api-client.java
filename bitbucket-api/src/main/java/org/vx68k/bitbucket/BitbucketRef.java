@@ -63,5 +63,5 @@ public interface BitbucketRef
      *
      * @return the target of the commit reference
      */
-    BitbucketCommit getTarget();
+    BitbucketRepository.Commit getTarget();
 }

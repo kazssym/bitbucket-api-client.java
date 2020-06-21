@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.vx68k.bitbucket.BitbucketBranch;
-import org.vx68k.bitbucket.BitbucketCommit;
+import org.vx68k.bitbucket.BitbucketRepository;
 import org.vx68k.bitbucket.client.internal.ClientBranch;
 
 /**
@@ -91,7 +91,7 @@ public class WebhookPush
 
         private ClientBranch new1;
 
-        private List<BitbucketCommit> commits;
+        private List<BitbucketRepository.Commit> commits;
 
         /**
          * Constructs a change.
@@ -222,12 +222,12 @@ public class WebhookPush
          *
          * @return the commits
          */
-        public final List<BitbucketCommit> getCommits()
+        public final List<BitbucketRepository.Commit> getCommits()
         {
             return commits;
         }
 
-        public final void setCommits(List<BitbucketCommit> commits)
+        public final void setCommits(List<BitbucketRepository.Commit> commits)
         {
             if (commits != null) {
                 commits = commits.stream() // .map(BitbucketClient::copyCommit)

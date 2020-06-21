@@ -24,16 +24,16 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.json.bind.annotation.JsonbDateFormat;
-import org.vx68k.bitbucket.BitbucketCommit;
+import org.vx68k.bitbucket.BitbucketRepository;
 
 /**
- * Client implementation class of {@link BitbucketCommit} for the
+ * Client implementation class of {@link BitbucketRepository.Commit} for the
  * {@code "commit"} objects.
  *
  * @author Kaz Nishimura
  * @since 6.0
  */
-public class ClientCommit implements BitbucketCommit
+public class ClientCommit implements BitbucketRepository.Commit
 {
     private String hash;
 
@@ -43,7 +43,7 @@ public class ClientCommit implements BitbucketCommit
 
     private ClientRepository repository;
 
-    private List<BitbucketCommit> parents;
+    private List<BitbucketRepository.Commit> parents;
 
     private ClientRendered summary;
 
@@ -60,7 +60,7 @@ public class ClientCommit implements BitbucketCommit
      *
      * @param other another commit
      */
-    public ClientCommit(final BitbucketCommit other)
+    public ClientCommit(final BitbucketRepository.Commit other)
     {
         this.hash = other.getHash();
         this.date = other.getDate();
@@ -121,12 +121,12 @@ public class ClientCommit implements BitbucketCommit
     }
 
     @Override
-    public final List<BitbucketCommit> getParents()
+    public final List<BitbucketRepository.Commit> getParents()
     {
         return parents;
     }
 
-    public void setParents(List<BitbucketCommit> parents)
+    public void setParents(List<BitbucketRepository.Commit> parents)
     {
         this.parents = new ArrayList<>(parents);
     }

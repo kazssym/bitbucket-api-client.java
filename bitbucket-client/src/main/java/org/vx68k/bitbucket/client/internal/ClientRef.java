@@ -20,8 +20,8 @@
 
 package org.vx68k.bitbucket.client.internal;
 
-import org.vx68k.bitbucket.BitbucketCommit;
 import org.vx68k.bitbucket.BitbucketRef;
+import org.vx68k.bitbucket.BitbucketRepository;
 
 /**
  * Abstract client implementation class of {@link BitbucketRef}.
@@ -71,7 +71,7 @@ public abstract class ClientRef implements BitbucketRef
     }
 
     @Override
-    public final BitbucketCommit getTarget()
+    public final BitbucketRepository.Commit getTarget()
     {
         throw new UnsupportedOperationException("Not implemented yet");
     }
