@@ -23,7 +23,7 @@ package org.vx68k.bitbucket.client.internal;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import java.io.InputStream;
-import java.time.Instant;
+import java.time.OffsetDateTime;
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
 import org.junit.jupiter.api.AfterEach;
@@ -41,19 +41,19 @@ final class ClientIssueTest
     /**
      * Time when the sample issue 1 was created.
      */
-    private static final Instant SAMPLE_ISSUE1_CREATED =
-        Instant.parse("2015-01-25T00:50:30.346399Z");
+    private static final OffsetDateTime SAMPLE1_CREATED =
+        OffsetDateTime.parse("2015-01-25T00:50:30.346399Z");
 
     /**
      * Time when the sample issue 1 was last updated.
      */
-    private static final Instant SAMPLE_ISSUE1_UPDATED =
-        Instant.parse("2015-08-27T01:00:22.817449Z");
+    private static final OffsetDateTime SAMPLE1_UPDATED =
+        OffsetDateTime.parse("2015-08-27T01:00:22.817449Z");
 
     /**
      * Time when the sample issue 1 was last edited.
      */
-    private static final Instant SAMPLE_ISSUE1_EDITED = null;
+    private static final OffsetDateTime SAMPLE1_EDITED = null;
 
     private Jsonb jsonb;
 
@@ -187,60 +187,57 @@ final class ClientIssueTest
     }
 
     /**
-     * Tests {@link ClientIssue#getCreated()}.
+     * Tests {@link ClientIssue#getCreated}.
      */
-    @Disabled("Not implemented yet")
     @Test
-    void testGetCreated()
+    void testCreated()
     {
-        // BitbucketIssue issue0 = new ClientIssue(blankIssue);
-        // assertNull(issue0.getCreated());
+        String string1 = "{\"type\":\"branch\"}";
+        ClientIssue issue1 = jsonb.fromJson(string1, ClientIssue.class);
+        assertNull(issue1.getCreated());
 
-        // JsonObject nulledIssue = Json.createObjectBuilder()
-        //     .add("type", "issue").addNull("created_on").build();
-        // BitbucketIssue issue0a = new ClientIssue(nulledIssue);
-        // assertNull(issue0a.getCreated());
+        String string2 = "{\"type\":\"branch\",\"created_on\":\"2001-01-01T01:23:45.678901+09:00\"}";
+        ClientIssue issue2 = jsonb.fromJson(string2, ClientIssue.class);
+        assertEquals(OffsetDateTime.parse("2001-01-01T01:23:45.678901+09:00"), issue2.getCreated());
 
-        // BitbucketIssue issue1 = new ClientIssue(sampleIssue1);
-        // assertEquals(SAMPLE_ISSUE1_CREATED, issue1.getCreated());
+        ClientIssue issue3 = jsonb.fromJson(sample1, ClientIssue.class);
+        assertEquals(SAMPLE1_CREATED, issue3.getCreated());
     }
 
     /**
-     * Tests {@link ClientIssue#getUpdated()}.
+     * Tests {@link ClientIssue#getUpdated}.
      */
-    @Disabled("Not implemented yet")
     @Test
-    void testGetUpdated()
+    void testUpdated()
     {
-        // BitbucketIssue issue0 = new ClientIssue(blankIssue);
-        // assertNull(issue0.getUpdated());
+        String string1 = "{\"type\":\"branch\"}";
+        ClientIssue issue1 = jsonb.fromJson(string1, ClientIssue.class);
+        assertNull(issue1.getUpdated());
 
-        // JsonObject nulledIssue = Json.createObjectBuilder()
-        //     .add("type", "issue").addNull("updated_on").build();
-        // BitbucketIssue issue0a = new ClientIssue(nulledIssue);
-        // assertNull(issue0a.getUpdated());
+        String string2 = "{\"type\":\"branch\",\"updated_on\":\"2001-01-01T01:23:45.678901+09:00\"}";
+        ClientIssue issue2 = jsonb.fromJson(string2, ClientIssue.class);
+        assertEquals(OffsetDateTime.parse("2001-01-01T01:23:45.678901+09:00"), issue2.getUpdated());
 
-        // BitbucketIssue issue1 = new ClientIssue(sampleIssue1);
-        // assertEquals(SAMPLE_ISSUE1_UPDATED, issue1.getUpdated());
+        ClientIssue issue3 = jsonb.fromJson(sample1, ClientIssue.class);
+        assertEquals(SAMPLE1_UPDATED, issue3.getUpdated());
     }
 
     /**
-     * Tests {@link ClientIssue#getEdited()}.
+     * Tests {@link ClientIssue#getEdited}.
      */
-    @Disabled("Not implemented yet")
     @Test
     void testGetEdited()
     {
-        // BitbucketIssue issue0 = new ClientIssue(blankIssue);
-        // assertNull(issue0.getEdited());
+        String string1 = "{\"type\":\"branch\"}";
+        ClientIssue issue1 = jsonb.fromJson(string1, ClientIssue.class);
+        assertNull(issue1.getEdited());
 
-        // JsonObject nulledIssue = Json.createObjectBuilder()
-        //     .add("type", "issue").addNull("edited_on").build();
-        // BitbucketIssue issue0a = new ClientIssue(nulledIssue);
-        // assertNull(issue0a.getEdited());
+        String string2 = "{\"type\":\"branch\",\"edited_on\":\"2001-01-01T01:23:45.678901+09:00\"}";
+        ClientIssue issue2 = jsonb.fromJson(string2, ClientIssue.class);
+        assertEquals(OffsetDateTime.parse("2001-01-01T01:23:45.678901+09:00"), issue2.getEdited());
 
-        // BitbucketIssue issue1 = new ClientIssue(sampleIssue1);
-        // assertEquals(SAMPLE_ISSUE1_EDITED, issue1.getEdited());
+        ClientIssue issue3 = jsonb.fromJson(sample1, ClientIssue.class);
+        assertEquals(SAMPLE1_EDITED, issue3.getEdited());
     }
 
     /**
