@@ -46,50 +46,66 @@ final class ClientRenderedTest
     }
 
     @Test
-    void testConstructor()
+    void testType1()
     {
         String string1 = "{}";
         ClientRendered rendered1 = jsonb.fromJson(string1, ClientRendered.class);
         assertNull(rendered1.getType());
-
-        String string2 = "{\"type\":\"rendered\"}";
-        ClientRendered rendered2 = jsonb.fromJson(string2, ClientRendered.class);
-        assertEquals("rendered", rendered2.getType());
     }
 
     @Test
-    void testMarkup()
+    void testType2()
+    {
+        String string1 = "{\"type\":\"rendered\"}";
+        ClientRendered rendered1 = jsonb.fromJson(string1, ClientRendered.class);
+        assertEquals("rendered", rendered1.getType());
+    }
+
+    @Test
+    void testMarkup1()
     {
         String string1 = "{\"type\":\"rendered\"}";
         ClientRendered rendered1 = jsonb.fromJson(string1, ClientRendered.class);
         assertNull(rendered1.getMarkup());
-
-        String string2 = "{\"type\":\"rendered\",\"markup\":\".markup\"}";
-        ClientRendered rendered2 = jsonb.fromJson(string2, ClientRendered.class);
-        assertEquals(".markup", rendered2.getMarkup());
     }
 
     @Test
-    void testRaw()
+    void testMarkup2()
+    {
+        String string1 = "{\"type\":\"rendered\",\"markup\":\".markup\"}";
+        ClientRendered rendered1 = jsonb.fromJson(string1, ClientRendered.class);
+        assertEquals(".markup", rendered1.getMarkup());
+    }
+
+    @Test
+    void testRaw1()
     {
         String string1 = "{\"type\":\"rendered\"}";
         ClientRendered rendered1 = jsonb.fromJson(string1, ClientRendered.class);
         assertNull(rendered1.getRaw());
-
-        String string2 = "{\"type\":\"rendered\",\"raw\":\".raw\"}";
-        ClientRendered rendered2 = jsonb.fromJson(string2, ClientRendered.class);
-        assertEquals(".raw", rendered2.getRaw());
     }
 
     @Test
-    void testHtml()
+    void testRaw2()
+    {
+        String string1 = "{\"type\":\"rendered\",\"raw\":\".raw\"}";
+        ClientRendered rendered1 = jsonb.fromJson(string1, ClientRendered.class);
+        assertEquals(".raw", rendered1.getRaw());
+    }
+
+    @Test
+    void testHtml1()
     {
         String string1 = "{\"type\":\"rendered\"}";
         ClientRendered rendered1 = jsonb.fromJson(string1, ClientRendered.class);
         assertNull(rendered1.getHtml());
+    }
 
-        String string2 = "{\"type\":\"rendered\",\"html\":\".html\"}";
-        ClientRendered rendered2 = jsonb.fromJson(string2, ClientRendered.class);
-        assertEquals(".html", rendered2.getHtml());
+    @Test
+    void testHtml2()
+    {
+        String string1 = "{\"type\":\"rendered\",\"html\":\".html\"}";
+        ClientRendered rendered1 = jsonb.fromJson(string1, ClientRendered.class);
+        assertEquals(".html", rendered1.getHtml());
     }
 }
