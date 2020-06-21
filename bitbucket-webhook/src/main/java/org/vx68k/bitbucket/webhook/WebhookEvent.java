@@ -20,9 +20,9 @@
 
 package org.vx68k.bitbucket.webhook;
 
-import org.vx68k.bitbucket.BitbucketRepository;
-import org.vx68k.bitbucket.BitbucketUserAccount;
 import org.vx68k.bitbucket.client.BitbucketClient;
+import org.vx68k.bitbucket.client.internal.ClientRepository;
+import org.vx68k.bitbucket.client.internal.ClientUserAccount;
 
 /**
  * Class of webhook event on a Bitbucket repository.
@@ -32,9 +32,9 @@ import org.vx68k.bitbucket.client.BitbucketClient;
  */
 public class WebhookEvent
 {
-    private BitbucketRepository repository;
+    private ClientRepository repository;
 
-    private BitbucketUserAccount actor;
+    private ClientUserAccount actor;
 
     private WebhookPush push;
 
@@ -53,13 +53,13 @@ public class WebhookEvent
      */
     public WebhookEvent(final WebhookEvent other)
     {
-        BitbucketRepository otherRepository = other.getRepository();
+        ClientRepository otherRepository = other.getRepository();
         if (otherRepository != null) {
             otherRepository = BitbucketClient.copyRepository(otherRepository);
         }
         this.repository = otherRepository;
 
-        BitbucketUserAccount otherActor = other.getActor();
+        ClientUserAccount otherActor = other.getActor();
         if (otherActor != null) {
             otherActor = BitbucketClient.copyUserAccount(otherActor);
         }
@@ -77,12 +77,12 @@ public class WebhookEvent
      *
      * @return the repository of the event
      */
-    public final BitbucketRepository getRepository()
+    public final ClientRepository getRepository()
     {
         return repository;
     }
 
-    public final void setRepository(BitbucketRepository repository)
+    public final void setRepository(ClientRepository repository)
     {
         if (repository != null) {
             repository = BitbucketClient.copyRepository(repository);
@@ -95,12 +95,12 @@ public class WebhookEvent
      *
      * @return the actor
      */
-    public final BitbucketUserAccount getActor()
+    public final ClientUserAccount getActor()
     {
         return actor;
     }
 
-    public final void setActor(BitbucketUserAccount actor)
+    public final void setActor(ClientUserAccount actor)
     {
         if (actor != null) {
             actor = BitbucketClient.copyUserAccount(actor);
