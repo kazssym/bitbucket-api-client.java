@@ -183,7 +183,7 @@ public interface BitbucketRepository
      * @author Kaz Nishimura
      * @since 6.0
      */
-    public static interface Ref
+    static interface Ref
     {
         /**
          * Returns the name of the commit ref.
@@ -206,7 +206,7 @@ public interface BitbucketRepository
      * @author Kaz Nishimura
      * @since 6.0
      */
-    public static interface Branch extends Ref
+    static interface Branch extends Ref
     {
         /**
          * Returns the type of the branch.
