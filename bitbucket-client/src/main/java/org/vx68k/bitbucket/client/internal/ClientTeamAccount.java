@@ -20,7 +20,7 @@
 
 package org.vx68k.bitbucket.client.internal;
 
-import javax.json.bind.annotation.JsonbProperty;
+import javax.json.bind.annotation.JsonbTypeAdapter;
 import org.vx68k.bitbucket.BitbucketAccount;
 
 /**
@@ -32,6 +32,9 @@ import org.vx68k.bitbucket.BitbucketAccount;
  */
 public class ClientTeamAccount extends ClientAccount
 {
+    @JsonbTypeAdapter(AccountTypeAdapter.class)
+    private AccountType type;
+
     /**
      * Constructs a team account.
      */
@@ -48,12 +51,21 @@ public class ClientTeamAccount extends ClientAccount
     public ClientTeamAccount(final ClientTeamAccount other)
     {
         super(other);
+
+        this.type = AccountType.TEAM; // TODO: Right?
     }
 
-    @JsonbProperty("type")
     @Override
     public final AccountType getType()
     {
-        return AccountType.TEAM;
+        return type;
+    }
+
+    public final void setType(final AccountType type)
+    {
+        if (type != null && !(type.equals(AccountType.TEAM))) {
+            throw new IllegalArgumentException("Type is not of team account objects");
+        }
+        this.type = type;
     }
 }

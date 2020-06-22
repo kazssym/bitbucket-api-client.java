@@ -22,6 +22,8 @@ package org.vx68k.bitbucket.client.internal;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.io.InputStream;
 import java.time.OffsetDateTime;
 import java.util.UUID;
@@ -80,7 +82,7 @@ final class ClientTeamAccountTest
     {
         String string1 = "{}";
         ClientTeamAccount team1 = jsonb.fromJson(string1, ClientTeamAccount.class);
-        assertEquals(ClientAccount.AccountType.TEAM, team1.getType());
+        assertNull(team1.getType());
     }
 
     /**
@@ -89,9 +91,45 @@ final class ClientTeamAccountTest
     @Test
     void testType2()
     {
-        String string1 = "{\"type\":\"user\"}";
+        String string1 = "{\"type\":\"team\"}";
         ClientTeamAccount team1 = jsonb.fromJson(string1, ClientTeamAccount.class);
         assertEquals(ClientAccount.AccountType.TEAM, team1.getType());
+    }
+
+    /**
+     * Tests {@link ClientTeamAccount#getType()}.
+     */
+    @Test
+    void testType3()
+    {
+        String string1 = "{\"type\":\"user\"}";
+        ClientTeamAccount team1 = null;
+        try {
+            team1 = jsonb.fromJson(string1, ClientTeamAccount.class);
+            fail();
+        }
+        catch (final RuntimeException exception) {
+            System.err.println("Caught as expected: " + exception.getMessage());
+        }
+        assertNull(team1);
+    }
+
+    /**
+     * Tests {@link ClientTeamAccount#getType()}.
+     */
+    @Test
+    void testType4()
+    {
+        String string1 = "{\"type\":\"other\"}";
+        ClientTeamAccount team1 = null;
+        try {
+            team1 = jsonb.fromJson(string1, ClientTeamAccount.class);
+            fail();
+        }
+        catch (final RuntimeException exception) {
+            System.err.println("Caught as expected: " + exception.getMessage());
+        }
+        assertNull(team1);
     }
 
     /**
