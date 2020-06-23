@@ -1,0 +1,376 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$comment": "Unofficial JSON schema for sample checking.",
+    "oneOf": [
+        {
+            "$ref": "#/$defs/user"
+        },
+        {
+            "$ref": "#/$defs/team"
+        },
+        {
+            "$ref": "#/$defs/repository"
+        },
+        {
+            "$ref": "#/$defs/branch"
+        },
+        {
+            "$ref": "#/$defs/commit"
+        },
+        {
+            "$ref": "#/$defs/issue"
+        }
+    ],
+    "$defs": {
+        "user": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "type": {
+                    "const": "user"
+                },
+                "uuid": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                },
+                "nickname": {
+                    "type": "string"
+                },
+                "display_name": {
+                    "type": "string"
+                },
+                "website": {
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "location": {
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "created_on": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "is_staff": {
+                    "type": "boolean"
+                },
+                "account_id": {
+                    "type": "string"
+                },
+                "account_status": {
+                    "type": "string"
+                },
+                "links": {
+                    "type": "object"
+                }
+            }
+        },
+        "team1": {
+            "properties": {
+                "allOf": [
+                    {
+                        "type": {
+                            "const": "team"
+                        }
+                    },
+                    {
+                        "$ref": "#/$defs/account/properties"
+                    }
+                ]
+            }
+        },
+        "team": {
+            "additionalProperties": false,
+            "properties": {
+                "type": {
+                    "const": "team"
+                },
+                "uuid": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                },
+                "display_name": {
+                    "type": "string"
+                },
+                "website": {
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "location": {
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "created_on": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "links": {
+                    "$ref": "#/$defs/links"
+                }
+            }
+        },
+        "account": {
+            "type": "object",
+            "properties": {
+                "uuid": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                },
+                "display_name": {
+                    "type": "string"
+                },
+                "website": {
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "location": {
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "created_on": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "links": {
+                    "$ref": "#/$defs/links"
+                }
+            }
+        },
+        "repository": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "type": {
+                    "const": "repository"
+                },
+                "uuid": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "full_name": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "is_private": {
+                    "type": "boolean"
+                },
+                "fork_policy": {
+                    "type": "string"
+                },
+                "website": {
+                    "type": "string"
+                },
+                "language": {
+                    "type": "string"
+                },
+                "scm": {
+                    "type": "string"
+                },
+                "created_on": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_on": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "size": {
+                    "type": "number"
+                },
+                "has_issues": {
+                    "type": "boolean"
+                },
+                "has_wiki": {
+                    "type": "boolean"
+                },
+                "slug": {
+                    "type": "string"
+                },
+                "owner": {
+                    "$ref": "#/$defs/account"
+                },
+                "project": {
+                    "type": "object"
+                },
+                "mainbranch": {
+                    "$ref": "#/$defs/branch"
+                },
+                "links": {
+                    "$ref": "#/$defs/links"
+                }
+            }
+        },
+        "branch": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "type": {
+                    "enum": [
+                        "branch",
+                        "named_branch",
+                        "bookmark"
+                    ]
+                },
+                "name": {
+                    "type": "string"
+                },
+                "default_merge_strategy": {
+                    "type": "string"
+                },
+                "merge_strategies": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "target": {
+                    "$ref": "#/$defs/commit"
+                },
+                "links": {
+                    "$ref": "#/$defs/links"
+                }
+            }
+        },
+        "commit": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "type": {
+                    "const": "commit"
+                },
+                "hash": {
+                    "type": "string"
+                },
+                "date": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "repository": {
+                    "$ref": "#/$defs/repository"
+                },
+                "parents": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/$defs/commit"
+                    }
+                },
+                "author": {
+                    "$ref": "#/$defs/author"
+                },
+                "summary": {
+                    "type": "#/$defs/rendered"
+                },
+                "rendered": {
+                    "type": "#/$defs/rendered"
+                },
+                "links": {
+                    "$ref": "#/$defs/links"
+                }
+            }
+        },
+        "issue": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "issue"
+                }
+            }
+        },
+        "links": {
+            "type": "object",
+            "patternProperties": {
+                "[_a-z][_a-z0-9]*": {
+                    "oneOf": [
+                        {
+                            "type": "object"
+                        },
+                        {
+                            "type": "array"
+                        }
+                    ]
+                }
+            }
+        },
+        "author": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "const": "author"
+                },
+                "raw": {
+                    "type": "string"
+                },
+                "user": {
+                    "$ref": "#/$defs/user"
+                }
+            }
+        },
+        "rendered": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "type": {
+                    "const": "rendered"
+                },
+                "markup": {
+                    "type": "string"
+                },
+                "raw": {
+                    "type": "string"
+                },
+                "html": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
