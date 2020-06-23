@@ -59,10 +59,10 @@ final class ClientRepositoryTest
     }
 
     /**
-     * Tests the constructor.
+     * Tests {@link ClientRepository#getType()}.
      */
     @Test
-    void testConstructor()
+    void testType()
     {
         // The type is always "repository".
 
