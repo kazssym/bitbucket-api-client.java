@@ -39,7 +39,6 @@ import org.vx68k.bitbucket.BitbucketAccount;
  */
 public abstract class ClientAccount implements BitbucketAccount
 {
-    @JsonbTypeAdapter(UUIDAdapter.class)
     private UUID uuid;
 
     private String name;
@@ -52,7 +51,6 @@ public abstract class ClientAccount implements BitbucketAccount
 
     private OffsetDateTime created;
 
-    @JsonbTypeAdapter(LinkMapAdapter.class)
     private Map<String, URI> links;
 
     /**
@@ -95,6 +93,7 @@ public abstract class ClientAccount implements BitbucketAccount
     /**
      * {@inheritDoc}
      */
+    @JsonbTypeAdapter(UUIDAdapter.class)
     @Override
     public final UUID getUuid()
     {
@@ -208,12 +207,12 @@ public abstract class ClientAccount implements BitbucketAccount
      * @param created a {@link OffsetDateTime} object for the create time
      */
     @JsonbProperty("created_on")
-    @JsonbDateFormat("uuuu-MM-dd'T'HH:mm:ss[.SSSSSS]xxxxx")
     public final void setCreated(final OffsetDateTime created)
     {
         this.created = created;
     }
 
+    @JsonbTypeAdapter(LinkMapAdapter.class)
     @Override
     public final Map<String, URI> getLinks()
     {
