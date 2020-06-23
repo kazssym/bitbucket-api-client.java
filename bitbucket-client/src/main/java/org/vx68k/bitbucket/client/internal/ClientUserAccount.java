@@ -58,6 +58,11 @@ public class ClientUserAccount extends ClientAccount
         this.accountId = other.getAccountId();
     }
 
+    public ClientUserAccount copy()
+    {
+        return new ClientUserAccount(this);
+    }
+
     @Override
     public final AccountType getType()
     {

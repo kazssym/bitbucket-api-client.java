@@ -55,6 +55,11 @@ public class ClientTeamAccount extends ClientAccount
         this.type = AccountType.TEAM; // TODO: Right?
     }
 
+    public ClientTeamAccount copy()
+    {
+        return new ClientTeamAccount(this);
+    }
+
     @Override
     public final AccountType getType()
     {

@@ -86,6 +86,14 @@ public abstract class ClientAccount implements BitbucketAccount
     }
 
     /**
+     * Returns a new copy of the account.
+     *
+     * @return a new copy of the account
+     * @see ClientAccount#ClientAccount(BitbucketAccount)
+     */
+    public abstract ClientAccount copy();
+
+    /**
      * {@inheritDoc}
      */
     @Override
