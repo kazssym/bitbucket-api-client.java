@@ -20,9 +20,11 @@
 
 package org.vx68k.bitbucket.webhook;
 
+import javax.json.bind.annotation.JsonbTypeAdapter;
+import org.vx68k.bitbucket.BitbucketUserAccount;
 import org.vx68k.bitbucket.client.BitbucketClient;
+import org.vx68k.bitbucket.client.adapter.BitbucketUserAccountAdapter;
 import org.vx68k.bitbucket.client.internal.ClientRepository;
-import org.vx68k.bitbucket.client.internal.ClientUserAccount;
 
 /**
  * Class of webhook event on a Bitbucket repository.
@@ -34,7 +36,7 @@ public class BitbucketWebhookEvent
 {
     private ClientRepository repository;
 
-    private ClientUserAccount actor;
+    private BitbucketUserAccount actor;
 
     private WebhookPush push;
 
@@ -59,7 +61,7 @@ public class BitbucketWebhookEvent
         }
         this.repository = otherRepository;
 
-        ClientUserAccount otherActor = other.getActor();
+        BitbucketUserAccount otherActor = other.getActor();
         if (otherActor != null) {
             otherActor = BitbucketClient.copyUserAccount(otherActor);
         }
@@ -95,12 +97,13 @@ public class BitbucketWebhookEvent
      *
      * @return the actor
      */
-    public final ClientUserAccount getActor()
+    @JsonbTypeAdapter(BitbucketUserAccountAdapter.class)
+    public final BitbucketUserAccount getActor()
     {
         return actor;
     }
 
-    public final void setActor(ClientUserAccount actor)
+    public final void setActor(BitbucketUserAccount actor)
     {
         if (actor != null) {
             actor = BitbucketClient.copyUserAccount(actor);
