@@ -77,12 +77,11 @@ public abstract class ClientAccount implements BitbucketAccount
         this.location = other.getLocation();
         this.created = other.getCreated();
 
-        if (other.getLinks() != null) {
-            this.links = new HashMap<>(other.getLinks());
+        Map<String, URI> otherLinks = other.getLinks();
+        if (otherLinks != null) {
+            otherLinks = new HashMap<>(otherLinks);
         }
-        else {
-            this.links = null;
-        }
+        this.links = otherLinks;
     }
 
     /**
