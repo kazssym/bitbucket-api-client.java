@@ -62,17 +62,35 @@ final class ClientRepositoryTest
      * Tests {@link ClientRepository#getType()}.
      */
     @Test
-    void testType()
+    void testType1()
     {
         // The type is always "repository".
 
         String string1 = "{}";
         ClientRepository repository1 = jsonb.fromJson(string1, ClientRepository.class);
         assertEquals("repository", repository1.getType());
+    }
 
-        String string2 = "{\"type\":\"none\"}";
-        ClientRepository repository2 = jsonb.fromJson(string2, ClientRepository.class);
-        assertEquals("repository", repository2.getType());
+    /**
+     * Tests {@link ClientRepository#getType()}.
+     */
+    @Test
+    void testType2()
+    {
+        String string1 = "{\"type\":\"repository\"}";
+        ClientRepository repository1 = jsonb.fromJson(string1, ClientRepository.class);
+        assertEquals("repository", repository1.getType());
+    }
+
+    /**
+     * Tests {@link ClientRepository#getType()}.
+     */
+    @Test
+    void testType3()
+    {
+        String string1 = "{\"type\":\"other\"}";
+        ClientRepository repository1 = jsonb.fromJson(string1, ClientRepository.class);
+        assertEquals("repository", repository1.getType());
     }
 
     /**
