@@ -23,6 +23,7 @@ package org.vx68k.bitbucket.client.internal;
 import java.util.ArrayList;
 import java.util.List;
 import javax.json.bind.annotation.JsonbProperty;
+import org.vx68k.bitbucket.BitbucketBranch;
 import org.vx68k.bitbucket.BitbucketRepository;
 
 /**
@@ -32,7 +33,7 @@ import org.vx68k.bitbucket.BitbucketRepository;
  * @author Kaz Nishimura
  * @since 6.0
  */
-public class ClientBranch extends ClientRef implements BitbucketRepository.Branch
+public class ClientBranch extends ClientRef implements BitbucketBranch
 {
     /**
      * Type of the branch object.
@@ -60,7 +61,7 @@ public class ClientBranch extends ClientRef implements BitbucketRepository.Branc
      * Constructs a branch copyting another
      * @param other another branch
      */
-    public ClientBranch(final BitbucketRepository.Branch other)
+    public ClientBranch(final BitbucketBranch other)
     {
         this.type = other.getType();
 

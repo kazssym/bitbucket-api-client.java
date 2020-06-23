@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.json.bind.annotation.JsonbTypeAdapter;
+import org.vx68k.bitbucket.BitbucketBranch;
 import org.vx68k.bitbucket.BitbucketRepository;
 import org.vx68k.bitbucket.client.BitbucketClient;
 import org.vx68k.bitbucket.client.adapter.BitbucketBranchAdapter;
@@ -88,9 +89,9 @@ public class WebhookPush
 
         private boolean truncated;
 
-        private BitbucketRepository.Branch old;
+        private BitbucketBranch old;
 
-        private BitbucketRepository.Branch new1;
+        private BitbucketBranch new1;
 
         private List<BitbucketRepository.Commit> commits;
 
@@ -109,13 +110,13 @@ public class WebhookPush
             this.forced = other.isForced();
             this.truncated = other.isTruncated();
 
-            BitbucketRepository.Branch otherOld = other.getOld();
+            BitbucketBranch otherOld = other.getOld();
             if (otherOld != null) {
                 otherOld = BitbucketClient.copyBranch(otherOld);
             }
             this.old = otherOld;
 
-            BitbucketRepository.Branch otherNew = other.getNew();
+            BitbucketBranch otherNew = other.getNew();
             if (otherNew != null) {
                 otherNew = BitbucketClient.copyBranch(otherNew);
             }
@@ -188,12 +189,12 @@ public class WebhookPush
          * @return the old branch
          */
         @JsonbTypeAdapter(BitbucketBranchAdapter.class)
-        public final BitbucketRepository.Branch getOld()
+        public final BitbucketBranch getOld()
         {
             return old;
         }
 
-        public final void setOld(BitbucketRepository.Branch old)
+        public final void setOld(BitbucketBranch old)
         {
             if (old != null) {
                 old = BitbucketClient.copyBranch(old);
@@ -207,12 +208,12 @@ public class WebhookPush
          * @return the new branch
          */
         @JsonbTypeAdapter(BitbucketBranchAdapter.class)
-        public final BitbucketRepository.Branch getNew()
+        public final BitbucketBranch getNew()
         {
             return new1;
         }
 
-        public final void setNew(BitbucketRepository.Branch new1)
+        public final void setNew(BitbucketBranch new1)
         {
             if (new1 != null) {
                 new1 = BitbucketClient.copyBranch(new1);

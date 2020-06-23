@@ -38,6 +38,7 @@ import javax.ws.rs.core.Form;
 import javax.ws.rs.core.MediaType;
 import org.vx68k.bitbucket.Bitbucket;
 import org.vx68k.bitbucket.BitbucketAccount;
+import org.vx68k.bitbucket.BitbucketBranch;
 import org.vx68k.bitbucket.BitbucketRepository;
 import org.vx68k.bitbucket.BitbucketUserAccount;
 import org.vx68k.bitbucket.client.internal.ClientBranch;
@@ -117,8 +118,7 @@ public class BitbucketClient implements Bitbucket, Serializable
      * @param branch a branch object to copy
      * @return a new branch object
      */
-    public static ClientBranch copyBranch(
-        final BitbucketRepository.Branch branch)
+    public static ClientBranch copyBranch(final BitbucketBranch branch)
     {
         return new ClientBranch(branch);
     }

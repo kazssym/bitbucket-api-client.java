@@ -21,7 +21,7 @@
 package org.vx68k.bitbucket.client.adapter;
 
 import javax.json.bind.adapter.JsonbAdapter;
-import org.vx68k.bitbucket.BitbucketRepository;
+import org.vx68k.bitbucket.BitbucketBranch;
 import org.vx68k.bitbucket.client.internal.ClientBranch;
 
 /**
@@ -31,10 +31,10 @@ import org.vx68k.bitbucket.client.internal.ClientBranch;
  * @since 6.0
  */
 public class BitbucketBranchAdapter
-    implements JsonbAdapter<BitbucketRepository.Branch, ClientBranch>
+    implements JsonbAdapter<BitbucketBranch, ClientBranch>
 {
     @Override
-    public final ClientBranch adaptToJson(final BitbucketRepository.Branch user)
+    public final ClientBranch adaptToJson(final BitbucketBranch user)
     {
         if (user instanceof ClientBranch) {
             return (ClientBranch) user;
@@ -43,7 +43,7 @@ public class BitbucketBranchAdapter
     }
 
     @Override
-    public final BitbucketRepository.Branch adaptFromJson(final ClientBranch user)
+    public final BitbucketBranch adaptFromJson(final ClientBranch user)
     {
         return user;
     }
