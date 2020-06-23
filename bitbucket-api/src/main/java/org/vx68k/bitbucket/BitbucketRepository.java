@@ -199,41 +199,4 @@ public interface BitbucketRepository
          */
         Commit getTarget();
     }
-
-    /**
-     * Branch, named branch or bookmark in a repository.
-     *
-     * @author Kaz Nishimura
-     * @since 6.0
-     */
-    static interface Branch extends Ref
-    {
-        /**
-         * Returns the type of the branch.
-         *
-         * @return the type of the branch
-         */
-        String getType();
-
-        /**
-         * Returns the default merge strategy of the branch.
-         *
-         * @return the default merge strategy of the branch
-         */
-        String getDefaultMergeStrategy();
-
-        /**
-         * Returns a list of the merge strategies of the branch.
-         *
-         * @return a list of the merge strategies of the branch
-         */
-        List<String> getMergeStrategies();
-
-        /**
-         * Returns a list of the heads of the branch.
-         *
-         * @return a list of the heads of the branch
-         */
-        List<Commit> getHeads();
-    }
 }
