@@ -230,4 +230,29 @@ final class WebhookPushTest
         assertNotNull(push1.getChanges());
         assertNotNull(push1.getChanges()[0].getNew());
     }
+
+    /**
+     * Tests {@link WebhookPush.Change#getOld()}.
+     */
+    @Test
+    void testChangeCommits1()
+    {
+        String string1 = "{\"changes\":[{}]}";
+        WebhookPush push1 = jsonb.fromJson(string1, WebhookPush.class);
+        assertNotNull(push1.getChanges());
+        assertNull(push1.getChanges()[0].getCommits());
+    }
+
+    /**
+     * Tests {@link WebhookPush.Change#getOld()}.
+     */
+    @Test
+    void testChangeCommits2()
+    {
+        String string1 = "{\"changes\":[{\"commits\":[]}]}";
+        WebhookPush push1 = jsonb.fromJson(string1, WebhookPush.class);
+        assertNotNull(push1.getChanges());
+        assertNotNull(push1.getChanges()[0].getCommits());
+        assertEquals(0, push1.getChanges()[0].getCommits().length);
+    }
 }
