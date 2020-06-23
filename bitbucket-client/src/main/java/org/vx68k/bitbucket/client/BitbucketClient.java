@@ -40,6 +40,7 @@ import org.vx68k.bitbucket.Bitbucket;
 import org.vx68k.bitbucket.BitbucketAccount;
 import org.vx68k.bitbucket.BitbucketRepository;
 import org.vx68k.bitbucket.BitbucketUserAccount;
+import org.vx68k.bitbucket.client.internal.ClientBranch;
 import org.vx68k.bitbucket.client.internal.ClientRepository;
 import org.vx68k.bitbucket.client.internal.ClientTeamAccount;
 import org.vx68k.bitbucket.client.internal.ClientUserAccount;
@@ -108,6 +109,18 @@ public class BitbucketClient implements Bitbucket, Serializable
             return new ClientRepository(repository);
         }
         return null;
+    }
+
+    /**
+     * Copies a branch object.
+     *
+     * @param branch a branch object to copy
+     * @return a new branch object
+     */
+    public static ClientBranch copyBranch(
+        final BitbucketRepository.Branch branch)
+    {
+        return new ClientBranch(branch);
     }
 
     /**
