@@ -20,9 +20,7 @@
 
 package org.vx68k.bitbucket.webhook;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Arrays;
 import javax.json.bind.annotation.JsonbTypeAdapter;
 import org.vx68k.bitbucket.BitbucketBranch;
 import org.vx68k.bitbucket.BitbucketRepository;
@@ -37,7 +35,7 @@ import org.vx68k.bitbucket.client.adapter.BitbucketBranchAdapter;
  */
 public class WebhookPush
 {
-    List<Change> changes;
+    private Change[] changes;
 
     /**
      * Constructs a push activity.
@@ -49,10 +47,11 @@ public class WebhookPush
 
     public WebhookPush(final WebhookPush other)
     {
-        List<Change> otherChanges = other.getChanges();
+        Change[] otherChanges = other.getChanges();
         if (otherChanges != null) {
-            otherChanges = otherChanges.stream().map(Change::new)
-                .collect(Collectors.toCollection(ArrayList::new));
+            otherChanges = Arrays.stream(otherChanges)
+                .map(Change::new)
+                .toArray(Change[]::new);
         }
         this.changes = otherChanges;
     }
@@ -62,16 +61,17 @@ public class WebhookPush
      *
      * @return the changes
      */
-    public final List<Change> getChanges()
+    public final Change[] getChanges()
     {
         return changes;
     }
 
-    public final void setChanges(List<Change> changes)
+    public final void setChanges(Change[] changes)
     {
         if (changes != null) {
-            changes = changes.stream().map(Change::new)
-                .collect(Collectors.toCollection(ArrayList::new));
+            changes = Arrays.stream(changes)
+                .map(Change::new)
+                .toArray(Change[]::new);
         }
         this.changes = changes;
     }
@@ -93,7 +93,7 @@ public class WebhookPush
 
         private BitbucketBranch new1;
 
-        private List<BitbucketRepository.Commit> commits;
+        private BitbucketRepository.Commit[] commits;
 
         /**
          * Constructs a change.
@@ -226,16 +226,17 @@ public class WebhookPush
          *
          * @return the commits
          */
-        public final List<BitbucketRepository.Commit> getCommits()
+        public final BitbucketRepository.Commit[] getCommits()
         {
             return commits;
         }
 
-        public final void setCommits(List<BitbucketRepository.Commit> commits)
+        public final void setCommits(BitbucketRepository.Commit[] commits)
         {
             if (commits != null) {
-                commits = commits.stream() // .map(BitbucketClient::copyCommit)
-                    .collect(Collectors.toCollection(ArrayList::new)); // TODO: Deep copy?
+                commits = Arrays.stream(commits)
+                     // TODO: .map(BitbucketClient::copyCommit)
+                    .toArray(BitbucketRepository.Commit[]::new);
             }
             this.commits = commits;
         }

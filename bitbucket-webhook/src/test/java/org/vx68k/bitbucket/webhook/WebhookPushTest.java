@@ -72,7 +72,7 @@ final class WebhookPushTest
         String string1 = "{\"changes\":[]}";
         WebhookPush push1 = jsonb.fromJson(string1, WebhookPush.class);
         assertNotNull(push1.getChanges());
-        assertEquals(0, push1.getChanges().size());
+        assertEquals(0, push1.getChanges().length);
     }
 
     /**
@@ -84,7 +84,7 @@ final class WebhookPushTest
         String string1 = "{\"changes\":[{}]}";
         WebhookPush push1 = jsonb.fromJson(string1, WebhookPush.class);
         assertNotNull(push1.getChanges());
-        assertEquals(1, push1.getChanges().size());
+        assertEquals(1, push1.getChanges().length);
     }
 
     /**
@@ -96,7 +96,7 @@ final class WebhookPushTest
         String string1 = "{\"changes\":[{}]}";
         WebhookPush push1 = jsonb.fromJson(string1, WebhookPush.class);
         assertNotNull(push1.getChanges());
-        assertEquals(false, push1.getChanges().get(0).isCreated());
+        assertEquals(false, push1.getChanges()[0].isCreated());
     }
 
     /**
@@ -108,7 +108,7 @@ final class WebhookPushTest
         String string1 = "{\"changes\":[{\"created\":true}]}";
         WebhookPush push1 = jsonb.fromJson(string1, WebhookPush.class);
         assertNotNull(push1.getChanges());
-        assertEquals(true, push1.getChanges().get(0).isCreated());
+        assertEquals(true, push1.getChanges()[0].isCreated());
     }
 
     /**
@@ -120,7 +120,7 @@ final class WebhookPushTest
         String string1 = "{\"changes\":[{}]}";
         WebhookPush push1 = jsonb.fromJson(string1, WebhookPush.class);
         assertNotNull(push1.getChanges());
-        assertEquals(false, push1.getChanges().get(0).isClosed());
+        assertEquals(false, push1.getChanges()[0].isClosed());
     }
 
     /**
@@ -132,7 +132,7 @@ final class WebhookPushTest
         String string1 = "{\"changes\":[{\"closed\":true}]}";
         WebhookPush push1 = jsonb.fromJson(string1, WebhookPush.class);
         assertNotNull(push1.getChanges());
-        assertEquals(true, push1.getChanges().get(0).isClosed());
+        assertEquals(true, push1.getChanges()[0].isClosed());
     }
 
     /**
@@ -144,7 +144,7 @@ final class WebhookPushTest
         String string1 = "{\"changes\":[{}]}";
         WebhookPush push1 = jsonb.fromJson(string1, WebhookPush.class);
         assertNotNull(push1.getChanges());
-        assertEquals(false, push1.getChanges().get(0).isForced());
+        assertEquals(false, push1.getChanges()[0].isForced());
     }
 
     /**
@@ -156,7 +156,7 @@ final class WebhookPushTest
         String string1 = "{\"changes\":[{\"forced\":true}]}";
         WebhookPush push1 = jsonb.fromJson(string1, WebhookPush.class);
         assertNotNull(push1.getChanges());
-        assertEquals(true, push1.getChanges().get(0).isForced());
+        assertEquals(true, push1.getChanges()[0].isForced());
     }
 
     /**
@@ -168,7 +168,7 @@ final class WebhookPushTest
         String string1 = "{\"changes\":[{}]}";
         WebhookPush push1 = jsonb.fromJson(string1, WebhookPush.class);
         assertNotNull(push1.getChanges());
-        assertEquals(false, push1.getChanges().get(0).isTruncated());
+        assertEquals(false, push1.getChanges()[0].isTruncated());
     }
 
     /**
@@ -180,7 +180,7 @@ final class WebhookPushTest
         String string1 = "{\"changes\":[{\"truncated\":true}]}";
         WebhookPush push1 = jsonb.fromJson(string1, WebhookPush.class);
         assertNotNull(push1.getChanges());
-        assertEquals(true, push1.getChanges().get(0).isTruncated());
+        assertEquals(true, push1.getChanges()[0].isTruncated());
     }
 
     /**
@@ -192,7 +192,7 @@ final class WebhookPushTest
         String string1 = "{\"changes\":[{}]}";
         WebhookPush push1 = jsonb.fromJson(string1, WebhookPush.class);
         assertNotNull(push1.getChanges());
-        assertNull(push1.getChanges().get(0).getOld());
+        assertNull(push1.getChanges()[0].getOld());
     }
 
     /**
@@ -204,7 +204,7 @@ final class WebhookPushTest
         String string1 = "{\"changes\":[{\"old\":{}}]}";
         WebhookPush push1 = jsonb.fromJson(string1, WebhookPush.class);
         assertNotNull(push1.getChanges());
-        assertNotNull(push1.getChanges().get(0).getOld());
+        assertNotNull(push1.getChanges()[0].getOld());
     }
 
     /**
@@ -216,7 +216,7 @@ final class WebhookPushTest
         String string1 = "{\"changes\":[{}]}";
         WebhookPush push1 = jsonb.fromJson(string1, WebhookPush.class);
         assertNotNull(push1.getChanges());
-        assertNull(push1.getChanges().get(0).getNew());
+        assertNull(push1.getChanges()[0].getNew());
     }
 
     /**
@@ -228,6 +228,6 @@ final class WebhookPushTest
         String string1 = "{\"changes\":[{\"new\":{}}]}";
         WebhookPush push1 = jsonb.fromJson(string1, WebhookPush.class);
         assertNotNull(push1.getChanges());
-        assertNotNull(push1.getChanges().get(0).getNew());
+        assertNotNull(push1.getChanges()[0].getNew());
     }
 }
