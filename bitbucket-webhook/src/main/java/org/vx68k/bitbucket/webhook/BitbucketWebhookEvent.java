@@ -21,10 +21,12 @@
 package org.vx68k.bitbucket.webhook;
 
 import javax.json.bind.annotation.JsonbTypeAdapter;
+
+import org.vx68k.bitbucket.BitbucketRepository;
 import org.vx68k.bitbucket.BitbucketUserAccount;
 import org.vx68k.bitbucket.client.BitbucketClient;
+import org.vx68k.bitbucket.client.adapter.BitbucketRepositoryAdapter;
 import org.vx68k.bitbucket.client.adapter.BitbucketUserAccountAdapter;
-import org.vx68k.bitbucket.client.internal.ClientRepository;
 
 /**
  * Class of webhook event on a Bitbucket repository.
@@ -34,7 +36,7 @@ import org.vx68k.bitbucket.client.internal.ClientRepository;
  */
 public class BitbucketWebhookEvent
 {
-    private ClientRepository repository;
+    private BitbucketRepository repository;
 
     private BitbucketUserAccount actor;
 
@@ -55,7 +57,7 @@ public class BitbucketWebhookEvent
      */
     public BitbucketWebhookEvent(final BitbucketWebhookEvent other)
     {
-        ClientRepository otherRepository = other.getRepository();
+        BitbucketRepository otherRepository = other.getRepository();
         if (otherRepository != null) {
             otherRepository = BitbucketClient.copyRepository(otherRepository);
         }
@@ -79,12 +81,13 @@ public class BitbucketWebhookEvent
      *
      * @return the repository of the event
      */
-    public final ClientRepository getRepository()
+    @JsonbTypeAdapter(BitbucketRepositoryAdapter.class)
+    public final BitbucketRepository getRepository()
     {
         return repository;
     }
 
-    public final void setRepository(ClientRepository repository)
+    public final void setRepository(BitbucketRepository repository)
     {
         if (repository != null) {
             repository = BitbucketClient.copyRepository(repository);
