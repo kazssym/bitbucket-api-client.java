@@ -36,35 +36,25 @@
 </dependencies>
 
 <build>
-
 <plugins>
-
-<plugin>
-<groupId>org.apache.maven.plugins</groupId>
-<artifactId>maven-jar-plugin</artifactId>
-<configuration>
-<archive>
-<manifestEntries>
-<Automatic-Module-Name>org.vx68k.bitbucket</Automatic-Module-Name>
-</manifestEntries>
-</archive>
-</configuration>
-</plugin>
 
 <plugin>
 <groupId>org.apache.felix</groupId>
 <artifactId>maven-bundle-plugin</artifactId>
 <extensions>true</extensions>
 <configuration>
+<archive>
+<manifestEntries>
+<Automatic-Module-Name>org.vx68k.bitbucket</Automatic-Module-Name>
+</manifestEntries>
+</archive>
 <instructions>
 <Bundle-SymbolicName>org.vx68k.bitbucket</Bundle-SymbolicName>
-<Export-Package>org.vx68k.bitbucket</Export-Package>
 </instructions>
 </configuration>
 </plugin>
 
 </plugins>
-
 </build>
 
 </project>
