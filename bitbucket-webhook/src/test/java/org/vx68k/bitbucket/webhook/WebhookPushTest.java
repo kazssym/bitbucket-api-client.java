@@ -53,18 +53,181 @@ final class WebhookPushTest
     }
 
     /**
-     * Tests a {@code null} object.
+     * Tests {@link WebhookPush#getChanges()}.
      */
     @Test
-    void testChanges()
+    void testChanges1()
     {
         String string1 = "{}";
         WebhookPush push1 = jsonb.fromJson(string1, WebhookPush.class);
         assertNull(push1.getChanges());
+    }
 
-        String string2 = "{\"changes\":[]}";
-        WebhookPush push2 = jsonb.fromJson(string2, WebhookPush.class);
-        assertNotNull(push2.getChanges());
-        assertEquals(0, push2.getChanges().size());
+    /**
+     * Tests {@link WebhookPush#getChanges()}.
+     */
+    @Test
+    void testChanges2()
+    {
+        String string1 = "{\"changes\":[]}";
+        WebhookPush push1 = jsonb.fromJson(string1, WebhookPush.class);
+        assertNotNull(push1.getChanges());
+        assertEquals(0, push1.getChanges().size());
+    }
+
+    /**
+     * Tests {@link WebhookPush#getChanges()}.
+     */
+    @Test
+    void testChanges3()
+    {
+        String string1 = "{\"changes\":[{}]}";
+        WebhookPush push1 = jsonb.fromJson(string1, WebhookPush.class);
+        assertNotNull(push1.getChanges());
+        assertEquals(1, push1.getChanges().size());
+    }
+
+    /**
+     * Tests {@link WebhookPush.Change#isCreated()}.
+     */
+    @Test
+    void testChangeCreated1()
+    {
+        String string1 = "{\"changes\":[{}]}";
+        WebhookPush push1 = jsonb.fromJson(string1, WebhookPush.class);
+        assertNotNull(push1.getChanges());
+        assertEquals(false, push1.getChanges().get(0).isCreated());
+    }
+
+    /**
+     * Tests {@link WebhookPush.Change#isCreated()}.
+     */
+    @Test
+    void testChangeCreated2()
+    {
+        String string1 = "{\"changes\":[{\"created\":true}]}";
+        WebhookPush push1 = jsonb.fromJson(string1, WebhookPush.class);
+        assertNotNull(push1.getChanges());
+        assertEquals(true, push1.getChanges().get(0).isCreated());
+    }
+
+    /**
+     * Tests {@link WebhookPush.Change#isClosed()}.
+     */
+    @Test
+    void testChangeClosed1()
+    {
+        String string1 = "{\"changes\":[{}]}";
+        WebhookPush push1 = jsonb.fromJson(string1, WebhookPush.class);
+        assertNotNull(push1.getChanges());
+        assertEquals(false, push1.getChanges().get(0).isClosed());
+    }
+
+    /**
+     * Tests {@link WebhookPush.Change#isClosed()}.
+     */
+    @Test
+    void testChangeClosed2()
+    {
+        String string1 = "{\"changes\":[{\"closed\":true}]}";
+        WebhookPush push1 = jsonb.fromJson(string1, WebhookPush.class);
+        assertNotNull(push1.getChanges());
+        assertEquals(true, push1.getChanges().get(0).isClosed());
+    }
+
+    /**
+     * Tests {@link WebhookPush.Change#isForced()}.
+     */
+    @Test
+    void testChangeForced1()
+    {
+        String string1 = "{\"changes\":[{}]}";
+        WebhookPush push1 = jsonb.fromJson(string1, WebhookPush.class);
+        assertNotNull(push1.getChanges());
+        assertEquals(false, push1.getChanges().get(0).isForced());
+    }
+
+    /**
+     * Tests {@link WebhookPush.Change#isForced()}.
+     */
+    @Test
+    void testChangeForced2()
+    {
+        String string1 = "{\"changes\":[{\"forced\":true}]}";
+        WebhookPush push1 = jsonb.fromJson(string1, WebhookPush.class);
+        assertNotNull(push1.getChanges());
+        assertEquals(true, push1.getChanges().get(0).isForced());
+    }
+
+    /**
+     * Tests {@link WebhookPush.Change#isTruncated()}.
+     */
+    @Test
+    void testChangeTruncated1()
+    {
+        String string1 = "{\"changes\":[{}]}";
+        WebhookPush push1 = jsonb.fromJson(string1, WebhookPush.class);
+        assertNotNull(push1.getChanges());
+        assertEquals(false, push1.getChanges().get(0).isTruncated());
+    }
+
+    /**
+     * Tests {@link WebhookPush.Change#isTruncated()}.
+     */
+    @Test
+    void testChangeTruncated2()
+    {
+        String string1 = "{\"changes\":[{\"truncated\":true}]}";
+        WebhookPush push1 = jsonb.fromJson(string1, WebhookPush.class);
+        assertNotNull(push1.getChanges());
+        assertEquals(true, push1.getChanges().get(0).isTruncated());
+    }
+
+    /**
+     * Tests {@link WebhookPush.Change#getOld()}.
+     */
+    @Test
+    void testChangeOld1()
+    {
+        String string1 = "{\"changes\":[{}]}";
+        WebhookPush push1 = jsonb.fromJson(string1, WebhookPush.class);
+        assertNotNull(push1.getChanges());
+        assertNull(push1.getChanges().get(0).getOld());
+    }
+
+    /**
+     * Tests {@link WebhookPush.Change#getOld()}.
+     */
+    @Test
+    void testChangeOld2()
+    {
+        String string1 = "{\"changes\":[{\"old\":{}}]}";
+        WebhookPush push1 = jsonb.fromJson(string1, WebhookPush.class);
+        assertNotNull(push1.getChanges());
+        assertNotNull(push1.getChanges().get(0).getOld());
+    }
+
+    /**
+     * Tests {@link WebhookPush.Change#getOld()}.
+     */
+    @Test
+    void testChangeNew1()
+    {
+        String string1 = "{\"changes\":[{}]}";
+        WebhookPush push1 = jsonb.fromJson(string1, WebhookPush.class);
+        assertNotNull(push1.getChanges());
+        assertNull(push1.getChanges().get(0).getNew());
+    }
+
+    /**
+     * Tests {@link WebhookPush.Change#getOld()}.
+     */
+    @Test
+    void testChangeNew2()
+    {
+        String string1 = "{\"changes\":[{\"new\":{}}]}";
+        WebhookPush push1 = jsonb.fromJson(string1, WebhookPush.class);
+        assertNotNull(push1.getChanges());
+        assertNotNull(push1.getChanges().get(0).getNew());
     }
 }
