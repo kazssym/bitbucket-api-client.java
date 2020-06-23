@@ -27,6 +27,7 @@ import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -239,7 +240,7 @@ final class WebhookPushTest
     {
         String string1 = "{\"changes\":[{}]}";
         WebhookPush push1 = jsonb.fromJson(string1, WebhookPush.class);
-        assertNotNull(push1.getChanges());
+        assertNotNull(push1.getChanges()[0]);
         assertNull(push1.getChanges()[0].getCommits());
     }
 
@@ -251,8 +252,23 @@ final class WebhookPushTest
     {
         String string1 = "{\"changes\":[{\"commits\":[]}]}";
         WebhookPush push1 = jsonb.fromJson(string1, WebhookPush.class);
-        assertNotNull(push1.getChanges());
+        assertNotNull(push1.getChanges()[0]);
         assertNotNull(push1.getChanges()[0].getCommits());
         assertEquals(0, push1.getChanges()[0].getCommits().length);
+    }
+
+    /**
+     * Tests {@link WebhookPush.Change#getCommits()}.
+     */
+    @Disabled("Not implemented")
+    @Test
+    void testChangeCommits3()
+    {
+        String string1 = "{\"changes\":[{\"commits\":[{}]}]}";
+        WebhookPush push1 = jsonb.fromJson(string1, WebhookPush.class);
+        assertNotNull(push1.getChanges()[0]);
+        assertNotNull(push1.getChanges()[0].getCommits());
+        assertEquals(1, push1.getChanges()[0].getCommits().length);
+        assertNotNull(push1.getChanges()[0].getCommits()[0]);
     }
 }
