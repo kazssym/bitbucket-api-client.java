@@ -208,7 +208,7 @@ final class WebhookPushTest
     }
 
     /**
-     * Tests {@link WebhookPush.Change#getOld()}.
+     * Tests {@link WebhookPush.Change#getNew()}.
      */
     @Test
     void testChangeNew1()
@@ -220,7 +220,7 @@ final class WebhookPushTest
     }
 
     /**
-     * Tests {@link WebhookPush.Change#getOld()}.
+     * Tests {@link WebhookPush.Change#getNew()}.
      */
     @Test
     void testChangeNew2()
@@ -232,7 +232,7 @@ final class WebhookPushTest
     }
 
     /**
-     * Tests {@link WebhookPush.Change#getOld()}.
+     * Tests {@link WebhookPush.Change#getCommits()}.
      */
     @Test
     void testChangeCommits1()
@@ -244,7 +244,7 @@ final class WebhookPushTest
     }
 
     /**
-     * Tests {@link WebhookPush.Change#getOld()}.
+     * Tests {@link WebhookPush.Change#getCommits()}.
      */
     @Test
     void testChangeCommits2()
