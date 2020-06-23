@@ -369,29 +369,65 @@ final class ClientIssueTest
     /**
      * Tests {@link ClientIssue#getVotes()}.
      */
-    @Disabled("Not implemented yet")
     @Test
-    void testGetVotes()
+    void testVotes1()
     {
-        // BitbucketIssue issue0 = new ClientIssue(blankIssue);
-        // assertEquals(-1, issue0.getVotes());
+        String string1 = "{\"type\":\"branch\"}";
+        ClientIssue issue1 = jsonb.fromJson(string1, ClientIssue.class);
+        assertEquals(0, issue1.getVotes());
+    }
 
-        // BitbucketIssue issue1 = new ClientIssue(sampleIssue1);
-        // assertEquals(0, issue1.getVotes());
+    /**
+     * Tests {@link ClientIssue#getVotes()}.
+     */
+    @Test
+    void testVotes2()
+    {
+        String string1 = "{\"type\":\"branch\",\"votes\":1}";
+        ClientIssue issue1 = jsonb.fromJson(string1, ClientIssue.class);
+        assertEquals(1, issue1.getVotes());
+    }
+
+    /**
+     * Tests {@link ClientIssue#getVotes()}.
+     */
+    @Test
+    void testVotes3()
+    {
+        ClientIssue issue1 = jsonb.fromJson(sample1, ClientIssue.class);
+        assertEquals(0, issue1.getVotes());
     }
 
     /**
      * Tests {@link ClientIssue#getWatches()}.
      */
-    @Disabled("Not implemented yet")
     @Test
-    void testGetWatches()
+    void testWatches1()
     {
-        // BitbucketIssue issue0 = new ClientIssue(blankIssue);
-        // assertEquals(-1, issue0.getWatches());
+        String string1 = "{\"type\":\"branch\"}";
+        ClientIssue issue1 = jsonb.fromJson(string1, ClientIssue.class);
+        assertEquals(0, issue1.getWatches());
+    }
 
-        // BitbucketIssue issue1 = new ClientIssue(sampleIssue1);
-        // assertEquals(1, issue1.getWatches());
+    /**
+     * Tests {@link ClientIssue#getWatches()}.
+     */
+    @Test
+    void testWatches2()
+    {
+        String string1 = "{\"type\":\"branch\",\"watches\":1}";
+        ClientIssue issue1 = jsonb.fromJson(string1, ClientIssue.class);
+        assertEquals(1, issue1.getWatches());
+    }
+
+    /**
+     * Tests {@link ClientIssue#getWatches()}.
+     */
+    @Test
+    void testWatches3()
+    {
+        ClientIssue issue1 = jsonb.fromJson(sample1, ClientIssue.class);
+        assertEquals(1, issue1.getWatches());
     }
 
     /**
