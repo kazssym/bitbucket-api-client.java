@@ -121,6 +121,14 @@ public class WebhookPush
                 otherNew = BitbucketClient.copyBranch(otherNew);
             }
             this.new1 = otherNew;
+
+            BitbucketRepository.Commit[] otherCommits = other.getCommits();
+            if (otherCommits != null) {
+                otherCommits = Arrays.stream(otherCommits)
+                    // TODO: .map(BitbucketClient::copyCommit)
+                    .toArray(BitbucketRepository.Commit[]::new);
+            }
+            this.commits = otherCommits;
         }
 
         /**
