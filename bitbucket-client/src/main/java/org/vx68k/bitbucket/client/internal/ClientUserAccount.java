@@ -21,7 +21,9 @@
 package org.vx68k.bitbucket.client.internal;
 
 import javax.json.bind.annotation.JsonbProperty;
+import javax.json.bind.annotation.JsonbTypeAdapter;
 import org.vx68k.bitbucket.BitbucketUserAccount;
+import org.vx68k.bitbucket.client.adapter.AccountTypeAdapter;
 
 /**
  * Client implementation class of {@link BitbucketUserAccount} for the
@@ -33,6 +35,8 @@ import org.vx68k.bitbucket.BitbucketUserAccount;
 public class ClientUserAccount extends ClientAccount
     implements BitbucketUserAccount
 {
+    private AccountType type;
+
     private boolean staff = false;
 
     private String accountId;
@@ -54,6 +58,7 @@ public class ClientUserAccount extends ClientAccount
     {
         super(other);
 
+        this.type = AccountType.TEAM;
         this.staff = other.isStaff();
         this.accountId = other.getAccountId();
     }
@@ -63,10 +68,19 @@ public class ClientUserAccount extends ClientAccount
         return new ClientUserAccount(this);
     }
 
+    @JsonbTypeAdapter(AccountTypeAdapter.class)
     @Override
     public final AccountType getType()
     {
-        return AccountType.USER;
+        return type;
+    }
+
+    public final void setType(final AccountType type)
+    {
+        if (type != null && !(type.equals(AccountType.USER))) {
+            throw new IllegalArgumentException("Type is not of user account objects");
+        }
+        this.type = type;
     }
 
     /**
