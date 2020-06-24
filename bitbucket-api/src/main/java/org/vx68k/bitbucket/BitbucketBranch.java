@@ -56,5 +56,5 @@ public interface BitbucketBranch extends BitbucketRepository.Ref
      *
      * @return a list of the heads of the branch
      */
-    List<BitbucketRepository.Commit> getHeads();
+    List<BitbucketCommit> getHeads();
 }

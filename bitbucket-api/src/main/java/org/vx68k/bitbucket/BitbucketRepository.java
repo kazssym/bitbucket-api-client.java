@@ -197,6 +197,6 @@ public interface BitbucketRepository
          *
          * @return the target of the commit ref
          */
-        Commit getTarget();
+        BitbucketCommit getTarget();
     }
 }

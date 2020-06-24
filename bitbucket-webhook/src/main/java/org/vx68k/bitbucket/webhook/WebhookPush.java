@@ -23,7 +23,7 @@ package org.vx68k.bitbucket.webhook;
 import java.util.Arrays;
 import javax.json.bind.annotation.JsonbTypeAdapter;
 import org.vx68k.bitbucket.BitbucketBranch;
-import org.vx68k.bitbucket.BitbucketRepository;
+import org.vx68k.bitbucket.BitbucketCommit;
 import org.vx68k.bitbucket.client.BitbucketClient;
 import org.vx68k.bitbucket.client.adapter.BitbucketBranchAdapter;
 
@@ -93,7 +93,7 @@ public class WebhookPush
 
         private BitbucketBranch new1;
 
-        private BitbucketRepository.Commit[] commits;
+        private BitbucketCommit[] commits;
 
         /**
          * Constructs a change.
@@ -122,11 +122,11 @@ public class WebhookPush
             }
             this.new1 = otherNew;
 
-            BitbucketRepository.Commit[] otherCommits = other.getCommits();
+            BitbucketCommit[] otherCommits = other.getCommits();
             if (otherCommits != null) {
                 otherCommits = Arrays.stream(otherCommits)
                     // TODO: .map(BitbucketClient::copyCommit)
-                    .toArray(BitbucketRepository.Commit[]::new);
+                    .toArray(BitbucketCommit[]::new);
             }
             this.commits = otherCommits;
         }
@@ -234,17 +234,17 @@ public class WebhookPush
          *
          * @return the commits
          */
-        public final BitbucketRepository.Commit[] getCommits()
+        public final BitbucketCommit[] getCommits()
         {
             return commits;
         }
 
-        public final void setCommits(BitbucketRepository.Commit[] commits)
+        public final void setCommits(BitbucketCommit[] commits)
         {
             if (commits != null) {
                 commits = Arrays.stream(commits)
                      // TODO: .map(BitbucketClient::copyCommit)
-                    .toArray(BitbucketRepository.Commit[]::new);
+                    .toArray(BitbucketCommit[]::new);
             }
             this.commits = commits;
         }
