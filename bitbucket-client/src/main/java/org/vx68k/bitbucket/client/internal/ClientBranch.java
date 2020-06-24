@@ -24,10 +24,9 @@ import java.util.Arrays;
 import javax.json.bind.annotation.JsonbProperty;
 import org.vx68k.bitbucket.BitbucketBranch;
 import org.vx68k.bitbucket.BitbucketCommit;
-import org.vx68k.bitbucket.BitbucketRepository;
 
 /**
- * Client implementation class of {@link BitbucketRepository.Branch} for the
+ * Client implementation class of {@link BitbucketBranch} for the
  * {@code "branch"}, {@code "named_branch"} and {@code "bookmark"} objects.
  *
  * @author Kaz Nishimura
