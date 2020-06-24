@@ -21,7 +21,6 @@
 package org.vx68k.bitbucket;
 
 import java.time.OffsetDateTime;
-import java.util.List;
 import java.util.UUID;
 
 /**
