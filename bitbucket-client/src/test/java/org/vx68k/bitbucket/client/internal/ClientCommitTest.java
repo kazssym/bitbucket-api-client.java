@@ -235,7 +235,7 @@ final class ClientCommitTest
         String string1 = "{\"type\":\"commit\",\"parents\":[]}";
         ClientCommit commit1 = jsonb.fromJson(string1, ClientCommit.class);
         assertNotNull(commit1.getParents());
-        assertEquals(0, commit1.getParents().size());
+        assertEquals(0, commit1.getParents().length);
     }
 
     @Test
@@ -243,7 +243,7 @@ final class ClientCommitTest
     {
         ClientCommit commit1 = jsonb.fromJson(sample1, ClientCommit.class);
         assertNotNull(commit1.getParents());
-        assertEquals(0, commit1.getParents().size());
+        assertEquals(0, commit1.getParents().length);
     }
 
     @Disabled("Not implemented yet")

@@ -21,7 +21,6 @@
 package org.vx68k.bitbucket;
 
 import java.time.OffsetDateTime;
-import java.util.List;
 
 /**
  * Class of commits in a repository.
@@ -61,7 +60,7 @@ public interface BitbucketCommit
      *
      * @return the list of the parents
      */
-    List<BitbucketCommit> getParents();
+    BitbucketCommit[] getParents();
 
     /**
      *

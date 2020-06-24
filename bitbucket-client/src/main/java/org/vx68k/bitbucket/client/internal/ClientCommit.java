@@ -21,10 +21,14 @@
 package org.vx68k.bitbucket.client.internal;
 
 import java.time.OffsetDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 import javax.json.bind.annotation.JsonbDateFormat;
+import javax.json.bind.annotation.JsonbTypeAdapter;
 import org.vx68k.bitbucket.BitbucketCommit;
+import org.vx68k.bitbucket.BitbucketRendered;
+import org.vx68k.bitbucket.BitbucketRepository;
+import org.vx68k.bitbucket.client.adapter.BitbucketRenderedAdapter;
+import org.vx68k.bitbucket.client.adapter.BitbucketRepositoryAdapter;
 
 /**
  * Client implementation class of {@link BitbucketCommit} for the
@@ -43,11 +47,11 @@ public class ClientCommit implements BitbucketCommit
 
     private String message;
 
-    private ClientRepository repository;
+    private BitbucketRepository repository;
 
-    private List<BitbucketCommit> parents;
+    private BitbucketCommit[] parents;
 
-    private ClientRendered summary;
+    private BitbucketRendered summary;
 
     /**
      * Constructs a commit.
@@ -69,9 +73,25 @@ public class ClientCommit implements BitbucketCommit
         this.date = other.getDate();
         this.message = other.getMessage();
 
-        this.repository = new ClientRepository(other.getRepository());
-        this.parents = new ArrayList<>(other.getParents());
-        this.summary = new ClientRendered(other.getSummary());
+        BitbucketRepository otheRepository = other.getRepository();
+        if (otheRepository != null) {
+            otheRepository = new ClientRepository(otheRepository);
+        }
+        this.repository = otheRepository;
+
+        BitbucketCommit[] otherParents = other.getParents();
+        if (otherParents != null) {
+            otherParents = Arrays.stream(otherParents)
+                .map(ClientCommit::new)
+                .toArray(BitbucketCommit[]::new);
+        }
+        this.parents = otherParents;
+
+        BitbucketRendered otherSummary = other.getSummary();
+        if (otherSummary != null) {
+            otherSummary = new ClientRendered(otherSummary);
+        }
+        this.summary = otherSummary;
     }
 
     public final String getType()
@@ -104,7 +124,6 @@ public class ClientCommit implements BitbucketCommit
         return date;
     }
 
-    @JsonbDateFormat("uuuu-MM-dd'T'HH:mm:ss[.SSSSSS]xxxxx")
     public final void setDate(final OffsetDateTime date) {
         this.date = date;
     }
@@ -120,40 +139,50 @@ public class ClientCommit implements BitbucketCommit
         this.message = message;
     }
 
+    @JsonbTypeAdapter(BitbucketRepositoryAdapter.class)
     @Override
-    public final ClientRepository getRepository()
+    public final BitbucketRepository getRepository()
     {
         return repository;
     }
 
-    public final void setRepository(ClientRepository repository)
+    public final void setRepository(BitbucketRepository repository)
     {
+        if (repository != null) {
+            repository = new ClientRepository(repository);
+        }
         this.repository = repository;
     }
 
     @Override
-    public final List<BitbucketCommit> getParents()
+    public final BitbucketCommit[] getParents()
     {
         return parents;
     }
 
-    public void setParents(List<BitbucketCommit> parents)
+    public void setParents(BitbucketCommit[] parents)
     {
-        this.parents = new ArrayList<>(parents);
+        if (parents != null) {
+            parents = Arrays.stream(parents)
+                .map(ClientCommit::new)
+                .toArray(BitbucketCommit[]::new);
+        }
+        this.parents = parents;
     }
 
+    @JsonbTypeAdapter(BitbucketRenderedAdapter.class)
     @Override
-    public final ClientRendered getSummary()
+    public final BitbucketRendered getSummary()
     {
         return summary;
     }
 
-    public final void setSummary(final ClientRendered summary)
+    public final void setSummary(final BitbucketRendered summary)
     {
         this.summary = new ClientRendered(summary);
     }
 
-    public final ClientRendered getRendered()
+    public final BitbucketRendered getRendered()
     {
         return getSummary();
     }
