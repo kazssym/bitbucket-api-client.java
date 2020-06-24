@@ -30,6 +30,7 @@ import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbTypeAdapter;
 import org.vx68k.bitbucket.BitbucketAccount;
 import org.vx68k.bitbucket.client.adapter.LinkMapAdapter;
+import org.vx68k.bitbucket.client.adapter.UUIDAdapter;
 
 /**
  * Abstract client implementation class of {@link BitbucketAccount}.

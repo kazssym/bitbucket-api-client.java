@@ -18,7 +18,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-package org.vx68k.bitbucket.client.internal;
+package org.vx68k.bitbucket.client.adapter;
 
 import java.util.UUID;
 import javax.json.bind.adapter.JsonbAdapter;

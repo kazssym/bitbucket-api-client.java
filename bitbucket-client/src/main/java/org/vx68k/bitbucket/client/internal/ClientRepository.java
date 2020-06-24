@@ -27,6 +27,7 @@ import javax.json.bind.annotation.JsonbTypeAdapter;
 import org.vx68k.bitbucket.BitbucketAccount;
 import org.vx68k.bitbucket.BitbucketBranch;
 import org.vx68k.bitbucket.BitbucketRepository;
+import org.vx68k.bitbucket.client.adapter.UUIDAdapter;
 
 /**
  * Client implementation class of {@link BitbucketRepository} for the
