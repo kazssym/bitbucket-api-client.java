@@ -34,17 +34,17 @@ public class BitbucketRepositoryAdapter
     implements JsonbAdapter<BitbucketRepository, ClientRepository>
 {
     @Override
-    public final ClientRepository adaptToJson(final BitbucketRepository user)
+    public final ClientRepository adaptToJson(final BitbucketRepository repository)
     {
-        if (user instanceof ClientRepository) {
-            return (ClientRepository) user;
+        if (repository instanceof ClientRepository) {
+            return (ClientRepository) repository;
         }
-        return new ClientRepository(user);
+        return new ClientRepository(repository);
     }
 
     @Override
-    public final BitbucketRepository adaptFromJson(final ClientRepository user)
+    public final BitbucketRepository adaptFromJson(final ClientRepository repository)
     {
-        return user;
+        return repository;
     }
 }

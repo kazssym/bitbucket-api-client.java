@@ -34,17 +34,17 @@ public class BitbucketBranchAdapter
     implements JsonbAdapter<BitbucketBranch, ClientBranch>
 {
     @Override
-    public final ClientBranch adaptToJson(final BitbucketBranch user)
+    public final ClientBranch adaptToJson(final BitbucketBranch branch)
     {
-        if (user instanceof ClientBranch) {
-            return (ClientBranch) user;
+        if (branch instanceof ClientBranch) {
+            return (ClientBranch) branch;
         }
-        return new ClientBranch(user);
+        return new ClientBranch(branch);
     }
 
     @Override
-    public final BitbucketBranch adaptFromJson(final ClientBranch user)
+    public final BitbucketBranch adaptFromJson(final ClientBranch branch)
     {
-        return user;
+        return branch;
     }
 }
