@@ -33,7 +33,6 @@ import org.vx68k.bitbucket.client.adapter.AccountTypeAdapter;
  */
 public class ClientTeamAccount extends ClientAccount
 {
-    @JsonbTypeAdapter(AccountTypeAdapter.class)
     private AccountType type;
 
     /**
@@ -53,7 +52,7 @@ public class ClientTeamAccount extends ClientAccount
     {
         super(other);
 
-        this.type = AccountType.TEAM; // TODO: Right?
+        this.type = AccountType.TEAM;
     }
 
     public ClientTeamAccount copy()
@@ -61,6 +60,7 @@ public class ClientTeamAccount extends ClientAccount
         return new ClientTeamAccount(this);
     }
 
+    @JsonbTypeAdapter(AccountTypeAdapter.class)
     @Override
     public final AccountType getType()
     {
