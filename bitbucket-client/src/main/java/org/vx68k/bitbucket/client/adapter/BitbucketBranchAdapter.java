@@ -25,7 +25,7 @@ import org.vx68k.bitbucket.BitbucketBranch;
 import org.vx68k.bitbucket.client.internal.ClientBranch;
 
 /**
- * Adapter for {@link BitbucketRepository.Branch}.
+ * Adapter for {@link BitbucketBranch}.
  *
  * @author Kaz Nishimura
  * @since 6.0
