@@ -20,8 +20,6 @@
 
 package org.vx68k.bitbucket;
 
-import java.util.List;
-
 /**
  * Branch, named branch or bookmark in a Bitbucket repository.
  *
@@ -49,12 +47,12 @@ public interface BitbucketBranch extends BitbucketRepository.Ref
      *
      * @return a list of the merge strategies of the branch
      */
-    List<String> getMergeStrategies();
+    String[] getMergeStrategies();
 
     /**
      * Returns a list of the heads of the branch.
      *
      * @return a list of the heads of the branch
      */
-    List<BitbucketCommit> getHeads();
+    BitbucketCommit[] getHeads();
 }

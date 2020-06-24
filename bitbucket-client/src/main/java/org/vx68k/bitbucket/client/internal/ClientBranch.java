@@ -20,8 +20,7 @@
 
 package org.vx68k.bitbucket.client.internal;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 import javax.json.bind.annotation.JsonbProperty;
 import org.vx68k.bitbucket.BitbucketBranch;
 import org.vx68k.bitbucket.BitbucketCommit;
@@ -43,12 +42,12 @@ public class ClientBranch extends ClientRef implements BitbucketBranch
 
     private String defaultMergeStrategy;
 
-    private List<String> mergeStrategies;
+    private String[] mergeStrategies;
 
     /**
      * List of the head commits of the branch object.
      */
-    private List<BitbucketCommit> heads;
+    private BitbucketCommit[] heads;
 
     /**
      * Constructs a branch object.
@@ -66,9 +65,11 @@ public class ClientBranch extends ClientRef implements BitbucketBranch
     {
         this.type = other.getType();
 
-        List<BitbucketCommit> otherHeads = other.getHeads();
+        BitbucketCommit[] otherHeads = other.getHeads();
         if (otherHeads != null) {
-            otherHeads = new ArrayList<>(otherHeads);
+            otherHeads = Arrays.stream(otherHeads)
+                .map(ClientCommit::new)
+                .toArray(BitbucketCommit[]::new);
         }
         this.heads = otherHeads;
     }
@@ -113,16 +114,17 @@ public class ClientBranch extends ClientRef implements BitbucketBranch
 
     @JsonbProperty("merge_strategies")
     @Override
-    public final List<String> getMergeStrategies()
+    public final String[] getMergeStrategies()
     {
         return mergeStrategies;
     }
 
     @JsonbProperty("merge_strategies")
-    public final void setMergeStrategies(List<String> mergeStrategies)
+    public final void setMergeStrategies(String[] mergeStrategies)
     {
         if (mergeStrategies != null) {
-            mergeStrategies = new ArrayList<>(mergeStrategies);
+            mergeStrategies = Arrays.stream(mergeStrategies)
+                .toArray(String[]::new);
         }
         this.mergeStrategies = mergeStrategies;
     }
@@ -133,15 +135,17 @@ public class ClientBranch extends ClientRef implements BitbucketBranch
      * @return the heads
      */
     @Override
-    public final List<BitbucketCommit> getHeads()
+    public final BitbucketCommit[] getHeads()
     {
         return heads;
     }
 
-    public final void setHeads(List<BitbucketCommit> heads)
+    public final void setHeads(BitbucketCommit[] heads)
     {
         if (heads != null) {
-            heads = new ArrayList<>(heads);
+            heads = Arrays.stream(heads)
+                .map(ClientCommit::new)
+                .toArray(BitbucketCommit[]::new);
         }
         this.heads = heads;
     }

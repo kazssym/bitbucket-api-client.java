@@ -145,6 +145,6 @@ final class ClientBranchTest
         String string1 = "{\"type\":\"branch\",\"heads\":[]}";
         ClientBranch branch1 = jsonb.fromJson(string1, ClientBranch.class);
         assertNotNull(branch1.getHeads());
-        assertEquals(0, branch1.getHeads().size());
+        assertEquals(0, branch1.getHeads().length);
     }
 }
