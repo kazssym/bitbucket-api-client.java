@@ -131,53 +131,6 @@ public interface BitbucketRepository
     boolean isWikiEnabled();
 
     /**
-     * Class of commits in a repository.
-     *
-     * @author Kaz Nishimura
-     * @since 6.0
-     */
-    static interface Commit
-    {
-        /**
-         * Returns the hash of the commit.
-         * This is the primary identifier.
-         *
-         * @return the hash of the commit
-         */
-        String getHash();
-
-        /**
-         *
-         * @return the date
-         */
-        OffsetDateTime getDate();
-
-        /**
-         *
-         * @return the message
-         */
-        String getMessage();
-
-        /**
-         *
-         * @return the repository
-         */
-        BitbucketRepository getRepository();
-
-        /**
-         *
-         * @return the list of the parents
-         */
-        List<Commit> getParents();
-
-        /**
-         *
-         * @return the summary
-         */
-        BitbucketRendered getSummary();
-    }
-
-    /**
      * Class of commit refs in a repository.
      *
      * @author Kaz Nishimura
