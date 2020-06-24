@@ -24,37 +24,40 @@ import java.net.URI;
 import java.util.Collections;
 import java.util.Map;
 import java.util.stream.Collectors;
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.JsonValue;
 import javax.json.bind.adapter.JsonbAdapter;
 
-public class LinkMapAdapter implements JsonbAdapter<Map<String, URI>, JsonObject>
+public class LinkMapAdapter
+    implements JsonbAdapter<Map<String, URI>, Map<String, Object>>
 {
     @Override
-    public final JsonObject adaptToJson(final Map<String, URI> links)
+    public final Map<String, Object> adaptToJson(final Map<String, URI> links)
     {
-        Map<String, Object> map = links.entrySet().stream()
+        return links.entrySet().stream()
             .collect(Collectors.toMap(Map.Entry<String, URI>::getKey,
-                (entry) -> {
-                    URI uri = entry.getValue();
-                    return Collections.singletonMap("href", uri.toString());
-                }));
-        return Json.createObjectBuilder(map).build();
+                (e) -> {
+                    URI uri = e.getValue();
+                    if (uri != null) {
+                        return Collections.singletonMap("href", uri.toString());
+                    }
+                    return null;
+                }
+            ));
     }
 
     @Override
-    public final Map<String, URI> adaptFromJson(final JsonObject json)
+    public final Map<String, URI> adaptFromJson(final Map<String, Object> map)
     {
-        return json.entrySet().stream()
-            .collect(Collectors.toMap(Map.Entry<String, JsonValue>::getKey,
-                (entry) -> {
-                    JsonObject link = (JsonObject) entry.getValue();
-                    String string = link.getString("href", null);
-                    if (string != null) {
-                        return URI.create(string);
+        return map.entrySet().stream()
+            .filter((e) -> e.getValue() instanceof Map<?, ?>)
+            .collect(Collectors.toMap(Map.Entry<String, Object>::getKey,
+                (e) -> {
+                    Map<?, ?> link = (Map<?, ?>) e.getValue();
+                    Object href = link.get("href");
+                    if (href instanceof String) {
+                        return URI.create((String) href);
                     }
                     return null;
-                }));
+                }
+            ));
     }
 }
