@@ -23,6 +23,7 @@ package org.vx68k.bitbucket.client.internal;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.fail;
 import java.io.InputStream;
 import java.time.OffsetDateTime;
 import java.util.UUID;
@@ -37,7 +38,7 @@ import org.junit.jupiter.api.Test;
  *
  * @author Kaz Nishimura
  */
-public final class ClientUserAccountTest
+final class ClientUserAccountTest
 {
     /**
      * UUID of the sample user 1.
@@ -56,7 +57,7 @@ public final class ClientUserAccountTest
     private InputStream sample1;
 
     @BeforeEach
-    public void setUp()
+    void setUp()
     {
         jsonb = JsonbBuilder.create();
 
@@ -64,7 +65,7 @@ public final class ClientUserAccountTest
     }
 
     @AfterEach
-    public void tearDown() throws Exception
+    void tearDown() throws Exception
     {
         sample1.close();
         sample1 = null;
@@ -74,161 +75,316 @@ public final class ClientUserAccountTest
     }
 
     /**
-     * Tests the constructor.
+     * Tests {@link ClientUserAccount#getType()}.
      */
     @Test
-    public void testConstructor()
+    void testType1()
     {
         String string1 = "{}";
         ClientUserAccount user1 = jsonb.fromJson(string1, ClientUserAccount.class);
-        assertEquals(ClientAccount.AccountType.USER, user1.getType());
-
-        String string2 = "{\"type\":\"team\"}";
-        ClientUserAccount user2 = jsonb.fromJson(string2, ClientUserAccount.class);
-        assertEquals(ClientAccount.AccountType.USER, user2.getType());
+        assertNull(user1.getType());
     }
 
     /**
-     * Tests {@link ClientUserAccount#getUuid}.
+     * Tests {@link ClientUserAccount#getType()}.
      */
     @Test
-    public void testUuid()
+    void testType2()
+    {
+        String string1 = "{\"type\":\"user\"}";
+        ClientUserAccount user1 = jsonb.fromJson(string1, ClientUserAccount.class);
+        assertEquals(ClientAccount.AccountType.USER, user1.getType());
+    }
+
+    /**
+     * Tests {@link ClientTeamAccount#getType()}.
+     */
+    @Test
+    void testType3()
+    {
+        String string1 = "{\"type\":\"team\"}";
+        ClientUserAccount user1 = null;
+        try {
+            user1 = jsonb.fromJson(string1, ClientUserAccount.class);
+            fail();
+        }
+        catch (final RuntimeException exception) {
+            System.err.println("Caught as expected: " + exception.getMessage());
+        }
+        assertNull(user1);
+    }
+
+    /**
+     * Tests {@link ClientTeamAccount#getType()}.
+     */
+    @Test
+    void testType4()
+    {
+        String string1 = "{\"type\":\"other\"}";
+        ClientUserAccount user1 = null;
+        try {
+            user1 = jsonb.fromJson(string1, ClientUserAccount.class);
+            fail();
+        }
+        catch (final RuntimeException exception) {
+            System.err.println("Caught as expected: " + exception.getMessage());
+        }
+        assertNull(user1);
+    }
+
+    /**
+     * Tests {@link ClientUserAccount#getUuid()}.
+     */
+    @Test
+    void testUuid1()
     {
         String string1 = "{\"type\":\"user\"}";
         ClientUserAccount user1 = jsonb.fromJson(string1, ClientUserAccount.class);
         assertNull(user1.getUuid());
-
-        String string2 = "{\"type\":\"user\",\"uuid\":\"{01234567-89ab-cdef-0123-456789abcdef}\"}";
-        ClientUserAccount user2 = jsonb.fromJson(string2, ClientUserAccount.class);
-        assertEquals(UUID.fromString("01234567-89ab-cdef-0123-456789abcdef"), user2.getUuid());
-
-        ClientUserAccount user3 = jsonb.fromJson(sample1, ClientUserAccount.class);
-        assertEquals(SAMPLE1_UUID, user3.getUuid());
     }
 
     /**
-     * Tests {@link ClientUserAccount#getName}.
+     * Tests {@link ClientUserAccount#getUuid()}.
      */
     @Test
-    public void testName()
+    void testUuid2()
+    {
+        String string1 = "{\"type\":\"user\",\"uuid\":\"{01234567-89ab-cdef-0123-456789abcdef}\"}";
+        ClientUserAccount user1 = jsonb.fromJson(string1, ClientUserAccount.class);
+        assertEquals(UUID.fromString("01234567-89ab-cdef-0123-456789abcdef"), user1.getUuid());
+    }
+
+    /**
+     * Tests {@link ClientUserAccount#getUuid()}.
+     */
+    @Test
+    void testUuid3()
+    {
+        ClientUserAccount user1 = jsonb.fromJson(sample1, ClientUserAccount.class);
+        assertEquals(SAMPLE1_UUID, user1.getUuid());
+    }
+
+    /**
+     * Tests {@link ClientUserAccount#getName()}.
+     */
+    @Test
+    void testName1()
     {
         String string1 = "{\"type\":\"user\"}";
         ClientUserAccount user1 = jsonb.fromJson(string1, ClientUserAccount.class);
         assertNull(user1.getName());
-
-        String string2 = "{\"type\":\"user\",\"username\":\".name\"}";
-        ClientUserAccount user2 = jsonb.fromJson(string2, ClientUserAccount.class);
-        assertEquals(".name", user2.getName());
-
-        ClientUserAccount user3 = jsonb.fromJson(sample1, ClientUserAccount.class);
-        assertNull(user3.getName());
     }
 
     /**
-     * Tests {@link ClientUserAccount#getDisplayName}.
+     * Tests {@link ClientUserAccount#getName()}.
      */
     @Test
-    public void testDisplayName()
+    void testName2()
+    {
+        String string1 = "{\"type\":\"user\",\"username\":\".name\"}";
+        ClientUserAccount user1 = jsonb.fromJson(string1, ClientUserAccount.class);
+        assertEquals(".name", user1.getName());
+    }
+
+    /**
+     * Tests {@link ClientUserAccount#getName()}.
+     */
+    @Test
+    void testName3()
+    {
+        ClientUserAccount user1 = jsonb.fromJson(sample1, ClientUserAccount.class);
+        assertNull(user1.getName());
+    }
+
+    /**
+     * Tests {@link ClientUserAccount#getDisplayName()}.
+     */
+    @Test
+    void testDisplayName1()
     {
         String string1 = "{\"type\":\"user\"}";
         ClientUserAccount user1 = jsonb.fromJson(string1, ClientUserAccount.class);
         assertNull(user1.getDisplayName());
-
-        String string2 = "{\"type\":\"user\",\"display_name\":\".displayName\"}";
-        ClientUserAccount user2 = jsonb.fromJson(string2, ClientUserAccount.class);
-        assertEquals(".displayName", user2.getDisplayName());
-
-        ClientUserAccount user3 = jsonb.fromJson(sample1, ClientUserAccount.class);
-        assertEquals("Kaz Nishimura", user3.getDisplayName());
     }
 
     /**
-     * Tests {@link ClientUserAccount#getWebsite}.
+     * Tests {@link ClientUserAccount#getDisplayName()}.
      */
     @Test
-    public void testWebsite()
+    void testDisplayName2()
+    {
+        String string1 = "{\"type\":\"user\",\"display_name\":\".displayName\"}";
+        ClientUserAccount user1 = jsonb.fromJson(string1, ClientUserAccount.class);
+        assertEquals(".displayName", user1.getDisplayName());
+    }
+
+    /**
+     * Tests {@link ClientUserAccount#getDisplayName()}.
+     */
+    @Test
+    void testDisplayName3()
+    {
+        ClientUserAccount user1 = jsonb.fromJson(sample1, ClientUserAccount.class);
+        assertEquals("Kaz Nishimura", user1.getDisplayName());
+    }
+
+    /**
+     * Tests {@link ClientUserAccount#getWebsite()}.
+     */
+    @Test
+    void testWebsite1()
     {
         String string1 = "{\"type\":\"user\"}";
         ClientUserAccount user1 = jsonb.fromJson(string1, ClientUserAccount.class);
         assertNull(user1.getWebsite());
-
-        String string2 = "{\"type\":\"user\",\"website\":\".website\"}";
-        ClientUserAccount user2 = jsonb.fromJson(string2, ClientUserAccount.class);
-        assertEquals(".website", user2.getWebsite());
-
-        ClientUserAccount user3 = jsonb.fromJson(sample1, ClientUserAccount.class);
-        assertNull(user3.getWebsite());
     }
 
     /**
-     * Tests {@link ClientUserAccount#getLocation}.
+     * Tests {@link ClientUserAccount#getWebsite()}.
      */
     @Test
-    public void testLocation()
+    void testWebsite2()
+    {
+        String string1 = "{\"type\":\"user\",\"website\":\".website\"}";
+        ClientUserAccount user1 = jsonb.fromJson(string1, ClientUserAccount.class);
+        assertEquals(".website", user1.getWebsite());
+    }
+
+    /**
+     * Tests {@link ClientUserAccount#getWebsite()}.
+     */
+    @Test
+    void testWebsite3()
+    {
+        ClientUserAccount user1 = jsonb.fromJson(sample1, ClientUserAccount.class);
+        assertNull(user1.getWebsite());
+    }
+
+    /**
+     * Tests {@link ClientUserAccount#getLocation()}.
+     */
+    @Test
+    void testLocation1()
     {
         String string1 = "{\"type\":\"user\"}";
         ClientUserAccount user1 = jsonb.fromJson(string1, ClientUserAccount.class);
         assertNull(user1.getLocation());
-
-        String string2 = "{\"type\":\"user\",\"location\":\".location\"}";
-        ClientUserAccount user2 = jsonb.fromJson(string2, ClientUserAccount.class);
-        assertEquals(".location", user2.getLocation());
-
-        ClientUserAccount user3 = jsonb.fromJson(sample1, ClientUserAccount.class);
-        assertNull(user3.getLocation());
     }
 
     /**
-     * Tests {@link ClientUserAccount#getCreated}.
+     * Tests {@link ClientUserAccount#getLocation()}.
      */
     @Test
-    public void testCreated()
+    void testLocation2()
+    {
+        String string1 = "{\"type\":\"user\",\"location\":\".location\"}";
+        ClientUserAccount user1 = jsonb.fromJson(string1, ClientUserAccount.class);
+        assertEquals(".location", user1.getLocation());
+    }
+
+    /**
+     * Tests {@link ClientUserAccount#getLocation()}.
+     */
+    @Test
+    void testLocation3()
+    {
+        ClientUserAccount user1 = jsonb.fromJson(sample1, ClientUserAccount.class);
+        assertNull(user1.getLocation());
+    }
+
+    /**
+     * Tests {@link ClientUserAccount#getCreated()}.
+     */
+    @Test
+    void testCreated1()
     {
         String string1 = "{\"type\":\"user\"}";
         ClientUserAccount user1 = jsonb.fromJson(string1, ClientUserAccount.class);
         assertNull(user1.getCreated());
-
-        String string2 = "{\"type\":\"user\",\"created_on\":\"2001-01-01T01:23:45.678901+09:00\"}";
-        ClientUserAccount user2 = jsonb.fromJson(string2, ClientUserAccount.class);
-        assertEquals(OffsetDateTime.parse("2001-01-01T01:23:45.678901+09:00"), user2.getCreated());
-
-        ClientUserAccount user3 = jsonb.fromJson(sample1, ClientUserAccount.class);
-        assertEquals(SAMPLE1_CREATED, user3.getCreated());
     }
 
     /**
-     * Tests {@link ClientUserAccount#isStaff}.
+     * Tests {@link ClientUserAccount#getCreated()}.
      */
     @Test
-    public void testStaff()
+    void testCreated2()
+    {
+        String string1 = "{\"type\":\"user\",\"created_on\":\"2001-01-01T01:23:45.678901+09:00\"}";
+        ClientUserAccount user1 = jsonb.fromJson(string1, ClientUserAccount.class);
+        assertEquals(OffsetDateTime.parse("2001-01-01T01:23:45.678901+09:00"), user1.getCreated());
+    }
+
+    /**
+     * Tests {@link ClientUserAccount#getCreated()}.
+     */
+    @Test
+    void testCreated3()
+    {
+        ClientUserAccount user1 = jsonb.fromJson(sample1, ClientUserAccount.class);
+        assertEquals(SAMPLE1_CREATED, user1.getCreated());
+    }
+
+    /**
+     * Tests {@link ClientUserAccount#isStaff()}.
+     */
+    @Test
+    void testStaff1()
     {
         String string1 = "{\"type\":\"user\"}";
         ClientUserAccount user1 = jsonb.fromJson(string1, ClientUserAccount.class);
         assertEquals(false, user1.isStaff());
-
-        String string2 = "{\"type\":\"user\",\"is_staff\":true}";
-        ClientUserAccount user2 = jsonb.fromJson(string2, ClientUserAccount.class);
-        assertEquals(true, user2.isStaff());
-
-        ClientUserAccount user3 = jsonb.fromJson(sample1, ClientUserAccount.class);
-        assertEquals(false, user3.isStaff());
     }
 
     /**
-     * Tests {@link ClientUserAccount#getAccountId}.
+     * Tests {@link ClientUserAccount#isStaff()}.
      */
     @Test
-    public void testAccountId()
+    void testStaff2()
+    {
+        String string1 = "{\"type\":\"user\",\"is_staff\":true}";
+        ClientUserAccount user1 = jsonb.fromJson(string1, ClientUserAccount.class);
+        assertEquals(true, user1.isStaff());
+    }
+
+    /**
+     * Tests {@link ClientUserAccount#isStaff()}.
+     */
+    @Test
+    void testStaff3()
+    {
+        ClientUserAccount user1 = jsonb.fromJson(sample1, ClientUserAccount.class);
+        assertEquals(false, user1.isStaff());
+    }
+
+    /**
+     * Tests {@link ClientUserAccount#getAccountId()}.
+     */
+    @Test
+    void testAccountId1()
     {
         String string1 = "{\"type\":\"user\"}";
         ClientUserAccount user1 = jsonb.fromJson(string1, ClientUserAccount.class);
         assertNull(user1.getAccountId());
+    }
 
-        String string2 = "{\"type\":\"user\",\"account_id\":\".accountId\"}";
-        ClientUserAccount user2 = jsonb.fromJson(string2, ClientUserAccount.class);
-        assertEquals(".accountId", user2.getAccountId());
+    /**
+     * Tests {@link ClientUserAccount#getAccountId()}.
+     */
+    @Test
+    void testAccountId2()
+    {
+        String string1 = "{\"type\":\"user\",\"account_id\":\".accountId\"}";
+        ClientUserAccount user1 = jsonb.fromJson(string1, ClientUserAccount.class);
+        assertEquals(".accountId", user1.getAccountId());
+    }
 
-        ClientUserAccount user3 = jsonb.fromJson(sample1, ClientUserAccount.class);
-        assertNotNull(user3.getAccountId());
+    /**
+     * Tests {@link ClientUserAccount#getAccountId()}.
+     */
+    @Test
+    void testAccountId3()
+    {
+        ClientUserAccount user1 = jsonb.fromJson(sample1, ClientUserAccount.class);
+        assertNotNull(user1.getAccountId());
     }
 }
