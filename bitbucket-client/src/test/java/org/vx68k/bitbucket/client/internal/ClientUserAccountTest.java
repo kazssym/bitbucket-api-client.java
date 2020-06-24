@@ -21,6 +21,7 @@
 package org.vx68k.bitbucket.client.internal;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -97,7 +98,7 @@ final class ClientUserAccountTest
     }
 
     /**
-     * Tests {@link ClientTeamAccount#getType()}.
+     * Tests {@link ClientUserAccount#getType()}.
      */
     @Test
     void testType3()
@@ -115,7 +116,7 @@ final class ClientUserAccountTest
     }
 
     /**
-     * Tests {@link ClientTeamAccount#getType()}.
+     * Tests {@link ClientUserAccount#getType()}.
      */
     @Test
     void testType4()
@@ -386,5 +387,31 @@ final class ClientUserAccountTest
     {
         ClientUserAccount user1 = jsonb.fromJson(sample1, ClientUserAccount.class);
         assertNotNull(user1.getAccountId());
+    }
+
+    @Test
+    void testLinks1()
+    {
+        String string1 = "{\"type\":\"user\"}";
+        ClientUserAccount user1 = jsonb.fromJson(string1, ClientUserAccount.class);
+        assertNull(user1.getLinks());
+    }
+
+    @Test
+    void testLinks2()
+    {
+        String string1 = "{\"type\":\"user\",\"links\":{}}";
+        ClientUserAccount user1 = jsonb.fromJson(string1, ClientUserAccount.class);
+        assertNotNull(user1.getLinks());
+        assertEquals(0, user1.getLinks().size());
+    }
+
+    @Test
+    void testLinks3()
+    {
+        ClientUserAccount user1 = jsonb.fromJson(sample1, ClientUserAccount.class);
+        assertNotNull(user1.getLinks());
+        assertNotEquals(0, user1.getLinks().size());
+        assertNotNull(user1.getLinks().get("self"));
     }
 }

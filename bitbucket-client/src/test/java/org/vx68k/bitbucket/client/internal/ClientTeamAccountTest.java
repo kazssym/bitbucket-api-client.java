@@ -21,9 +21,10 @@
 package org.vx68k.bitbucket.client.internal;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.fail;
-
 import java.io.InputStream;
 import java.time.OffsetDateTime;
 import java.util.UUID;
@@ -322,5 +323,31 @@ final class ClientTeamAccountTest
     {
         ClientTeamAccount team1 = jsonb.fromJson(sample1, ClientTeamAccount.class);
         assertEquals(SAMPLE1_CREATED, team1.getCreated());
+    }
+
+    @Test
+    void testLinks1()
+    {
+        String string1 = "{\"type\":\"team\"}";
+        ClientTeamAccount team1 = jsonb.fromJson(string1, ClientTeamAccount.class);
+        assertNull(team1.getLinks());
+    }
+
+    @Test
+    void testLinks2()
+    {
+        String string1 = "{\"type\":\"team\",\"links\":{}}";
+        ClientTeamAccount team1 = jsonb.fromJson(string1, ClientTeamAccount.class);
+        assertNotNull(team1.getLinks());
+        assertEquals(0, team1.getLinks().size());
+    }
+
+    @Test
+    void testLinks3()
+    {
+        ClientTeamAccount team1 = jsonb.fromJson(sample1, ClientTeamAccount.class);
+        assertNotNull(team1.getLinks());
+        assertNotEquals(0, team1.getLinks().size());
+        assertNotNull(team1.getLinks().get("self"));
     }
 }
