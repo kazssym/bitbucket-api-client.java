@@ -22,6 +22,7 @@ package org.vx68k.bitbucket.client.internal;
 
 import javax.json.bind.annotation.JsonbTypeAdapter;
 import org.vx68k.bitbucket.BitbucketAccount;
+import org.vx68k.bitbucket.client.adapter.AccountTypeAdapter;
 
 /**
  * Client implementation class of {@link BitbucketAccount} for the
