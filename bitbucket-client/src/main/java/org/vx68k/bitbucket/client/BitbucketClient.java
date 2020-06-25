@@ -27,7 +27,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import javax.json.JsonObject;
-import javax.json.JsonStructure;
 import javax.json.bind.JsonbBuilder;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.client.Client;
