@@ -20,35 +20,43 @@
 
 package org.vx68k.bitbucket.client.adapter;
 
+import java.util.Map;
+
+import javax.json.bind.Jsonb;
+import javax.json.bind.JsonbBuilder;
 import javax.json.bind.adapter.JsonbAdapter;
 import org.vx68k.bitbucket.BitbucketAccount;
-import org.vx68k.bitbucket.BitbucketTeamAccount;
-import org.vx68k.bitbucket.BitbucketUserAccount;
-import org.vx68k.bitbucket.client.internal.ClientAccount;
 import org.vx68k.bitbucket.client.internal.ClientTeamAccount;
 import org.vx68k.bitbucket.client.internal.ClientUserAccount;
 
 public class BitbucketAccountAdapter
-        implements JsonbAdapter<BitbucketAccount, ClientAccount>
+        implements JsonbAdapter<BitbucketAccount, Map<String, Object>>
 {
     @Override
-    public final ClientAccount adaptToJson(final BitbucketAccount account)
+    public final Map<String, Object> adaptToJson(final BitbucketAccount account)
+        throws Exception
     {
-        if (account instanceof ClientAccount) {
-            return (ClientAccount)account;
+        try (Jsonb jsonb = JsonbBuilder.create()) {
+            // Stupid but probably the right path.
+            return jsonb.<Map<String, Object>>fromJson(jsonb.toJson(account), Map.class);
         }
-        if (account instanceof BitbucketUserAccount) {
-            return new ClientUserAccount((BitbucketUserAccount)account);
-        }
-        if (account instanceof BitbucketTeamAccount) {
-            return new ClientTeamAccount((BitbucketTeamAccount)account);
-        }
-        throw new IllegalArgumentException("Account is not either of user or of team");
     }
 
     @Override
-    public final BitbucketAccount adaptFromJson(final ClientAccount account)
+    public final BitbucketAccount adaptFromJson(final Map<String, Object> map)
+        throws Exception
     {
-        return account;
+        String type = (String)map.get("type");
+        if (type != null) {
+            try (Jsonb jsonb = JsonbBuilder.create()) {
+                if (type.equals("user")) {
+                    return jsonb.fromJson(jsonb.toJson(map), ClientUserAccount.class);
+                }
+                if (type.equals("team")) {
+                    return jsonb.fromJson(jsonb.toJson(map), ClientTeamAccount.class);
+                }
+            }
+        }
+        return null;
     }
 }
