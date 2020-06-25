@@ -83,6 +83,8 @@ public class BitbucketClient implements Bitbucket, Serializable
      */
     private static BitbucketClient defaultInstance = new BitbucketClient();
 
+    private final transient JsonbBuilder jsonbBuilder = JsonbBuilder.newBuilder();
+
     /**
      * {@link ClientBuilder} object created in the constructor.
      * This object is used to build JAX-RS {@link Client} objects.
@@ -152,12 +154,16 @@ public class BitbucketClient implements Bitbucket, Serializable
         this.oAuth2Authenticator =
             new OAuth2Authenticator(API_BASE_URI, TOKEN_ENDPOINT_URI);
 
-        JsonbBuilder jsonbBuilder = JsonbBuilder.newBuilder();
+        this.clientBuilder
+            .register(JsonStructureMessageBodyReader.class)
+            .register(new JsonbMessageBodyReader<ClientUserAccount>(jsonbBuilder))
+            .register(new JsonbMessageBodyReader<ClientTeamAccount>(jsonbBuilder))
+            .register(oAuth2Authenticator);
+    }
 
-        this.clientBuilder.register(JsonStructureMessageBodyReader.class);
-        this.clientBuilder.register(new JsonbMessageBodyReader<ClientUserAccount>(jsonbBuilder));
-        this.clientBuilder.register(new JsonbMessageBodyReader<ClientTeamAccount>(jsonbBuilder));
-        this.clientBuilder.register(oAuth2Authenticator);
+    public final JsonbBuilder getJsonbBuilder()
+    {
+        return jsonbBuilder;
     }
 
     /**
