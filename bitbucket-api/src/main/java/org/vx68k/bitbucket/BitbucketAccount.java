@@ -42,17 +42,22 @@ public interface BitbucketAccount
     {
         USER("user"), TEAM("team");
 
-        private final String label;
+        private final String value;
 
-        private AccountType(final String label)
+        private AccountType(final String value)
         {
-            this.label = label;
+            this.value = value;
+        }
+
+        public String getValue()
+        {
+            return value;
         }
 
         @Override
         public final String toString()
         {
-            return label;
+            return getValue();
         }
     }
 
