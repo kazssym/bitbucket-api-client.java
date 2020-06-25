@@ -22,6 +22,7 @@ package org.vx68k.bitbucket.client.internal;
 
 import javax.json.bind.annotation.JsonbTypeAdapter;
 import org.vx68k.bitbucket.BitbucketAccount;
+import org.vx68k.bitbucket.BitbucketTeamAccount;
 import org.vx68k.bitbucket.client.adapter.AccountTypeAdapter;
 
 /**
@@ -32,6 +33,7 @@ import org.vx68k.bitbucket.client.adapter.AccountTypeAdapter;
  * @since 6.0
  */
 public class ClientTeamAccount extends ClientAccount
+    implements BitbucketTeamAccount
 {
     private AccountType type;
 
