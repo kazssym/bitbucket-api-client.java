@@ -56,10 +56,10 @@ public class BitbucketClientTest
     private static final String REPOSITORY_NAME = "bitbucket-api-client.java";
 
     /**
-     * Tests {@link BitbucketClient#getUser getUser} with an existing user.
+     * Tests {@link BitbucketClient#getUserAccount(String)} with an existing user.
      */
     @Test
-    public void testGetUser()
+    public void testGetUserAccount1()
     {
         BitbucketClient client = new BitbucketClient();
         BitbucketUserAccount user = client.getUserAccount(USER_UUID);
@@ -72,21 +72,21 @@ public class BitbucketClientTest
     }
 
     /**
-     * Tests {@link BitbucketClient#getUser getUser} with a non-existing user.
+     * Tests {@link BitbucketClient#getUserAccount(String)} with a non-existing user.
      */
     @Test
-    public void testGetUserNotFound()
+    public void testGetUserAccount2()
     {
         BitbucketClient client = new BitbucketClient();
-        BitbucketAccount user = client.getUserAccount(TEAM_UUID);
+        BitbucketUserAccount user = client.getUserAccount(TEAM_UUID);
         assertNull(user);
     }
 
     /**
-     * Tests {@link BitbucketClient#getTeam getTeam} with an existing team.
+     * Tests {@link BitbucketClient#getTeamAccount(String)} with an existing team.
      */
     @Test
-    public void testGetTeam()
+    public void testGetTeamAccount1()
     {
         BitbucketClient client = new BitbucketClient();
         BitbucketAccount team = client.getTeamAccount(TEAM_UUID);
@@ -99,10 +99,10 @@ public class BitbucketClientTest
     }
 
     /**
-     * Tests {@link BitbucketClient#getUser getUser} with a non-existing user.
+     * Tests {@link BitbucketClient#getTeamAccount(String)} with a non-existing user.
      */
     @Test
-    public void testGetTeamNotFound()
+    public void testGetTeamAccount2()
     {
         BitbucketClient client = new BitbucketClient();
         BitbucketAccount team = client.getTeamAccount(USER_UUID);
