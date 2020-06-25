@@ -84,7 +84,7 @@ public class TeamCommandGroup extends CommandGroup
                 throw new CLIException("Missing arguments");
             }
 
-            BitbucketAccount team = getBitbucketClient().getTeam(args[0]);
+            BitbucketAccount team = getBitbucketClient().getTeamAccount(args[0]);
             if (team != null) {
                 print(team);
             }

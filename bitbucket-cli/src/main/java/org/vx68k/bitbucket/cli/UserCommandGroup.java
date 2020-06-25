@@ -85,7 +85,7 @@ public class UserCommandGroup extends CommandGroup
             }
 
             BitbucketUserAccount user = (BitbucketUserAccount)
-                getBitbucketClient().getUser(args[0]);
+                getBitbucketClient().getUserAccount(args[0]);
             if (user != null) {
                 print(user);
             }

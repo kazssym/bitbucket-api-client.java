@@ -145,7 +145,7 @@ public class UserInfo implements Serializable
     {
         if (!name.isEmpty()) {
             BitbucketClient bitbucketClient = getBitbucketClient();
-            user = bitbucketClient.getUser(name);
+            user = bitbucketClient.getUserAccount(name);
             if (!isFound()) {
                 FacesContext facesContext = FacesContext.getCurrentInstance();
                 UIComponent c = UIComponent.getCurrentComponent(facesContext);

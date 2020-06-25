@@ -407,7 +407,7 @@ public class BitbucketClient implements Bitbucket, Serializable
      * Cloud.</p>
      */
     @Override
-    public final BitbucketAccount getUser(final String name)
+    public final BitbucketUserAccount getUserAccount(final String name)
     {
         Map<String, Object> values = Collections.singletonMap("name", name);
 
@@ -420,7 +420,7 @@ public class BitbucketClient implements Bitbucket, Serializable
      * Cloud.</p>
      */
     @Override
-    public final BitbucketAccount getTeam(final String name)
+    public final BitbucketAccount getTeamAccount(final String name)
     {
         Map<String, Object> values = Collections.singletonMap("name", name);
 

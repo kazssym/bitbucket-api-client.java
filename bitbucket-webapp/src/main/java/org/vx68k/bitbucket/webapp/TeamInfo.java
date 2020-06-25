@@ -145,7 +145,7 @@ public class TeamInfo implements Serializable
     {
         if (!name.isEmpty()) {
             BitbucketClient bitbucketClient = getBitbucketClient();
-            team = bitbucketClient.getTeam(name);
+            team = bitbucketClient.getTeamAccount(name);
             if (!isFound()) {
                 FacesContext facesContext = FacesContext.getCurrentInstance();
                 UIComponent c = UIComponent.getCurrentComponent(facesContext);

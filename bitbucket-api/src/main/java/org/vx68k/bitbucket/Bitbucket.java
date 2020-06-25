@@ -1,6 +1,6 @@
 /*
  * Bitbucket.java
- * Copyright (C) 2018 Kaz Nishimura
+ * Copyright (C) 2018-2020 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Affero General Public License as published by
@@ -23,12 +23,10 @@ package org.vx68k.bitbucket;
 import java.util.Collection;
 
 /**
- * Abstraction of the Bitbucket API.
+ * Root interface for Bitbucket Cloud.
  *
  * @author Kaz Nishimura
- * @see BitbucketAccount
- * @see BitbucketRepository
- * @since 5.0
+ * @since 6.0
  */
 public interface Bitbucket
 {
@@ -38,7 +36,7 @@ public interface Bitbucket
      * @param name the name of a user
      * @return an account resource for a user
      */
-    BitbucketAccount getUser(String name);
+    BitbucketUserAccount getUserAccount(String name);
 
     /**
      * Returns an account resource for a team.
@@ -46,7 +44,7 @@ public interface Bitbucket
      * @param name the name of a team
      * @return an account resource for a team
      */
-    BitbucketAccount getTeam(String name);
+    BitbucketAccount getTeamAccount(String name);
 
     /**
      * Returns a repository resource for a repository.
