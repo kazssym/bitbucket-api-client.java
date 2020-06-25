@@ -20,13 +20,12 @@
 
 package org.vx68k.bitbucket.client;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-
-import org.junit.Ignore;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.vx68k.bitbucket.BitbucketAccount;
 import org.vx68k.bitbucket.BitbucketRepository;
 import org.vx68k.bitbucket.BitbucketUserAccount;
@@ -35,8 +34,9 @@ import org.vx68k.bitbucket.BitbucketUserAccount;
  * Unit tests for {@link BitbucketClient}.
  *
  * @author Kaz Nishimura
+ * @since 6.0
  */
-public class BitbucketClientTest
+class BitbucketClientTest
 {
     /**
      * User UUID for tests.
@@ -59,7 +59,7 @@ public class BitbucketClientTest
      * Tests {@link BitbucketClient#getUserAccount(String)} with an existing user.
      */
     @Test
-    public void testGetUserAccount1()
+    void testGetUserAccount1()
     {
         BitbucketClient client = new BitbucketClient();
         BitbucketUserAccount user = client.getUserAccount(USER_UUID);
@@ -75,7 +75,7 @@ public class BitbucketClientTest
      * Tests {@link BitbucketClient#getUserAccount(String)} with a non-existing user.
      */
     @Test
-    public void testGetUserAccount2()
+    void testGetUserAccount2()
     {
         BitbucketClient client = new BitbucketClient();
         BitbucketUserAccount user = client.getUserAccount(TEAM_UUID);
@@ -86,7 +86,7 @@ public class BitbucketClientTest
      * Tests {@link BitbucketClient#getTeamAccount(String)} with an existing team.
      */
     @Test
-    public void testGetTeamAccount1()
+    void testGetTeamAccount1()
     {
         BitbucketClient client = new BitbucketClient();
         BitbucketAccount team = client.getTeamAccount(TEAM_UUID);
@@ -102,7 +102,7 @@ public class BitbucketClientTest
      * Tests {@link BitbucketClient#getTeamAccount(String)} with a non-existing user.
      */
     @Test
-    public void testGetTeamAccount2()
+    void testGetTeamAccount2()
     {
         BitbucketClient client = new BitbucketClient();
         BitbucketAccount team = client.getTeamAccount(USER_UUID);
@@ -112,9 +112,9 @@ public class BitbucketClientTest
     /**
      * Tests {@link BitbucketClient#getRepository getRepository}.
      */
-    @Ignore
+    @Disabled("Not ready to test")
     @Test
-    public void testGetRepository()
+    void testGetRepository()
     {
         BitbucketClient client = new BitbucketClient();
 
