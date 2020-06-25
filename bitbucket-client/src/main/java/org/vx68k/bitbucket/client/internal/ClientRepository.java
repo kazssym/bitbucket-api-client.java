@@ -27,6 +27,7 @@ import javax.json.bind.annotation.JsonbTypeAdapter;
 import org.vx68k.bitbucket.BitbucketAccount;
 import org.vx68k.bitbucket.BitbucketBranch;
 import org.vx68k.bitbucket.BitbucketRepository;
+import org.vx68k.bitbucket.client.adapter.BitbucketAccountAdapter;
 import org.vx68k.bitbucket.client.adapter.BitbucketBranchAdapter;
 import org.vx68k.bitbucket.client.adapter.UUIDAdapter;
 
@@ -355,6 +356,7 @@ public class ClientRepository implements BitbucketRepository
     /**
      * {@inheritDoc}
      */
+    @JsonbTypeAdapter(BitbucketAccountAdapter.class)
     @Override
     public final BitbucketAccount getOwner()
     {
