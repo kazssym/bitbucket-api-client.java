@@ -64,7 +64,7 @@ public class BitbucketClient implements Bitbucket, Serializable
     /**
      * Base URI of the Bitbucket API.
      */
-    protected static final URI API_BASE_URI =
+    protected static final URI API_BASE =
         URI.create("https://api.bitbucket.org/2.0/");
 
     /**
@@ -152,12 +152,13 @@ public class BitbucketClient implements Bitbucket, Serializable
     public BitbucketClient()
     {
         this.oAuth2Authenticator =
-            new OAuth2Authenticator(API_BASE_URI, TOKEN_ENDPOINT_URI);
+            new OAuth2Authenticator(API_BASE, TOKEN_ENDPOINT_URI);
 
         this.clientBuilder
             .register(JsonStructureMessageBodyReader.class)
             .register(new JsonbMessageBodyReader<ClientUserAccount>(jsonbBuilder))
             .register(new JsonbMessageBodyReader<ClientTeamAccount>(jsonbBuilder))
+            .register(new JsonbMessageBodyReader<ClientRepository>(jsonbBuilder))
             .register(oAuth2Authenticator);
     }
 
@@ -220,38 +221,80 @@ public class BitbucketClient implements Bitbucket, Serializable
     }
 
     /**
-     * Gets a JSON structure.
+     * Gets a resource.
      *
      * @param <T> the return type
      * @param uri a URI
-     * @param type a runtime type
+     * @param runtimeType a runtime type
      * @return a JSON structure; or {@code null} if not found
      */
-    public final <T extends JsonStructure> T get(final URI uri,
-        final Class<T> type)
+    public final <T> T get(final URI uri, final Class<T> runtimeType)
     {
-        MediaType[] mediaTypes = new MediaType[] {
-            MediaType.APPLICATION_JSON_TYPE,
-        };
-        return get(uri, mediaTypes, type);
+        return get(uri, runtimeType, MediaType.APPLICATION_JSON_TYPE);
     }
 
     /**
-     * Gets a media object by a link.
+     * Gets a resource.
      *
-     * @param <T> return type
-     * @param uri the URI for a link
+     * @param <T> the return type
+     * @param base a base URI, or {@code null} for the Bitbucket Cloud REST API
+     * @param path a path relative to the base URI, or {@code null}
+     * @param runtimeType the type of the resource to be returned
      * @param mediaTypes acceptable MIME media types
-     * @param type the type of the media object to return
-     * @return media object if one was found; {@code null} otherwise
+     * @return a received resource, or {@code null} not found
      */
-    public final <T> T get(final URI uri, final MediaType[] mediaTypes,
-        final Class<T> type)
+    public final <T> T get(final URI base, final Class<T> runtimeType,
+        final MediaType... mediaTypes)
     {
+        return get(base, null, null, runtimeType, mediaTypes);
+    }
+
+    /**
+     * Gets a resource.
+     *
+     * @param <T> the return type
+     * @param base a base URI, or {@code null} for the Bitbucket Cloud REST API
+     * @param path a path relative to the base URI, or {@code null}
+     * @param templateValues a map of template values, or {@code null}
+     * @param runtimeType the type of the resource to be returned
+     * @return a received resource, or {@code null} not found
+     */
+    public final <T> T get(final URI base, final String path,
+        final Map<String, Object> templateValues, final Class<T> runtimeType)
+    {
+        return get(base, path, templateValues, runtimeType,
+            MediaType.APPLICATION_JSON_TYPE);
+    }
+
+    /**
+     * Gets a resource.
+     *
+     * @param <T> the return type
+     * @param base a base URI, or {@code null} for the Bitbucket Cloud REST API
+     * @param path a path relative to the base URI, or {@code null}
+     * @param templateValues a map of template values, or {@code null}
+     * @param runtimeType the type of the resource to be returned
+     * @param mediaTypes acceptable MIME media types
+     * @return a received resource, or {@code null} not found
+     */
+    public final <T> T get(URI base, final String path,
+        final Map<String, Object> templateValues,
+        final Class<T> runtimeType, final MediaType... mediaTypes)
+    {
+        if (base == null) {
+            base = API_BASE;
+        }
+
         Client client = clientBuilder.build();
         try {
-            WebTarget target = client.target(uri);
-            return target.request().accept(mediaTypes).get(type);
+            WebTarget target = client.target(base);
+            if (path != null) {
+                target = target.path(path);
+            }
+            if (templateValues != null) {
+                target = target.resolveTemplates(templateValues);
+            }
+            return target.request(mediaTypes).get(runtimeType);
         }
         catch (NotFoundException exception) {
             return null;
@@ -282,35 +325,6 @@ public class BitbucketClient implements Bitbucket, Serializable
     }
 
     /**
-     * Gets a JSON object from a resource.
-     *
-     * @param <T> the type of the return value
-     * @param path path of the resource with templates
-     * @param values template values, or {@code null}
-     * @param type the type of the return value
-     * @return got resource if found, {@code null} otherwise
-     */
-    public final <T> T getResource(
-        final String path, final Map<String, Object> values, Class<T> type)
-    {
-        Client client = clientBuilder.build();
-        try {
-            WebTarget target = client.target(API_BASE_URI).path(path);
-            if (values != null) {
-                target = target.resolveTemplates(values);
-            }
-            return target.request()
-                .accept(MediaType.APPLICATION_JSON).get(type);
-        }
-        catch (NotFoundException exception) {
-            return null;
-        }
-        finally {
-            client.close();
-        }
-    }
-
-    /**
      * {@inheritDoc}
      * <p>This implementation gets the user resource remotely from Bitbucket
      * Cloud.</p>
@@ -320,7 +334,7 @@ public class BitbucketClient implements Bitbucket, Serializable
     {
         Map<String, Object> values = Collections.singletonMap("name", name);
 
-        return getResource("/users/{name}", values, ClientUserAccount.class);
+        return get(null, "/users/{name}", values, ClientUserAccount.class);
     }
 
     /**
@@ -333,11 +347,12 @@ public class BitbucketClient implements Bitbucket, Serializable
     {
         Map<String, Object> values = Collections.singletonMap("name", name);
 
-        return getResource("/teams/{name}", values, ClientTeamAccount.class);
+        return get(null, "/teams/{name}", values, ClientTeamAccount.class);
     }
 
     @Override
-    public final BitbucketRepository getRepository(BitbucketAccount owner, String name)
+    public final BitbucketRepository getRepository(BitbucketAccount owner,
+        String name)
     {
         return getRepository("{" + owner.getUuid().toString() + "}", name);
     }
@@ -355,7 +370,7 @@ public class BitbucketClient implements Bitbucket, Serializable
         values.put("owner", ownerName);
         values.put("name", name);
 
-        return getResource("/repositories/{owner}/{name}", values,
+        return get(null, "/repositories/{owner}/{name}", values,
             ClientRepository.class);
     }
 
