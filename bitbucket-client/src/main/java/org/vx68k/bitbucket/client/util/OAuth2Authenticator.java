@@ -145,7 +145,7 @@ public class OAuth2Authenticator extends BearerAuthenticator
      *
      * @return the time when the access token expires
      */
-    public final Instant getAccessTokenExpiration()
+    public final Instant getExpiration()
     {
         return expiration;
     }
