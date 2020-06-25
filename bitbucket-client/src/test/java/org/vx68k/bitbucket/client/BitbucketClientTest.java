@@ -24,7 +24,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.vx68k.bitbucket.BitbucketAccount;
 import org.vx68k.bitbucket.BitbucketRepository;
@@ -41,14 +40,12 @@ class BitbucketClientTest
     /**
      * User UUID for tests.
      */
-    private static final String USER_UUID =
-        "{cebb58cd-f699-4393-8762-e0f743ccf770}";
+    private static final String USER_NAME = "{cebb58cd-f699-4393-8762-e0f743ccf770}";
 
     /**
      * Team UUID for tests.
      */
-    private static final String TEAM_UUID =
-        "{7590db3d-195a-40a0-aeab-1d8601a6298f}";
+    private static final String TEAM_NAME = "{7590db3d-195a-40a0-aeab-1d8601a6298f}";
 
     /**
      * Repository name for tests.
@@ -56,13 +53,13 @@ class BitbucketClientTest
     private static final String REPOSITORY_NAME = "bitbucket-api-client.java";
 
     /**
-     * Tests {@link BitbucketClient#getUserAccount(String)} with an existing user.
+     * Tests {@link BitbucketClient#getUserAccount(String)}.
      */
     @Test
     void testGetUserAccount1()
     {
         BitbucketClient client = new BitbucketClient();
-        BitbucketUserAccount user = client.getUserAccount(USER_UUID);
+        BitbucketUserAccount user = client.getUserAccount(USER_NAME);
         System.out.println("Got " + user);
         assertNotNull(user.getUuid());
         assertNull(user.getName());
@@ -72,24 +69,24 @@ class BitbucketClientTest
     }
 
     /**
-     * Tests {@link BitbucketClient#getUserAccount(String)} with a non-existing user.
+     * Tests {@link BitbucketClient#getUserAccount(String)}.
      */
     @Test
     void testGetUserAccount2()
     {
         BitbucketClient client = new BitbucketClient();
-        BitbucketUserAccount user = client.getUserAccount(TEAM_UUID);
+        BitbucketUserAccount user = client.getUserAccount(TEAM_NAME);
         assertNull(user);
     }
 
     /**
-     * Tests {@link BitbucketClient#getTeamAccount(String)} with an existing team.
+     * Tests {@link BitbucketClient#getTeamAccount(String)}.
      */
     @Test
     void testGetTeamAccount1()
     {
         BitbucketClient client = new BitbucketClient();
-        BitbucketAccount team = client.getTeamAccount(TEAM_UUID);
+        BitbucketAccount team = client.getTeamAccount(TEAM_NAME);
         System.out.println("Got " + team);
         assertNotNull(team.getUuid());
         assertEquals("vx68k", team.getName());
@@ -99,13 +96,13 @@ class BitbucketClientTest
     }
 
     /**
-     * Tests {@link BitbucketClient#getTeamAccount(String)} with a non-existing user.
+     * Tests {@link BitbucketClient#getTeamAccount(String)}.
      */
     @Test
     void testGetTeamAccount2()
     {
         BitbucketClient client = new BitbucketClient();
-        BitbucketAccount team = client.getTeamAccount(USER_UUID);
+        BitbucketAccount team = client.getTeamAccount(USER_NAME);
         assertNull(team);
     }
 
@@ -119,7 +116,7 @@ class BitbucketClientTest
 
         // Case to be found.
         BitbucketRepository repository =
-            client.getRepository(TEAM_UUID, REPOSITORY_NAME);
+            client.getRepository(TEAM_NAME, REPOSITORY_NAME);
         System.out.println("Got " + repository);
         assertNotNull(repository.getOwner());
         assertEquals("vx68k", repository.getOwner().getName());
@@ -131,6 +128,6 @@ class BitbucketClientTest
         assertFalse(repository.isPrivate());
 
         // Case not to be found.
-        assertNull(client.getRepository(TEAM_UUID, "non-existent"));
+        assertNull(client.getRepository(TEAM_NAME, "non-existent"));
     }
 }
