@@ -41,6 +41,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import org.vx68k.bitbucket.BitbucketUserAccount;
 import org.vx68k.bitbucket.client.BitbucketClient;
+import org.vx68k.bitbucket.client.util.OAuth2Authenticator;
 
 /**
  * Session-scoped bean for the current user of the session.
@@ -105,7 +106,7 @@ public class UserContext implements Serializable
      * {@link BitbucketUserAccount} object for the current user, or {@code null} if
      * not logged in.
      */
-    private BitbucketUserAccount loggedInUser = null;
+    private transient BitbucketUserAccount loggedInUser = null;
 
     /**
      * Redirection endpoint URI.
@@ -119,10 +120,9 @@ public class UserContext implements Serializable
     {
         this.bitbucketClient = new BitbucketClient();
 
-        bitbucketClient.setClientId(
-            System.getProperty(BITBUCKET_CLIENT_ID));
-        bitbucketClient.setClientSecret(
-            System.getProperty(BITBUCKET_CLIENT_SECRET));
+        OAuth2Authenticator oAuth2 = bitbucketClient.getOAuth2Authenticator();
+        oAuth2.setClientId(System.getProperty(BITBUCKET_CLIENT_ID));
+        oAuth2.setClientSecret(System.getProperty(BITBUCKET_CLIENT_SECRET));
     }
 
     /**
@@ -144,7 +144,7 @@ public class UserContext implements Serializable
      */
     public String getBitbucketClientId()
     {
-        return bitbucketClient.getClientId();
+        return bitbucketClient.getOAuth2Authenticator().getClientId();
     }
 
     /**
@@ -157,7 +157,7 @@ public class UserContext implements Serializable
         description = "OAuth client identifier for the Bitbucket API.")
     public void setBitbucketClientId(final String value)
     {
-        bitbucketClient.setClientId(value);
+        bitbucketClient.getOAuth2Authenticator().setClientId(value);
     }
 
     /**
@@ -170,7 +170,7 @@ public class UserContext implements Serializable
         description = "OAuth client secret for the Bitbucket API.")
     public void setBitbucketClientSecret(final String value)
     {
-        bitbucketClient.setClientSecret(value);
+        bitbucketClient.getOAuth2Authenticator().setClientSecret(value);
     }
 
     /**
@@ -190,7 +190,7 @@ public class UserContext implements Serializable
      */
     public boolean isLoggedIn()
     {
-        return bitbucketClient.getAccessToken() != null;
+        return bitbucketClient.getOAuth2Authenticator().getAccessToken() != null;
     }
 
     /**

@@ -26,6 +26,7 @@ import java.io.InputStream;
 import java.util.Properties;
 import javax.ws.rs.ClientErrorException;
 import org.vx68k.bitbucket.client.BitbucketClient;
+import org.vx68k.bitbucket.client.util.OAuth2Authenticator;
 import org.vx68k.bitbucket.client.util.TokenRefreshEvent;
 import org.vx68k.bitbucket.client.util.TokenRefreshListener;
 
@@ -52,7 +53,9 @@ public final class LoginCommand extends AbstractCommand
 
         loadClientCredentials();
         CLIUtilities.restoreTokens(bitbucketClient);
-        bitbucketClient.addTokenRefreshListener(new TokenRefreshListener()
+
+        OAuth2Authenticator oAuth2 = bitbucketClient.getOAuth2Authenticator();
+        oAuth2.addTokenRefreshListener(new TokenRefreshListener()
         {
             @Override
             public void tokenRefreshed(final TokenRefreshEvent event)
@@ -78,10 +81,11 @@ public final class LoginCommand extends AbstractCommand
             System.err.format("Failed to load properties: %s\n", exception);
         }
 
+        OAuth2Authenticator oAuth2 = bitbucketClient.getOAuth2Authenticator();
         String clientId = properties.getProperty("oauth.clientId");
         String clientSecret = properties.getProperty("oauth.clientSecret");
-        bitbucketClient.setClientId(clientId);
-        bitbucketClient.setClientSecret(clientSecret);
+        oAuth2.setClientId(clientId);
+        oAuth2.setClientSecret(clientSecret);
     }
 
     @Override

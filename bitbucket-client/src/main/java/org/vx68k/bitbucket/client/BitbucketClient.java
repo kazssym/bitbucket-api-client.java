@@ -92,7 +92,7 @@ public class BitbucketClient implements Bitbucket, Serializable
     /**
      * OAuth 2.0 authenticator.
      */
-    private final transient OAuth2Authenticator authenticator;
+    private final transient OAuth2Authenticator oAuth2Authenticator;
 
     public static ClientUserAccount copyUserAccount(
         final BitbucketUserAccount userAccount)
@@ -149,7 +149,7 @@ public class BitbucketClient implements Bitbucket, Serializable
     public BitbucketClient()
     {
         this.clientBuilder = ClientBuilder.newBuilder();
-        this.authenticator =
+        this.oAuth2Authenticator =
             new OAuth2Authenticator(API_BASE_URI, TOKEN_ENDPOINT_URI);
 
         JsonbBuilder jsonbBuilder = JsonbBuilder.newBuilder();
@@ -157,119 +157,17 @@ public class BitbucketClient implements Bitbucket, Serializable
         this.clientBuilder.register(JsonStructureMessageBodyReader.class);
         this.clientBuilder.register(new JsonbMessageBodyReader<ClientUserAccount>(jsonbBuilder));
         this.clientBuilder.register(new JsonbMessageBodyReader<ClientTeamAccount>(jsonbBuilder));
-        this.clientBuilder.register(authenticator);
+        this.clientBuilder.register(oAuth2Authenticator);
     }
 
     /**
-     * Returns the client identifier for OAuth.
+     * Returns the OAuth 2 authenticator.
      *
-     * @return the client identifier
+     * @return the OAuth 2 authenticator
      */
-    public final String getClientId()
+    public final OAuth2Authenticator getOAuth2Authenticator()
     {
-        return authenticator.getClientId();
-    }
-
-    /**
-     * Sets the client identifier for OAuth.
-     *
-     * @param newValue a new value of the client identifier
-     */
-    public final void setClientId(final String newValue)
-    {
-        authenticator.setClientId(newValue);
-    }
-
-    /**
-     * Sets the client secret for OAuth.
-     *
-     * @param newValue a new value of the client secret.
-     */
-    public final void setClientSecret(final String newValue)
-    {
-        authenticator.setClientSecret(newValue);
-    }
-
-    /**
-     * Returns the access token.
-     *
-     * @return the access token
-     */
-    public final String getAccessToken()
-    {
-        return authenticator.getAccessToken();
-    }
-
-    /**
-     * Sets the access token.
-     *
-     * @param newValue new value of the access token
-     */
-    public final void setAccessToken(final String newValue)
-    {
-        authenticator.setAccessToken(newValue);
-    }
-
-    /**
-     * Returns the refresh token.
-     *
-     * @return the refresh token
-     */
-    public final String getRefreshToken()
-    {
-        return authenticator.getRefreshToken();
-    }
-
-    /**
-     * Sets the refresh token.
-     *
-     * @param newValue a new value of the refresh token
-     */
-    public final void setRefreshToken(final String newValue)
-    {
-        authenticator.setRefreshToken(newValue);
-    }
-
-    /**
-     * Returns the time when the access token expires.
-     *
-     * @return the time when the access token expires
-     */
-    public final Instant getAccessTokenExpiry()
-    {
-        return authenticator.getAccessTokenExpiration();
-    }
-
-    /**
-     * Sets the time when the access token expires.
-     *
-     * @param newValue new value of the time when the access token expires
-     */
-    public final void setAccessTokenExpiry(final Instant newValue)
-    {
-        authenticator.setExpiration(newValue);
-    }
-
-    /**
-     * Adds a token refresh listener.
-     *
-     * @param listener a token refresh listener
-     */
-    public final void addTokenRefreshListener(
-        final TokenRefreshListener listener)
-    {
-        authenticator.addTokenRefreshListener(listener);
-    }
-
-    /**
-     * Removes a token refresh listener.
-     *
-     * @param listener a token refresh listener
-     */
-    public final void removeTokenRefreshListener(
-        final TokenRefreshListener listener)
-    {
-        authenticator.removeTokenRefreshListener(listener);
+        return oAuth2Authenticator;
     }
 
     /**
@@ -287,7 +185,7 @@ public class BitbucketClient implements Bitbucket, Serializable
             form.param("redirect_uri", redirectionUri.toString());
         }
 
-        authenticator.requestAccessToken(Entity.form(form));
+        oAuth2Authenticator.requestAccessToken(Entity.form(form));
     }
 
     /**
@@ -302,7 +200,7 @@ public class BitbucketClient implements Bitbucket, Serializable
         form.param("username", username);
         form.param("password", password);
 
-        authenticator.requestAccessToken(Entity.form(form));
+        oAuth2Authenticator.requestAccessToken(Entity.form(form));
     }
 
     /**
@@ -310,9 +208,9 @@ public class BitbucketClient implements Bitbucket, Serializable
      */
     public final void logout()
     {
-        authenticator.setRefreshToken(null);
-        authenticator.setAccessToken(null);
-        authenticator.setExpiration(null);
+        oAuth2Authenticator.setRefreshToken(null);
+        oAuth2Authenticator.setAccessToken(null);
+        oAuth2Authenticator.setExpiration(null);
     }
 
     /**

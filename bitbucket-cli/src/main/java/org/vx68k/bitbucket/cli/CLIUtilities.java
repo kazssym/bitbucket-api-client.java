@@ -24,6 +24,7 @@ import java.time.Instant;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 import org.vx68k.bitbucket.client.BitbucketClient;
+import org.vx68k.bitbucket.client.util.OAuth2Authenticator;
 
 /**
  * Utilities for the CLI.
@@ -47,11 +48,13 @@ public final class CLIUtilities
      */
     public static void saveTokens(final BitbucketClient bitbucketClient)
     {
-        Preferences preferences = Preferences.userNodeForPackage(CLI.class);
-        preferences.put("refreshToken", bitbucketClient.getRefreshToken());
-        preferences.put("accessToken", bitbucketClient.getAccessToken());
+        OAuth2Authenticator oAuth2 = bitbucketClient.getOAuth2Authenticator();
 
-        Instant expiryInstant = bitbucketClient.getAccessTokenExpiry();
+        Preferences preferences = Preferences.userNodeForPackage(CLI.class);
+        preferences.put("refreshToken", oAuth2.getRefreshToken());
+        preferences.put("accessToken", oAuth2.getAccessToken());
+
+        Instant expiryInstant = oAuth2.getExpiration();
         preferences.put("accessTokenExpiry", expiryInstant.toString());
 
         try {
@@ -70,16 +73,18 @@ public final class CLIUtilities
      */
     public static void restoreTokens(final BitbucketClient bitbucketClient)
     {
+        OAuth2Authenticator oAuth2 = bitbucketClient.getOAuth2Authenticator();
+
         Preferences preferences = Preferences.userNodeForPackage(CLI.class);
-        bitbucketClient.setRefreshToken(preferences.get("refreshToken", null));
-        bitbucketClient.setAccessToken(preferences.get("accessToken", null));
+        oAuth2.setRefreshToken(preferences.get("refreshToken", null));
+        oAuth2.setAccessToken(preferences.get("accessToken", null));
 
         String expiry = preferences.get("accessTokenExpiry", null);
         if (expiry != null) {
-            bitbucketClient.setAccessTokenExpiry(Instant.parse(expiry));
+            oAuth2.setExpiration(Instant.parse(expiry));
         }
         else {
-            bitbucketClient.setAccessTokenExpiry(null);
+            oAuth2.setExpiration(null);
         }
     }
 }
