@@ -31,9 +31,9 @@ public class BearerAuthenticator extends AbstractAuthenticator
      */
     private String accessToken;
 
-    BearerAuthenticator(final URI baseUri)
+    BearerAuthenticator(final URI base)
     {
-        super(baseUri);
+        super(base);
     }
 
     /**

@@ -46,12 +46,12 @@ public class BasicAuthenticator extends AbstractAuthenticator
     /**
      * Constructs a Basic authenticator.
      *
-     * @param baseUri the base URI for which the authenticator attempt Basic
+     * @param base the base URI for which the authenticator attempt Basic
      * authentication.
      */
-    public BasicAuthenticator(final URI baseUri)
+    public BasicAuthenticator(final URI base)
     {
-        super(baseUri);
+        super(base);
     }
 
     /**

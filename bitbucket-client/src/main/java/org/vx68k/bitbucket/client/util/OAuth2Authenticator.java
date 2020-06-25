@@ -60,7 +60,7 @@ public class OAuth2Authenticator extends BearerAuthenticator
     /**
      * Token endpoint URI.
      */
-    private final URI tokenEndpointUri;
+    private final URI tokenEndpoint;
 
     /**
      * Client authenticator for token request.
@@ -91,23 +91,23 @@ public class OAuth2Authenticator extends BearerAuthenticator
     /**
      * Initializes the object.
      *
-     * @param baseUri a base URI
-     * @param tokenEndpointUri a token endpoint URI
+     * @param base a base URI
+     * @param tokenEndpoint a token endpoint URI
      */
-    public OAuth2Authenticator(final URI baseUri, final URI tokenEndpointUri)
+    public OAuth2Authenticator(final URI base, final URI tokenEndpoint)
     {
-        super(baseUri);
+        super(base);
 
-        if (tokenEndpointUri == null) {
+        if (tokenEndpoint == null) {
             throw new IllegalArgumentException("Token endpoint URI is null");
         }
-        else if (!tokenEndpointUri.isAbsolute()) {
+        else if (!tokenEndpoint.isAbsolute()) {
             throw new IllegalArgumentException("Token endpoint URI is not absolute");
         }
 
-        this.tokenEndpointUri = tokenEndpointUri;
+        this.tokenEndpoint = tokenEndpoint;
         this.clientAuthenticator =
-            new BasicAuthenticator(tokenEndpointUri.resolve("/"));
+            new BasicAuthenticator(tokenEndpoint.resolve("/"));
     }
 
     /**
@@ -235,7 +235,7 @@ public class OAuth2Authenticator extends BearerAuthenticator
             .register(new JsonStructureMessageBodyReader())
             .register(clientAuthenticator);
         try {
-            JsonObject object = client.target(tokenEndpointUri)
+            JsonObject object = client.target(tokenEndpoint)
                 .request(MediaType.APPLICATION_JSON)
                 .post(entity, JsonObject.class);
 

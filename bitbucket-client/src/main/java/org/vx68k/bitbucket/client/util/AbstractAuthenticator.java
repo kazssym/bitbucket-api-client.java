@@ -21,7 +21,6 @@
 package org.vx68k.bitbucket.client.util;
 
 import java.net.URI;
-
 import javax.ws.rs.client.ClientRequestContext;
 import javax.ws.rs.client.ClientRequestFilter;
 
@@ -36,23 +35,23 @@ public abstract class AbstractAuthenticator implements ClientRequestFilter
     /**
      * Base URI to which authenticated requests shall be sent.
      */
-    private final URI baseUri;
+    private final URI base;
 
     /**
      * Constructs an authenticator.
      *
-     * @param baseUri the base URI
+     * @param base the base URI
      */
-    protected AbstractAuthenticator(final URI baseUri)
+    protected AbstractAuthenticator(final URI base)
     {
-        if (baseUri == null) {
+        if (base == null) {
             throw new IllegalArgumentException("Base URI is null");
         }
-        else if (!(baseUri.isAbsolute())) {
+        else if (!(base.isAbsolute())) {
             throw new IllegalArgumentException("Base URI is not absolute");
         }
 
-        this.baseUri = baseUri;
+        this.base = base;
     }
 
     protected abstract void authenticate(final ClientRequestContext context);
@@ -60,8 +59,8 @@ public abstract class AbstractAuthenticator implements ClientRequestFilter
     @Override
     public final void filter(final ClientRequestContext context)
     {
-        URI requestUri = context.getUri();
-        if (!(requestUri.equals(baseUri.relativize(requestUri)))) {
+        URI uri = context.getUri();
+        if (!(uri.equals(base.relativize(uri)))) {
             authenticate(context);
         }
     }
