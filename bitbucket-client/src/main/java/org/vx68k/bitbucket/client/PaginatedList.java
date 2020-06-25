@@ -22,18 +22,18 @@ package org.vx68k.bitbucket.client;
 
 import java.net.URI;
 import java.util.AbstractList;
-import java.util.ArrayList;
-import java.util.function.Function;
+import java.util.LinkedList;
+import java.util.List;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
+import javax.json.bind.Jsonb;
 
 /**
  * Paginated list on Bitbucket Cloud.
  *
  * @author Kaz Nishimura
  * @param <E> type of the elements
- * @see <a href=
- * "https://developer.atlassian.com/bitbucket/api/2/reference/meta/pagination"
+ * @see <a href="https://developer.atlassian.com/bitbucket/api/2/reference/meta/pagination"
  * >Pagination</a>
  * @since 5.0
  */
@@ -45,19 +45,19 @@ public class PaginatedList<E> extends AbstractList<E>
     private final BitbucketClient bitbucketClient;
 
     /**
-     * Function to create each element.
-     */
-    private final Function<JsonObject, ? extends E> creator;
-
-    /**
      * URL of the next page.
      */
-    private URI nextPage;
+    private String nextPageUri;
+
+    /**
+     * Runtime type.
+     */
+    private final Class<E> type;
 
     /**
      * List of the known values.
      */
-    private final ArrayList<E> knownValues = new ArrayList<>();
+    private final List<E> knownValues = new LinkedList<>();
 
     /**
      * Known size of the list.
@@ -68,17 +68,16 @@ public class PaginatedList<E> extends AbstractList<E>
     /**
      * Initializes this object.
      *
-     * @param firstPage the URI of the first page
      * @param bitbucketClient a Bitbucket API client
-     * @param creator a function to create each element
+     * @param nextPageUri the URI of the first page
+     * @param type the runtime type of the values
      */
-    public PaginatedList(
-        final URI firstPage, final BitbucketClient bitbucketClient,
-        final Function<JsonObject, ? extends E> creator)
+    public PaginatedList(final BitbucketClient bitbucketClient,
+        final String nextPageUri, Class<E> type)
     {
         this.bitbucketClient = bitbucketClient;
-        this.creator = creator;
-        this.nextPage = firstPage;
+        this.nextPageUri = nextPageUri;
+        this.type = type;
     }
 
     /**
@@ -86,26 +85,26 @@ public class PaginatedList<E> extends AbstractList<E>
      */
     protected final void fetchNext()
     {
-        JsonObject object = bitbucketClient.get(nextPage);
+        JsonObject json = bitbucketClient.get(URI.create(nextPageUri));
         if (knownSize < 0) {
-            knownSize = object.getInt("size", -1);
-            if (knownSize >= 0) {
-                knownValues.ensureCapacity(knownSize);
-            }
+            knownSize = json.getInt("size", -1);
         }
 
-        JsonArray values = object.getJsonArray("values");
-        values.stream()
-            .map((value) -> (JsonObject) value)
-            .map(creator)
-            .forEachOrdered((e) -> knownValues.add(e));
-
-        String next = object.getString("next", null);
-        if (next != null) {
-            nextPage = URI.create(next);
+        try (Jsonb jsonb = bitbucketClient.getJsonbBuilder().build()) {
+            JsonArray values = json.getJsonArray("values");
+            values.stream()
+                .map((t) -> jsonb.fromJson(jsonb.toJson(t), type))
+                .forEachOrdered(knownValues::add);
         }
-        else {
-            nextPage = null;
+        catch (final RuntimeException e) {
+            throw e;
+        }
+        catch (final Exception e) {
+            throw new IllegalStateException(e);
+        }
+
+        nextPageUri = json.getString("next", null);
+        if (nextPageUri == null) {
             knownSize = knownValues.size();
         }
     }
@@ -116,7 +115,7 @@ public class PaginatedList<E> extends AbstractList<E>
     @Override
     public final E get(final int index)
     {
-        while (nextPage != null && index >= knownValues.size()) {
+        while (nextPageUri != null && index >= knownValues.size()) {
             fetchNext();
         }
         return knownValues.get(index);
@@ -128,7 +127,7 @@ public class PaginatedList<E> extends AbstractList<E>
     @Override
     public final int size()
     {
-        while (nextPage != null && knownSize < 0) {
+        while (nextPageUri != null && knownSize < 0) {
             fetchNext();
         }
         assert knownSize >= 0;

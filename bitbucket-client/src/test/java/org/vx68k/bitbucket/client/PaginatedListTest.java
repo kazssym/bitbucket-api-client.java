@@ -22,10 +22,10 @@ package org.vx68k.bitbucket.client;
 
 import static org.junit.Assert.assertTrue;
 
-import java.net.URI;
 import java.util.List;
 import org.junit.Test;
 import org.vx68k.bitbucket.BitbucketIssue;
+import org.vx68k.bitbucket.client.internal.ClientIssue;
 
 /**
  * Unit tests for {@link PaginatedList}.
@@ -37,9 +37,9 @@ public class PaginatedListTest
     /**
      * Test resource.
      */
-    private static final URI TEST_URI =
-        URI.create("https://api.bitbucket.org/2.0/"
-            + "repositories/vx68k/bitbucket-api-client.java/issues");
+    private static final String ENDPOINT_URI =
+        "https://api.bitbucket.org/2.0/"
+            + "repositories/vx68k/bitbucket-api-client.java/issues";
 
     /**
      * Tests {@link PaginatedList#get(int)}.
@@ -47,12 +47,12 @@ public class PaginatedListTest
     @Test
     public void testGet()
     {
-        // BitbucketClient client = BitbucketClient.getDefaultInstance();
-        // List<BitbucketIssue> issues = new PaginatedList<>(
-        //     TEST_URI, client, new ClientIssue());
+        BitbucketClient client = BitbucketClient.getDefaultInstance();
+        List<ClientIssue> issues =
+            new PaginatedList<>(client, ENDPOINT_URI, ClientIssue.class);
 
-        // BitbucketIssue issue = issues.get(0);
-        // assertTrue(issue instanceof ClientIssue);
+        BitbucketIssue issue = issues.get(0);
+        assertTrue(issue instanceof ClientIssue);
     }
 
     /**
@@ -61,10 +61,10 @@ public class PaginatedListTest
     @Test
     public void testSize()
     {
-        // BitbucketClient client = BitbucketClient.getDefaultInstance();
-        // List<BitbucketIssue> issues = new PaginatedList<>(
-        //     TEST_URI, client, new ClientIssue());
+        BitbucketClient client = BitbucketClient.getDefaultInstance();
+        List<ClientIssue> issues =
+            new PaginatedList<>(client, ENDPOINT_URI, ClientIssue.class);
 
-        // assertTrue(issues.size() >= 0);
+        assertTrue(issues.size() >= 0);
     }
 }
