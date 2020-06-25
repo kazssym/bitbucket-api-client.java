@@ -56,15 +56,6 @@ public class BitbucketClientTest
     private static final String REPOSITORY_NAME = "bitbucket-api-client.java";
 
     /**
-     * Tests the default constructor.
-     */
-    @Test
-    public void testDefault()
-    {
-        BitbucketClient client = new BitbucketClient();
-    }
-
-    /**
      * Tests {@link BitbucketClient#getUser getUser} with an existing user.
      */
     @Test
