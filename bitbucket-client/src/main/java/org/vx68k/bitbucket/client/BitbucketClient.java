@@ -44,6 +44,7 @@ import org.vx68k.bitbucket.BitbucketPullRequest;
 import org.vx68k.bitbucket.BitbucketRepository;
 import org.vx68k.bitbucket.BitbucketUserAccount;
 import org.vx68k.bitbucket.client.internal.ClientBranch;
+import org.vx68k.bitbucket.client.internal.ClientIssue;
 import org.vx68k.bitbucket.client.internal.ClientRepository;
 import org.vx68k.bitbucket.client.internal.ClientTeamAccount;
 import org.vx68k.bitbucket.client.internal.ClientUserAccount;
@@ -384,7 +385,11 @@ public class BitbucketClient implements Bitbucket, Serializable
     @Override
     public final BitbucketIssue getIssue(BitbucketRepository repo, int id)
     {
-        throw new UnsupportedOperationException("getIssue not implemented yet");
+        Map<String, Object> values = new HashMap<>();
+        values.put("full_name", repo.getFullName());
+
+        return get(null, "/repositories/{full_name}/issues/{id}", values,
+            ClientIssue.class);
     }
 
     @Override
