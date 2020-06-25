@@ -65,6 +65,6 @@ public class PaginatedListTest
         List<ClientIssue> issues =
             new PaginatedList<>(client, ENDPOINT_URI, ClientIssue.class);
 
-        assertTrue(issues.size() >= 0);
+        assertTrue(issues.size() > 0);
     }
 }
