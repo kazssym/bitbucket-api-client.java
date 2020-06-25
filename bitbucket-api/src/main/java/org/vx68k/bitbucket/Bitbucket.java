@@ -47,13 +47,40 @@ public interface Bitbucket
     BitbucketAccount getTeamAccount(String name);
 
     /**
-     * Returns a repository resource for a repository.
+     * Finds a repository.
+     *
+     * @param owner the owner of a repository
+     * @param name the name of a repository
+     * @return a repository resource for a repository
+     */
+    BitbucketRepository getRepository(BitbucketAccount owner, String name);
+
+    /**
+     * Finds a repository.
      *
      * @param ownerName the owner name of a repository
      * @param name the name of a repository
      * @return a repository resource for a repository
      */
     BitbucketRepository getRepository(String ownerName, String name);
+
+    /**
+     * Finds a pull request in a repository.
+     *
+     * @param repo a repository
+     * @param id a pull request identifier
+     * @return the pull request, or {@code null} if not found
+     */
+    BitbucketPullRequest getPullRequest(BitbucketRepository repo, int id);
+
+    /**
+     * Finds an issue in a repository.
+     *
+     * @param repo a repository
+     * @param id an issue identifier
+     * @return the issue, or {@code null} if not found
+     */
+    BitbucketIssue getIssue(BitbucketRepository repo, int id);
 
     /**
      * Returns a {@link Collection} view of the repositories of an account.

@@ -1,6 +1,6 @@
 /*
  * BitbucketClient.java
- * Copyright (C) 2018 Kaz Nishimura
+ * Copyright (C) 2018-2020 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Affero General Public License as published by
@@ -22,7 +22,6 @@ package org.vx68k.bitbucket.client;
 
 import java.io.Serializable;
 import java.net.URI;
-import java.time.Instant;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -39,6 +38,8 @@ import javax.ws.rs.core.MediaType;
 import org.vx68k.bitbucket.Bitbucket;
 import org.vx68k.bitbucket.BitbucketAccount;
 import org.vx68k.bitbucket.BitbucketBranch;
+import org.vx68k.bitbucket.BitbucketIssue;
+import org.vx68k.bitbucket.BitbucketPullRequest;
 import org.vx68k.bitbucket.BitbucketRepository;
 import org.vx68k.bitbucket.BitbucketUserAccount;
 import org.vx68k.bitbucket.client.internal.ClientBranch;
@@ -48,7 +49,6 @@ import org.vx68k.bitbucket.client.internal.ClientUserAccount;
 import org.vx68k.bitbucket.client.util.JsonStructureMessageBodyReader;
 import org.vx68k.bitbucket.client.util.JsonbMessageBodyReader;
 import org.vx68k.bitbucket.client.util.OAuth2Authenticator;
-import org.vx68k.bitbucket.client.util.TokenRefreshListener;
 
 /**
  * Bitbucket API client.
@@ -325,6 +325,12 @@ public class BitbucketClient implements Bitbucket, Serializable
         return getResource("/teams/{name}", values, ClientTeamAccount.class);
     }
 
+    @Override
+    public final BitbucketRepository getRepository(BitbucketAccount owner, String name)
+    {
+        return getRepository("{" + owner.getUuid().toString() + "}", name);
+    }
+
     /**
      * {@inheritDoc}
      * <p>This implementation gets the repository resource remotely from
@@ -340,6 +346,19 @@ public class BitbucketClient implements Bitbucket, Serializable
 
         return getResource("/repositories/{owner}/{name}", values,
             ClientRepository.class);
+    }
+
+    @Override
+    public final BitbucketPullRequest getPullRequest(BitbucketRepository repo,
+        int id)
+    {
+        throw new UnsupportedOperationException("getPullRequest not implemented yet");
+    }
+
+    @Override
+    public final BitbucketIssue getIssue(BitbucketRepository repo, int id)
+    {
+        throw new UnsupportedOperationException("getIssue not implemented yet");
     }
 
     @Override
