@@ -110,11 +110,10 @@ class BitbucketClientTest
     }
 
     /**
-     * Tests {@link BitbucketClient#getRepository getRepository}.
+     * Tests {@link BitbucketClient#getRepository(String, String)}.
      */
-    @Disabled("Not ready to test")
     @Test
-    void testGetRepository()
+    void testGetRepository1()
     {
         BitbucketClient client = new BitbucketClient();
 
