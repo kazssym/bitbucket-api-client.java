@@ -48,7 +48,7 @@ public class ClientTeamAccount extends ClientAccount
      *
      * @param other another team account
      */
-    public ClientTeamAccount(final ClientTeamAccount other)
+    public ClientTeamAccount(final BitbucketAccount other)
     {
         super(other);
 
