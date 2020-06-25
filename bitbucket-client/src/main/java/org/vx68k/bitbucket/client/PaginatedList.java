@@ -85,7 +85,8 @@ public class PaginatedList<E> extends AbstractList<E>
      */
     protected final void fetchNext()
     {
-        JsonObject json = bitbucketClient.get(URI.create(nextPageUri));
+        JsonObject json =
+            bitbucketClient.get(URI.create(nextPageUri), JsonObject.class);
         if (knownSize < 0) {
             knownSize = json.getInt("size", -1);
         }

@@ -27,6 +27,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import javax.json.JsonObject;
+import javax.json.JsonStructure;
 import javax.json.bind.JsonbBuilder;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.client.Client;
@@ -89,7 +90,7 @@ public class BitbucketClient implements Bitbucket, Serializable
      * {@link ClientBuilder} object created in the constructor.
      * This object is used to build JAX-RS {@link Client} objects.
      */
-    private final transient ClientBuilder clientBuilder;
+    private final transient ClientBuilder clientBuilder = ClientBuilder.newBuilder();
 
     /**
      * OAuth 2.0 authenticator.
@@ -150,7 +151,6 @@ public class BitbucketClient implements Bitbucket, Serializable
      */
     public BitbucketClient()
     {
-        this.clientBuilder = ClientBuilder.newBuilder();
         this.oAuth2Authenticator =
             new OAuth2Authenticator(API_BASE_URI, TOKEN_ENDPOINT_URI);
 
@@ -220,32 +220,37 @@ public class BitbucketClient implements Bitbucket, Serializable
     }
 
     /**
-     * Gets a JSON object by a link.
+     * Gets a JSON structure.
      *
-     * @param link the URI for a link
-     * @return a JSON object if one was found; {@code null} otherwise
+     * @param <T> the return type
+     * @param uri a URI
+     * @param type a runtime type
+     * @return a JSON structure; or {@code null} if not found
      */
-    public final JsonObject get(final URI link)
+    public final <T extends JsonStructure> T get(final URI uri,
+        final Class<T> type)
     {
-        String[] mediaTypes = new String[] {MediaType.APPLICATION_JSON};
-        return get(link, mediaTypes, JsonObject.class);
+        MediaType[] mediaTypes = new MediaType[] {
+            MediaType.APPLICATION_JSON_TYPE,
+        };
+        return get(uri, mediaTypes, type);
     }
 
     /**
      * Gets a media object by a link.
      *
      * @param <T> return type
-     * @param link the URI for a link
+     * @param uri the URI for a link
      * @param mediaTypes acceptable MIME media types
      * @param type the type of the media object to return
      * @return media object if one was found; {@code null} otherwise
      */
-    public final <T> T get(
-        final URI link, final String[] mediaTypes, final Class<T> type)
+    public final <T> T get(final URI uri, final MediaType[] mediaTypes,
+        final Class<T> type)
     {
         Client client = clientBuilder.build();
         try {
-            WebTarget target = client.target(link);
+            WebTarget target = client.target(uri);
             return target.request().accept(mediaTypes).get(type);
         }
         catch (NotFoundException exception) {
