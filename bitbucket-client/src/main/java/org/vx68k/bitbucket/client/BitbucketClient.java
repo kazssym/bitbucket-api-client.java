@@ -124,7 +124,27 @@ public class BitbucketClient implements Bitbucket, Serializable
     }
 
     /**
-     * Constructs this object with a new {@link ClientBuilder} object.
+     * Returns the default {@link BitbucketClient} instance.
+     *
+     * @return the default {@link BitbucketClient} instance
+     */
+    public static BitbucketClient getDefaultInstance()
+    {
+        return defaultInstance;
+    }
+
+    /**
+     * Sets the default {@link BitbucketClient} instance.
+     *
+     * @param newValue {@link BitbucketClient} instance
+     */
+    public static void setDefaultInstance(final BitbucketClient newValue)
+    {
+        defaultInstance = newValue;
+    }
+
+    /**
+     * Constructs a runtime object with a new {@link ClientBuilder} object.
      */
     public BitbucketClient()
     {
@@ -138,26 +158,6 @@ public class BitbucketClient implements Bitbucket, Serializable
         this.clientBuilder.register(new JsonbMessageBodyReader<ClientUserAccount>(jsonbBuilder));
         this.clientBuilder.register(new JsonbMessageBodyReader<ClientTeamAccount>(jsonbBuilder));
         this.clientBuilder.register(authenticator);
-    }
-
-    /**
-     * Returns the default {@link BitbucketClient} object.
-     *
-     * @return the default {@link BitbucketClient} object
-     */
-    public static BitbucketClient getDefaultInstance()
-    {
-        return defaultInstance;
-    }
-
-    /**
-     * Sets the default {@link BitbucketClient} object.
-     *
-     * @param newValue {@link BitbucketClient} object
-     */
-    public static void setDefaultInstance(final BitbucketClient newValue)
-    {
-        defaultInstance = newValue;
     }
 
     /**
