@@ -32,12 +32,12 @@ import javax.json.bind.Jsonb;
  * Paginated list on Bitbucket Cloud.
  *
  * @author Kaz Nishimura
- * @param <E> type of the elements
+ * @param <T> the type of the elements
  * @see <a href="https://developer.atlassian.com/bitbucket/api/2/reference/meta/pagination"
  * >Pagination</a>
- * @since 5.0
+ * @since 6.0
  */
-public class PaginatedList<E> extends AbstractList<E>
+public class PaginatedList<T> extends AbstractList<T>
 {
     /**
      * Bitbucket client given to the constructor.
@@ -45,19 +45,19 @@ public class PaginatedList<E> extends AbstractList<E>
     private final BitbucketClient bitbucketClient;
 
     /**
-     * URL of the next page.
+     * URI of the next page.
      */
     private String nextPageUri;
 
     /**
      * Runtime type.
      */
-    private final Class<E> type;
+    private final Class<T> type;
 
     /**
      * List of the known values.
      */
-    private final List<E> knownValues = new LinkedList<>();
+    private final List<T> knownValues = new LinkedList<>();
 
     /**
      * Known size of the list.
@@ -73,7 +73,7 @@ public class PaginatedList<E> extends AbstractList<E>
      * @param type the runtime type of the values
      */
     public PaginatedList(final BitbucketClient bitbucketClient,
-        final String nextPageUri, final Class<E> type)
+        final String nextPageUri, final Class<T> type)
     {
         this.bitbucketClient = bitbucketClient;
         this.nextPageUri = nextPageUri;
@@ -114,7 +114,7 @@ public class PaginatedList<E> extends AbstractList<E>
      * {@inheritDoc}
      */
     @Override
-    public final E get(final int index)
+    public final T get(final int index)
     {
         while (nextPageUri != null && index >= knownValues.size()) {
             fetchNext();
