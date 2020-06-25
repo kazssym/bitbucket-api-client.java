@@ -45,7 +45,7 @@ public class PaginatedListTest
      * Tests {@link PaginatedList#get(int)}.
      */
     @Test
-    public void testGet()
+    public void testGet1()
     {
         BitbucketClient client = BitbucketClient.getDefaultInstance();
         List<ClientIssue> issues =
@@ -59,7 +59,7 @@ public class PaginatedListTest
      * Tests {@link PaginatedList#size()}.
      */
     @Test
-    public void testSize()
+    public void testSize1()
     {
         BitbucketClient client = BitbucketClient.getDefaultInstance();
         List<ClientIssue> issues =
