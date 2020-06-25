@@ -73,7 +73,7 @@ public class PaginatedList<E> extends AbstractList<E>
      * @param type the runtime type of the values
      */
     public PaginatedList(final BitbucketClient bitbucketClient,
-        final String nextPageUri, Class<E> type)
+        final String nextPageUri, final Class<E> type)
     {
         this.bitbucketClient = bitbucketClient;
         this.nextPageUri = nextPageUri;
