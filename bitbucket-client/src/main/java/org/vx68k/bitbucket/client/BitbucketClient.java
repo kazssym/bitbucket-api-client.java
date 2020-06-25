@@ -239,7 +239,6 @@ public class BitbucketClient implements Bitbucket, Serializable
      *
      * @param <T> the return type
      * @param base a base URI, or {@code null} for the Bitbucket Cloud REST API
-     * @param path a path relative to the base URI, or {@code null}
      * @param runtimeType the type of the resource to be returned
      * @param mediaTypes acceptable MIME media types
      * @return a received resource, or {@code null} not found
