@@ -374,6 +374,17 @@ public class BitbucketClient implements Bitbucket, Serializable
     }
 
     @Override
+    public final BitbucketRepository getRepository(final String fullName)
+    {
+        if (fullName != null && !(fullName.matches("^[^/]+/[^/]+$"))) {
+            throw new IllegalArgumentException("Full name is invalid");
+        }
+
+        Map<String, Object> values = Collections.singletonMap("fullName", fullName);
+        return get(null, "/repositories/{fullName}", values, ClientRepository.class);
+    }
+
+    @Override
     public final BitbucketPullRequest getPullRequest(BitbucketRepository repo,
         int id)
     {
