@@ -34,17 +34,17 @@ public class BitbucketCommitAdapter
     implements JsonbAdapter<BitbucketCommit, ClientCommit>
 {
     @Override
-    public final ClientCommit adaptToJson(final BitbucketCommit rendered)
+    public final ClientCommit adaptToJson(final BitbucketCommit commit)
     {
-        if (rendered instanceof ClientCommit) {
-            return (ClientCommit) rendered;
+        if (commit instanceof ClientCommit) {
+            return (ClientCommit) commit;
         }
-        return new ClientCommit(rendered);
+        return new ClientCommit(commit);
     }
 
     @Override
-    public final BitbucketCommit adaptFromJson(final ClientCommit rendered)
+    public final BitbucketCommit adaptFromJson(final ClientCommit commit)
     {
-        return rendered;
+        return commit;
     }
 }
