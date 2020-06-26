@@ -65,7 +65,7 @@ public class BitbucketClient implements Bitbucket, Serializable
      * Base URI of the Bitbucket API.
      */
     protected static final URI API_BASE =
-        URI.create("https://api.bitbucket.org/2.0/");
+        URI.create("https://api.bitbucket.org/");
 
     /**
      * Authorization endpoint URI.
@@ -334,7 +334,7 @@ public class BitbucketClient implements Bitbucket, Serializable
     {
         Map<String, Object> values = Collections.singletonMap("name", name);
 
-        return get(null, "/users/{name}", values, ClientUserAccount.class);
+        return get(null, "/2.0/users/{name}", values, ClientUserAccount.class);
     }
 
     /**
@@ -347,7 +347,7 @@ public class BitbucketClient implements Bitbucket, Serializable
     {
         Map<String, Object> values = Collections.singletonMap("name", name);
 
-        return get(null, "/teams/{name}", values, ClientTeamAccount.class);
+        return get(null, "/2.0/teams/{name}", values, ClientTeamAccount.class);
     }
 
     @Override
@@ -370,7 +370,7 @@ public class BitbucketClient implements Bitbucket, Serializable
         values.put("owner", ownerName);
         values.put("name", name);
 
-        return get(null, "/repositories/{owner}/{name}", values,
+        return get(null, "/2.0/repositories/{owner}/{name}", values,
             ClientRepository.class);
     }
 
@@ -382,7 +382,7 @@ public class BitbucketClient implements Bitbucket, Serializable
         }
 
         Map<String, Object> values = Collections.singletonMap("fullName", fullName);
-        return get(null, "/repositories/{fullName}", values, ClientRepository.class);
+        return get(null, "/2.0/repositories/{fullName}", values, ClientRepository.class);
     }
 
     @Override
@@ -396,9 +396,9 @@ public class BitbucketClient implements Bitbucket, Serializable
     public final BitbucketIssue getIssue(BitbucketRepository repo, int id)
     {
         Map<String, Object> values = new HashMap<>();
-        values.put("full_name", repo.getFullName());
+        values.put("fullName", repo.getFullName());
 
-        return get(null, "/repositories/{full_name}/issues/{id}", values,
+        return get(null, "/2.0/repositories/{fullName}/issues/{id}", values,
             ClientIssue.class);
     }
 
