@@ -20,8 +20,7 @@
 
 package org.vx68k.bitbucket.client.adapter;
 
-import java.util.Map;
-
+import javax.json.JsonObject;
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
 import javax.json.bind.adapter.JsonbAdapter;
@@ -30,30 +29,30 @@ import org.vx68k.bitbucket.client.internal.ClientTeamAccount;
 import org.vx68k.bitbucket.client.internal.ClientUserAccount;
 
 public class BitbucketAccountAdapter
-        implements JsonbAdapter<BitbucketAccount, Map<String, Object>>
+        implements JsonbAdapter<BitbucketAccount, JsonObject>
 {
     @Override
-    public final Map<String, Object> adaptToJson(final BitbucketAccount account)
+    public final JsonObject adaptToJson(final BitbucketAccount account)
         throws Exception
     {
         try (Jsonb jsonb = JsonbBuilder.create()) {
             // Stupid but probably the right path.
-            return jsonb.<Map<String, Object>>fromJson(jsonb.toJson(account), Map.class);
+            return jsonb.fromJson(jsonb.toJson(account), JsonObject.class);
         }
     }
 
     @Override
-    public final BitbucketAccount adaptFromJson(final Map<String, Object> map)
+    public final BitbucketAccount adaptFromJson(final JsonObject json)
         throws Exception
     {
-        String type = (String)map.get("type");
+        String type = json.getString("type", null);
         if (type != null) {
             try (Jsonb jsonb = JsonbBuilder.create()) {
                 if (type.equals("user")) {
-                    return jsonb.fromJson(jsonb.toJson(map), ClientUserAccount.class);
+                    return jsonb.fromJson(jsonb.toJson(json), ClientUserAccount.class);
                 }
                 if (type.equals("team")) {
-                    return jsonb.fromJson(jsonb.toJson(map), ClientTeamAccount.class);
+                    return jsonb.fromJson(jsonb.toJson(json), ClientTeamAccount.class);
                 }
             }
         }
