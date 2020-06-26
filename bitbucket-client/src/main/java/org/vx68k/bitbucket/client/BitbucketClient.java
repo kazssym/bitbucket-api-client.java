@@ -277,11 +277,14 @@ public class BitbucketClient implements Bitbucket, Serializable
      * @return a received resource, or {@code null} not found
      */
     public final <T> T get(URI base, final String path,
-        final Map<String, Object> templateValues,
-        final Class<T> runtimeType, final MediaType... mediaTypes)
+        Map<String, Object> templateValues, final Class<T> runtimeType,
+        final MediaType... mediaTypes)
     {
         if (base == null) {
             base = API_BASE;
+        }
+        if (templateValues == null) {
+            templateValues = Collections.emptyMap();
         }
 
         Client client = clientBuilder.build();
@@ -289,8 +292,6 @@ public class BitbucketClient implements Bitbucket, Serializable
             WebTarget target = client.target(base);
             if (path != null) {
                 target = target.path(path);
-            }
-            if (templateValues != null) {
                 target = target.resolveTemplates(templateValues);
             }
             return target.request(mediaTypes).get(runtimeType);
