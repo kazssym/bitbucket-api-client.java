@@ -47,6 +47,8 @@ class BitbucketClientTest
      */
     private static final String TEAM_NAME = "{7590db3d-195a-40a0-aeab-1d8601a6298f}";
 
+    private static final String REPOSITORY_OWNER_NAME = "vx68k";
+
     /**
      * Repository name for tests.
      */
@@ -116,7 +118,7 @@ class BitbucketClientTest
 
         // Case to be found.
         BitbucketRepository repository =
-            client.getRepository(TEAM_NAME, REPOSITORY_NAME);
+            client.getRepository(REPOSITORY_OWNER_NAME, REPOSITORY_NAME);
         System.out.println("Got " + repository);
         assertNotNull(repository.getOwner());
         assertEquals("vx68k", repository.getOwner().getName());
@@ -126,8 +128,18 @@ class BitbucketClientTest
             "vx68k" + "/" + REPOSITORY_NAME, repository.getFullName());
         assertEquals("git", repository.getScm());
         assertFalse(repository.isPrivate());
+    }
 
-        // Case not to be found.
-        assertNull(client.getRepository(TEAM_NAME, "non-existent"));
+    /**
+     * Tests {@link BitbucketClient#getRepository(String, String)}.
+     */
+    @Test
+    void testGetRepository2()
+    {
+        BitbucketClient bitbucketClient = new BitbucketClient();
+
+        BitbucketRepository repository1 =
+            bitbucketClient.getRepository(REPOSITORY_OWNER_NAME, "non-existent");
+        assertNull(repository1);
     }
 }
