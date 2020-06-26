@@ -25,8 +25,7 @@ import org.vx68k.bitbucket.BitbucketTeamAccount;
 import org.vx68k.bitbucket.client.adapter.AccountTypeAdapter;
 
 /**
- * Client implementation class of {@link BitbucketAccount} for the
- * {@code "team"} objects.
+ * Client implementation class of {@link BitbucketTeamAccount}.
  *
  * @author Kaz Nishimura
  * @since 6.0
