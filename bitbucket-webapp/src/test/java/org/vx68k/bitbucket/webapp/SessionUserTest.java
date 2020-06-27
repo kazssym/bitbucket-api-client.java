@@ -1,6 +1,6 @@
 /*
- * UserContextTest.java - class UserContextTest
- * Copyright (C) 2015-2018 Kaz Nishimura
+ * SessionUserTest.java
+ * Copyright (C) 2015-2020 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Affero General Public License as published by
@@ -21,16 +21,14 @@
 package org.vx68k.bitbucket.webapp;
 
 import static org.junit.Assert.assertFalse;
-
 import org.junit.Test;
-import org.vx68k.bitbucket.webapp.UserContext;
 
 /**
- * Unit tests for {@link UserContext}.
+ * Unit tests for {@link SessionUser}.
  *
  * @author Kaz Nishimura
  */
-public final class UserContextTest
+public final class SessionUserTest
 {
     /**
      * Tests the default constructor.
@@ -38,7 +36,7 @@ public final class UserContextTest
     @Test
     public void testDefault()
     {
-        UserContext userContext = new UserContext();
-        assertFalse(userContext.isLoggedIn());
+        SessionUser sessionUser = new SessionUser();
+        assertFalse(sessionUser.isLoggedIn());
     }
 }

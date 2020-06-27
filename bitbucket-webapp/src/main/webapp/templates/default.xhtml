@@ -28,16 +28,16 @@ Client API Example for Bitbucket Cloud
 <form class="pure-menu pure-menu-horizontal" jsf:id="header-menu">
 <ul class="pure-menu-list">
 
-<ui:fragment rendered="#{not userContext.loggedIn}">
+<ui:fragment rendered="#{not sessionUser.loggedIn}">
 <li class="pure-menu-item">
 <f:ajax render="@form" onerror="doAjaxError">
-<a class="pure-menu-link" jsf:id="login" jsf:action="#{userContext.login}">
+<a class="pure-menu-link" jsf:id="login" jsf:action="#{sessionUser.login}">
 #{messages.login}</a>
 </f:ajax>
 </li>
 </ui:fragment>
 
-<ui:fragment rendered="#{userContext.loggedIn}">
+<ui:fragment rendered="#{sessionUser.loggedIn}">
 <li id="account-menu"
     class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
 <a class="pure-menu-link" href="#">Account</a>
@@ -46,7 +46,7 @@ Client API Example for Bitbucket Cloud
 <h:outputLink styleClass="pure-menu-link" value="#{request.contextPath}/myself.jsf">Profile</h:outputLink>
 </li>
 <li class="pure-menu-item">
-<h:commandLink styleClass="pure-menu-link" action="#{userContext.logout}">#{messages.logout}</h:commandLink>
+<h:commandLink styleClass="pure-menu-link" action="#{sessionUser.logout}">#{messages.logout}</h:commandLink>
 </li>
 </ul>
 </li>

@@ -48,7 +48,7 @@ public class RepositoryInfo implements Serializable
     /**
      * User context given to the constructor.
      */
-    private final UserContext userContext;
+    private final SessionUser sessionUser;
 
     /**
      * Owner name to look up.
@@ -75,12 +75,12 @@ public class RepositoryInfo implements Serializable
     /**
      * Constructs this object.
      *
-     * @param context user context
+     * @param sessionUser user context
      */
     @Inject
-    public RepositoryInfo(final UserContext context)
+    public RepositoryInfo(final SessionUser sessionUser)
     {
-        userContext = context;
+        this.sessionUser = sessionUser;
     }
 
     /**
@@ -88,9 +88,9 @@ public class RepositoryInfo implements Serializable
      *
      * @return the user context
      */
-    protected UserContext getUserContext()
+    protected SessionUser getSessionUser()
     {
-        return userContext;
+        return sessionUser;
     }
 
     /**
@@ -100,7 +100,7 @@ public class RepositoryInfo implements Serializable
      */
     protected BitbucketClient getBitbucketClient()
     {
-        return userContext.getBitbucketClient();
+        return sessionUser.getBitbucketClient();
     }
 
     /**

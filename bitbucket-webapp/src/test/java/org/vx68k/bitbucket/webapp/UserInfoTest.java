@@ -30,7 +30,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.vx68k.bitbucket.webapp.UserContext;
+import org.vx68k.bitbucket.webapp.SessionUser;
 import org.vx68k.bitbucket.webapp.UserInfo;
 
 /**
@@ -41,9 +41,9 @@ import org.vx68k.bitbucket.webapp.UserInfo;
 public final class UserInfoTest
 {
     /**
-     * {@link UserContext} object for each test.
+     * {@link SessionUser} object for each test.
      */
-    private UserContext userContext = null;
+    private SessionUser sessionUser = null;
 
     /**
      * Sets up each test.
@@ -51,7 +51,7 @@ public final class UserInfoTest
     @Before
     public void setUp()
     {
-        userContext = new UserContext();
+        sessionUser = new SessionUser();
     }
 
     /**
@@ -60,17 +60,17 @@ public final class UserInfoTest
     @After
     public void tearDown()
     {
-        userContext = null;
+        sessionUser = null;
     }
 
     /**
-     * Tests {@link UserInfo#getUserContext getUserContext}.
+     * Tests {@link UserInfo#getSessionUser getSessionUser}.
      */
     @Test
-    public void testGetUserContext()
+    public void testGetSessionUser()
     {
-        UserInfo userInfo = new UserInfo(userContext);
-        assertEquals(userContext, userInfo.getUserContext());
+        UserInfo userInfo = new UserInfo(sessionUser);
+        assertEquals(sessionUser, userInfo.getSessionUser());
     }
 
     /**
@@ -79,7 +79,7 @@ public final class UserInfoTest
     @Test
     public void testGetName()
     {
-        UserInfo userInfo = new UserInfo(userContext);
+        UserInfo userInfo = new UserInfo(sessionUser);
 
         userInfo.setName("");
         assertEquals("", userInfo.getName());
@@ -95,7 +95,7 @@ public final class UserInfoTest
     @Test
     public void testLookUp()
     {
-        UserInfo userInfo = new UserInfo(userContext);
+        UserInfo userInfo = new UserInfo(sessionUser);
         Object outcome;
 
         userInfo.setName("");

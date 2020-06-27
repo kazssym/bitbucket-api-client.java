@@ -48,7 +48,7 @@ public class TeamInfo implements Serializable
     /**
      * User context given to the constructor.
      */
-    private final UserContext userContext;
+    private final SessionUser sessionUser;
 
     /**
      * Team name to look up.
@@ -66,12 +66,12 @@ public class TeamInfo implements Serializable
     /**
      * Constructs this object.
      *
-     * @param context user context
+     * @param sessionUser user context
      */
     @Inject
-    public TeamInfo(final UserContext context)
+    public TeamInfo(final SessionUser sessionUser)
     {
-        userContext = context;
+        this.sessionUser = sessionUser;
     }
 
     /**
@@ -79,9 +79,9 @@ public class TeamInfo implements Serializable
      *
      * @return the user context
      */
-    public UserContext getUserContext()
+    public SessionUser getSessionUser()
     {
-        return userContext;
+        return sessionUser;
     }
 
     /**
@@ -91,7 +91,7 @@ public class TeamInfo implements Serializable
      */
     protected BitbucketClient getBitbucketClient()
     {
-        return userContext.getBitbucketClient();
+        return sessionUser.getBitbucketClient();
     }
 
     /**

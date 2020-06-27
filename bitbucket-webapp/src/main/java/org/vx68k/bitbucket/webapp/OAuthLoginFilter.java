@@ -46,7 +46,7 @@ public final class OAuthLoginFilter implements Filter, Serializable
     /**
      * User context given to the constructor.
      */
-    private final UserContext userContext;
+    private final SessionUser sessionUser;
 
     /**
      * {@link FilterConfig} object given to {@link #init init}.
@@ -56,12 +56,12 @@ public final class OAuthLoginFilter implements Filter, Serializable
     /**
      * Constructs this object.
      *
-     * @param context user context
+     * @param sessionUser user context
      */
     @Inject
-    public OAuthLoginFilter(final UserContext context)
+    public OAuthLoginFilter(final SessionUser sessionUser)
     {
-        userContext = context;
+        this.sessionUser = sessionUser;
     }
 
     /**
@@ -115,7 +115,7 @@ public final class OAuthLoginFilter implements Filter, Serializable
         String code = request.getParameter("code");
         if (code != null) {
             servletContext.log("code = " + code);
-            userContext.login(code, state);
+            sessionUser.login(code, state);
         }
         else {
             String error = request.getParameter("error");
@@ -123,7 +123,7 @@ public final class OAuthLoginFilter implements Filter, Serializable
                 String errorDescription =
                     request.getParameter("error_description");
                 servletContext.log("error = " + error);
-                userContext.abort(errorDescription, state);
+                sessionUser.abort(errorDescription, state);
             }
         }
         chain.doFilter(request, response);

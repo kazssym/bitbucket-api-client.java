@@ -1,6 +1,6 @@
 /*
- * UserContext.java - class UserContext
- * Copyright (C) 2015-2018 Kaz Nishimura
+ * SessionUser.java
+ * Copyright (C) 2015-2020 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
  * under the terms of the GNU Affero General Public License as published by
@@ -66,7 +66,7 @@ import org.vx68k.bitbucket.client.util.OAuth2Authenticator;
 @SuppressWarnings({"designForExtension"})
 @Named
 @SessionScoped
-public class UserContext implements Serializable
+public class SessionUser implements Serializable
 {
     private static final long serialVersionUID = 1L;
 
@@ -116,7 +116,7 @@ public class UserContext implements Serializable
     /**
      * Constructs this object with no parameters.
      */
-    public UserContext()
+    public SessionUser()
     {
         this.bitbucketClient = new BitbucketClient();
 
@@ -329,7 +329,7 @@ public class UserContext implements Serializable
                 return false;
             }
 
-            UserContext other = (UserContext) object;
+            SessionUser other = (SessionUser) object;
             if (!Objects.equals(bitbucketClient, other.bitbucketClient)) {
                 return false;
             }
