@@ -26,6 +26,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 import javax.json.JsonObject;
 import javax.json.bind.JsonbBuilder;
 import javax.ws.rs.NotFoundException;
@@ -78,6 +79,12 @@ public class BitbucketClient implements Bitbucket, Serializable
      */
     public static final URI TOKEN_ENDPOINT_URI =
         URI.create("https://bitbucket.org/site/oauth2/access_token");
+
+    /**
+     * Regular expression pattern to match full names of repositories.
+     */
+    public static final Pattern REPOSITORY_FULL_NAME_REGEXP =
+        Pattern.compile("^[^/]+/[^/]+$");
 
     /**
      * Default {@link BitbucketClient} object.
@@ -377,7 +384,8 @@ public class BitbucketClient implements Bitbucket, Serializable
     @Override
     public final BitbucketRepository getRepository(final String fullName)
     {
-        if (fullName != null && !(fullName.matches("^[^/]+/[^/]+$"))) {
+        if (fullName != null
+            && !(REPOSITORY_FULL_NAME_REGEXP.matcher(fullName).matches())) {
             throw new IllegalArgumentException("Full name is invalid");
         }
 
@@ -395,11 +403,12 @@ public class BitbucketClient implements Bitbucket, Serializable
     @Override
     public final BitbucketIssue getIssue(BitbucketRepository repo, int id)
     {
-        Map<String, Object> values = new HashMap<>();
-        values.put("fullName", repo.getFullName());
+        Map<String, Object> templateValues = new HashMap<>();
+        templateValues.put("fullName", repo.getFullName());
+        templateValues.put("id", id);
 
-        return get(null, "/2.0/repositories/{fullName}/issues/{id}", values,
-            ClientIssue.class);
+        return get(null, "/2.0/repositories/{fullName}/issues/{id}",
+            templateValues, ClientIssue.class);
     }
 
     @Override
