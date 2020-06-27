@@ -81,7 +81,7 @@ public interface BitbucketAccount
      *
      * @return the name of the account
      */
-    String getName();
+    String getUsername();
 
     /**
      * Returns the display name of the account.

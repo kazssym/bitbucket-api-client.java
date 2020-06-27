@@ -64,7 +64,7 @@ class BitbucketClientTest
         BitbucketUserAccount user = client.getUserAccount(USER_NAME);
         System.out.println("Got " + user);
         assertNotNull(user.getUuid());
-        assertNull(user.getName());
+        assertNull(user.getUsername());
         assertNotNull(user.getDisplayName());
         assertNotNull(user.getCreated());
         // Other properties are unknown at test time.
@@ -91,7 +91,7 @@ class BitbucketClientTest
         BitbucketAccount team = client.getTeamAccount(TEAM_NAME);
         System.out.println("Got " + team);
         assertNotNull(team.getUuid());
-        assertEquals("vx68k", team.getName());
+        assertEquals("vx68k", team.getUsername());
         assertNotNull(team.getDisplayName());
         assertNotNull(team.getCreated());
         // Other properties are unknown at test time.
@@ -121,7 +121,7 @@ class BitbucketClientTest
             client.getRepository(REPOSITORY_OWNER_NAME, REPOSITORY_NAME);
         System.out.println("Got " + repository);
         assertNotNull(repository.getOwner());
-        assertEquals("vx68k", repository.getOwner().getName());
+        assertEquals("vx68k", repository.getOwner().getUsername());
         assertEquals(REPOSITORY_NAME, repository.getName());
         assertNotNull(repository.getUuid());
         assertEquals(

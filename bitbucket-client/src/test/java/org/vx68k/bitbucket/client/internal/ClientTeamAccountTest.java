@@ -166,35 +166,35 @@ final class ClientTeamAccountTest
     }
 
     /**
-     * Tests {@link ClientTeamAccount#getName()}.
+     * Tests {@link ClientTeamAccount#getUsername()}.
      */
     @Test
     void testName1()
     {
         String string1 = "{\"type\":\"team\"}";
         ClientTeamAccount team1 = jsonb.fromJson(string1, ClientTeamAccount.class);
-        assertNull(team1.getName());
+        assertNull(team1.getUsername());
     }
 
     /**
-     * Tests {@link ClientTeamAccount#getName()}.
+     * Tests {@link ClientTeamAccount#getUsername()}.
      */
     @Test
     void testName2()
     {
         String string1 = "{\"type\":\"team\",\"username\":\".name\"}";
         ClientTeamAccount team1 = jsonb.fromJson(string1, ClientTeamAccount.class);
-        assertEquals(".name", team1.getName());
+        assertEquals(".name", team1.getUsername());
     }
 
     /**
-     * Tests {@link ClientTeamAccount#getName()}.
+     * Tests {@link ClientTeamAccount#getUsername()}.
      */
     @Test
     void testName3()
     {
         ClientTeamAccount team1 = jsonb.fromJson(sample1, ClientTeamAccount.class);
-        assertEquals("vx68k", team1.getName());
+        assertEquals("vx68k", team1.getUsername());
     }
 
     /**

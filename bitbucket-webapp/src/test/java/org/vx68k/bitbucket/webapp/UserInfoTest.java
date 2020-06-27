@@ -108,6 +108,6 @@ public final class UserInfoTest
         assertNull(outcome);
         assertNotNull(userInfo.getUser());
         assertTrue(userInfo.isFound());
-        assertEquals("kazssym", userInfo.getUser().getName());
+        assertEquals("kazssym", userInfo.getUser().getUsername());
     }
 }

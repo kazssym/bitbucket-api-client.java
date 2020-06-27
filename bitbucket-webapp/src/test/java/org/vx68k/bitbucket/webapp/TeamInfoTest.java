@@ -108,6 +108,6 @@ public final class TeamInfoTest
         assertNull(outcome);
         assertNotNull(teamInfo.getTeam());
         assertTrue(teamInfo.isFound());
-        assertEquals("kazssym", teamInfo.getTeam().getName());
+        assertEquals("kazssym", teamInfo.getTeam().getUsername());
     }
 }

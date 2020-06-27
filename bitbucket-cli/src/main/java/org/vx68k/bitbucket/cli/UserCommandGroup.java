@@ -62,7 +62,7 @@ public class UserCommandGroup extends CommandGroup
         void print(final BitbucketUserAccount user)
         {
             PrintWriter out = new PrintWriter(System.out);
-            out.format(FORMAT, "Name", user.getName());
+            out.format(FORMAT, "Name", user.getUsername());
             out.format(FORMAT, "UUID", user.getUuid());
             out.format(FORMAT, "Display Name", user.getDisplayName());
             out.format(FORMAT, "Website", user.getWebsite());

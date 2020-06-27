@@ -43,7 +43,7 @@ public abstract class ClientAccount implements BitbucketAccount
 {
     private UUID uuid;
 
-    private String name;
+    private String username;
 
     private String displayName;
 
@@ -71,7 +71,7 @@ public abstract class ClientAccount implements BitbucketAccount
     protected ClientAccount(final BitbucketAccount other)
     {
         this.uuid = other.getUuid();
-        this.name = other.getName();
+        this.username = other.getUsername();
         this.displayName = other.getDisplayName();
         this.website = other.getWebsite();
         this.location = other.getLocation();
@@ -115,22 +115,20 @@ public abstract class ClientAccount implements BitbucketAccount
     /**
      * {@inheritDoc}
      */
-    @JsonbProperty("username")
     @Override
-    public final String getName()
+    public final String getUsername()
     {
-        return name;
+        return username;
     }
 
     /**
      * Sets the name of the account.
      *
-     * @param name a string object for the name
+     * @param username a string object for the name
      */
-    @JsonbProperty("username")
-    public final void setName(final String name)
+    public final void setUsername(final String username)
     {
-        this.name = name;
+        this.username = username;
     }
 
     /**
