@@ -30,8 +30,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.vx68k.bitbucket.webapp.SessionUser;
-import org.vx68k.bitbucket.webapp.UserInfo;
+import org.vx68k.bitbucket.client.BitbucketClient;
 
 /**
  * Unit tests for {@link UserInfo}.
@@ -51,7 +50,7 @@ public final class UserInfoTest
     @Before
     public void setUp()
     {
-        sessionUser = new SessionUser();
+        sessionUser = new SessionUser(new BitbucketClient());
     }
 
     /**

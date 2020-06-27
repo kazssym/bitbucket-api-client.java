@@ -20,13 +20,11 @@
 
 package org.vx68k.bitbucket.webapp;
 
-import static java.util.Collections.emptyMap;
-import static java.util.Collections.singletonList;
-
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,7 +37,6 @@ import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
-import org.vx68k.bitbucket.BitbucketUserAccount;
 import org.vx68k.bitbucket.client.BitbucketClient;
 import org.vx68k.bitbucket.client.util.OAuth2Authenticator;
 
@@ -47,7 +44,7 @@ import org.vx68k.bitbucket.client.util.OAuth2Authenticator;
  * Session-scoped bean for the current user of the session.
  * <p>To enable authentication by OAuth, the deployment descriptor must be
  * configured as follows:</p>
- * <pre>
+ * <pre><code>
  * &lt;env-entry&gt;
  * &lt;env-entry-name&gt;bitbucketClientId&lt;/env-entry-name&gt;
  * &lt;env-entry-type&gt;java.lang.String&lt;/env-entry-type&gt;
@@ -58,10 +55,10 @@ import org.vx68k.bitbucket.client.util.OAuth2Authenticator;
  * &lt;env-entry-type&gt;java.lang.String&lt;/env-entry-type&gt;
  * &lt;lookup-name&gt;java:global/env/bitbucketClientSecret&lt;/lookup-name&gt;
  * &lt;/env-entry&gt;
- * </pre>
+ * </code></pre>
  *
  * @author Kaz Nishimura
- * @since 5.0
+ * @since 6.0
  */
 @SuppressWarnings({"designForExtension"})
 @Named
@@ -73,29 +70,12 @@ public class SessionUser implements Serializable
     /**
      * Default HTTP port.
      */
-    private static final int HTTP_PORT = 80;
+    private static final int DEFAULT_HTTP_PORT = 80;
 
     /**
      * Default HTTPS port.
      */
-    private static final int HTTPS_PORT = 443;
-
-    /**
-     * Prefix for property keys.
-     */
-    private static final String PROPERTY_PREFIX = "org.vx68k.bitbucket.";
-
-    /**
-     * Property key for the OAuth client identifier.
-     */
-    public static final String BITBUCKET_CLIENT_ID =
-        PROPERTY_PREFIX + "clientId";
-
-    /**
-     * Property key for the OAuth client secret.
-     */
-    public static final String BITBUCKET_CLIENT_SECRET =
-        PROPERTY_PREFIX + "clientSecret";
+    private static final int DEFAULT_HTTPS_PORT = 443;
 
     /**
      * {@link BitbucketClient} object.
@@ -103,26 +83,26 @@ public class SessionUser implements Serializable
     private final BitbucketClient bitbucketClient;
 
     /**
-     * {@link BitbucketUserAccount} object for the current user, or {@code null} if
-     * not logged in.
-     */
-    private transient BitbucketUserAccount loggedInUser = null;
-
-    /**
      * Redirection endpoint URI.
      */
-    private transient String redirectionURI = null;
+    private transient String redirectUri = null;
 
     /**
      * Constructs this object with no parameters.
      */
     public SessionUser()
     {
-        this.bitbucketClient = new BitbucketClient();
+        this(new BitbucketClient());
+    }
 
-        OAuth2Authenticator oAuth2 = bitbucketClient.getOAuth2Authenticator();
-        oAuth2.setClientId(System.getProperty(BITBUCKET_CLIENT_ID));
-        oAuth2.setClientSecret(System.getProperty(BITBUCKET_CLIENT_SECRET));
+    /**
+     * Constructs this object.
+     *
+     * @param bitbucketClient a REST API client
+     */
+    public SessionUser(final BitbucketClient bitbucketClient)
+    {
+        this.bitbucketClient = bitbucketClient;
     }
 
     /**
@@ -144,7 +124,8 @@ public class SessionUser implements Serializable
      */
     public String getBitbucketClientId()
     {
-        return bitbucketClient.getOAuth2Authenticator().getClientId();
+        OAuth2Authenticator oAuth2 = bitbucketClient.getOAuth2Authenticator();
+        return oAuth2.getClientId();
     }
 
     /**
@@ -154,10 +135,11 @@ public class SessionUser implements Serializable
      * shall be set
      */
     @Resource(name = "bitbucketClientId", type = String.class,
-        description = "OAuth client identifier for the Bitbucket API.")
+        description = "OAuth 2 client identifier for the Bitbucket API.")
     public void setBitbucketClientId(final String value)
     {
-        bitbucketClient.getOAuth2Authenticator().setClientId(value);
+        OAuth2Authenticator oAuth2 = bitbucketClient.getOAuth2Authenticator();
+        oAuth2.setClientId(value);
     }
 
     /**
@@ -167,20 +149,11 @@ public class SessionUser implements Serializable
      * be set
      */
     @Resource(name = "bitbucketClientSecret", type = String.class,
-        description = "OAuth client secret for the Bitbucket API.")
+        description = "OAuth 2 client secret for the Bitbucket API.")
     public void setBitbucketClientSecret(final String value)
     {
-        bitbucketClient.getOAuth2Authenticator().setClientSecret(value);
-    }
-
-    /**
-     * Returns the logged-in user.
-     *
-     * @return the logged-in user
-     */
-    public BitbucketUserAccount getLoggedInUser()
-    {
-        return loggedInUser;
+        OAuth2Authenticator oAuth2 = bitbucketClient.getOAuth2Authenticator();
+        oAuth2.setClientSecret(value);
     }
 
     /**
@@ -190,7 +163,8 @@ public class SessionUser implements Serializable
      */
     public boolean isLoggedIn()
     {
-        return bitbucketClient.getOAuth2Authenticator().getAccessToken() != null;
+        OAuth2Authenticator oAuth2 = bitbucketClient.getOAuth2Authenticator();
+        return oAuth2.getAccessToken() != null;
     }
 
     /**
@@ -204,10 +178,10 @@ public class SessionUser implements Serializable
         String scheme = externalContext.getRequestScheme();
         String serverName = externalContext.getRequestServerName();
         int serverPort = externalContext.getRequestServerPort();
-        if (scheme.equals("http") && serverPort == HTTP_PORT) {
+        if (scheme.equals("http") && serverPort == DEFAULT_HTTP_PORT) {
             serverPort = -1;
         }
-        else if (scheme.equals("https") && serverPort == HTTPS_PORT) {
+        else if (scheme.equals("https") && serverPort == DEFAULT_HTTPS_PORT) {
             serverPort = -1;
         }
         try {
@@ -239,17 +213,17 @@ public class SessionUser implements Serializable
         UIViewRoot view = facesContext.getViewRoot();
         ViewHandler viewHandler =
             facesContext.getApplication().getViewHandler();
-        redirectionURI = viewHandler.getRedirectURL(
-            facesContext, view.getViewId(), emptyMap(), true);
+        redirectUri = viewHandler.getRedirectURL(
+            facesContext, view.getViewId(), Collections.emptyMap(), true);
 
         // The redirection endpoint URI must be absolute.
         URI origin = getOrigin(externalContext);
-        redirectionURI = origin.resolve(redirectionURI).toString();
+        redirectUri = origin.resolve(redirectUri).toString();
 
         Map<String, List<String>> parameters = new HashMap<>();
-        parameters.put("response_type", singletonList("code"));
-        parameters.put("client_id", singletonList(clientId));
-        parameters.put("redirect_uri", singletonList(redirectionURI));
+        parameters.put("response_type", Collections.singletonList("code"));
+        parameters.put("client_id", Collections.singletonList(clientId));
+        parameters.put("redirect_uri", Collections.singletonList(redirectUri));
 
         String authorizationURI = externalContext.encodeRedirectURL(
             BitbucketClient.AUTHORIZATION_ENDPOINT_URI.toString(), parameters);
@@ -271,9 +245,10 @@ public class SessionUser implements Serializable
      */
     public String logout()
     {
-//        clearBitbucketService();
+        OAuth2Authenticator oAuth2 = bitbucketClient.getOAuth2Authenticator();
+        oAuth2.setAccessToken(null);
 
-        return "home";
+        return null;
     }
 
     /**
@@ -284,11 +259,11 @@ public class SessionUser implements Serializable
      */
     public void login(final String code, final String state)
     {
-        if (redirectionURI != null) {
+        if (redirectUri != null) {
             // @todo Check {@code state}.
             bitbucketClient.loginWithAuthorizationCode(
-                code, URI.create(redirectionURI));
-            redirectionURI = null;
+                code, URI.create(redirectUri));
+            redirectUri = null;
         }
     }
 
@@ -298,11 +273,11 @@ public class SessionUser implements Serializable
      * @param errorDescription an error description
      * @param state an opaque state string
      */
-    public void abort(final String errorDescription, final String state)
+    public void abortLogin(final String errorDescription, final String state)
     {
-        if (redirectionURI != null) {
+        if (redirectUri != null) {
             // @todo Check {@code state}.
-            redirectionURI = null;
+            redirectUri = null;
         }
     }
 
@@ -312,9 +287,9 @@ public class SessionUser implements Serializable
     @Override
     public int hashCode()
     {
-        final int k = 257;
+        final int K = 257;
         int value = getClass().hashCode();
-        value = k * value + Objects.hashCode(bitbucketClient);
+        value = K * value + Objects.hashCode(bitbucketClient);
         return value;
     }
 
@@ -325,15 +300,12 @@ public class SessionUser implements Serializable
     public boolean equals(final Object object)
     {
         if (this != object) {
-            if (object == null || object.getClass() != getClass()) {
+            if (object == null || getClass() != object.getClass()) {
                 return false;
             }
 
-            SessionUser other = (SessionUser) object;
+            SessionUser other = (SessionUser)object;
             if (!Objects.equals(bitbucketClient, other.bitbucketClient)) {
-                return false;
-            }
-            if (!Objects.equals(loggedInUser, other.loggedInUser)) {
                 return false;
             }
         }

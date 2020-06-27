@@ -22,6 +22,7 @@ package org.vx68k.bitbucket.webapp;
 
 import static org.junit.Assert.assertFalse;
 import org.junit.Test;
+import org.vx68k.bitbucket.client.BitbucketClient;
 
 /**
  * Unit tests for {@link SessionUser}.
@@ -36,7 +37,7 @@ public final class SessionUserTest
     @Test
     public void testDefault()
     {
-        SessionUser sessionUser = new SessionUser();
+        SessionUser sessionUser = new SessionUser(new BitbucketClient());
         assertFalse(sessionUser.isLoggedIn());
     }
 }

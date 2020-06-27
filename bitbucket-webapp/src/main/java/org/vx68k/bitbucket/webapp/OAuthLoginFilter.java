@@ -123,7 +123,7 @@ public final class OAuthLoginFilter implements Filter, Serializable
                 String errorDescription =
                     request.getParameter("error_description");
                 servletContext.log("error = " + error);
-                sessionUser.abort(errorDescription, state);
+                sessionUser.abortLogin(errorDescription, state);
             }
         }
         chain.doFilter(request, response);
