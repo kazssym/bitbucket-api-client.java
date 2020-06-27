@@ -20,16 +20,16 @@
 
 package org.vx68k.bitbucket.webapp;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.vx68k.bitbucket.client.BitbucketClient;
 
 /**
@@ -37,7 +37,7 @@ import org.vx68k.bitbucket.client.BitbucketClient;
  *
  * @author Kaz Nishimura
  */
-public final class UserInfoTest
+final class UserInfoTest
 {
     /**
      * {@link SessionUser} object for each test.
@@ -47,8 +47,8 @@ public final class UserInfoTest
     /**
      * Sets up each test.
      */
-    @Before
-    public void setUp()
+    @BeforeEach
+    void setUp()
     {
         sessionUser = new SessionUser(new BitbucketClient());
     }
@@ -56,43 +56,50 @@ public final class UserInfoTest
     /**
      * Tears down each test.
      */
-    @After
-    public void tearDown()
+    @AfterEach
+    void tearDown()
     {
         sessionUser = null;
     }
 
     /**
-     * Tests {@link UserInfo#getSessionUser getSessionUser}.
+     * Tests {@link UserInfo#getSessionUser()}.
      */
     @Test
-    public void testGetSessionUser()
+    void testSessionUser1()
     {
         UserInfo userInfo = new UserInfo(sessionUser);
         assertEquals(sessionUser, userInfo.getSessionUser());
     }
 
     /**
-     * Tests{@link UserInfo#getName getName}.
+     * Tests{@link UserInfo#getName()}.
      */
     @Test
-    public void testGetName()
+    void testName1()
     {
         UserInfo userInfo = new UserInfo(sessionUser);
-
         userInfo.setName("");
         assertEquals("", userInfo.getName());
+    }
 
-        userInfo.setName("user");
-        assertEquals("user", userInfo.getName());
+    /**
+     * Tests{@link UserInfo#getName()}.
+     */
+    @Test
+    void testName2()
+    {
+        UserInfo userInfo = new UserInfo(sessionUser);
+        userInfo.setName("name");
+        assertEquals("name", userInfo.getName());
     }
 
     /**
      * Tests {@link UserInfo#lookUp lookUp}.
      */
-    @Ignore("Faces runtime is required")
+    @Disabled("Faces runtime is required")
     @Test
-    public void testLookUp()
+    void testLookUp()
     {
         UserInfo userInfo = new UserInfo(sessionUser);
         Object outcome;
@@ -101,13 +108,13 @@ public final class UserInfoTest
         outcome = userInfo.lookUp();
         assertNull(outcome);
         assertNull(userInfo.getUser());
-        assertFalse(userInfo.isFound());
+        assertEquals(false, userInfo.isFound());
 
         userInfo.setName("kazssym");
         outcome = userInfo.lookUp();
         assertNull(outcome);
         assertNotNull(userInfo.getUser());
-        assertTrue(userInfo.isFound());
+        assertEquals(true, userInfo.isFound());
         assertEquals("kazssym", userInfo.getUser().getUsername());
     }
 }

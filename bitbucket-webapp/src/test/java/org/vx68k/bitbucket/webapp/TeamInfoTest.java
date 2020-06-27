@@ -20,16 +20,13 @@
 
 package org.vx68k.bitbucket.webapp;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.vx68k.bitbucket.client.BitbucketClient;
 
 /**
@@ -37,18 +34,18 @@ import org.vx68k.bitbucket.client.BitbucketClient;
  *
  * @author Kaz Nishimura
  */
-public final class TeamInfoTest
+final class TeamInfoTest
 {
     /**
      * {@link SessionUser} object for each test.
      */
-    private SessionUser sessionUser = null;
+    private SessionUser sessionUser;
 
     /**
      * Sets up each test.
      */
-    @Before
-    public void setUp()
+    @BeforeEach
+    void setUp()
     {
         sessionUser = new SessionUser(new BitbucketClient());
     }
@@ -56,43 +53,50 @@ public final class TeamInfoTest
     /**
      * Tears down each test.
      */
-    @After
-    public void tearDown()
+    @AfterEach
+    void tearDown()
     {
         sessionUser = null;
     }
 
     /**
-     * Tests {@link TeamInfo#getSessionUser getSessionUser}.
+     * Tests {@link TeamInfo#getSessionUser()}.
      */
     @Test
-    public void testGetSessionUser()
+    void testSessionUser1()
     {
         TeamInfo teamInfo = new TeamInfo(sessionUser);
         assertEquals(sessionUser, teamInfo.getSessionUser());
     }
 
     /**
-     * Tests{@link TeamInfo#getName getName}.
+     * Tests{@link TeamInfo#getName()}.
      */
     @Test
-    public void testGetName()
+    void testName1()
     {
         TeamInfo teamInfo = new TeamInfo(sessionUser);
-
         teamInfo.setName("");
         assertEquals("", teamInfo.getName());
+    }
 
-        teamInfo.setName("user");
-        assertEquals("user", teamInfo.getName());
+    /**
+     * Tests{@link TeamInfo#getName()}.
+     */
+    @Test
+    void testName2()
+    {
+        TeamInfo teamInfo = new TeamInfo(sessionUser);
+        teamInfo.setName("name");
+        assertEquals("name", teamInfo.getName());
     }
 
     /**
      * Tests {@link TeamInfo#lookUp lookUp}.
      */
-    @Ignore("Faces runtime is required")
+    @Disabled("Faces runtime is required")
     @Test
-    public void testLookUp()
+    void testLookUp()
     {
         TeamInfo teamInfo = new TeamInfo(sessionUser);
         Object outcome;
@@ -101,13 +105,13 @@ public final class TeamInfoTest
         outcome = teamInfo.lookUp();
         assertNull(outcome);
         assertNull(teamInfo.getTeam());
-        assertFalse(teamInfo.isFound());
+        assertEquals(false, teamInfo.isFound());
 
         teamInfo.setName("vx68k");
         outcome = teamInfo.lookUp();
         assertNull(outcome);
         assertNotNull(teamInfo.getTeam());
-        assertTrue(teamInfo.isFound());
+        assertEquals(true, teamInfo.isFound());
         assertEquals("kazssym", teamInfo.getTeam().getUsername());
     }
 }
