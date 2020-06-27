@@ -42,18 +42,18 @@
     warnClass="app-message-warn" infoClass="app-message-info" />
 
 <ui:fragment rendered="#{teamInfo.found}">
-<h2>Properties</h2>
+<h2>Team account #{teamInfo.team}</h2>
 <table class="pure-table">
 <thead>
 <tr>
-<th>Name</th>
+<th>Property</th>
 <th>Value</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>uuid</td>
-<td>{#{teamInfo.team.uuid}}</td>
+<td>#{teamInfo.team.uuid}</td>
 </tr>
 <tr>
 <td>name</td>

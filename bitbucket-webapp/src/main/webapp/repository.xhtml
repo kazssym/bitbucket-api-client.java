@@ -53,18 +53,18 @@
     warnClass="app-message-warn" infoClass="app-message-info" />
 
 <ui:fragment rendered="#{repositoryInfo.found}">
-<h2>Properties</h2>
+<h2>Repository #{repositoryInfo.repository}</h2>
 <table class="pure-table">
 <thead>
 <tr>
-<th>Name</th>
+<th>Property</th>
 <th>Value</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>uuid</td>
-<td>{#{repositoryInfo.repository.uuid}}</td>
+<td>#{repositoryInfo.repository.uuid}</td>
 </tr>
 <tr>
 <td>owner</td>
