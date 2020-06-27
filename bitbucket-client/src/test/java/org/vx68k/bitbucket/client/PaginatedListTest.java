@@ -20,10 +20,11 @@
 
 package org.vx68k.bitbucket.client;
 
-import static org.junit.Assert.assertTrue;
-
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.List;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vx68k.bitbucket.BitbucketIssue;
 import org.vx68k.bitbucket.client.internal.ClientIssue;
 
@@ -32,24 +33,37 @@ import org.vx68k.bitbucket.client.internal.ClientIssue;
  *
  * @author Kaz Nishimura
  */
-public class PaginatedListTest
+class PaginatedListTest
 {
     /**
      * Test resource.
      */
     private static final String ENDPOINT_URI =
-        "https://api.bitbucket.org/2.0/"
-            + "repositories/vx68k/bitbucket-api-client.java/issues";
+        "https://api.bitbucket.org/"
+            + "2.0/repositories/vx68k/bitbucket-api-client.java/issues";
+
+    private BitbucketClient bitbucketClient;
+
+    @BeforeEach
+    void setUp()
+    {
+        bitbucketClient = new BitbucketClient();
+    }
+
+    @AfterEach
+    void tearDown()
+    {
+        bitbucketClient = null;
+    }
 
     /**
      * Tests {@link PaginatedList#get(int)}.
      */
     @Test
-    public void testGet1()
+    void testGet1()
     {
-        BitbucketClient client = BitbucketClient.getDefaultInstance();
         List<ClientIssue> issues =
-            new PaginatedList<>(client, ENDPOINT_URI, ClientIssue.class);
+            new PaginatedList<>(bitbucketClient, ENDPOINT_URI, ClientIssue.class);
 
         BitbucketIssue issue = issues.get(0);
         assertTrue(issue instanceof ClientIssue);
@@ -59,11 +73,10 @@ public class PaginatedListTest
      * Tests {@link PaginatedList#size()}.
      */
     @Test
-    public void testSize1()
+    void testSize1()
     {
-        BitbucketClient client = BitbucketClient.getDefaultInstance();
         List<ClientIssue> issues =
-            new PaginatedList<>(client, ENDPOINT_URI, ClientIssue.class);
+            new PaginatedList<>(bitbucketClient, ENDPOINT_URI, ClientIssue.class);
 
         assertTrue(issues.size() > 0);
     }

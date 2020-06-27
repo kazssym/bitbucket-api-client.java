@@ -87,11 +87,6 @@ public class BitbucketClient implements Bitbucket, Serializable
         Pattern.compile("^[^/]+/[^/]+$");
 
     /**
-     * Default {@link BitbucketClient} object.
-     */
-    private static BitbucketClient defaultInstance = new BitbucketClient();
-
-    /**
      * OAuth 2.0 authenticator.
      */
     private final OAuth2Authenticator oAuth2Authenticator;
@@ -135,26 +130,6 @@ public class BitbucketClient implements Bitbucket, Serializable
     public static ClientBranch copyBranch(final BitbucketBranch branch)
     {
         return new ClientBranch(branch);
-    }
-
-    /**
-     * Returns the default {@link BitbucketClient} instance.
-     *
-     * @return the default {@link BitbucketClient} instance
-     */
-    public static BitbucketClient getDefaultInstance()
-    {
-        return defaultInstance;
-    }
-
-    /**
-     * Sets the default {@link BitbucketClient} instance.
-     *
-     * @param newValue {@link BitbucketClient} instance
-     */
-    public static void setDefaultInstance(final BitbucketClient newValue)
-    {
-        defaultInstance = newValue;
     }
 
     /**
