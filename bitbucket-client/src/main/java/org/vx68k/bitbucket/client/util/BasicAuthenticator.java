@@ -33,6 +33,8 @@ import javax.ws.rs.core.MultivaluedMap;
  */
 public class BasicAuthenticator extends AbstractAuthenticator
 {
+    private static final long serialVersionUID = 1L;
+
     /**
      * Username.
      */

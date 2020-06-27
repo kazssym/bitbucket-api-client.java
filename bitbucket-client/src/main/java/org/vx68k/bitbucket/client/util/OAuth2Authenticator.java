@@ -42,6 +42,8 @@ import javax.ws.rs.core.MediaType;
  */
 public class OAuth2Authenticator extends BearerAuthenticator
 {
+    private static final long serialVersionUID = 1L;
+
     private static final String ACCESS_TOKEN = "access_token";
 
     private static final String EXPIRES_IN = "expires_in";

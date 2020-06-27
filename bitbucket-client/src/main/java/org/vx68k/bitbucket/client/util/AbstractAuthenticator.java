@@ -20,6 +20,7 @@
 
 package org.vx68k.bitbucket.client.util;
 
+import java.io.Serializable;
 import java.net.URI;
 import javax.ws.rs.client.ClientRequestContext;
 import javax.ws.rs.client.ClientRequestFilter;
@@ -30,8 +31,11 @@ import javax.ws.rs.client.ClientRequestFilter;
  * @author Kaz Nishimura
  * @since 6.0
  */
-public abstract class AbstractAuthenticator implements ClientRequestFilter
+public abstract class AbstractAuthenticator
+    implements ClientRequestFilter, Serializable
 {
+    private static final long serialVersionUID = 1L;
+
     /**
      * Base URI to which authenticated requests shall be sent.
      */

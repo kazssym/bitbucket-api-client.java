@@ -26,6 +26,8 @@ import javax.ws.rs.core.MultivaluedMap;
 
 public class BearerAuthenticator extends AbstractAuthenticator
 {
+    private static final long serialVersionUID = 1L;
+
     /**
      * Access token.
      */
