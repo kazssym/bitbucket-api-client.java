@@ -42,7 +42,7 @@ import javax.ws.rs.core.MediaType;
  */
 public class OAuth2Authenticator extends BearerAuthenticator
 {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     private static final String ACCESS_TOKEN = "access_token";
 
@@ -87,7 +87,7 @@ public class OAuth2Authenticator extends BearerAuthenticator
     /**
      * Token refresh listeners.
      */
-    private final Set<TokenRefreshListener> tokenRefreshListeners =
+    private final transient Set<TokenRefreshListener> tokenRefreshListeners =
         new LinkedHashSet<>();
 
     /**
