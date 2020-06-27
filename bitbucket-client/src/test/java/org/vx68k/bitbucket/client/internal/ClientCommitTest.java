@@ -115,7 +115,7 @@ final class ClientCommitTest
             fail();
         }
         catch (final RuntimeException e) {
-            System.err.println("Caught as expected: " + e.getMessage());
+            System.err.println("Caught as expected: " + e.toString());
         }
         assertNull(commit1);
     }

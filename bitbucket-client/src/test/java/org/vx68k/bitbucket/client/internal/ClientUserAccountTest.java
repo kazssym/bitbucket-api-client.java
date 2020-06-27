@@ -110,7 +110,7 @@ final class ClientUserAccountTest
             fail();
         }
         catch (final RuntimeException exception) {
-            System.err.println("Caught as expected: " + exception.getMessage());
+            System.err.println("Caught as expected: " + exception.toString());
         }
         assertNull(user1);
     }
@@ -128,7 +128,7 @@ final class ClientUserAccountTest
             fail();
         }
         catch (final RuntimeException exception) {
-            System.err.println("Caught as expected: " + exception.getMessage());
+            System.err.println("Caught as expected: " + exception.toString());
         }
         assertNull(user1);
     }
