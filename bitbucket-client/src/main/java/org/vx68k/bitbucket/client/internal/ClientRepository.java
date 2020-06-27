@@ -394,4 +394,14 @@ public class ClientRepository implements BitbucketRepository
         }
         this.mainBranch = mainBranch;
     }
+
+    @Override
+    public final String toString()
+    {
+        if (uuid != null) {
+            return "{" + uuid.toString() + "}";
+        }
+
+        return super.toString();
+    }
 }
