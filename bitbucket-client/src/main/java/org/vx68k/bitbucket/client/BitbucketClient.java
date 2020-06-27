@@ -60,7 +60,7 @@ import org.vx68k.bitbucket.client.util.OAuth2Authenticator;
  */
 public class BitbucketClient implements Bitbucket, Serializable
 {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
 
     /**
      * Base URI of the Bitbucket API.
@@ -91,18 +91,22 @@ public class BitbucketClient implements Bitbucket, Serializable
      */
     private static BitbucketClient defaultInstance = new BitbucketClient();
 
+    /**
+     * OAuth 2.0 authenticator.
+     */
+    private final OAuth2Authenticator oAuth2Authenticator;
+
     private final transient JsonbBuilder jsonbBuilder = JsonbBuilder.newBuilder();
 
     /**
      * {@link ClientBuilder} object created in the constructor.
      * This object is used to build JAX-RS {@link Client} objects.
      */
-    private final transient ClientBuilder clientBuilder = ClientBuilder.newBuilder();
-
-    /**
-     * OAuth 2.0 authenticator.
-     */
-    private final transient OAuth2Authenticator oAuth2Authenticator;
+    private final transient ClientBuilder clientBuilder = ClientBuilder.newBuilder()
+        .register(JsonStructureMessageBodyReader.class)
+        .register(new JsonbMessageBodyReader<ClientUserAccount>(jsonbBuilder))
+        .register(new JsonbMessageBodyReader<ClientTeamAccount>(jsonbBuilder))
+        .register(new JsonbMessageBodyReader<ClientRepository>(jsonbBuilder));
 
     public static ClientUserAccount copyUserAccount(
         final BitbucketUserAccount userAccount)
@@ -161,12 +165,7 @@ public class BitbucketClient implements Bitbucket, Serializable
         this.oAuth2Authenticator =
             new OAuth2Authenticator(API_BASE, TOKEN_ENDPOINT_URI);
 
-        this.clientBuilder
-            .register(JsonStructureMessageBodyReader.class)
-            .register(new JsonbMessageBodyReader<ClientUserAccount>(jsonbBuilder))
-            .register(new JsonbMessageBodyReader<ClientTeamAccount>(jsonbBuilder))
-            .register(new JsonbMessageBodyReader<ClientRepository>(jsonbBuilder))
-            .register(oAuth2Authenticator);
+        clientBuilder.register(oAuth2Authenticator);
     }
 
     public final JsonbBuilder getJsonbBuilder()
