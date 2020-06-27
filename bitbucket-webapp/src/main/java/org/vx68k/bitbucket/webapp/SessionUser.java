@@ -178,11 +178,19 @@ public class SessionUser implements Serializable
         String scheme = externalContext.getRequestScheme();
         String serverName = externalContext.getRequestServerName();
         int serverPort = externalContext.getRequestServerPort();
-        if (scheme.equals("http") && serverPort == DEFAULT_HTTP_PORT) {
-            serverPort = -1;
-        }
-        else if (scheme.equals("https") && serverPort == DEFAULT_HTTPS_PORT) {
-            serverPort = -1;
+        switch (serverPort) {
+        case DEFAULT_HTTP_PORT:
+            if (scheme.equals("http")) {
+                serverPort = -1;
+            }
+            break;
+        case DEFAULT_HTTPS_PORT:
+            if (scheme.equals("https")) {
+                serverPort = -1;
+            }
+            break;
+        default:
+            break;
         }
         try {
             return new URI(
