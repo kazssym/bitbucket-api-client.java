@@ -27,6 +27,7 @@ import java.util.List;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.bind.Jsonb;
+import javax.json.bind.JsonbBuilder;
 
 /**
  * Paginated list on Bitbucket Cloud.
@@ -54,6 +55,8 @@ public class PaginatedList<T> extends AbstractList<T>
      */
     private final Class<T> type;
 
+    private final JsonbBuilder jsonbBuilder;
+
     /**
      * List of the known values.
      */
@@ -78,6 +81,7 @@ public class PaginatedList<T> extends AbstractList<T>
         this.bitbucketClient = bitbucketClient;
         this.nextPageUri = nextPageUri;
         this.type = type;
+        this.jsonbBuilder = JsonbBuilder.newBuilder();
     }
 
     /**
@@ -91,7 +95,7 @@ public class PaginatedList<T> extends AbstractList<T>
             knownSize = json.getInt("size", -1);
         }
 
-        try (Jsonb jsonb = bitbucketClient.getJsonbBuilder().build()) {
+        try (Jsonb jsonb = jsonbBuilder.build()) {
             JsonArray values = json.getJsonArray("values");
             values.stream()
                 .map((t) -> jsonb.fromJson(jsonb.toJson(t), type))

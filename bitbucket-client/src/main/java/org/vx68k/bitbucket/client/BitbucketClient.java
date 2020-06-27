@@ -91,17 +91,11 @@ public class BitbucketClient implements Bitbucket, Serializable
      */
     private final OAuth2Authenticator oAuth2Authenticator;
 
-    private final transient JsonbBuilder jsonbBuilder = JsonbBuilder.newBuilder();
-
     /**
      * {@link ClientBuilder} object created in the constructor.
      * This object is used to build JAX-RS {@link Client} objects.
      */
-    private final transient ClientBuilder clientBuilder = ClientBuilder.newBuilder()
-        .register(JsonStructureMessageBodyReader.class)
-        .register(new JsonbMessageBodyReader<ClientUserAccount>(jsonbBuilder))
-        .register(new JsonbMessageBodyReader<ClientTeamAccount>(jsonbBuilder))
-        .register(new JsonbMessageBodyReader<ClientRepository>(jsonbBuilder));
+    private transient ClientBuilder clientBuilder;
 
     public static ClientUserAccount copyUserAccount(
         final BitbucketUserAccount userAccount)
@@ -139,13 +133,6 @@ public class BitbucketClient implements Bitbucket, Serializable
     {
         this.oAuth2Authenticator =
             new OAuth2Authenticator(API_BASE, TOKEN_ENDPOINT_URI);
-
-        clientBuilder.register(oAuth2Authenticator);
-    }
-
-    public final JsonbBuilder getJsonbBuilder()
-    {
-        return jsonbBuilder;
     }
 
     /**
@@ -156,6 +143,22 @@ public class BitbucketClient implements Bitbucket, Serializable
     public final OAuth2Authenticator getOAuth2Authenticator()
     {
         return oAuth2Authenticator;
+    }
+
+    protected final ClientBuilder getClientBuilder()
+    {
+        synchronized (this) {
+            if (clientBuilder == null) {
+                JsonbBuilder jsonbBuilder = JsonbBuilder.newBuilder();
+                clientBuilder = ClientBuilder.newBuilder()
+                    .register(JsonStructureMessageBodyReader.class)
+                    .register(new JsonbMessageBodyReader<ClientUserAccount>(jsonbBuilder))
+                    .register(new JsonbMessageBodyReader<ClientTeamAccount>(jsonbBuilder))
+                    .register(new JsonbMessageBodyReader<ClientRepository>(jsonbBuilder))
+                    .register(oAuth2Authenticator);
+            }
+        }
+        return clientBuilder;
     }
 
     /**
@@ -268,7 +271,7 @@ public class BitbucketClient implements Bitbucket, Serializable
             templateValues = Collections.emptyMap();
         }
 
-        Client client = clientBuilder.build();
+        Client client = getClientBuilder().build();
         try {
             WebTarget target = client.target(base);
             if (path != null) {
@@ -294,7 +297,7 @@ public class BitbucketClient implements Bitbucket, Serializable
      */
     public final JsonObject post(final URI uri, final Entity<?> entity)
     {
-        Client client = clientBuilder.build();
+        Client client = getClientBuilder().build();
         try {
             return client.target(uri).request()
                 .accept(MediaType.APPLICATION_JSON)
