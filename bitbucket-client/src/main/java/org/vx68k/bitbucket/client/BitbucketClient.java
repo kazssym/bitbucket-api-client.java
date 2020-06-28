@@ -405,21 +405,39 @@ public class BitbucketClient implements Bitbucket, Serializable
     }
 
     @Override
-    public final BitbucketPullRequest getPullRequest(BitbucketRepository repo,
-        int id)
+    public final BitbucketPullRequest getPullRequest(final String fullName,
+        final int id)
     {
         throw new UnsupportedOperationException("getPullRequest not implemented yet");
     }
 
     @Override
-    public final BitbucketIssue getIssue(BitbucketRepository repo, int id)
+    public final BitbucketPullRequest getPullRequest(final BitbucketRepository repository,
+        final int id)
     {
-        Map<String, Object> templateValues = new HashMap<>();
-        templateValues.put("fullName", repo.getFullName());
-        templateValues.put("id", id);
+        return getPullRequest(repository.getFullName(), id);
+    }
 
-        return get(null, "/2.0/repositories/{fullName}/issues/{id}",
-            templateValues, ClientIssue.class);
+    @Override
+    public final BitbucketIssue getIssue(final String fullName, final int id)
+    {
+        if (fullName != null
+            && !(REPOSITORY_FULL_NAME_REGEXP.matcher(fullName).matches())) {
+            throw new IllegalArgumentException("Full name is invalid");
+        }
+
+        return get(null,
+            (t) -> t.path("/2.0/repositories/{fullName}/issues/{id}")
+                .resolveTemplate("fullName", fullName)
+                .resolveTemplate("id", id),
+            ClientIssue.class);
+    }
+
+    @Override
+    public final BitbucketIssue getIssue(final BitbucketRepository repository,
+        final int id)
+    {
+        return getIssue(repository.getFullName(), id);
     }
 
     @Override

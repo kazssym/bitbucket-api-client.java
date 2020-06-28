@@ -75,20 +75,38 @@ public interface Bitbucket
     /**
      * Finds a pull request in a repository.
      *
-     * @param repo a repository
+     * @param fullName a full name of a repository
      * @param id a pull request identifier
      * @return the pull request, or {@code null} if not found
      */
-    BitbucketPullRequest getPullRequest(BitbucketRepository repo, int id);
+    BitbucketPullRequest getPullRequest(String fullName, int id);
+
+    /**
+     * Finds a pull request in a repository.
+     *
+     * @param repository a repository
+     * @param id a pull request identifier
+     * @return the pull request, or {@code null} if not found
+     */
+    BitbucketPullRequest getPullRequest(BitbucketRepository repository, int id);
 
     /**
      * Finds an issue in a repository.
      *
-     * @param repo a repository
+     * @param fullName a full name of a repository
      * @param id an issue identifier
      * @return the issue, or {@code null} if not found
      */
-    BitbucketIssue getIssue(BitbucketRepository repo, int id);
+    BitbucketIssue getIssue(String fullName, int id);
+
+    /**
+     * Finds an issue in a repository.
+     *
+     * @param repository a repository
+     * @param id an issue identifier
+     * @return the issue, or {@code null} if not found
+     */
+    BitbucketIssue getIssue(BitbucketRepository repository, int id);
 
     /**
      * Returns a {@link Collection} view of the repositories of an account.
