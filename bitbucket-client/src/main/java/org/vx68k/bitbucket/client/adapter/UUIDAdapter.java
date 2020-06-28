@@ -22,7 +22,6 @@ package org.vx68k.bitbucket.client.adapter;
 
 import java.util.UUID;
 import javax.json.bind.adapter.JsonbAdapter;
-import org.vx68k.bitbucket.client.JsonUtilities;
 
 public class UUIDAdapter implements JsonbAdapter<UUID, String>
 {
@@ -33,8 +32,14 @@ public class UUIDAdapter implements JsonbAdapter<UUID, String>
     }
 
     @Override
-    public final UUID adaptFromJson(final String string)
+    public final UUID adaptFromJson(String string)
     {
-        return JsonUtilities.toUUID(string);
+        if (string != null) {
+            if (string.startsWith("{") && string.endsWith("}")) {
+                string = string.substring(1, string.length() - 1);
+            }
+            return UUID.fromString(string);
+        }
+        return null;
     }
 }
