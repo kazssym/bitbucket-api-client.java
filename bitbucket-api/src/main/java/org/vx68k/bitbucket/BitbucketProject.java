@@ -22,6 +22,8 @@ package org.vx68k.bitbucket;
 
 /**
  * Project on Bitbucket Cloud.
+ * A project groups multiple repositories of an owner and every repository
+ * belongs to a single project.
  *
  * @author Kaz Nishimura
  * @since 6.0
