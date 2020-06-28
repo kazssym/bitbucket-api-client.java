@@ -21,7 +21,6 @@
 package org.vx68k.bitbucket.client;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import org.junit.jupiter.api.Test;
@@ -113,25 +112,17 @@ class BitbucketClientTest
     }
 
     /**
-     * Tests {@link BitbucketClient#getRepository(String, String)}.
+     * Tests {@link BitbucketClient#getRepository(String)}.
      */
     @Test
     void testGetRepository1()
     {
-        BitbucketClient client = new BitbucketClient();
-
-        // Case to be found.
-        BitbucketRepository repository =
-            client.getRepository(REPOSITORY_OWNER_NAME, REPOSITORY_NAME);
-        System.out.println("Got " + repository);
-        assertNotNull(repository.getOwner());
-        assertEquals("vx68k", repository.getOwner().getUsername());
-        assertEquals(REPOSITORY_NAME, repository.getName());
-        assertNotNull(repository.getUuid());
-        assertEquals(
-            "vx68k" + "/" + REPOSITORY_NAME, repository.getFullName());
-        assertEquals("git", repository.getScm());
-        assertFalse(repository.isPrivate());
+        BitbucketClient bitbucket = new BitbucketClient();
+        BitbucketRepository repository1 =
+            bitbucket.getRepository(REPOSITORY_FULL_NAME);
+        System.out.println("Got repository " + repository1);
+        assertEquals(REPOSITORY_NAME, repository1.getName());
+        assertEquals(REPOSITORY_FULL_NAME, repository1.getFullName());
     }
 
     /**
@@ -139,6 +130,20 @@ class BitbucketClientTest
      */
     @Test
     void testGetRepository2()
+    {
+        BitbucketClient bitbucket = new BitbucketClient();
+        BitbucketRepository repository1 =
+            bitbucket.getRepository(REPOSITORY_OWNER_NAME, REPOSITORY_NAME);
+        System.out.println("Got repository " + repository1);
+        assertEquals(REPOSITORY_NAME, repository1.getName());
+        assertEquals(REPOSITORY_FULL_NAME, repository1.getFullName());
+    }
+
+    /**
+     * Tests {@link BitbucketClient#getRepository(String, String)}.
+     */
+    @Test
+    void testGetRepository3()
     {
         BitbucketClient bitbucketClient = new BitbucketClient();
 
@@ -153,8 +158,8 @@ class BitbucketClientTest
     @Test
     void testGetIssue1()
     {
-        BitbucketClient bitbucketClient = new BitbucketClient();
-        BitbucketIssue issue1 = bitbucketClient.getIssue(REPOSITORY_FULL_NAME, 1);
+        BitbucketClient bitbucket = new BitbucketClient();
+        BitbucketIssue issue1 = bitbucket.getIssue(REPOSITORY_FULL_NAME, 1);
         assertNotNull(issue1);
     }
 
@@ -164,8 +169,8 @@ class BitbucketClientTest
     @Test
     void testGetIssue2()
     {
-        BitbucketClient bitbucketClient = new BitbucketClient();
-        BitbucketIssue issue1 = bitbucketClient.getIssue(REPOSITORY_FULL_NAME, 0);
+        BitbucketClient bitbucket = new BitbucketClient();
+        BitbucketIssue issue1 = bitbucket.getIssue(REPOSITORY_FULL_NAME, 0);
         assertNull(issue1);
     }
 }
