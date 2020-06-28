@@ -36,7 +36,7 @@ import javax.servlet.annotation.WebFilter;
  * Filter to process OAuth redirection.
  *
  * @author Kaz Nishimura
- * @since 5.0
+ * @since 6.0
  */
 @WebFilter(urlPatterns = {"/*"})
 public final class OAuthLoginFilter implements Filter, Serializable

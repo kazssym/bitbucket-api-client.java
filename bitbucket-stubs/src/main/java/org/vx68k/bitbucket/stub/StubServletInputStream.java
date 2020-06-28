@@ -30,7 +30,7 @@ import javax.servlet.ServletInputStream;
  * InputStream}.
  *
  * @author Kaz Nishimura
- * @since 5.0
+ * @since 6.0
  */
 public class StubServletInputStream extends ServletInputStream
 {

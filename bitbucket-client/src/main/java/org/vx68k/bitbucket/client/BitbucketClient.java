@@ -56,7 +56,7 @@ import org.vx68k.bitbucket.client.util.OAuth2Authenticator;
  * Bitbucket API client.
  *
  * @author Kaz Nishimura
- * @since 5.0
+ * @since 6.0
  */
 public class BitbucketClient implements Bitbucket, Serializable
 {

@@ -42,7 +42,7 @@ import javax.servlet.ServletResponse;
  * Stub implementation of {@link ServletRequest}.
  *
  * @author Kaz Nishimura
- * @since 5.0
+ * @since 6.0
  */
 public class StubServletRequest implements ServletRequest
 {

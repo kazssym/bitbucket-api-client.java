@@ -30,7 +30,7 @@ import javax.servlet.http.HttpServletResponse;
  * Stub implementation of {@link HttpServletResponse}.
  *
  * @author Kaz Nishimura
- * @since 5.0
+ * @since 6.0
  */
 public class StubHttpServletResponse extends StubServletResponse
     implements HttpServletResponse

@@ -26,7 +26,7 @@ import org.vx68k.bitbucket.client.BitbucketClient;
  * Abstract super-object for commands.
  *
  * @author Kaz Nishimura
- * @since 5.0
+ * @since 6.0
  */
 public abstract class AbstractCommand implements Command
 {

@@ -24,7 +24,7 @@ package org.vx68k.bitbucket.cli;
  * General runtime exception for this package.
  *
  * @author Kaz Nishimura
- * @since 5.0
+ * @since 6.0
  */
 public class CLIException extends RuntimeException
 {

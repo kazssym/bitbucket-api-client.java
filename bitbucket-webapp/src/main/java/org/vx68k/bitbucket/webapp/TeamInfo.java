@@ -36,7 +36,7 @@ import org.vx68k.bitbucket.client.BitbucketClient;
  * Request-scoped bean to look up a team name on Bitbucket Cloud.
  *
  * @author Kaz Nishimura
- * @since 5.0
+ * @since 6.0
  */
 @SuppressWarnings({"designForExtension"})
 @Named

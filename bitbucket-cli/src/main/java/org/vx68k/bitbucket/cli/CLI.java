@@ -26,7 +26,7 @@ import org.vx68k.bitbucket.client.BitbucketClient;
  * Main class of the CLI.
  *
  * @author Kaz Nishimura
- * @since 5.0
+ * @since 6.0
  */
 public class CLI extends CommandGroup
 {

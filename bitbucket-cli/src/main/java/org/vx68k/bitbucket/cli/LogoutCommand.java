@@ -26,7 +26,7 @@ import org.vx68k.bitbucket.client.BitbucketClient;
  * {@code logout} command.
  *
  * @author Kaz Nishimura
- * @since 5.0
+ * @since 6.0
  */
 public final class LogoutCommand extends AbstractCommand
 {

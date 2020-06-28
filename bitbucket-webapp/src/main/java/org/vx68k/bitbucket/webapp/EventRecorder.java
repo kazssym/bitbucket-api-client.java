@@ -56,7 +56,7 @@ import org.vx68k.bitbucket.webhook.BitbucketWebhookEvent;
  * Application-scoped bean to record Bitbucket events.
  *
  * @author Kaz Nishimura
- * @since 5.0
+ * @since 6.0
  */
 @SuppressWarnings({"designForExtension"})
 @Path("events")

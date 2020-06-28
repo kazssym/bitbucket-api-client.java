@@ -24,7 +24,7 @@ package org.vx68k.bitbucket.cli;
  * Interface for commands.
  *
  * @author Kaz Nishimura
- * @since 5.0
+ * @since 6.0
  */
 public interface Command
 {

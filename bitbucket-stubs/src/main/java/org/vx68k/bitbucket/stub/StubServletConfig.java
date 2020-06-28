@@ -28,7 +28,7 @@ import javax.servlet.ServletContext;
  * Stub implementation of {@link ServletConfig}.
  *
  * @author Kaz Nishimura
- * @since 5.0
+ * @since 6.0
  */
 public class StubServletConfig implements ServletConfig
 {

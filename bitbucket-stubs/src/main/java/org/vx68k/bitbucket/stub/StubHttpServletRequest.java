@@ -38,7 +38,7 @@ import javax.servlet.http.Part;
  * Stub implementation of {@link HttpServletRequest}.
  *
  * @author Kaz Nishimura
- * @since 5.0
+ * @since 6.0
  */
 public class StubHttpServletRequest extends StubServletRequest
     implements HttpServletRequest
