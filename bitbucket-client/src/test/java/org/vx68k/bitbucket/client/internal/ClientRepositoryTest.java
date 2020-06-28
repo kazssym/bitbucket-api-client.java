@@ -22,10 +22,12 @@ package org.vx68k.bitbucket.client.internal;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.fail;
 import java.io.InputStream;
 import java.util.UUID;
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
+import javax.json.bind.JsonbException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
@@ -72,7 +74,7 @@ final class ClientRepositoryTest
     {
         String string1 = "{}";
         ClientRepository repository1 = jsonb.fromJson(string1, ClientRepository.class);
-        assertEquals("repository", repository1.getType());
+        assertNull(repository1.getType());
     }
 
     /**
@@ -93,8 +95,15 @@ final class ClientRepositoryTest
     void testType3()
     {
         String string1 = "{\"type\":\"other\"}";
-        ClientRepository repository1 = jsonb.fromJson(string1, ClientRepository.class);
-        assertEquals("repository", repository1.getType());
+        ClientRepository repository1 = null;
+        try {
+            repository1 = jsonb.fromJson(string1, ClientRepository.class);
+            fail();
+        }
+        catch (final JsonbException e) {
+            System.err.println("Caught as expected: " + e.toString());
+        }
+        assertNull(repository1);
     }
 
     /**

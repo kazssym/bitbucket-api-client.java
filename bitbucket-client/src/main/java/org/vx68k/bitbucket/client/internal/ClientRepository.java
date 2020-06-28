@@ -40,6 +40,8 @@ import org.vx68k.bitbucket.client.adapter.UUIDAdapter;
  */
 public class ClientRepository implements BitbucketRepository
 {
+    private String type;
+
     private UUID uuid;
 
     private String name;
@@ -86,6 +88,7 @@ public class ClientRepository implements BitbucketRepository
 
     public ClientRepository(final BitbucketRepository other)
     {
+        this.type = "repository";
         this.uuid = other.getUuid();
         this.name = other.getName();
         this.fullName = other.getFullName();
@@ -110,9 +113,22 @@ public class ClientRepository implements BitbucketRepository
         this.mainBranch = otherMainBranch;
     }
 
+    /**
+     * Returns the type of the repository.
+     *
+     * @return the type of the repository
+     */
     public final String getType()
     {
-        return "repository";
+        return type;
+    }
+
+    public final void setType(final String type)
+    {
+        if (type != null && !(type.equals("repository"))) {
+            throw new IllegalArgumentException("Type is not of repository object");
+        }
+        this.type = type;
     }
 
     /**
