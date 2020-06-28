@@ -26,6 +26,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
 import javax.json.JsonObject;
 import javax.json.bind.JsonbBuilder;
@@ -277,6 +278,39 @@ public class BitbucketClient implements Bitbucket, Serializable
             if (path != null) {
                 target = target.path(path);
                 target = target.resolveTemplates(templateValues);
+            }
+            return target.request(mediaTypes).get(runtimeType);
+        }
+        catch (NotFoundException exception) {
+            return null;
+        }
+        finally {
+            client.close();
+        }
+    }
+
+    /**
+     * Gets a resource from a REST API.
+     *
+     * @param <T> the return type
+     * @param base a base URI, or {@code null} for the Bitbucket Cloud REST API
+     * @param modifier a function modifies the {@link WebTarget} instance
+     * @param runtimeType the type of the resource to be returned
+     * @param mediaTypes acceptable MIME media types
+     * @return a received resource, or {@code null} not found
+     */
+    public final <T> T get(URI base, final UnaryOperator<WebTarget> modifier,
+        final Class<T> runtimeType, final MediaType... mediaTypes)
+    {
+        if (base == null) {
+            base = API_BASE;
+        }
+
+        Client client = getClientBuilder().build();
+        try {
+            WebTarget target = client.target(base);
+            if (modifier != null) {
+                target = modifier.apply(target);
             }
             return target.request(mediaTypes).get(runtimeType);
         }
