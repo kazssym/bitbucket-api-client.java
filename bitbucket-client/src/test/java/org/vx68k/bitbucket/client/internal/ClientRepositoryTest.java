@@ -97,7 +97,7 @@ final class ClientRepositoryTest
      * Tests {@link ClientRepository#getSCM}.
      */
     @Test
-    public void testGetSCM()
+    void testGetSCM()
     {
         // JsonObject repositoryObject1 = Json.createObjectBuilder()
         //     .add("type", "repository").add("scm", "git").build();
