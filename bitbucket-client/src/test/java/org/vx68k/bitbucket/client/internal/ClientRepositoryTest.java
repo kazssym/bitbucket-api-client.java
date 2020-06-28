@@ -21,11 +21,14 @@
 package org.vx68k.bitbucket.client.internal;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import java.io.InputStream;
+import java.util.UUID;
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -36,6 +39,9 @@ import org.junit.jupiter.api.Test;
  */
 final class ClientRepositoryTest
 {
+    private static final UUID SAMPLE1_UUID =
+        UUID.fromString("da0453e5-4546-445a-adde-95e3a505e875");
+
     private Jsonb jsonb;
 
     private InputStream sample1;
@@ -64,8 +70,6 @@ final class ClientRepositoryTest
     @Test
     void testType1()
     {
-        // The type is always "repository".
-
         String string1 = "{}";
         ClientRepository repository1 = jsonb.fromJson(string1, ClientRepository.class);
         assertEquals("repository", repository1.getType());
@@ -94,8 +98,41 @@ final class ClientRepositoryTest
     }
 
     /**
+     * Tests {@link ClientRepository#getUuid()}.
+     */
+    @Test
+    void testUuid1()
+    {
+        String string1 = "{\"type\":\"repository\"}";
+        ClientRepository repository1 = jsonb.fromJson(string1, ClientRepository.class);
+        assertNull(repository1.getUuid());
+    }
+
+    /**
+     * Tests {@link ClientRepository#getUuid()}.
+     */
+    @Test
+    void testUuid2()
+    {
+        String string1 = "{\"type\":\"repository\",\"uuid\":\"{01234567-89ab-cdef-0123-456789abcdef}\"}";
+        ClientRepository repository1 = jsonb.fromJson(string1, ClientRepository.class);
+        assertEquals(UUID.fromString("01234567-89ab-cdef-0123-456789abcdef"), repository1.getUuid());
+    }
+
+    /**
+     * Tests {@link ClientRepository#getUuid()}.
+     */
+    @Test
+    void testUuid3()
+    {
+        ClientRepository repository1 = jsonb.fromJson(sample1, ClientRepository.class);
+        assertEquals(SAMPLE1_UUID, repository1.getUuid());
+    }
+
+    /**
      * Tests {@link ClientRepository#getSCM}.
      */
+    @Disabled("Need rewrite")
     @Test
     void testGetSCM()
     {
