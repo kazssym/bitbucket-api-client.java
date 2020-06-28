@@ -26,6 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import org.junit.jupiter.api.Test;
 import org.vx68k.bitbucket.BitbucketAccount;
+import org.vx68k.bitbucket.BitbucketIssue;
 import org.vx68k.bitbucket.BitbucketRepository;
 import org.vx68k.bitbucket.BitbucketUserAccount;
 
@@ -53,6 +54,9 @@ class BitbucketClientTest
      * Repository name for tests.
      */
     private static final String REPOSITORY_NAME = "bitbucket-api-client.java";
+
+    private static final String REPOSITORY_FULL_NAME =
+        REPOSITORY_OWNER_NAME + "/" + REPOSITORY_NAME;
 
     /**
      * Tests {@link BitbucketClient#getUserAccount(String)}.
@@ -141,5 +145,27 @@ class BitbucketClientTest
         BitbucketRepository repository1 =
             bitbucketClient.getRepository(REPOSITORY_OWNER_NAME, "non-existent");
         assertNull(repository1);
+    }
+
+    /**
+     * Tests {@link BitbucketClient#getIssue(String, int)}.
+     */
+    @Test
+    void testGetIssue1()
+    {
+        BitbucketClient bitbucketClient = new BitbucketClient();
+        BitbucketIssue issue1 = bitbucketClient.getIssue(REPOSITORY_FULL_NAME, 1);
+        assertNotNull(issue1);
+    }
+
+    /**
+     * Tests {@link BitbucketClient#getIssue(String, int)}.
+     */
+    @Test
+    void testGetIssue2()
+    {
+        BitbucketClient bitbucketClient = new BitbucketClient();
+        BitbucketIssue issue1 = bitbucketClient.getIssue(REPOSITORY_FULL_NAME, 0);
+        assertNull(issue1);
     }
 }
