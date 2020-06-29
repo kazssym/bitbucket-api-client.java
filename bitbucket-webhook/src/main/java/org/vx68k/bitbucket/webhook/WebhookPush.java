@@ -56,7 +56,10 @@ public class WebhookPush
      */
     public final Change[] getChanges()
     {
-        return Arrays.copyOf(changes, changes.length);
+        if (changes != null) {
+            return Arrays.copyOf(changes, changes.length);
+        }
+        return null;
     }
 
     public final void setChanges(Change[] changes)
@@ -205,7 +208,10 @@ public class WebhookPush
          */
         public final BitbucketCommit[] getCommits()
         {
-            return Arrays.copyOf(commits, commits.length);
+            if (commits != null) {
+                return Arrays.copyOf(commits, commits.length);
+            }
+            return null;
         }
 
         public final void setCommits(BitbucketCommit[] commits)
