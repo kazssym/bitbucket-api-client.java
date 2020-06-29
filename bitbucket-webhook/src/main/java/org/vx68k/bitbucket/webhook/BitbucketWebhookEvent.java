@@ -24,7 +24,6 @@ import javax.json.bind.annotation.JsonbTypeAdapter;
 
 import org.vx68k.bitbucket.BitbucketRepository;
 import org.vx68k.bitbucket.BitbucketUserAccount;
-import org.vx68k.bitbucket.client.BitbucketClient;
 import org.vx68k.bitbucket.client.adapter.BitbucketRepositoryAdapter;
 import org.vx68k.bitbucket.client.adapter.BitbucketUserAccountAdapter;
 
@@ -40,7 +39,7 @@ public class BitbucketWebhookEvent
 
     private BitbucketUserAccount actor;
 
-    private WebhookPush push;
+    private BitbucketWebhookPush push;
 
     /**
      * Constructs a webhook event.
@@ -57,23 +56,9 @@ public class BitbucketWebhookEvent
      */
     public BitbucketWebhookEvent(final BitbucketWebhookEvent other)
     {
-        BitbucketRepository otherRepository = other.getRepository();
-        if (otherRepository != null) {
-            otherRepository = BitbucketClient.copyRepository(otherRepository);
-        }
-        this.repository = otherRepository;
-
-        BitbucketUserAccount otherActor = other.getActor();
-        if (otherActor != null) {
-            otherActor = BitbucketClient.copyUserAccount(otherActor);
-        }
-        this.actor = otherActor;
-
-        WebhookPush otherPush = other.getPush();
-        if (otherPush != null) {
-            otherPush = new WebhookPush(otherPush);
-        }
-        this.push = otherPush;
+        setRepository(other.repository);
+        setActor(other.actor);
+        setPush(other.push);
     }
 
     /**
@@ -89,9 +74,6 @@ public class BitbucketWebhookEvent
 
     public final void setRepository(BitbucketRepository repository)
     {
-        if (repository != null) {
-            repository = BitbucketClient.copyRepository(repository);
-        }
         this.repository = repository;
     }
 
@@ -108,9 +90,6 @@ public class BitbucketWebhookEvent
 
     public final void setActor(BitbucketUserAccount actor)
     {
-        if (actor != null) {
-            actor = BitbucketClient.copyUserAccount(actor);
-        }
         this.actor = actor;
     }
 
@@ -119,13 +98,13 @@ public class BitbucketWebhookEvent
      *
      * @return the push description
      */
-    public final WebhookPush getPush()
+    public final BitbucketWebhookPush getPush()
     {
         return push;
     }
 
-    public final void setPush(final WebhookPush push)
+    public final void setPush(final BitbucketWebhookPush push)
     {
-        this.push = new WebhookPush(push);
+        this.push = push;
     }
 }
