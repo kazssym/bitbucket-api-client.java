@@ -39,12 +39,10 @@ import javax.ws.rs.core.Form;
 import javax.ws.rs.core.MediaType;
 import org.vx68k.bitbucket.Bitbucket;
 import org.vx68k.bitbucket.BitbucketAccount;
-import org.vx68k.bitbucket.BitbucketBranch;
 import org.vx68k.bitbucket.BitbucketIssue;
 import org.vx68k.bitbucket.BitbucketPullRequest;
 import org.vx68k.bitbucket.BitbucketRepository;
 import org.vx68k.bitbucket.BitbucketUserAccount;
-import org.vx68k.bitbucket.client.internal.ClientBranch;
 import org.vx68k.bitbucket.client.internal.ClientIssue;
 import org.vx68k.bitbucket.client.internal.ClientRepository;
 import org.vx68k.bitbucket.client.internal.ClientTeamAccount;
@@ -97,35 +95,6 @@ public class BitbucketClient implements Bitbucket, Serializable
      * This object is used to build JAX-RS {@link Client} objects.
      */
     private transient ClientBuilder clientBuilder;
-
-    public static ClientUserAccount copyUserAccount(
-        final BitbucketUserAccount userAccount)
-    {
-        if (userAccount != null) {
-            return new ClientUserAccount(userAccount);
-        }
-        return null;
-    }
-
-    public static ClientRepository copyRepository(
-        final BitbucketRepository repository)
-    {
-        if (repository != null) {
-            return new ClientRepository((ClientRepository)repository);
-        }
-        return null;
-    }
-
-    /**
-     * Copies a branch object.
-     *
-     * @param branch a branch object to copy
-     * @return a new branch object
-     */
-    public static BitbucketBranch copyBranch(final BitbucketBranch branch)
-    {
-        return new ClientBranch((ClientBranch)branch);
-    }
 
     /**
      * Constructs a runtime object with a new {@link ClientBuilder} object.
