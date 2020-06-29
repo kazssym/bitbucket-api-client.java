@@ -36,10 +36,7 @@ public class BitbucketBranchAdapter
     @Override
     public final ClientBranch adaptToJson(final BitbucketBranch branch)
     {
-        if (branch instanceof ClientBranch) {
-            return (ClientBranch) branch;
-        }
-        return new ClientBranch(branch);
+        return (ClientBranch)branch;
     }
 
     @Override
