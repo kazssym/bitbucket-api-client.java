@@ -20,16 +20,15 @@
 
 package org.vx68k.bitbucket.webhook;
 
-import static org.junit.Assert.assertNotEquals;
-
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import java.io.IOException;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.vx68k.bitbucket.stub.StubHttpServletRequest;
 import org.vx68k.bitbucket.stub.StubHttpServletResponse;
 import org.vx68k.bitbucket.stub.StubServletConfig;
@@ -39,7 +38,7 @@ import org.vx68k.bitbucket.stub.StubServletConfig;
  *
  * @author Kaz Nishimura
  */
-public final class BitbucketWebhookServletTest
+final class BitbucketWebhookServletTest
 {
     /**
      * {@link ServletConfig} object for testing.
@@ -49,8 +48,8 @@ public final class BitbucketWebhookServletTest
     /**
      * Prepares the {@link ServletConfig} object for testing.
      */
-    @Before
-    public void setUp()
+    @BeforeEach
+    void setUp()
     {
         servletConfig = new StubServletConfig(null);
     }
@@ -58,8 +57,8 @@ public final class BitbucketWebhookServletTest
     /**
      * Releases the {@link ServletConfig} object.
      */
-    @After
-    public void tearDown()
+    @AfterEach
+    void tearDown()
     {
         servletConfig = null;
     }
@@ -71,7 +70,7 @@ public final class BitbucketWebhookServletTest
      * @throws ServletException if a servlet error occurred
      */
     @Test
-    public void testLifecycle() throws ServletException
+    void testLifecycle() throws ServletException
     {
         HttpServlet servlet = new BitbucketWebhookServlet(null);
         servlet.init(servletConfig);
@@ -85,7 +84,7 @@ public final class BitbucketWebhookServletTest
      * @exception IOException if an I/O error occurred
      */
     @Test
-    public void testGet() throws ServletException, IOException
+    void testGet() throws ServletException, IOException
     {
         HttpServlet servlet = new BitbucketWebhookServlet(null);
         servlet.init(servletConfig);
@@ -110,7 +109,7 @@ public final class BitbucketWebhookServletTest
      * @exception IOException if an I/O error occurred
      */
     @Test
-    public void testHead() throws ServletException, IOException
+    void testHead() throws ServletException, IOException
     {
         HttpServlet servlet = new BitbucketWebhookServlet(null);
         servlet.init(servletConfig);

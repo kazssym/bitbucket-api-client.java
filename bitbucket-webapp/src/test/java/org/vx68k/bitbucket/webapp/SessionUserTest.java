@@ -20,8 +20,8 @@
 
 package org.vx68k.bitbucket.webapp;
 
-import static org.junit.Assert.assertFalse;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import org.junit.jupiter.api.Test;
 import org.vx68k.bitbucket.client.BitbucketClient;
 
 /**
@@ -29,13 +29,13 @@ import org.vx68k.bitbucket.client.BitbucketClient;
  *
  * @author Kaz Nishimura
  */
-public final class SessionUserTest
+final class SessionUserTest
 {
     /**
      * Tests the default constructor.
      */
     @Test
-    public void testDefault()
+    void testDefault()
     {
         SessionUser sessionUser = new SessionUser(new BitbucketClient());
         assertFalse(sessionUser.isLoggedIn());

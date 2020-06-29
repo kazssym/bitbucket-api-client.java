@@ -34,7 +34,7 @@ import org.junit.jupiter.api.Test;
  * @author Kaz Nishimura
  * @since 6.0
  */
-public final class BitbucketWebhookEventTest
+final class BitbucketWebhookEventTest
 {
     private Jsonb jsonb;
 
@@ -55,7 +55,7 @@ public final class BitbucketWebhookEventTest
      * Tests {@link BitbucketWebhookEvent#getRepository()}.
      */
     @Test
-    public void testRepository1()
+    void testRepository1()
     {
         String string1 = "{}";
         BitbucketWebhookEvent event1 = jsonb.fromJson(string1, BitbucketWebhookEvent.class);
@@ -66,7 +66,7 @@ public final class BitbucketWebhookEventTest
      * Tests {@link BitbucketWebhookEvent#getRepository()}.
      */
     @Test
-    public void testRepository2()
+    void testRepository2()
     {
         String string1 = "{\"repository\":{}}";
         BitbucketWebhookEvent event1 = jsonb.fromJson(string1, BitbucketWebhookEvent.class);
@@ -77,7 +77,7 @@ public final class BitbucketWebhookEventTest
      * Tests {@link BitbucketWebhookEvent#getActor()}.
      */
     @Test
-    public void testActor1()
+    void testActor1()
     {
         String string1 = "{}";
         BitbucketWebhookEvent event1 = jsonb.fromJson(string1, BitbucketWebhookEvent.class);
@@ -88,7 +88,7 @@ public final class BitbucketWebhookEventTest
      * Tests {@link BitbucketWebhookEvent#getActor()}.
      */
     @Test
-    public void testActor2()
+    void testActor2()
     {
         String string1 = "{\"actor\":{}}";
         BitbucketWebhookEvent event1 = jsonb.fromJson(string1, BitbucketWebhookEvent.class);
@@ -99,7 +99,7 @@ public final class BitbucketWebhookEventTest
      * Tests {@link BitbucketWebhookEvent#getPush()}.
      */
     @Test
-    public void testPush1()
+    void testPush1()
     {
         String string1 = "{}";
         BitbucketWebhookEvent event1 = jsonb.fromJson(string1, BitbucketWebhookEvent.class);
@@ -110,7 +110,7 @@ public final class BitbucketWebhookEventTest
      * Tests {@link BitbucketWebhookEvent#getPush()}.
      */
     @Test
-    public void testPush2()
+    void testPush2()
     {
         String string1 = "{\"push\":{}}";
         BitbucketWebhookEvent event1 = jsonb.fromJson(string1, BitbucketWebhookEvent.class);
