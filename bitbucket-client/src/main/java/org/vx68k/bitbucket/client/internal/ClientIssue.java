@@ -91,7 +91,7 @@ public class ClientIssue implements BitbucketIssue
         this.votes = other.getVotes();
         this.watches = other.getWatches();
 
-        this.repository = new ClientRepository(other.repository);
+        this.repository = new ClientRepository((ClientRepository)other.repository);
         this.content = new ClientRendered(other.content);
         this.reporter = new ClientUserAccount(other.reporter);
         this.assignee = new ClientUserAccount(other.assignee);

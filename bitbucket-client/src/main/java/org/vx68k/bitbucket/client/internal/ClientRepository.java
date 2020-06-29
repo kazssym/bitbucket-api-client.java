@@ -40,6 +40,8 @@ import org.vx68k.bitbucket.client.adapter.UUIDAdapter;
  */
 public class ClientRepository implements BitbucketRepository
 {
+    private static final String REPOSITORY = "repository";
+
     private String type;
 
     private UUID uuid;
@@ -86,37 +88,27 @@ public class ClientRepository implements BitbucketRepository
         // Nothing to do.
     }
 
-    public ClientRepository(final BitbucketRepository other)
+    public ClientRepository(final ClientRepository other)
     {
-        this.type = "repository";
-        this.uuid = other.getUuid();
-        this.name = other.getName();
-        this.fullName = other.getFullName();
-        this.description = other.getDescription();
-        this.restricted = other.isPrivate();
-        this.forkPolicy = other.getForkPolicy();
-        this.website = other.getWebsite();
-        this.language = other.getLanguage();
-        this.scm = other.getScm();
-        this.created = other.getCreated();
-        this.updated = other.getUpdated();
-        this.size = other.getSize();
-        this.issuesEnabled = other.isIssuesEnabled();
-        this.wikiEnabled = other.isWikiEnabled();
+        this.type = other.type;
+        this.uuid = other.uuid;
+        this.name = other.name;
+        this.fullName = other.fullName;
+        this.description = other.description;
+        this.restricted = other.restricted;
+        this.forkPolicy = other.forkPolicy;
+        this.website = other.website;
+        this.language = other.language;
+        this.scm = other.scm;
+        this.created = other.created;
+        this.updated = other.updated;
+        this.size = other.size;
+        this.issuesEnabled = other.issuesEnabled;
+        this.wikiEnabled = other.wikiEnabled;
 
-        this.owner = other.getOwner(); // TODO: Make a copy.
-
-        BitbucketProject otherProject = other.getProject();
-        if (otherProject != null) {
-            otherProject = new ClientProject((ClientProject)otherProject);
-        }
-        this.project = otherProject;
-
-        BitbucketBranch otherMainBranch = other.getMainBranch();
-        if (otherMainBranch != null) {
-            otherMainBranch = new ClientBranch(otherMainBranch);
-        }
-        this.mainBranch = otherMainBranch;
+        setOwner((ClientAccount)other.owner);
+        setProject((ClientProject)other.project);
+        setMainBranch((ClientBranch)other.mainBranch);
     }
 
     /**
@@ -131,7 +123,7 @@ public class ClientRepository implements BitbucketRepository
 
     public final void setType(final String type)
     {
-        if (type != null && !(type.equals("repository"))) {
+        if (type != null && !(type.equals(REPOSITORY))) {
             throw new IllegalArgumentException("Type is not of repository object");
         }
         this.type = type;
@@ -395,7 +387,7 @@ public class ClientRepository implements BitbucketRepository
         if (owner instanceof ClientUserAccount) {
             owner = new ClientUserAccount((ClientUserAccount)owner);
         }
-        else {
+        else if (owner != null) {
             owner = new ClientTeamAccount((ClientTeamAccount)owner);
         }
         this.owner = owner;

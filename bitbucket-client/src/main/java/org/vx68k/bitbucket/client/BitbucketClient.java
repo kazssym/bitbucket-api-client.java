@@ -111,7 +111,7 @@ public class BitbucketClient implements Bitbucket, Serializable
         final BitbucketRepository repository)
     {
         if (repository != null) {
-            return new ClientRepository(repository);
+            return new ClientRepository((ClientRepository)repository);
         }
         return null;
     }

@@ -39,7 +39,7 @@ public class BitbucketRepositoryAdapter
         if (repository instanceof ClientRepository) {
             return (ClientRepository) repository;
         }
-        return new ClientRepository(repository);
+        return new ClientRepository((ClientRepository)repository);
     }
 
     @Override

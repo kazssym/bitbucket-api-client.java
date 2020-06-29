@@ -75,7 +75,7 @@ public class ClientCommit implements BitbucketCommit
 
         BitbucketRepository otheRepository = other.getRepository();
         if (otheRepository != null) {
-            otheRepository = new ClientRepository(otheRepository);
+            otheRepository = new ClientRepository((ClientRepository)otheRepository);
         }
         this.repository = otheRepository;
 
@@ -149,7 +149,7 @@ public class ClientCommit implements BitbucketCommit
     public final void setRepository(BitbucketRepository repository)
     {
         if (repository != null) {
-            repository = new ClientRepository(repository);
+            repository = new ClientRepository((ClientRepository)repository);
         }
         this.repository = repository;
     }
