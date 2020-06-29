@@ -26,8 +26,8 @@ import org.vx68k.bitbucket.BitbucketBranch;
 import org.vx68k.bitbucket.BitbucketCommit;
 
 /**
- * Client implementation class of {@link BitbucketBranch} for the
- * {@code "branch"}, {@code "named_branch"} and {@code "bookmark"} objects.
+ * Implementation class of {@link BitbucketBranch} for the Bitbucket
+ * Cloud REST API.
  *
  * @author Kaz Nishimura
  * @since 6.0
@@ -36,7 +36,7 @@ public class ClientBranch extends ClientRef implements BitbucketBranch
 {
     public static final String BRANCH = "branch";
 
-    public static final String NAMED_BRANCCH = "named_branch";
+    public static final String NAMED_BRANCH = "named_branch";
 
     public static final String BOOKMARK = "bookmark";
 
@@ -94,7 +94,7 @@ public class ClientBranch extends ClientRef implements BitbucketBranch
     {
         if (type != null
             && !(type.equals(BRANCH)
-                || type.equals(NAMED_BRANCCH)
+                || type.equals(NAMED_BRANCH)
                 || type.equals(BOOKMARK))) {
             throw new IllegalArgumentException("Type is not of branch objects");
         }
