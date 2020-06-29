@@ -402,6 +402,13 @@ public class ClientRepository implements BitbucketRepository
         this.project = project;
     }
 
+    /**
+     * Sets the project of the repository.
+     * This overload provides a hint for the JSON-B runtime to determine the
+     * implementation class.
+     *
+     * @param project a {@link ClientProject} object for the project
+     */
     public final void setProject(final ClientProject project)
     {
         setProject((BitbucketProject)project);
