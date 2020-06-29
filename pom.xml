@@ -8,9 +8,9 @@
 <artifactId>bitbucket-client-parent</artifactId>
 <version>6-SNAPSHOT</version>
 <packaging>pom</packaging>
-<name>Client API for Bitbucket Cloud</name>
-<description>This project builds a client API implementation and a webhook
-implementation for Bitbucket Cloud.</description>
+<name>REST API Client for Bitbucket Cloud (Parent)</name>
+<description>This project builds a REST API client implementation and several
+other artifacts for Bitbucket Cloud.</description>
 <url>https://vx68k.bitbucket.io/bitbucket-api-client.java/5/</url>
 <inceptionYear>2015</inceptionYear>
 
