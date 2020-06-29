@@ -1,5 +1,5 @@
 /*
- * WebhookPush.java
+ * BitbucketWebhookPush.java
  * Copyright (C) 2015-2020 Kaz Nishimura
  *
  * This program is free software: you can redistribute it and/or modify it
@@ -32,19 +32,19 @@ import org.vx68k.bitbucket.client.adapter.BitbucketBranchAdapter;
  * @author Kaz Nishimura
  * @since 6.0
  */
-public class WebhookPush
+public class BitbucketWebhookPush
 {
     private Change[] changes;
 
     /**
      * Constructs a push activity.
      */
-    public WebhookPush()
+    public BitbucketWebhookPush()
     {
         // Nothing to do.
     }
 
-    public WebhookPush(final WebhookPush other)
+    public BitbucketWebhookPush(final BitbucketWebhookPush other)
     {
         setChanges(other.changes);
     }
