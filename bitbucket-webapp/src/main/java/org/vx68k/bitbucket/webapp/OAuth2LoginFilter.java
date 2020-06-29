@@ -44,22 +44,32 @@ public final class OAuth2LoginFilter implements Filter, Serializable
     private static final long serialVersionUID = 1L;
 
     /**
-     * User context given to the constructor.
+     * Session user object.
      */
-    private final SessionUser sessionUser;
+    private SessionUser sessionUser;
 
     /**
-     * {@link FilterConfig} object given to {@link #init init}.
+     * {@link FilterConfig} object given to {@link #init(FilterConfig)}.
      */
     private transient FilterConfig filterConfig = null;
 
     /**
-     * Constructs this object.
+     * Returns the session user object.
      *
-     * @param sessionUser user context
+     * @return the session user object
+     */
+    public final SessionUser getSessionUser()
+    {
+        return sessionUser;
+    }
+
+    /**
+     * Sets the session user object.
+     *
+     * @param sessionUser a session user object
      */
     @Inject
-    public OAuth2LoginFilter(final SessionUser sessionUser)
+    public final void setSessionUser(final SessionUser sessionUser)
     {
         this.sessionUser = sessionUser;
     }
@@ -88,9 +98,9 @@ public final class OAuth2LoginFilter implements Filter, Serializable
      * {@inheritDoc}
      */
     @Override
-    public void init(final FilterConfig config)
+    public void init(final FilterConfig filterConfig)
     {
-        filterConfig = config;
+        this.filterConfig = filterConfig;
     }
 
     /**
@@ -106,11 +116,12 @@ public final class OAuth2LoginFilter implements Filter, Serializable
      * {@inheritDoc}
      */
     @Override
-    public void doFilter(
-        final ServletRequest request, final ServletResponse response,
-        final FilterChain chain) throws ServletException, IOException
+    public void doFilter(final ServletRequest request,
+        final ServletResponse response, final FilterChain chain)
+        throws ServletException, IOException
     {
         ServletContext servletContext = getServletContext();
+
         String state = request.getParameter("state");
         String code = request.getParameter("code");
         if (code != null) {
@@ -126,6 +137,7 @@ public final class OAuth2LoginFilter implements Filter, Serializable
                 sessionUser.abortLogin(errorDescription, state);
             }
         }
+
         chain.doFilter(request, response);
     }
 }
