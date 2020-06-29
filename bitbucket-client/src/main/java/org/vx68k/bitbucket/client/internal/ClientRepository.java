@@ -395,6 +395,7 @@ public class ClientRepository implements BitbucketRepository
         this.owner = owner; // TODO: Make a copy.
     }
 
+    @Override
     public final BitbucketProject getProject()
     {
         return project;
