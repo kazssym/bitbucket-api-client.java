@@ -23,11 +23,9 @@ package org.vx68k.bitbucket.client.internal;
 import java.time.OffsetDateTime;
 import java.util.Arrays;
 import javax.json.bind.annotation.JsonbDateFormat;
-import javax.json.bind.annotation.JsonbTypeAdapter;
 import org.vx68k.bitbucket.BitbucketCommit;
 import org.vx68k.bitbucket.BitbucketRendered;
 import org.vx68k.bitbucket.BitbucketRepository;
-import org.vx68k.bitbucket.client.adapter.BitbucketRepositoryAdapter;
 
 /**
  * Implementation class of {@link BitbucketCommit} for the Bitbucket
@@ -124,7 +122,6 @@ public class ClientCommit implements BitbucketCommit
         this.message = message;
     }
 
-    @JsonbTypeAdapter(BitbucketRepositoryAdapter.class)
     @Override
     public final BitbucketRepository getRepository()
     {
