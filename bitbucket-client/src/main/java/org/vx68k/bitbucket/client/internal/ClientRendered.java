@@ -23,8 +23,8 @@ package org.vx68k.bitbucket.client.internal;
 import org.vx68k.bitbucket.BitbucketRendered;
 
 /**
- * Client implementation class of {@link BitbucketRendered} for the
- * {@code "rendered"} type.
+ * Implementation class of {@link BitbucketRendered} for the Bitbucket
+ * Cloud REST API.
  *
  * @author Kaz Nishimura
  * @since 6.0

@@ -30,8 +30,8 @@ import org.vx68k.bitbucket.client.adapter.LinkMapAdapter;
 import org.vx68k.bitbucket.client.adapter.UUIDAdapter;
 
 /**
- * Implementation class of {@link BitbucketProject} for the Bitbucket Cloud
- * REST API.
+ * Implementation class of {@link BitbucketProject} for the Bitbucket
+ * Cloud REST API.
  *
  * @author Kaz Nishimura
  * @since 6.0

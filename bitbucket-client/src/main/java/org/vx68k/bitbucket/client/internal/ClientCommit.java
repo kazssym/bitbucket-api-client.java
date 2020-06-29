@@ -30,8 +30,8 @@ import org.vx68k.bitbucket.BitbucketRepository;
 import org.vx68k.bitbucket.client.adapter.BitbucketRepositoryAdapter;
 
 /**
- * Client implementation class of {@link BitbucketCommit} for the
- * {@code "commit"} objects.
+ * Implementation class of {@link BitbucketCommit} for the Bitbucket
+ * Cloud REST API.
  *
  * @author Kaz Nishimura
  * @since 6.0
