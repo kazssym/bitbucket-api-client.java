@@ -20,6 +20,8 @@
 
 package org.vx68k.bitbucket;
 
+import java.util.UUID;
+
 /**
  * Project on Bitbucket Cloud.
  * A project groups multiple repositories of an owner and every repository
@@ -30,4 +32,9 @@ package org.vx68k.bitbucket;
  */
 public interface BitbucketProject
 {
+    UUID getUuid();
+
+    String getKey();
+
+    String getName();
 }

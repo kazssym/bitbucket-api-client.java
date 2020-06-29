@@ -20,7 +20,12 @@
 
 package org.vx68k.bitbucket.client.internal;
 
+import java.util.UUID;
+
+import javax.json.bind.annotation.JsonbTypeAdapter;
+
 import org.vx68k.bitbucket.BitbucketProject;
+import org.vx68k.bitbucket.client.adapter.UUIDAdapter;
 
 /**
  * Implementation class of {@link BitbucketProject} for the Bitbucket Cloud
@@ -31,11 +36,72 @@ import org.vx68k.bitbucket.BitbucketProject;
  */
 public class ClientProject implements BitbucketProject
 {
+    private static final String PROJECT = "project";
+
+    private String type = PROJECT;
+
+    private UUID uuid;
+
+    private String key;
+
+    private String name;
+
     public ClientProject()
     {
         // Nothing to do.
     }
 
     public ClientProject(final BitbucketProject other)
-    {}
+    {
+        this.uuid = other.getUuid();
+        this.key = other.getKey();
+        this.name = other.getName();
+    }
+
+    public final String getType()
+    {
+        return type;
+    }
+
+    public final void setType(final String type)
+    {
+        if (type != null && !(type.equals(PROJECT))) {
+            throw new IllegalArgumentException("Type is not of project objects");
+        }
+        this.type = type;
+    }
+
+    @JsonbTypeAdapter(UUIDAdapter.class)
+    @Override
+    public final UUID getUuid()
+    {
+        return uuid;
+    }
+
+    public final void setUuid(final UUID uuid)
+    {
+        this.uuid = uuid;
+    }
+
+    @Override
+    public final String getKey()
+    {
+        return key;
+    }
+
+    public final void setKey(final String key)
+    {
+        this.key = key;
+    }
+
+    @Override
+    public final String getName()
+    {
+        return name;
+    }
+
+    public final void setName(final String name)
+    {
+        this.name = name;
+    }
 }
