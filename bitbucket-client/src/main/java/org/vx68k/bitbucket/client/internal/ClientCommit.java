@@ -143,8 +143,7 @@ public class ClientCommit implements BitbucketCommit
     public final BitbucketCommit[] getParents()
     {
         if (parents != null) {
-            return Arrays.stream(parents)
-                .toArray(BitbucketCommit[]::new);
+            return Arrays.copyOf(parents, parents.length, BitbucketCommit[].class);
         }
         return null;
     }
@@ -152,8 +151,7 @@ public class ClientCommit implements BitbucketCommit
     public void setParents(ClientCommit[] parents)
     {
         if (parents != null) {
-            parents = Arrays.stream(parents)
-                .map(ClientCommit::new)
+            parents = Arrays.stream(parents).map(ClientCommit::new)
                 .toArray(ClientCommit[]::new);
         }
         this.parents = parents;
