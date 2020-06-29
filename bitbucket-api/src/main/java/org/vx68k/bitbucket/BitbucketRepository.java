@@ -109,6 +109,13 @@ public interface BitbucketRepository
     BitbucketAccount getOwner();
 
     /**
+     * Returns the project to which the repository belongs.
+     *
+     * @return the project to which the repository belongs
+     */
+    BitbucketProject getProject();
+
+    /**
      * Returns the main branch of the repository.
      *
      * @return the main branch of the repository
