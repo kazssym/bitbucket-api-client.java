@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html lang="#{view.locale}" xmlns="http://www.w3.org/1999/xhtml" xmlns:jsf="http://xmlns.jcp.org/jsf" xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
 <head jsf:id="head">
 <meta content="text/html;charset=UTF-8" http-equiv="Content-Type" />
 <meta content="width=device-width, initial-scale=1" name="viewport" />
@@ -15,8 +16,6 @@ Client API Example for Bitbucket Cloud
 </head>
 
 <body class="app-vbox" jsf:id="body">
-<f:view>
-<ui:insert name="metadata" />
 
 <header class="app-header">
 <div class="app-hbox">
@@ -80,7 +79,6 @@ Repository information</a>
 <ui:insert name="main" />
 </div>
 </div>
-</f:view>
 
 <script type="module" async="async" jsf:name="app.js"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css"
