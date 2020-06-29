@@ -25,8 +25,8 @@
 </dependency>
 
 <dependency>
-<groupId>javax.ws.rs</groupId>
-<artifactId>javax.ws.rs-api</artifactId>
+<groupId>jakarta.ws.rs</groupId>
+<artifactId>jakarta.ws.rs-api</artifactId>
 </dependency>
 
 <dependency>
@@ -46,14 +46,20 @@
 </dependency>
 
 <dependency>
-<groupId>org.glassfish</groupId>
-<artifactId>javax.json</artifactId>
+<groupId>org.glassfish.jersey.core</groupId>
+<artifactId>jersey-client</artifactId>
 <scope>test</scope>
 </dependency>
 
 <dependency>
-<groupId>org.glassfish.jersey.core</groupId>
-<artifactId>jersey-client</artifactId>
+<groupId>org.glassfish.jersey.inject</groupId>
+<artifactId>jersey-hk2</artifactId>
+<scope>test</scope>
+</dependency>
+
+<dependency>
+<groupId>org.glassfish</groupId>
+<artifactId>javax.json</artifactId>
 <scope>test</scope>
 </dependency>
 

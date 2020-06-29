@@ -80,9 +80,23 @@ other artifacts for Bitbucket Cloud.</description>
 </dependency>
 
 <dependency>
-<groupId>javax.ws.rs</groupId>
-<artifactId>javax.ws.rs-api</artifactId>
-<version>2.1.1</version>
+<groupId>jakarta.ws.rs</groupId>
+<artifactId>jakarta.ws.rs-api</artifactId>
+<version>2.1.6</version>
+</dependency>
+
+<dependency>
+<groupId>org.glassfish.jersey.core</groupId>
+<artifactId>jersey-client</artifactId>
+<version>2.31</version>
+<scope>runtime</scope>
+</dependency>
+
+<dependency>
+<groupId>org.glassfish.jersey.inject</groupId>
+<artifactId>jersey-hk2</artifactId>
+<version>2.31</version>
+<scope>runtime</scope>
 </dependency>
 
 <dependency>
@@ -115,12 +129,6 @@ other artifacts for Bitbucket Cloud.</description>
 <groupId>org.glassfish</groupId>
 <artifactId>javax.servlet</artifactId>
 <version>3.1.1</version>
-</dependency>
-
-<dependency>
-<groupId>org.glassfish.jersey.core</groupId>
-<artifactId>jersey-client</artifactId>
-<version>2.25.1</version>
 </dependency>
 
 <dependency>
