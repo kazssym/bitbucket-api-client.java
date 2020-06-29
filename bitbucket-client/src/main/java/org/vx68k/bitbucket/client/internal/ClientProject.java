@@ -40,7 +40,7 @@ public class ClientProject implements BitbucketProject
 {
     private static final String PROJECT = "project";
 
-    private String type = PROJECT;
+    private String type;
 
     private UUID uuid;
 
