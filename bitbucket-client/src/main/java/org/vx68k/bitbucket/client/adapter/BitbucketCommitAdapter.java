@@ -39,7 +39,7 @@ public class BitbucketCommitAdapter
         if (commit instanceof ClientCommit) {
             return (ClientCommit) commit;
         }
-        return new ClientCommit(commit);
+        return new ClientCommit((ClientCommit)commit);
     }
 
     @Override

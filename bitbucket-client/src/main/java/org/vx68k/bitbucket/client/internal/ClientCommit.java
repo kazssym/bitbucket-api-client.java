@@ -38,6 +38,8 @@ import org.vx68k.bitbucket.client.adapter.BitbucketRepositoryAdapter;
  */
 public class ClientCommit implements BitbucketCommit
 {
+    public static final String COMMIT = "commit";
+
     private String type;
 
     private String hash;
@@ -46,11 +48,11 @@ public class ClientCommit implements BitbucketCommit
 
     private String message;
 
-    private BitbucketRepository repository;
+    private ClientRepository repository;
 
-    private BitbucketCommit[] parents;
+    private ClientCommit[] parents;
 
-    private BitbucketRendered summary;
+    private ClientRendered summary;
 
     /**
      * Constructs a commit.
@@ -65,32 +67,16 @@ public class ClientCommit implements BitbucketCommit
      *
      * @param other another commit
      */
-    public ClientCommit(final BitbucketCommit other)
+    public ClientCommit(final ClientCommit other)
     {
-        this.type = "commit"; // TODO: Right?
-        this.hash = other.getHash();
-        this.date = other.getDate();
-        this.message = other.getMessage();
+        this.type = other.type;
+        this.hash = other.hash;
+        this.date = other.date;
+        this.message = other.message;
 
-        BitbucketRepository otheRepository = other.getRepository();
-        if (otheRepository != null) {
-            otheRepository = new ClientRepository((ClientRepository)otheRepository);
-        }
-        this.repository = otheRepository;
-
-        BitbucketCommit[] otherParents = other.getParents();
-        if (otherParents != null) {
-            otherParents = Arrays.stream(otherParents)
-                .map(ClientCommit::new)
-                .toArray(BitbucketCommit[]::new);
-        }
-        this.parents = otherParents;
-
-        BitbucketRendered otherSummary = other.getSummary();
-        if (otherSummary != null) {
-            otherSummary = new ClientRendered((ClientRendered)otherSummary);
-        }
-        this.summary = otherSummary;
+        setRepository(other.repository);
+        setParents(other.parents);
+        setSummary(other.summary);
     }
 
     public final String getType()
@@ -100,7 +86,7 @@ public class ClientCommit implements BitbucketCommit
 
     public final void setType(final String type)
     {
-        if (type != null && !(type.equals("commit"))) {
+        if (type != null && !(type.equals(COMMIT))) {
             throw new IllegalArgumentException("Type is not of commit objects");
         }
         this.type = type;
@@ -145,10 +131,10 @@ public class ClientCommit implements BitbucketCommit
         return repository;
     }
 
-    public final void setRepository(BitbucketRepository repository)
+    public final void setRepository(ClientRepository repository)
     {
         if (repository != null) {
-            repository = new ClientRepository((ClientRepository)repository);
+            repository = new ClientRepository(repository);
         }
         this.repository = repository;
     }
@@ -156,15 +142,19 @@ public class ClientCommit implements BitbucketCommit
     @Override
     public final BitbucketCommit[] getParents()
     {
-        return parents;
+        if (parents != null) {
+            return Arrays.stream(parents)
+                .toArray(BitbucketCommit[]::new);
+        }
+        return null;
     }
 
-    public void setParents(BitbucketCommit[] parents)
+    public void setParents(ClientCommit[] parents)
     {
         if (parents != null) {
             parents = Arrays.stream(parents)
                 .map(ClientCommit::new)
-                .toArray(BitbucketCommit[]::new);
+                .toArray(ClientCommit[]::new);
         }
         this.parents = parents;
     }
@@ -175,9 +165,12 @@ public class ClientCommit implements BitbucketCommit
         return summary;
     }
 
-    public final void setSummary(final ClientRendered summary)
+    public final void setSummary(ClientRendered summary)
     {
-        this.summary = new ClientRendered(summary);
+        if (summary != null) {
+            summary = new ClientRendered(summary);
+        }
+        this.summary = summary;
     }
 
     public final BitbucketRendered getRendered()

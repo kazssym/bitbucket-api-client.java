@@ -67,6 +67,7 @@ public class ClientBranch extends ClientRef implements BitbucketBranch
         BitbucketCommit[] otherHeads = other.getHeads();
         if (otherHeads != null) {
             otherHeads = Arrays.stream(otherHeads)
+                .map((i) -> (ClientCommit)i)
                 .map(ClientCommit::new)
                 .toArray(BitbucketCommit[]::new);
         }
@@ -143,6 +144,7 @@ public class ClientBranch extends ClientRef implements BitbucketBranch
     {
         if (heads != null) {
             heads = Arrays.stream(heads)
+                .map((i) -> (ClientCommit)i)
                 .map(ClientCommit::new)
                 .toArray(BitbucketCommit[]::new);
         }

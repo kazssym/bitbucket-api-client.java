@@ -56,7 +56,7 @@ public abstract class ClientRef implements BitbucketRepository.Ref
 
         BitbucketCommit otherTarget = other.getTarget();
         if (otherTarget != null) {
-            otherTarget = new ClientCommit(otherTarget);
+            otherTarget = new ClientCommit((ClientCommit)otherTarget);
         }
         this.target = otherTarget;
     }
@@ -90,7 +90,7 @@ public abstract class ClientRef implements BitbucketRepository.Ref
     public final void setTarget(BitbucketCommit target)
     {
         if (target != null) {
-            target = new ClientCommit(target);
+            target = new ClientCommit((ClientCommit)target);
         }
         this.target = target;
     }
