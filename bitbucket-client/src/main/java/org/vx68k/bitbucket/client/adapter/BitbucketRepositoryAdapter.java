@@ -36,10 +36,7 @@ public class BitbucketRepositoryAdapter
     @Override
     public final ClientRepository adaptToJson(final BitbucketRepository repository)
     {
-        if (repository instanceof ClientRepository) {
-            return (ClientRepository) repository;
-        }
-        return new ClientRepository((ClientRepository)repository);
+        return (ClientRepository)repository;
     }
 
     @Override

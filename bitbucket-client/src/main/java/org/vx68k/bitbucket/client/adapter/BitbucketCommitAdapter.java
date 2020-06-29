@@ -36,10 +36,7 @@ public class BitbucketCommitAdapter
     @Override
     public final ClientCommit adaptToJson(final BitbucketCommit commit)
     {
-        if (commit instanceof ClientCommit) {
-            return (ClientCommit) commit;
-        }
-        return new ClientCommit((ClientCommit)commit);
+        return (ClientCommit)commit;
     }
 
     @Override
