@@ -20,11 +20,13 @@
 
 package org.vx68k.bitbucket.client.internal;
 
+import java.net.URI;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
-
 import javax.json.bind.annotation.JsonbTypeAdapter;
-
 import org.vx68k.bitbucket.BitbucketProject;
+import org.vx68k.bitbucket.client.adapter.LinkMapAdapter;
 import org.vx68k.bitbucket.client.adapter.UUIDAdapter;
 
 /**
@@ -46,6 +48,8 @@ public class ClientProject implements BitbucketProject
 
     private String name;
 
+    private Map<String, URI> links;
+
     public ClientProject()
     {
         // Nothing to do.
@@ -56,6 +60,12 @@ public class ClientProject implements BitbucketProject
         this.uuid = other.getUuid();
         this.key = other.getKey();
         this.name = other.getName();
+
+        Map<String, URI> otherLinks = other.getLinks();
+        if (otherLinks != null) {
+            otherLinks = new HashMap<>(otherLinks);
+        }
+        this.links = otherLinks;
     }
 
     public final String getType()
@@ -103,5 +113,20 @@ public class ClientProject implements BitbucketProject
     public final void setName(final String name)
     {
         this.name = name;
+    }
+
+    @JsonbTypeAdapter(LinkMapAdapter.class)
+    @Override
+    public final Map<String, URI> getLinks()
+    {
+        return links;
+    }
+
+    public final void setLinks(Map<String, URI> links)
+    {
+        if (links != null) {
+            links = new HashMap<>(links);
+        }
+        this.links = links;
     }
 }

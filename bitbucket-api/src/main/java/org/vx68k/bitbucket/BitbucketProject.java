@@ -20,6 +20,8 @@
 
 package org.vx68k.bitbucket;
 
+import java.net.URI;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -37,4 +39,6 @@ public interface BitbucketProject
     String getKey();
 
     String getName();
+
+    Map<String, URI> getLinks();
 }
