@@ -9,13 +9,18 @@
 <servlet-class>org.vx68k.bitbucket.webhook.BitbucketWebhookServlet</servlet-class>
 </servlet>
 
+<servlet>
+<servlet-name>Application</servlet-name>
+<servlet-class>javax.ws.rs.core.Application</servlet-class>
+</servlet>
+
 <servlet-mapping>
 <servlet-name>BitbucketWebhookServlet</servlet-name>
 <url-pattern>/webhook/*</url-pattern>
 </servlet-mapping>
 
 <servlet-mapping>
-<servlet-name>javax.ws.rs.core.Application</servlet-name>
+<servlet-name>Application</servlet-name>
 <url-pattern>/api/*</url-pattern>
 </servlet-mapping>
 
