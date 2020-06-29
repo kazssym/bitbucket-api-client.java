@@ -28,6 +28,8 @@ import org.vx68k.bitbucket.BitbucketAccount;
 import org.vx68k.bitbucket.BitbucketBranch;
 import org.vx68k.bitbucket.BitbucketProject;
 import org.vx68k.bitbucket.BitbucketRepository;
+import org.vx68k.bitbucket.BitbucketTeamAccount;
+import org.vx68k.bitbucket.BitbucketUserAccount;
 import org.vx68k.bitbucket.client.adapter.BitbucketAccountAdapter;
 import org.vx68k.bitbucket.client.adapter.UUIDAdapter;
 
@@ -386,13 +388,19 @@ public class ClientRepository implements BitbucketRepository
     }
 
     /**
-     * Sets the owner of the repository.
+     * Sets the owner.
      *
-     * @param owner a {@link ClientAccount} object for the owner
+     * @param owner a {@link BitbucketAccount} object for the owner
      */
-    public final void setOwner(final BitbucketAccount owner)
+    public final void setOwner(BitbucketAccount owner)
     {
-        this.owner = owner; // TODO: Make a copy.
+        if (owner instanceof BitbucketUserAccount) {
+            owner = new ClientUserAccount((BitbucketUserAccount)owner);
+        }
+        else if (owner instanceof BitbucketTeamAccount) {
+            owner = new ClientTeamAccount((BitbucketTeamAccount)owner);
+        }
+        this.owner = owner;
     }
 
     @Override
