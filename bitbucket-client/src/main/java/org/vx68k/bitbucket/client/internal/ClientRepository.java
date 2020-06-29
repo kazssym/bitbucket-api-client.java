@@ -28,8 +28,7 @@ import org.vx68k.bitbucket.BitbucketAccount;
 import org.vx68k.bitbucket.BitbucketBranch;
 import org.vx68k.bitbucket.BitbucketProject;
 import org.vx68k.bitbucket.BitbucketRepository;
-import org.vx68k.bitbucket.BitbucketTeamAccount;
-import org.vx68k.bitbucket.BitbucketUserAccount;
+import org.vx68k.bitbucket.client.adapter.BitbucketAccountAdapter;
 import org.vx68k.bitbucket.client.adapter.UUIDAdapter;
 
 /**
@@ -379,6 +378,7 @@ public class ClientRepository implements BitbucketRepository
     /**
      * {@inheritDoc}
      */
+    @JsonbTypeAdapter(BitbucketAccountAdapter.class)
     @Override
     public final BitbucketAccount getOwner()
     {
@@ -388,25 +388,15 @@ public class ClientRepository implements BitbucketRepository
     /**
      * Sets the owner.
      *
-     * @param owner a {@link ClientUserAccount} object for the owner
+     * @param owner a {@link ClientAccount} object for the owner
      */
-    public final void setOwner(ClientUserAccount owner)
+    public final void setOwner(ClientAccount owner)
     {
-        if (owner != null) {
-            owner = new ClientUserAccount(owner);
+        if (owner instanceof ClientUserAccount) {
+            owner = new ClientUserAccount((ClientUserAccount)owner);
         }
-        this.owner = owner;
-    }
-
-    /**
-     * Sets the owner.
-     *
-     * @param owner a {@link ClientTeamAccount} object for the owner
-     */
-    public final void setOwner(ClientTeamAccount owner)
-    {
-        if (owner != null) {
-            owner = new ClientTeamAccount(owner);
+        else {
+            owner = new ClientTeamAccount((ClientTeamAccount)owner);
         }
         this.owner = owner;
     }
