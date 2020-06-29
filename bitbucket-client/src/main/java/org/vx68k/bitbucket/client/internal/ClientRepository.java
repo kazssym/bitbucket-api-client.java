@@ -52,7 +52,7 @@ public class ClientRepository implements BitbucketRepository
 
     private String description;
 
-    private boolean restricted;
+    private boolean privateAccess;
 
     private String forkPolicy;
 
@@ -95,7 +95,7 @@ public class ClientRepository implements BitbucketRepository
         this.name = other.name;
         this.fullName = other.fullName;
         this.description = other.description;
-        this.restricted = other.restricted;
+        this.privateAccess = other.privateAccess;
         this.forkPolicy = other.forkPolicy;
         this.website = other.website;
         this.language = other.language;
@@ -215,19 +215,19 @@ public class ClientRepository implements BitbucketRepository
      */
     @JsonbProperty("is_private")
     @Override
-    public final boolean isPrivate()
+    public final boolean isPrivateAccess()
     {
-        return restricted;
+        return privateAccess;
     }
 
     /**
      * Sets the private flag of the repository.
      *
-     * @param restricted a Boolean value for the private flag
+     * @param privateAccess a Boolean value for the private flag
      */
     @JsonbProperty("is_private")
-    public final void setPrivate(boolean restricted) {
-        this.restricted = restricted;
+    public final void setPrivate(boolean privateAccess) {
+        this.privateAccess = privateAccess;
     }
 
     @JsonbProperty("fork_policy")

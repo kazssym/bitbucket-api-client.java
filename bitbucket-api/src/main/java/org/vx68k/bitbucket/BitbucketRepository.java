@@ -64,7 +64,7 @@ public interface BitbucketRepository
      *
      * @return {@code true} if and only if the repository is private
      */
-    boolean isPrivate();
+    boolean isPrivateAccess();
 
     String getForkPolicy();
 
