@@ -12,7 +12,7 @@
 
 <artifactId>bitbucket-cli</artifactId>
 <packaging>jar</packaging>
-<name>CLI Example for Bitbucket Cloud</name>
+<name>Sample CLI for Bitbucket Cloud</name>
 <description>This project builds an experimental CLI for the Client API.</description>
 
 <properties>

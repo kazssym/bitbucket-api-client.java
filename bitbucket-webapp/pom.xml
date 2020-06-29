@@ -12,7 +12,7 @@
 
 <artifactId>bitbucket-webapp</artifactId>
 <packaging>war</packaging>
-<name>Web App Example for Bitbucket Cloud</name>
+<name>Sample Web App for Bitbucket Cloud</name>
 <description>This project builds a web application using the Client API.</description>
 
 <dependencies>
