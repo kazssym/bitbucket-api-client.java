@@ -44,18 +44,4 @@
 <lookup-name>java:global/env/bitbucketClientSecret</lookup-name>
 </env-entry>
 
-<data-source>
-<name>jdbc/Bitbucket</name>
-<class-name>org.apache.derby.jdbc.ClientConnectionPoolDataSource</class-name>
-<server-name>derby</server-name>
-<database-name>Bitbucket</database-name>
-<user>app</user>
-<password>no</password>
-<property>
-<name>createDatabase</name>
-<value>create</value>
-</property>
-<isolation-level>TRANSACTION_READ_COMMITTED</isolation-level>
-</data-source>
-
 </web-app>
