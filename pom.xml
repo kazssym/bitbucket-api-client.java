@@ -11,7 +11,7 @@
 <name>REST API Client for Bitbucket Cloud (Parent)</name>
 <description>This project builds a REST API client implementation and several
 other artifacts for Bitbucket Cloud.</description>
-<url>https://vx68k.bitbucket.io/bitbucket-api-client.java/5/</url>
+<url>https://vx68k.bitbucket.io/bitbucket-api-client.java/6/</url>
 <inceptionYear>2015</inceptionYear>
 
 <licenses>
@@ -56,7 +56,7 @@ other artifacts for Bitbucket Cloud.</description>
 <distributionManagement>
 <site>
 <id>project</id>
-<url>https://vx68k.bitbucket.io/bitbucket-api-client.java/5/</url>
+<url>${project.url}</url>
 </site>
 </distributionManagement>
 
