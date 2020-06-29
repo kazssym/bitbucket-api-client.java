@@ -38,7 +38,7 @@ import org.vx68k.bitbucket.client.adapter.UUIDAdapter;
  */
 public class ClientProject implements BitbucketProject
 {
-    private static final String PROJECT = "project";
+    public static final String PROJECT = "project";
 
     private String type;
 

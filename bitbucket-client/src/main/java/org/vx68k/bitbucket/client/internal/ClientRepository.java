@@ -40,7 +40,7 @@ import org.vx68k.bitbucket.client.adapter.UUIDAdapter;
  */
 public class ClientRepository implements BitbucketRepository
 {
-    private static final String REPOSITORY = "repository";
+    public static final String REPOSITORY = "repository";
 
     private String type;
 
