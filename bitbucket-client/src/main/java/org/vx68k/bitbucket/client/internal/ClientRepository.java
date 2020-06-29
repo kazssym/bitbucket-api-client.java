@@ -30,7 +30,6 @@ import org.vx68k.bitbucket.BitbucketProject;
 import org.vx68k.bitbucket.BitbucketRepository;
 import org.vx68k.bitbucket.BitbucketTeamAccount;
 import org.vx68k.bitbucket.BitbucketUserAccount;
-import org.vx68k.bitbucket.client.adapter.BitbucketAccountAdapter;
 import org.vx68k.bitbucket.client.adapter.UUIDAdapter;
 
 /**
@@ -380,7 +379,6 @@ public class ClientRepository implements BitbucketRepository
     /**
      * {@inheritDoc}
      */
-    @JsonbTypeAdapter(BitbucketAccountAdapter.class)
     @Override
     public final BitbucketAccount getOwner()
     {
@@ -400,7 +398,20 @@ public class ClientRepository implements BitbucketRepository
         else if (owner instanceof BitbucketTeamAccount) {
             owner = new ClientTeamAccount((BitbucketTeamAccount)owner);
         }
+        else {
+            throw new IllegalArgumentException("Unknown account type");
+        }
         this.owner = owner;
+    }
+
+    public final void setOwner(final ClientUserAccount owner)
+    {
+        setOwner((BitbucketUserAccount)owner);
+    }
+
+    public final void setOwner(final ClientTeamAccount owner)
+    {
+        setOwner((BitbucketTeamAccount)owner);
     }
 
     @Override
