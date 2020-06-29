@@ -26,7 +26,7 @@ package org.vx68k.bitbucket;
  * @author Kaz Nishimura
  * @since 6.0
  */
-public interface BitbucketBranch extends BitbucketRepository.Ref
+public interface BitbucketBranch extends BitbucketCommit.Ref
 {
     /**
      * Returns the type of the branch.
