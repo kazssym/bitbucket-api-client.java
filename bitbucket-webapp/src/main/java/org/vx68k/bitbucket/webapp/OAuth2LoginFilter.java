@@ -51,14 +51,14 @@ public final class OAuth2LoginFilter implements Filter, Serializable
     /**
      * {@link FilterConfig} object given to {@link #init(FilterConfig)}.
      */
-    private transient FilterConfig filterConfig = null;
+    private transient FilterConfig filterConfig;
 
     /**
      * Returns the session user object.
      *
      * @return the session user object
      */
-    public final SessionUser getSessionUser()
+    public SessionUser getSessionUser()
     {
         return sessionUser;
     }
@@ -69,7 +69,7 @@ public final class OAuth2LoginFilter implements Filter, Serializable
      * @param sessionUser a session user object
      */
     @Inject
-    public final void setSessionUser(final SessionUser sessionUser)
+    public void setSessionUser(final SessionUser sessionUser)
     {
         this.sessionUser = sessionUser;
     }
