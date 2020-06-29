@@ -70,7 +70,7 @@ public class EventRecorder implements Serializable
     /**
      * Entity manager.
      */
-    private static EntityManager entityManager;
+    private transient EntityManager entityManager;
 
     /**
      * Sets the entity manager to a {@link EntityManager} value.
@@ -78,7 +78,7 @@ public class EventRecorder implements Serializable
      * @param value {@link EntityManager} value
      */
     @PersistenceContext(unitName = "Bitbucket")
-    public static void setEntityManager(final EntityManager value)
+    public final void setEntityManager(final EntityManager value)
     {
         entityManager = value;
     }
