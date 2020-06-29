@@ -72,7 +72,7 @@ final class BitbucketWebhookServletTest
     @Test
     void testLifecycle() throws ServletException
     {
-        HttpServlet servlet = new BitbucketWebhookServlet(null);
+        HttpServlet servlet = new BitbucketWebhookServlet();
         servlet.init(servletConfig);
         servlet.destroy();
     }
@@ -86,7 +86,7 @@ final class BitbucketWebhookServletTest
     @Test
     void testGet() throws ServletException, IOException
     {
-        HttpServlet servlet = new BitbucketWebhookServlet(null);
+        HttpServlet servlet = new BitbucketWebhookServlet();
         servlet.init(servletConfig);
         try {
             StubHttpServletRequest request = new StubHttpServletRequest(null);
@@ -111,7 +111,7 @@ final class BitbucketWebhookServletTest
     @Test
     void testHead() throws ServletException, IOException
     {
-        HttpServlet servlet = new BitbucketWebhookServlet(null);
+        HttpServlet servlet = new BitbucketWebhookServlet();
         servlet.init(servletConfig);
         try {
             StubHttpServletRequest request = new StubHttpServletRequest(null);

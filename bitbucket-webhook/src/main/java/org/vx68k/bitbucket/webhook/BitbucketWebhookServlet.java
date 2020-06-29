@@ -20,15 +20,13 @@
 
 package org.vx68k.bitbucket.webhook;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
-import javax.json.JsonReader;
-import javax.json.JsonWriter;
-import javax.json.stream.JsonParsingException;
+import javax.json.bind.Jsonb;
+import javax.json.bind.JsonbBuilder;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,7 +35,7 @@ import javax.servlet.http.HttpServletResponse;
  * Processes HTTP requests from Bitbucket webhooks.
  *
  * @author Kaz Nishimura
- * @since 4.0
+ * @since 6.0
  */
 public class BitbucketWebhookServlet extends HttpServlet
 {
@@ -49,24 +47,34 @@ public class BitbucketWebhookServlet extends HttpServlet
     private static final String APPLICATION_JSON = "application/json";
 
     /**
-     * Character encoding of UTF-8.
-     */
-    private static final String UTF8 = "UTF-8";
-
-    /**
      * Event to fire.
      */
-    private final Event<BitbucketWebhookEvent> bitbucketEvent;
+    private Event<BitbucketWebhookEvent> event;
 
-    /**
-     * Constructs this object with an {@link Event} object.
-     *
-     * @param event {@link Event} object
-     */
+    private Jsonb jsonb;
+
     @Inject
-    public BitbucketWebhookServlet(final Event<BitbucketWebhookEvent> event)
+    public final void setEvent(final Event<BitbucketWebhookEvent> event)
     {
-        bitbucketEvent = event;
+        this.event = event;
+    }
+
+    @Override
+    public void init() throws ServletException
+    {
+        jsonb = JsonbBuilder.create();
+    }
+
+    @Override
+    public void destroy()
+    {
+        try {
+            jsonb.close();
+        }
+        catch (final Exception e) {
+            log("Unexpected exception", e);
+        }
+        jsonb = null;
     }
 
     /**
@@ -74,41 +82,30 @@ public class BitbucketWebhookServlet extends HttpServlet
      */
     @Override
     protected final void doPost(final HttpServletRequest request,
-        final HttpServletResponse response) throws IOException
+        final HttpServletResponse response) throws ServletException
     {
-        String contentType = request.getContentType();
-        // Content types may be followed by parameters.
-        if (contentType != null && contentType.contains(";")) {
-            contentType = contentType.substring(0, contentType.indexOf(";"))
-                .trim();
-        }
-        if (!APPLICATION_JSON.equalsIgnoreCase(contentType)) {
-            log("Unexpected content type: " + contentType);
-            response.sendError(HttpServletResponse.SC_NOT_ACCEPTABLE);
-            return;
-        }
+        try {
+            if (request.getCharacterEncoding() == null) {
+                request.setCharacterEncoding("UTF-8");
+            }
 
-        // Default encoding for JSON streams is UTF-8.
-        if (request.getCharacterEncoding() == null) {
-            request.setCharacterEncoding(UTF8);
-        }
-        try (JsonReader reader = Json.createReader(request.getReader())) {
-            JsonObject object = reader.readObject();
-            // bitbucketEvent.fire(new WebhookEvent());
-        }
-        catch (JsonParsingException exception) {
-            log("JSON parsing error", exception);
-            response.sendError(HttpServletResponse.SC_FORBIDDEN);
-            return;
-        }
+            BufferedReader input = request.getReader();
+            event.fire(jsonb.fromJson(input, BitbucketWebhookEvent.class));
 
-        response.setStatus(HttpServletResponse.SC_OK);
-        response.setContentType(APPLICATION_JSON);
-        response.setCharacterEncoding(UTF8);
-        try (JsonWriter writer = Json.createWriter(response.getWriter())) {
-            JsonObjectBuilder builder = Json.createObjectBuilder()
-                .add("status", "OK");
-            writer.write(builder.build());
+            response.setStatus(HttpServletResponse.SC_OK);
+            response.setContentType(APPLICATION_JSON);
+            response.setCharacterEncoding("UTF-8");
+
+            response.getWriter().print("{\"status\":\"OK\"}");
+        }
+        catch (final Exception e) {
+            log("Exception thrown", e);
+            try {
+                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            }
+            catch (final IOException e1) {
+                log("Double exception thrown", e1);
+            }
         }
     }
 }
