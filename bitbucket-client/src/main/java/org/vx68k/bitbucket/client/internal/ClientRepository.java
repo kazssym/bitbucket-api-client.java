@@ -413,7 +413,6 @@ public class ClientRepository implements BitbucketRepository
      * <p>This implementation takes the object of {@code "mainbranch"} in the
      * underlying JSON object.</p>
      */
-    @JsonbTypeAdapter(BitbucketBranchAdapter.class)
     @JsonbProperty("mainbranch")
     @Override
     public final BitbucketBranch getMainBranch()
@@ -421,13 +420,24 @@ public class ClientRepository implements BitbucketRepository
         return mainBranch;
     }
 
-    @JsonbProperty("mainbranch")
     public final void setMainBranch(BitbucketBranch mainBranch)
     {
         if (mainBranch != null) {
             mainBranch = new ClientBranch(mainBranch);
         }
         this.mainBranch = mainBranch;
+    }
+
+    /**
+     * Sets the main branch of the repository.
+     * This overload provides a hint for the JSON-B runtime to determine the
+     * implementation class.
+     *
+     * @param mainBranch a {@link ClientBranch} object for the main branch
+     */
+    public final void setMainBranch(final ClientBranch mainBranch)
+    {
+        setMainBranch((BitbucketBranch)mainBranch);
     }
 
     @Override
