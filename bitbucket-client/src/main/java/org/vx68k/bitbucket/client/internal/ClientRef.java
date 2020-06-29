@@ -20,10 +20,8 @@
 
 package org.vx68k.bitbucket.client.internal;
 
-import javax.json.bind.annotation.JsonbTypeAdapter;
 import org.vx68k.bitbucket.BitbucketCommit;
 import org.vx68k.bitbucket.BitbucketRepository;
-import org.vx68k.bitbucket.client.adapter.BitbucketCommitAdapter;
 
 /**
  * Abstract client implementation class of {@link BitbucketRepository.Ref}.
@@ -35,7 +33,7 @@ public abstract class ClientRef implements BitbucketRepository.Ref
 {
     private String name;
 
-    private BitbucketCommit target;
+    private ClientCommit target;
 
     /**
      * Constructs a ref.
@@ -50,15 +48,11 @@ public abstract class ClientRef implements BitbucketRepository.Ref
      *
      * @param other another ref
      */
-    protected ClientRef(final BitbucketRepository.Ref other)
+    protected ClientRef(final ClientRef other)
     {
-        this.name = other.getName();
+        this.name = other.name;
 
-        BitbucketCommit otherTarget = other.getTarget();
-        if (otherTarget != null) {
-            otherTarget = new ClientCommit((ClientCommit)otherTarget);
-        }
-        this.target = otherTarget;
+        setTarget(other.target);
     }
 
     /**
@@ -80,17 +74,16 @@ public abstract class ClientRef implements BitbucketRepository.Ref
         this.name = name;
     }
 
-    @JsonbTypeAdapter(BitbucketCommitAdapter.class)
     @Override
     public final BitbucketCommit getTarget()
     {
         return target;
     }
 
-    public final void setTarget(BitbucketCommit target)
+    public final void setTarget(ClientCommit target)
     {
         if (target != null) {
-            target = new ClientCommit((ClientCommit)target);
+            target = new ClientCommit(target);
         }
         this.target = target;
     }
