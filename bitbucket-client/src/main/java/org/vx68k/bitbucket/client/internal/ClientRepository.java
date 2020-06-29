@@ -388,30 +388,27 @@ public class ClientRepository implements BitbucketRepository
     /**
      * Sets the owner.
      *
-     * @param owner a {@link BitbucketAccount} object for the owner
+     * @param owner a {@link ClientUserAccount} object for the owner
      */
-    public final void setOwner(BitbucketAccount owner)
+    public final void setOwner(ClientUserAccount owner)
     {
-        if (owner instanceof BitbucketUserAccount) {
-            owner = new ClientUserAccount((BitbucketUserAccount)owner);
-        }
-        else if (owner instanceof BitbucketTeamAccount) {
-            owner = new ClientTeamAccount((BitbucketTeamAccount)owner);
-        }
-        else {
-            throw new IllegalArgumentException("Unknown account type");
+        if (owner != null) {
+            owner = new ClientUserAccount(owner);
         }
         this.owner = owner;
     }
 
-    public final void setOwner(final ClientUserAccount owner)
+    /**
+     * Sets the owner.
+     *
+     * @param owner a {@link ClientTeamAccount} object for the owner
+     */
+    public final void setOwner(ClientTeamAccount owner)
     {
-        setOwner((BitbucketUserAccount)owner);
-    }
-
-    public final void setOwner(final ClientTeamAccount owner)
-    {
-        setOwner((BitbucketTeamAccount)owner);
+        if (owner != null) {
+            owner = new ClientTeamAccount(owner);
+        }
+        this.owner = owner;
     }
 
     @Override
