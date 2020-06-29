@@ -27,7 +27,6 @@ import javax.json.bind.annotation.JsonbTypeAdapter;
 import org.vx68k.bitbucket.BitbucketCommit;
 import org.vx68k.bitbucket.BitbucketRendered;
 import org.vx68k.bitbucket.BitbucketRepository;
-import org.vx68k.bitbucket.client.adapter.BitbucketRenderedAdapter;
 import org.vx68k.bitbucket.client.adapter.BitbucketRepositoryAdapter;
 
 /**
@@ -89,7 +88,7 @@ public class ClientCommit implements BitbucketCommit
 
         BitbucketRendered otherSummary = other.getSummary();
         if (otherSummary != null) {
-            otherSummary = new ClientRendered(otherSummary);
+            otherSummary = new ClientRendered((ClientRendered)otherSummary);
         }
         this.summary = otherSummary;
     }
@@ -170,14 +169,13 @@ public class ClientCommit implements BitbucketCommit
         this.parents = parents;
     }
 
-    @JsonbTypeAdapter(BitbucketRenderedAdapter.class)
     @Override
     public final BitbucketRendered getSummary()
     {
         return summary;
     }
 
-    public final void setSummary(final BitbucketRendered summary)
+    public final void setSummary(final ClientRendered summary)
     {
         this.summary = new ClientRendered(summary);
     }

@@ -39,7 +39,7 @@ public class BitbucketRenderedAdapter
         if (rendered instanceof ClientRendered) {
             return (ClientRendered) rendered;
         }
-        return new ClientRendered(rendered);
+        return new ClientRendered((ClientRendered)rendered);
     }
 
     @Override

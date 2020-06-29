@@ -31,6 +31,8 @@ import org.vx68k.bitbucket.BitbucketRendered;
  */
 public class ClientRendered implements BitbucketRendered
 {
+    public static final String RENDERED = "rendered";
+
     private String type;
 
     private String markup;
@@ -47,11 +49,12 @@ public class ClientRendered implements BitbucketRendered
         // Nothing to do.
     }
 
-    public ClientRendered(final BitbucketRendered other)
+    public ClientRendered(final ClientRendered other)
     {
-        this.markup = other.getMarkup();
-        this.raw = other.getRaw();
-        this.html = other.getHtml();
+        this.type = other.type;
+        this.markup = other.markup;
+        this.raw = other.raw;
+        this.html = other.html;
     }
 
     public final String getType()
@@ -61,7 +64,7 @@ public class ClientRendered implements BitbucketRendered
 
     public void setType(String type)
     {
-        if (type != null && !(type.equals("rendered"))) {
+        if (type != null && !(type.equals(RENDERED))) {
             throw new IllegalArgumentException("Type is not of rendered objects");
         }
         this.type = type;
