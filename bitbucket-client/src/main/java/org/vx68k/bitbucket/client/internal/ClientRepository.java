@@ -32,8 +32,8 @@ import org.vx68k.bitbucket.client.adapter.BitbucketAccountAdapter;
 import org.vx68k.bitbucket.client.adapter.UUIDAdapter;
 
 /**
- * Client implementation class of {@link BitbucketRepository} for the
- * {@code "repository"} objects.
+ * Implementation class of {@link BitbucketRepository} for the Bitbucket
+ * Cloud REST API.
  *
  * @author Kaz Nishimura
  * @since 6.0
@@ -72,13 +72,13 @@ public class ClientRepository implements BitbucketRepository
 
     private boolean wikiEnabled;
 
-    private BitbucketAccount owner;
+    private ClientAccount owner;
 
     // workspace
 
-    private BitbucketProject project;
+    private ClientProject project;
 
-    private BitbucketBranch mainBranch;
+    private ClientBranch mainBranch;
 
     /**
      * Constructs a repository.
@@ -106,9 +106,9 @@ public class ClientRepository implements BitbucketRepository
         this.issuesEnabled = other.issuesEnabled;
         this.wikiEnabled = other.wikiEnabled;
 
-        setOwner((ClientAccount)other.owner);
-        setProject((ClientProject)other.project);
-        setMainBranch((ClientBranch)other.mainBranch);
+        setOwner(other.owner);
+        setProject(other.project);
+        setMainBranch(other.mainBranch);
     }
 
     /**
