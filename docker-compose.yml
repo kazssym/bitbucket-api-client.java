@@ -9,8 +9,6 @@ version: "2.1"
 services:
   liberty:
     image: open-liberty:full
-    depends_on:
-      - derby
     ports:
       - "${LIBERTY_HTTP_PORT:-9080}:9080"
       - "${LIBERTY_HTTPS_PORT:-9443}:9443"
@@ -19,8 +17,6 @@ services:
     working_dir: /config
   wildfly:
     image: kazssym/wildfly:latest
-    depends_on:
-      - derby
     ports:
       - "${WILDFLY_HTTP_PORT:-8080}:8080"
       - "${WILDFLY_MANAGEMENT_PORT:-9990}:9990"
