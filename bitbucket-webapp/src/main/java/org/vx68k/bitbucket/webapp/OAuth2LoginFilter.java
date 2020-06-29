@@ -39,7 +39,7 @@ import javax.servlet.annotation.WebFilter;
  * @since 6.0
  */
 @WebFilter(urlPatterns = {"/*"})
-public final class OAuthLoginFilter implements Filter, Serializable
+public final class OAuth2LoginFilter implements Filter, Serializable
 {
     private static final long serialVersionUID = 1L;
 
@@ -59,7 +59,7 @@ public final class OAuthLoginFilter implements Filter, Serializable
      * @param sessionUser user context
      */
     @Inject
-    public OAuthLoginFilter(final SessionUser sessionUser)
+    public OAuth2LoginFilter(final SessionUser sessionUser)
     {
         this.sessionUser = sessionUser;
     }
