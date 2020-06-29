@@ -34,6 +34,12 @@ import org.vx68k.bitbucket.BitbucketCommit;
  */
 public class ClientBranch extends ClientRef implements BitbucketBranch
 {
+    public static final String BRANCH = "branch";
+
+    public static final String NAMED_BRANCCH = "named_branch";
+
+    public static final String BOOKMARK = "bookmark";
+
     /**
      * Type of the branch object.
      */
@@ -46,7 +52,7 @@ public class ClientBranch extends ClientRef implements BitbucketBranch
     /**
      * List of the head commits of the branch object.
      */
-    private BitbucketCommit[] heads;
+    private ClientCommit[] heads;
 
     /**
      * Constructs a branch object.
@@ -60,18 +66,14 @@ public class ClientBranch extends ClientRef implements BitbucketBranch
      * Constructs a branch copyting another
      * @param other another branch
      */
-    public ClientBranch(final BitbucketBranch other)
+    public ClientBranch(final ClientBranch other)
     {
-        this.type = other.getType();
+        this.type = other.type;
+        this.defaultMergeStrategy = other.defaultMergeStrategy;
+        this.mergeStrategies =
+            Arrays.copyOf(other.mergeStrategies, other.mergeStrategies.length);
 
-        BitbucketCommit[] otherHeads = other.getHeads();
-        if (otherHeads != null) {
-            otherHeads = Arrays.stream(otherHeads)
-                .map((i) -> (ClientCommit)i)
-                .map(ClientCommit::new)
-                .toArray(BitbucketCommit[]::new);
-        }
-        this.heads = otherHeads;
+        setHeads(other.heads);
     }
 
     /**
@@ -91,9 +93,9 @@ public class ClientBranch extends ClientRef implements BitbucketBranch
     public final void setType(final String type)
     {
         if (type != null
-            && !(type.equals("branch")
-                || type.equals("named_branch")
-                || type.equals("bookmark"))) {
+            && !(type.equals(BRANCH)
+                || type.equals(NAMED_BRANCCH)
+                || type.equals(BOOKMARK))) {
             throw new IllegalArgumentException("Type is not of branch objects");
         }
         this.type = type;
@@ -116,15 +118,15 @@ public class ClientBranch extends ClientRef implements BitbucketBranch
     @Override
     public final String[] getMergeStrategies()
     {
-        return mergeStrategies;
+        return Arrays.copyOf(mergeStrategies, mergeStrategies.length);
     }
 
     @JsonbProperty("merge_strategies")
     public final void setMergeStrategies(String[] mergeStrategies)
     {
         if (mergeStrategies != null) {
-            mergeStrategies = Arrays.stream(mergeStrategies)
-                .toArray(String[]::new);
+            mergeStrategies =
+                Arrays.copyOf(mergeStrategies, mergeStrategies.length);
         }
         this.mergeStrategies = mergeStrategies;
     }
@@ -137,16 +139,17 @@ public class ClientBranch extends ClientRef implements BitbucketBranch
     @Override
     public final BitbucketCommit[] getHeads()
     {
-        return heads;
+        if (heads != null) {
+            return Arrays.copyOf(heads, heads.length, BitbucketCommit[].class);
+        }
+        return null;
     }
 
-    public final void setHeads(BitbucketCommit[] heads)
+    public final void setHeads(ClientCommit[] heads)
     {
         if (heads != null) {
-            heads = Arrays.stream(heads)
-                .map((i) -> (ClientCommit)i)
-                .map(ClientCommit::new)
-                .toArray(BitbucketCommit[]::new);
+            heads = Arrays.stream(heads).map(ClientCommit::new)
+                .toArray(ClientCommit[]::new);
         }
         this.heads = heads;
     }

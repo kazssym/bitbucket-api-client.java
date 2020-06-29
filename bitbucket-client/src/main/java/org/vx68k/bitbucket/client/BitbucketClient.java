@@ -122,9 +122,9 @@ public class BitbucketClient implements Bitbucket, Serializable
      * @param branch a branch object to copy
      * @return a new branch object
      */
-    public static ClientBranch copyBranch(final BitbucketBranch branch)
+    public static BitbucketBranch copyBranch(final BitbucketBranch branch)
     {
-        return new ClientBranch(branch);
+        return new ClientBranch((ClientBranch)branch);
     }
 
     /**
