@@ -26,6 +26,7 @@ import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbTypeAdapter;
 import org.vx68k.bitbucket.BitbucketAccount;
 import org.vx68k.bitbucket.BitbucketBranch;
+import org.vx68k.bitbucket.BitbucketProject;
 import org.vx68k.bitbucket.BitbucketRepository;
 import org.vx68k.bitbucket.client.adapter.BitbucketAccountAdapter;
 import org.vx68k.bitbucket.client.adapter.BitbucketBranchAdapter;
@@ -74,7 +75,7 @@ public class ClientRepository implements BitbucketRepository
 
     // workspace
 
-    // project
+    private BitbucketProject project;
 
     private BitbucketBranch mainBranch;
 
@@ -387,6 +388,24 @@ public class ClientRepository implements BitbucketRepository
     public final void setOwner(final BitbucketAccount owner)
     {
         this.owner = owner; // TODO: Make a copy.
+    }
+
+    public final BitbucketProject getProject()
+    {
+        return project;
+    }
+
+    public final void setProject(BitbucketProject project)
+    {
+        if (project != null) {
+            project = new ClientProject(project);
+        }
+        this.project = project;
+    }
+
+    public final void setProject(ClientProject project)
+    {
+        setProject((BitbucketProject)project);
     }
 
     /**
