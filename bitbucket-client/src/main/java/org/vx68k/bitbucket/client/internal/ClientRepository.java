@@ -420,24 +420,19 @@ public class ClientRepository implements BitbucketRepository
         return project;
     }
 
-    public final void setProject(BitbucketProject project)
+    /**
+     * Sets the project of the repository.
+     * This method provides a hint for the JSON-B runtime to determine the
+     * implementation class.
+     *
+     * @param project a {@link ClientProject} object for the project
+     */
+    public final void setProject(ClientProject project)
     {
         if (project != null) {
             project = new ClientProject(project);
         }
         this.project = project;
-    }
-
-    /**
-     * Sets the project of the repository.
-     * This overload provides a hint for the JSON-B runtime to determine the
-     * implementation class.
-     *
-     * @param project a {@link ClientProject} object for the project
-     */
-    public final void setProject(final ClientProject project)
-    {
-        setProject((BitbucketProject)project);
     }
 
     /**
@@ -452,24 +447,19 @@ public class ClientRepository implements BitbucketRepository
         return mainBranch;
     }
 
-    public final void setMainBranch(BitbucketBranch mainBranch)
+    /**
+     * Sets the main branch of the repository.
+     * This method provides a hint for the JSON-B runtime to determine the
+     * implementation class.
+     *
+     * @param mainBranch a {@link ClientBranch} object for the main branch
+     */
+    public final void setMainBranch(ClientBranch mainBranch)
     {
         if (mainBranch != null) {
             mainBranch = new ClientBranch(mainBranch);
         }
         this.mainBranch = mainBranch;
-    }
-
-    /**
-     * Sets the main branch of the repository.
-     * This overload provides a hint for the JSON-B runtime to determine the
-     * implementation class.
-     *
-     * @param mainBranch a {@link ClientBranch} object for the main branch
-     */
-    public final void setMainBranch(final ClientBranch mainBranch)
-    {
-        setMainBranch((BitbucketBranch)mainBranch);
     }
 
     @Override
