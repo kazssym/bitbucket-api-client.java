@@ -106,6 +106,12 @@ public class ClientRepository implements BitbucketRepository
 
         this.owner = other.getOwner(); // TODO: Make a copy.
 
+        BitbucketProject otherProject = other.getProject();
+        if (otherProject != null) {
+            otherProject = new ClientProject(otherProject);
+        }
+        this.project = otherProject;
+
         BitbucketBranch otherMainBranch = other.getMainBranch();
         if (otherMainBranch != null) {
             otherMainBranch = new ClientBranch(otherMainBranch);
