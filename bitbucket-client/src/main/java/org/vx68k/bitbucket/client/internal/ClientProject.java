@@ -55,17 +55,14 @@ public class ClientProject implements BitbucketProject
         // Nothing to do.
     }
 
-    public ClientProject(final BitbucketProject other)
+    public ClientProject(final ClientProject other)
     {
-        this.uuid = other.getUuid();
-        this.key = other.getKey();
-        this.name = other.getName();
+        this.type = other.type;
+        this.uuid = other.uuid;
+        this.key = other.key;
+        this.name = other.name;
 
-        Map<String, URI> otherLinks = other.getLinks();
-        if (otherLinks != null) {
-            otherLinks = new HashMap<>(otherLinks);
-        }
-        this.links = otherLinks;
+        setLinks(other.links);
     }
 
     public final String getType()

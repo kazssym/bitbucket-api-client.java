@@ -108,7 +108,7 @@ public class ClientRepository implements BitbucketRepository
 
         BitbucketProject otherProject = other.getProject();
         if (otherProject != null) {
-            otherProject = new ClientProject(otherProject);
+            otherProject = new ClientProject((ClientProject)otherProject);
         }
         this.project = otherProject;
 
