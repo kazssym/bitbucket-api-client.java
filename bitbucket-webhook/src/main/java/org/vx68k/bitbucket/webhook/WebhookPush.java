@@ -24,7 +24,6 @@ import java.util.Arrays;
 import javax.json.bind.annotation.JsonbTypeAdapter;
 import org.vx68k.bitbucket.BitbucketBranch;
 import org.vx68k.bitbucket.BitbucketCommit;
-import org.vx68k.bitbucket.client.BitbucketClient;
 import org.vx68k.bitbucket.client.adapter.BitbucketBranchAdapter;
 
 /**
@@ -47,13 +46,7 @@ public class WebhookPush
 
     public WebhookPush(final WebhookPush other)
     {
-        Change[] otherChanges = other.getChanges();
-        if (otherChanges != null) {
-            otherChanges = Arrays.stream(otherChanges)
-                .map(Change::new)
-                .toArray(Change[]::new);
-        }
-        this.changes = otherChanges;
+        setChanges(other.changes);
     }
 
     /**
@@ -63,15 +56,13 @@ public class WebhookPush
      */
     public final Change[] getChanges()
     {
-        return changes;
+        return Arrays.copyOf(changes, changes.length);
     }
 
     public final void setChanges(Change[] changes)
     {
         if (changes != null) {
-            changes = Arrays.stream(changes)
-                .map(Change::new)
-                .toArray(Change[]::new);
+            changes = Arrays.copyOf(changes, changes.length);
         }
         this.changes = changes;
     }
@@ -105,30 +96,14 @@ public class WebhookPush
 
         public Change(final Change other)
         {
-            this.created = other.isCreated();
-            this.closed = other.isClosed();
-            this.forced = other.isForced();
-            this.truncated = other.isTruncated();
+            this.created = other.created;
+            this.closed = other.closed;
+            this.forced = other.forced;
+            this.truncated = other.truncated;
 
-            BitbucketBranch otherOld = other.getOld();
-            if (otherOld != null) {
-                otherOld = BitbucketClient.copyBranch(otherOld);
-            }
-            this.old = otherOld;
-
-            BitbucketBranch otherNew = other.getNew();
-            if (otherNew != null) {
-                otherNew = BitbucketClient.copyBranch(otherNew);
-            }
-            this.new1 = otherNew;
-
-            BitbucketCommit[] otherCommits = other.getCommits();
-            if (otherCommits != null) {
-                otherCommits = Arrays.stream(otherCommits)
-                    // TODO: .map(BitbucketClient::copyCommit)
-                    .toArray(BitbucketCommit[]::new);
-            }
-            this.commits = otherCommits;
+            setOld(other.old);
+            setNew(other.new1);
+            setCommits(other.commits);
         }
 
         /**
@@ -204,9 +179,6 @@ public class WebhookPush
 
         public final void setOld(BitbucketBranch old)
         {
-            if (old != null) {
-                old = BitbucketClient.copyBranch(old);
-            }
             this.old = old;
         }
 
@@ -223,9 +195,6 @@ public class WebhookPush
 
         public final void setNew(BitbucketBranch new1)
         {
-            if (new1 != null) {
-                new1 = BitbucketClient.copyBranch(new1);
-            }
             this.new1 = new1;
         }
 
@@ -236,15 +205,13 @@ public class WebhookPush
          */
         public final BitbucketCommit[] getCommits()
         {
-            return commits;
+            return Arrays.copyOf(commits, commits.length);
         }
 
         public final void setCommits(BitbucketCommit[] commits)
         {
             if (commits != null) {
-                commits = Arrays.stream(commits)
-                     // TODO: .map(BitbucketClient::copyCommit)
-                    .toArray(BitbucketCommit[]::new);
+                commits = Arrays.copyOf(commits, commits.length);
             }
             this.commits = commits;
         }
