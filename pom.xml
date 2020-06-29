@@ -297,7 +297,6 @@ other artifacts for Bitbucket Cloud.</description>
 <id>aggregate</id>
 <reports>
 <report>aggregate</report>
-<report>test-aggregate</report>
 </reports>
 <inherited>false</inherited>
 <configuration>
