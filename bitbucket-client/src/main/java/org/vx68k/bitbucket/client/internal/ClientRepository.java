@@ -29,7 +29,6 @@ import org.vx68k.bitbucket.BitbucketBranch;
 import org.vx68k.bitbucket.BitbucketProject;
 import org.vx68k.bitbucket.BitbucketRepository;
 import org.vx68k.bitbucket.client.adapter.BitbucketAccountAdapter;
-import org.vx68k.bitbucket.client.adapter.BitbucketBranchAdapter;
 import org.vx68k.bitbucket.client.adapter.UUIDAdapter;
 
 /**
