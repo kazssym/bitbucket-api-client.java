@@ -194,7 +194,7 @@ public abstract class ClientAccount implements BitbucketAccount
      * {@inheritDoc}
      */
     @JsonbProperty("created_on")
-    @JsonbDateFormat("uuuu-MM-dd'T'HH:mm:ss[.SSSSSS]xxxxx")
+    @JsonbDateFormat("uuuu-MM-dd'T'HH:mm:ss[.SSSSSSSSS]xx")
     @Override
     public final OffsetDateTime getCreated()
     {

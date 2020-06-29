@@ -101,7 +101,7 @@ public class ClientCommit implements BitbucketCommit
         this.hash = hash;
     }
 
-    @JsonbDateFormat("uuuu-MM-dd'T'HH:mm:ss[.SSSSSS]xxxxx")
+    @JsonbDateFormat("uuuu-MM-dd'T'HH:mm:ss[.SSSSSSSSS]xx")
     @Override
     public final OffsetDateTime getDate() {
         return date;

@@ -158,7 +158,7 @@ public class ClientIssue implements BitbucketIssue
     }
 
     @JsonbProperty("created_on")
-    @JsonbDateFormat("uuuu-MM-dd'T'HH:mm:ss[.SSSSSS]xxxxx")
+    @JsonbDateFormat("uuuu-MM-dd'T'HH:mm:ss[.SSSSSSSSS]xx")
     @Override
     public final OffsetDateTime getCreated()
     {
@@ -172,7 +172,7 @@ public class ClientIssue implements BitbucketIssue
     }
 
     @JsonbProperty("updated_on")
-    @JsonbDateFormat("uuuu-MM-dd'T'HH:mm:ss[.SSSSSS]xxxxx")
+    @JsonbDateFormat("uuuu-MM-dd'T'HH:mm:ss[.SSSSSSSSS]xx")
     @Override
     public final OffsetDateTime getUpdated()
     {
@@ -186,7 +186,7 @@ public class ClientIssue implements BitbucketIssue
     }
 
     @JsonbProperty("edited_on")
-    @JsonbDateFormat("uuuu-MM-dd'T'HH:mm:ss[.SSSSSS]xxxxx")
+    @JsonbDateFormat("uuuu-MM-dd'T'HH:mm:ss[.SSSSSS]xx")
     @Override
     public final OffsetDateTime getEdited()
     {
