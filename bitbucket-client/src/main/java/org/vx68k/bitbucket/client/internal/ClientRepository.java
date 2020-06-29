@@ -403,7 +403,7 @@ public class ClientRepository implements BitbucketRepository
         this.project = project;
     }
 
-    public final void setProject(ClientProject project)
+    public final void setProject(final ClientProject project)
     {
         setProject((BitbucketProject)project);
     }
