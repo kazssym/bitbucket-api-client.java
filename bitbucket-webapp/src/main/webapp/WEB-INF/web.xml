@@ -44,4 +44,10 @@
 <lookup-name>java:global/env/bitbucketClientSecret</lookup-name>
 </env-entry>
 
+<resource-ref>
+<res-ref-name>jdbc/BitbucketDataSource</res-ref-name>
+<res-type>javax.sql.DataSource</res-type>
+<lookup-name>java:comp/DefaultDataSource</lookup-name>
+</resource-ref>
+
 </web-app>
