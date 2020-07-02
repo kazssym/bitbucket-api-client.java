@@ -179,19 +179,6 @@ public class BitbucketClient implements Bitbucket, Serializable
      * Gets a resource.
      *
      * @param <T> the return type
-     * @param uri a URI
-     * @param runtimeType a runtime type
-     * @return a JSON structure; or {@code null} if not found
-     */
-    public final <T> T get(final URI uri, final Class<T> runtimeType)
-    {
-        return get(uri, runtimeType, MediaType.APPLICATION_JSON_TYPE);
-    }
-
-    /**
-     * Gets a resource.
-     *
-     * @param <T> the return type
      * @param base a base URI, or {@code null} for the Bitbucket Cloud REST API
      * @param runtimeType the type of the resource to be returned
      * @param mediaTypes acceptable MIME media types
@@ -200,24 +187,7 @@ public class BitbucketClient implements Bitbucket, Serializable
     public final <T> T get(final URI base, final Class<T> runtimeType,
         final MediaType... mediaTypes)
     {
-        return get(base, null, null, runtimeType, mediaTypes);
-    }
-
-    /**
-     * Gets a resource.
-     *
-     * @param <T> the return type
-     * @param base a base URI, or {@code null} for the Bitbucket Cloud REST API
-     * @param path a path relative to the base URI, or {@code null}
-     * @param templateValues a map of template values, or {@code null}
-     * @param runtimeType the type of the resource to be returned
-     * @return a received resource, or {@code null} not found
-     */
-    public final <T> T get(final URI base, final String path,
-        final Map<String, Object> templateValues, final Class<T> runtimeType)
-    {
-        return get(base, path, templateValues, runtimeType,
-            MediaType.APPLICATION_JSON_TYPE);
+        return get(base, null, runtimeType, mediaTypes);
     }
 
     /**
