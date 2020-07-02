@@ -378,13 +378,6 @@ public class BitbucketClient implements Bitbucket, Serializable
     }
 
     @Override
-    public final BitbucketPullRequest getPullRequest(final BitbucketRepository repository,
-        final int id)
-    {
-        return getPullRequest(repository.getFullName(), id);
-    }
-
-    @Override
     public final BitbucketIssue getIssue(final String fullName, final int id)
     {
         if (fullName != null
@@ -397,13 +390,6 @@ public class BitbucketClient implements Bitbucket, Serializable
                 .resolveTemplate("fullName", fullName)
                 .resolveTemplate("id", id),
             ClientIssue.class);
-    }
-
-    @Override
-    public final BitbucketIssue getIssue(final BitbucketRepository repository,
-        final int id)
-    {
-        return getIssue(repository.getFullName(), id);
     }
 
     @Override
