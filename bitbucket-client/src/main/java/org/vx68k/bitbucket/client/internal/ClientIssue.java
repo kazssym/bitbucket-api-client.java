@@ -84,16 +84,17 @@ public class ClientIssue implements BitbucketIssue
      */
     public ClientIssue(final ClientIssue other)
     {
-        this.id = other.getId();
-        this.title = other.getTitle();
-        this.kind = other.getKind();
-        this.priority = other.getPriority();
-        this.state = other.getState();
-        this.created = other.getCreated();
-        this.updated = other.getUpdated();
-        this.edited = other.getEdited();
-        this.votes = other.getVotes();
-        this.watches = other.getWatches();
+        this.type = other.type;
+        this.id = other.id;
+        this.title = other.title;
+        this.kind = other.kind;
+        this.priority = other.priority;
+        this.state = other.state;
+        this.created = other.created;
+        this.updated = other.updated;
+        this.edited = other.edited;
+        this.votes = other.votes;
+        this.watches = other.watches;
 
         this.repository = new ClientRepository((ClientRepository)other.repository);
         this.content = new ClientRendered((ClientRendered)other.content);
