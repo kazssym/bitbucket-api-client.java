@@ -20,9 +20,7 @@
 
 package org.vx68k.bitbucket.client.internal;
 
-import javax.json.bind.annotation.JsonbTypeAdapter;
 import org.vx68k.bitbucket.BitbucketTeamAccount;
-import org.vx68k.bitbucket.client.adapter.AccountTypeAdapter;
 
 /**
  * Client implementation class of {@link BitbucketTeamAccount}.
@@ -33,7 +31,9 @@ import org.vx68k.bitbucket.client.adapter.AccountTypeAdapter;
 public class ClientTeamAccount extends ClientAccount
     implements BitbucketTeamAccount
 {
-    private AccountType type;
+    public static final String TEAM = "team";
+
+    private String type;
 
     /**
      * Constructs a team account.
@@ -52,7 +52,7 @@ public class ClientTeamAccount extends ClientAccount
     {
         super(other);
 
-        this.type = AccountType.TEAM;
+        this.type = TEAM;
     }
 
     public ClientTeamAccount copy()
@@ -60,16 +60,14 @@ public class ClientTeamAccount extends ClientAccount
         return new ClientTeamAccount(this);
     }
 
-    @JsonbTypeAdapter(AccountTypeAdapter.class)
-    @Override
-    public final AccountType getType()
+    public final String getType()
     {
         return type;
     }
 
-    public final void setType(final AccountType type)
+    public final void setType(final String type)
     {
-        if (type != null && !(type.equals(AccountType.TEAM))) {
+        if (type != null && !(type.equals(TEAM))) {
             throw new IllegalArgumentException("Type is not of team account objects");
         }
         this.type = type;

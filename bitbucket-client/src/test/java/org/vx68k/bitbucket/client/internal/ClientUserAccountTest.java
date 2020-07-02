@@ -94,7 +94,7 @@ final class ClientUserAccountTest
     {
         String string1 = "{\"type\":\"user\"}";
         ClientUserAccount user1 = jsonb.fromJson(string1, ClientUserAccount.class);
-        assertEquals(ClientAccount.AccountType.USER, user1.getType());
+        assertEquals(ClientUserAccount.USER, user1.getType());
     }
 
     /**
