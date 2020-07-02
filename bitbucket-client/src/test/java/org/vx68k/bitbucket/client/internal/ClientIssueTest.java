@@ -32,7 +32,6 @@ import javax.json.bind.JsonbBuilder;
 import javax.json.bind.JsonbException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -540,15 +539,32 @@ final class ClientIssueTest
     /**
      * Tests {@link ClientIssue#getAssignee()}.
      */
-    @Disabled("Not implemented yet")
     @Test
-    void testGetAssignee()
+    void testAssignee1()
     {
-        // BitbucketIssue issue0 = new ClientIssue(blankIssue);
-        // assertNull(issue0.getAssignee());
+        String string1 = "{\"type\":\"issue\"}";
+        ClientIssue issue1 = jsonb.fromJson(string1, ClientIssue.class);
+        assertNull(issue1.getAssignee());
+    }
 
-        // BitbucketIssue issue1 = new BitbucketClientIssue(sampleIssue1);
-        // assertNotNull(issue1.getAssignee());
-        // assertNull(issue1.getAssignee().getName());
+    /**
+     * Tests {@link ClientIssue#getAssignee()}.
+     */
+    @Test
+    void testAssignee2()
+    {
+        String string1 = "{\"type\":\"issue\",\"assignee\":{}}";
+        ClientIssue issue1 = jsonb.fromJson(string1, ClientIssue.class);
+        assertNotNull(issue1.getAssignee());
+    }
+
+    /**
+     * Tests {@link ClientIssue#getAssignee()}.
+     */
+    @Test
+    void testAssignee3()
+    {
+        ClientIssue issue1 = jsonb.fromJson(sample1, ClientIssue.class);
+        assertNotNull(issue1.getAssignee());
     }
 }
