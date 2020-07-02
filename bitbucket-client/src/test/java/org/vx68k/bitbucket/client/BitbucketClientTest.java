@@ -126,29 +126,15 @@ class BitbucketClientTest
     }
 
     /**
-     * Tests {@link BitbucketClient#getRepository(String, String)}.
+     * Tests {@link BitbucketClient#getRepository(String)}.
      */
     @Test
     void testGetRepository2()
     {
-        BitbucketClient bitbucket = new BitbucketClient();
-        BitbucketRepository repository1 =
-            bitbucket.getRepository(REPOSITORY_OWNER_NAME, REPOSITORY_NAME);
-        System.out.println("Got repository " + repository1);
-        assertEquals(REPOSITORY_NAME, repository1.getName());
-        assertEquals(REPOSITORY_FULL_NAME, repository1.getFullName());
-    }
-
-    /**
-     * Tests {@link BitbucketClient#getRepository(String, String)}.
-     */
-    @Test
-    void testGetRepository3()
-    {
         BitbucketClient bitbucketClient = new BitbucketClient();
 
         BitbucketRepository repository1 =
-            bitbucketClient.getRepository(REPOSITORY_OWNER_NAME, "non-existent");
+            bitbucketClient.getRepository(REPOSITORY_OWNER_NAME + "/non-existent");
         assertNull(repository1);
     }
 
