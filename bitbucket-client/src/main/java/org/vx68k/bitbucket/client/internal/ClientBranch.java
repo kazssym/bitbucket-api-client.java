@@ -70,9 +70,8 @@ public class ClientBranch extends ClientRef implements BitbucketBranch
     {
         this.type = other.type;
         this.defaultMergeStrategy = other.defaultMergeStrategy;
-        this.mergeStrategies =
-            Arrays.copyOf(other.mergeStrategies, other.mergeStrategies.length);
 
+        setMergeStrategies(other.mergeStrategies);
         setHeads(other.heads);
     }
 
