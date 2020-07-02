@@ -21,7 +21,10 @@
 package org.vx68k.bitbucket.client;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.net.URI;
 import java.util.List;
+import javax.ws.rs.client.ClientBuilder;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -38,22 +41,22 @@ class PaginatedListTest
     /**
      * Test resource.
      */
-    private static final String ENDPOINT_URI =
-        "https://api.bitbucket.org/"
-            + "2.0/repositories/vx68k/bitbucket-api-client.java/issues";
+    private static final URI ENDPOINT =
+        URI.create("https://api.bitbucket.org/"
+            + "2.0/repositories/vx68k/bitbucket-api-client.java/issues");
 
-    private BitbucketClient bitbucketClient;
+    private ClientBuilder clientBuilder;
 
     @BeforeEach
     void setUp()
     {
-        bitbucketClient = new BitbucketClient();
+        clientBuilder = ClientBuilder.newBuilder();
     }
 
     @AfterEach
     void tearDown()
     {
-        bitbucketClient = null;
+        clientBuilder = null;
     }
 
     /**
@@ -63,7 +66,7 @@ class PaginatedListTest
     void testGet1()
     {
         List<ClientIssue> issues =
-            new PaginatedList<>(bitbucketClient, ENDPOINT_URI, ClientIssue.class);
+            new PaginatedList<>(clientBuilder, ENDPOINT, ClientIssue.class);
 
         BitbucketIssue issue = issues.get(0);
         assertTrue(issue instanceof ClientIssue);
@@ -76,7 +79,7 @@ class PaginatedListTest
     void testSize1()
     {
         List<ClientIssue> issues =
-            new PaginatedList<>(bitbucketClient, ENDPOINT_URI, ClientIssue.class);
+            new PaginatedList<>(clientBuilder, ENDPOINT, ClientIssue.class);
 
         assertTrue(issues.size() > 0);
     }

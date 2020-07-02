@@ -28,6 +28,10 @@ import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.MediaType;
 
 /**
  * Paginated list on Bitbucket Cloud.
@@ -40,20 +44,17 @@ import javax.json.bind.JsonbBuilder;
  */
 public class PaginatedList<T> extends AbstractList<T>
 {
-    /**
-     * Bitbucket client given to the constructor.
-     */
-    private final BitbucketClient bitbucketClient;
+    private final ClientBuilder clientBuilder;
 
     /**
      * URI of the next page.
      */
-    private String nextPageUri;
+    private URI next;
 
     /**
      * Runtime type.
      */
-    private final Class<T> type;
+    private final Class<? extends T> type;
 
     private final JsonbBuilder jsonbBuilder;
 
@@ -71,15 +72,15 @@ public class PaginatedList<T> extends AbstractList<T>
     /**
      * Initializes this object.
      *
-     * @param bitbucketClient a Bitbucket API client
-     * @param nextPageUri the URI of the first page
+     * @param clientBuilder a JAX-RS client builder object
+     * @param next the URI of the first page
      * @param type the runtime type of the values
      */
-    public PaginatedList(final BitbucketClient bitbucketClient,
-        final String nextPageUri, final Class<T> type)
+    public PaginatedList(final ClientBuilder clientBuilder, final URI next,
+        final Class<? extends T> type)
     {
-        this.bitbucketClient = bitbucketClient;
-        this.nextPageUri = nextPageUri;
+        this.clientBuilder = clientBuilder;
+        this.next = next;
         this.type = type;
         this.jsonbBuilder = JsonbBuilder.newBuilder();
     }
@@ -89,12 +90,20 @@ public class PaginatedList<T> extends AbstractList<T>
      */
     protected final void fetchNext()
     {
-        JsonObject json =
-            bitbucketClient.get(URI.create(nextPageUri), JsonObject.class);
+        JsonObject json;
+        Client client = clientBuilder.build();
+        try {
+            WebTarget target = client.target(next);
+            json = target.request(MediaType.APPLICATION_JSON_TYPE)
+                .get(JsonObject.class);
+        }
+        finally {
+            client.close();
+        }
+
         if (knownSize < 0) {
             knownSize = json.getInt("size", -1);
         }
-
         try (Jsonb jsonb = jsonbBuilder.build()) {
             JsonArray values = json.getJsonArray("values");
             values.stream()
@@ -108,8 +117,12 @@ public class PaginatedList<T> extends AbstractList<T>
             throw new IllegalStateException(e);
         }
 
-        nextPageUri = json.getString("next", null);
-        if (nextPageUri == null) {
+        String nextPageUri = json.getString("next", null);
+        if (nextPageUri != null) {
+            next = URI.create(nextPageUri);
+        }
+        else {
+            next = null;
             knownSize = knownValues.size();
         }
     }
@@ -120,7 +133,7 @@ public class PaginatedList<T> extends AbstractList<T>
     @Override
     public final T get(final int index)
     {
-        while (nextPageUri != null && index >= knownValues.size()) {
+        while (next != null && index >= knownValues.size()) {
             fetchNext();
         }
         return knownValues.get(index);
@@ -132,7 +145,7 @@ public class PaginatedList<T> extends AbstractList<T>
     @Override
     public final int size()
     {
-        while (nextPageUri != null && knownSize < 0) {
+        while (next != null && knownSize < 0) {
             fetchNext();
         }
         assert knownSize >= 0;
