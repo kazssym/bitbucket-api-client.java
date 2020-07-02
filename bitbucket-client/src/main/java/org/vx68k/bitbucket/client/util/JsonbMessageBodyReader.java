@@ -35,11 +35,6 @@ public class JsonbMessageBodyReader<T> implements MessageBodyReader<T>
 {
     private JsonbBuilder jsonbBuilder;
 
-    public JsonbMessageBodyReader()
-    {
-        this(JsonbBuilder.newBuilder());
-    }
-
     public JsonbMessageBodyReader(final JsonbBuilder jsonbBuilder)
     {
         this.jsonbBuilder = jsonbBuilder;
