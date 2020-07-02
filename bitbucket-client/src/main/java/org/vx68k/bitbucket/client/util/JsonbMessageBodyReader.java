@@ -44,10 +44,7 @@ public class JsonbMessageBodyReader<T> implements MessageBodyReader<T>
     public boolean isReadable(Class<?> type, Type genericType,
         Annotation[] annotations, MediaType mediaType)
     {
-        if (mediaType.isCompatible(MediaType.APPLICATION_JSON_TYPE)) {
-            return true;
-        }
-        return false;
+        return mediaType.isCompatible(MediaType.APPLICATION_JSON_TYPE);
     }
 
     @Override
