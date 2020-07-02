@@ -24,31 +24,41 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
-
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.ext.MessageBodyReader;
 
+/**
+ * Implementation class of {@link MessageBodyReader} that uses JSON-B
+ * for deserialization of an object.
+ *
+ * @param <T> a type of objects that are to be read
+ */
 public class JsonbMessageBodyReader<T> implements MessageBodyReader<T>
 {
-    private JsonbBuilder jsonbBuilder;
+    private final JsonbBuilder jsonbBuilder;
 
+    /**
+     * Constructs a {@link JsonbMessageBodyReader} instance.
+     *
+     * @param jsonbBuilder a {@link JsonbBuilder} object that is to be used
+     */
     public JsonbMessageBodyReader(final JsonbBuilder jsonbBuilder)
     {
         this.jsonbBuilder = jsonbBuilder;
     }
 
     @Override
-    public boolean isReadable(Class<?> type, Type genericType,
+    public final boolean isReadable(Class<?> type, Type genericType,
         Annotation[] annotations, MediaType mediaType)
     {
         return mediaType.isCompatible(MediaType.APPLICATION_JSON_TYPE);
     }
 
     @Override
-    public T readFrom(Class<T> type, Type genericType,
+    public final T readFrom(Class<T> type, Type genericType,
         Annotation[] annotations, MediaType mediaType,
         MultivaluedMap<String, String> headers, InputStream stream)
         throws IOException
