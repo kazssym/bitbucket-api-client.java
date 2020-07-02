@@ -384,11 +384,8 @@ public class ClientRepository implements BitbucketRepository
      */
     public final void setOwner(ClientAccount owner)
     {
-        if (owner instanceof ClientUserAccount) {
-            owner = new ClientUserAccount((ClientUserAccount)owner);
-        }
-        else if (owner != null) {
-            owner = new ClientTeamAccount((ClientTeamAccount)owner);
+        if (owner != null) {
+            owner = owner.copy();
         }
         this.owner = owner;
     }
