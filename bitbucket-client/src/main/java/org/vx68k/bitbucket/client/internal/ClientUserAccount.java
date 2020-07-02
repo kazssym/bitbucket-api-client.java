@@ -54,13 +54,12 @@ public class ClientUserAccount extends ClientAccount
      *
      * @param other another user account
      */
-    public ClientUserAccount(final BitbucketUserAccount other)
+    public ClientUserAccount(final ClientUserAccount other)
     {
         super(other);
-
-        this.type = USER;
-        this.staff = other.isStaff();
-        this.accountId = other.getAccountId();
+        this.type = other.type;
+        this.staff = other.staff;
+        this.accountId = other.accountId;
     }
 
     public ClientUserAccount copy()

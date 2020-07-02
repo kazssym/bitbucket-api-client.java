@@ -36,10 +36,7 @@ public class BitbucketUserAccountAdapter
     @Override
     public final ClientUserAccount adaptToJson(final BitbucketUserAccount user)
     {
-        if (user instanceof ClientUserAccount) {
-            return (ClientUserAccount) user;
-        }
-        return new ClientUserAccount(user);
+        return (ClientUserAccount)user;
     }
 
     @Override

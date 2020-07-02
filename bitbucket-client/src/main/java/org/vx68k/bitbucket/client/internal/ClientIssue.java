@@ -97,8 +97,8 @@ public class ClientIssue implements BitbucketIssue
 
         this.repository = new ClientRepository((ClientRepository)other.repository);
         this.content = new ClientRendered((ClientRendered)other.content);
-        this.reporter = new ClientUserAccount(other.reporter);
-        this.assignee = new ClientUserAccount(other.assignee);
+        this.reporter = new ClientUserAccount((ClientUserAccount)other.reporter);
+        this.assignee = new ClientUserAccount((ClientUserAccount)other.assignee);
     }
 
     public final String getType()
