@@ -117,5 +117,12 @@ public interface Bitbucket
      */
     Collection<BitbucketRepository> repositories(String ownerName);
 
+    /**
+     * Retrieves a list of issues that match a filter.
+     *
+     * @param fullName a full name of a repository
+     * @param filter a filter expression, or {@code null}
+     * @return a list of issues that match the given filter
+     */
     List<BitbucketIssue> getIssues(String fullName, String filter);
 }
