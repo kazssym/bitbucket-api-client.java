@@ -48,11 +48,10 @@ public class ClientTeamAccount extends ClientAccount
      *
      * @param other another team account
      */
-    public ClientTeamAccount(final BitbucketTeamAccount other)
+    public ClientTeamAccount(final ClientTeamAccount other)
     {
         super(other);
-
-        this.type = TEAM;
+        this.type = other.type;
     }
 
     public ClientTeamAccount copy()
