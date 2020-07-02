@@ -61,13 +61,13 @@ public class ClientIssue implements BitbucketIssue
 
     private int watches = 0;
 
-    private BitbucketRepository repository;
+    private ClientRepository repository;
 
-    private BitbucketRendered content;
+    private ClientRendered content;
 
-    private BitbucketUserAccount reporter;
+    private ClientUserAccount reporter;
 
-    private BitbucketUserAccount assignee;
+    private ClientUserAccount assignee;
 
     /**
      * Constructs an issue.
@@ -96,10 +96,10 @@ public class ClientIssue implements BitbucketIssue
         this.votes = other.votes;
         this.watches = other.watches;
 
-        this.repository = new ClientRepository((ClientRepository)other.repository);
-        this.content = new ClientRendered((ClientRendered)other.content);
-        this.reporter = new ClientUserAccount((ClientUserAccount)other.reporter);
-        this.assignee = new ClientUserAccount((ClientUserAccount)other.assignee);
+        setRepository(other.repository);
+        setContent(other.content);
+        setReporter(other.reporter);
+        setAssignee(other.assignee);
     }
 
     public final String getType()
