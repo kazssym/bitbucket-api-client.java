@@ -21,6 +21,7 @@
 package org.vx68k.bitbucket.client.internal;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.fail;
 import java.io.InputStream;
@@ -443,17 +444,33 @@ final class ClientIssueTest
     /**
      * Tests {@link ClientIssue#getRepository()}.
      */
-    @Disabled("Not implemented yet")
     @Test
-    void testGetRepository()
+    void testRepository1()
     {
-        // BitbucketIssue issue0 = new ClientIssue(blankIssue);
-        // assertNull(issue0.getRepository());
+        String string1 = "{\"type\":\"issue\"}";
+        ClientIssue issue1 = jsonb.fromJson(string1, ClientIssue.class);
+        assertNull(issue1.getRepository());
+    }
 
-        // BitbucketIssue issue1 = new ClientIssue(sampleIssue1);
-        // assertNotNull(issue1.getRepository());
-        // assertEquals(
-        //     "bitbucket-api-client.java", issue1.getRepository().getName());
+    /**
+     * Tests {@link ClientIssue#getRepository()}.
+     */
+    @Test
+    void testRepository2()
+    {
+        String string1 = "{\"type\":\"issue\",\"repository\":{}}";
+        ClientIssue issue1 = jsonb.fromJson(string1, ClientIssue.class);
+        assertNotNull(issue1.getRepository());
+    }
+
+    /**
+     * Tests {@link ClientIssue#getRepository()}.
+     */
+    @Test
+    void testRepository3()
+    {
+        ClientIssue issue1 = jsonb.fromJson(sample1, ClientIssue.class);
+        assertNotNull(issue1.getRepository());
     }
 
     /**
