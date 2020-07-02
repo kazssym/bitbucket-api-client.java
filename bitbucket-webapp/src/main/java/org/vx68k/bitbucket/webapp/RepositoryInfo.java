@@ -174,7 +174,7 @@ public class RepositoryInfo implements Serializable
     {
         if (!ownerName.isEmpty() && !name.isEmpty()) {
             BitbucketClient bitbucketClient = getBitbucketClient();
-            repository = bitbucketClient.getRepository(ownerName, name);
+            repository = bitbucketClient.getRepository(ownerName + "/" + name);
             if (!isFound()) {
                 FacesContext facesContext = FacesContext.getCurrentInstance();
                 UIComponent c = UIComponent.getCurrentComponent(facesContext);

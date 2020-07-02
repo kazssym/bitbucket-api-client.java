@@ -24,7 +24,6 @@ import java.io.Serializable;
 import java.net.URI;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.UnaryOperator;
@@ -335,30 +334,6 @@ public class BitbucketClient implements Bitbucket, Serializable
     }
 
     @Override
-    public final BitbucketRepository getRepository(BitbucketAccount owner,
-        String name)
-    {
-        return getRepository("{" + owner.getUuid().toString() + "}", name);
-    }
-
-    /**
-     * {@inheritDoc}
-     * <p>This implementation gets the repository resource remotely from
-     * Bitbucket Cloud.</p>
-     */
-    @Override
-    public final BitbucketRepository getRepository(
-        final String ownerName, final String name)
-    {
-        Map<String, Object> values = new HashMap<>();
-        values.put("owner", ownerName);
-        values.put("name", name);
-
-        return get(null, "/2.0/repositories/{owner}/{name}", values,
-            ClientRepository.class);
-    }
-
-    @Override
     public final BitbucketRepository getRepository(final String fullName)
     {
         if (fullName != null
@@ -366,8 +341,10 @@ public class BitbucketClient implements Bitbucket, Serializable
             throw new IllegalArgumentException("Full name is invalid");
         }
 
-        Map<String, Object> values = Collections.singletonMap("fullName", fullName);
-        return get(null, "/2.0/repositories/{fullName}", values, ClientRepository.class);
+        return get(API_BASE, (target) ->
+            target.path("/2.0/repositories/{fullName}")
+                .resolveTemplate("fullName", fullName),
+            ClientRepository.class);
     }
 
     @Override

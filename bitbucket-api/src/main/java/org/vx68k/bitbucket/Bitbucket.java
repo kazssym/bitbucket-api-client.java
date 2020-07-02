@@ -50,24 +50,6 @@ public interface Bitbucket
     /**
      * Finds a repository.
      *
-     * @param owner the owner of a repository
-     * @param name the name of a repository
-     * @return a repository, or {@code null} if not found
-     */
-    BitbucketRepository getRepository(BitbucketAccount owner, String name);
-
-    /**
-     * Finds a repository.
-     *
-     * @param ownerName the owner name of a repository
-     * @param name the name of a repository
-     * @return a repository, or {@code null} if not found
-     */
-    BitbucketRepository getRepository(String ownerName, String name);
-
-    /**
-     * Finds a repository.
-     *
      * @param fullName the full name of a repository
      * @return a repository, or {@code null} if not found
      */
