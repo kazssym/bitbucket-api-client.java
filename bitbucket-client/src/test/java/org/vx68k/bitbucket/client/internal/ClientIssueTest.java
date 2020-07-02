@@ -476,17 +476,33 @@ final class ClientIssueTest
     /**
      * Tests {@link ClientIssue#getContent()}.
      */
-    @Disabled("Not implemented yet")
     @Test
-    void testGetContent()
+    void testContent1()
     {
-        // BitbucketIssue issue0 = new ClientIssue(blankIssue);
-        // assertNull(issue0.getContent());
+        String string1 = "{\"type\":\"issue\"}";
+        ClientIssue issue1 = jsonb.fromJson(string1, ClientIssue.class);
+        assertNull(issue1.getContent());
+    }
 
-        // BitbucketIssue issue1 = new ClientIssue(sampleIssue1);
-        // assertNotNull(issue1.getContent());
-        // assertEquals("markdown", issue1.getContent().getMarkup());
-        // assertEquals("", issue1.getContent().getRaw());
+    /**
+     * Tests {@link ClientIssue#getContent()}.
+     */
+    @Test
+    void testContent2()
+    {
+        String string1 = "{\"type\":\"issue\",\"content\":{}}";
+        ClientIssue issue1 = jsonb.fromJson(string1, ClientIssue.class);
+        assertNotNull(issue1.getContent());
+    }
+
+    /**
+     * Tests {@link ClientIssue#getContent()}.
+     */
+    @Test
+    void testContent3()
+    {
+        ClientIssue issue1 = jsonb.fromJson(sample1, ClientIssue.class);
+        assertNotNull(issue1.getContent());
     }
 
     /**
