@@ -37,6 +37,10 @@ import org.vx68k.bitbucket.BitbucketUserAccount;
  */
 public class ClientIssue implements BitbucketIssue
 {
+    public static final String ISSUE = "issue";
+
+    private String type;
+
     private int id = 0;
 
     private String state;
@@ -99,7 +103,15 @@ public class ClientIssue implements BitbucketIssue
 
     public final String getType()
     {
-        return "issue";
+        return type;
+    }
+
+    public final void setType(final String type)
+    {
+        if (type != null && !(type.equals(ISSUE))) {
+            throw new IllegalArgumentException("Type is not of issue objects");
+        }
+        this.type = type;
     }
 
     @Override
