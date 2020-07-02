@@ -412,4 +412,23 @@ public class BitbucketClient implements Bitbucket, Serializable
     {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
+    @Override
+    public final List<BitbucketIssue> getIssues(final String fullName,
+        final String filter)
+    {
+        if (fullName != null
+            && !(REPOSITORY_FULL_NAME_REGEXP.matcher(fullName).matches())) {
+            throw new IllegalArgumentException("Full name invalid");
+        }
+
+        return getList(API_BASE, (target) -> {
+            target = target.path("/2.0/repositories/{fullName}/issues");
+            target = target.resolveTemplate("fullName", fullName);
+            if (filter != null) {
+                target = target.queryParam("q", filter);
+            }
+            return target;
+        }, ClientIssue.class);
+    }
 }

@@ -21,6 +21,7 @@
 package org.vx68k.bitbucket;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Root interface for Bitbucket Cloud.
@@ -115,4 +116,6 @@ public interface Bitbucket
      * @return a {@link Collection} view of the repositories of an account
      */
     Collection<BitbucketRepository> repositories(String ownerName);
+
+    List<BitbucketIssue> getIssues(String fullName, String filter);
 }
