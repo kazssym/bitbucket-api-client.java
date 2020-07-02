@@ -270,10 +270,13 @@ public class BitbucketClient implements Bitbucket, Serializable
      * @return a received resource, or {@code null} not found
      */
     public final <T> T get(URI base, final UnaryOperator<WebTarget> modifier,
-        final Class<T> runtimeType, final MediaType... mediaTypes)
+        final Class<T> runtimeType, MediaType... mediaTypes)
     {
         if (base == null) {
             base = API_BASE;
+        }
+        if (mediaTypes != null && mediaTypes.length == 0) {
+            mediaTypes = new MediaType[] {MediaType.APPLICATION_JSON_TYPE};
         }
 
         Client client = getClientBuilder().build();
@@ -419,8 +422,8 @@ public class BitbucketClient implements Bitbucket, Serializable
             throw new IllegalArgumentException("Full name is invalid");
         }
 
-        return get(null,
-            (t) -> t.path("/2.0/repositories/{fullName}/issues/{id}")
+        return get(API_BASE, (target) ->
+            target.path("/2.0/repositories/{fullName}/issues/{id}")
                 .resolveTemplate("fullName", fullName)
                 .resolveTemplate("id", id),
             ClientIssue.class);
