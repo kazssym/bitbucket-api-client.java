@@ -25,6 +25,7 @@ import java.net.URI;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
@@ -289,6 +290,29 @@ public class BitbucketClient implements Bitbucket, Serializable
         finally {
             client.close();
         }
+    }
+
+    public final <T> List<T> getList(URI base,
+        final UnaryOperator<WebTarget> modifier, final Class<? extends T> type)
+    {
+        if (base == null) {
+            base = API_BASE;
+        }
+
+        URI uri;
+        Client client = getClientBuilder().build();
+        try {
+            WebTarget target = client.target(base);
+            if (modifier != null) {
+                target = modifier.apply(target);
+            }
+            uri = target.getUri();
+        }
+        finally {
+            client.close();
+        }
+
+        return new PaginatedList<>(getClientBuilder(), uri, type);
     }
 
     /**
