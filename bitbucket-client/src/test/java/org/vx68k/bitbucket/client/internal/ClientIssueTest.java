@@ -116,7 +116,7 @@ final class ClientIssueTest
     @Test
     void testId1()
     {
-        String string1 = "{\"type\":\"branch\"}";
+        String string1 = "{\"type\":\"issue\"}";
         ClientIssue issue1 = jsonb.fromJson(string1, ClientIssue.class);
         assertEquals(0, issue1.getId());
     }
@@ -127,7 +127,7 @@ final class ClientIssueTest
     @Test
     void testId2()
     {
-        String string1 = "{\"type\":\"branch\",\"id\":1}";
+        String string1 = "{\"type\":\"issue\",\"id\":1}";
         ClientIssue issue1 = jsonb.fromJson(string1, ClientIssue.class);
         assertEquals(1, issue1.getId());
     }
@@ -148,7 +148,7 @@ final class ClientIssueTest
     @Test
     void testTitle1()
     {
-        String string1 = "{\"type\":\"branch\"}";
+        String string1 = "{\"type\":\"issue\"}";
         ClientIssue issue1 = jsonb.fromJson(string1, ClientIssue.class);
         assertNull(issue1.getTitle());
     }
@@ -159,7 +159,7 @@ final class ClientIssueTest
     @Test
     void testTitle2()
     {
-        String string1 = "{\"type\":\"branch\",\"title\":\".title\"}";
+        String string1 = "{\"type\":\"issue\",\"title\":\".title\"}";
         ClientIssue issue1 = jsonb.fromJson(string1, ClientIssue.class);
         assertEquals(".title", issue1.getTitle());
     }
@@ -180,7 +180,7 @@ final class ClientIssueTest
     @Test
     void testKind1()
     {
-        String string1 = "{\"type\":\"branch\"}";
+        String string1 = "{\"type\":\"issue\"}";
         ClientIssue issue1 = jsonb.fromJson(string1, ClientIssue.class);
         assertNull(issue1.getKind());
     }
@@ -191,7 +191,7 @@ final class ClientIssueTest
     @Test
     void testKind2()
     {
-        String string1 = "{\"type\":\"branch\",\"kind\":\".kind\"}";
+        String string1 = "{\"type\":\"issue\",\"kind\":\".kind\"}";
         ClientIssue issue1 = jsonb.fromJson(string1, ClientIssue.class);
         assertEquals(".kind", issue1.getKind());
     }
@@ -212,7 +212,7 @@ final class ClientIssueTest
     @Test
     void testPriority1()
     {
-        String string1 = "{\"type\":\"branch\"}";
+        String string1 = "{\"type\":\"issue\"}";
         ClientIssue issue1 = jsonb.fromJson(string1, ClientIssue.class);
         assertNull(issue1.getPriority());
     }
@@ -223,7 +223,7 @@ final class ClientIssueTest
     @Test
     void testPriority2()
     {
-        String string1 = "{\"type\":\"branch\",\"priority\":\".priority\"}";
+        String string1 = "{\"type\":\"issue\",\"priority\":\".priority\"}";
         ClientIssue issue1 = jsonb.fromJson(string1, ClientIssue.class);
         assertEquals(".priority", issue1.getPriority());
     }
@@ -244,7 +244,7 @@ final class ClientIssueTest
     @Test
     void testState1()
     {
-        String string1 = "{\"type\":\"branch\"}";
+        String string1 = "{\"type\":\"issue\"}";
         ClientIssue issue1 = jsonb.fromJson(string1, ClientIssue.class);
         assertNull(issue1.getState());
     }
@@ -255,7 +255,7 @@ final class ClientIssueTest
     @Test
     void testState2()
     {
-        String string1 = "{\"type\":\"branch\",\"state\":\".state\"}";
+        String string1 = "{\"type\":\"issue\",\"state\":\".state\"}";
         ClientIssue issue1 = jsonb.fromJson(string1, ClientIssue.class);
         assertEquals(".state", issue1.getState());
     }
@@ -276,7 +276,7 @@ final class ClientIssueTest
     @Test
     void testCreated1()
     {
-        String string1 = "{\"type\":\"branch\"}";
+        String string1 = "{\"type\":\"issue\"}";
         ClientIssue issue1 = jsonb.fromJson(string1, ClientIssue.class);
         assertNull(issue1.getCreated());
     }
@@ -287,7 +287,7 @@ final class ClientIssueTest
     @Test
     void testCreated2()
     {
-        String string1 = "{\"type\":\"branch\",\"created_on\":\"2001-01-01T01:23:45.678901+09:00\"}";
+        String string1 = "{\"type\":\"issue\",\"created_on\":\"2001-01-01T01:23:45.678901+09:00\"}";
         ClientIssue issue1 = jsonb.fromJson(string1, ClientIssue.class);
         assertEquals(OffsetDateTime.parse("2001-01-01T01:23:45.678901+09:00"), issue1.getCreated());
     }
@@ -308,7 +308,7 @@ final class ClientIssueTest
     @Test
     void testUpdated1()
     {
-        String string1 = "{\"type\":\"branch\"}";
+        String string1 = "{\"type\":\"issue\"}";
         ClientIssue issue1 = jsonb.fromJson(string1, ClientIssue.class);
         assertNull(issue1.getUpdated());
     }
@@ -319,7 +319,7 @@ final class ClientIssueTest
     @Test
     void testUpdated2()
     {
-        String string1 = "{\"type\":\"branch\",\"updated_on\":\"2001-01-01T01:23:45.678901+09:00\"}";
+        String string1 = "{\"type\":\"issue\",\"updated_on\":\"2001-01-01T01:23:45.678901+09:00\"}";
         ClientIssue issue1 = jsonb.fromJson(string1, ClientIssue.class);
         assertEquals(OffsetDateTime.parse("2001-01-01T01:23:45.678901+09:00"), issue1.getUpdated());
     }
@@ -340,7 +340,7 @@ final class ClientIssueTest
     @Test
     void testEdited1()
     {
-        String string1 = "{\"type\":\"branch\"}";
+        String string1 = "{\"type\":\"issue\"}";
         ClientIssue issue1 = jsonb.fromJson(string1, ClientIssue.class);
         assertNull(issue1.getEdited());
     }
@@ -351,7 +351,7 @@ final class ClientIssueTest
     @Test
     void testEdited2()
     {
-        String string1 = "{\"type\":\"branch\",\"edited_on\":\"2001-01-01T01:23:45.678901+09:00\"}";
+        String string1 = "{\"type\":\"issue\",\"edited_on\":\"2001-01-01T01:23:45.678901+09:00\"}";
         ClientIssue issue1 = jsonb.fromJson(string1, ClientIssue.class);
         assertEquals(OffsetDateTime.parse("2001-01-01T01:23:45.678901+09:00"), issue1.getEdited());
     }
@@ -372,7 +372,7 @@ final class ClientIssueTest
     @Test
     void testVotes1()
     {
-        String string1 = "{\"type\":\"branch\"}";
+        String string1 = "{\"type\":\"issue\"}";
         ClientIssue issue1 = jsonb.fromJson(string1, ClientIssue.class);
         assertEquals(0, issue1.getVotes());
     }
@@ -383,7 +383,7 @@ final class ClientIssueTest
     @Test
     void testVotes2()
     {
-        String string1 = "{\"type\":\"branch\",\"votes\":1}";
+        String string1 = "{\"type\":\"issue\",\"votes\":1}";
         ClientIssue issue1 = jsonb.fromJson(string1, ClientIssue.class);
         assertEquals(1, issue1.getVotes());
     }
@@ -404,7 +404,7 @@ final class ClientIssueTest
     @Test
     void testWatches1()
     {
-        String string1 = "{\"type\":\"branch\"}";
+        String string1 = "{\"type\":\"issue\"}";
         ClientIssue issue1 = jsonb.fromJson(string1, ClientIssue.class);
         assertEquals(0, issue1.getWatches());
     }
@@ -415,7 +415,7 @@ final class ClientIssueTest
     @Test
     void testWatches2()
     {
-        String string1 = "{\"type\":\"branch\",\"watches\":1}";
+        String string1 = "{\"type\":\"issue\",\"watches\":1}";
         ClientIssue issue1 = jsonb.fromJson(string1, ClientIssue.class);
         assertEquals(1, issue1.getWatches());
     }
