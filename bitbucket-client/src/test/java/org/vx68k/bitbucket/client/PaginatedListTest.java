@@ -30,6 +30,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.vx68k.bitbucket.BitbucketIssue;
 import org.vx68k.bitbucket.client.internal.ClientIssue;
+import org.vx68k.bitbucket.client.util.JsonStructureMessageBodyReader;
 
 /**
  * Unit tests for {@link PaginatedList}.
@@ -50,7 +51,8 @@ class PaginatedListTest
     @BeforeEach
     void setUp()
     {
-        clientBuilder = ClientBuilder.newBuilder();
+        clientBuilder = ClientBuilder.newBuilder()
+            .register(JsonStructureMessageBodyReader.class);
     }
 
     @AfterEach
