@@ -126,7 +126,7 @@ public final class OAuth2LoginFilter implements Filter, Serializable
         String code = request.getParameter("code");
         if (code != null) {
             servletContext.log("code = " + code);
-            sessionUser.login(code, state);
+            sessionUser.continueLogin(code, state);
         }
         else {
             String error = request.getParameter("error");

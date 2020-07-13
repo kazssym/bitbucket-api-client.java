@@ -265,7 +265,7 @@ public class SessionUser implements Serializable
      * @param code an authorization code
      * @param state an opaque state string
      */
-    public void login(final String code, final String state)
+    public void continueLogin(final String code, final String state)
     {
         if (redirectUri != null) {
             // @todo Check {@code state}.
