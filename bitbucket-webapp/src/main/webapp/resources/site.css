@@ -39,6 +39,13 @@ body
     flex: auto;
 }
 
+.app-content,
+.site-content
+{
+    margin: 12px 12px;
+    overflow: auto;
+}
+
 .app-align-right
 {
     text-align: right;
@@ -54,10 +61,4 @@ body
 {
     width: 1.5em;
     height: 1.5em;
-}
-
-.app-content
-{
-    margin: 8px 8px;
-    overflow: auto;
 }
