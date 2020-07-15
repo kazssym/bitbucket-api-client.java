@@ -46,6 +46,12 @@ body
     overflow: auto;
 }
 
+.site-icon
+{
+    font-size: 1.5em;
+    vertical-align: middle;
+}
+
 .app-align-right
 {
     text-align: right;
