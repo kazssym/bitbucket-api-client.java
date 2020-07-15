@@ -17,6 +17,28 @@ body
     height: 100%;
 }
 
+.app-hbox,
+.site-hbox
+{
+    display: flex;
+    flex-flow: row;
+}
+
+.app-vbox,
+.site-vbox
+{
+    display: flex;
+    flex-flow: column;
+}
+
+.app-hbox > .app-hbox-grow,
+.app-vbox > .app-vbox-grow,
+.site-hbox > .site-hbox-grow,
+.site-vbox > .site-vbox-grow
+{
+    flex: auto;
+}
+
 .app-align-right
 {
     text-align: right;
@@ -32,30 +54,6 @@ body
 {
     width: 1.5em;
     height: 1.5em;
-}
-
-.app-hbox
-{
-    display: flex;
-    flex-flow: row;
-}
-
-.app-vbox
-{
-    display: flex;
-    flex-flow: column;
-}
-
-.app-hbox > *,
-.app-vbox > *
-{
-    flex: 0 0 auto;
-}
-
-.app-hbox > .app-hbox-grow,
-.app-vbox > .app-vbox-grow
-{
-    flex: 1 1 auto;
 }
 
 .app-content
