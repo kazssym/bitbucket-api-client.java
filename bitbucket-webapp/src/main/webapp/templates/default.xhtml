@@ -81,16 +81,16 @@ Repository information</a>
 </div>
 
 <script type="module" async="async" jsf:name="app.js"/>
+<ui:remove>
+<!-- Note the 'resource[]' URL will be encoded in JSF 2.3. -->
+</ui:remove>
+<link href="#{resource['site.css']}" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css"
     crossorigin="anonymous" rel="stylesheet"
     integrity="sha256-Q0zCrUs2IfXWYx0uMKJfG93CvF6oVII21waYsAV4/8Q=" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css"
     crossorigin="anonymous" rel="stylesheet" media="screen"
     integrity="sha256-YqnnS/cQ7vE7gfVjdfx+JMi5EFD6m6Zqdemj81rs6PU=" />
-<ui:remove>
-<!-- Note the 'resource[]' URL will be encoded in JSF 2.3. -->
-</ui:remove>
-<link href="#{resource['site.css']}" rel="stylesheet"/>
 <link title="Default Theme" href="#{resource['app-default.css']}" rel="stylesheet"/>
 <ui:debug />
 </body>
