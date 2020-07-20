@@ -21,7 +21,7 @@ stages:
         steps:
           - task: DownloadSecureFile@1
             name: Keys
-            condition: >-
+            condition:
               startsWith(variables['Build.SourceBranch'], 'refs/heads/release/')
             inputs:
               secureFile: keys.asc
@@ -40,16 +40,16 @@ stages:
               echo '$(gpg.passphrase)' | \
               sh ./setupkeys.sh '$(Keys.secureFilePath)'
             displayName: Set up signing keys
-            condition: >-
+            condition:
               startsWith(variables['Build.SourceBranch'], 'refs/heads/release/')
           - task: MavenAuthenticate@0
-            condition: >-
+            condition:
               startsWith(variables['Build.SourceBranch'], 'refs/heads/release/')
             inputs:
               mavenServiceConnections: ossrh
           - task: Maven@3
             displayName: "Maven: deploy"
-            condition: >-
+            condition:
               startsWith(variables['Build.SourceBranch'], 'refs/heads/release/')
             inputs:
               goals: package gpg:sign nexus-staging:deploy
