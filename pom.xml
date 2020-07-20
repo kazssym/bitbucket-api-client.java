@@ -250,6 +250,7 @@ other artifacts for Bitbucket Cloud.</description>
 <artifactId>nexus-staging-maven-plugin</artifactId>
 <version>1.6.8</version>
 </plugin>
+
 </plugins>
 </pluginManagement>
 
@@ -375,7 +376,6 @@ other artifacts for Bitbucket Cloud.</description>
 </distributionManagement>
 
 <build>
-
 <plugins>
 
 <plugin>
@@ -429,6 +429,7 @@ other artifacts for Bitbucket Cloud.</description>
 
 </plugins>
 </build>
+
 </profile>
 
 </profiles>
