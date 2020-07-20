@@ -7,8 +7,7 @@
 ---
 trigger:
   - master
-  - release/**
-  - feature/**
+  - release/*
 stages:
   - stage: Default
     jobs:
