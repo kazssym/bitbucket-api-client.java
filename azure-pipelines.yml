@@ -67,11 +67,11 @@ stages:
         steps:
           - task: Cache@2
             inputs:
-              key: maven | $(Agent.OS) | reporting | **/pom.xml
+              key: maven | site | $(Agent.OS) | **/pom.xml
               path: $(maven.localRepository)
               restoreKeys: |
-                maven | $(Agent.OS) | reporting
-                maven | $(Agent.OS)
+                maven | site | $(Agent.OS)
+                maven | site
                 maven
           - task: Maven@3
             displayName: "Maven: site"
